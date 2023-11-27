@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/core/app_colors.dart';
+import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 
 class SplashPage extends StatefulWidget {

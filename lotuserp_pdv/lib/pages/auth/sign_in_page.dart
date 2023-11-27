@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/app_colors.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/widgets/form_widgets.dart';
 
-class AuthPage extends StatelessWidget {
-  const AuthPage({super.key});
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -48,18 +47,20 @@ class AuthPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FormWidgets().textFieldWidget(
-                          Icons.vpn_key,
-                          'Número de Contrato'
+                          Icons.wifi,
+                          'IP do Servidor',
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            Get.offNamed(PagesRoutes.signInRoute);
-                          },
-                          child: const Text(
-                            'Autenticar',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400),
-                          ),
+                        FormWidgets().textFieldWidget(
+                          Icons.business,
+                          'ID da Empresa',
+                        ),
+                        FormWidgets().textFieldWidget(
+                          Icons.note,
+                          'ID Série NFC-e',
+                        ),
+                        FormWidgets().elevatedButtonWidget(
+                          PagesRoutes.loginRoute,
+                          'Encontrar Empresa'
                         ),
                       ],
                     ),

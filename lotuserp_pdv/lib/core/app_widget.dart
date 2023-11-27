@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/core/app_colors.dart';
+import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 
 class AppWidget extends StatelessWidget {
@@ -13,10 +13,10 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'lotuserp_pdv',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: CustomColors.customContrastColor),
-        useMaterial3: true,
+        primarySwatch: CustomColors.customSwatchColor,
+        scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
-      initialRoute: PagesRoutes.splashRoute,
+      initialRoute: PagesRoutes.homePageRoute,
       getPages: AppPages.pages,
     );
   }
