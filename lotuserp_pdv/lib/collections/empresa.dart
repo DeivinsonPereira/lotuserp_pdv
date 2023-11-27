@@ -6,6 +6,7 @@ part 'empresa.g.dart';
 @Collection()
 class Empresa {
   late Id id = Isar.autoIncrement;
+  late int idEmpresa;
   late String razao;
   late String fantasia;
   late String cnpj;
@@ -15,18 +16,20 @@ class Empresa {
   late String fone2;
   late String fone3;
   late String endereco;
-  late String numero;
   late String bairro;
-  late String complemento;
+  late String numero;
   late String municipio;
   late String municipioUf;
   late String cep;
   late String site;
+  late String email;
+  late String complemento;
   late int estoqueGrade;
   late int usarPagNfce;
   late int paramNfCrt;
   late int pdvUsarPvistaPprazo;
   late int paramVendasTpcomissao;
+  late int paramVendasPortador;
   late double paramVendasDescmaximo;
   late int paramPdvCodigopesagem;
   late int paramPdvFormapagto;
@@ -46,7 +49,7 @@ class Empresa {
   late int paramPdvComandaProducao;
 
   Empresa(
-    this.id,
+    this.idEmpresa,
     this.razao,
     this.fantasia,
     this.cnpj,
@@ -56,18 +59,20 @@ class Empresa {
     this.fone2,
     this.fone3,
     this.endereco,
-    this.numero,
     this.bairro,
-    this.complemento,
+    this.numero,
     this.municipio,
     this.municipioUf,
     this.cep,
     this.site,
+    this.email,
+    this.complemento,
     this.estoqueGrade,
     this.usarPagNfce,
     this.paramNfCrt,
     this.pdvUsarPvistaPprazo,
     this.paramVendasTpcomissao,
+    this.paramVendasPortador,
     this.paramVendasDescmaximo,
     this.paramPdvCodigopesagem,
     this.paramPdvFormapagto,
@@ -86,6 +91,4 @@ class Empresa {
     this.paramPdvGerarSenha,
     this.paramPdvComandaProducao,
   );
-
-  
 }

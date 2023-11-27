@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class FormWidgets {
+  final TextEditingController _controller = TextEditingController();
+
   Widget textFieldWidget(IconData icon, String text) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
@@ -18,6 +20,31 @@ class FormWidgets {
           labelText: text,
         ),
       ),
+    );
+  }
+
+  Widget textFieldNumberWidget(IconData icon, String text) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: TextFormField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(color: CustomColors.customSwatchColor),
+            ),
+            prefixIcon: Icon(
+              icon,
+            ),
+            labelText: text,
+          ),
+          controller: _controller,
+          validator: (value) {
+            RegExp regExp = RegExp(r"^[0-9,.]*$");
+            if (!regExp.hasMatch(value!)) {
+              return "Somente números e virgula são permitidos";
+            }
+            return null;
+          }),
     );
   }
 

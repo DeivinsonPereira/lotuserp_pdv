@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/core/app_colors.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/widgets/form_widgets.dart';
+import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});

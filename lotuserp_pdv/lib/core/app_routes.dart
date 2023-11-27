@@ -28,9 +28,9 @@ abstract class AppPages {
 }
 
 abstract class PagesRoutes {
+  static const String homePageRoute = '/';
   static const String splashRoute = '/splash_page';
   static const String authRoute = '/auth_page';
   static const String signInRoute = '/sign_in_page';
   static const String loginRoute = '/login_page';
-  static const String homePageRoute = '/';
 }
