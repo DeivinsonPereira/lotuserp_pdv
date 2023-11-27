@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/app_colors.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 
-class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key}) : super(key: key);
+class SplashPage extends StatefulWidget {
+  const SplashPage({Key? key}) : super(key: key);
 
   @override
-  State<SplashScreen> createState() => _SplashPageState();
+  State<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashScreen> {
+class _SplashPageState extends State<SplashPage> {
   var _scale = 5.0;
   var _animationOpacityLogo = 0.0;
 
@@ -24,7 +25,7 @@ class _SplashPageState extends State<SplashScreen> {
       });
     });
     Future.delayed(const Duration(seconds: 3), () {
-      //Get.off(() => const AuthScreen());
+      Get.toNamed(PagesRoutes.authRoute);
     });
     super.initState();
   }

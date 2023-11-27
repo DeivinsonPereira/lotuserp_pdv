@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/pages/splash.dart';
+import 'package:lotuserp_pdv/core/app_colors.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -10,12 +11,13 @@ class AppWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'lotuserp_pdv',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: CustomColors.customContrastColor),
         useMaterial3: true,
       ),
-      home: const SplashScreen(),
+      initialRoute: PagesRoutes.splashRoute,
+      getPages: AppPages.pages,
     );
   }
 }
