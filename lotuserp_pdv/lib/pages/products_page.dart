@@ -7,8 +7,11 @@ class ProductsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 10,crossAxisSpacing: 10,mainAxisSpacing: 10),
-        itemBuilder: 
-      ),);
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 10, crossAxisSpacing: 10, mainAxisSpacing: 10),
+        itemCount: 8, // mudar pelo numero de produtos
+        itemBuilder: (context, index) {},
+      ),
+    );
   }
 }

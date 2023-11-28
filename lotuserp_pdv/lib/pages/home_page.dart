@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                   children: <Widget>[
                     Button().homeButton(
                       'Abrir Caixa',
-                      Icons.attach_money,
+                      'assets/images/abrir_caixa.png',
                       () {
                         showDialog(
                           context: context,
@@ -47,7 +47,7 @@ class HomePage extends StatelessWidget {
                     ),
                     Button().homeButton(
                       'Movimentar Caixa',
-                      Icons.swap_horiz,
+                      'assets/images/movimentando_caixa.png',
                       () {
                         showDialog(
                           context: context,
@@ -59,28 +59,28 @@ class HomePage extends StatelessWidget {
                     ),
                     Button().homeButton(
                       'Fechar Caixa',
-                      Icons.money_off,
+                      'assets/images/pagando_cartao.png',
                       () {
                         Get.to(() => const CloseRegisterPage());
                       },
                     ),
                     Button().homeButton(
                       'Produtos',
-                      Icons.shopping_bag,
+                      'assets/images/products.png',
                       () {
                         Get.to(() => const ProductsPage());
                       },
                     ),
                     Button().homeButton(
                       'PDV',
-                      Icons.shopping_cart,
+                      'assets/images/pdv.png',
                       () {
                         Get.to(() => const PointOfSalePage());
                       },
                     ),
                     Button().homeButton(
                       'Carga de Dados',
-                      Icons.wifi,
+                      'assets/images/carga_dados.png',
                       () {
                         Get.to(() => const DataManagerPage());
                       },

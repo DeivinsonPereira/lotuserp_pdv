@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class Button {
-  Widget homeButton(String text, IconData icon, Function() onTap) {
+  Widget homeButton(String text, String assetImage, Function() onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Card(
@@ -10,18 +10,28 @@ class Button {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                icon,
-                color: CustomColors.customContrastColor,
-                size: 80,
+              Expanded(
+                flex: 3,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(12),
+                  ),
+                  child: Image.asset(
+                    assetImage,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
-              Text(
-                text,
-                style: TextStyle(
-                  color: CustomColors.customSwatchColor,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  height: 2.4,
+              Expanded(
+                flex: 1,
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    color: CustomColors.customSwatchColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    height: 2.4,
+                  ),
                 ),
               ),
             ],
