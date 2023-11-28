@@ -45,7 +45,19 @@ class _ProductCardMachinePageState extends State<ProductCardMachinePage> {
                           color: Color.fromARGB(255, 70, 70, 70),
                         ),
                       ),
-                      Container(
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                      )
+                    
+                    ],
+                  ),
+                ),
+                Container(
                         constraints: const BoxConstraints(maxWidth: _maxWidthDermined),
                         height: 50,
                         width: _maxWidthDermined,
@@ -72,51 +84,6 @@ class _ProductCardMachinePageState extends State<ProductCardMachinePage> {
                           ),
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.menu,
-                          color: Colors.black,
-                          size: 35,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: 80,
-                  width: _maxWidthDermined,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ProductsWidgets().cards(
-                        'Todos',
-                        isSelectedList[0],
-                        () => updateSelectedList(0),
-                      ),
-                      ProductsWidgets().cards(
-                        'Casa',
-                        isSelectedList[1],
-                        () => updateSelectedList(1),
-                      ),
-                      ProductsWidgets().cards(
-                        'Jardim',
-                        isSelectedList[2],
-                        () => updateSelectedList(2),
-                      ),
-                      ProductsWidgets().cards(
-                        'Ferramentas',
-                        isSelectedList[3],
-                        () => updateSelectedList(3),
-                      ),
-                      ProductsWidgets().cards(
-                        'Automotivo',
-                        isSelectedList[4],
-                        () => updateSelectedList(4),
-                      ),
-                    ],
-                  ),
-                ),
               ],
             ),
           ),
