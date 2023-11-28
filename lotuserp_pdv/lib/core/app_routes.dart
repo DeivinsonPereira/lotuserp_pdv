@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/auth/auth_page.dart';
 import 'package:lotuserp_pdv/pages/auth/sign_in_page.dart';
-import 'package:lotuserp_pdv/pages/home_page.dart';
+import 'package:lotuserp_pdv/pages/home/home_page.dart';
 import 'package:lotuserp_pdv/pages/login_page.dart';
 import 'package:lotuserp_pdv/pages/splash_page.dart';
 
