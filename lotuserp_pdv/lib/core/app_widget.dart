@@ -13,6 +13,9 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'lotuserp_pdv',
       theme: ThemeData(
+        iconTheme: const IconThemeData(
+          color: Colors.white,
+        ),
         primarySwatch: CustomColors.customSwatchColor,
         scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),

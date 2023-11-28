@@ -21,6 +21,7 @@ class HomePage extends StatelessWidget {
         } else {
           return const HomeCardMachine();
         }
+        
       }),
     );
   }

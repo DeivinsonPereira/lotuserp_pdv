@@ -6,7 +6,7 @@ import 'package:lotuserp_pdv/pages/data_manager_page.dart';
 import 'package:lotuserp_pdv/pages/manage_cash_page.dart';
 import 'package:lotuserp_pdv/pages/open_register_page.dart';
 import 'package:lotuserp_pdv/pages/point_of_sale_page.dart';
-import 'package:lotuserp_pdv/pages/products_page.dart';
+import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/button.dart';
 
 class HomeCardMachine extends StatelessWidget {
@@ -15,7 +15,7 @@ class HomeCardMachine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.customSwatchColor,
+      backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 50),
         child: ClipRRect(
@@ -23,6 +23,7 @@ class HomeCardMachine extends StatelessWidget {
           child: Container(
             color: Colors.transparent,
             child: AppBar(
+              backgroundColor: CustomColors.customSwatchColor,
               flexibleSpace: FlexibleSpaceBar(
                     title:  SizedBox(
                       width: 100,
@@ -41,14 +42,7 @@ class HomeCardMachine extends StatelessWidget {
         ),
       ),
       body: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.bottomLeft,
-                      end: Alignment.topCenter,
-                      colors: [
-                    CustomColors.customSwatchColor,
-                    CustomColors.customSwatchColor[300]!
-                  ],),),
+              color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: GridView.count(
@@ -91,7 +85,7 @@ class HomeCardMachine extends StatelessWidget {
                       'Produtos',
                       'assets/images/products.png',
                       () {
-                        Get.to(() => const ProductsPage());
+                        Get.to(() => const ProductPage());
                       },
                     ),
                     Button().homeButton(
