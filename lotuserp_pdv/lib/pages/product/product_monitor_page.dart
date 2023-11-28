@@ -52,9 +52,11 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child: const TextField(
+                          child:  TextField(
                             decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.camera_alt),
+                              prefixIcon: IconButton(icon: Icon( Icons.camera_alt), onPressed: (){
+                                //Abrir câmera para ler o código de barras do produto
+                              },),
                               disabledBorder: UnderlineInputBorder(
                                   borderSide: BorderSide.none),
                               border: InputBorder.none,
