@@ -40,9 +40,7 @@ class IsarService {
     );
     if (response.statusCode == 200) {
       var empresa = jsonDecode(utf8.decode(response.bodyBytes));
-      print(
-        empresa['itens'][0]['complemento'],
-      );
+      
       final emp = Empresa(
           empresa['itens'][0]['id'],
           empresa['itens'][0]['razao'],

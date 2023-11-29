@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/product.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/product/widgets/products_widgets.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ProductMonitorPage extends StatefulWidget {
   const ProductMonitorPage({super.key});
@@ -11,18 +12,14 @@ class ProductMonitorPage extends StatefulWidget {
 }
 
 class _ProductMonitorPageState extends State<ProductMonitorPage> {
-  List<bool> isSelectedList = List.generate(5, (index) => false);
-
-  void updateSelectedList(int index) {
-    setState(() {
-      for (int i = 0; i < isSelectedList.length; i++) {
-        isSelectedList[i] = (i == index);
-      }
-    });
-  }
+  int isSelectedList = -1;
+  List<int> indexText = [];
 
   @override
   Widget build(BuildContext context) {
+    IsarService service = IsarService();
+    ProdutoController controller = Get.put(ProdutoController());
+
     return Scaffold(
       body: Row(
         children: [
@@ -32,7 +29,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 75,
                     child: Row(
                       children: [
@@ -52,16 +49,19 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(6),
                           ),
-                          child:  TextField(
+                          child: TextField(
                             decoration: InputDecoration(
-                              prefixIcon: IconButton(icon: Icon( Icons.camera_alt), onPressed: (){
-                                //Abrir câmera para ler o código de barras do produto
-                              },),
-                              disabledBorder: UnderlineInputBorder(
+                              prefixIcon: IconButton(
+                                icon: const Icon(Icons.camera_alt),
+                                onPressed: () {
+                                  //Abrir câmera para ler o código de barras do produto
+                                },
+                              ),
+                              disabledBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide.none),
                               border: InputBorder.none,
                               hintText: 'Busque um produto',
-                              labelStyle: TextStyle(
+                              labelStyle: const TextStyle(
                                   color: Color.fromARGB(255, 53, 53, 53),
                                   fontSize: 18),
                               floatingLabelBehavior:
@@ -81,39 +81,186 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                     ),
                   ),
                   SizedBox(
-                    height: 80,
-                    width: 700,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        ProductsWidgets().cards(
-                          'Todos',
-                          isSelectedList[0],
-                          () => updateSelectedList(0),
-                        ),
-                        ProductsWidgets().cards(
-                          'Casa',
-                          isSelectedList[1],
-                          () => updateSelectedList(1),
-                        ),
-                        ProductsWidgets().cards(
-                          'Jardim',
-                          isSelectedList[2],
-                          () => updateSelectedList(2),
-                        ),
-                        ProductsWidgets().cards(
-                          'Ferramentas',
-                          isSelectedList[3],
-                          () => updateSelectedList(3),
-                        ),
-                        ProductsWidgets().cards(
-                          'Automotivo',
-                          isSelectedList[4],
-                          () => updateSelectedList(4),
-                        ),
-                      ],
-                    ),
-                  ),
+                      height: 180,
+                      width: 700,
+                      child: StreamBuilder(
+                          stream: service.listenGrupo(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Text('Grupo não encontrado');
+                            }
+                            if (snapshot.hasData) {
+                              var grupo = snapshot.data!;
+                              for (var i = 0; i < grupo.length; i++) {
+                                indexText.add(i);
+                              }
+                              
+                              return GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 6,
+                                  crossAxisSpacing: 0,
+                                  mainAxisSpacing: 0,
+                                ),
+                                itemCount: grupo.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return LayoutBuilder(
+                                      builder: (context, constraints) {
+                                    if (constraints.maxWidth > 1200) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 15.0,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  isSelectedList = index;
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: isSelectedList ==
+                                                              index
+                                                          ? const Color
+                                                              .fromRGBO(
+                                                              43, 48, 91, 1)
+                                                          : Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Text(
+                                                    grupo[index]
+                                                            .grupoDescricao ??
+                                                        '',
+                                                    style: isSelectedList ==
+                                                            index
+                                                        ? const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.white,
+                                                            fontSize: 14)
+                                                        : TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: CustomColors
+                                                                .customSwatchColor,
+                                                            fontSize: 14),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else if (constraints.maxWidth < 1200 &&
+                                        constraints.maxWidth > 800) {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 15.0,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  isSelectedList = index;
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: isSelectedList ==
+                                                              index
+                                                          ? const Color
+                                                              .fromRGBO(
+                                                              43, 48, 91, 1)
+                                                          : Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Text(
+                                                    grupo[index]
+                                                            .grupoDescricao ??
+                                                        '',
+                                                    style: isSelectedList ==
+                                                            index
+                                                        ? const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.white)
+                                                        : TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: CustomColors
+                                                                .customSwatchColor),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return Padding(
+                                        padding: const EdgeInsets.only(
+                                          top: 15.0,
+                                        ),
+                                        child: Column(
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  isSelectedList = index;
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(8.0),
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                      color: isSelectedList ==
+                                                              index
+                                                          ? const Color
+                                                              .fromRGBO(
+                                                              43, 48, 91, 1)
+                                                          : Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Text(
+                                                    grupo[index]
+                                                            .grupoDescricao ??
+                                                        '',
+                                                    style: isSelectedList ==
+                                                            index
+                                                        ? const TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: Colors.white)
+                                                        : TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            color: CustomColors
+                                                                .customSwatchColor),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  });
+                                },
+                              );
+                            }
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          })),
                 ],
               ),
             ),
@@ -154,7 +301,10 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                                Text('0 Itens', style: TextStyle(fontSize: 20),),
+                                Text(
+                                  '0 Itens',
+                                  style: TextStyle(fontSize: 20),
+                                ),
                               ],
                             ),
                           )),

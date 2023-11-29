@@ -21,7 +21,7 @@ class _ProductCardMachinePageState extends State<ProductCardMachinePage> {
 
   @override
   Widget build(BuildContext context) {
-    const double _maxWidthDermined = 265;
+    const double maxWidthDermined = 265;
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 233, 233, 233),
       body: Row(
@@ -56,9 +56,9 @@ class _ProductCardMachinePageState extends State<ProductCardMachinePage> {
                   ),
                 ),
                 Container(
-                        constraints: const BoxConstraints(maxWidth: _maxWidthDermined),
+                        constraints: const BoxConstraints(maxWidth: maxWidthDermined),
                         height: 50,
-                        width: _maxWidthDermined,
+                        width: maxWidthDermined,
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(6),
