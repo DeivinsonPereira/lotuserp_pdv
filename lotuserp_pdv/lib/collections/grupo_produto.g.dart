@@ -17,28 +17,23 @@ const GrupoProdutoSchema = CollectionSchema(
   name: r'GrupoProduto',
   id: 7714444735369486504,
   properties: {
-    r'enviarMobile': PropertySchema(
-      id: 0,
-      name: r'enviarMobile',
-      type: IsarType.long,
-    ),
     r'fileImagem': PropertySchema(
-      id: 1,
+      id: 0,
       name: r'fileImagem',
       type: IsarType.string,
     ),
     r'grupoDescricao': PropertySchema(
-      id: 2,
+      id: 1,
       name: r'grupoDescricao',
       type: IsarType.string,
     ),
     r'idGrupo': PropertySchema(
-      id: 3,
+      id: 2,
       name: r'idGrupo',
       type: IsarType.long,
     ),
     r'status': PropertySchema(
-      id: 4,
+      id: 3,
       name: r'status',
       type: IsarType.long,
     )
@@ -63,8 +58,18 @@ int _grupoProdutoEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.fileImagem.length * 3;
-  bytesCount += 3 + object.grupoDescricao.length * 3;
+  {
+    final value = object.fileImagem;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.grupoDescricao;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -74,11 +79,10 @@ void _grupoProdutoSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.enviarMobile);
-  writer.writeString(offsets[1], object.fileImagem);
-  writer.writeString(offsets[2], object.grupoDescricao);
-  writer.writeLong(offsets[3], object.idGrupo);
-  writer.writeLong(offsets[4], object.status);
+  writer.writeString(offsets[0], object.fileImagem);
+  writer.writeString(offsets[1], object.grupoDescricao);
+  writer.writeLong(offsets[2], object.idGrupo);
+  writer.writeLong(offsets[3], object.status);
 }
 
 GrupoProduto _grupoProdutoDeserialize(
@@ -88,11 +92,10 @@ GrupoProduto _grupoProdutoDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = GrupoProduto(
-    reader.readLong(offsets[3]),
-    reader.readString(offsets[2]),
-    reader.readLong(offsets[4]),
-    reader.readLong(offsets[0]),
-    reader.readString(offsets[1]),
+    reader.readLong(offsets[2]),
+    reader.readStringOrNull(offsets[1]),
+    reader.readLongOrNull(offsets[3]),
+    reader.readStringOrNull(offsets[0]),
   );
   object.id = id;
   return object;
@@ -106,15 +109,13 @@ P _grupoProdutoDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 3:
-      return (reader.readLong(offset)) as P;
-    case 4:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -215,64 +216,26 @@ extension GrupoProdutoQueryWhere
 extension GrupoProdutoQueryFilter
     on QueryBuilder<GrupoProduto, GrupoProduto, QFilterCondition> {
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
-      enviarMobileEqualTo(int value) {
+      fileImagemIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'enviarMobile',
-        value: value,
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fileImagem',
       ));
     });
   }
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
-      enviarMobileGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
+      fileImagemIsNotNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'enviarMobile',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
-      enviarMobileLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'enviarMobile',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
-      enviarMobileBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'enviarMobile',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fileImagem',
       ));
     });
   }
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       fileImagemEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -286,7 +249,7 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       fileImagemGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -302,7 +265,7 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       fileImagemLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -318,8 +281,8 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       fileImagemBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -407,8 +370,26 @@ extension GrupoProdutoQueryFilter
   }
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      grupoDescricaoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'grupoDescricao',
+      ));
+    });
+  }
+
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      grupoDescricaoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'grupoDescricao',
+      ));
+    });
+  }
+
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       grupoDescricaoEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -422,7 +403,7 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       grupoDescricaoGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -438,7 +419,7 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       grupoDescricaoLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -454,8 +435,8 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       grupoDescricaoBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -651,8 +632,26 @@ extension GrupoProdutoQueryFilter
     });
   }
 
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      statusIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'status',
+      ));
+    });
+  }
+
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      statusIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'status',
+      ));
+    });
+  }
+
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition> statusEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'status',
@@ -663,7 +662,7 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       statusGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -677,7 +676,7 @@ extension GrupoProdutoQueryFilter
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
       statusLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -690,8 +689,8 @@ extension GrupoProdutoQueryFilter
   }
 
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition> statusBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -715,19 +714,6 @@ extension GrupoProdutoQueryLinks
 
 extension GrupoProdutoQuerySortBy
     on QueryBuilder<GrupoProduto, GrupoProduto, QSortBy> {
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy> sortByEnviarMobile() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'enviarMobile', Sort.asc);
-    });
-  }
-
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy>
-      sortByEnviarMobileDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'enviarMobile', Sort.desc);
-    });
-  }
-
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy> sortByFileImagem() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fileImagem', Sort.asc);
@@ -782,19 +768,6 @@ extension GrupoProdutoQuerySortBy
 
 extension GrupoProdutoQuerySortThenBy
     on QueryBuilder<GrupoProduto, GrupoProduto, QSortThenBy> {
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy> thenByEnviarMobile() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'enviarMobile', Sort.asc);
-    });
-  }
-
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy>
-      thenByEnviarMobileDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'enviarMobile', Sort.desc);
-    });
-  }
-
   QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy> thenByFileImagem() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'fileImagem', Sort.asc);
@@ -861,12 +834,6 @@ extension GrupoProdutoQuerySortThenBy
 
 extension GrupoProdutoQueryWhereDistinct
     on QueryBuilder<GrupoProduto, GrupoProduto, QDistinct> {
-  QueryBuilder<GrupoProduto, GrupoProduto, QDistinct> distinctByEnviarMobile() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'enviarMobile');
-    });
-  }
-
   QueryBuilder<GrupoProduto, GrupoProduto, QDistinct> distinctByFileImagem(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -903,19 +870,13 @@ extension GrupoProdutoQueryProperty
     });
   }
 
-  QueryBuilder<GrupoProduto, int, QQueryOperations> enviarMobileProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'enviarMobile');
-    });
-  }
-
-  QueryBuilder<GrupoProduto, String, QQueryOperations> fileImagemProperty() {
+  QueryBuilder<GrupoProduto, String?, QQueryOperations> fileImagemProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fileImagem');
     });
   }
 
-  QueryBuilder<GrupoProduto, String, QQueryOperations>
+  QueryBuilder<GrupoProduto, String?, QQueryOperations>
       grupoDescricaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'grupoDescricao');
@@ -928,7 +889,7 @@ extension GrupoProdutoQueryProperty
     });
   }
 
-  QueryBuilder<GrupoProduto, int, QQueryOperations> statusProperty() {
+  QueryBuilder<GrupoProduto, int?, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });

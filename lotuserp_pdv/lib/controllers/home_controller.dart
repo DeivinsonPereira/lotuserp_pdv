@@ -11,5 +11,9 @@ class HomeController extends GetxController {
     super.onInit();
   
     await service.getEmpresa(companyId);
+    await service.getGrupo(companyId);
+    await service.getProduto(companyId);
+    await service.getUsuarios(companyId);
+
   }
 }

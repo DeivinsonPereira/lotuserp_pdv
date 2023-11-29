@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class Button {
   Widget homeButton(String text, String assetImage, Function() onTap) {

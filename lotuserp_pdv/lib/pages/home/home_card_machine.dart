@@ -19,93 +19,95 @@ class HomeCardMachine extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, 50),
         child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(bottom: Radius.circular(25)),
+          borderRadius:
+              const BorderRadius.vertical(bottom: Radius.circular(25)),
           child: Container(
             color: Colors.transparent,
             child: AppBar(
               backgroundColor: CustomColors.customSwatchColor,
               flexibleSpace: FlexibleSpaceBar(
-                    title:  SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 30.0),
-                        child: Image.asset(
-                          'assets/images/Logo_Nova_Transparente.png',
-                        ),
-                      ),
+                title: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 30.0),
+                    child: Image.asset(
+                      'assets/images/logo-nova-branco.png',
+                      fit: BoxFit.cover,
                     ),
-                    centerTitle: true,
                   ),
+                ),
+                centerTitle: true,
+              ),
             ),
           ),
         ),
       ),
       body: Container(
-              color: Colors.white,
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: GridView.count(
-                  mainAxisSpacing: 10,
-                  crossAxisSpacing: 10,
-                  crossAxisCount: 2,
-                  children: <Widget>[
-                    Button().homeButton(
-                      'Abrir Caixa',
-                      'assets/images/abrir_caixa.png',
-                      () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const OpenRegisterPage(); // Your AlertDialog widget
-                          },
-                        );
-                      },
-                    ),
-                    Button().homeButton(
-                      'Movimentar Caixa',
-                      'assets/images/movimentando_caixa.png',
-                      () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return const ManageCashPage(); // Your AlertDialog widget
-                          },
-                        );
-                      },
-                    ),
-                    Button().homeButton(
-                      'Fechar Caixa',
-                      'assets/images/pagando_cartao.png',
-                      () {
-                        Get.to(() => const CloseRegisterPage());
-                      },
-                    ),
-                    Button().homeButton(
-                      'Produtos',
-                      'assets/images/products.png',
-                      () {
-                        Get.to(() => const ProductPage());
-                      },
-                    ),
-                    Button().homeButton(
-                      'PDV',
-                      'assets/images/pdv.png',
-                      () {
-                        Get.to(() => const PointOfSalePage());
-                      },
-                    ),
-                    Button().homeButton(
-                      'Carga de Dados',
-                      'assets/images/carga_dados.png',
-                      () {
-                        Get.to(() => const DataManagerPage());
-                      },
-                    ),
-                  ],
-                ),
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: GridView.count(
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            crossAxisCount: 2,
+            children: <Widget>[
+              Button().homeButton(
+                'Abrir Caixa',
+                'assets/images/abrir_caixa.png',
+                () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const OpenRegisterPage(); // Your AlertDialog widget
+                    },
+                  );
+                },
               ),
-            ),
+              Button().homeButton(
+                'Movimentar Caixa',
+                'assets/images/movimentando_caixa.png',
+                () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const ManageCashPage(); // Your AlertDialog widget
+                    },
+                  );
+                },
+              ),
+              Button().homeButton(
+                'Fechar Caixa',
+                'assets/images/pagando_cartao.png',
+                () {
+                  Get.to(() => const CloseRegisterPage());
+                },
+              ),
+              Button().homeButton(
+                'Produtos',
+                'assets/images/products.png',
+                () {
+                  Get.to(() => const ProductPage());
+                },
+              ),
+              Button().homeButton(
+                'PDV',
+                'assets/images/pdv.png',
+                () {
+                  Get.to(() => const PointOfSalePage());
+                },
+              ),
+              Button().homeButton(
+                'Carga de Dados',
+                'assets/images/carga_dados.png',
+                () {
+                  Get.to(() => const DataManagerPage());
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

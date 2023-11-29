@@ -243,23 +243,108 @@ int _empresaEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.bairro.length * 3;
-  bytesCount += 3 + object.cep.length * 3;
-  bytesCount += 3 + object.cnpj.length * 3;
-  bytesCount += 3 + object.complemento.length * 3;
-  bytesCount += 3 + object.email.length * 3;
-  bytesCount += 3 + object.endereco.length * 3;
-  bytesCount += 3 + object.fantasia.length * 3;
-  bytesCount += 3 + object.fone1.length * 3;
-  bytesCount += 3 + object.fone2.length * 3;
-  bytesCount += 3 + object.fone3.length * 3;
-  bytesCount += 3 + object.inscEstadual.length * 3;
-  bytesCount += 3 + object.inscMunicipal.length * 3;
-  bytesCount += 3 + object.municipio.length * 3;
-  bytesCount += 3 + object.municipioUf.length * 3;
-  bytesCount += 3 + object.numero.length * 3;
-  bytesCount += 3 + object.razao.length * 3;
-  bytesCount += 3 + object.site.length * 3;
+  {
+    final value = object.bairro;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.cep;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.cnpj;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.complemento;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.email;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.endereco;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.fantasia;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.fone1;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.fone2;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.fone3;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.inscEstadual;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.inscMunicipal;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.municipio;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.municipioUf;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.numero;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.razao;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.site;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -320,46 +405,46 @@ Empresa _empresaDeserialize(
 ) {
   final object = Empresa(
     reader.readLong(offsets[11]),
-    reader.readString(offsets[38]),
-    reader.readString(offsets[7]),
-    reader.readString(offsets[2]),
-    reader.readString(offsets[12]),
-    reader.readString(offsets[13]),
-    reader.readString(offsets[8]),
-    reader.readString(offsets[9]),
-    reader.readString(offsets[10]),
-    reader.readString(offsets[5]),
-    reader.readString(offsets[0]),
-    reader.readString(offsets[16]),
-    reader.readString(offsets[14]),
-    reader.readString(offsets[15]),
-    reader.readString(offsets[1]),
-    reader.readString(offsets[39]),
-    reader.readString(offsets[4]),
-    reader.readString(offsets[3]),
-    reader.readLong(offsets[6]),
-    reader.readLong(offsets[40]),
-    reader.readLong(offsets[17]),
-    reader.readLong(offsets[37]),
-    reader.readLong(offsets[36]),
-    reader.readLong(offsets[35]),
-    reader.readDouble(offsets[34]),
-    reader.readLong(offsets[21]),
-    reader.readLong(offsets[23]),
-    reader.readLong(offsets[20]),
-    reader.readLong(offsets[18]),
-    reader.readLong(offsets[32]),
-    reader.readLong(offsets[30]),
-    reader.readLong(offsets[26]),
-    reader.readLong(offsets[29]),
-    reader.readLong(offsets[27]),
-    reader.readLong(offsets[33]),
-    reader.readLong(offsets[19]),
-    reader.readLong(offsets[25]),
-    reader.readLong(offsets[28]),
-    reader.readLong(offsets[31]),
-    reader.readLong(offsets[24]),
-    reader.readLong(offsets[22]),
+    reader.readStringOrNull(offsets[38]),
+    reader.readStringOrNull(offsets[7]),
+    reader.readStringOrNull(offsets[2]),
+    reader.readStringOrNull(offsets[12]),
+    reader.readStringOrNull(offsets[13]),
+    reader.readStringOrNull(offsets[8]),
+    reader.readStringOrNull(offsets[9]),
+    reader.readStringOrNull(offsets[10]),
+    reader.readStringOrNull(offsets[5]),
+    reader.readStringOrNull(offsets[0]),
+    reader.readStringOrNull(offsets[16]),
+    reader.readStringOrNull(offsets[14]),
+    reader.readStringOrNull(offsets[15]),
+    reader.readStringOrNull(offsets[1]),
+    reader.readStringOrNull(offsets[39]),
+    reader.readStringOrNull(offsets[4]),
+    reader.readStringOrNull(offsets[3]),
+    reader.readLongOrNull(offsets[6]),
+    reader.readLongOrNull(offsets[40]),
+    reader.readLongOrNull(offsets[17]),
+    reader.readLongOrNull(offsets[37]),
+    reader.readLongOrNull(offsets[36]),
+    reader.readLongOrNull(offsets[35]),
+    reader.readDoubleOrNull(offsets[34]),
+    reader.readLongOrNull(offsets[21]),
+    reader.readLongOrNull(offsets[23]),
+    reader.readLongOrNull(offsets[20]),
+    reader.readLongOrNull(offsets[18]),
+    reader.readLongOrNull(offsets[32]),
+    reader.readLongOrNull(offsets[30]),
+    reader.readLongOrNull(offsets[26]),
+    reader.readLongOrNull(offsets[29]),
+    reader.readLongOrNull(offsets[27]),
+    reader.readLongOrNull(offsets[33]),
+    reader.readLongOrNull(offsets[19]),
+    reader.readLongOrNull(offsets[25]),
+    reader.readLongOrNull(offsets[28]),
+    reader.readLongOrNull(offsets[31]),
+    reader.readLongOrNull(offsets[24]),
+    reader.readLongOrNull(offsets[22]),
   );
   object.id = id;
   return object;
@@ -373,87 +458,87 @@ P _empresaDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 2:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 6:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
       return (reader.readLong(offset)) as P;
     case 12:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 13:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 14:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 15:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 16:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 17:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 18:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 19:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 20:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 21:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 22:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 23:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 24:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 25:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 26:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 27:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 28:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 29:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 30:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 31:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 32:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 33:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 34:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 35:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 36:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 37:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 38:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 39:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 40:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -548,8 +633,24 @@ extension EmpresaQueryWhere on QueryBuilder<Empresa, Empresa, QWhereClause> {
 
 extension EmpresaQueryFilter
     on QueryBuilder<Empresa, Empresa, QFilterCondition> {
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> bairroIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'bairro',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> bairroIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'bairro',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> bairroEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -562,7 +663,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> bairroGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -577,7 +678,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> bairroLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -592,8 +693,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> bairroBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -678,8 +779,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cepIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'cep',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cepIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'cep',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cepEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -692,7 +809,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cepGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -707,7 +824,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cepLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -722,8 +839,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cepBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -808,8 +925,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cnpjIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'cnpj',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cnpjIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'cnpj',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cnpjEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -822,7 +955,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cnpjGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -837,7 +970,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cnpjLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -852,8 +985,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> cnpjBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -938,8 +1071,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> complementoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'complemento',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> complementoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'complemento',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> complementoEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -952,7 +1101,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> complementoGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -967,7 +1116,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> complementoLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -982,8 +1131,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> complementoBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1069,8 +1218,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> emailIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'email',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> emailIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'email',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> emailEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1083,7 +1248,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> emailGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1098,7 +1263,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> emailLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1113,8 +1278,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> emailBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1199,8 +1364,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> enderecoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'endereco',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> enderecoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'endereco',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> enderecoEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1213,7 +1394,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> enderecoGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1228,7 +1409,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> enderecoLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1243,8 +1424,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> enderecoBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1329,8 +1510,25 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> estoqueGradeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'estoqueGrade',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      estoqueGradeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'estoqueGrade',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> estoqueGradeEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'estoqueGrade',
@@ -1340,7 +1538,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> estoqueGradeGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1353,7 +1551,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> estoqueGradeLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1366,8 +1564,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> estoqueGradeBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1382,8 +1580,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fantasiaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fantasia',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fantasiaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fantasia',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fantasiaEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1396,7 +1610,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fantasiaGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1411,7 +1625,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fantasiaLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1426,8 +1640,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fantasiaBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1512,8 +1726,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone1IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fone1',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone1IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fone1',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone1EqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1526,7 +1756,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone1GreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1541,7 +1771,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone1LessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1556,8 +1786,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone1Between(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1642,8 +1872,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone2IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fone2',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone2IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fone2',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone2EqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1656,7 +1902,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone2GreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1671,7 +1917,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone2LessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1686,8 +1932,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone2Between(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1772,8 +2018,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone3IsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fone3',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone3IsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fone3',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone3EqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1786,7 +2048,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone3GreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1801,7 +2063,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone3LessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1816,8 +2078,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> fone3Between(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2007,8 +2269,25 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscEstadualIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'inscEstadual',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      inscEstadualIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'inscEstadual',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscEstadualEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2021,7 +2300,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscEstadualGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2036,7 +2315,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscEstadualLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2051,8 +2330,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscEstadualBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2138,8 +2417,25 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscMunicipalIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'inscMunicipal',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      inscMunicipalIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'inscMunicipal',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscMunicipalEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2153,7 +2449,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       inscMunicipalGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2168,7 +2464,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscMunicipalLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2183,8 +2479,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> inscMunicipalBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2270,8 +2566,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'municipio',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'municipio',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2284,7 +2596,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2299,7 +2611,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2314,8 +2626,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2400,8 +2712,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioUfIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'municipioUf',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioUfIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'municipioUf',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioUfEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2414,7 +2742,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioUfGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2429,7 +2757,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioUfLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2444,8 +2772,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> municipioUfBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2531,8 +2859,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> numeroIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'numero',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> numeroIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'numero',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> numeroEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2545,7 +2889,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> numeroGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2560,7 +2904,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> numeroLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2575,8 +2919,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> numeroBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2661,8 +3005,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramNfCrtIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramNfCrt',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramNfCrtIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramNfCrt',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramNfCrtEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramNfCrt',
@@ -2672,7 +3032,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramNfCrtGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2685,7 +3045,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramNfCrtLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2698,8 +3058,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramNfCrtBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2715,7 +3075,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvBloqEstNegEqualTo(int value) {
+      paramPdvBloqEstNegIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvBloqEstNeg',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvBloqEstNegIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvBloqEstNeg',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvBloqEstNegEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvBloqEstNeg',
@@ -2726,7 +3104,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvBloqEstNegGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2740,7 +3118,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvBloqEstNegLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2754,8 +3132,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvBloqEstNegBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2771,7 +3149,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvCartaoGerarparcEqualTo(int value) {
+      paramPdvCartaoGerarparcIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvCartaoGerarparc',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvCartaoGerarparcIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvCartaoGerarparc',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvCartaoGerarparcEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvCartaoGerarparc',
@@ -2782,7 +3178,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvCartaoGerarparcGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2796,7 +3192,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvCartaoGerarparcLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2810,8 +3206,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvCartaoGerarparcBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2826,8 +3222,26 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvClienteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvCliente',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvClienteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvCliente',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramPdvClienteEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvCliente',
@@ -2838,7 +3252,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvClienteGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2851,7 +3265,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramPdvClienteLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2864,8 +3278,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> paramPdvClienteBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2881,7 +3295,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvCodigopesagemEqualTo(int value) {
+      paramPdvCodigopesagemIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvCodigopesagem',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvCodigopesagemIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvCodigopesagem',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvCodigopesagemEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvCodigopesagem',
@@ -2892,7 +3324,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvCodigopesagemGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2906,7 +3338,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvCodigopesagemLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2920,8 +3352,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvCodigopesagemBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2937,7 +3369,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvComandaProducaoEqualTo(int value) {
+      paramPdvComandaProducaoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvComandaProducao',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvComandaProducaoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvComandaProducao',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvComandaProducaoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvComandaProducao',
@@ -2948,7 +3398,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvComandaProducaoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2962,7 +3412,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvComandaProducaoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2976,8 +3426,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvComandaProducaoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2993,7 +3443,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvFormapagtoEqualTo(int value) {
+      paramPdvFormapagtoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvFormapagto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvFormapagtoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvFormapagto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvFormapagtoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvFormapagto',
@@ -3004,7 +3472,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvFormapagtoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3018,7 +3486,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvFormapagtoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3032,8 +3500,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvFormapagtoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3049,7 +3517,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvGerarSenhaEqualTo(int value) {
+      paramPdvGerarSenhaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvGerarSenha',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvGerarSenhaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvGerarSenha',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvGerarSenhaEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvGerarSenha',
@@ -3060,7 +3546,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvGerarSenhaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3074,7 +3560,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvGerarSenhaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3088,8 +3574,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvGerarSenhaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3105,7 +3591,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvImpComprovanteEqualTo(int value) {
+      paramPdvImpComprovanteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvImpComprovante',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvImpComprovanteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvImpComprovante',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvImpComprovanteEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvImpComprovante',
@@ -3116,7 +3620,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvImpComprovanteGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3130,7 +3634,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvImpComprovanteLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3144,8 +3648,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvImpComprovanteBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3161,7 +3665,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvImpCpNfVendaEqualTo(int value) {
+      paramPdvImpCpNfVendaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvImpCpNfVenda',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvImpCpNfVendaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvImpCpNfVenda',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvImpCpNfVendaEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvImpCpNfVenda',
@@ -3172,7 +3694,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvImpCpNfVendaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3186,7 +3708,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvImpCpNfVendaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3200,8 +3722,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvImpCpNfVendaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3217,7 +3739,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvInformaClienteEqualTo(int value) {
+      paramPdvInformaClienteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvInformaCliente',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvInformaClienteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvInformaCliente',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvInformaClienteEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvInformaCliente',
@@ -3228,7 +3768,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvInformaClienteGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3242,7 +3782,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvInformaClienteLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3256,8 +3796,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvInformaClienteBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3273,7 +3813,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvPermitirDescontoEqualTo(int value) {
+      paramPdvPermitirDescontoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvPermitirDesconto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvPermitirDescontoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvPermitirDesconto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvPermitirDescontoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvPermitirDesconto',
@@ -3284,7 +3842,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvPermitirDescontoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3298,7 +3856,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvPermitirDescontoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3312,8 +3870,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvPermitirDescontoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3329,7 +3887,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvProdcompostoEqualTo(int value) {
+      paramPdvProdcompostoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvProdcomposto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvProdcompostoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvProdcomposto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvProdcompostoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvProdcomposto',
@@ -3340,7 +3916,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvProdcompostoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3354,7 +3930,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvProdcompostoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3368,8 +3944,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvProdcompostoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3385,7 +3961,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvSenhaCancelarEqualTo(int value) {
+      paramPdvSenhaCancelarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvSenhaCancelar',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvSenhaCancelarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvSenhaCancelar',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvSenhaCancelarEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvSenhaCancelar',
@@ -3396,7 +3990,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvSenhaCancelarGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3410,7 +4004,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvSenhaCancelarLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3424,8 +4018,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvSenhaCancelarBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3441,7 +4035,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvTipoDescontoEqualTo(int value) {
+      paramPdvTipoDescontoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvTipoDesconto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvTipoDescontoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvTipoDesconto',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvTipoDescontoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvTipoDesconto',
@@ -3452,7 +4064,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvTipoDescontoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3466,7 +4078,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvTipoDescontoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3480,8 +4092,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvTipoDescontoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3497,7 +4109,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvValidarCxFechadoEqualTo(int value) {
+      paramPdvValidarCxFechadoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvValidarCxFechado',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvValidarCxFechadoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvValidarCxFechado',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvValidarCxFechadoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvValidarCxFechado',
@@ -3508,7 +4138,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvValidarCxFechadoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3522,7 +4152,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvValidarCxFechadoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3536,8 +4166,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvValidarCxFechadoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3553,7 +4183,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramPdvVendedorVendaEqualTo(int value) {
+      paramPdvVendedorVendaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramPdvVendedorVenda',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvVendedorVendaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramPdvVendedorVenda',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramPdvVendedorVendaEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramPdvVendedorVenda',
@@ -3564,7 +4212,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvVendedorVendaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3578,7 +4226,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvVendedorVendaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3592,8 +4240,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramPdvVendedorVendaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3609,8 +4257,26 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramVendasDescmaximoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramVendasDescmaximo',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramVendasDescmaximoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramVendasDescmaximo',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasDescmaximoEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3624,7 +4290,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasDescmaximoGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -3640,7 +4306,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasDescmaximoLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -3656,8 +4322,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasDescmaximoBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -3675,7 +4341,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramVendasPortadorEqualTo(int value) {
+      paramVendasPortadorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramVendasPortador',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramVendasPortadorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramVendasPortador',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramVendasPortadorEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramVendasPortador',
@@ -3686,7 +4370,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasPortadorGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3700,7 +4384,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasPortadorLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3714,8 +4398,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasPortadorBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3731,7 +4415,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      paramVendasTpcomissaoEqualTo(int value) {
+      paramVendasTpcomissaoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'paramVendasTpcomissao',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramVendasTpcomissaoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'paramVendasTpcomissao',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      paramVendasTpcomissaoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'paramVendasTpcomissao',
@@ -3742,7 +4444,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasTpcomissaoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3756,7 +4458,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasTpcomissaoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3770,8 +4472,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       paramVendasTpcomissaoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3787,7 +4489,25 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
-      pdvUsarPvistaPprazoEqualTo(int value) {
+      pdvUsarPvistaPprazoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvUsarPvistaPprazo',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      pdvUsarPvistaPprazoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvUsarPvistaPprazo',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
+      pdvUsarPvistaPprazoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvUsarPvistaPprazo',
@@ -3798,7 +4518,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       pdvUsarPvistaPprazoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3812,7 +4532,7 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       pdvUsarPvistaPprazoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3826,8 +4546,8 @@ extension EmpresaQueryFilter
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition>
       pdvUsarPvistaPprazoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3842,8 +4562,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> razaoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'razao',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> razaoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'razao',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> razaoEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3856,7 +4592,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> razaoGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -3871,7 +4607,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> razaoLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -3886,8 +4622,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> razaoBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -3972,8 +4708,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> siteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'site',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> siteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'site',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> siteEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -3986,7 +4738,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> siteGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4001,7 +4753,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> siteLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -4016,8 +4768,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> siteBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -4102,8 +4854,24 @@ extension EmpresaQueryFilter
     });
   }
 
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> usarPagNfceIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'usarPagNfce',
+      ));
+    });
+  }
+
+  QueryBuilder<Empresa, Empresa, QAfterFilterCondition> usarPagNfceIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'usarPagNfce',
+      ));
+    });
+  }
+
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> usarPagNfceEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'usarPagNfce',
@@ -4113,7 +4881,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> usarPagNfceGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4126,7 +4894,7 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> usarPagNfceLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -4139,8 +4907,8 @@ extension EmpresaQueryFilter
   }
 
   QueryBuilder<Empresa, Empresa, QAfterFilterCondition> usarPagNfceBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -5474,67 +6242,67 @@ extension EmpresaQueryProperty
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> bairroProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> bairroProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'bairro');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> cepProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> cepProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cep');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> cnpjProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> cnpjProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'cnpj');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> complementoProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> complementoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'complemento');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> emailProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> emailProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'email');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> enderecoProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> enderecoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'endereco');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> estoqueGradeProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> estoqueGradeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'estoqueGrade');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> fantasiaProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> fantasiaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fantasia');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> fone1Property() {
+  QueryBuilder<Empresa, String?, QQueryOperations> fone1Property() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fone1');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> fone2Property() {
+  QueryBuilder<Empresa, String?, QQueryOperations> fone2Property() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fone2');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> fone3Property() {
+  QueryBuilder<Empresa, String?, QQueryOperations> fone3Property() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fone3');
     });
@@ -5546,182 +6314,186 @@ extension EmpresaQueryProperty
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> inscEstadualProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> inscEstadualProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'inscEstadual');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> inscMunicipalProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> inscMunicipalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'inscMunicipal');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> municipioProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> municipioProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'municipio');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> municipioUfProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> municipioUfProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'municipioUf');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> numeroProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> numeroProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'numero');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramNfCrtProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramNfCrtProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramNfCrt');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvBloqEstNegProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvBloqEstNegProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvBloqEstNeg');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations>
+  QueryBuilder<Empresa, int?, QQueryOperations>
       paramPdvCartaoGerarparcProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvCartaoGerarparc');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvClienteProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvClienteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvCliente');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvCodigopesagemProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations>
+      paramPdvCodigopesagemProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvCodigopesagem');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations>
+  QueryBuilder<Empresa, int?, QQueryOperations>
       paramPdvComandaProducaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvComandaProducao');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvFormapagtoProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvFormapagtoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvFormapagto');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvGerarSenhaProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvGerarSenhaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvGerarSenha');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations>
+  QueryBuilder<Empresa, int?, QQueryOperations>
       paramPdvImpComprovanteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvImpComprovante');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvImpCpNfVendaProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvImpCpNfVendaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvImpCpNfVenda');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations>
+  QueryBuilder<Empresa, int?, QQueryOperations>
       paramPdvInformaClienteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvInformaCliente');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations>
+  QueryBuilder<Empresa, int?, QQueryOperations>
       paramPdvPermitirDescontoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvPermitirDesconto');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvProdcompostoProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvProdcompostoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvProdcomposto');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvSenhaCancelarProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations>
+      paramPdvSenhaCancelarProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvSenhaCancelar');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvTipoDescontoProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramPdvTipoDescontoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvTipoDesconto');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations>
+  QueryBuilder<Empresa, int?, QQueryOperations>
       paramPdvValidarCxFechadoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvValidarCxFechado');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramPdvVendedorVendaProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations>
+      paramPdvVendedorVendaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramPdvVendedorVenda');
     });
   }
 
-  QueryBuilder<Empresa, double, QQueryOperations>
+  QueryBuilder<Empresa, double?, QQueryOperations>
       paramVendasDescmaximoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramVendasDescmaximo');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramVendasPortadorProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> paramVendasPortadorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramVendasPortador');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> paramVendasTpcomissaoProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations>
+      paramVendasTpcomissaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'paramVendasTpcomissao');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> pdvUsarPvistaPprazoProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> pdvUsarPvistaPprazoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvUsarPvistaPprazo');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> razaoProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> razaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'razao');
     });
   }
 
-  QueryBuilder<Empresa, String, QQueryOperations> siteProperty() {
+  QueryBuilder<Empresa, String?, QQueryOperations> siteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'site');
     });
   }
 
-  QueryBuilder<Empresa, int, QQueryOperations> usarPagNfceProperty() {
+  QueryBuilder<Empresa, int?, QQueryOperations> usarPagNfceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'usarPagNfce');
     });

@@ -188,14 +188,49 @@ int _produtoEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.descricao.length * 3;
-  bytesCount += 3 + object.fileImagem.length * 3;
+  {
+    final value = object.descricao;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.fileImagem;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   bytesCount += 3 + object.grade.length * 3;
-  bytesCount += 3 + object.gtin.length * 3;
-  bytesCount += 3 + object.gtinGrade.length * 3;
-  bytesCount += 3 + object.promocaoHoraFinal.length * 3;
-  bytesCount += 3 + object.promocaoHoraInicial.length * 3;
-  bytesCount += 3 + object.unidade.length * 3;
+  {
+    final value = object.gtin;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.gtinGrade;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.promocaoHoraFinal;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.promocaoHoraInicial;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.unidade;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -247,33 +282,33 @@ Produto _produtoDeserialize(
     reader.readLong(offsets[10]),
     reader.readLong(offsets[12]),
     reader.readString(offsets[7]),
-    reader.readLong(offsets[11]),
-    reader.readString(offsets[5]),
-    reader.readString(offsets[28]),
-    reader.readString(offsets[8]),
-    reader.readLong(offsets[4]),
-    reader.readLong(offsets[29]),
-    reader.readLong(offsets[13]),
-    reader.readLong(offsets[27]),
+    reader.readLongOrNull(offsets[11]),
+    reader.readStringOrNull(offsets[5]),
+    reader.readStringOrNull(offsets[28]),
+    reader.readStringOrNull(offsets[8]),
+    reader.readLongOrNull(offsets[4]),
+    reader.readLongOrNull(offsets[29]),
+    reader.readLongOrNull(offsets[13]),
+    reader.readLongOrNull(offsets[27]),
     reader.readDouble(offsets[26]),
     reader.readDouble(offsets[25]),
-    reader.readLong(offsets[0]),
-    reader.readLong(offsets[1]),
-    reader.readLong(offsets[3]),
-    reader.readLong(offsets[2]),
-    reader.readString(offsets[9]),
-    reader.readLong(offsets[16]),
-    reader.readDouble(offsets[23]),
-    reader.readDateTime(offsets[18]),
-    reader.readDateTime(offsets[19]),
-    reader.readString(offsets[21]),
-    reader.readString(offsets[20]),
-    reader.readLong(offsets[24]),
-    reader.readLong(offsets[17]),
-    reader.readLong(offsets[22]),
-    reader.readLong(offsets[14]),
-    reader.readDouble(offsets[15]),
-    reader.readString(offsets[6]),
+    reader.readLongOrNull(offsets[0]),
+    reader.readLongOrNull(offsets[1]),
+    reader.readLongOrNull(offsets[3]),
+    reader.readLongOrNull(offsets[2]),
+    reader.readStringOrNull(offsets[9]),
+    reader.readLongOrNull(offsets[16]),
+    reader.readDoubleOrNull(offsets[23]),
+    reader.readDateTimeOrNull(offsets[18]),
+    reader.readDateTimeOrNull(offsets[19]),
+    reader.readStringOrNull(offsets[21]),
+    reader.readStringOrNull(offsets[20]),
+    reader.readLongOrNull(offsets[24]),
+    reader.readLongOrNull(offsets[17]),
+    reader.readLongOrNull(offsets[22]),
+    reader.readLongOrNull(offsets[14]),
+    reader.readDoubleOrNull(offsets[15]),
+    reader.readStringOrNull(offsets[6]),
   );
   object.id = id;
   return object;
@@ -287,65 +322,65 @@ P _produtoDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 4:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 5:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 6:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 7:
       return (reader.readString(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 9:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 10:
       return (reader.readLong(offset)) as P;
     case 11:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
       return (reader.readLong(offset)) as P;
     case 13:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 14:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 15:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 16:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 17:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 18:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 19:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 20:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 21:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 22:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 23:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 24:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 25:
       return (reader.readDouble(offset)) as P;
     case 26:
       return (reader.readDouble(offset)) as P;
     case 27:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 28:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 29:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -440,8 +475,25 @@ extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
 
 extension ProdutoQueryFilter
     on QueryBuilder<Produto, Produto, QFilterCondition> {
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'altPrecoVenda',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      altPrecoVendaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'altPrecoVenda',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'altPrecoVenda',
@@ -452,7 +504,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       altPrecoVendaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -465,7 +517,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -478,8 +530,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -495,7 +547,25 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoEqualTo(int value) {
+      altPrecoVendaTipoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'altPrecoVendaTipo',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      altPrecoVendaTipoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'altPrecoVendaTipo',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      altPrecoVendaTipoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'altPrecoVendaTipo',
@@ -506,7 +576,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       altPrecoVendaTipoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -520,7 +590,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       altPrecoVendaTipoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -534,8 +604,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       altPrecoVendaTipoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -550,8 +620,26 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      balancaIdprodutoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'balancaIdproduto',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      balancaIdprodutoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'balancaIdproduto',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> balancaIdprodutoEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'balancaIdproduto',
@@ -562,7 +650,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       balancaIdprodutoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -576,7 +664,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       balancaIdprodutoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -589,8 +677,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> balancaIdprodutoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -606,7 +694,25 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemEqualTo(int value) {
+      balancaTipoPesagemIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'balancaTipoPesagem',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      balancaTipoPesagemIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'balancaTipoPesagem',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      balancaTipoPesagemEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'balancaTipoPesagem',
@@ -617,7 +723,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       balancaTipoPesagemGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -631,7 +737,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       balancaTipoPesagemLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -645,8 +751,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       balancaTipoPesagemBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -661,8 +767,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'composto',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'composto',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'composto',
@@ -672,7 +794,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -685,7 +807,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -698,8 +820,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -714,8 +836,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'descricao',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'descricao',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -728,7 +866,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -743,7 +881,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -758,8 +896,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -844,8 +982,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fileImagem',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fileImagem',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -858,7 +1012,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -873,7 +1027,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -888,8 +1042,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1104,8 +1258,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'gtin',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'gtin',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1118,7 +1288,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1133,7 +1303,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1148,8 +1318,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1234,8 +1404,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'gtinGrade',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'gtinGrade',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1248,7 +1434,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1263,7 +1449,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1278,8 +1464,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1469,8 +1655,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'idGrupo',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'idGrupo',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idGrupo',
@@ -1480,7 +1682,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1493,7 +1695,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1506,8 +1708,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1575,8 +1777,25 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'naoRecDesconto',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      naoRecDescontoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'naoRecDesconto',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'naoRecDesconto',
@@ -1587,7 +1806,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       naoRecDescontoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1600,7 +1819,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1613,8 +1832,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1629,8 +1848,26 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoApartirIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoApartir',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoApartirIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoApartir',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoApartirEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoApartir',
@@ -1641,7 +1878,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoApartirGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1654,7 +1891,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoApartirLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1667,8 +1904,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoApartirBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1684,8 +1921,26 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoApartirPercIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoApartirPerc',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoApartirPercIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoApartirPerc',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoApartirPercEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1699,7 +1954,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoApartirPercGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -1715,7 +1970,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoApartirPercLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -1731,8 +1986,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoApartirPercBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -1749,8 +2004,25 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoAtivar',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoAtivarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoAtivar',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoAtivar',
@@ -1761,7 +2033,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoAtivarGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1774,7 +2046,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1787,8 +2059,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1803,8 +2075,25 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoCompre',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoCompreIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoCompre',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoCompre',
@@ -1815,7 +2104,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoCompreGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1828,7 +2117,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1841,8 +2130,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1858,7 +2147,25 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioEqualTo(DateTime value) {
+      promocaoDataInicioIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoDataInicio',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoDataInicioIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoDataInicio',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoDataInicioEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoDataInicio',
@@ -1869,7 +2176,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoDataInicioGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1883,7 +2190,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoDataInicioLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1897,8 +2204,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoDataInicioBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1914,7 +2221,25 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteEqualTo(DateTime value) {
+      promocaoDataLimiteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoDataLimite',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoDataLimiteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoDataLimite',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoDataLimiteEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoDataLimite',
@@ -1925,7 +2250,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoDataLimiteGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1939,7 +2264,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoDataLimiteLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1953,8 +2278,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoDataLimiteBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1970,8 +2295,26 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoHoraFinalIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoHoraFinal',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoHoraFinalIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoHoraFinal',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraFinalEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1985,7 +2328,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraFinalGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2001,7 +2344,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraFinalLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2017,8 +2360,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraFinalBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2106,8 +2449,26 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoHoraInicialIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoHoraInicial',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoHoraInicialIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoHoraInicial',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraInicialEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2121,7 +2482,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraInicialGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2137,7 +2498,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraInicialLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2153,8 +2514,8 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoHoraInicialBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2241,8 +2602,25 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoLeve',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoLeveIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoLeve',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoLeve',
@@ -2252,7 +2630,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2265,7 +2643,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2278,8 +2656,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2294,8 +2672,25 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoPreco',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoPrecoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoPreco',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2309,7 +2704,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoPrecoGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2324,7 +2719,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2339,8 +2734,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -2357,8 +2752,26 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoTipoDescIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'promocaoTipoDesc',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      promocaoTipoDescIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'promocaoTipoDesc',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoTipoDescEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocaoTipoDesc',
@@ -2369,7 +2782,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoTipoDescGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2383,7 +2796,7 @@ extension ProdutoQueryFilter
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition>
       promocaoTipoDescLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2396,8 +2809,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoTipoDescBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2536,8 +2949,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'status',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'status',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> statusEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'status',
@@ -2547,7 +2976,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> statusGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2560,7 +2989,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> statusLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2573,8 +3002,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> statusBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2589,8 +3018,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'unidade',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'unidade',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2603,7 +3048,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2618,7 +3063,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -2633,8 +3078,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2719,8 +3164,24 @@ extension ProdutoQueryFilter
     });
   }
 
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'vendaKg',
+      ));
+    });
+  }
+
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'vendaKg',
+      ));
+    });
+  }
+
   QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'vendaKg',
@@ -2730,7 +3191,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2743,7 +3204,7 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2756,8 +3217,8 @@ extension ProdutoQueryFilter
   }
 
   QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3717,43 +4178,43 @@ extension ProdutoQueryProperty
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> altPrecoVendaProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> altPrecoVendaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'altPrecoVenda');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> altPrecoVendaTipoProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> altPrecoVendaTipoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'altPrecoVendaTipo');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> balancaIdprodutoProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> balancaIdprodutoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'balancaIdproduto');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> balancaTipoPesagemProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> balancaTipoPesagemProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'balancaTipoPesagem');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> compostoProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> compostoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'composto');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> descricaoProperty() {
+  QueryBuilder<Produto, String?, QQueryOperations> descricaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'descricao');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> fileImagemProperty() {
+  QueryBuilder<Produto, String?, QQueryOperations> fileImagemProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fileImagem');
     });
@@ -3765,13 +4226,13 @@ extension ProdutoQueryProperty
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> gtinProperty() {
+  QueryBuilder<Produto, String?, QQueryOperations> gtinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'gtin');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> gtinGradeProperty() {
+  QueryBuilder<Produto, String?, QQueryOperations> gtinGradeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'gtinGrade');
     });
@@ -3783,7 +4244,7 @@ extension ProdutoQueryProperty
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> idGrupoProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> idGrupoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idGrupo');
     });
@@ -3795,77 +4256,77 @@ extension ProdutoQueryProperty
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> naoRecDescontoProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> naoRecDescontoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'naoRecDesconto');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> promocaoApartirProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> promocaoApartirProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoApartir');
     });
   }
 
-  QueryBuilder<Produto, double, QQueryOperations>
+  QueryBuilder<Produto, double?, QQueryOperations>
       promocaoApartirPercProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoApartirPerc');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> promocaoAtivarProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> promocaoAtivarProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoAtivar');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> promocaoCompreProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> promocaoCompreProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoCompre');
     });
   }
 
-  QueryBuilder<Produto, DateTime, QQueryOperations>
+  QueryBuilder<Produto, DateTime?, QQueryOperations>
       promocaoDataInicioProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoDataInicio');
     });
   }
 
-  QueryBuilder<Produto, DateTime, QQueryOperations>
+  QueryBuilder<Produto, DateTime?, QQueryOperations>
       promocaoDataLimiteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoDataLimite');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> promocaoHoraFinalProperty() {
+  QueryBuilder<Produto, String?, QQueryOperations> promocaoHoraFinalProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoHoraFinal');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations>
+  QueryBuilder<Produto, String?, QQueryOperations>
       promocaoHoraInicialProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoHoraInicial');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> promocaoLeveProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> promocaoLeveProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoLeve');
     });
   }
 
-  QueryBuilder<Produto, double, QQueryOperations> promocaoPrecoProperty() {
+  QueryBuilder<Produto, double?, QQueryOperations> promocaoPrecoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoPreco');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> promocaoTipoDescProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> promocaoTipoDescProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocaoTipoDesc');
     });
@@ -3883,19 +4344,19 @@ extension ProdutoQueryProperty
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> statusProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> unidadeProperty() {
+  QueryBuilder<Produto, String?, QQueryOperations> unidadeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'unidade');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> vendaKgProperty() {
+  QueryBuilder<Produto, int?, QQueryOperations> vendaKgProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'vendaKg');
     });

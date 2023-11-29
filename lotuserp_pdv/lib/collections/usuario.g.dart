@@ -193,8 +193,18 @@ int _usuarioEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.login.length * 3;
-  bytesCount += 3 + object.senha.length * 3;
+  {
+    final value = object.login;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.senha;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -245,36 +255,36 @@ Usuario _usuarioDeserialize(
 ) {
   final object = Usuario(
     reader.readLong(offsets[1]),
-    reader.readLong(offsets[2]),
-    reader.readLong(offsets[0]),
-    reader.readString(offsets[3]),
-    reader.readString(offsets[25]),
-    reader.readLong(offsets[26]),
-    reader.readDouble(offsets[27]),
-    reader.readLong(offsets[28]),
-    reader.readLong(offsets[29]),
-    reader.readLong(offsets[24]),
-    reader.readLong(offsets[23]),
-    reader.readLong(offsets[30]),
-    reader.readLong(offsets[19]),
-    reader.readLong(offsets[14]),
-    reader.readLong(offsets[15]),
-    reader.readLong(offsets[9]),
-    reader.readLong(offsets[13]),
-    reader.readLong(offsets[12]),
-    reader.readLong(offsets[11]),
-    reader.readLong(offsets[10]),
-    reader.readLong(offsets[16]),
-    reader.readLong(offsets[18]),
-    reader.readLong(offsets[22]),
-    reader.readLong(offsets[21]),
-    reader.readLong(offsets[17]),
-    reader.readLong(offsets[5]),
-    reader.readLong(offsets[6]),
-    reader.readLong(offsets[7]),
-    reader.readLong(offsets[8]),
-    reader.readLong(offsets[20]),
-    reader.readLong(offsets[4]),
+    reader.readLongOrNull(offsets[2]),
+    reader.readLongOrNull(offsets[0]),
+    reader.readStringOrNull(offsets[3]),
+    reader.readStringOrNull(offsets[25]),
+    reader.readLongOrNull(offsets[26]),
+    reader.readDoubleOrNull(offsets[27]),
+    reader.readLongOrNull(offsets[28]),
+    reader.readLongOrNull(offsets[29]),
+    reader.readLongOrNull(offsets[24]),
+    reader.readLongOrNull(offsets[23]),
+    reader.readLongOrNull(offsets[30]),
+    reader.readLongOrNull(offsets[19]),
+    reader.readLongOrNull(offsets[14]),
+    reader.readLongOrNull(offsets[15]),
+    reader.readLongOrNull(offsets[9]),
+    reader.readLongOrNull(offsets[13]),
+    reader.readLongOrNull(offsets[12]),
+    reader.readLongOrNull(offsets[11]),
+    reader.readLongOrNull(offsets[10]),
+    reader.readLongOrNull(offsets[16]),
+    reader.readLongOrNull(offsets[18]),
+    reader.readLongOrNull(offsets[22]),
+    reader.readLongOrNull(offsets[21]),
+    reader.readLongOrNull(offsets[17]),
+    reader.readLongOrNull(offsets[5]),
+    reader.readLongOrNull(offsets[6]),
+    reader.readLongOrNull(offsets[7]),
+    reader.readLongOrNull(offsets[8]),
+    reader.readLongOrNull(offsets[20]),
+    reader.readLongOrNull(offsets[4]),
   );
   object.id = id;
   return object;
@@ -288,67 +298,67 @@ P _usuarioDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
       return (reader.readLong(offset)) as P;
     case 2:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 5:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 6:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 7:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 8:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 9:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 10:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 11:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 13:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 14:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 15:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 16:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 17:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 18:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 19:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 20:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 21:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 22:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 23:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 24:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 25:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 26:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 27:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 28:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 29:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 30:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -495,8 +505,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'idColaborador',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      idColaboradorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'idColaborador',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idColaborador',
@@ -507,7 +534,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       idColaboradorGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -520,7 +547,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -533,8 +560,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -602,8 +629,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'idUsuarioGrupo',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      idUsuarioGrupoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'idUsuarioGrupo',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idUsuarioGrupo',
@@ -614,7 +658,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       idUsuarioGrupoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -627,7 +671,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -640,8 +684,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -656,8 +700,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'login',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'login',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -670,7 +730,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -685,7 +745,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -700,8 +760,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -786,8 +846,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'mobDashboard',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      mobDashboardIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'mobDashboard',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'mobDashboard',
@@ -797,7 +874,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -810,7 +887,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -823,8 +900,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -839,8 +916,26 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffAuditoriaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffAuditoria',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffAuditoriaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffAuditoria',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffAuditoriaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffAuditoria',
@@ -851,7 +946,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffAuditoriaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -864,7 +959,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffAuditoriaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -877,8 +972,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffAuditoriaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -893,8 +988,26 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCargasAtuaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCargasAtua',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCargasAtuaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCargasAtua',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCargasAtuaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCargasAtua',
@@ -905,7 +1018,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasAtuaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -919,7 +1032,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasAtuaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -932,8 +1045,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCargasAtuaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -949,7 +1062,25 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraEqualTo(int value) {
+      pdvoffCargasIntegraIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCargasIntegra',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCargasIntegraIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCargasIntegra',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCargasIntegraEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCargasIntegra',
@@ -960,7 +1091,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasIntegraGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -974,7 +1105,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasIntegraLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -988,8 +1119,8 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasIntegraBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1005,7 +1136,25 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosEqualTo(int value) {
+      pdvoffCargasParametrosIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCargasParametros',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCargasParametrosIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCargasParametros',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCargasParametrosEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCargasParametros',
@@ -1016,7 +1165,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasParametrosGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1030,7 +1179,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasParametrosLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1044,8 +1193,8 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCargasParametrosBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1060,8 +1209,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCxAbrir',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCxAbrirIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCxAbrir',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCxAbrir',
@@ -1072,7 +1238,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCxAbrirGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1085,7 +1251,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1098,8 +1264,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1114,8 +1280,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCxFechar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCxFecharIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCxFechar',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCxFechar',
@@ -1126,7 +1309,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCxFecharGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1139,7 +1322,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1152,8 +1335,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1169,7 +1352,25 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarEqualTo(int value) {
+      pdvoffCxGerenciarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCxGerenciar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCxGerenciarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCxGerenciar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCxGerenciarEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCxGerenciar',
@@ -1180,7 +1381,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCxGerenciarGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1194,7 +1395,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCxGerenciarLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1208,8 +1409,8 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCxGerenciarBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1224,8 +1425,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCxListar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffCxListarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCxListar',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCxListar',
@@ -1236,7 +1454,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffCxListarGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1249,7 +1467,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1262,8 +1480,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1278,8 +1496,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffCxMov',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffCxMov',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffCxMov',
@@ -1289,7 +1523,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1302,7 +1536,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1315,8 +1549,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1331,8 +1565,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffEmpCad',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffEmpCadIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffEmpCad',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffEmpCad',
@@ -1342,7 +1593,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1355,7 +1606,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1368,8 +1619,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1384,8 +1635,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffEmpSer',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffEmpSerIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffEmpSer',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffEmpSer',
@@ -1395,7 +1663,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1408,7 +1676,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1421,8 +1689,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1437,8 +1705,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffFisOpera',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffFisOperaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffFisOpera',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffFisOpera',
@@ -1449,7 +1734,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffFisOperaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1462,7 +1747,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1475,8 +1760,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1491,8 +1776,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffLogOpera',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffLogOperaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffLogOpera',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffLogOpera',
@@ -1503,7 +1805,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffLogOperaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1516,7 +1818,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1529,8 +1831,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1545,8 +1847,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffPdv',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffPdv',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffPdv',
@@ -1556,7 +1874,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1569,7 +1887,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1582,8 +1900,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1598,8 +1916,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffPessoas',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffPessoasIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffPessoas',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffPessoas',
@@ -1610,7 +1945,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffPessoasGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1623,7 +1958,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1636,8 +1971,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1652,8 +1987,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffProduto',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffProdutoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffProduto',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffProduto',
@@ -1664,7 +2016,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffProdutoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1677,7 +2029,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1690,8 +2042,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1706,8 +2058,26 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffRelVendasIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffRelVendas',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffRelVendasIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffRelVendas',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffRelVendasEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffRelVendas',
@@ -1718,7 +2088,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       pdvoffRelVendasGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1731,7 +2101,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffRelVendasLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1744,8 +2114,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffRelVendasBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1760,8 +2130,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pdvoffVendas',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      pdvoffVendasIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pdvoffVendas',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'pdvoffVendas',
@@ -1771,7 +2158,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1784,7 +2171,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1797,8 +2184,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1813,8 +2200,26 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      preFechamentocxIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'preFechamentocx',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      preFechamentocxIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'preFechamentocx',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> preFechamentocxEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'preFechamentocx',
@@ -1825,7 +2230,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       preFechamentocxGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1838,7 +2243,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> preFechamentocxLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1851,8 +2256,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> preFechamentocxBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1867,8 +2272,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'retiradaCx',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'retiradaCx',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'retiradaCx',
@@ -1878,7 +2299,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1891,7 +2312,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1904,8 +2325,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1920,8 +2341,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'senha',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'senha',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1934,7 +2371,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1949,7 +2386,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1964,8 +2401,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -2050,8 +2487,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'status',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'status',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'status',
@@ -2061,7 +2514,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2074,7 +2527,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2087,8 +2540,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2103,8 +2556,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'vendDescPerc',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      vendDescPercIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'vendDescPerc',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2117,7 +2587,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2132,7 +2602,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2147,8 +2617,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -2165,8 +2635,26 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      vendExcluirItemIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'vendExcluirItem',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      vendExcluirItemIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'vendExcluirItem',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendExcluirItemEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'vendExcluirItem',
@@ -2177,7 +2665,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       vendExcluirItemGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2190,7 +2678,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendExcluirItemLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2203,8 +2691,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendExcluirItemBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2219,8 +2707,24 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'vendPdvOff',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'vendPdvOff',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'vendPdvOff',
@@ -2230,7 +2734,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2243,7 +2747,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2256,8 +2760,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -2272,8 +2776,25 @@ extension UsuarioQueryFilter
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'vendaCancelar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      vendaCancelarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'vendaCancelar',
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'vendaCancelar',
@@ -2284,7 +2805,7 @@ extension UsuarioQueryFilter
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
       vendaCancelarGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2297,7 +2818,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2310,8 +2831,8 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -3295,7 +3816,7 @@ extension UsuarioQueryProperty
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> idColaboradorProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> idColaboradorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idColaborador');
     });
@@ -3307,176 +3828,176 @@ extension UsuarioQueryProperty
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> idUsuarioGrupoProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> idUsuarioGrupoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idUsuarioGrupo');
     });
   }
 
-  QueryBuilder<Usuario, String, QQueryOperations> loginProperty() {
+  QueryBuilder<Usuario, String?, QQueryOperations> loginProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'login');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> mobDashboardProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> mobDashboardProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'mobDashboard');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffAuditoriaProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffAuditoriaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffAuditoria');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCargasAtuaProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCargasAtuaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCargasAtua');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCargasIntegraProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCargasIntegraProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCargasIntegra');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations>
+  QueryBuilder<Usuario, int?, QQueryOperations>
       pdvoffCargasParametrosProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCargasParametros');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCxAbrirProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxAbrirProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCxAbrir');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCxFecharProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxFecharProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCxFechar');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCxGerenciarProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxGerenciarProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCxGerenciar');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCxListarProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxListarProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCxListar');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffCxMovProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxMovProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffCxMov');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffEmpCadProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffEmpCadProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffEmpCad');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffEmpSerProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffEmpSerProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffEmpSer');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffFisOperaProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffFisOperaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffFisOpera');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffLogOperaProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffLogOperaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffLogOpera');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffPdvProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffPdvProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffPdv');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffPessoasProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffPessoasProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffPessoas');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffProdutoProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffProdutoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffProduto');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffRelVendasProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffRelVendasProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffRelVendas');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> pdvoffVendasProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffVendasProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pdvoffVendas');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> preFechamentocxProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> preFechamentocxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'preFechamentocx');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> retiradaCxProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> retiradaCxProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'retiradaCx');
     });
   }
 
-  QueryBuilder<Usuario, String, QQueryOperations> senhaProperty() {
+  QueryBuilder<Usuario, String?, QQueryOperations> senhaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'senha');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> statusProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });
   }
 
-  QueryBuilder<Usuario, double, QQueryOperations> vendDescPercProperty() {
+  QueryBuilder<Usuario, double?, QQueryOperations> vendDescPercProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'vendDescPerc');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> vendExcluirItemProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> vendExcluirItemProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'vendExcluirItem');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> vendPdvOffProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> vendPdvOffProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'vendPdvOff');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> vendaCancelarProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> vendaCancelarProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'vendaCancelar');
     });
