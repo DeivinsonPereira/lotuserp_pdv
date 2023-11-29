@@ -2,7 +2,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
-import 'package:lotuserp_pdv/controllers/product.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -21,7 +20,8 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    ProdutoController controller = Get.put(ProdutoController());
+
+    List<String> listaGrupos = ['TODOS',];
 
     List<Produto> getProdutoById(List<Produto> product) {
       return product.where((product) => product.idGrupo == idGrupo).toList();
@@ -97,56 +97,63 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                         }
                         if (snapshot.hasData) {
                           var grupo = snapshot.data!;
-                          return Wrap(
-                            spacing: 8,
-                            runSpacing: 8,
-                            children: List.generate(
-                              grupo.length,
-                              (index) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isSelectedList = index;
-                                      idGrupo = grupo[index].idGrupo;
-                                    });
-                                  },
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 10.0, left: 10),
-                                    child: Container(
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                          color: isSelectedList == index
-                                              ? const Color.fromRGBO(
-                                                  43, 48, 91, 1)
-                                              : Colors.transparent,
-                                          borderRadius:
-                                              BorderRadius.circular(20)),
-                                      child: RichText(
-                                        text: TextSpan(
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            color: isSelectedList == index
-                                                ? Colors.white
-                                                : CustomColors
-                                                    .customSwatchColor,
-                                            fontSize: isSelectedList == index
-                                                ? 18
-                                                : 16,
+                          return Row(
+                            children: [
+                              SizedBox(
+                                width: 765,
+                                height: 50,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: grupo.length,
+                                  itemBuilder: (context, index) {
+                                    for (var element in grupo) {
+                                      listaGrupos.add(element.grupoDescricao!);
+                                    }
+
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          isSelectedList = index;
+                                          idGrupo = grupo[index].idGrupo;
+                                        });
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 20),
+                                        child: Container(
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              color: isSelectedList == index
+                                                  ? const Color.fromRGBO(
+                                                      43, 48, 91, 1)
+                                                  : Colors.transparent,
+                                              borderRadius:
+                                                  BorderRadius.circular(20)),
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                listaGrupos[index],
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: isSelectedList == index
+                                                      ? Colors.white
+                                                      : CustomColors
+                                                          .customSwatchColor,
+                                                  fontSize:
+                                                      isSelectedList == index
+                                                          ? 18
+                                                          : 16,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          children: grupo[index]
-                                              .grupoDescricao
-                                              ?.split(' ')
-                                              .map((nome) {
-                                            return TextSpan(text: '$nome ');
-                                          }).toList(),
                                         ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
                           );
                         }
                         return const Center(child: CircularProgressIndicator());
@@ -154,7 +161,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                     ),
                   ),
                   Expanded(
-                      flex: 6,
+                      flex: 7,
                       child: StreamBuilder(
                         stream: service.listenProdutos(),
                         builder: (context, snapshot) {
@@ -175,7 +182,6 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                               itemBuilder: (BuildContext context, int index) {
                                 var filteredProducts = getProdutoById(produto);
                                 var file = filteredProducts[index].fileImagem;
-                                print(file);
                                 return CachedNetworkImage(
                                     imageUrl:
                                         Endpoints.imagemProdutoUrl(file!));
