@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
+import 'package:lotuserp_pdv/controllers/product.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -20,8 +21,9 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
+    ProdutoController controller = ProdutoController();
 
-    List<String> listaGrupos = ['TODOS',];
+    List<String> listaGrupos = [];
 
     List<Produto> getProdutoById(List<Produto> product) {
       return product.where((product) => product.idGrupo == idGrupo).toList();
@@ -106,6 +108,12 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                   scrollDirection: Axis.horizontal,
                                   itemCount: grupo.length,
                                   itemBuilder: (context, index) {
+                                    if (listaGrupos.length > 1) {
+                                      listaGrupos.clear();
+                                    }
+                                    listaGrupos.add(
+                                      'TODOS',
+                                    );
                                     for (var element in grupo) {
                                       listaGrupos.add(element.grupoDescricao!);
                                     }
@@ -114,7 +122,9 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                       onTap: () {
                                         setState(() {
                                           isSelectedList = index;
-                                          idGrupo = grupo[index].idGrupo;
+                                          if (index != 0) {
+                                            idGrupo = grupo[index - 1].idGrupo;
+                                          }
                                         });
                                       },
                                       child: Padding(
@@ -170,7 +180,13 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                           }
                           if (snapshot.hasData) {
                             var produto = snapshot.data!;
-                            var filteredProducts = getProdutoById(produto);
+                            dynamic filteredProducts;
+                            if (listaGrupos[isSelectedList] != 'TODOS') {
+                              filteredProducts = getProdutoById(produto);
+                            } else {
+                              filteredProducts = produto;
+                            }
+
                             return GridView.builder(
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
@@ -180,11 +196,23 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                               ),
                               itemCount: filteredProducts.length,
                               itemBuilder: (BuildContext context, int index) {
-                                var filteredProducts = getProdutoById(produto);
-                                var file = filteredProducts[index].fileImagem;
-                                return CachedNetworkImage(
-                                    imageUrl:
-                                        Endpoints.imagemProdutoUrl(file!));
+                                String? file;
+                                if (listaGrupos[isSelectedList] == 'TODOS') {
+                                  produto.isNotEmpty
+                                      ? file = produto[index].fileImagem!
+                                      : file = null;
+                                } else {
+                                  file = filteredProducts[index].fileImagem ??
+                                      "Valor Padrão";
+                                }
+
+                                if (file != null) {
+                                  return CachedNetworkImage(
+                                    imageUrl: Endpoints.imagemProdutoUrl(file),
+                                  );
+                                } else {
+                                  return const CircularProgressIndicator();
+                                }
                               },
                             );
                           }
@@ -212,34 +240,52 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                           ),
+                          
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'Resumo',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 30,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    '${controller.pedidos.length} itens',
+                                    style: const TextStyle(fontSize: 20),
+                                  ),
+                                ],
+                              ),
+                            ),
+                           /* Padding(padding: EdgeInsets.all(15.0),
+                            child: ListView.builder(
+                              itemCount: controller.pedidos.length,
+                              itemBuilder: (context, index){
+                                return ListTile(
+                                title: Text(
+                                  controller.pedidos[index]['nomeProduto']),
+                                subtitle: Text('${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['price']}${controller.pedidos[index]['unidade']}'),
+                                trailing: Text('R\$ ${controller.pedidos[index]['total']}'),);
+                              
+                              //verificar
+                                
+                              
+                              
+                            ),
+                            ),
+},*/
+                          ],
                         ),
                       ),
-                      Positioned(
-                          top: 40,
-                          left: 50,
-                          child: Container(
-                            constraints: const BoxConstraints(
-                              maxWidth: 435,
-                            ),
-                            width: 500,
-                            child: const Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Resumo',
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                                Text(
-                                  '0 Itens',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              ],
-                            ),
-                          )),
+                        ),
+                      
+                     
                     ],
                   ),
                 ),
