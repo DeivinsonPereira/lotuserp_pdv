@@ -1,8 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/product.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 
 class ProductMonitorPage extends StatefulWidget {
   const ProductMonitorPage({super.key});
@@ -13,12 +16,16 @@ class ProductMonitorPage extends StatefulWidget {
 
 class _ProductMonitorPageState extends State<ProductMonitorPage> {
   int isSelectedList = -1;
-  List<int> indexText = [];
+  int idGrupo = -1;
 
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     ProdutoController controller = Get.put(ProdutoController());
+
+    List<Produto> getProdutoById(List<Produto> product) {
+      return product.where((product) => product.idGrupo == idGrupo).toList();
+    }
 
     return Scaffold(
       body: Row(
@@ -29,8 +36,8 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  SizedBox(
-                    height: 75,
+                  Expanded(
+                    flex: 1,
                     child: Row(
                       children: [
                         IconButton(
@@ -80,187 +87,106 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
-                      height: 180,
-                      width: 700,
+                  Expanded(
+                    flex: 1,
+                    child: StreamBuilder(
+                      stream: service.listenGrupo(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasError) {
+                          return const Text('Grupo não encontrado');
+                        }
+                        if (snapshot.hasData) {
+                          var grupo = snapshot.data!;
+                          return Wrap(
+                            spacing: 8,
+                            runSpacing: 8,
+                            children: List.generate(
+                              grupo.length,
+                              (index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      isSelectedList = index;
+                                      idGrupo = grupo[index].idGrupo;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 10.0, left: 10),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                          color: isSelectedList == index
+                                              ? const Color.fromRGBO(
+                                                  43, 48, 91, 1)
+                                              : Colors.transparent,
+                                          borderRadius:
+                                              BorderRadius.circular(20)),
+                                      child: RichText(
+                                        text: TextSpan(
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            color: isSelectedList == index
+                                                ? Colors.white
+                                                : CustomColors
+                                                    .customSwatchColor,
+                                            fontSize: isSelectedList == index
+                                                ? 18
+                                                : 16,
+                                          ),
+                                          children: grupo[index]
+                                              .grupoDescricao
+                                              ?.split(' ')
+                                              .map((nome) {
+                                            return TextSpan(text: '$nome ');
+                                          }).toList(),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    ),
+                  ),
+                  Expanded(
+                      flex: 6,
                       child: StreamBuilder(
-                          stream: service.listenGrupo(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasError) {
-                              return const Text('Grupo não encontrado');
-                            }
-                            if (snapshot.hasData) {
-                              var grupo = snapshot.data!;
-                              for (var i = 0; i < grupo.length; i++) {
-                                indexText.add(i);
-                              }
-                              
-                              return GridView.builder(
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 6,
-                                  crossAxisSpacing: 0,
-                                  mainAxisSpacing: 0,
-                                ),
-                                itemCount: grupo.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  return LayoutBuilder(
-                                      builder: (context, constraints) {
-                                    if (constraints.maxWidth > 1200) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 15.0,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  isSelectedList = index;
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: isSelectedList ==
-                                                              index
-                                                          ? const Color
-                                                              .fromRGBO(
-                                                              43, 48, 91, 1)
-                                                          : Colors.transparent,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  child: Text(
-                                                    grupo[index]
-                                                            .grupoDescricao ??
-                                                        '',
-                                                    style: isSelectedList ==
-                                                            index
-                                                        ? const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white,
-                                                            fontSize: 14)
-                                                        : TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: CustomColors
-                                                                .customSwatchColor,
-                                                            fontSize: 14),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    } else if (constraints.maxWidth < 1200 &&
-                                        constraints.maxWidth > 800) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 15.0,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  isSelectedList = index;
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: isSelectedList ==
-                                                              index
-                                                          ? const Color
-                                                              .fromRGBO(
-                                                              43, 48, 91, 1)
-                                                          : Colors.transparent,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  child: Text(
-                                                    grupo[index]
-                                                            .grupoDescricao ??
-                                                        '',
-                                                    style: isSelectedList ==
-                                                            index
-                                                        ? const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white)
-                                                        : TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: CustomColors
-                                                                .customSwatchColor),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    } else {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                          top: 15.0,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  isSelectedList = index;
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: EdgeInsets.all(8.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      color: isSelectedList ==
-                                                              index
-                                                          ? const Color
-                                                              .fromRGBO(
-                                                              43, 48, 91, 1)
-                                                          : Colors.transparent,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  child: Text(
-                                                    grupo[index]
-                                                            .grupoDescricao ??
-                                                        '',
-                                                    style: isSelectedList ==
-                                                            index
-                                                        ? const TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: Colors.white)
-                                                        : TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            color: CustomColors
-                                                                .customSwatchColor),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
-                                  });
-                                },
-                              );
-                            }
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          })),
+                        stream: service.listenProdutos(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasError) {
+                            return const Text('Produto não encontrado');
+                          }
+                          if (snapshot.hasData) {
+                            var produto = snapshot.data!;
+                            var filteredProducts = getProdutoById(produto);
+                            return GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 5,
+                                crossAxisSpacing: 5,
+                                mainAxisSpacing: 5,
+                              ),
+                              itemCount: filteredProducts.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                var filteredProducts = getProdutoById(produto);
+                                var file = filteredProducts[index].fileImagem;
+                                print(file);
+                                return CachedNetworkImage(
+                                    imageUrl:
+                                        Endpoints.imagemProdutoUrl(file!));
+                              },
+                            );
+                          }
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        },
+                      ))
                 ],
               ),
             ),
