@@ -181,11 +181,15 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                           if (snapshot.hasData) {
                             var produto = snapshot.data!;
                             dynamic filteredProducts;
-                            if (listaGrupos[isSelectedList] != 'TODOS') {
-                              filteredProducts = getProdutoById(produto);
+                            if (isSelectedList >= 0) {
+                              if (listaGrupos[isSelectedList] != 'TODOS') {
+                                filteredProducts = getProdutoById(produto);
+                              } else {
+                                filteredProducts = produto;
+                              }
                             } else {
-                              filteredProducts = produto;
-                            }
+                              filteredProducts = [];
+                          }
 
                             return GridView.builder(
                               gridDelegate:
@@ -197,21 +201,24 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                               itemCount: filteredProducts.length,
                               itemBuilder: (BuildContext context, int index) {
                                 String? file;
-                                if (listaGrupos[isSelectedList] == 'TODOS') {
-                                  produto.isNotEmpty
-                                      ? file = produto[index].fileImagem!
-                                      : file = null;
-                                } else {
-                                  file = filteredProducts[index].fileImagem ??
-                                      "Valor Padrão";
-                                }
+                                if (isSelectedList >= 0) {
+                                  if (listaGrupos[isSelectedList] == 'TODOS') {
+                                    produto.isNotEmpty
+                                        ? file = produto[index].fileImagem!
+                                        : file = null;
+                                  } else {
+                                    file = filteredProducts[index].fileImagem ??
+                                        "Valor Padrão";
+                                  }
 
-                                if (file != null) {
-                                  return CachedNetworkImage(
-                                    imageUrl: Endpoints.imagemProdutoUrl(file),
-                                  );
-                                } else {
-                                  return const CircularProgressIndicator();
+                                  if (file != null) {
+                                    return CachedNetworkImage(
+                                      imageUrl:
+                                          Endpoints.imagemProdutoUrl(file),
+                                    );
+                                  } else {
+                                    return const CircularProgressIndicator();
+                                  }
                                 }
                               },
                             );
@@ -240,52 +247,53 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
                           ),
-                          
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Text(
-                                    'Resumo',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 30,
-                                      fontWeight: FontWeight.bold,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    const Text(
+                                      'Resumo',
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontSize: 30,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    '${controller.pedidos.length} itens',
-                                    style: const TextStyle(fontSize: 20),
-                                  ),
-                                ],
+                                    Text(
+                                      '${controller.pedidos.length} itens',
+                                      style: const TextStyle(fontSize: 20),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                           /* Padding(padding: EdgeInsets.all(15.0),
-                            child: ListView.builder(
-                              itemCount: controller.pedidos.length,
-                              itemBuilder: (context, index){
-                                return ListTile(
-                                title: Text(
-                                  controller.pedidos[index]['nomeProduto']),
-                                subtitle: Text('${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['price']}${controller.pedidos[index]['unidade']}'),
-                                trailing: Text('R\$ ${controller.pedidos[index]['total']}'),);
-                              
-                              //verificar
-                                
-                              
-                              
-                            ),
-                            ),
-},*/
-                          ],
+                              Container(
+                                width: 200,
+                                height: 300,
+                                child: Padding(
+                                  padding: EdgeInsets.all(15.0),
+                                  child: ListView.builder(
+                                    itemCount: controller.pedidos.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        title: Text(controller.pedidos[index]
+                                            ['nomeProduto']),
+                                        subtitle: Text(
+                                            '${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['price']}${controller.pedidos[index]['unidade']}'),
+                                        trailing: Text(
+                                            'R\$ ${controller.pedidos[index]['total']}'),
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                        ),
-                      
-                     
                     ],
                   ),
                 ),
