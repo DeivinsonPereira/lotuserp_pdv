@@ -5,9 +5,17 @@ class PdvController extends GetxController {
 
   double total = 0.0;
 
-  void adicionarPedidos(String nomeProduto, String unidade, double price) {
+  void adicionarPedidos(String nomeProduto, String unidade, String price) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
+
+    String priceString = price;
+
+    String priceSemMilhares = priceString.replaceAll('.', '');
+
+    String priceComPonto = priceSemMilhares.replaceAll(',', '.');
+
+    double precoDouble = double.parse(priceComPonto);
 
     if (index != -1) {
       pedidos[index]['quantidade'] = (pedidos[index]['quantidade'] ?? 1) + 1;
@@ -18,8 +26,8 @@ class PdvController extends GetxController {
         'nomeProduto': nomeProduto,
         'quantidade': 1,
         'unidade': unidade,
-        'price': price,
-        'total': price
+        'price': precoDouble,
+        'total': precoDouble
       });
     }
   }
@@ -27,6 +35,7 @@ class PdvController extends GetxController {
   void totalSoma() {
     for (var element in pedidos) {
       total += element['price'];
+      
     }
   }
 }

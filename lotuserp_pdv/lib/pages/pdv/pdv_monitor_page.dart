@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -20,10 +21,21 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   double totalPedido = 0.0;
 
+  late NumberFormat formatoBrasileiro;
+
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     PdvController controller = Get.put(PdvController());
+    var preco;
+    var total;
+
+    var formatoBrasileiro = NumberFormat.currency(
+      locale: 'pt_BR',
+      symbol: '',
+    );
+
+    var controllerTotal; // fazer essa lógica ainda
 
     List<String> listaGrupos = [];
 
@@ -204,10 +216,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               itemCount: filteredProducts.length,
                               itemBuilder: (BuildContext context, int index) {
                                 String? nome;
-                                double? preco;
                                 String? unidade;
                                 String? file;
-
+                                var numeroFormatado = formatoBrasileiro
+                                    .format(filteredProducts[index].pvenda);
                                 if (isSelectedList >= 0) {
                                   if (listaGrupos[isSelectedList] == 'TODOS') {
                                     produto.isNotEmpty
@@ -215,7 +227,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         : file = null;
 
                                     nome = produto[index].descricao;
-                                    preco = produto[index].pvenda;
+                                    preco = numeroFormatado;
                                     unidade = produto[index].unidade;
                                   } else {
                                     // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
@@ -223,8 +235,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         "Valor Padrão";
                                     nome = filteredProducts[index].descricao ??
                                         "null";
-                                    preco =
-                                        filteredProducts[index].pvenda ?? "";
+                                    preco = preco = numeroFormatado;
 
                                     unidade =
                                         filteredProducts[index].unidade ?? "";
@@ -238,6 +249,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                               nome!, unidade!, preco!);
 
                                           controller.totalSoma();
+                                          print(controller.pedidos.length);
                                         });
                                       },
                                       child: Column(
@@ -261,7 +273,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                               ),
                                             ),
                                           Text(
-                                            'R\$  ${preco?.toStringAsFixed(2)} $unidade',
+                                            'R\$  $preco $unidade',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Color.fromARGB(
@@ -291,6 +303,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
             ),
           ),
           Expanded(
+            // Container do Resumo de pedidos
             flex: 4,
             child: Column(
               children: [
@@ -338,6 +351,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   child: ListView.builder(
                                     itemCount: controller.pedidos.length,
                                     itemBuilder: (context, index) {
+                                      total = formatoBrasileiro.format(
+                                          controller.pedidos[index]['total']);
                                       return ListTile(
                                         title: Text(
                                           controller.pedidos[index]
@@ -346,9 +361,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         subtitle: Text(
-                                            '${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['price'].toStringAsFixed(2)} ${controller.pedidos[index]['unidade']}'),
+                                            '${controller.pedidos[index]['quantidade']} x R\$ $preco ${controller.pedidos[index]['unidade']}'),
                                         trailing: Text(
-                                          'R\$ ${controller.pedidos[index]['total'].toStringAsFixed(2)}',
+                                          'R\$ $total',
                                           style: TextStyle(fontSize: 16),
                                         ),
                                       );
