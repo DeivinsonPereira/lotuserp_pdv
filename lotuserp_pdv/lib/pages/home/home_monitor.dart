@@ -5,7 +5,7 @@ import 'package:lotuserp_pdv/pages/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/data_manager_page.dart';
 import 'package:lotuserp_pdv/pages/manage_cash_page.dart';
 import 'package:lotuserp_pdv/pages/open_register_page.dart';
-import 'package:lotuserp_pdv/pages/point_of_sale_page.dart';
+import 'package:lotuserp_pdv/pages/pdv/pdv_page.dart';
 import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/button.dart';
 
@@ -90,7 +90,7 @@ class HomeMonitor extends StatelessWidget {
                 'PDV',
                 'assets/images/pdv.png',
                 () {
-                  Get.to(() => const PointOfSalePage());
+                  Get.to(() => const PdvPage());
                 },
               ),
               Button().homeButton(
@@ -107,3 +107,4 @@ class HomeMonitor extends StatelessWidget {
     );
   }
 }
+

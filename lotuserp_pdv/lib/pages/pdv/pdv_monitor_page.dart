@@ -2,19 +2,19 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
-import 'package:lotuserp_pdv/controllers/product.controller.dart';
+import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 
-class ProductMonitorPage extends StatefulWidget {
-  const ProductMonitorPage({super.key});
+class PdvMonitorPage extends StatefulWidget {
+  const PdvMonitorPage({super.key});
 
   @override
-  State<ProductMonitorPage> createState() => _ProductMonitorPageState();
+  State<PdvMonitorPage> createState() => _PdvMonitorPageState();
 }
 
-class _ProductMonitorPageState extends State<ProductMonitorPage> {
+class _PdvMonitorPageState extends State<PdvMonitorPage> {
   int isSelectedList = -1;
   int idGrupo = -1;
 
@@ -23,7 +23,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    ProdutoController controller = Get.put(ProdutoController());
+    PdvController controller = Get.put(PdvController());
 
     List<String> listaGrupos = [];
 

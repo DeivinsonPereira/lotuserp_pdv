@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-class ProdutoController extends GetxController {
+class PdvController extends GetxController {
   RxList pedidos = [].obs;
 
   double total = 0.0;
