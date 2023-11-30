@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 class ProdutoController extends GetxController {
   List<Map<String, dynamic>> pedidos = [];
 
-  late double total;
+  double total = 0.0;
 
   void adicionarPedidos(String nomeProduto, String unidade, double price) {
     int index =
@@ -21,6 +21,12 @@ class ProdutoController extends GetxController {
         'price': price,
         'total': price
       });
+    }
+  }
+
+  void totalSoma() {
+    for (var element in pedidos) {
+      total += element['total'];
     }
   }
 }

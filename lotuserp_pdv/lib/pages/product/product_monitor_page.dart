@@ -180,6 +180,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                           }
                           if (snapshot.hasData) {
                             var produto = snapshot.data!;
+
                             dynamic filteredProducts;
                             if (isSelectedList >= 0) {
                               if (listaGrupos[isSelectedList] != 'TODOS') {
@@ -189,7 +190,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                               }
                             } else {
                               filteredProducts = [];
-                          }
+                            }
 
                             return GridView.builder(
                               gridDelegate:
@@ -200,26 +201,71 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                               ),
                               itemCount: filteredProducts.length,
                               itemBuilder: (BuildContext context, int index) {
+                                String? nome;
+                                double? preco;
+                                String? unidade;
                                 String? file;
+
                                 if (isSelectedList >= 0) {
                                   if (listaGrupos[isSelectedList] == 'TODOS') {
                                     produto.isNotEmpty
                                         ? file = produto[index].fileImagem!
                                         : file = null;
+
+                                    nome = produto[index].descricao;
+                                    preco = produto[index].pvenda;
+                                    unidade = produto[index].unidade;
                                   } else {
+                                    // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
                                     file = filteredProducts[index].fileImagem ??
                                         "Valor Padrão";
+                                    nome = filteredProducts[index].descricao ??
+                                        "null";
+                                    preco =
+                                        filteredProducts[index].pvenda ?? "";
+
+                                    unidade =
+                                        filteredProducts[index].unidade ?? "";
                                   }
 
                                   if (file != null) {
-                                    return CachedNetworkImage(
-                                      imageUrl:
-                                          Endpoints.imagemProdutoUrl(file),
+                                    return Column(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: CachedNetworkImage(
+                                            imageUrl:
+                                                Endpoints.imagemProdutoUrl(
+                                                    file),
+                                          ),
+                                        ),
+                                        if (nome != null)
+                                          Text(
+                                            nome,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.w400,
+                                            ),
+                                          ),
+                                        Text(
+                                          'R\$  ${preco?.toStringAsFixed(2)} $unidade',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                          ),
+                                        ),
+                                      ],
                                     );
                                   } else {
                                     return const CircularProgressIndicator();
                                   }
                                 }
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
                               },
                             );
                           }
@@ -270,11 +316,11 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                   ],
                                 ),
                               ),
-                              Container(
+                              SizedBox(
                                 width: 200,
                                 height: 300,
                                 child: Padding(
-                                  padding: EdgeInsets.all(15.0),
+                                  padding: const EdgeInsets.all(15.0),
                                   child: ListView.builder(
                                     itemCount: controller.pedidos.length,
                                     itemBuilder: (context, index) {
@@ -320,9 +366,9 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          const Text(
-                            'R\$ 00.00',
-                            style: TextStyle(
+                          Text(
+                            controller.total.toStringAsFixed(2),
+                            style: const TextStyle(
                                 fontSize: 24,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
