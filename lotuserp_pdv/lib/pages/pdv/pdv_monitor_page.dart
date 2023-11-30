@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/pdv/widgets/information_widget.dart';
+import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 
@@ -43,7 +45,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     }
 
     return Scaffold(
-      
+      backgroundColor: ContainersColors.scaffoldColors,
       body: Row(
         children: [
           Expanded(
@@ -189,126 +191,133 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                   Expanded(
                       flex: 7,
-                      child: StreamBuilder(
-                        stream: service.listenProdutos(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return const Text('Produto não encontrado');
-                          }
-                          if (snapshot.hasData) {
-                            var produto = snapshot.data!;
-
-                            dynamic filteredProducts;
-                            if (isSelectedList >= 0) {
-                              if (listaGrupos[isSelectedList] != 'TODOS') {
-                                filteredProducts = getProdutoById(produto);
-                              } else {
-                                filteredProducts = produto;
-                              }
-                            } else {
-                              filteredProducts = [];
+                      child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10)),
+                        child: StreamBuilder(
+                          stream: service.listenProdutos(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasError) {
+                              return const Text('Produto não encontrado');
                             }
+                            if (snapshot.hasData) {
+                              var produto = snapshot.data!;
 
-                            return GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 5,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5,
-                              ),
-                              itemCount: filteredProducts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                String? nome;
-                                String? unidade;
-                                String? file;
-                                String preco = '';
+                              dynamic filteredProducts;
+                              if (isSelectedList >= 0) {
+                                if (listaGrupos[isSelectedList] != 'TODOS') {
+                                  filteredProducts = getProdutoById(produto);
+                                } else {
+                                  filteredProducts = produto;
+                                }
+                              } else {
+                                filteredProducts = [];
+                              }
 
-                                if (isSelectedList >= 0) {
-                                  if (listaGrupos[isSelectedList] == 'TODOS') {
-                                    produto.isNotEmpty
-                                        ? file = produto[index].fileImagem!
-                                        : file = null;
-                                    nome = produto[index].descricao;
-                                    preco = formatoBrasileiro
-                                        .format(produto[index].pvenda);
-                                    if (precos.isNotEmpty) {}
-                                    precos.add(preco);
-                                    unidade = produto[index].unidade;
-                                  } else {
-                                    // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
-                                    file = filteredProducts[index].fileImagem ??
-                                        "Valor Padrão";
-                                    nome = filteredProducts[index].descricao ??
-                                        "null";
+                              return GridView.builder(
+                                gridDelegate:
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: 5,
+                                  crossAxisSpacing: 5,
+                                  mainAxisSpacing: 5,
+                                ),
+                                itemCount: filteredProducts.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  String? nome;
+                                  String? unidade;
+                                  String? file;
+                                  String preco = '';
 
-                                    preco = formatoBrasileiro
-                                        .format(filteredProducts[index].pvenda);
+                                  if (isSelectedList >= 0) {
+                                    if (listaGrupos[isSelectedList] ==
+                                        'TODOS') {
+                                      produto.isNotEmpty
+                                          ? file = produto[index].fileImagem!
+                                          : file = null;
+                                      nome = produto[index].descricao;
+                                      preco = formatoBrasileiro
+                                          .format(produto[index].pvenda);
+                                      if (precos.isNotEmpty) {}
+                                      precos.add(preco);
+                                      unidade = produto[index].unidade;
+                                    } else {
+                                      // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
+                                      file =
+                                          filteredProducts[index].fileImagem ??
+                                              "Valor Padrão";
+                                      nome =
+                                          filteredProducts[index].descricao ??
+                                              "null";
 
-                                    unidade =
-                                        filteredProducts[index].unidade ?? "";
-                                  }
+                                      preco = formatoBrasileiro.format(
+                                          filteredProducts[index].pvenda);
 
-                                  if (file != null) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          controller.adicionarPedidos(
-                                              nome!, unidade!, preco);
+                                      unidade =
+                                          filteredProducts[index].unidade ?? "";
+                                    }
 
-                                          controller.totalSoma();
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                          Expanded(
-                                            flex: 3,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  Endpoints.imagemProdutoUrl(
-                                                      file),
+                                    if (file != null) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            controller.adicionarPedidos(
+                                                nome!, unidade!, preco);
+
+                                            controller.totalSoma();
+                                          });
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Expanded(
+                                              flex: 3,
+                                              child: 
+                                                  
+                                                  InformationWidget().quantityInformation(index, file),
+                                                
                                             ),
-                                          ),
-                                          if (nome != null)
+                                            if (nome != null)
+                                              Text(
+                                                nome,
+                                                textAlign: TextAlign.center,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 16,
+                                                    color:
+                                                        TextColors.titleColor),
+                                              ),
                                             Text(
-                                              nome,
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
+                                              '$unidade',
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.w500,
-                                                  fontSize: 16),
+                                                  color:
+                                                      TextColors.subtitleColor),
                                             ),
-                                          Text(
-                                            '$unidade',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Color.fromARGB(
-                                                  255, 97, 97, 97),
+                                            Text(
+                                              'R\$ $preco ',
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: TextColors.titleColor),
                                             ),
-                                          ),
-                                          Text(
-                                            'R\$  $preco ',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  } else {
-                                    return const CircularProgressIndicator();
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      return const CircularProgressIndicator();
+                                    }
                                   }
-                                }
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              },
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                },
+                              );
+                            }
+                            return const Center(
+                              child: CircularProgressIndicator(),
                             );
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
+                          },
+                        ),
                       ))
                 ],
               ),
@@ -390,7 +399,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         subtitle: Text(
-                                            '${controller.pedidos[index]['quantidade']} x R\$ $priceFormatado ${controller.pedidos[index]['unidade']}'),
+                                            '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
                                         trailing: Text(
                                           ' $total',
                                           style: TextStyle(fontSize: 16),
@@ -415,7 +424,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                         bottom: 25.0, left: 24.0, right: 24.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.customContrastColor),
+                          backgroundColor: CustomColors.customSwatchColor),
                       onPressed: () {},
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
