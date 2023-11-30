@@ -32,10 +32,25 @@ class PdvController extends GetxController {
     }
   }
 
+  void removerPedido(int index) {
+    if (index >= 0 && index < pedidos.length) {
+      if (pedidos[index]['quantidade'] > 1) {
+        total -= pedidos[index]['price'];
+        pedidos[index]['quantidade'] -= 1;
+        pedidos[index]['total'] = pedidos[index]['quantidade'] * pedidos[index]['price'];
+    } else {
+      total -= pedidos[index]['total'];
+      pedidos.removeAt(index);
+    }
+  }
+  }
+
   void totalSoma() {
+    if (total > 0.1) {
+      total = 0.0;
+    }
     for (var element in pedidos) {
-      total += element['price'];
-      
+      total += element['total'];
     }
   }
 }

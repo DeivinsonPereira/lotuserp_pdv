@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
@@ -19,15 +20,13 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   int isSelectedList = -1;
   int idGrupo = -1;
 
-  double totalPedido = 0.0;
-
   late NumberFormat formatoBrasileiro;
 
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     PdvController controller = Get.put(PdvController());
-    var preco;
+    var precos = [];
     var total;
 
     var formatoBrasileiro = NumberFormat.currency(
@@ -44,6 +43,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     }
 
     return Scaffold(
+      
       body: Row(
         children: [
           Expanded(
@@ -184,6 +184,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                       },
                     ),
                   ),
+
+                  //Tabela de produtos.
+
                   Expanded(
                       flex: 7,
                       child: StreamBuilder(
@@ -218,16 +221,18 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 String? nome;
                                 String? unidade;
                                 String? file;
-                                var numeroFormatado = formatoBrasileiro
-                                    .format(filteredProducts[index].pvenda);
+                                String preco = '';
+
                                 if (isSelectedList >= 0) {
                                   if (listaGrupos[isSelectedList] == 'TODOS') {
                                     produto.isNotEmpty
                                         ? file = produto[index].fileImagem!
                                         : file = null;
-
                                     nome = produto[index].descricao;
-                                    preco = numeroFormatado;
+                                    preco = formatoBrasileiro
+                                        .format(produto[index].pvenda);
+                                    if (precos.isNotEmpty) {}
+                                    precos.add(preco);
                                     unidade = produto[index].unidade;
                                   } else {
                                     // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
@@ -235,7 +240,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         "Valor Padrão";
                                     nome = filteredProducts[index].descricao ??
                                         "null";
-                                    preco = preco = numeroFormatado;
+
+                                    preco = formatoBrasileiro
+                                        .format(filteredProducts[index].pvenda);
 
                                     unidade =
                                         filteredProducts[index].unidade ?? "";
@@ -246,10 +253,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                       onTap: () {
                                         setState(() {
                                           controller.adicionarPedidos(
-                                              nome!, unidade!, preco!);
+                                              nome!, unidade!, preco);
 
                                           controller.totalSoma();
-                                          print(controller.pedidos.length);
                                         });
                                       },
                                       child: Column(
@@ -269,15 +275,21 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                              ),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16),
                                             ),
                                           Text(
-                                            'R\$  $preco $unidade',
+                                            '$unidade',
                                             style: const TextStyle(
                                               fontWeight: FontWeight.w500,
                                               color: Color.fromARGB(
                                                   255, 97, 97, 97),
+                                            ),
+                                          ),
+                                          Text(
+                                            'R\$  $preco ',
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
                                             ),
                                           ),
                                         ],
@@ -353,7 +365,24 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     itemBuilder: (context, index) {
                                       total = formatoBrasileiro.format(
                                           controller.pedidos[index]['total']);
+
+                                      var priceFormatado = formatoBrasileiro
+                                          .format(controller.pedidos[index]
+                                              ['price']);
+
                                       return ListTile(
+                                        contentPadding: EdgeInsets.zero,
+                                        leading: IconButton(
+                                          onPressed: () {
+                                            setState(() {
+                                              controller.removerPedido(index);
+                                            });
+                                          },
+                                          icon: const Icon(
+                                            FontAwesomeIcons.trash,
+                                            size: 20,
+                                          ),
+                                        ),
                                         title: Text(
                                           controller.pedidos[index]
                                               ['nomeProduto'],
@@ -361,9 +390,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           overflow: TextOverflow.ellipsis,
                                         ),
                                         subtitle: Text(
-                                            '${controller.pedidos[index]['quantidade']} x R\$ $preco ${controller.pedidos[index]['unidade']}'),
+                                            '${controller.pedidos[index]['quantidade']} x R\$ $priceFormatado ${controller.pedidos[index]['unidade']}'),
                                         trailing: Text(
-                                          'R\$ $total',
+                                          ' $total',
                                           style: TextStyle(fontSize: 16),
                                         ),
                                       );
@@ -402,13 +431,16 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Text(
-                            'R\$ ${controller.total.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
+                          Builder(builder: (context) {
+                            total = formatoBrasileiro.format(controller.total);
+                            return Text(
+                              'R\$ $total',
+                              style: const TextStyle(
+                                  fontSize: 24,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            );
+                          }),
                         ],
                       ),
                     ),
