@@ -41,7 +41,14 @@ class PdvController extends GetxController {
     }
 
     scrollController.addListener(() {});
-    
+  }
+
+  void cancelarPedido() {
+    if (pedidos.isNotEmpty) {
+      pedidos.clear();
+
+      Get.back();
+    }
   }
 
   void removerPedido(int index) {

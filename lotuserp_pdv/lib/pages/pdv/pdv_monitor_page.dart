@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -199,10 +200,14 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                   //Tabela de produtos.
 
                   Expanded(
-                      flex: 7,
-                      child: Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10)),
+                    flex: 4,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: StreamBuilder(
                           stream: service.listenProdutos(),
                           builder: (context, snapshot) {
@@ -290,10 +295,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 children: [
                                                   // CachedNetworkImage que exibe a imagem
                                                   CachedNetworkImage(
-                                                    alignment: Alignment(0, 0),
+                                                    alignment:
+                                                        const Alignment(0, 0),
                                                     imageUrl: Endpoints
-                                                        .imagemProdutoUrl(
-                                                            file!),
+                                                        .imagemProdutoUrl(file),
                                                   ),
 
                                                   if (controller.getQuantidade(
@@ -329,18 +334,16 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 ],
                                               ),
                                             ),
-                                            if (nome != null)
-                                              Text(
-                                                nome,
-                                                textAlign: TextAlign.center,
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 16,
-                                                    color:
-                                                        TextColors.titleColor),
-                                              ),
+                                            Text(
+                                              nome,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16,
+                                                  color: TextColors.titleColor),
+                                            ),
                                             Text(
                                               '$unidade',
                                               style: const TextStyle(
@@ -372,7 +375,53 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             );
                           },
                         ),
-                      ))
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: CustomColors.customSwatchColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Row(
+                          children: [
+                            ButtonsPdv().iconsOptions(FontAwesomeIcons.user,
+                                'Cliente', () => Container()),
+                            ButtonsPdv().iconsOptions(
+                                FontAwesomeIcons.clipboardList,
+                                'Produtos',
+                                () => Container()),
+                            ButtonsPdv().iconsOptions(
+                                FontAwesomeIcons.cashRegister,
+                                'Gaveta',
+                                () => Container()),
+                            ButtonsPdv().iconsOptions(
+                                FontAwesomeIcons.weightScale,
+                                'Balança',
+                                () => Container()),
+                            ButtonsPdv().iconsOptions(
+                                FontAwesomeIcons.solidTrashCan,
+                                'Cancelar',
+                                () => controller.cancelarPedido()),
+                            ButtonsPdv().iconsOptions(
+                                FontAwesomeIcons.moneyBillTrendUp,
+                                'Vendas',
+                                () => Container()),
+                            ButtonsPdv().iconsOptions(
+                                FontAwesomeIcons.fileImport,
+                                'Importar',
+                                () => Container()),
+                            ButtonsPdv().iconsOptions(FontAwesomeIcons.userTie,
+                                'Vendedor', () => Container()),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -491,7 +540,13 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                         bottom: 25.0, left: 24.0, right: 24.0),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.customSwatchColor),
+                        backgroundColor: CustomColors.customSwatchColor,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                      ),
                       onPressed: () {},
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
