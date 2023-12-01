@@ -278,13 +278,15 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 nome!, unidade!, preco);
 
                                             controller.totalSoma();
-
-                                            WidgetsBinding.instance
-                                                .addPostFrameCallback((_) {
-                                              scrollController.jumpTo(
-                                                  scrollController.position
-                                                      .maxScrollExtent);
-                                            });
+                                            if (!controller.pedidos
+                                                .contains(nome)) {
+                                              WidgetsBinding.instance
+                                                  .addPostFrameCallback((_) {
+                                                scrollController.jumpTo(
+                                                    scrollController.position
+                                                        .maxScrollExtent);
+                                              });
+                                            }
                                           });
                                         },
                                         child: Column(
@@ -567,7 +569,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               child: const Text(
                                 'Pagamento',
                                 style: TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 35,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               ),
@@ -578,7 +580,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               return Text(
                                 'R\$ $total',
                                 style: const TextStyle(
-                                    fontSize: 24,
+                                    fontSize: 30,
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),
                               );

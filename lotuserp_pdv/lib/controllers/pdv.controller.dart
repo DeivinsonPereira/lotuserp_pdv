@@ -14,6 +14,13 @@ class PdvController extends GetxController {
     return index != -1 ? pedidos[index]['quantidade'] : 0;
   }
 
+  int getNome(String nomeProduto) {
+    int index =
+        pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
+    print(index);
+    return index;
+  }
+
   void adicionarPedidos(String nomeProduto, String unidade, String price) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
