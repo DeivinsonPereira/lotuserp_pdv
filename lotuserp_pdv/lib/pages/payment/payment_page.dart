@@ -53,7 +53,78 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
-    Widget listViewProductsList() {
+    Widget listViewPedidosList() {
+      return Expanded(
+        flex: 8,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: ListView.builder(
+            itemCount: controller.pedidos.length,
+            itemBuilder: (context, index) {
+              print(controller.pedidos.length);
+              total =
+                  formatoBrasileiro.format(controller.pedidos[index]['total']);
+
+              var priceFormatado =
+                  formatoBrasileiro.format(controller.pedidos[index]['price']);
+
+              return Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          controller.removerPedido(index);
+                        });
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.trash,
+                        size: 20,
+                        color: Color.fromARGB(255, 170, 46, 37),
+                      ),
+                    ),
+                    title: Text(
+                      controller.pedidos[index]['nomeProduto'],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                        '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                    trailing: Text(
+                      ' $total',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    }
+
+    Widget subtotalDiscountTotal() {
+      return Expanded(
+        flex: 2,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                height: 1.0,
+                width: double.infinity,
+                color: Colors.grey,
+              ),
+            )
+          ],
+        ),
+      );
+    }
+
+    Widget bodyLayout() {
       return Expanded(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 625),
@@ -62,59 +133,17 @@ class _PaymentPageState extends State<PaymentPage> {
               Expanded(
                 flex: 1,
                 child: Container(
-                  height: 625,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: ListView.builder(
-                      itemCount: controller.pedidos.length,
-                      itemBuilder: (context, index) {
-                        print(controller.pedidos.length);
-                        total = formatoBrasileiro
-                            .format(controller.pedidos[index]['total']);
-
-                        var priceFormatado = formatoBrasileiro
-                            .format(controller.pedidos[index]['price']);
-
-                        return Card(
-                          elevation: 2,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: ListTile(
-                              contentPadding: EdgeInsets.zero,
-                              leading: IconButton(
-                                onPressed: () {
-                                  setState(() {
-                                    controller.removerPedido(index);
-                                  });
-                                },
-                                icon: const Icon(
-                                  FontAwesomeIcons.trash,
-                                  size: 20,
-                                  color: Color.fromARGB(255, 170, 46, 37),
-                                ),
-                              ),
-                              title: Text(
-                                controller.pedidos[index]['nomeProduto'],
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              subtitle: Text(
-                                  '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                              trailing: Text(
-                                ' $total',
-                                style: TextStyle(fontSize: 16),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+                    height: 625,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
                     ),
-                  ),
-                ),
+                    child: Column(
+                      children: [
+                        listViewPedidosList(),
+                        subtotalDiscountTotal(),
+                      ],
+                    )),
               ),
               Expanded(child: Container())
             ],
@@ -129,7 +158,7 @@ class _PaymentPageState extends State<PaymentPage> {
         child: Column(
           children: [
             lineHeader(),
-            listViewProductsList(),
+            bodyLayout(),
           ],
         ),
       ),
