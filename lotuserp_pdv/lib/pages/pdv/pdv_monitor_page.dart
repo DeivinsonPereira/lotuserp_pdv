@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -5,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
@@ -56,64 +58,60 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
     return Scaffold(
       backgroundColor: ContainersColors.scaffoldColors,
-      body: Row(
-        children: [
-          Expanded(
-            flex: 6,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 6,
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Color.fromARGB(255, 70, 70, 70),
-                          ),
+                  Row(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          Get.back();
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Color.fromARGB(255, 70, 70, 70),
                         ),
-                        Container(
-                          height: 50,
-                          width: 650,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              prefixIcon: IconButton(
-                                icon: const Icon(Icons.camera_alt),
-                                onPressed: () {
-                                  //Abrir câmera para ler o código de barras do produto
-                                },
-                              ),
-                              disabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              border: InputBorder.none,
-                              hintText: 'Busque um produto',
-                              labelStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 53, 53, 53),
-                                  fontSize: 18),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
+                      ),
+                      Container(
+                        height: 50,
+                        width: 650,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            prefixIcon: IconButton(
+                              icon: const Icon(Icons.camera_alt),
+                              onPressed: () {
+                                //Abrir câmera para ler o código de barras do produto
+                              },
                             ),
+                            disabledBorder: const UnderlineInputBorder(
+                                borderSide: BorderSide.none),
+                            border: InputBorder.none,
+                            hintText: 'Busque um produto',
+                            labelStyle: const TextStyle(
+                                color: Color.fromARGB(255, 53, 53, 53),
+                                fontSize: 18),
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.black,
-                            size: 35,
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                      IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                          size: 35,
+                        ),
+                      )
+                    ],
                   ),
                   Expanded(
                     flex: 1,
@@ -427,174 +425,202 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 ],
               ),
             ),
-          ),
-          Expanded(
-            // Container do Resumo de pedidos
-            flex: 4,
-            child: Column(
-              children: [
-                Flexible(
-                  flex: 6,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 25.0, left: 25.0, right: 25.0),
-                        child: Container(
-                          height: 568,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                // Cabeçalho, Resumo
-                                padding: const EdgeInsets.all(15.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Resumo',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
+            Expanded(
+              // Container do Resumo de pedidos
+              flex: 4,
+              child: Column(
+                children: [
+                  Flexible(
+                    flex: 6,
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25.0),
+                          child: Container(
+                            height: 568,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                            ),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  // Cabeçalho, Resumo
+                                  padding: const EdgeInsets.only(
+                                      top: 15.0, left: 20, right: 20),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text(
+                                        'Resumo',
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                    ),
-                                    Text(
-                                      '${controller.pedidos.length} itens',
-                                      style: const TextStyle(fontSize: 20),
-                                    ),
-                                  ],
+                                      Text(
+                                        '${controller.pedidos.length} itens',
+                                        style: const TextStyle(fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Expanded(
-                                child: SizedBox(
-                                  // lista de pedidos
+                                Expanded(
+                                  child: SizedBox(
+                                    // lista de pedidos
 
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: ListView.builder(
-                                      controller: scrollController,
-                                      itemCount: controller.pedidos.length,
-                                      itemBuilder: (context, index) {
-                                        total = formatoBrasileiro.format(
-                                            controller.pedidos[index]['total']);
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: ListView.builder(
+                                        controller: scrollController,
+                                        itemCount: controller.pedidos.length,
+                                        itemBuilder: (context, index) {
+                                          total = formatoBrasileiro.format(
+                                              controller.pedidos[index]
+                                                  ['total']);
 
-                                        var priceFormatado = formatoBrasileiro
-                                            .format(controller.pedidos[index]
-                                                ['price']);
+                                          var priceFormatado = formatoBrasileiro
+                                              .format(controller.pedidos[index]
+                                                  ['price']);
 
-                                        return Container(
-                                          child: Card(
-                                            elevation: 2,
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0),
-                                              child: ListTile(
-                                                contentPadding: EdgeInsets.zero,
-                                                leading: IconButton(
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      controller
-                                                          .removerPedido(index);
-                                                    });
-                                                  },
-                                                  icon: const Icon(
-                                                    FontAwesomeIcons.trash,
-                                                    size: 20,
-                                                    color: Color.fromARGB(
-                                                        255, 170, 46, 37),
+                                          return Container(
+                                            child: Card(
+                                              elevation: 2,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 8.0),
+                                                child: ListTile(
+                                                  contentPadding:
+                                                      EdgeInsets.zero,
+                                                  leading: IconButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        controller
+                                                            .removerPedido(
+                                                                index);
+                                                      });
+                                                    },
+                                                    icon: const Icon(
+                                                      FontAwesomeIcons.trash,
+                                                      size: 20,
+                                                      color: Color.fromARGB(
+                                                          255, 170, 46, 37),
+                                                    ),
                                                   ),
-                                                ),
-                                                title: Text(
-                                                  controller.pedidos[index]
-                                                      ['nomeProduto'],
-                                                  maxLines: 1,
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                ),
-                                                subtitle: Text(
-                                                    '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                                                trailing: Text(
-                                                  ' $total',
-                                                  style:
-                                                      TextStyle(fontSize: 16),
+                                                  title: Text(
+                                                    controller.pedidos[index]
+                                                        ['nomeProduto'],
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                  subtitle: Text(
+                                                      '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                                                  trailing: Text(
+                                                    ' $total',
+                                                    style:
+                                                        TextStyle(fontSize: 16),
+                                                  ),
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                        );
-                                      },
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Flexible(
-                  //botão de pagamento e total
-                  flex: 1,
-
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 24.0, right: 24.0, top: 4, bottom: 2),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.customSwatchColor,
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10),
+                              ],
                             ),
                           ),
                         ),
-                        onPressed: () {},
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Flexible(
+                    //botão de pagamento e total
+                    flex: 1,
+
+                    child: InkWell(
+                      onTap: () {
+                        Get.toNamed(PagesRoutes.paymentRoute);
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 24.0, top: 3),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: const Text(
-                                'Pagamento',
-                                style: TextStyle(
-                                    fontSize: 35,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                decoration: const BoxDecoration(
+                                  color: Colors.green,
+                                  borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)),
+                                ),
+                                alignment: Alignment.centerRight,
+                                child: const Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Pagamento',
+                                      style: TextStyle(
+                                          fontSize: 35,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                            Builder(builder: (context) {
-                              total =
-                                  formatoBrasileiro.format(controller.total);
-                              return Text(
-                                'R\$ $total',
-                                style: const TextStyle(
-                                    fontSize: 30,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
-                              );
-                            }),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                height: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: CustomColors.customSwatchColor,
+                                  borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(10),
+                                      bottomRight: Radius.circular(10)),
+                                ),
+                                child: Builder(builder: (context) {
+                                  total = formatoBrasileiro
+                                      .format(controller.total);
+                                  return Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 8.0),
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: AutoSizeText(
+                                        '$total',
+                                        style: const TextStyle(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                              ),
+                            ),
                           ],
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
