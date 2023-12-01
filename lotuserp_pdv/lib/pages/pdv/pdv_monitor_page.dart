@@ -64,8 +64,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  Expanded(
-                    flex: 1,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
                     child: Row(
                       children: [
                         IconButton(
@@ -431,13 +431,15 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
             flex: 4,
             child: Column(
               children: [
-                Expanded(
-                  flex: 8,
+                Flexible(
+                  flex: 6,
                   child: Stack(
                     children: [
                       Padding(
-                        padding: const EdgeInsets.all(25.0),
+                        padding: const EdgeInsets.only(
+                            top: 25.0, left: 25.0, right: 25.0),
                         child: Container(
+                          height: 568,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: Colors.white,
@@ -466,62 +468,65 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   ],
                                 ),
                               ),
-                              SizedBox(
-                                // lista de pedidos
-                                width: 650,
-                                height: 500,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: ListView.builder(
-                                    controller: scrollController,
-                                    itemCount: controller.pedidos.length,
-                                    itemBuilder: (context, index) {
-                                      total = formatoBrasileiro.format(
-                                          controller.pedidos[index]['total']);
+                              Expanded(
+                                child: SizedBox(
+                                  // lista de pedidos
 
-                                      var priceFormatado = formatoBrasileiro
-                                          .format(controller.pedidos[index]
-                                              ['price']);
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: ListView.builder(
+                                      controller: scrollController,
+                                      itemCount: controller.pedidos.length,
+                                      itemBuilder: (context, index) {
+                                        total = formatoBrasileiro.format(
+                                            controller.pedidos[index]['total']);
 
-                                      return Container(
-                                        child: Card(
-                                          elevation: 2,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 8.0),
-                                            child: ListTile(
-                                              contentPadding: EdgeInsets.zero,
-                                              leading: IconButton(
-                                                onPressed: () {
-                                                  setState(() {
-                                                    controller
-                                                        .removerPedido(index);
-                                                  });
-                                                },
-                                                icon: const Icon(
-                                                  FontAwesomeIcons.trash,
-                                                  size: 20,
-                                                  color: Color.fromARGB(
-                                                      255, 170, 46, 37),
+                                        var priceFormatado = formatoBrasileiro
+                                            .format(controller.pedidos[index]
+                                                ['price']);
+
+                                        return Container(
+                                          child: Card(
+                                            elevation: 2,
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 8.0),
+                                              child: ListTile(
+                                                contentPadding: EdgeInsets.zero,
+                                                leading: IconButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      controller
+                                                          .removerPedido(index);
+                                                    });
+                                                  },
+                                                  icon: const Icon(
+                                                    FontAwesomeIcons.trash,
+                                                    size: 20,
+                                                    color: Color.fromARGB(
+                                                        255, 170, 46, 37),
+                                                  ),
                                                 ),
-                                              ),
-                                              title: Text(
-                                                controller.pedidos[index]
-                                                    ['nomeProduto'],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                              subtitle: Text(
-                                                  '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                                              trailing: Text(
-                                                ' $total',
-                                                style: TextStyle(fontSize: 16),
+                                                title: Text(
+                                                  controller.pedidos[index]
+                                                      ['nomeProduto'],
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                ),
+                                                subtitle: Text(
+                                                    '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                                                trailing: Text(
+                                                  ' $total',
+                                                  style:
+                                                      TextStyle(fontSize: 16),
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
                               ),
@@ -532,47 +537,54 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                     ],
                   ),
                 ),
-                Expanded(
+                const SizedBox(
+                  height: 5,
+                ),
+                Flexible(
                   //botão de pagamento e total
                   flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 25.0, left: 24.0, right: 24.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CustomColors.customSwatchColor,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10),
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerRight,
-                            child: const Text(
-                              'Pagamento',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
+
+                  child: Container(
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 24.0, right: 24.0, top: 4, bottom: 2),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: CustomColors.customSwatchColor,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(10),
                             ),
                           ),
-                          Builder(builder: (context) {
-                            total = formatoBrasileiro.format(controller.total);
-                            return Text(
-                              'R\$ $total',
-                              style: const TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            );
-                          }),
-                        ],
+                        ),
+                        onPressed: () {},
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              alignment: Alignment.centerRight,
+                              child: const Text(
+                                'Pagamento',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Builder(builder: (context) {
+                              total =
+                                  formatoBrasileiro.format(controller.total);
+                              return Text(
+                                'R\$ $total',
+                                style: const TextStyle(
+                                    fontSize: 24,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              );
+                            }),
+                          ],
+                        ),
                       ),
                     ),
                   ),
