@@ -5,6 +5,12 @@ class PdvController extends GetxController {
 
   double total = 0.0;
 
+  int getQuantidade(String nomeProduto) {
+  int index =
+      pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
+  return index != -1 ? pedidos[index]['quantidade'] : 0;
+}
+
   void adicionarPedidos(String nomeProduto, String unidade, String price) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);

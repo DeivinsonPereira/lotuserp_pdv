@@ -270,11 +270,35 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           children: [
                                             Expanded(
                                               flex: 3,
-                                              child: 
+                                              child: Stack(
+                                              children: [
+                                                // CachedNetworkImage que exibe a imagem
+                                                CachedNetworkImage(
+                                                  alignment: Alignment(0, 0),
+                                                  imageUrl: Endpoints.imagemProdutoUrl(file!),
+                                                ),
                                                   
-                                                  InformationWidget().quantityInformation(index, file),
+                                                  if (controller.getQuantidade(nome!) > 0) // Verifica se a quantidade é maior que 0
+              Positioned(
+                top: 5,
+                right: 5,
+                child: Container(
+                  padding: const EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Text(
+                    '${controller.getQuantidade(nome!)}',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
                                                 
-                                            ),
+                                          ],),),
                                             if (nome != null)
                                               Text(
                                                 nome,
