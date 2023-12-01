@@ -6,7 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/pdv/widgets/information_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -23,11 +22,21 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   int idGrupo = -1;
 
   late NumberFormat formatoBrasileiro;
+  final ScrollController scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Certifique-se de que o controlador de rolagem está associado ao ListView
+    scrollController.addListener(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     PdvController controller = Get.put(PdvController());
+
     var precos = [];
     var total;
 
@@ -264,6 +273,13 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 nome!, unidade!, preco);
 
                                             controller.totalSoma();
+
+                                            WidgetsBinding.instance
+                                                .addPostFrameCallback((_) {
+                                              scrollController.jumpTo(
+                                                  scrollController.position
+                                                      .maxScrollExtent);
+                                            });
                                           });
                                         },
                                         child: Column(
@@ -271,34 +287,48 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                             Expanded(
                                               flex: 3,
                                               child: Stack(
-                                              children: [
-                                                // CachedNetworkImage que exibe a imagem
-                                                CachedNetworkImage(
-                                                  alignment: Alignment(0, 0),
-                                                  imageUrl: Endpoints.imagemProdutoUrl(file!),
-                                                ),
-                                                  
-                                                  if (controller.getQuantidade(nome!) > 0) // Verifica se a quantidade é maior que 0
-              Positioned(
-                top: 5,
-                right: 5,
-                child: Container(
-                  padding: const EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    '${controller.getQuantidade(nome!)}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-                                                
-                                          ],),),
+                                                children: [
+                                                  // CachedNetworkImage que exibe a imagem
+                                                  CachedNetworkImage(
+                                                    alignment: Alignment(0, 0),
+                                                    imageUrl: Endpoints
+                                                        .imagemProdutoUrl(
+                                                            file!),
+                                                  ),
+
+                                                  if (controller.getQuantidade(
+                                                          nome!) >
+                                                      0) // Verifica se a quantidade é maior que 0
+                                                    Positioned(
+                                                      top: 5,
+                                                      right: 5,
+                                                      child: Container(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(5),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: CustomColors
+                                                              .customSwatchColor,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100),
+                                                        ),
+                                                        child: Text(
+                                                          '${controller.getQuantidade(nome)}',
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
                                             if (nome != null)
                                               Text(
                                                 nome,
@@ -389,11 +419,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               ),
                               SizedBox(
                                 // lista de pedidos
-                                width: 550,
+                                width: 650,
                                 height: 500,
                                 child: Padding(
                                   padding: const EdgeInsets.all(15.0),
                                   child: ListView.builder(
+                                    controller: scrollController,
                                     itemCount: controller.pedidos.length,
                                     itemBuilder: (context, index) {
                                       total = formatoBrasileiro.format(
@@ -403,30 +434,42 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           .format(controller.pedidos[index]
                                               ['price']);
 
-                                      return ListTile(
-                                        contentPadding: EdgeInsets.zero,
-                                        leading: IconButton(
-                                          onPressed: () {
-                                            setState(() {
-                                              controller.removerPedido(index);
-                                            });
-                                          },
-                                          icon: const Icon(
-                                            FontAwesomeIcons.trash,
-                                            size: 20,
+                                      return Container(
+                                        child: Card(
+                                          elevation: 2,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 8.0),
+                                            child: ListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              leading: IconButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    controller
+                                                        .removerPedido(index);
+                                                  });
+                                                },
+                                                icon: const Icon(
+                                                  FontAwesomeIcons.trash,
+                                                  size: 20,
+                                                  color: Color.fromARGB(
+                                                      255, 170, 46, 37),
+                                                ),
+                                              ),
+                                              title: Text(
+                                                controller.pedidos[index]
+                                                    ['nomeProduto'],
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              subtitle: Text(
+                                                  '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                                              trailing: Text(
+                                                ' $total',
+                                                style: TextStyle(fontSize: 16),
+                                              ),
+                                            ),
                                           ),
-                                        ),
-                                        title: Text(
-                                          controller.pedidos[index]
-                                              ['nomeProduto'],
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        subtitle: Text(
-                                            '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                                        trailing: Text(
-                                          ' $total',
-                                          style: TextStyle(fontSize: 16),
                                         ),
                                       );
                                     },

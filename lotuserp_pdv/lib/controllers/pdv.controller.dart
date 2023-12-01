@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PdvController extends GetxController {
@@ -5,11 +6,13 @@ class PdvController extends GetxController {
 
   double total = 0.0;
 
+  final ScrollController scrollController = ScrollController();
+
   int getQuantidade(String nomeProduto) {
-  int index =
-      pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
-  return index != -1 ? pedidos[index]['quantidade'] : 0;
-}
+    int index =
+        pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
+    return index != -1 ? pedidos[index]['quantidade'] : 0;
+  }
 
   void adicionarPedidos(String nomeProduto, String unidade, String price) {
     int index =
@@ -36,6 +39,9 @@ class PdvController extends GetxController {
         'total': precoDouble
       });
     }
+
+    scrollController.addListener(() {});
+    
   }
 
   void removerPedido(int index) {
@@ -43,12 +49,13 @@ class PdvController extends GetxController {
       if (pedidos[index]['quantidade'] > 1) {
         total -= pedidos[index]['price'];
         pedidos[index]['quantidade'] -= 1;
-        pedidos[index]['total'] = pedidos[index]['quantidade'] * pedidos[index]['price'];
-    } else {
-      total -= pedidos[index]['total'];
-      pedidos.removeAt(index);
+        pedidos[index]['total'] =
+            pedidos[index]['quantidade'] * pedidos[index]['price'];
+      } else {
+        total -= pedidos[index]['total'];
+        pedidos.removeAt(index);
+      }
     }
-  }
   }
 
   void totalSoma() {
