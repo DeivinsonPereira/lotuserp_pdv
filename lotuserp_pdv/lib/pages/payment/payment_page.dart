@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
 import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
 
@@ -57,7 +58,7 @@ class _PaymentPageState extends State<PaymentPage> {
         flex: 12,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Container(
+          child: SizedBox(
             height: 525,
             child: ListView.builder(
               itemCount: controller.pedidos.length,
@@ -130,6 +131,30 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    Widget cardsPaymente(IconData icon, String text) {
+      return Padding(
+        padding: const EdgeInsets.only(top: 8.0),
+        child: Container(
+          width: 150,
+          child: Card(
+            child: Column(children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Icon(
+                  icon,
+                  color: Colors.black,
+                ),
+              ),
+              Text(
+                text,
+                style: TextStyle(color: Colors.black),
+              ),
+            ]),
+          ),
+        ),
+      );
+    }
+
     Widget bodyLayout() {
       return Expanded(
         child: ConstrainedBox(
@@ -151,7 +176,59 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     )),
               ),
-              Expanded(child: Container())
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 7,
+                      child: Container(
+                        width: double.infinity,
+                        height: 500,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              cardsPaymente(
+                                  FontAwesomeIcons.moneyBill, 'Dinheiro'),
+                              cardsPaymente(
+                                  FontAwesomeIcons.creditCard, 'Cartão'),
+                              cardsPaymente(Icons.money, 'Crediário'),
+                              cardsPaymente(Icons.pix, 'Pix'),
+                            ]),
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        color: CustomColors.customSwatchColor,
+                        child: InkWell(
+                          onTap: () {},
+                          child: Center(
+                            child: const Text(
+                              'Finalizar',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),

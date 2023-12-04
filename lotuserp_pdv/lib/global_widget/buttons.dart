@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -7,6 +9,10 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class ButtonsWidgets {
   var enteredNumberDiscount = '';
+
+  bool checkbox1 = false;
+  bool checkbox2 = false;
+  bool checkbox3 = false;
 
   PdvController controller = Get.find();
 
@@ -75,13 +81,28 @@ class ButtonsWidgets {
     );
   }
 
+  //checkbox para Subtotal
   Widget checkedBoxButton(String text, RxDouble totalValue) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          controller.checkbox1.value = !controller.checkbox1.value;
+          if (controller.checkbox1.value) {
+            controller.checkbox2.value = false;
+            controller.checkbox3.value = false;
+          }
+        },
         child: Row(children: [
-          Checkbox(
-            value: true /*mudar para variavel */,
-            onChanged: (bool? value) {},
+          Obx(
+            () => Checkbox(
+              value: controller.checkbox1.value,
+              onChanged: (bool? value) {
+                controller.checkbox1.value = !controller.checkbox1.value;
+                if (controller.checkbox1.value) {
+                  controller.checkbox2.value = false;
+                  controller.checkbox3.value = false;
+                }
+              },
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -90,43 +111,117 @@ class ButtonsWidgets {
               Obx(() {
                 final value = totalValue.value;
                 final formattedValue = formatoBrasileiro.format(value);
-                return Text(formattedValue);
+                return Text(
+                  formattedValue,
+                  style: !controller.checkbox1.value
+                      ? const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)
+                      : TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.customContrastColor),
+                );
               }),
             ],
           )
         ]));
   }
 
-  Widget checkedPercentualBoxButton(String text, String totalValue) {
-    return InkWell(
-        onTap: () {},
-        child: Row(children: [
-          Checkbox(
-            value: true /*mudar para variavel */,
-            onChanged: (bool? value) {},
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [Text(text), Text(totalValue)],
-          )
-        ]));
-  }
-
+  //checkbox para desconto em reais
   Widget checkedDiscountBoxButton(String text, BuildContext context) {
     return InkWell(
-        onTap: () {},
+        onTap: () {
+          controller.checkbox2.value = !controller.checkbox2.value;
+          if (controller.checkbox2.value) {
+            controller.checkbox1.value = false;
+            controller.checkbox3.value = false;
+          }
+        },
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Checkbox(
-            value: true /*mudar para variavel */,
-            onChanged: (bool? value) {},
+          Obx(
+            () => Checkbox(
+              value: controller.checkbox2.value,
+              /*mudar para variavel */
+              onChanged: (bool? value) {
+                controller.checkbox2.value = !controller.checkbox2.value;
+                if (controller.checkbox2.value) {
+                  controller.checkbox1.value = false;
+                  controller.checkbox3.value = false;
+                }
+              },
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(text),
-              Obx(() => Text(!controller.numbersDiscount.value.isBlank!
-                  ? controller.numbersDiscount.value
-                  : '0,00'))
+              Obx(
+                () => Text(
+                  !controller.numbersDiscount.value.isBlank!
+                      ? controller.numbersDiscount.value
+                      : '0,00',
+                  style: !controller.checkbox2.value
+                      ? TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)
+                      : TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.customContrastColor),
+                ),
+              )
+            ],
+          )
+        ]));
+  }
+
+  //checkbox para desconto em percentual
+  Widget checkedPercentualBoxButton(String text, double totalValue) {
+    return InkWell(
+        onTap: () {
+          controller.checkbox3.value = !controller.checkbox3.value;
+          if (controller.checkbox3.value) {
+            controller.checkbox1.value = false;
+            controller.checkbox2.value = false;
+          }
+        },
+        child: Row(children: [
+          Obx(
+            () => Checkbox(
+              value: controller.checkbox3.value,
+              /*mudar para variavel */
+              onChanged: (bool? value) {
+                controller.checkbox3.value = !controller.checkbox3.value;
+                if (controller.checkbox3.value) {
+                  controller.checkbox1.value = false;
+                  controller.checkbox2.value = false;
+                }
+              },
+            ),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(text),
+              Obx(() {
+                final formattedDiscountPercentage = formatoBrasileiro
+                    .format(controller.discountPercentage.value);
+                return Text(
+                  '$formattedDiscountPercentage% ',
+                  style: !controller.checkbox3.value
+                      ? const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black)
+                      : TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.customContrastColor),
+                );
+              }),
             ],
           )
         ]));
@@ -191,15 +286,21 @@ class ButtonsWidgets {
                       ),
                     ),
                     SizedBox(
-                      height: 200,
-                      width: 600,
+                      height: 400,
+                      width: 300,
                       child: Column(
                         children: [
                           checkedBoxButton('Subtotal', controller.total),
+                          const SizedBox(
+                            height: 50,
+                          ),
                           checkedDiscountBoxButton(
                               'Desconto em Reais', context),
-                          checkedBoxButton(
-                              'Desconto percentual', controller.total),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          checkedPercentualBoxButton('Desconto percentual',
+                              controller.discountPercentage.value),
                         ],
                       ),
                     ),

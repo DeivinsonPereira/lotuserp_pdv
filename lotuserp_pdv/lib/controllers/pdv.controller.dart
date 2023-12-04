@@ -4,6 +4,12 @@ import 'package:get/get.dart';
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
 
+  RxBool checkbox1 = false.obs;
+  RxBool checkbox2 = false.obs;
+  RxBool checkbox3 = false.obs;
+
+  RxString validationCheckedBox = ''.obs;
+
   var total = 0.0.obs;
 
   double discountTotal = 0.0;
@@ -11,6 +17,8 @@ class PdvController extends GetxController {
   double totalMinusDiscount = 0.00;
 
   var numbersDiscount = '0,00'.obs;
+
+  var discountPercentage = 0.0.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -26,6 +34,29 @@ class PdvController extends GetxController {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
     return index;
+  }
+
+  void selectedCheckBox(String letterCheckBox) {
+    validationCheckedBox.value = letterCheckBox;
+    print(validationCheckedBox.value);
+  }
+
+  //calcula percentual de desconto
+  void calculateDiscountPercentage() {
+    double discount =
+        double.parse(numbersDiscount.value.replaceAll(RegExp(r'[^\d]'), '')) /
+            100;
+    double subtotal = 0.0;
+
+    for (var element in pedidos) {
+      subtotal += element['total'];
+    }
+
+    double newTotal = subtotal - discount;
+
+    discountPercentage.value = (discount / (subtotal > 0 ? subtotal : 1)) * 100;
+
+    total.value = newTotal;
   }
 
   //adiciona numeros no desconto
@@ -55,6 +86,7 @@ class PdvController extends GetxController {
     double newTotal = subtotal - discount;
 
     total.value = newTotal;
+    calculateDiscountPercentage();
   }
 
   String formatAsCurrency(double value) {
