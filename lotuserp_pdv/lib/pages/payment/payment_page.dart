@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
+import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -18,8 +19,6 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     PdvController controller = Get.find();
-
-    print(controller.pedidos.length);
 
     var total;
 
@@ -48,77 +47,84 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ],
           ),
-          ButtonsWidgets().textDiscountOnSale(),
+          ButtonsWidgets().textDiscountOnSale(context),
         ],
       );
     }
 
     Widget listViewPedidosList() {
-      return Expanded(
-        flex: 8,
+      return Flexible(
+        flex: 12,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: ListView.builder(
-            itemCount: controller.pedidos.length,
-            itemBuilder: (context, index) {
-              print(controller.pedidos.length);
-              total =
-                  formatoBrasileiro.format(controller.pedidos[index]['total']);
+          child: Container(
+            height: 525,
+            child: ListView.builder(
+              itemCount: controller.pedidos.length,
+              itemBuilder: (context, index) {
+                total = formatoBrasileiro
+                    .format(controller.pedidos[index]['total']);
 
-              var priceFormatado =
-                  formatoBrasileiro.format(controller.pedidos[index]['price']);
+                var priceFormatado = formatoBrasileiro
+                    .format(controller.pedidos[index]['price']);
 
-              return Card(
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          controller.removerPedido(index);
-                        });
-                      },
-                      icon: const Icon(
-                        FontAwesomeIcons.trash,
-                        size: 20,
-                        color: Color.fromARGB(255, 170, 46, 37),
+                return Card(
+                  elevation: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 8.0),
+                    child: ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      leading: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            controller.removerPedido(index);
+                          });
+                        },
+                        icon: const Icon(
+                          FontAwesomeIcons.trash,
+                          size: 20,
+                          color: Color.fromARGB(255, 170, 46, 37),
+                        ),
+                      ),
+                      title: Text(
+                        controller.pedidos[index]['nomeProduto'],
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(
+                          '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                      trailing: Text(
+                        ' $total',
+                        style: TextStyle(fontSize: 16),
                       ),
                     ),
-                    title: Text(
-                      controller.pedidos[index]['nomeProduto'],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Text(
-                        '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                    trailing: Text(
-                      ' $total',
-                      style: TextStyle(fontSize: 16),
-                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       );
     }
 
     Widget subtotalDiscountTotal() {
-      return Expanded(
+      var totalFormat = formatoBrasileiro.format(controller.total.value);
+      return Flexible(
         flex: 2,
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.only(
+                  top: 8.0, left: 18.0, right: 18.0, bottom: 8.0),
               child: Container(
                 height: 1.0,
                 width: double.infinity,
                 color: Colors.grey,
               ),
-            )
+            ),
+            RowWidget().Rows('Subtotal', totalFormat),
+            RowWidget().Rows('Desconto na venda', '15,00'),
+            RowWidget().Rows('Total', controller.discountTotal.toString()),
           ],
         ),
       );

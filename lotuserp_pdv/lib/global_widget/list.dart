@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
-import 'package:lotuserp_pdv/controllers/product.controller.dart';
 
 class ListWidgets {
   PdvController controller = PdvController();
@@ -47,7 +46,7 @@ class ListWidgets {
                       '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
                   trailing: Text(
                     ' $total',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
               ),

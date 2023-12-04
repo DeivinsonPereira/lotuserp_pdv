@@ -4,21 +4,73 @@ import 'package:get/get.dart';
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
 
-  double total = 0.0;
+  var total = 0.0.obs;
+
+  double discountTotal = 0.0;
+
+  double totalMinusDiscount = 0.00;
+
+  var numbersDiscount = '0,00'.obs;
 
   final ScrollController scrollController = ScrollController();
 
+  //busca quantidades pedidos de um determinado item
   int getQuantidade(String nomeProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
     return index != -1 ? pedidos[index]['quantidade'] : 0;
   }
 
+  //busca o nome do item
   int getNome(String nomeProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
-    print(index);
     return index;
+  }
+
+  //adiciona numeros no desconto
+  void addNumberDiscount(String number) {
+    if (number == '0' && numbersDiscount.value == '0.00') {
+      return;
+    }
+
+    String newValue =
+        numbersDiscount.value.replaceAll(RegExp(r'[^\d]'), '') + number;
+    numbersDiscount.value = formatAsCurrency(double.parse(newValue) / 100);
+
+    calculateTotal();
+  }
+
+  //calcula o total entre desconto em reais e subtotal
+  void calculateTotal() {
+    double discount =
+        double.parse(numbersDiscount.value.replaceAll(RegExp(r'[^\d]'), '')) /
+            100;
+
+    double subtotal = 0.0;
+    for (var element in pedidos) {
+      subtotal += element['total'];
+    }
+
+    double newTotal = subtotal - discount;
+
+    total.value = newTotal;
+  }
+
+  String formatAsCurrency(double value) {
+    return value.toStringAsFixed(2).replaceAll('.', ',');
+  }
+
+  void removeNumberDiscount() {
+    if (numbersDiscount.value.length > 1) {
+      String newValue = numbersDiscount.value
+          .replaceAll(RegExp(r'[^\d]'), '')
+          .substring(0, numbersDiscount.value.length - 2);
+      numbersDiscount.value = formatAsCurrency(double.parse(newValue) / 100);
+    } else {
+      numbersDiscount.value = '0,00';
+    }
+    calculateTotal();
   }
 
   void adicionarPedidos(String nomeProduto, String unidade, String price) {
@@ -61,12 +113,12 @@ class PdvController extends GetxController {
   void removerPedido(int index) {
     if (index >= 0 && index < pedidos.length) {
       if (pedidos[index]['quantidade'] > 1) {
-        total -= pedidos[index]['price'];
+        total.value -= pedidos[index]['price'];
         pedidos[index]['quantidade'] -= 1;
         pedidos[index]['total'] =
             pedidos[index]['quantidade'] * pedidos[index]['price'];
       } else {
-        total -= pedidos[index]['total'];
+        total.value -= pedidos[index]['total'];
         pedidos.removeAt(index);
       }
     }
@@ -74,10 +126,22 @@ class PdvController extends GetxController {
 
   void totalSoma() {
     if (total > 0.1) {
-      total = 0.0;
+      total.value = 0.0;
     }
     for (var element in pedidos) {
-      total += element['total'];
+      total.value += element['total'];
+    }
+  }
+
+  void discount(double discount) {
+    discountTotal = discount;
+  }
+
+  void totalWithDiscount(double discount) {
+    if (total > discountTotal) {
+      totalMinusDiscount = total.value - discountTotal;
+    } else {
+      totalMinusDiscount = 0.0;
     }
   }
 }
