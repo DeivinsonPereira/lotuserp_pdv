@@ -17,6 +17,10 @@ class PaymentPage extends StatefulWidget {
 class _PaymentPageState extends State<PaymentPage> {
   late NumberFormat formatoBrasileiro;
 
+  void pushSetState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     PdvController controller = Get.find();
@@ -49,7 +53,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ],
           ),
-          buttonsPayment().textDiscountOnSale(context),
+          buttonsPayment().textDiscountOnSale(context, pushSetState),
         ],
       );
     }
@@ -112,7 +116,17 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //dados informados no rodapé do container do lado esquerdo.
     Widget subtotalDiscountTotal() {
+      double totalValue = 0.0;
+
+      for (var element in controller.pedidos) {
+        totalValue += element['total'];
+      }
+      var totalValueFormated = formatoBrasileiro.format(totalValue);
       var totalFormat = formatoBrasileiro.format(controller.total.value);
+      var numberDiscount = !controller.numbersDiscount.value.isBlank!
+          ? controller.numbersDiscount.value
+          : '0,00';
+
       return Flexible(
         flex: 2,
         child: Column(
@@ -126,9 +140,12 @@ class _PaymentPageState extends State<PaymentPage> {
                 color: Colors.grey,
               ),
             ),
-            RowWidget().Rows('Subtotal', totalFormat),
-            RowWidget().Rows('Desconto na venda', '15,00'),
-            RowWidget().Rows('Total', controller.discountTotal.toString()),
+            RowWidget().Rows('Subtotal', totalValueFormated),
+            RowWidget().Rows(
+              'Desconto na venda',
+              numberDiscount,
+            ),
+            RowWidget().Rows('Total', totalFormat),
           ],
         ),
       );
@@ -208,8 +225,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           children: [
                             cardsPayment(
                                 FontAwesomeIcons.moneyBill, 'Dinheiro'),
-                            cardsPayment(
-                                FontAwesomeIcons.creditCard, 'Cartão'),
+                            cardsPayment(FontAwesomeIcons.creditCard, 'Cartão'),
                             cardsPayment(Icons.money, 'Crediário'),
                             cardsPayment(Icons.pix, 'Pix'),
                           ]),
@@ -220,8 +236,9 @@ class _PaymentPageState extends State<PaymentPage> {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: Container(
                           decoration: BoxDecoration(
-                              color: CustomColors.customSwatchColor,
-                              borderRadius: BorderRadius.circular(10),),
+                            color: CustomColors.customSwatchColor,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
                           width: double.infinity,
                           height: 50,
                           child: InkWell(

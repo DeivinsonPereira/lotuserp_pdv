@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 PdvController controller = Get.find();
 var formatoBrasileiro = NumberFormat.currency(
-    locale: 'pt_BR',
-    symbol: '',
-  );
-
+  locale: 'pt_BR',
+  symbol: '',
+);
 
 class RowWidget {
-  Widget Rows(String text, String total) {
+  Widget Rows(
+    String text,
+    String total,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 18.0),
       child: Row(
@@ -29,12 +32,9 @@ class RowWidget {
   }
 }
 
-
-
-class buttonsPayment{
-
+class buttonsPayment {
   Widget iconBackspace() {
-    return Container(
+    return SizedBox(
       width: 150,
       height: 37,
       child: InkWell(
@@ -49,7 +49,7 @@ class buttonsPayment{
     );
   }
 
-Widget buildNumberButton(String number) {
+  Widget buildNumberButton(String number) {
     return InkWell(
       onTap: () {
         controller.addNumberDiscount(number);
@@ -77,39 +77,30 @@ Widget buildNumberButton(String number) {
           }
         },
         child: Row(children: [
-          Obx(
-            () => Checkbox(
-              value: controller.checkbox1.value,
-              onChanged: (bool? value) {
-                controller.checkbox1.value = !controller.checkbox1.value;
-                if (controller.checkbox1.value) {
-                  controller.checkbox2.value = false;
-                  controller.checkbox3.value = false;
-                }
-              },
+          Padding(
+            padding: const EdgeInsets.only(left: 45.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(text),
+                Obx(() {
+                  final value = totalValue.value;
+                  final formattedValue = formatoBrasileiro.format(value);
+                  return Text(
+                    formattedValue,
+                    style: !controller.checkbox1.value
+                        ? const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black)
+                        : TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.customContrastColor),
+                  );
+                }),
+              ],
             ),
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(text),
-              Obx(() {
-                final value = totalValue.value;
-                final formattedValue = formatoBrasileiro.format(value);
-                return Text(
-                  formattedValue,
-                  style: !controller.checkbox1.value
-                      ? const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)
-                      : TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.customContrastColor),
-                );
-              }),
-            ],
           )
         ]));
   }
@@ -212,7 +203,7 @@ Widget buildNumberButton(String number) {
         ]));
   }
 
-  Widget textDiscountOnSale(BuildContext context) {
+  Widget textDiscountOnSale(BuildContext context, Function callback) {
     return TextButton(
       onPressed: () {
         showDialog(
@@ -223,62 +214,61 @@ Widget buildNumberButton(String number) {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.all(50.0),
-                        child: Row(children: [
-                          Column(
-                            children: [
-                              Row(
-                                children: [
-                                  buildNumberButton('1'),
-                                  buildNumberButton('2'),
-                                  buildNumberButton('3'),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              Row(
-                                children: [
-                                  buildNumberButton('4'),
-                                  buildNumberButton('5'),
-                                  buildNumberButton('6'),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              Row(
-                                children: [
-                                  buildNumberButton('7'),
-                                  buildNumberButton('8'),
-                                  buildNumberButton('9'),
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              Row(
-                                children: [
-                                  buildNumberButton('00'),
-                                  buildNumberButton('0'),
-                                  iconBackspace(),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ]),
+                      child: Container(
+                        height: 400,
+                        child: Padding(
+                          padding: const EdgeInsets.all(50.0),
+                          child: Row(children: [
+                            Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    buildNumberButton('1'),
+                                    buildNumberButton('2'),
+                                    buildNumberButton('3'),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                Row(
+                                  children: [
+                                    buildNumberButton('4'),
+                                    buildNumberButton('5'),
+                                    buildNumberButton('6'),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                Row(
+                                  children: [
+                                    buildNumberButton('7'),
+                                    buildNumberButton('8'),
+                                    buildNumberButton('9'),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 50,
+                                ),
+                                Row(
+                                  children: [
+                                    buildNumberButton('00'),
+                                    buildNumberButton('0'),
+                                    iconBackspace(),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ]),
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: 400,
+                    Container(
+                      height: 350,
                       width: 300,
                       child: Column(
                         children: [
-                          checkedBoxButton('Subtotal', controller.total),
-                          const SizedBox(
-                            height: 50,
-                          ),
                           checkedDiscountBoxButton(
                               'Desconto em Reais', context),
                           const SizedBox(
@@ -286,12 +276,24 @@ Widget buildNumberButton(String number) {
                           ),
                           checkedPercentualBoxButton('Desconto percentual',
                               controller.discountPercentage.value),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          checkedBoxButton('Subtotal', controller.total),
                         ],
                       ),
                     ),
                   ],
                 ),
                 actions: [
+                  TextButton(
+                    onPressed: () {
+                      callback();
+                      //implementar lógica para armazenar o valor do disconto numa variável e passar para a tela principal;
+                      Get.back();
+                    },
+                    child: const Text('CONFIRMAR'),
+                  ),
                   TextButton(
                     onPressed: () {
                       Get.back();
@@ -324,5 +326,4 @@ Widget buildNumberButton(String number) {
       ),
     );
   }
-  
 }
