@@ -542,6 +542,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                     child: InkWell(
                       onTap: () {
+                        print(controller.total.value);
                         Get.toNamed(PagesRoutes.paymentRoute);
                       },
                       child: Padding(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_typedefs/rx_typedefs.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -68,41 +67,33 @@ class buttonsPayment {
 
   //checkbox para Subtotal
   Widget checkedBoxButton(String text, RxDouble totalValue) {
-    return InkWell(
-        onTap: () {
-          controller.checkbox1.value = !controller.checkbox1.value;
-          if (controller.checkbox1.value) {
-            controller.checkbox2.value = false;
-            controller.checkbox3.value = false;
-          }
-        },
-        child: Row(children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 45.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(text),
-                Obx(() {
-                  final value = totalValue.value;
-                  final formattedValue = formatoBrasileiro.format(value);
-                  return Text(
-                    formattedValue,
-                    style: !controller.checkbox1.value
-                        ? const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black)
-                        : TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.customContrastColor),
-                  );
-                }),
-              ],
-            ),
-          )
-        ]));
+    return Row(children: [
+      Padding(
+        padding: const EdgeInsets.only(left: 45.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(text),
+            Obx(() {
+              final value = totalValue.value;
+              final formattedValue = formatoBrasileiro.format(value);
+              return Text(
+                formattedValue,
+                style: !controller.checkbox1.value
+                    ? const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black)
+                    : TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: CustomColors.customContrastColor),
+              );
+            }),
+          ],
+        ),
+      )
+    ]);
   }
 
   //checkbox para desconto em reais
@@ -118,6 +109,9 @@ class buttonsPayment {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Obx(
             () => Checkbox(
+              shape: CircleBorder(),
+              checkColor: Colors.white,
+              activeColor: CustomColors.customContrastColor,
               value: controller.checkbox2.value,
               /*mudar para variavel */
               onChanged: (bool? value) {
@@ -167,6 +161,9 @@ class buttonsPayment {
         child: Row(children: [
           Obx(
             () => Checkbox(
+              shape: CircleBorder(),
+              checkColor: Colors.white,
+              activeColor: CustomColors.customContrastColor,
               value: controller.checkbox3.value,
               /*mudar para variavel */
               onChanged: (bool? value) {

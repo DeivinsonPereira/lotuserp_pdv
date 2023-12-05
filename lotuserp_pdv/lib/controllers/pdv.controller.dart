@@ -36,6 +36,10 @@ class PdvController extends GetxController {
     return index;
   }
 
+  void totalZero() {
+    total.value = 0.0;
+  }
+
   void selectedCheckBox(String letterCheckBox) {
     validationCheckedBox.value = letterCheckBox;
     print(validationCheckedBox.value);
@@ -134,6 +138,7 @@ class PdvController extends GetxController {
     scrollController.addListener(() {});
   }
 
+  //cancela o pedido e zera a lista
   void cancelarPedido() {
     if (pedidos.isNotEmpty) {
       pedidos.clear();
@@ -142,6 +147,7 @@ class PdvController extends GetxController {
     }
   }
 
+  //remove item do pedido
   void removerPedido(int index) {
     if (index >= 0 && index < pedidos.length) {
       if (pedidos[index]['quantidade'] > 1) {
@@ -156,24 +162,13 @@ class PdvController extends GetxController {
     }
   }
 
+  // soma o valor total a lista
   void totalSoma() {
     if (total > 0.1) {
       total.value = 0.0;
     }
     for (var element in pedidos) {
       total.value += element['total'];
-    }
-  }
-
-  void discount(double discount) {
-    discountTotal = discount;
-  }
-
-  void totalWithDiscount(double discount) {
-    if (total > discountTotal) {
-      totalMinusDiscount = total.value - discountTotal;
-    } else {
-      totalMinusDiscount = 0.0;
     }
   }
 }

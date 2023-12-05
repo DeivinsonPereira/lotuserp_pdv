@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/controllers/payment.controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
+import 'package:lotuserp_pdv/pages/payment/widget/dialog_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -24,6 +26,12 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     PdvController controller = Get.find();
+    PaymentController controllerPayment = Get.put(PaymentController());
+
+    var totalValueFormated;
+    var totalFormat;
+
+    var paymentCount = 0.0;
 
     var total;
 
@@ -121,8 +129,8 @@ class _PaymentPageState extends State<PaymentPage> {
       for (var element in controller.pedidos) {
         totalValue += element['total'];
       }
-      var totalValueFormated = formatoBrasileiro.format(totalValue);
-      var totalFormat = formatoBrasileiro.format(controller.total.value);
+      totalValueFormated = formatoBrasileiro.format(totalValue);
+      totalFormat = formatoBrasileiro.format(controller.total.value);
       var numberDiscount = !controller.numbersDiscount.value.isBlank!
           ? controller.numbersDiscount.value
           : '0,00';
@@ -152,38 +160,122 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //icones para escolha de forma de pagamento
-    Widget cardsPayment(IconData icon, String text) {
-      return Padding(
-        padding: const EdgeInsets.only(top: 8.0),
-        child: SizedBox(
-          width: 150,
-          height: 100,
-          child: Card(
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: Icon(
-                  icon,
-                  color: Colors.black,
+    Widget cardsPayment(IconData? icon, String text) {
+      return InkWell(
+        onTap: () {
+          showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return DialogWidget()
+                    .keyboardNumber(pushSetState, paymentCount, text);
+              });
+        },
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: SizedBox(
+            width: 125,
+            height: 60,
+            child: Card(
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 8.0),
+                  child: Icon(
+                    icon,
+                    color: Colors.black,
+                  ),
                 ),
-              ),
-              Text(
-                text,
-                style: const TextStyle(color: Colors.black),
-              ),
-            ]),
+                Text(
+                  text,
+                  style: const TextStyle(color: Colors.black),
+                ),
+              ]),
+            ),
           ),
         ),
       );
     }
 
-    //container do lado esquerdo
+    Widget totalPay(String text, String value) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(text),
+            Text(
+              value,
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
+      );
+    }
+
+    //discount from total if paymentforms.
+    Widget paymentForms() {
+      String paymentFormsFormated = formatoBrasileiro.format(paymentCount);
+      double totalValue = controller.total.value;
+
+      var totalToPay = totalValue > 0.0 && totalValue > paymentCount
+          ? totalValue - paymentCount
+          : 0.0;
+
+      var totalToPayFormatted = formatoBrasileiro.format(totalToPay);
+
+      return Column(
+        children: [
+          Expanded(flex: 5, child: Container()),
+          Expanded(
+              flex: 1,
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                    child: Container(
+                      width: double.infinity,
+                      height: 1,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  totalPay('Total pago', paymentFormsFormated),
+                  totalPay('Falta pagar', totalToPayFormatted),
+                ],
+              ))
+        ],
+      );
+    }
+
+    //botões e icones abaixo do container da direita
+    Widget listIcons() {
+      return ListView(
+        scrollDirection: Axis.horizontal,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              cardsPayment(FontAwesomeIcons.moneyBill1Wave, 'Dinheiro'),
+              cardsPayment(FontAwesomeIcons.creditCard, 'POS Crédito'),
+              cardsPayment(FontAwesomeIcons.solidCreditCard, 'POS Débito'),
+              cardsPayment(FontAwesomeIcons.pix, 'PIX'),
+              cardsPayment(FontAwesomeIcons.moneyCheckDollar, 'TEF Crédito'),
+              cardsPayment(FontAwesomeIcons.moneyCheck, 'TEF Débito'),
+              cardsPayment(FontAwesomeIcons.pix, 'TEF PIX'),
+              cardsPayment(FontAwesomeIcons.moneyBill, 'TEF Voucher'),
+            ],
+          ),
+        ],
+      );
+    }
+
+    //tamanho da tela
     Widget bodyLayout() {
       return Expanded(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 625),
           child: Row(
             children: [
+              //container do lado esquerdo
               Expanded(
                 flex: 1,
                 child: Container(
@@ -216,19 +308,12 @@ class _PaymentPageState extends State<PaymentPage> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white,
                         ),
+                        child: paymentForms(),
                       ),
                     ),
                     Flexible(
                       flex: 1,
-                      child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            cardsPayment(
-                                FontAwesomeIcons.moneyBill, 'Dinheiro'),
-                            cardsPayment(FontAwesomeIcons.creditCard, 'Cartão'),
-                            cardsPayment(Icons.money, 'Crediário'),
-                            cardsPayment(Icons.pix, 'Pix'),
-                          ]),
+                      child: listIcons(),
                     ),
                     Flexible(
                       flex: 1,
