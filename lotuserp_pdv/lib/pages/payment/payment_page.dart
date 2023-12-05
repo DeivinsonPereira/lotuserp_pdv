@@ -28,6 +28,7 @@ class _PaymentPageState extends State<PaymentPage> {
       symbol: '',
     );
 
+    //linha do cabeçalho
     Widget lineHeader() {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,11 +49,12 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ],
           ),
-          ButtonsWidgets().textDiscountOnSale(context),
+          buttonsPayment().textDiscountOnSale(context),
         ],
       );
     }
 
+    //lista de pedidos dos itens solicitados
     Widget listViewPedidosList() {
       return Flexible(
         flex: 12,
@@ -96,7 +98,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
                       trailing: Text(
                         ' $total',
-                        style: TextStyle(fontSize: 16),
+                        style: const TextStyle(fontSize: 16),
                       ),
                     ),
                   ),
@@ -108,6 +110,7 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    //dados informados no rodapé do container do lado esquerdo.
     Widget subtotalDiscountTotal() {
       var totalFormat = formatoBrasileiro.format(controller.total.value);
       return Flexible(
@@ -131,11 +134,13 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
-    Widget cardsPaymente(IconData icon, String text) {
+    //icones para escolha de forma de pagamento
+    Widget cardsPayment(IconData icon, String text) {
       return Padding(
         padding: const EdgeInsets.only(top: 8.0),
-        child: Container(
+        child: SizedBox(
           width: 150,
+          height: 100,
           child: Card(
             child: Column(children: [
               Padding(
@@ -147,7 +152,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               Text(
                 text,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
               ),
             ]),
           ),
@@ -155,6 +160,7 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    //container do lado esquerdo
     Widget bodyLayout() {
       return Expanded(
         child: ConstrainedBox(
@@ -176,9 +182,10 @@ class _PaymentPageState extends State<PaymentPage> {
                       ],
                     )),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 20,
               ),
+              //contaner do lado direito
               Expanded(
                 flex: 1,
                 child: Column(
@@ -196,31 +203,35 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     Flexible(
                       flex: 1,
-                      child: Container(
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              cardsPaymente(
-                                  FontAwesomeIcons.moneyBill, 'Dinheiro'),
-                              cardsPaymente(
-                                  FontAwesomeIcons.creditCard, 'Cartão'),
-                              cardsPaymente(Icons.money, 'Crediário'),
-                              cardsPaymente(Icons.pix, 'Pix'),
-                            ]),
-                      ),
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            cardsPayment(
+                                FontAwesomeIcons.moneyBill, 'Dinheiro'),
+                            cardsPayment(
+                                FontAwesomeIcons.creditCard, 'Cartão'),
+                            cardsPayment(Icons.money, 'Crediário'),
+                            cardsPayment(Icons.pix, 'Pix'),
+                          ]),
                     ),
                     Flexible(
                       flex: 1,
-                      child: Container(
-                        width: double.infinity,
-                        height: 50,
-                        color: CustomColors.customSwatchColor,
-                        child: InkWell(
-                          onTap: () {},
-                          child: Center(
-                            child: const Text(
-                              'Finalizar',
-                              style: TextStyle(color: Colors.white),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: CustomColors.customSwatchColor,
+                              borderRadius: BorderRadius.circular(10),),
+                          width: double.infinity,
+                          height: 50,
+                          child: InkWell(
+                            onTap: () {},
+                            child: const Center(
+                              child: Text(
+                                'Finalizar',
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
                             ),
                           ),
                         ),
