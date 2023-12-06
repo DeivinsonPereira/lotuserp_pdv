@@ -12,12 +12,29 @@ import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
 
+  
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
 
 class _PaymentPageState extends State<PaymentPage> {
   late NumberFormat formatoBrasileiro;
+  
+  @override
+  void initState() {
+    void updateDialogData() {
+    // Acesse os dados do controller para atualizar as informações
+    controller.total.value;
+    controller.numbersDiscount.value;
+    controller.discountPercentage.value;
+
+    // Atualize as variáveis de estado se necessário
+    setState(() {});
+  }
+    
+    super.initState();
+  }
+  
 
   void pushSetState() {
     setState(() {});
@@ -27,6 +44,9 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     PdvController controller = Get.find();
     PaymentController controllerPayment = Get.put(PaymentController());
+
+    
+    
 
     var totalValueFormated;
     var totalFormat;
