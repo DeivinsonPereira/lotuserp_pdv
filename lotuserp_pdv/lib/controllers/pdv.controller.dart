@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'dart:math';
 
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
@@ -9,11 +10,11 @@ class PdvController extends GetxController {
 
   RxString validationCheckedBox = ''.obs;
 
-  var total = 0.0.obs;
+  RxDouble total = 0.0.obs;
 
-  var numbersDiscount = '0,00'.obs;
+  RxString numbersDiscount = '0,00'.obs;
 
-  var discountPercentage = 0.0.obs;
+  RxDouble discountPercentage = 0.0.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -31,16 +32,8 @@ class PdvController extends GetxController {
     return index;
   }
 
-  void totalZero() {
-    total.value = 0.0;
-  }
-
-  void selectedCheckBox(String letterCheckBox) {
-    validationCheckedBox.value = letterCheckBox;
-    print(validationCheckedBox.value);
-  }
-
   //calcula percentual de desconto
+
   void calculateDiscountPercentage() {
     double discount =
         double.parse(numbersDiscount.value.replaceAll(RegExp(r'[^\d]'), '')) /
@@ -51,11 +44,9 @@ class PdvController extends GetxController {
       subtotal += element['total'];
     }
 
-    double newTotal = subtotal - discount;
+    discountPercentage.value = (discount / max(subtotal, 1)) * 100;
 
-    discountPercentage.value = (discount / (subtotal > 0 ? subtotal : 1)) * 100;
-
-    total.value = newTotal;
+    total.value = subtotal - discount;
   }
 
   //adiciona numeros no desconto
@@ -106,7 +97,8 @@ class PdvController extends GetxController {
   }
 
   //adiciona itens no pedido
-  void adicionarPedidos(String nomeProduto, String unidade, String price) {
+  void adicionarPedidos(
+      String nomeProduto, String unidade, String price, Function callback) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 

@@ -15,13 +15,14 @@ class PaymentController extends GetxController {
 
   //adiciona numero no totalPayments;
   void addNumberPayment(String number) {
-    if (number == '0' && totalPayment.value == '0.00') {
+    if (number == '0' && totalPayment.value == '0,00') {
       return;
     }
 
-    String newValue =
+    //transforma o numero em string e divide por 100 para transformar em double com 2 casas decimais.
+    String newPaymentValue =
         totalPayment.value.replaceAll(RegExp(r'[^\d]'), '') + number;
-    totalPayment.value = formatAsCurrency(double.parse(newValue) / 100);
+    totalPayment.value = formatAsCurrency(double.parse(newPaymentValue) / 100);
   }
 
   //transforma double em string transformando virgula em ponto;
@@ -32,28 +33,31 @@ class PaymentController extends GetxController {
   //remove numero por numero do valor inserido na forma de pagamento.
   void removeNumberDiscount() {
     if (totalPayment.value.length > 1) {
-      String newValue = totalPayment.value
+      String newPaymentValue = totalPayment.value
           .replaceAll(RegExp(r'[^\d]'), '')
           .substring(0, totalPayment.value.length - 2);
-      totalPayment.value = formatAsCurrency(double.parse(newValue) / 100);
+      totalPayment.value =
+          formatAsCurrency(double.parse(newPaymentValue) / 100);
     } else {
       totalPayment.value = '0,00';
     }
   }
 
+  //remove forma de pagamento
   void deletePayment(int index) {
     if (index >= 0 && index < paymentsTotal.length) {
       paymentsTotal.removeAt(index);
     }
   }
 
+  //retorna o total pago
   double getTotalPaid() {
     double totalPaid = 0.0;
     for (var payment in paymentsTotal.toList()) {
       var paymentValue = payment['valor'];
       if (paymentValue != null && paymentValue.isNotEmpty) {
-        var cleanPaymentValue = paymentValue.replaceAll(',', '');
-        totalPaid += double.tryParse(cleanPaymentValue)! / 100 ?? 0.0;
+        var cleanedPaymentValue = paymentValue.replaceAll(',', '');
+        totalPaid += double.tryParse(cleanedPaymentValue)! / 100;
       }
     }
     return totalPaid;

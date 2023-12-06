@@ -77,15 +77,11 @@ class buttonsPayment {
             Obx(() {
               final value = totalValue.value;
               final formattedValue = formatoBrasileiro.format(value);
-              return Text(
-                formattedValue,
-                style: 
-                    const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black)
-                    
-              );
+              return Text(formattedValue,
+                  style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black));
             }),
           ],
         ),
@@ -196,6 +192,7 @@ class buttonsPayment {
   Widget textDiscountOnSale(BuildContext context, Function callback) {
     return TextButton(
       onPressed: () {
+        callback();
         showDialog(
             context: context,
             builder: (BuildContext context) {

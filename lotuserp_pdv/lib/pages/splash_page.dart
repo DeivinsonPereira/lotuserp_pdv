@@ -25,7 +25,7 @@ class _SplashPageState extends State<SplashPage> {
       });
     });
     Future.delayed(const Duration(seconds: 3), () {
-      Get.toNamed(PagesRoutes.authRoute);
+      Get.toNamed(PagesRoutes.loginRoute);
     });
     super.initState();
   }

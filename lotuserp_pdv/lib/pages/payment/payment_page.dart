@@ -266,33 +266,46 @@ class _PaymentPageState extends State<PaymentPage> {
           Expanded(
               flex: 5,
               child: Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(
                   itemCount: controllerPayment.paymentsTotal.length,
                   itemBuilder: (context, index) {
                     var mapPaymentsTotal =
                         controllerPayment.paymentsTotal.value;
 
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(mapPaymentsTotal[index]['nome']),
-                          Row(
+                    return Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(mapPaymentsTotal[index]['valor']),
-                              SizedBox(
-                                  width: 50,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {});
-                                      controllerPayment.deletePayment(index);
-                                    },
-                                    icon: Icon(Icons.remove_circle_outline),
-                                    color: Colors.black,
-                                  )),
-                            ],
-                          )
-                        ]);
+                              Text(
+                                mapPaymentsTotal[index]['nome'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
+                              ),
+                              Row(
+                                children: [
+                                  Text(mapPaymentsTotal[index]['valor']),
+                                  SizedBox(
+                                      width: 50,
+                                      child: IconButton(
+                                        onPressed: () {
+                                          setState(() {});
+                                          controllerPayment
+                                              .deletePayment(index);
+                                        },
+                                        icon:  const Icon(
+                                          FontAwesomeIcons.trash,
+                                          size: 20,
+                                        ),
+                                        color: Color.fromARGB(255, 170, 46, 37),
+                                      )),
+                                ],
+                              )
+                            ]),
+                      ),
+                    );
                   },
                 ),
               )),
@@ -359,7 +372,8 @@ class _PaymentPageState extends State<PaymentPage> {
           width: double.infinity,
           height: 50,
           child: InkWell(
-            onTap: isButtonEnabled ? () {} : null,
+            onTap: isButtonEnabled ? () {
+            } : null,
             child: const Center(
               child: Text(
                 'Finalizar',

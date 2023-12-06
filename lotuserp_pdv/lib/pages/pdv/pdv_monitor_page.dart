@@ -270,7 +270,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         onTap: () {
                                           setState(() {
                                             controller.adicionarPedidos(
-                                                nome!, unidade!, preco);
+                                                nome!,
+                                                unidade!,
+                                                preco,
+                                                () => setState);
 
                                             controller.totalSoma();
                                             if (!controller.pedidos
@@ -540,7 +543,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                     child: InkWell(
                       onTap: () {
-                        print(controller.total.value);
                         Get.toNamed(PagesRoutes.paymentRoute);
                       },
                       child: Padding(

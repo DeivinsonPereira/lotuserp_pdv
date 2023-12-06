@@ -72,7 +72,6 @@ class ButtonsWidgets {
         color: Color.fromARGB(255, 112, 112, 112),
       ),
       onPressed: () {
-        controller.total.value = 0.0;
         Get.back();
       },
     );
