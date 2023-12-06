@@ -4,17 +4,12 @@ import 'package:get/get.dart';
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
 
-  RxBool checkbox1 = false.obs;
   RxBool checkbox2 = false.obs;
   RxBool checkbox3 = false.obs;
 
   RxString validationCheckedBox = ''.obs;
 
   var total = 0.0.obs;
-
-  double discountTotal = 0.0;
-
-  double totalMinusDiscount = 0.00;
 
   var numbersDiscount = '0,00'.obs;
 
@@ -97,6 +92,7 @@ class PdvController extends GetxController {
     return value.toStringAsFixed(2).replaceAll('.', ',');
   }
 
+  //remove numero do NumberDiscount
   void removeNumberDiscount() {
     if (numbersDiscount.value.length > 1) {
       String newValue = numbersDiscount.value
@@ -109,6 +105,7 @@ class PdvController extends GetxController {
     calculateTotal();
   }
 
+  //adiciona itens no pedido
   void adicionarPedidos(String nomeProduto, String unidade, String price) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);

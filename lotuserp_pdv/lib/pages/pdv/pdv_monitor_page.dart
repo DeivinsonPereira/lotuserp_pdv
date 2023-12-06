@@ -55,7 +55,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     }
 
     return Scaffold(
-      backgroundColor: ContainersColors.scaffoldColors,
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Row(
@@ -382,7 +381,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                       padding: const EdgeInsets.only(top: 10.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: CustomColors.customSwatchColor,
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: Row(

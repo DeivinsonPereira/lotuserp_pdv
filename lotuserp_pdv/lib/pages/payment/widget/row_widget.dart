@@ -79,15 +79,12 @@ class buttonsPayment {
               final formattedValue = formatoBrasileiro.format(value);
               return Text(
                 formattedValue,
-                style: !controller.checkbox1.value
-                    ? const TextStyle(
+                style: 
+                    const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.black)
-                    : TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.customContrastColor),
+                    
               );
             }),
           ],
@@ -102,7 +99,6 @@ class buttonsPayment {
         onTap: () {
           controller.checkbox2.value = !controller.checkbox2.value;
           if (controller.checkbox2.value) {
-            controller.checkbox1.value = false;
             controller.checkbox3.value = false;
           }
         },
@@ -117,7 +113,6 @@ class buttonsPayment {
               onChanged: (bool? value) {
                 controller.checkbox2.value = !controller.checkbox2.value;
                 if (controller.checkbox2.value) {
-                  controller.checkbox1.value = false;
                   controller.checkbox3.value = false;
                 }
               },
@@ -154,7 +149,6 @@ class buttonsPayment {
         onTap: () {
           controller.checkbox3.value = !controller.checkbox3.value;
           if (controller.checkbox3.value) {
-            controller.checkbox1.value = false;
             controller.checkbox2.value = false;
           }
         },
@@ -169,7 +163,6 @@ class buttonsPayment {
               onChanged: (bool? value) {
                 controller.checkbox3.value = !controller.checkbox3.value;
                 if (controller.checkbox3.value) {
-                  controller.checkbox1.value = false;
                   controller.checkbox2.value = false;
                 }
               },

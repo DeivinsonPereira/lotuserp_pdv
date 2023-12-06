@@ -6,7 +6,7 @@ import 'package:lotuserp_pdv/controllers/payment.controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
-import 'package:lotuserp_pdv/pages/payment/widget/dialog_widget.dart';
+import 'package:lotuserp_pdv/pages/payment/widget/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -34,6 +34,8 @@ class _PaymentPageState extends State<PaymentPage> {
     var paymentCount = 0.0;
 
     var total;
+
+    var remainingValue = 0.0;
 
     var formatoBrasileiro = NumberFormat.currency(
       locale: 'pt_BR',
@@ -195,23 +197,60 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
-    Widget totalPay(String text, String value) {
-      return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(text),
-            Text(
-              value,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      );
+    Widget totalPay(String text, String value, {bool calculateTotal = false}) {
+      if (calculateTotal) {
+        String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
+        totalPaid = formatoBrasileiro.format(double.parse(totalPaid));
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(text),
+              Text(
+                calculateTotal ? totalPaid : value,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+        );
+      } else {
+        double totalValue = controller.total.value;
+        double totalPaid = controllerPayment.getTotalPaid();
+        remainingValue = totalValue - totalPaid;
+
+        String remainingValueFormatted =
+            formatoBrasileiro.format(remainingValue);
+
+        String text = remainingValue < 0 ? 'Troco' : 'Falta pagar';
+        Color textColor = remainingValue < 0 ? Colors.red : Colors.black;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                text,
+                style: TextStyle(
+                  color: textColor,
+                ),
+              ),
+              Text(
+                remainingValueFormatted,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: textColor,
+                ),
+              ),
+            ],
+          ),
+        );
+      }
     }
 
-    //discount from total if paymentforms.
+    //Descontos totais das formas de pagamento.
     Widget paymentForms() {
       String paymentFormsFormated = formatoBrasileiro.format(paymentCount);
       double totalValue = controller.total.value;
@@ -224,7 +263,39 @@ class _PaymentPageState extends State<PaymentPage> {
 
       return Column(
         children: [
-          Expanded(flex: 5, child: Container()),
+          Expanded(
+              flex: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ListView.builder(
+                  itemCount: controllerPayment.paymentsTotal.length,
+                  itemBuilder: (context, index) {
+                    var mapPaymentsTotal =
+                        controllerPayment.paymentsTotal.value;
+
+                    return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(mapPaymentsTotal[index]['nome']),
+                          Row(
+                            children: [
+                              Text(mapPaymentsTotal[index]['valor']),
+                              SizedBox(
+                                  width: 50,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {});
+                                      controllerPayment.deletePayment(index);
+                                    },
+                                    icon: Icon(Icons.remove_circle_outline),
+                                    color: Colors.black,
+                                  )),
+                            ],
+                          )
+                        ]);
+                  },
+                ),
+              )),
           Expanded(
               flex: 1,
               child: Column(
@@ -238,7 +309,8 @@ class _PaymentPageState extends State<PaymentPage> {
                       color: Colors.grey,
                     ),
                   ),
-                  totalPay('Total pago', paymentFormsFormated),
+                  totalPay('Total pago', paymentFormsFormated,
+                      calculateTotal: true),
                   totalPay('Falta pagar', totalToPayFormatted),
                 ],
               ))
@@ -268,8 +340,46 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    Widget finalizeButton() {
+      double totalValue = controller.total.value;
+      double totalPaid = controllerPayment.getTotalPaid();
+      double remainingValue = totalValue - totalPaid;
+
+      bool isButtonEnabled = remainingValue <= 0;
+      Color buttonColor =
+          isButtonEnabled ? CustomColors.customSwatchColor : Colors.grey;
+
+      return Padding(
+        padding: const EdgeInsets.only(top: 20.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: buttonColor,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          width: double.infinity,
+          height: 50,
+          child: InkWell(
+            onTap: isButtonEnabled ? () {} : null,
+            child: const Center(
+              child: Text(
+                'Finalizar',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+
     //tamanho da tela
     Widget bodyLayout() {
+      bool isButtonEnabled = remainingValue <= 0;
+      Color buttonColor =
+          isButtonEnabled ? CustomColors.customSwatchColor : Colors.grey;
+
       return Expanded(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 625),
@@ -317,27 +427,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                     Flexible(
                       flex: 1,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: CustomColors.customSwatchColor,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          width: double.infinity,
-                          height: 50,
-                          child: InkWell(
-                            onTap: () {},
-                            child: const Center(
-                              child: Text(
-                                'Finalizar',
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 20),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: finalizeButton(),
                     )
                   ],
                 ),
