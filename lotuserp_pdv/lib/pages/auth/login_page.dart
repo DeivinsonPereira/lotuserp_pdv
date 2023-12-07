@@ -16,6 +16,24 @@ class LoginPage extends StatelessWidget {
     TextFieldController textFieldController = Get.put(TextFieldController());
     IsarService service = IsarService();
 
+    bool areFieldsEmpty() {
+      String enteredPassword = passwordController.passwordController.text;
+      String login = passwordController.userController.text;
+
+      return enteredPassword.isEmpty || login.isEmpty;
+    }
+
+    Future<bool> arePasswordsEquals() async {
+      passwordController.createHashedPassword();
+
+      String enteredPassword = passwordController.passwordController.text;
+      String login = passwordController.userController.text;
+
+      String? savedHashedPassword =
+          await service.getPasswordFromDatabase(login);
+      return enteredPassword == savedHashedPassword;
+    }
+
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
       body: SizedBox(
@@ -95,19 +113,22 @@ class LoginPage extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () async {
-                                    passwordController.createHashedPassword();
 
-                                    // Verifique se a senha inserida é igual a salva na base de dados
+                                    //verifica se os campos estão vazios
+                                    if (areFieldsEmpty()) {
+                                      Get.snackbar(
+                                        'Campos vazios',
+                                        'Por favor, preencha todos os campos.',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                      return;
+                                    }
 
-                                    String enteredPassword = passwordController
-                                        .passwordController.text;
-                                    String login =
-                                        passwordController.userController.text;
+                                    // Verifica se a senha está correta
 
-                                    String? savedHashedPassword = await service
-                                        .getPasswordFromDatabase(login);
-                                    if (enteredPassword ==
-                                        savedHashedPassword) {
+                                    if (await arePasswordsEquals()) {
                                       Get.toNamed('/');
                                     } else {
                                       Get.snackbar(

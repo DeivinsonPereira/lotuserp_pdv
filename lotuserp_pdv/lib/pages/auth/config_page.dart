@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ConfigPage extends StatelessWidget {
   const ConfigPage({super.key});
@@ -11,44 +12,195 @@ class ConfigPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextFieldController controller = Get.find();
+    IsarService service = IsarService();
+
+    Widget dialogNumberEnterprise() {
+      return Dialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: SizedBox(
+          width: 600,
+          height: 300,
+          child: Column(
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: Text(
+                  'Número do Contrato',
+                  style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding:
+                    const EdgeInsets.only(left: 100.0, right: 100, top: 10),
+                child: TextFormField(
+                  controller: controller.numContratoEmpresaController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Digite o número do Contrato',
+                    hintStyle: TextStyle(
+                      color: Color.fromARGB(255, 180, 180, 180),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Container(
+                    width: 150,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: CustomColors.customSwatchColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: CustomColors.customSwatchColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        if (controller
+                            .numContratoEmpresaController.text.isEmpty) {
+                          const CustomSnackBar(
+                            title: 'Erro',
+                            message: 'Número do Contrato obrigatório',
+                            icon: Icons.error,
+                            backgroundColor: Colors.red,
+                            textColor: Colors.white,
+                          ).show(context);
+                          return;
+                        } else {
+                          controller.salvarInformacoesContrato();
+                          print(controller.numContratoEmpresa);
+                          controller.numContratoEmpresaController.clear();
+                          service.getIpEmpresa();
+                          Get.back();
+                        }
+                      },
+                      child: const Text(
+                        'Confirmar',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Container(
+                    width: 150,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: CustomColors.customSwatchColor,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: CustomColors.customSwatchColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      onPressed: () {
+                        controller.numContratoEmpresaController.clear();
+                        Get.back();
+                      },
+                      child: const Text(
+                        'Cancelar',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
+            ],
+          ),
+        ),
+      );
+    }
 
     Widget textFormFields(
-        IconData icon, TextEditingController? controller, String text) {
+        IconData icon, TextEditingController? controller, String text,
+        {bool numericKeyboard = false, bool useIconButton = false}) {
       return Padding(
-          padding: const EdgeInsets.only(
-              left: 15.0, right: 15.0, top: 15, bottom: 15),
-          child: TextField(
-            controller: controller,
-            decoration: InputDecoration(
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10.0),
-                          bottomLeft: Radius.circular(10.0)),
-                      color: CustomColors.customSwatchColor,
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+        padding: const EdgeInsets.only(
+          left: 15.0,
+          right: 15.0,
+          top: 15,
+          bottom: 15,
+        ),
+        child: TextField(
+          controller: controller,
+          keyboardType: numericKeyboard ? TextInputType.number : null,
+          decoration: InputDecoration(
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: useIconButton
+                  ? Container(
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: CustomColors.customSwatchColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          icon,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          if (controller!.text.isEmpty) {
+                            
+                          }
+                        },
+                      ),
+                    )
+                  : Container(
+                      width: 50,
+                      decoration: BoxDecoration(
+                        color: CustomColors.customSwatchColor,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        ),
+                      ),
                       child: Icon(
                         icon,
                         color: Colors.white,
                       ),
                     ),
-                  ),
-                ), // Ícone de IP
-                contentPadding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: 16.0),
-                hintText: text,
-                hintStyle: const TextStyle(
-                  color: Color.fromARGB(255, 201, 200, 200),
-                )),
-          ));
+            ),
+            fillColor: Colors.grey[200],
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            contentPadding: const EdgeInsets.symmetric(
+              vertical: 12.0,
+              horizontal: 16.0,
+            ),
+            hintText: text,
+            hintStyle: const TextStyle(
+              color: Color.fromARGB(255, 201, 200, 200),
+            ),
+          ),
+        ),
+      );
     }
 
     Widget textFormFieldsCamp() {
@@ -59,19 +211,24 @@ class ConfigPage extends StatelessWidget {
             child: Column(
               children: [
                 textFormFields(FontAwesomeIcons.wifi, controller.ipController,
-                    'Digite o IP da empresa'),
+                    'Digite o IP da empresa',
+                    useIconButton: true),
                 textFormFields(FontAwesomeIcons.solidBuilding,
-                    controller.idEmpresaController, 'Digite o ID da empresa'),
+                    controller.idEmpresaController, 'Digite o ID da empresa',
+                    numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.fileInvoiceDollar,
                     controller.idSerieNfceController,
-                    'Digite o ID da serie NFCe'),
+                    'Digite o ID da serie NFCe',
+                    numericKeyboard: true),
                 textFormFields(FontAwesomeIcons.cashRegister,
-                    controller.numCaixaController, 'Digite o número do caixa'),
+                    controller.numCaixaController, 'Digite o número do caixa',
+                    numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.solidClock,
                     controller.intervaloEnvioController,
-                    'Digite o intervalo de envio'),
+                    'Digite o intervalo de envio',
+                    numericKeyboard: true),
               ],
             ),
           ),

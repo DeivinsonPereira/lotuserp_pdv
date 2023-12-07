@@ -11,7 +11,10 @@ class TextFieldController extends GetxController {
   TextEditingController numCaixaController = TextEditingController();
   TextEditingController intervaloEnvioController = TextEditingController();
 
+  TextEditingController numContratoEmpresaController = TextEditingController();
+
   // variáveis que serão usadas para o cadastro de informações de configuração.
+  late String numContratoEmpresa = '';
   late String ip = '';
   late String idEmpresa = '';
   late String idSerieNfce = '';
@@ -27,6 +30,21 @@ class TextFieldController extends GetxController {
     intervaloEnvio = intervaloEnvioController.text;
   }
 
+  // salvar dados de contrato
+  void salvarInformacoesContrato() {
+    numContratoEmpresa = numContratoEmpresaController.text;
+  }
+
+  // atualizar dados de contrato
+  void updateNumeroContrato(String value) {
+    numContratoEmpresa = value;
+  }
+
+  // limpar os campos de contrato.
+  void limparCamposContrato() {
+    numContratoEmpresaController.clear();
+  }
+
   // limpar os campos.
   void limparCampos() {
     ipController.clear();
@@ -35,6 +53,7 @@ class TextFieldController extends GetxController {
     numCaixaController.clear();
     intervaloEnvioController.clear();
   }
+
 
   // atualizar Ip.
   void updateIp(String value) {

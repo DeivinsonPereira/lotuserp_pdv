@@ -406,10 +406,8 @@ class IsarService {
   Future<String?> getPasswordFromDatabase(String login) async {
     final isar = await db;
 
-    Usuario? usuario = await isar.usuarios
-        .filter()
-        .loginEqualTo(login)
-        .findFirst();
+    Usuario? usuario =
+        await isar.usuarios.filter().loginEqualTo(login).findFirst();
 
     //verifica se o usuario existe
     if (usuario != null) {
@@ -417,7 +415,27 @@ class IsarService {
     } else {
       return "";
     }
+  }
 
+  //buscar informações de acordo com a url e o numero do contrato
+  Future getIpEmpresa() async {
+    Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
+    final response = await http.get(
+      getIpEmpresa,
+      headers: _headers,
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Não foi possível encontrar os itens do banco de dados',
+      );
+    }
+    if (response.statusCode == 200) {
+      print(response.statusCode);
+      var ip = jsonDecode(utf8.decode(response.bodyBytes));
+      String link = ip['itens']['link'];
+      return ip['itens']['link'];
+    }
   }
 
   //abre o banco de dados
