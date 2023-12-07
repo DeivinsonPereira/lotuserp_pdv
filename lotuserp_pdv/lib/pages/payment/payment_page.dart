@@ -12,29 +12,13 @@ import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
 
-  
   @override
   State<PaymentPage> createState() => _PaymentPageState();
 }
 
 class _PaymentPageState extends State<PaymentPage> {
   late NumberFormat formatoBrasileiro;
-  
-  @override
-  void initState() {
-    void updateDialogData() {
-    // Acesse os dados do controller para atualizar as informações
-    controller.total.value;
-    controller.numbersDiscount.value;
-    controller.discountPercentage.value;
-
-    // Atualize as variáveis de estado se necessário
-    setState(() {});
-  }
-    
-    super.initState();
-  }
-  
+  PdvController controller = Get.find();
 
   void pushSetState() {
     setState(() {});
@@ -42,11 +26,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    PdvController controller = Get.find();
     PaymentController controllerPayment = Get.put(PaymentController());
-
-    
-    
 
     var totalValueFormated;
     var totalFormat;
@@ -63,13 +43,13 @@ class _PaymentPageState extends State<PaymentPage> {
     );
 
     //linha do cabeçalho
-    Widget lineHeader() {
+    Widget lineHeader(BuildContext context) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             children: [
-              ButtonsWidgets().backButton(),
+              ButtonsWidgets().backButton(() => setState),
               const Padding(
                 padding: EdgeInsets.only(left: 25.0),
                 child: Text(
@@ -114,7 +94,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       leading: IconButton(
                         onPressed: () {
                           setState(() {
-                            controller.removerPedido(index);
+                            controller.removerPedido(index, () => setState);
                           });
                         },
                         icon: const Icon(
@@ -151,9 +131,9 @@ class _PaymentPageState extends State<PaymentPage> {
       for (var element in controller.pedidos) {
         totalValue += element['total'];
       }
-      totalValueFormated = formatoBrasileiro.format(totalValue);
-      totalFormat = formatoBrasileiro.format(controller.total.value);
-      var numberDiscount = !controller.numbersDiscount.value.isBlank!
+      String totalValueFormated = formatoBrasileiro.format(totalValue);
+      String totalFormat = formatoBrasileiro.format(controller.total.value);
+      String numberDiscount = !controller.numbersDiscount.value.isBlank!
           ? controller.numbersDiscount.value
           : '0,00';
 
@@ -315,7 +295,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                           controllerPayment
                                               .deletePayment(index);
                                         },
-                                        icon:  const Icon(
+                                        icon: const Icon(
                                           FontAwesomeIcons.trash,
                                           size: 20,
                                         ),
@@ -392,8 +372,7 @@ class _PaymentPageState extends State<PaymentPage> {
           width: double.infinity,
           height: 50,
           child: InkWell(
-            onTap: isButtonEnabled ? () {
-            } : null,
+            onTap: isButtonEnabled ? () {} : null,
             child: const Center(
               child: Text(
                 'Finalizar',
@@ -477,7 +456,7 @@ class _PaymentPageState extends State<PaymentPage> {
         padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
-            lineHeader(),
+            lineHeader(context),
             bodyLayout(),
           ],
         ),

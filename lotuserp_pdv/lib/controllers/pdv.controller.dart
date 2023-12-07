@@ -16,6 +16,18 @@ class PdvController extends GetxController {
 
   RxDouble discountPercentage = 0.0.obs;
 
+  @override
+  void onInit() {
+    print('listapedidos onInit: ' + pedidos.toString());
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    print('listapedidos onClose: ' + pedidos.toString());
+    super.onClose();
+  }
+
   final ScrollController scrollController = ScrollController();
 
   //busca quantidades pedidos de um determinado item
@@ -137,7 +149,7 @@ class PdvController extends GetxController {
   }
 
   //remove item do pedido
-  void removerPedido(int index) {
+  void removerPedido(int index, Function callback) {
     if (index >= 0 && index < pedidos.length) {
       if (pedidos[index]['quantidade'] > 1) {
         total.value -= pedidos[index]['price'];
@@ -149,6 +161,7 @@ class PdvController extends GetxController {
         pedidos.removeAt(index);
       }
     }
+    callback();
   }
 
   // soma o valor total a lista

@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
-PdvController controller = Get.find();
 var formatoBrasileiro = NumberFormat.currency(
   locale: 'pt_BR',
   symbol: '',
@@ -32,6 +31,11 @@ class RowWidget {
 }
 
 class buttonsPayment {
+  PdvController controller = Get.find();
+  String originalNumbersDiscount = '0,00';
+  double originalDiscountPercentage = 0.0;
+  double originalTotalValue = 0.0;
+
   Widget iconBackspace() {
     return SizedBox(
       width: 150,
@@ -66,31 +70,46 @@ class buttonsPayment {
   }
 
   //checkbox para Subtotal
-  Widget checkedBoxButton(String text, RxDouble totalValue) {
-    return Row(children: [
-      Padding(
-        padding: const EdgeInsets.only(left: 45.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(text),
-            Obx(() {
-              final value = totalValue.value;
-              final formattedValue = formatoBrasileiro.format(value);
-              return Text(formattedValue,
+  Widget checkedBoxButton(String text) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 45.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(text),
+              Obx(() {
+                double valor = 0.0;
+                for (var element in controller.pedidos) {
+                  valor += element['total'];
+                }
+                String newValue = controller.numbersDiscount.value
+                    .replaceAll(RegExp(r'[^\d]'), '');
+                double valorMinusDiscount =
+                    valor - (double.parse(newValue) / 100);
+                final formattedValue =
+                    formatoBrasileiro.format(valorMinusDiscount);
+                print(controller.pedidos.toString());
+                print(formattedValue);
+                return Text(
+                  formattedValue,
                   style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black));
-            }),
-          ],
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black,
+                  ),
+                );
+              }),
+            ],
+          ),
         ),
-      )
-    ]);
+      ],
+    );
   }
 
   //checkbox para desconto em reais
-  Widget checkedDiscountBoxButton(String text, BuildContext context) {
+  Widget checkedDiscountBoxButton(String text) {
     return InkWell(
         onTap: () {
           controller.checkbox2.value = !controller.checkbox2.value;
@@ -122,7 +141,7 @@ class buttonsPayment {
                 () => Text(
                   !controller.numbersDiscount.value.isBlank!
                       ? controller.numbersDiscount.value
-                      : '0,00',
+                      : originalNumbersDiscount,
                   style: !controller.checkbox2.value
                       ? const TextStyle(
                           fontSize: 25,
@@ -139,8 +158,10 @@ class buttonsPayment {
         ]));
   }
 
-  //checkbox para desconto em percentual
-  Widget checkedPercentualBoxButton(String text, double totalValue) {
+//checkbox para desconto em percentual
+  Widget checkedPercentualBoxButton(
+    String text,
+  ) {
     return InkWell(
         onTap: () {
           controller.checkbox3.value = !controller.checkbox3.value;
@@ -190,9 +211,18 @@ class buttonsPayment {
   }
 
   Widget textDiscountOnSale(BuildContext context, Function callback) {
+    double totalValue = 0.0;
+
+    for (var element in controller.pedidos) {
+      totalValue += element['total'];
+    }
+    String totalValueFormated = formatoBrasileiro.format(totalValue);
+    String totalFormat = formatoBrasileiro.format(controller.total.value);
+    String numberDiscount = !controller.numbersDiscount.value.isBlank!
+        ? controller.numbersDiscount.value
+        : '0,00';
     return TextButton(
       onPressed: () {
-        callback();
         showDialog(
             context: context,
             builder: (BuildContext context) {
@@ -256,17 +286,15 @@ class buttonsPayment {
                       width: 300,
                       child: Column(
                         children: [
-                          checkedDiscountBoxButton(
-                              'Desconto em Reais', context),
+                          checkedDiscountBoxButton('Desconto em Reais'),
                           const SizedBox(
                             height: 50,
                           ),
-                          checkedPercentualBoxButton('Desconto percentual',
-                              controller.discountPercentage.value),
+                          checkedPercentualBoxButton('Desconto percentual'),
                           const SizedBox(
                             height: 50,
                           ),
-                          checkedBoxButton('Subtotal', controller.total),
+                          checkedBoxButton('Subtotal'),
                         ],
                       ),
                     ),
@@ -276,13 +304,13 @@ class buttonsPayment {
                   TextButton(
                     onPressed: () {
                       callback();
-                      //implementar lógica para armazenar o valor do disconto numa variável e passar para a tela principal;
                       Get.back();
                     },
                     child: const Text('CONFIRMAR'),
                   ),
                   TextButton(
                     onPressed: () {
+                      callback();
                       Get.back();
                     },
                     child: const Text(

@@ -67,6 +67,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                     children: [
                       IconButton(
                         onPressed: () {
+                          controller.pedidos.clear();
                           Get.back();
                         },
                         icon: const Icon(
@@ -494,8 +495,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 leading: IconButton(
                                                   onPressed: () {
                                                     setState(() {
-                                                      controller
-                                                          .removerPedido(index);
+                                                      controller.removerPedido(
+                                                          index,
+                                                          () => setState);
                                                     });
                                                   },
                                                   icon: const Icon(
@@ -543,6 +545,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                     child: InkWell(
                       onTap: () {
+                        print(
+                            'Pdv monitor para payment ${controller.pedidos.toString()}');
                         Get.toNamed(PagesRoutes.paymentRoute);
                       },
                       child: Padding(
