@@ -1,10 +1,14 @@
 import 'dart:convert';
 
 import 'package:isar/isar.dart';
+import 'package:lotuserp_pdv/collections/caixa.dart';
+import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/grupo_produto.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/usuario.dart';
+import 'package:lotuserp_pdv/collections/venda.dart';
+import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
@@ -325,7 +329,7 @@ class IsarService {
 
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [EmpresaSchema, GrupoProdutoSchema, ProdutoSchema, UsuarioSchema],
+        [EmpresaSchema, GrupoProdutoSchema, ProdutoSchema, UsuarioSchema, CaixaItemSchema, CaixaSchema, VendaItemSchema, VendaSchema],
         directory: dir.path,
       );
     }
