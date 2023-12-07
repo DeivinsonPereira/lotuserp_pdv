@@ -78,7 +78,27 @@ class ButtonsWidgets {
         color: Color.fromARGB(255, 112, 112, 112),
       ),
       onPressed: () {
-        callback();
+        Get.back();
+        controller.discountPercentage.value = 0.0;
+        controller.numbersDiscount.value = '0,00';
+        controller.total.value = totalValue;
+      },
+    );
+  }
+
+  Widget backButtonPayment() {
+    double totalValue = 0.0;
+
+    for (var element in controller.pedidos) {
+      totalValue += element['total'];
+    }
+
+    return IconButton(
+      icon: const Icon(
+        Icons.arrow_back,
+        color: Color.fromARGB(255, 112, 112, 112),
+      ),
+      onPressed: () {
         Get.back();
         controller.discountPercentage.value = 0.0;
         controller.numbersDiscount.value = '0,00';

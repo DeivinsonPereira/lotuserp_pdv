@@ -545,8 +545,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                     child: InkWell(
                       onTap: () {
-                        print(
-                            'Pdv monitor para payment ${controller.pedidos.toString()}');
                         Get.toNamed(PagesRoutes.paymentRoute);
                       },
                       child: Padding(
@@ -598,7 +596,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     child: Align(
                                       alignment: Alignment.centerRight,
                                       child: AutoSizeText(
-                                        '$total',
+                                        total,
                                         style: const TextStyle(
                                             fontSize: 30,
                                             color: Colors.white,

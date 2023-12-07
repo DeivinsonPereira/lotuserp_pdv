@@ -30,7 +30,7 @@ class RowWidget {
   }
 }
 
-class buttonsPayment {
+class ButtonsPayment {
   PdvController controller = Get.find();
   String originalNumbersDiscount = '0,00';
   double originalDiscountPercentage = 0.0;
@@ -57,12 +57,12 @@ class buttonsPayment {
       onTap: () {
         controller.addNumberDiscount(number);
       },
-      child: Container(
+      child: SizedBox(
         width: 150,
         child: Center(
           child: Text(
             number,
-            style: TextStyle(fontSize: 26),
+            style: const TextStyle(fontSize: 26),
           ),
         ),
       ),
@@ -90,8 +90,6 @@ class buttonsPayment {
                     valor - (double.parse(newValue) / 100);
                 final formattedValue =
                     formatoBrasileiro.format(valorMinusDiscount);
-                print(controller.pedidos.toString());
-                print(formattedValue);
                 return Text(
                   formattedValue,
                   style: const TextStyle(
@@ -120,7 +118,7 @@ class buttonsPayment {
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           Obx(
             () => Checkbox(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               checkColor: Colors.white,
               activeColor: CustomColors.customContrastColor,
               value: controller.checkbox2.value,
@@ -172,7 +170,7 @@ class buttonsPayment {
         child: Row(children: [
           Obx(
             () => Checkbox(
-              shape: CircleBorder(),
+              shape: const CircleBorder(),
               checkColor: Colors.white,
               activeColor: CustomColors.customContrastColor,
               value: controller.checkbox3.value,
@@ -211,16 +209,6 @@ class buttonsPayment {
   }
 
   Widget textDiscountOnSale(BuildContext context, Function callback) {
-    double totalValue = 0.0;
-
-    for (var element in controller.pedidos) {
-      totalValue += element['total'];
-    }
-    String totalValueFormated = formatoBrasileiro.format(totalValue);
-    String totalFormat = formatoBrasileiro.format(controller.total.value);
-    String numberDiscount = !controller.numbersDiscount.value.isBlank!
-        ? controller.numbersDiscount.value
-        : '0,00';
     return TextButton(
       onPressed: () {
         showDialog(
@@ -231,7 +219,7 @@ class buttonsPayment {
                   children: [
                     Expanded(
                       flex: 1,
-                      child: Container(
+                      child: SizedBox(
                         height: 400,
                         child: Padding(
                           padding: const EdgeInsets.all(50.0),
@@ -281,7 +269,7 @@ class buttonsPayment {
                         ),
                       ),
                     ),
-                    Container(
+                    SizedBox(
                       height: 350,
                       width: 300,
                       child: Column(

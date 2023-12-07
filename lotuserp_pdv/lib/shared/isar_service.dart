@@ -21,10 +21,12 @@ Map<String, String> _headers = {
 class IsarService {
   late Future<Isar> db;
 
+  //chama o método para abrir o banco de dados e atribui a variável db
   IsarService() {
     db = openDB();
   }
 
+  //inserindo dados na tabela empresa vindos do servidor
   Future getEmpresa(int companyId) async {
     final isar = await db;
     int i = await isar.empresas.count();
@@ -44,7 +46,7 @@ class IsarService {
     );
     if (response.statusCode == 200) {
       var empresa = jsonDecode(utf8.decode(response.bodyBytes));
-      
+
       final emp = Empresa(
           empresa['itens'][0]['id'],
           empresa['itens'][0]['razao'],
@@ -96,11 +98,13 @@ class IsarService {
     }
   }
 
+  //stream para buscar dados da tabela empresa
   Stream<List<Empresa>> listenEmpresa() async* {
     final isar = await db;
     yield* isar.empresas.where().sortByRazao().watch(fireImmediately: true);
   }
 
+  //inserindo dados na tabela grupo vindos do servidor
   Future getGrupo(int companyId) async {
     final isar = await db;
     int i = await isar.grupoProdutos.count();
@@ -145,6 +149,7 @@ class IsarService {
     }
   }
 
+  //stream para buscar dados da tabela grupo
   Stream<List<GrupoProduto>> listenGrupo() async* {
     final isar = await db;
     yield* isar.grupoProdutos
@@ -153,6 +158,7 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //inserindo dados na tabela produtos vindos do servidor
   Future getProduto(int companyId) async {
     final isar = await db;
     int i = await isar.produtos.count();
@@ -239,11 +245,13 @@ class IsarService {
     }
   }
 
+  //stream para buscar dados da tabela produtos
   Stream<List<Produto>> listenProdutos() async* {
     final isar = await db;
     yield* isar.produtos.where().sortByIdGrupo().watch(fireImmediately: true);
   }
 
+  //inserindo dados na tabela usuarios vindos do servidor
   Future getUsuarios(int companyId) async {
     final isar = await db;
     int i = await isar.usuarios.count();
@@ -316,6 +324,7 @@ class IsarService {
     }
   }
 
+  //stream para buscar dados da tabela usuarios
   Stream<List<Usuario>> listenUsuarios() async* {
     final isar = await db;
     yield* isar.usuarios
@@ -324,12 +333,109 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //metodos para inserir dados no banco
+
+  //inserir dados na tabela caixa
+  Future<Isar> insertCaixa(Caixa caixa, CaixaItem caixaItem) async {
+    final isar = await db;
+
+    //inserindo dados na tabela caixa
+    isar.writeTxn(() async {
+      await isar.caixas.put(caixa);
+      await isar.caixaItems.put(caixaItem);
+    });
+    return isar;
+  }
+
+  //stream para buscar dados da tabela caixa
+  Stream<List<Caixa>> listenCaixa() async* {
+    final isar = await db;
+    yield* isar.caixas.where().sortByIdProduto().watch(fireImmediately: true);
+  }
+
+  //inserir dados na tabela caixaItem
+  Future<Isar> insertCaixaItem(CaixaItem caixaItem) async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
+      await isar.caixaItems.put(caixaItem);
+    });
+    return isar;
+  }
+
+  //stream para buscar dados da tabela caixaItem
+  Stream<List<CaixaItem>> listenCaixaItem() async* {
+    final isar = await db;
+    yield* isar.caixaItems.where().sortByIdCaixa().watch(fireImmediately: true);
+  }
+
+  //inserir dados na tabela venda
+  Future<Isar> insertVenda(Venda venda, VendaItem vendaItem) async {
+    final isar = await db;
+
+    //inserindo dados na tabela venda
+    isar.writeTxn(() async {
+      await isar.vendas.put(venda);
+      await isar.vendaItems.put(vendaItem);
+    });
+    return isar;
+  }
+
+  //stream para buscar dados da tabela venda
+  Stream<List<Venda>> listenVenda() async* {
+    final isar = await db;
+    yield* isar.vendas.where().sortByIdUsuario().watch(fireImmediately: true);
+  }
+
+  //inserir dados na tabela vendaItem
+  Future<Isar> insertVendaItem(VendaItem vendaItem) async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
+      await isar.vendaItems.put(vendaItem);
+    });
+    return isar;
+  }
+
+  //stream para buscar dados da tabela vendaItem
+  Stream<List<VendaItem>> listenVendaItem() async* {
+    final isar = await db;
+    yield* isar.vendaItems.where().sortByIdVenda().watch(fireImmediately: true);
+  }
+
+  Future<String?> getPasswordFromDatabase(String login) async {
+    final isar = await db;
+
+    Usuario? usuario = await isar.usuarios
+        .filter()
+        .loginEqualTo(login)
+        .findFirst();
+
+    //verifica se o usuario existe
+    if (usuario != null) {
+      return usuario.senha;
+    } else {
+      return "";
+    }
+
+  }
+
+  //abre o banco de dados
   Future<Isar> openDB() async {
     final dir = await getApplicationSupportDirectory();
 
     if (Isar.instanceNames.isEmpty) {
       return await Isar.open(
-        [EmpresaSchema, GrupoProdutoSchema, ProdutoSchema, UsuarioSchema, CaixaItemSchema, CaixaSchema, VendaItemSchema, VendaSchema],
+        [
+          EmpresaSchema,
+          GrupoProdutoSchema,
+          ProdutoSchema,
+          UsuarioSchema,
+          CaixaItemSchema,
+          CaixaSchema,
+          VendaItemSchema,
+          VendaSchema
+        ],
         directory: dir.path,
       );
     }

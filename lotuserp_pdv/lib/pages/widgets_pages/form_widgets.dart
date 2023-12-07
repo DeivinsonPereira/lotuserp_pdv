@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
+import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class FormWidgets {
   final TextEditingController _controller = TextEditingController();
-  final LoginController loginController = Get.find();
+  final LoginController loginController = Get.put(LoginController());
+  final PasswordController passwordController = Get.find();
 
   Widget textFieldWidget(IconData icon, String text) {
     return Padding(
@@ -62,32 +64,50 @@ class FormWidgets {
     );
   }
 
-  Widget customTextField(IconData icon, String text,
-      {bool obscureText = false}) {
+  Widget customTextField(String text, IconData icon) {
     return TextFormField(
-      obscureText: loginController.obscureText.value,
+      controller: passwordController.userController,
+      onChanged: (value) {
+        passwordController.updateUsername(value);
+      },
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(4),
           borderSide: BorderSide(color: CustomColors.customSwatchColor),
         ),
-        prefixIcon: Icon(
-          icon,
-        ),
+        prefixIcon: Icon(icon),
         labelText: text,
-        suffixIcon: obscureText
-            ? IconButton(
-                icon: Icon(
-                  loginController.obscureText.value
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                ),
-                onPressed: () {
-                  loginController.obscureText.toggle();
-                },
-              )
-            : null,
       ),
     );
+  }
+
+  Widget customTextFieldIcon(IconData icon, String text,
+      {bool obscureText = false}) {
+    return Obx(() {
+      return TextFormField(
+        controller: passwordController.passwordController,
+        obscureText: obscureText ? !loginController.obscureText.value : false,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(color: CustomColors.customSwatchColor),
+          ),
+          prefixIcon: Icon(icon),
+          labelText: text,
+          suffixIcon: obscureText
+              ? IconButton(
+                  icon: Icon(
+                    loginController.obscureText.value
+                        ? Icons.visibility
+                        : Icons.visibility_off,
+                  ),
+                  onPressed: () {
+                    loginController.obscureText.toggle();
+                  },
+                )
+              : null,
+        ),
+      );
+    });
   }
 }

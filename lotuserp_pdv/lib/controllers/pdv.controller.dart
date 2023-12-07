@@ -5,28 +5,17 @@ import 'dart:math';
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
 
-  RxBool checkbox2 = false.obs;
+  RxBool checkbox2 = true.obs;
   RxBool checkbox3 = false.obs;
 
-  RxString validationCheckedBox = ''.obs;
-
+  //total com desconto
   RxDouble total = 0.0.obs;
 
+  //desconto em reais
   RxString numbersDiscount = '0,00'.obs;
 
+  //percentual de desconto
   RxDouble discountPercentage = 0.0.obs;
-
-  @override
-  void onInit() {
-    print('listapedidos onInit: ' + pedidos.toString());
-    super.onInit();
-  }
-
-  @override
-  void onClose() {
-    print('listapedidos onClose: ' + pedidos.toString());
-    super.onClose();
-  }
 
   final ScrollController scrollController = ScrollController();
 
@@ -45,7 +34,6 @@ class PdvController extends GetxController {
   }
 
   //calcula percentual de desconto
-
   void calculateDiscountPercentage() {
     double discount =
         double.parse(numbersDiscount.value.replaceAll(RegExp(r'[^\d]'), '')) /
@@ -156,12 +144,13 @@ class PdvController extends GetxController {
         pedidos[index]['quantidade'] -= 1;
         pedidos[index]['total'] =
             pedidos[index]['quantidade'] * pedidos[index]['price'];
+        update();
       } else {
         total.value -= pedidos[index]['total'];
         pedidos.removeAt(index);
+        update();
       }
     }
-    callback();
   }
 
   // soma o valor total a lista

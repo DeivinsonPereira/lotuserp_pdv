@@ -1,15 +1,20 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lotuserp_pdv/controllers/login_controller.dart';
+import 'package:lotuserp_pdv/controllers/password_controller.dart';
+import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final LoginController controller = Get.put(LoginController());
+    PasswordController passwordController = Get.put(PasswordController());
+    TextFieldController textFieldController = Get.put(TextFieldController());
+    IsarService service = IsarService();
 
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
@@ -50,15 +55,13 @@ class LoginPage extends StatelessWidget {
                               child: Column(
                                 children: [
                                   FormWidgets()
-                                      .customTextField(Icons.person, 'Usuário'),
+                                      .customTextField('Usuário', Icons.person),
                                   const SizedBox(
                                     height: 15,
                                   ),
-                                  Obx(
-                                    () => FormWidgets().customTextField(
-                                        Icons.lock, 'Senha',
-                                        obscureText: true),
-                                  ),
+                                  FormWidgets().customTextFieldIcon(
+                                      Icons.lock, 'Senha',
+                                      obscureText: true),
                                   const SizedBox(height: 20),
                                 ],
                               ),
@@ -91,8 +94,32 @@ class LoginPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(5),
                                     ),
                                   ),
-                                  onPressed: () {
-                                    Get.toNamed('/');
+                                  onPressed: () async {
+                                    passwordController.createHashedPassword();
+
+                                    // Verifique se a senha inserida é igual a salva na base de dados
+
+                                    String enteredPassword = passwordController
+                                        .passwordController.text;
+                                    String login =
+                                        passwordController.userController.text;
+
+                                    String? savedHashedPassword = await service
+                                        .getPasswordFromDatabase(login);
+                                    if (enteredPassword ==
+                                        savedHashedPassword) {
+                                      Get.toNamed('/');
+                                    } else {
+                                      Get.snackbar(
+                                        'Senha incorreta',
+                                        'A senha digitada está incorreta. Por favor, tente novamente.',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                    }
+
+                                    passwordController.clear();
                                   },
                                   child: const Padding(
                                     padding: EdgeInsets.all(15.0),
@@ -120,7 +147,9 @@ class LoginPage extends StatelessWidget {
                                 child: FloatingActionButton(
                                   backgroundColor:
                                       CustomColors.customSwatchColor,
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Get.toNamed(PagesRoutes.configRoute);
+                                  },
                                   child: Icon(
                                     Icons.settings,
                                     size: 50,

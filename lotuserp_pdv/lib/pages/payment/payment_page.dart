@@ -28,9 +28,6 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     PaymentController controllerPayment = Get.put(PaymentController());
 
-    var totalValueFormated;
-    var totalFormat;
-
     var paymentCount = 0.0;
 
     var total;
@@ -49,7 +46,7 @@ class _PaymentPageState extends State<PaymentPage> {
         children: [
           Row(
             children: [
-              ButtonsWidgets().backButton(() => setState),
+              ButtonsWidgets().backButtonPayment(),
               const Padding(
                 padding: EdgeInsets.only(left: 25.0),
                 child: Text(
@@ -63,7 +60,7 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ],
           ),
-          buttonsPayment().textDiscountOnSale(context, pushSetState),
+          ButtonsPayment().textDiscountOnSale(context, pushSetState),
         ],
       );
     }
@@ -270,8 +267,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 child: ListView.builder(
                   itemCount: controllerPayment.paymentsTotal.length,
                   itemBuilder: (context, index) {
-                    var mapPaymentsTotal =
-                        controllerPayment.paymentsTotal.value;
+                    var mapPaymentsTotal = controllerPayment.paymentsTotal;
 
                     return Card(
                       child: Padding(
@@ -389,10 +385,6 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //tamanho da tela
     Widget bodyLayout() {
-      bool isButtonEnabled = remainingValue <= 0;
-      Color buttonColor =
-          isButtonEnabled ? CustomColors.customSwatchColor : Colors.grey;
-
       return Expanded(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxHeight: 625),
