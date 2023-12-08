@@ -6,132 +6,18 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-class ConfigPage extends StatelessWidget {
+class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    TextFieldController controller = Get.find();
-    IsarService service = IsarService();
+  State<ConfigPage> createState() => _ConfigPageState();
+}
 
-    Widget dialogNumberEnterprise() {
-      return Dialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: SizedBox(
-          width: 600,
-          height: 300,
-          child: Column(
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  'Número do Contrato',
-                  style: TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.only(left: 100.0, right: 100, top: 10),
-                child: TextFormField(
-                  controller: controller.numContratoEmpresaController,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Digite o número do Contrato',
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 180, 180, 180),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Container(
-                    width: 150,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: CustomColors.customSwatchColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CustomColors.customSwatchColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {
-                        if (controller
-                            .numContratoEmpresaController.text.isEmpty) {
-                          const CustomSnackBar(
-                            title: 'Erro',
-                            message: 'Número do Contrato obrigatório',
-                            icon: Icons.error,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                          ).show(context);
-                          return;
-                        } else {
-                          controller.salvarInformacoesContrato();
-                          print(controller.numContratoEmpresa);
-                          controller.numContratoEmpresaController.clear();
-                          service.getIpEmpresa();
-                          Get.back();
-                        }
-                      },
-                      child: const Text(
-                        'Confirmar',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Container(
-                    width: 150,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: CustomColors.customSwatchColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CustomColors.customSwatchColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      onPressed: () {
-                        controller.numContratoEmpresaController.clear();
-                        Get.back();
-                      },
-                      child: const Text(
-                        'Cancelar',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                    ),
-                  ),
-                ),
-              ]),
-            ],
-          ),
-        ),
-      );
-    }
+class _ConfigPageState extends State<ConfigPage> {
+  @override
+  Widget build(BuildContext context) {
+    TextFieldController textFieldController = Get.find();
+    IsarService service = IsarService();
 
     Widget textFormFields(
         IconData icon, TextEditingController? controller, String text,
@@ -143,7 +29,7 @@ class ConfigPage extends StatelessWidget {
           top: 15,
           bottom: 15,
         ),
-        child: TextField(
+        child: TextFormField(
           controller: controller,
           keyboardType: numericKeyboard ? TextInputType.number : null,
           decoration: InputDecoration(
@@ -164,9 +50,26 @@ class ConfigPage extends StatelessWidget {
                           icon,
                           color: Colors.white,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           if (controller!.text.isEmpty) {
-                            
+                            const CustomSnackBar(
+                              title: 'Erro',
+                              message: 'O campo obrigatório',
+                              icon: Icons.error,
+                              backgroundColor: Colors.red,
+                              textColor: Colors.white,
+                            ).show(context);
+                          } else {
+                            textFieldController.salvarInformacoesContrato();
+                            String ip = await service.getIpEmpresa(context);
+                            if (ip.isNotEmpty) {
+                              setState(() {
+                                textFieldController
+                                    .updateNumeroContratoToIp(ip);
+                                controller.text =
+                                    textFieldController.numContratoEmpresa;
+                              });
+                            }
                           }
                         },
                       ),
@@ -210,23 +113,29 @@ class ConfigPage extends StatelessWidget {
           Form(
             child: Column(
               children: [
-                textFormFields(FontAwesomeIcons.wifi, controller.ipController,
+                textFormFields(
+                    FontAwesomeIcons.wifi,
+                    textFieldController.numContratoEmpresaController,
                     'Digite o IP da empresa',
                     useIconButton: true),
-                textFormFields(FontAwesomeIcons.solidBuilding,
-                    controller.idEmpresaController, 'Digite o ID da empresa',
+                textFormFields(
+                    FontAwesomeIcons.solidBuilding,
+                    textFieldController.idEmpresaController,
+                    'Digite o ID da empresa',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.fileInvoiceDollar,
-                    controller.idSerieNfceController,
+                    textFieldController.idSerieNfceController,
                     'Digite o ID da serie NFCe',
                     numericKeyboard: true),
-                textFormFields(FontAwesomeIcons.cashRegister,
-                    controller.numCaixaController, 'Digite o número do caixa',
+                textFormFields(
+                    FontAwesomeIcons.cashRegister,
+                    textFieldController.numCaixaController,
+                    'Digite o número do caixa',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.solidClock,
-                    controller.intervaloEnvioController,
+                    textFieldController.intervaloEnvioController,
                     'Digite o intervalo de envio',
                     numericKeyboard: true),
               ],
@@ -252,7 +161,7 @@ class ConfigPage extends StatelessWidget {
     }
 
     bool verificacoes() {
-      if (controller.ipController.text.isEmpty) {
+      if (textFieldController.ipController.text.isEmpty) {
         const CustomSnackBar(
           title: 'Erro',
           message: 'IP obrigatório',
@@ -261,7 +170,7 @@ class ConfigPage extends StatelessWidget {
           textColor: Colors.white,
         ).show(context);
         return true;
-      } else if (controller.idEmpresaController.text.isEmpty) {
+      } else if (textFieldController.idEmpresaController.text.isEmpty) {
         const CustomSnackBar(
           title: 'Erro',
           message: 'ID da empresa obrigatório',
@@ -270,7 +179,7 @@ class ConfigPage extends StatelessWidget {
           textColor: Colors.white,
         ).show(context);
         return true;
-      } else if (controller.idSerieNfceController.text.isEmpty) {
+      } else if (textFieldController.idSerieNfceController.text.isEmpty) {
         const CustomSnackBar(
           title: 'Erro',
           message: 'ID da serie NFCe obrigatório',
@@ -279,7 +188,7 @@ class ConfigPage extends StatelessWidget {
           textColor: Colors.white,
         ).show(context);
         return true;
-      } else if (controller.numCaixaController.text.isEmpty) {
+      } else if (textFieldController.numCaixaController.text.isEmpty) {
         const CustomSnackBar(
           title: 'Erro',
           message: 'Numero do caixa obrigatorio',
@@ -288,7 +197,7 @@ class ConfigPage extends StatelessWidget {
           textColor: Colors.white,
         ).show(context);
         return true;
-      } else if (controller.intervaloEnvioController.text.isEmpty) {
+      } else if (textFieldController.intervaloEnvioController.text.isEmpty) {
         const CustomSnackBar(
           title: 'Erro',
           message: 'intervalo de envio obrigatorio',
@@ -323,7 +232,7 @@ class ConfigPage extends StatelessWidget {
               child: ElevatedButton(
                 onPressed: () {
                   if (verificacoes() == true) {
-                    controller.salvarInformacoes();
+                    textFieldController.salvarInformacoes();
                   }
                   // Chame o método para salvar as informações nas variáveis do controller aqui
                 },
@@ -373,7 +282,7 @@ class ConfigPage extends StatelessWidget {
         child: Column(
           children: [
             backButton(),
-            SizedBox(
+            const SizedBox(
               height: 75,
             ),
             centerContainer(),

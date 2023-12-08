@@ -36,7 +36,7 @@ class TextFieldController extends GetxController {
   }
 
   // atualizar dados de contrato
-  void updateNumeroContrato(String value) {
+  void updateNumeroContratoToIp(String value) {
     numContratoEmpresa = value;
   }
 

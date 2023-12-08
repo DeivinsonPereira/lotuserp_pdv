@@ -8,7 +8,7 @@ class CustomSnackBar extends StatelessWidget {
   final Color backgroundColor;
   final Color textColor;
 
-  const CustomSnackBar({
+  const CustomSnackBar({super.key, 
     required this.title,
     required this.message,
     required this.icon,

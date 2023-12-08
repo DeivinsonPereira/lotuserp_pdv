@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
@@ -13,7 +12,6 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PasswordController passwordController = Get.put(PasswordController());
-    TextFieldController textFieldController = Get.put(TextFieldController());
     IsarService service = IsarService();
 
     bool areFieldsEmpty() {
@@ -113,7 +111,6 @@ class LoginPage extends StatelessWidget {
                                     ),
                                   ),
                                   onPressed: () async {
-
                                     //verifica se os campos estão vazios
                                     if (areFieldsEmpty()) {
                                       Get.snackbar(

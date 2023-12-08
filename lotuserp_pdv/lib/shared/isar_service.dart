@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
@@ -9,6 +10,7 @@ import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
+import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
@@ -418,7 +420,7 @@ class IsarService {
   }
 
   //buscar informações de acordo com a url e o numero do contrato
-  Future getIpEmpresa() async {
+  Future<String> getIpEmpresa(context) async {
     Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
     final response = await http.get(
       getIpEmpresa,
@@ -433,9 +435,21 @@ class IsarService {
     if (response.statusCode == 200) {
       print(response.statusCode);
       var ip = jsonDecode(utf8.decode(response.bodyBytes));
-      String link = ip['itens']['link'];
-      return ip['itens']['link'];
+      if (ip != null && ip['itens'] != null && ip['itens'][0]['link'] != null) {
+        String link = ip['itens'][0]['link'];
+        print(link);
+        return link;
+      } else {
+        const CustomSnackBar(
+                title: 'Erro',
+                message: 'Numero de contrato inválido',
+                icon: Icons.error,
+                backgroundColor: Colors.red,
+                textColor: Colors.white)
+            .show(context);
+      }
     }
+    return "";
   }
 
   //abre o banco de dados

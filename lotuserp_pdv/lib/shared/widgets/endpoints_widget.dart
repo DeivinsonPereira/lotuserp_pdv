@@ -1,10 +1,11 @@
+import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 
 const String _baseUrl = 'http://189.126.106.71/cgi-bin/lotuserp';
 const int companyId = 1;
 
 class Endpoints {
-  TextFieldController textFieldController = TextFieldController();
+  TextFieldController textFieldController = Get.find();
 
   static Map<String, String> headerRequisition() {
     return {'ptoken': 'ed9a811327979c9382ffd6361cfc5013'};
@@ -36,6 +37,7 @@ class Endpoints {
 
   String ipEmpresa() {
     var numContrato = textFieldController.numContratoEmpresa;
+    print(numContrato);
     return 'http://siage.vistatecnologia.com.br/cgi-bin/siagenet/contrato_link_externo?pnocontrato=$numContrato&ptipo=0';
   }
 }
