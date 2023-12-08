@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
+import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/grupo_produto.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
@@ -282,36 +283,21 @@ class IsarService {
       for (int i = 0; i < usuariosCount; i++) {
         final usu = Usuario(
           usuario['itens'][i]['id'],
-          usuario['itens'][i]['id_usuario_grupo'],
-          usuario['itens'][i]['id_colaborador'],
           usuario['itens'][i]['login'],
+          usuario['itens'][i]['id_colaborador'],
           usuario['itens'][i]['senha'],
           usuario['itens'][i]['status'],
-          usuario['itens'][i]['vend_desc_perc'].toDouble(),
-          usuario['itens'][i]['vend_excluir_item'],
-          usuario['itens'][i]['vend_pdv_off'],
-          usuario['itens'][i]['retirada_cx'],
-          usuario['itens'][i]['pre_fechamentocx'],
-          usuario['itens'][i]['venda_cancelar'],
-          usuario['itens'][i]['pdvoff_pessoas'],
-          usuario['itens'][i]['pdvoff_emp_cad'],
-          usuario['itens'][i]['pdvoff_emp_ser'],
-          usuario['itens'][i]['pdvoff_cx_abrir'],
-          usuario['itens'][i]['pdvoff_cx_abrir'],
-          usuario['itens'][i]['pdvoff_cx_listar'],
-          usuario['itens'][i]['pdvoff_cx_gerenciar'],
-          usuario['itens'][i]['pdvoff_cx_fechar'],
-          usuario['itens'][i]['pdvoff_fis_opera'],
-          usuario['itens'][i]['pdvoff_pdv'],
-          usuario['itens'][i]['pdvoff_vendas'],
-          usuario['itens'][i]['pdvoff_rel_vendas'],
-          usuario['itens'][i]['pdvoff_log_opera'],
-          usuario['itens'][i]['pdvoff_auditoria'],
-          usuario['itens'][i]['pdvoff_cargas_atua'],
-          usuario['itens'][i]['pdvoff_cargas_integra'],
-          usuario['itens'][i]['pdvoff_cargas_parametros'],
           usuario['itens'][i]['mob_dashboard'],
-          usuario['itens'][i]['pdvoff_produto'],
+          usuario['itens'][i]['trocar_senha'],
+          usuario['itens'][i]['administrador'],
+          usuario['itens'][i]['logar_empresas'],
+          usuario['itens'][i]['caixa_abrir'],
+          usuario['itens'][i]['caixa_movimentar'],
+          usuario['itens'][i]['caixa_gerenciar'],
+          usuario['itens'][i]['caixa_fechar'],
+          usuario['itens'][i]['caixa_pdv'],
+          usuario['itens'][i]['caixa_carga'],
+          usuario['itens'][i]['caixa_parametros'],
         );
 
         listaUsuarios.add(usu);
@@ -433,11 +419,9 @@ class IsarService {
       );
     }
     if (response.statusCode == 200) {
-      print(response.statusCode);
       var ip = jsonDecode(utf8.decode(response.bodyBytes));
       if (ip != null && ip['itens'] != null && ip['itens'][0]['link'] != null) {
         String link = ip['itens'][0]['link'];
-        print(link);
         return link;
       } else {
         const CustomSnackBar(
@@ -450,6 +434,60 @@ class IsarService {
       }
     }
     return "";
+  }
+
+  //inserir dados na tabela 'Dados Empresariais'
+  Future<Isar> insertDadosEmpresariais(DadoEmpresa empresa) async {
+    final isar = await db;
+
+    int i = await isar.dadoEmpresas.count();
+
+    if (i > 0) {
+      isar.writeTxn(
+        () async {
+          await isar.dadoEmpresas.clear();
+        },
+      );
+    }
+
+    //inserindo dados na tabela 'Dados Empresariais'
+    isar.writeTxn(() async {
+      await isar.dadoEmpresas.put(empresa);
+    });
+    return isar;
+  }
+
+  //stream para buscar dados da tabela 'Dados Empresariais'
+  Stream<List<DadoEmpresa>> listenDadosEmpresariais() async* {
+    final isar = await db;
+    yield* isar.dadoEmpresas
+        .where()
+        .sortByIdEmpresa()
+        .watch(fireImmediately: true);
+  }
+
+  //buscar ipEmpresa na tabela 'Dados Empresarias'
+  Future<DadoEmpresa?> getIpEmpresaFromDatabase() async {
+    final isar = await db;
+    return await isar.dadoEmpresas.where().findFirst();
+  }
+
+  //update do ipEmpresa
+  Future<Isar> updateIpEmpresa(DadoEmpresa empresa) async {
+    final isar = await db;
+    isar.writeTxn(() async {
+      await isar.dadoEmpresas.put(empresa);
+    });
+    return isar;
+  }
+
+  //deletar dados na tabela 'Dados Empresariais'
+  Future<Isar> deleteDadosEmpresariais() async {
+    final isar = await db;
+    isar.writeTxn(() async {
+      await isar.dadoEmpresas.clear();
+    });
+    return isar;
   }
 
   //abre o banco de dados
@@ -466,7 +504,8 @@ class IsarService {
           CaixaItemSchema,
           CaixaSchema,
           VendaItemSchema,
-          VendaSchema
+          VendaSchema,
+          DadoEmpresaSchema,
         ],
         directory: dir.path,
       );

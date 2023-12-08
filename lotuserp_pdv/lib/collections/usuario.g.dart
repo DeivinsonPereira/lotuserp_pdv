@@ -17,159 +17,84 @@ const UsuarioSchema = CollectionSchema(
   name: r'Usuario',
   id: 2086545823229412462,
   properties: {
-    r'idColaborador': PropertySchema(
+    r'administrador': PropertySchema(
       id: 0,
+      name: r'administrador',
+      type: IsarType.long,
+    ),
+    r'caixaAbrir': PropertySchema(
+      id: 1,
+      name: r'caixaAbrir',
+      type: IsarType.long,
+    ),
+    r'caixaCarga': PropertySchema(
+      id: 2,
+      name: r'caixaCarga',
+      type: IsarType.long,
+    ),
+    r'caixaFechar': PropertySchema(
+      id: 3,
+      name: r'caixaFechar',
+      type: IsarType.long,
+    ),
+    r'caixaGerenciar': PropertySchema(
+      id: 4,
+      name: r'caixaGerenciar',
+      type: IsarType.long,
+    ),
+    r'caixaMovimentar': PropertySchema(
+      id: 5,
+      name: r'caixaMovimentar',
+      type: IsarType.long,
+    ),
+    r'caixaParametros': PropertySchema(
+      id: 6,
+      name: r'caixaParametros',
+      type: IsarType.long,
+    ),
+    r'caixaPdv': PropertySchema(
+      id: 7,
+      name: r'caixaPdv',
+      type: IsarType.long,
+    ),
+    r'idColaborador': PropertySchema(
+      id: 8,
       name: r'idColaborador',
       type: IsarType.long,
     ),
-    r'idUsuario': PropertySchema(
-      id: 1,
-      name: r'idUsuario',
+    r'idEmpresa': PropertySchema(
+      id: 9,
+      name: r'idEmpresa',
       type: IsarType.long,
     ),
-    r'idUsuarioGrupo': PropertySchema(
-      id: 2,
-      name: r'idUsuarioGrupo',
+    r'logarEmpresas': PropertySchema(
+      id: 10,
+      name: r'logarEmpresas',
       type: IsarType.long,
     ),
     r'login': PropertySchema(
-      id: 3,
+      id: 11,
       name: r'login',
       type: IsarType.string,
     ),
     r'mobDashboard': PropertySchema(
-      id: 4,
+      id: 12,
       name: r'mobDashboard',
       type: IsarType.long,
     ),
-    r'pdvoffAuditoria': PropertySchema(
-      id: 5,
-      name: r'pdvoffAuditoria',
-      type: IsarType.long,
-    ),
-    r'pdvoffCargasAtua': PropertySchema(
-      id: 6,
-      name: r'pdvoffCargasAtua',
-      type: IsarType.long,
-    ),
-    r'pdvoffCargasIntegra': PropertySchema(
-      id: 7,
-      name: r'pdvoffCargasIntegra',
-      type: IsarType.long,
-    ),
-    r'pdvoffCargasParametros': PropertySchema(
-      id: 8,
-      name: r'pdvoffCargasParametros',
-      type: IsarType.long,
-    ),
-    r'pdvoffCxAbrir': PropertySchema(
-      id: 9,
-      name: r'pdvoffCxAbrir',
-      type: IsarType.long,
-    ),
-    r'pdvoffCxFechar': PropertySchema(
-      id: 10,
-      name: r'pdvoffCxFechar',
-      type: IsarType.long,
-    ),
-    r'pdvoffCxGerenciar': PropertySchema(
-      id: 11,
-      name: r'pdvoffCxGerenciar',
-      type: IsarType.long,
-    ),
-    r'pdvoffCxListar': PropertySchema(
-      id: 12,
-      name: r'pdvoffCxListar',
-      type: IsarType.long,
-    ),
-    r'pdvoffCxMov': PropertySchema(
-      id: 13,
-      name: r'pdvoffCxMov',
-      type: IsarType.long,
-    ),
-    r'pdvoffEmpCad': PropertySchema(
-      id: 14,
-      name: r'pdvoffEmpCad',
-      type: IsarType.long,
-    ),
-    r'pdvoffEmpSer': PropertySchema(
-      id: 15,
-      name: r'pdvoffEmpSer',
-      type: IsarType.long,
-    ),
-    r'pdvoffFisOpera': PropertySchema(
-      id: 16,
-      name: r'pdvoffFisOpera',
-      type: IsarType.long,
-    ),
-    r'pdvoffLogOpera': PropertySchema(
-      id: 17,
-      name: r'pdvoffLogOpera',
-      type: IsarType.long,
-    ),
-    r'pdvoffPdv': PropertySchema(
-      id: 18,
-      name: r'pdvoffPdv',
-      type: IsarType.long,
-    ),
-    r'pdvoffPessoas': PropertySchema(
-      id: 19,
-      name: r'pdvoffPessoas',
-      type: IsarType.long,
-    ),
-    r'pdvoffProduto': PropertySchema(
-      id: 20,
-      name: r'pdvoffProduto',
-      type: IsarType.long,
-    ),
-    r'pdvoffRelVendas': PropertySchema(
-      id: 21,
-      name: r'pdvoffRelVendas',
-      type: IsarType.long,
-    ),
-    r'pdvoffVendas': PropertySchema(
-      id: 22,
-      name: r'pdvoffVendas',
-      type: IsarType.long,
-    ),
-    r'preFechamentocx': PropertySchema(
-      id: 23,
-      name: r'preFechamentocx',
-      type: IsarType.long,
-    ),
-    r'retiradaCx': PropertySchema(
-      id: 24,
-      name: r'retiradaCx',
-      type: IsarType.long,
-    ),
     r'senha': PropertySchema(
-      id: 25,
+      id: 13,
       name: r'senha',
       type: IsarType.string,
     ),
     r'status': PropertySchema(
-      id: 26,
+      id: 14,
       name: r'status',
       type: IsarType.long,
     ),
-    r'vendDescPerc': PropertySchema(
-      id: 27,
-      name: r'vendDescPerc',
-      type: IsarType.double,
-    ),
-    r'vendExcluirItem': PropertySchema(
-      id: 28,
-      name: r'vendExcluirItem',
-      type: IsarType.long,
-    ),
-    r'vendPdvOff': PropertySchema(
-      id: 29,
-      name: r'vendPdvOff',
-      type: IsarType.long,
-    ),
-    r'vendaCancelar': PropertySchema(
-      id: 30,
-      name: r'vendaCancelar',
+    r'trocarSenha': PropertySchema(
+      id: 15,
+      name: r'trocarSenha',
       type: IsarType.long,
     )
   },
@@ -214,37 +139,22 @@ void _usuarioSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.idColaborador);
-  writer.writeLong(offsets[1], object.idUsuario);
-  writer.writeLong(offsets[2], object.idUsuarioGrupo);
-  writer.writeString(offsets[3], object.login);
-  writer.writeLong(offsets[4], object.mobDashboard);
-  writer.writeLong(offsets[5], object.pdvoffAuditoria);
-  writer.writeLong(offsets[6], object.pdvoffCargasAtua);
-  writer.writeLong(offsets[7], object.pdvoffCargasIntegra);
-  writer.writeLong(offsets[8], object.pdvoffCargasParametros);
-  writer.writeLong(offsets[9], object.pdvoffCxAbrir);
-  writer.writeLong(offsets[10], object.pdvoffCxFechar);
-  writer.writeLong(offsets[11], object.pdvoffCxGerenciar);
-  writer.writeLong(offsets[12], object.pdvoffCxListar);
-  writer.writeLong(offsets[13], object.pdvoffCxMov);
-  writer.writeLong(offsets[14], object.pdvoffEmpCad);
-  writer.writeLong(offsets[15], object.pdvoffEmpSer);
-  writer.writeLong(offsets[16], object.pdvoffFisOpera);
-  writer.writeLong(offsets[17], object.pdvoffLogOpera);
-  writer.writeLong(offsets[18], object.pdvoffPdv);
-  writer.writeLong(offsets[19], object.pdvoffPessoas);
-  writer.writeLong(offsets[20], object.pdvoffProduto);
-  writer.writeLong(offsets[21], object.pdvoffRelVendas);
-  writer.writeLong(offsets[22], object.pdvoffVendas);
-  writer.writeLong(offsets[23], object.preFechamentocx);
-  writer.writeLong(offsets[24], object.retiradaCx);
-  writer.writeString(offsets[25], object.senha);
-  writer.writeLong(offsets[26], object.status);
-  writer.writeDouble(offsets[27], object.vendDescPerc);
-  writer.writeLong(offsets[28], object.vendExcluirItem);
-  writer.writeLong(offsets[29], object.vendPdvOff);
-  writer.writeLong(offsets[30], object.vendaCancelar);
+  writer.writeLong(offsets[0], object.administrador);
+  writer.writeLong(offsets[1], object.caixaAbrir);
+  writer.writeLong(offsets[2], object.caixaCarga);
+  writer.writeLong(offsets[3], object.caixaFechar);
+  writer.writeLong(offsets[4], object.caixaGerenciar);
+  writer.writeLong(offsets[5], object.caixaMovimentar);
+  writer.writeLong(offsets[6], object.caixaParametros);
+  writer.writeLong(offsets[7], object.caixaPdv);
+  writer.writeLong(offsets[8], object.idColaborador);
+  writer.writeLong(offsets[9], object.idEmpresa);
+  writer.writeLong(offsets[10], object.logarEmpresas);
+  writer.writeString(offsets[11], object.login);
+  writer.writeLong(offsets[12], object.mobDashboard);
+  writer.writeString(offsets[13], object.senha);
+  writer.writeLong(offsets[14], object.status);
+  writer.writeLong(offsets[15], object.trocarSenha);
 }
 
 Usuario _usuarioDeserialize(
@@ -254,37 +164,22 @@ Usuario _usuarioDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Usuario(
-    reader.readLong(offsets[1]),
-    reader.readLongOrNull(offsets[2]),
-    reader.readLongOrNull(offsets[0]),
-    reader.readStringOrNull(offsets[3]),
-    reader.readStringOrNull(offsets[25]),
-    reader.readLongOrNull(offsets[26]),
-    reader.readDoubleOrNull(offsets[27]),
-    reader.readLongOrNull(offsets[28]),
-    reader.readLongOrNull(offsets[29]),
-    reader.readLongOrNull(offsets[24]),
-    reader.readLongOrNull(offsets[23]),
-    reader.readLongOrNull(offsets[30]),
-    reader.readLongOrNull(offsets[19]),
-    reader.readLongOrNull(offsets[14]),
-    reader.readLongOrNull(offsets[15]),
-    reader.readLongOrNull(offsets[9]),
-    reader.readLongOrNull(offsets[13]),
-    reader.readLongOrNull(offsets[12]),
-    reader.readLongOrNull(offsets[11]),
-    reader.readLongOrNull(offsets[10]),
-    reader.readLongOrNull(offsets[16]),
-    reader.readLongOrNull(offsets[18]),
-    reader.readLongOrNull(offsets[22]),
-    reader.readLongOrNull(offsets[21]),
-    reader.readLongOrNull(offsets[17]),
-    reader.readLongOrNull(offsets[5]),
-    reader.readLongOrNull(offsets[6]),
-    reader.readLongOrNull(offsets[7]),
+    reader.readLong(offsets[9]),
+    reader.readStringOrNull(offsets[11]),
     reader.readLongOrNull(offsets[8]),
-    reader.readLongOrNull(offsets[20]),
+    reader.readStringOrNull(offsets[13]),
+    reader.readLongOrNull(offsets[14]),
+    reader.readLongOrNull(offsets[12]),
+    reader.readLongOrNull(offsets[15]),
+    reader.readLongOrNull(offsets[0]),
+    reader.readLongOrNull(offsets[10]),
+    reader.readLongOrNull(offsets[1]),
+    reader.readLongOrNull(offsets[5]),
     reader.readLongOrNull(offsets[4]),
+    reader.readLongOrNull(offsets[3]),
+    reader.readLongOrNull(offsets[7]),
+    reader.readLongOrNull(offsets[2]),
+    reader.readLongOrNull(offsets[6]),
   );
   object.id = id;
   return object;
@@ -300,11 +195,11 @@ P _usuarioDeserializeProp<P>(
     case 0:
       return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
       return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 4:
       return (reader.readLongOrNull(offset)) as P;
     case 5:
@@ -316,48 +211,18 @@ P _usuarioDeserializeProp<P>(
     case 8:
       return (reader.readLongOrNull(offset)) as P;
     case 9:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 10:
       return (reader.readLongOrNull(offset)) as P;
     case 11:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 12:
       return (reader.readLongOrNull(offset)) as P;
     case 13:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 14:
       return (reader.readLongOrNull(offset)) as P;
     case 15:
-      return (reader.readLongOrNull(offset)) as P;
-    case 16:
-      return (reader.readLongOrNull(offset)) as P;
-    case 17:
-      return (reader.readLongOrNull(offset)) as P;
-    case 18:
-      return (reader.readLongOrNull(offset)) as P;
-    case 19:
-      return (reader.readLongOrNull(offset)) as P;
-    case 20:
-      return (reader.readLongOrNull(offset)) as P;
-    case 21:
-      return (reader.readLongOrNull(offset)) as P;
-    case 22:
-      return (reader.readLongOrNull(offset)) as P;
-    case 23:
-      return (reader.readLongOrNull(offset)) as P;
-    case 24:
-      return (reader.readLongOrNull(offset)) as P;
-    case 25:
-      return (reader.readStringOrNull(offset)) as P;
-    case 26:
-      return (reader.readLongOrNull(offset)) as P;
-    case 27:
-      return (reader.readDoubleOrNull(offset)) as P;
-    case 28:
-      return (reader.readLongOrNull(offset)) as P;
-    case 29:
-      return (reader.readLongOrNull(offset)) as P;
-    case 30:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -453,6 +318,568 @@ extension UsuarioQueryWhere on QueryBuilder<Usuario, Usuario, QWhereClause> {
 
 extension UsuarioQueryFilter
     on QueryBuilder<Usuario, Usuario, QFilterCondition> {
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'administrador',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      administradorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'administrador',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'administrador',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      administradorGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'administrador',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'administrador',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'administrador',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaAbrir',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaAbrir',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaAbrir',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaAbrir',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaAbrir',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaAbrir',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaCarga',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaCarga',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaCarga',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaCarga',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaCarga',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaCarga',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaFechar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaFechar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaFechar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaFechar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaFechar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaFechar',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaGerenciar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaGerenciarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaGerenciar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaGerenciar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaGerenciarGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaGerenciar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaGerenciar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaGerenciar',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaMovimentarIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaMovimentar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaMovimentarIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaMovimentar',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaMovimentarEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaMovimentar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaMovimentarGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaMovimentar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaMovimentarLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaMovimentar',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaMovimentarBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaMovimentar',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaParametrosIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaParametros',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaParametrosIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaParametros',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaParametrosEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaParametros',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      caixaParametrosGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaParametros',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaParametrosLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaParametros',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaParametrosBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaParametros',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'caixaPdv',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'caixaPdv',
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'caixaPdv',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'caixaPdv',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'caixaPdv',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'caixaPdv',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -576,43 +1003,43 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioEqualTo(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idUsuario',
+        property: r'idEmpresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGreaterThan(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idUsuario',
+        property: r'idEmpresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioLessThan(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idUsuario',
+        property: r'idEmpresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioBetween(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -620,7 +1047,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idUsuario',
+        property: r'idEmpresa',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -629,61 +1056,61 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoIsNull() {
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idUsuarioGrupo',
+        property: r'logarEmpresas',
       ));
     });
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      idUsuarioGrupoIsNotNull() {
+      logarEmpresasIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idUsuarioGrupo',
+        property: r'logarEmpresas',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoEqualTo(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idUsuarioGrupo',
+        property: r'logarEmpresas',
         value: value,
       ));
     });
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      idUsuarioGrupoGreaterThan(
+      logarEmpresasGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idUsuarioGrupo',
+        property: r'logarEmpresas',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoLessThan(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idUsuarioGrupo',
+        property: r'logarEmpresas',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idUsuarioGrupoBetween(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -691,7 +1118,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idUsuarioGrupo',
+        property: r'logarEmpresas',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -916,1431 +1343,6 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffAuditoriaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffAuditoria',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffAuditoriaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffAuditoria',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffAuditoriaEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffAuditoria',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffAuditoriaGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffAuditoria',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffAuditoriaLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffAuditoria',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffAuditoriaBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffAuditoria',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasAtuaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCargasAtua',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasAtuaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCargasAtua',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCargasAtuaEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCargasAtua',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasAtuaGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCargasAtua',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasAtuaLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCargasAtua',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCargasAtuaBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCargasAtua',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCargasIntegra',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCargasIntegra',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCargasIntegra',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCargasIntegra',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCargasIntegra',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasIntegraBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCargasIntegra',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCargasParametros',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCargasParametros',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCargasParametros',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCargasParametros',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCargasParametros',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCargasParametrosBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCargasParametros',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCxAbrir',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxAbrirIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCxAbrir',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCxAbrir',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxAbrirGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCxAbrir',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCxAbrir',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxAbrirBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCxAbrir',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCxFechar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxFecharIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCxFechar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCxFechar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxFecharGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCxFechar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCxFechar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxFecharBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCxFechar',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCxGerenciar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCxGerenciar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCxGerenciar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCxGerenciar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCxGerenciar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxGerenciarBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCxGerenciar',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCxListar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxListarIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCxListar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCxListar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffCxListarGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCxListar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCxListar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxListarBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCxListar',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffCxMov',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffCxMov',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffCxMov',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffCxMov',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffCxMov',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffCxMovBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffCxMov',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffEmpCad',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffEmpCadIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffEmpCad',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffEmpCad',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffEmpCad',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffEmpCad',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpCadBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffEmpCad',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffEmpSer',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffEmpSerIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffEmpSer',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffEmpSer',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffEmpSer',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffEmpSer',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffEmpSerBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffEmpSer',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffFisOpera',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffFisOperaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffFisOpera',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffFisOpera',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffFisOperaGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffFisOpera',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffFisOpera',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffFisOperaBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffFisOpera',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffLogOpera',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffLogOperaIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffLogOpera',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffLogOpera',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffLogOperaGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffLogOpera',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffLogOpera',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffLogOperaBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffLogOpera',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffPdv',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffPdv',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffPdv',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffPdv',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffPdv',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPdvBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffPdv',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffPessoas',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffPessoasIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffPessoas',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffPessoas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffPessoasGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffPessoas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffPessoas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffPessoasBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffPessoas',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffProduto',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffProdutoIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffProduto',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffProduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffProdutoGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffProduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffProduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffProdutoBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffProduto',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffRelVendasIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffRelVendas',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffRelVendasIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffRelVendas',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffRelVendasEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffRelVendas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffRelVendasGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffRelVendas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffRelVendasLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffRelVendas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffRelVendasBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffRelVendas',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'pdvoffVendas',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      pdvoffVendasIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'pdvoffVendas',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'pdvoffVendas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'pdvoffVendas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'pdvoffVendas',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> pdvoffVendasBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'pdvoffVendas',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      preFechamentocxIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'preFechamentocx',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      preFechamentocxIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'preFechamentocx',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> preFechamentocxEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'preFechamentocx',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      preFechamentocxGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'preFechamentocx',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> preFechamentocxLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'preFechamentocx',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> preFechamentocxBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'preFechamentocx',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'retiradaCx',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'retiradaCx',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'retiradaCx',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'retiradaCx',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'retiradaCx',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> retiradaCxBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'retiradaCx',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -2556,141 +1558,59 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercIsNull() {
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'vendDescPerc',
+        property: r'trocarSenha',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      vendDescPercIsNotNull() {
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'vendDescPerc',
+        property: r'trocarSenha',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'vendDescPerc',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercGreaterThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'vendDescPerc',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercLessThan(
-    double? value, {
-    bool include = false,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'vendDescPerc',
-        value: value,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendDescPercBetween(
-    double? lower,
-    double? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    double epsilon = Query.epsilon,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'vendDescPerc',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        epsilon: epsilon,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      vendExcluirItemIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'vendExcluirItem',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      vendExcluirItemIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'vendExcluirItem',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendExcluirItemEqualTo(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'vendExcluirItem',
+        property: r'trocarSenha',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      vendExcluirItemGreaterThan(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'vendExcluirItem',
+        property: r'trocarSenha',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendExcluirItemLessThan(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'vendExcluirItem',
+        property: r'trocarSenha',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendExcluirItemBetween(
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -2698,147 +1618,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'vendExcluirItem',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'vendPdvOff',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'vendPdvOff',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'vendPdvOff',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'vendPdvOff',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'vendPdvOff',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendPdvOffBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'vendPdvOff',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'vendaCancelar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      vendaCancelarIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'vendaCancelar',
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'vendaCancelar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      vendaCancelarGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'vendaCancelar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'vendaCancelar',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> vendaCancelarBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'vendaCancelar',
+        property: r'trocarSenha',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2855,6 +1635,102 @@ extension UsuarioQueryLinks
     on QueryBuilder<Usuario, Usuario, QFilterCondition> {}
 
 extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByAdministrador() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'administrador', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByAdministradorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'administrador', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaAbrir() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaAbrir', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaAbrirDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaAbrir', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaCarga() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaCarga', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaCargaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaCarga', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaFechar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaFechar', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaFecharDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaFechar', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaGerenciar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaGerenciar', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaGerenciarDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaGerenciar', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaMovimentar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaMovimentar', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaMovimentarDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaMovimentar', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaParametros() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaParametros', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaParametrosDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaParametros', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaPdv() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaPdv', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaPdvDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaPdv', Sort.desc);
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdColaborador() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idColaborador', Sort.asc);
@@ -2867,27 +1743,27 @@ extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdUsuario() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdEmpresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.asc);
+      return query.addSortBy(r'idEmpresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdUsuarioDesc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdEmpresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.desc);
+      return query.addSortBy(r'idEmpresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdUsuarioGrupo() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByLogarEmpresas() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuarioGrupo', Sort.asc);
+      return query.addSortBy(r'logarEmpresas', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdUsuarioGrupoDesc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByLogarEmpresasDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuarioGrupo', Sort.desc);
+      return query.addSortBy(r'logarEmpresas', Sort.desc);
     });
   }
 
@@ -2915,247 +1791,6 @@ extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffAuditoria() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffAuditoria', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffAuditoriaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffAuditoria', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCargasAtua() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasAtua', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCargasAtuaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasAtua', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCargasIntegra() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasIntegra', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCargasIntegraDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasIntegra', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCargasParametros() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasParametros', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy>
-      sortByPdvoffCargasParametrosDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasParametros', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxAbrir() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxAbrir', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxAbrirDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxAbrir', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxFechar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxFechar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxFecharDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxFechar', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxGerenciar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxGerenciar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxGerenciarDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxGerenciar', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxListar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxListar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxListarDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxListar', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxMov() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxMov', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffCxMovDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxMov', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffEmpCad() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpCad', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffEmpCadDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpCad', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffEmpSer() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpSer', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffEmpSerDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpSer', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffFisOpera() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffFisOpera', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffFisOperaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffFisOpera', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffLogOpera() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffLogOpera', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffLogOperaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffLogOpera', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffPdv() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPdv', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffPdvDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPdv', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffPessoas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPessoas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffPessoasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPessoas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffProduto() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffProduto', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffProdutoDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffProduto', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffRelVendas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffRelVendas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffRelVendasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffRelVendas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffVendas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffVendas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPdvoffVendasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffVendas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPreFechamentocx() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'preFechamentocx', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByPreFechamentocxDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'preFechamentocx', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByRetiradaCx() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'retiradaCx', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByRetiradaCxDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'retiradaCx', Sort.desc);
-    });
-  }
-
   QueryBuilder<Usuario, Usuario, QAfterSortBy> sortBySenha() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senha', Sort.asc);
@@ -3180,57 +1815,117 @@ extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendDescPerc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByTrocarSenha() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendDescPerc', Sort.asc);
+      return query.addSortBy(r'trocarSenha', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendDescPercDesc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByTrocarSenhaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendDescPerc', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendExcluirItem() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendExcluirItem', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendExcluirItemDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendExcluirItem', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendPdvOff() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendPdvOff', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendPdvOffDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendPdvOff', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendaCancelar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaCancelar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByVendaCancelarDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaCancelar', Sort.desc);
+      return query.addSortBy(r'trocarSenha', Sort.desc);
     });
   }
 }
 
 extension UsuarioQuerySortThenBy
     on QueryBuilder<Usuario, Usuario, QSortThenBy> {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByAdministrador() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'administrador', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByAdministradorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'administrador', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaAbrir() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaAbrir', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaAbrirDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaAbrir', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaCarga() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaCarga', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaCargaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaCarga', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaFechar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaFechar', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaFecharDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaFechar', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaGerenciar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaGerenciar', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaGerenciarDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaGerenciar', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaMovimentar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaMovimentar', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaMovimentarDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaMovimentar', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaParametros() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaParametros', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaParametrosDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaParametros', Sort.desc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaPdv() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaPdv', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaPdvDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'caixaPdv', Sort.desc);
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -3255,27 +1950,27 @@ extension UsuarioQuerySortThenBy
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdUsuario() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdEmpresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.asc);
+      return query.addSortBy(r'idEmpresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdUsuarioDesc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdEmpresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.desc);
+      return query.addSortBy(r'idEmpresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdUsuarioGrupo() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByLogarEmpresas() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuarioGrupo', Sort.asc);
+      return query.addSortBy(r'logarEmpresas', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdUsuarioGrupoDesc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByLogarEmpresasDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuarioGrupo', Sort.desc);
+      return query.addSortBy(r'logarEmpresas', Sort.desc);
     });
   }
 
@@ -3303,247 +1998,6 @@ extension UsuarioQuerySortThenBy
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffAuditoria() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffAuditoria', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffAuditoriaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffAuditoria', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCargasAtua() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasAtua', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCargasAtuaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasAtua', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCargasIntegra() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasIntegra', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCargasIntegraDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasIntegra', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCargasParametros() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasParametros', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy>
-      thenByPdvoffCargasParametrosDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCargasParametros', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxAbrir() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxAbrir', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxAbrirDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxAbrir', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxFechar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxFechar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxFecharDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxFechar', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxGerenciar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxGerenciar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxGerenciarDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxGerenciar', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxListar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxListar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxListarDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxListar', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxMov() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxMov', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffCxMovDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffCxMov', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffEmpCad() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpCad', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffEmpCadDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpCad', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffEmpSer() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpSer', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffEmpSerDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffEmpSer', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffFisOpera() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffFisOpera', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffFisOperaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffFisOpera', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffLogOpera() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffLogOpera', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffLogOperaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffLogOpera', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffPdv() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPdv', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffPdvDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPdv', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffPessoas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPessoas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffPessoasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffPessoas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffProduto() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffProduto', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffProdutoDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffProduto', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffRelVendas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffRelVendas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffRelVendasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffRelVendas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffVendas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffVendas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPdvoffVendasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'pdvoffVendas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPreFechamentocx() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'preFechamentocx', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByPreFechamentocxDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'preFechamentocx', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByRetiradaCx() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'retiradaCx', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByRetiradaCxDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'retiradaCx', Sort.desc);
-    });
-  }
-
   QueryBuilder<Usuario, Usuario, QAfterSortBy> thenBySenha() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senha', Sort.asc);
@@ -3568,72 +2022,84 @@ extension UsuarioQuerySortThenBy
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendDescPerc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByTrocarSenha() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendDescPerc', Sort.asc);
+      return query.addSortBy(r'trocarSenha', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendDescPercDesc() {
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByTrocarSenhaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendDescPerc', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendExcluirItem() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendExcluirItem', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendExcluirItemDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendExcluirItem', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendPdvOff() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendPdvOff', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendPdvOffDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendPdvOff', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendaCancelar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaCancelar', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByVendaCancelarDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaCancelar', Sort.desc);
+      return query.addSortBy(r'trocarSenha', Sort.desc);
     });
   }
 }
 
 extension UsuarioQueryWhereDistinct
     on QueryBuilder<Usuario, Usuario, QDistinct> {
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByAdministrador() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'administrador');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaAbrir() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaAbrir');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaCarga() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaCarga');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaFechar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaFechar');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaGerenciar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaGerenciar');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaMovimentar() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaMovimentar');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaParametros() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaParametros');
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaPdv() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'caixaPdv');
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdColaborador() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'idColaborador');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdUsuario() {
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdEmpresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idUsuario');
+      return query.addDistinctBy(r'idEmpresa');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdUsuarioGrupo() {
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByLogarEmpresas() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idUsuarioGrupo');
+      return query.addDistinctBy(r'logarEmpresas');
     });
   }
 
@@ -3650,126 +2116,6 @@ extension UsuarioQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffAuditoria() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffAuditoria');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCargasAtua() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCargasAtua');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCargasIntegra() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCargasIntegra');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCargasParametros() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCargasParametros');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCxAbrir() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCxAbrir');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCxFechar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCxFechar');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCxGerenciar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCxGerenciar');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCxListar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCxListar');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffCxMov() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffCxMov');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffEmpCad() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffEmpCad');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffEmpSer() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffEmpSer');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffFisOpera() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffFisOpera');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffLogOpera() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffLogOpera');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffPdv() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffPdv');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffPessoas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffPessoas');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffProduto() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffProduto');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffRelVendas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffRelVendas');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPdvoffVendas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'pdvoffVendas');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByPreFechamentocx() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'preFechamentocx');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByRetiradaCx() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'retiradaCx');
-    });
-  }
-
   QueryBuilder<Usuario, Usuario, QDistinct> distinctBySenha(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3783,27 +2129,9 @@ extension UsuarioQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByVendDescPerc() {
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByTrocarSenha() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'vendDescPerc');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByVendExcluirItem() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'vendExcluirItem');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByVendPdvOff() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'vendPdvOff');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByVendaCancelar() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'vendaCancelar');
+      return query.addDistinctBy(r'trocarSenha');
     });
   }
 }
@@ -3816,21 +2144,69 @@ extension UsuarioQueryProperty
     });
   }
 
+  QueryBuilder<Usuario, int?, QQueryOperations> administradorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'administrador');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaAbrirProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaAbrir');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaCargaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaCarga');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaFecharProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaFechar');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaGerenciarProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaGerenciar');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaMovimentarProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaMovimentar');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaParametrosProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaParametros');
+    });
+  }
+
+  QueryBuilder<Usuario, int?, QQueryOperations> caixaPdvProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixaPdv');
+    });
+  }
+
   QueryBuilder<Usuario, int?, QQueryOperations> idColaboradorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idColaborador');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> idUsuarioProperty() {
+  QueryBuilder<Usuario, int, QQueryOperations> idEmpresaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idUsuario');
+      return query.addPropertyName(r'idEmpresa');
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> idUsuarioGrupoProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> logarEmpresasProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idUsuarioGrupo');
+      return query.addPropertyName(r'logarEmpresas');
     });
   }
 
@@ -3846,127 +2222,6 @@ extension UsuarioQueryProperty
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffAuditoriaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffAuditoria');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCargasAtuaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCargasAtua');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCargasIntegraProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCargasIntegra');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations>
-      pdvoffCargasParametrosProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCargasParametros');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxAbrirProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCxAbrir');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxFecharProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCxFechar');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxGerenciarProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCxGerenciar');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxListarProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCxListar');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffCxMovProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffCxMov');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffEmpCadProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffEmpCad');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffEmpSerProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffEmpSer');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffFisOperaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffFisOpera');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffLogOperaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffLogOpera');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffPdvProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffPdv');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffPessoasProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffPessoas');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffProdutoProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffProduto');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffRelVendasProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffRelVendas');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> pdvoffVendasProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'pdvoffVendas');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> preFechamentocxProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'preFechamentocx');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> retiradaCxProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'retiradaCx');
-    });
-  }
-
   QueryBuilder<Usuario, String?, QQueryOperations> senhaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'senha');
@@ -3979,27 +2234,9 @@ extension UsuarioQueryProperty
     });
   }
 
-  QueryBuilder<Usuario, double?, QQueryOperations> vendDescPercProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> trocarSenhaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'vendDescPerc');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> vendExcluirItemProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'vendExcluirItem');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> vendPdvOffProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'vendPdvOff');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> vendaCancelarProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'vendaCancelar');
+      return query.addPropertyName(r'trocarSenha');
     });
   }
 }

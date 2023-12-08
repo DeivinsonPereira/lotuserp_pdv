@@ -19,7 +19,7 @@ class AppWidget extends StatelessWidget {
         primarySwatch: CustomColors.customSwatchColor,
         scaffoldBackgroundColor: Colors.white.withAlpha(190),
       ),
-      initialRoute: PagesRoutes.splashRoute,
+      initialRoute: PagesRoutes.loginRoute,
       getPages: AppPages.pages,
     );
   }

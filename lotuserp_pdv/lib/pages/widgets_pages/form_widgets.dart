@@ -7,7 +7,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 class FormWidgets {
   final TextEditingController _controller = TextEditingController();
   final LoginController loginController = Get.put(LoginController());
-  final PasswordController passwordController = Get.find();
+  final PasswordController passwordController = Get.put(PasswordController());
 
   Widget textFieldWidget(IconData icon, String text) {
     return Padding(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/service/data_company_persist.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ConfigPage extends StatefulWidget {
@@ -15,11 +15,43 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
+  TextFieldController textFieldController = Get.find();
+  IsarService service = IsarService();
+  @override
+  void initState() {
+    super.initState();
+    fetchDataFromDatabase('IP');
+    fetchDataFromDatabase('ID da empresa');
+    fetchDataFromDatabase('ID da serie NFCe');
+    fetchDataFromDatabase('Número do caixa');
+    fetchDataFromDatabase('Intervalo de envio');
+  }
+
+  Future<void> fetchDataFromDatabase(String variableName) async {
+    final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+    if (dadoEmpresa != null) {
+      if (variableName == 'IP') {
+        textFieldController.numContratoEmpresaController.text =
+            dadoEmpresa.ipEmpresa!;
+      }
+      if (variableName == 'ID da empresa') {
+        textFieldController.idEmpresaController.text = dadoEmpresa.idEmpresa!;
+      }
+      if (variableName == 'ID da serie NFCe') {
+        textFieldController.idSerieNfceController.text = dadoEmpresa.idNfce!;
+      }
+      if (variableName == 'Número do caixa') {
+        textFieldController.numCaixaController.text = dadoEmpresa.numCaixa!;
+      }
+      if (variableName == 'Intervalo de envio') {
+        textFieldController.intervaloEnvioController.text =
+            dadoEmpresa.intervaloEnvio!;
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    TextFieldController textFieldController = Get.put(TextFieldController());
-    IsarService service = IsarService();
-
     Widget textFormFields(IconData icon, TextEditingController? controller,
         String text, String variableName,
         {bool numericKeyboard = false, bool useIconButton = false}) {
@@ -64,13 +96,14 @@ class _ConfigPageState extends State<ConfigPage> {
                             textFieldController.salvarInformacoesContrato();
                             String ip = await service.getIpEmpresa(context);
                             if (ip.isNotEmpty) {
-                              setState(() {
-                                textFieldController
-                                    .updateNumeroContratoToIp(ip);
-                                controller.text =
-                                    textFieldController.numContratoEmpresa;
-                                DataCompanyPersist.    
-                              });
+                              setState(
+                                () {
+                                  textFieldController
+                                      .updateNumeroContratoToIp(ip);
+                                  controller.text =
+                                      textFieldController.numContratoEmpresa;
+                                },
+                              );
                             }
                           }
                         },
@@ -104,27 +137,6 @@ class _ConfigPageState extends State<ConfigPage> {
               color: Color.fromARGB(255, 201, 200, 200),
             ),
           ),
-         /* onChanged: (value) async {
-            if (!await DataCompanyPersist.hasSavedData()) {
-              return;
-            } else {
-              if (variableName == 'IP') {
-                controller!.text = await DataCompanyPersist.getNumeroIp();
-              }
-              if (variableName == 'ID da empresa') {
-                controller!.text = await DataCompanyPersist.getIdEmpresa();
-              }
-              if (variableName == 'ID da serie NFCe') {
-                controller!.text = await DataCompanyPersist.getIdSerieNfce();
-              }
-              if (variableName == 'Número do caixa') {
-                controller!.text = await DataCompanyPersist.getNumCaixa();
-              }
-              if (variableName == 'Intervalo de envio') {
-                controller!.text = await DataCompanyPersist.getIntervaloEnvio();
-              }
-            }
-          },*/
         ),
       );
     }
@@ -189,7 +201,7 @@ class _ConfigPageState extends State<ConfigPage> {
     }
 
     bool verificacoes() {
-      if (textFieldController.ipController.text.isEmpty) {
+      if (textFieldController.numContratoEmpresaController.text.isEmpty) {
         const CustomSnackBar(
           title: 'Erro',
           message: 'IP obrigatório',
@@ -258,11 +270,17 @@ class _ConfigPageState extends State<ConfigPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: ElevatedButton(
-                onPressed: () {
-                  if (verificacoes() == true) {
-                    textFieldController.salvarInformacoes();
-                    DataCompanyPersist.saveData();
-                  }
+                onPressed: () async {
+                  if (verificacoes() == true) {}
+                  textFieldController.salvarInformacoes(context);
+                  DadoEmpresa dadosEmpresa = DadoEmpresa()
+                    ..idEmpresa = textFieldController.idEmpresa
+                    ..idNfce = textFieldController.idSerieNfce
+                    ..numCaixa = textFieldController.numCaixa
+                    ..intervaloEnvio = textFieldController.intervaloEnvio
+                    ..ipEmpresa = textFieldController.numContratoEmpresa;
+
+                  await service.insertDadosEmpresariais(dadosEmpresa);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CustomColors

@@ -2,8 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/dado_empresa.dart';
+import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class TextFieldController extends GetxController {
+  IsarService service = IsarService();
+
   // controllers que serão usados para o cadastro de informações de configuração.
   TextEditingController ipController = TextEditingController();
   TextEditingController idEmpresaController = TextEditingController();
@@ -22,8 +27,24 @@ class TextFieldController extends GetxController {
   late String intervaloEnvio = '';
 
   // salvar informações nas variaveis.
-  void salvarInformacoes() {
-    ip = ipController.text;
+  Future<void> salvarInformacoes(BuildContext context) async {
+    ip = numContratoEmpresaController.text;
+    if (numContratoEmpresaController.text.isEmpty) {
+      final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+      if (dadoEmpresa != null) {
+        ip = dadoEmpresa.ipEmpresa!;
+      } else {
+         // ignore: use_build_context_synchronously
+         const CustomSnackBar(
+          title: 'Erro',
+          message: 'O campo obrigatório',
+          icon: Icons.error,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        ).show(context);
+        return;
+      }
+    }
     idEmpresa = idEmpresaController.text;
     idSerieNfce = idSerieNfceController.text;
     numCaixa = numCaixaController.text;
@@ -53,7 +74,6 @@ class TextFieldController extends GetxController {
     numCaixaController.clear();
     intervaloEnvioController.clear();
   }
-
 
   // atualizar Ip.
   void updateIp(String value) {
