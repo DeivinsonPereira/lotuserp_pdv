@@ -38,7 +38,8 @@ class LoginPage extends StatelessWidget {
     Future<bool> areloginEquals() async {
       String login = passwordController.userController.text;
 
-      String? savedLogin = await service.getPasswordFromDatabase(login);
+      print(login);
+      String? savedLogin = await service.getLoginFromDatabase(login);
       return login == savedLogin;
     }
 

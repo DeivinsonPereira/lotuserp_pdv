@@ -9,20 +9,35 @@ class Endpoints {
   late String _baseUrl;
   late String companyId;
 
-  Future baseUrl() async {
+  Future<String> getbaseUrl() async {
     final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
 
     if (dadoEmpresa == null) {
-      return;
+      return '';
     }
     if (dadoEmpresa.ipEmpresa == null) {
-      return;
+      return '';
     }
-    _baseUrl = dadoEmpresa.ipEmpresa!;
-    companyId = dadoEmpresa.idEmpresa!;
-
     print(_baseUrl);
+    return _baseUrl = dadoEmpresa.ipEmpresa!;
+    
+
+    
     print(companyId);
+  }
+
+  Future<String> getcompanyId() async {
+    final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+
+    if (dadoEmpresa == null) {
+      return '';
+    }
+    if (dadoEmpresa.ipEmpresa == null) {
+      return '';
+    }
+    print(companyId);
+    return companyId = dadoEmpresa.idEmpresa!;
+    
   }
 
   Map<String, String> headerRequisition() {
