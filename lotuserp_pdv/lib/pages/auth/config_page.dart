@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/service/data_company_persist.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ConfigPage extends StatefulWidget {
@@ -16,11 +17,11 @@ class ConfigPage extends StatefulWidget {
 class _ConfigPageState extends State<ConfigPage> {
   @override
   Widget build(BuildContext context) {
-    TextFieldController textFieldController = Get.find();
+    TextFieldController textFieldController = Get.put(TextFieldController());
     IsarService service = IsarService();
 
-    Widget textFormFields(
-        IconData icon, TextEditingController? controller, String text,
+    Widget textFormFields(IconData icon, TextEditingController? controller,
+        String text, String variableName,
         {bool numericKeyboard = false, bool useIconButton = false}) {
       return Padding(
         padding: const EdgeInsets.only(
@@ -68,6 +69,7 @@ class _ConfigPageState extends State<ConfigPage> {
                                     .updateNumeroContratoToIp(ip);
                                 controller.text =
                                     textFieldController.numContratoEmpresa;
+                                DataCompanyPersist.    
                               });
                             }
                           }
@@ -102,6 +104,27 @@ class _ConfigPageState extends State<ConfigPage> {
               color: Color.fromARGB(255, 201, 200, 200),
             ),
           ),
+         /* onChanged: (value) async {
+            if (!await DataCompanyPersist.hasSavedData()) {
+              return;
+            } else {
+              if (variableName == 'IP') {
+                controller!.text = await DataCompanyPersist.getNumeroIp();
+              }
+              if (variableName == 'ID da empresa') {
+                controller!.text = await DataCompanyPersist.getIdEmpresa();
+              }
+              if (variableName == 'ID da serie NFCe') {
+                controller!.text = await DataCompanyPersist.getIdSerieNfce();
+              }
+              if (variableName == 'Número do caixa') {
+                controller!.text = await DataCompanyPersist.getNumCaixa();
+              }
+              if (variableName == 'Intervalo de envio') {
+                controller!.text = await DataCompanyPersist.getIntervaloEnvio();
+              }
+            }
+          },*/
         ),
       );
     }
@@ -117,26 +140,31 @@ class _ConfigPageState extends State<ConfigPage> {
                     FontAwesomeIcons.wifi,
                     textFieldController.numContratoEmpresaController,
                     'Digite o IP da empresa',
+                    'IP',
                     useIconButton: true),
                 textFormFields(
                     FontAwesomeIcons.solidBuilding,
                     textFieldController.idEmpresaController,
                     'Digite o ID da empresa',
+                    'ID da empresa',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.fileInvoiceDollar,
                     textFieldController.idSerieNfceController,
                     'Digite o ID da serie NFCe',
+                    'ID da serie NFCe',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.cashRegister,
                     textFieldController.numCaixaController,
                     'Digite o número do caixa',
+                    'Número do caixa',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.solidClock,
                     textFieldController.intervaloEnvioController,
                     'Digite o intervalo de envio',
+                    'Intervalo de envio',
                     numericKeyboard: true),
               ],
             ),
@@ -233,8 +261,8 @@ class _ConfigPageState extends State<ConfigPage> {
                 onPressed: () {
                   if (verificacoes() == true) {
                     textFieldController.salvarInformacoes();
+                    DataCompanyPersist.saveData();
                   }
-                  // Chame o método para salvar as informações nas variáveis do controller aqui
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CustomColors

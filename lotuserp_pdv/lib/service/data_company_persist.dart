@@ -15,12 +15,26 @@ class DataCompanyPersist {
 
   // Inicializa o sharedPreferences.
   static Future init() async {
-    _preferences = await SharedPreferences.getInstance();
+    try {
+      _preferences = await SharedPreferences.getInstance();
+    } catch (e) {
+      print('Erro ao inicializar o SharedPreferences: $e');
+    }
+  }
+
+  static Future<bool> hasSavedData() async {
+    await init();
+    return _preferences.containsKey('ip') &&
+        _preferences.containsKey('idEmpresa') &&
+        _preferences.containsKey('idSerieNfce') &&
+        _preferences.containsKey('numCaixa') &&
+        _preferences.containsKey(
+            'intervaloEnvio'); // Verifica se a chave 'ip' existe no SharedPreferences
   }
 
   // Salva os dados.
   static Future saveData() async {
-    init();
+    await init();
 
     ip = textEditingController.numContratoEmpresa;
     idEmpresa = textEditingController.idEmpresa;
@@ -41,9 +55,14 @@ class DataCompanyPersist {
     }
   }
 
+  static Future SaveIp() async {
+    await init();
+    ip = _preferences.setString('ip', textEditingController.numContratoEmpresa);
+  }
+
   // Retorna os dados.
   static Future getData() async {
-    init();
+    await init();
 
     ip = _preferences.getString('ip');
     idEmpresa = _preferences.getString('idEmpresa');
@@ -52,9 +71,39 @@ class DataCompanyPersist {
     intervaloEnvio = _preferences.getString('intervaloEnvio');
   }
 
+  // Retorna o numero de ip.
+  static Future getNumeroIp() async {
+    await init();
+    ip = _preferences.getString('ip');
+  }
+
+  // Retorna o id da empresa.
+  static Future getIdEmpresa() async {
+    await init();
+    idEmpresa = _preferences.getString('idEmpresa');
+  }
+
+  // Retorna o id da serie nfce.
+  static Future getIdSerieNfce() async {
+    await init();
+    idSerieNfce = _preferences.getString('idSerieNfce');
+  }
+
+  // Retorna o numero de caixa.
+  static Future getNumCaixa() async {
+    await init();
+    numCaixa = _preferences.getString('numCaixa');
+  }
+
+  // Retorna o intervalo de envio.
+  static Future getIntervaloEnvio() async {
+    await init();
+    intervaloEnvio = _preferences.getString('intervaloEnvio');
+  }
+
   // Deleta os dados.
   static Future deleteData() async {
-    init();
+    await init();
 
     await _preferences.remove('ip');
     await _preferences.remove('idEmpresa');
@@ -65,62 +114,73 @@ class DataCompanyPersist {
 
   // Deleta o numero de ip.
   static Future deleteNumeroIp() async {
-    init();
+    await init();
 
     await _preferences.remove('ip');
   }
 
   // Deleta o id da empresa.
   static Future deleteIdEmpresa() async {
-    init();
+    await init();
     await _preferences.remove('idEmpresa');
   }
 
   // Deleta o id da serie nfce.
   static Future deleteIdSerieNfce() async {
-    init();
+    await init();
     await _preferences.remove('idSerieNfce');
   }
 
   // Deleta o numero de caixa.
   static Future deleteNumCaixa() async {
-    init();
+    await init();
     await _preferences.remove('numCaixa');
   }
 
   // Deleta o intervalo de envio.
   static Future deleteIntervaloEnvio() async {
-    init();
+    await init();
     await _preferences.remove('intervaloEnvio');
+  }
+
+  static Future updateAllData() async {
+    await init();
+    await _preferences.setString('ip', textEditingController.ip);
+    await _preferences.setString('idEmpresa', textEditingController.idEmpresa);
+    await _preferences.setString(
+        'idSerieNfce', textEditingController.idSerieNfce);
+    await _preferences.setString('numCaixa', textEditingController.numCaixa);
+    await _preferences.setString(
+        'intervaloEnvio', textEditingController.intervaloEnvio);
   }
 
   // Atualiza o numero de ip.
   static Future updateNumeroIp(String ip) async {
-    init();
+    await init();
     await _preferences.setString('ip', ip);
   }
 
   // Atualiza o id da empresa.
   static Future updateIdEmpresa(String idEmpresa) async {
-    init();
+    await init();
     await _preferences.setString('idEmpresa', idEmpresa);
   }
 
   // Atualiza o id da serie nfce.
   static Future updateIdSerieNfce(String idSerieNfce) async {
-    init();
+    await init();
     await _preferences.setString('idSerieNfce', idSerieNfce);
   }
 
   // Atualiza o numero de caixa.
   static Future updateNumCaixa(String numCaixa) async {
-    init();
+    await init();
     await _preferences.setString('numCaixa', numCaixa);
   }
 
   // Atualiza o intervalo de envio.
   static Future updateIntervaloEnvio(String intervaloEnvio) async {
-    init();
+    await init();
     await _preferences.setString('intervaloEnvio', intervaloEnvio);
   }
 }
