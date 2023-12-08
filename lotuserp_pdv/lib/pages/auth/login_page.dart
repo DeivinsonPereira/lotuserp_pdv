@@ -24,14 +24,22 @@ class LoginPage extends StatelessWidget {
     }
 
     Future<bool> arePasswordsEquals() async {
-      passwordController.createHashedPassword();
+      var passwordCrypto = passwordController.createHashedPassword();
 
-      String enteredPassword = passwordController.passwordController.text;
       String login = passwordController.userController.text;
+
+      print('login digitado' + login);
 
       String? savedHashedPassword =
           await service.getPasswordFromDatabase(login);
-      return enteredPassword == savedHashedPassword;
+      return passwordCrypto == savedHashedPassword;
+    }
+
+    Future<bool> areloginEquals() async {
+      String login = passwordController.userController.text;
+
+      String? savedLogin = await service.getPasswordFromDatabase(login);
+      return login == savedLogin;
     }
 
     return Scaffold(
@@ -125,9 +133,42 @@ class LoginPage extends StatelessWidget {
                                       return;
                                     }
 
-                                    // Verifica se a senha está correta
+                                    String? login =
+                                        await service.getLoginFromDatabase(
+                                            PasswordController()
+                                                .userController
+                                                .text);
+                                    String? password =
+                                        await service.getPasswordFromDatabase(
+                                            PasswordController()
+                                                .passwordController
+                                                .text);
+                                    // Verifica se o login existe
+                                    if (login == null) {
+                                      Get.snackbar(
+                                        'Login inválido',
+                                        'O login digitado não existe. Por favor, tente novamente.',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                      return;
+                                    }
 
-                                    if (await arePasswordsEquals()) {
+                                    if (await areloginEquals() == false) {
+                                      Get.snackbar(
+                                        'Login inválido',
+                                        'O Usuario digitado não existe. Por favor, tente novamente.',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                    }
+
+                                    // Verifica se login está igual ao usuario digitado
+
+                                    if (await arePasswordsEquals() &&
+                                        await areloginEquals()) {
                                       Get.toNamed('/');
                                     } else {
                                       Get.snackbar(

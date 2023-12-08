@@ -298,7 +298,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                   CachedNetworkImage(
                                                     alignment:
                                                         const Alignment(0, 0),
-                                                    imageUrl: Endpoints
+                                                    imageUrl: Endpoints()
                                                         .imagemProdutoUrl(file),
                                                   ),
 

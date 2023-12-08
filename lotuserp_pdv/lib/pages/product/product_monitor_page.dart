@@ -246,7 +246,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                             flex: 3,
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  Endpoints.imagemProdutoUrl(
+                                                  Endpoints().imagemProdutoUrl(
                                                       file),
                                             ),
                                           ),

@@ -1,37 +1,56 @@
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
-
-const String _baseUrl = 'http://189.126.106.71/cgi-bin/lotuserp';
-const int companyId = 1;
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class Endpoints {
   TextFieldController textFieldController = Get.find();
+  IsarService service = IsarService();
+  late String _baseUrl;
+  late String companyId;
 
-  static Map<String, String> headerRequisition() {
+  Future baseUrl() async {
+    final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+
+    if (dadoEmpresa == null) {
+      return;
+    }
+    if (dadoEmpresa.ipEmpresa == null) {
+      return;
+    }
+    _baseUrl = dadoEmpresa.ipEmpresa!;
+    companyId = dadoEmpresa.idEmpresa!;
+
+    print(_baseUrl);
+    print(companyId);
+  }
+
+  Map<String, String> headerRequisition() {
     return {'ptoken': 'ed9a811327979c9382ffd6361cfc5013'};
   }
 
-  static String empresa() {
+  String empresa() {
+    baseUrl();
     return '$_baseUrl/pdvmobget01_empresa?pidEmpresa=$companyId';
   }
 
-  static String produto() {
+  String produto() {
     return '$_baseUrl/pdvmobget05_produtos?pidEmpresa=$companyId';
   }
 
-  static String grupo() {
+  String grupo() {
     return '$_baseUrl/pdvmobget03_produtos_grupos?pidEmpresa=$companyId';
   }
 
-  static String usuario() {
+  String usuario() {
     return '$_baseUrl/pdvmobget02_usuarios?pidEmpresa=$companyId';
   }
 
-  static String imagemGrupoUrl(String file) {
+  String imagemGrupoUrl(String file) {
     return '$_baseUrl/getimagem?categoria=GRU&file=$file&result=URL';
   }
 
-  static String imagemProdutoUrl(String file) {
+  String imagemProdutoUrl(String file) {
     return '$_baseUrl/getimagem?categoria=PRO&file=$file&result=URL';
   }
 

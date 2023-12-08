@@ -5,17 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class PasswordController extends GetxController {
-    final passwordController = TextEditingController();
-    final userController = TextEditingController();
-    
-    var hashedPassword = ''.obs;
-    var user = ''.obs;
-  
+  final passwordController = TextEditingController();
+  final userController = TextEditingController();
 
-  void createHashedPassword() {
+  var hashedPassword = ''.obs;
+  var user = ''.obs;
+
+  String createHashedPassword() {
     var bytes = utf8.encode(passwordController.text);
-    var hashedPassword = sha256.convert(bytes);
-    this.hashedPassword.value = hashedPassword.toString();
+    var hashedPassword = md5.convert(bytes);
+
+    var passwordteste =
+        this.hashedPassword.value = hashedPassword.toString().toUpperCase();
+    print(passwordteste);
+    return passwordteste;
   }
 
   void clear() {
@@ -26,5 +29,4 @@ class PasswordController extends GetxController {
   void updateUsername(String value) {
     user.value = value;
   }
-  
 }

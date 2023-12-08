@@ -42,7 +42,7 @@ class IsarService {
       );
     }
 
-    Uri getEmpresa = Uri.parse(Endpoints.empresa());
+    Uri getEmpresa = Uri.parse(Endpoints().empresa());
     final response = await http.get(
       getEmpresa,
       headers: _headers,
@@ -120,7 +120,7 @@ class IsarService {
       );
     }
 
-    Uri getGrupo = Uri.parse(Endpoints.grupo());
+    Uri getGrupo = Uri.parse(Endpoints().grupo());
     final response = await http.get(
       getGrupo,
       headers: _headers,
@@ -174,7 +174,7 @@ class IsarService {
       );
     }
 
-    Uri getProdutos = Uri.parse(Endpoints.produto());
+    Uri getProdutos = Uri.parse(Endpoints().produto());
     final response = await http.get(
       getProdutos,
       headers: _headers,
@@ -267,7 +267,7 @@ class IsarService {
       );
     }
 
-    Uri getUsuarios = Uri.parse(Endpoints.usuario());
+    Uri getUsuarios = Uri.parse(Endpoints().usuario());
     final response = await http.get(
       getUsuarios,
       headers: _headers,
@@ -391,6 +391,22 @@ class IsarService {
     yield* isar.vendaItems.where().sortByIdVenda().watch(fireImmediately: true);
   }
 
+  // busca o login do usuario
+  Future<String?> getLoginFromDatabase(String login) async {
+    final isar = await db;
+
+    Usuario? usuario =
+        await isar.usuarios.filter().loginEqualTo(login).findFirst();
+
+    //verifica se o usuario existe
+    if (usuario != null) {
+      return usuario.login;
+    } else {
+      return "";
+    }
+  }
+
+  //busca a senha do usuario
   Future<String?> getPasswordFromDatabase(String login) async {
     final isar = await db;
 
