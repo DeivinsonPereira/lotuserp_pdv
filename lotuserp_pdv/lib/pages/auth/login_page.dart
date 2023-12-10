@@ -14,6 +14,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PasswordController passwordController = Get.put(PasswordController());
+    // ignore: unused_local_variable
     TextFieldController textFieldController = Get.put(TextFieldController());
     IsarService service = IsarService();
 
@@ -138,11 +139,7 @@ class LoginPage extends StatelessWidget {
                                               PasswordController()
                                                   .userController
                                                   .text);
-                                      String? password =
-                                          await service.getPasswordFromDatabase(
-                                              PasswordController()
-                                                  .passwordController
-                                                  .text);
+                                                  
                                       // Verifica se o login existe
                                       if (login == null) {
                                         Get.snackbar(

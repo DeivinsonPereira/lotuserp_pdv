@@ -1,11 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/product.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
-import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 
 class ProductMonitorPage extends StatefulWidget {
   const ProductMonitorPage({super.key});
@@ -349,7 +347,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                             '${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['price'].toStringAsFixed(2)} ${controller.pedidos[index]['unidade']}'),
                                         trailing: Text(
                                           'R\$ ${controller.pedidos[index]['total'].toStringAsFixed(2)}',
-                                          style: TextStyle(fontSize: 16),
+                                          style: const TextStyle(fontSize: 16),
                                         ),
                                       );
                                     },
