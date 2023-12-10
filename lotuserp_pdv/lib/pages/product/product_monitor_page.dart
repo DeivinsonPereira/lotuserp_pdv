@@ -242,11 +242,11 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                       },
                                       child: Column(
                                         children: [
-                                          Expanded(
+                                         /* Expanded(
                                             flex: 3,
                                             child: CachedNetworkImage(
                                               imageUrl:
-                                                  Endpoints().imagemProdutoUrl(
+                                                  await Endpoints().imagemProdutoUrl(
                                                       file),
                                             ),
                                           ),
@@ -259,7 +259,7 @@ class _ProductMonitorPageState extends State<ProductMonitorPage> {
                                               style: const TextStyle(
                                                 fontWeight: FontWeight.w500,
                                               ),
-                                            ),
+                                            ),*/
                                           Text(
                                             'R\$  ${preco?.toStringAsFixed(2)} $unidade',
                                             style: const TextStyle(

@@ -28,6 +28,11 @@ class IsarService {
   IsarService() {
     db = openDB();
   }
+  //buscar ipEmpresa na tabela 'Dados Empresarias'
+  Future<DadoEmpresa?> getIpEmpresaFromDatabase() async {
+    final isar = await db;
+    return await isar.dadoEmpresas.where().findFirst();
+  }
 
   //inserindo dados na tabela empresa vindos do servidor
   Future getEmpresa(int companyId) async {
@@ -42,7 +47,17 @@ class IsarService {
       );
     }
 
-    Uri getEmpresa = Uri.parse(Endpoints().empresa());
+    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+
+    var ipEmpresaUrl = '';
+    var idEmpresaNum = '';
+
+    if (dadoEmpresa != null) {
+      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
+      idEmpresaNum = dadoEmpresa.idEmpresa!;
+    }
+
+    Uri getEmpresa = Uri.parse('${ipEmpresaUrl}pdvmobget01_empresa?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getEmpresa,
       headers: _headers,
@@ -120,7 +135,17 @@ class IsarService {
       );
     }
 
-    Uri getGrupo = Uri.parse(Endpoints().grupo());
+    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+
+    var ipEmpresaUrl = '';
+    var idEmpresaNum = '';
+
+    if (dadoEmpresa != null) {
+      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
+      idEmpresaNum = dadoEmpresa.idEmpresa!;
+    }
+
+    Uri getGrupo = Uri.parse('${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getGrupo,
       headers: _headers,
@@ -174,7 +199,17 @@ class IsarService {
       );
     }
 
-    Uri getProdutos = Uri.parse(Endpoints().produto());
+    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+
+    var ipEmpresaUrl = '';
+    var idEmpresaNum = '';
+
+    if (dadoEmpresa != null) {
+      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
+      idEmpresaNum = dadoEmpresa.idEmpresa!;
+    }
+
+    Uri getProdutos = Uri.parse('${ipEmpresaUrl}pdvmobget05_produtos?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getProdutos,
       headers: _headers,
@@ -267,7 +302,17 @@ class IsarService {
       );
     }
 
-    Uri getUsuarios = Uri.parse(Endpoints().usuario());
+    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+
+    var ipEmpresaUrl = '';
+    var idEmpresaNum = '';
+
+    if (dadoEmpresa != null) {
+      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
+      idEmpresaNum = dadoEmpresa.idEmpresa!;
+    }
+
+    Uri getUsuarios = Uri.parse('${ipEmpresaUrl}pdvmobget02_usuarios?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getUsuarios,
       headers: _headers,
@@ -398,9 +443,9 @@ class IsarService {
     Usuario? usuario =
         await isar.usuarios.filter().loginEqualTo(login).findFirst();
 
-    //verifica se o usuario existe
     if (usuario != null) {
-      return usuario.login;
+      return usuario
+          .login; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
     } else {
       return "";
     }
@@ -423,7 +468,7 @@ class IsarService {
 
   //buscar informações de acordo com a url e o numero do contrato
   Future<String> getIpEmpresa(context) async {
-    Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
+    Uri getIpEmpresa = Uri.parse(await Endpoints().ipEmpresa());
     final response = await http.get(
       getIpEmpresa,
       headers: _headers,
@@ -480,12 +525,6 @@ class IsarService {
         .where()
         .sortByIdEmpresa()
         .watch(fireImmediately: true);
-  }
-
-  //buscar ipEmpresa na tabela 'Dados Empresarias'
-  Future<DadoEmpresa?> getIpEmpresaFromDatabase() async {
-    final isar = await db;
-    return await isar.dadoEmpresas.where().findFirst();
   }
 
   //update do ipEmpresa

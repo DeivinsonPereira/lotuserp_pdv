@@ -17,7 +17,6 @@ class PasswordController extends GetxController {
 
     var passwordteste =
         this.hashedPassword.value = hashedPassword.toString().toUpperCase();
-    print(passwordteste);
     return passwordteste;
   }
 

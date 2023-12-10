@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
@@ -11,7 +12,6 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
-import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 
 class PdvMonitorPage extends StatefulWidget {
   const PdvMonitorPage({super.key});
@@ -26,19 +26,31 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   late NumberFormat formatoBrasileiro;
   final ScrollController scrollController = ScrollController();
+  IsarService service = IsarService();
+
+  late String ip;
 
   @override
   void initState() {
     super.initState();
 
     // Certifique-se de que o controlador de rolagem está associado ao ListView
+    fetchDataFromDatabase();
     scrollController.addListener(() {});
+  }
+
+  Future<void> fetchDataFromDatabase() async {
+    final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+    if (dadoEmpresa != null) {
+      ip = dadoEmpresa.ipEmpresa!;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     PdvController controller = Get.put(PdvController());
+
 
     var precos = [];
     String total;
@@ -298,8 +310,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                   CachedNetworkImage(
                                                     alignment:
                                                         const Alignment(0, 0),
-                                                    imageUrl: Endpoints()
-                                                        .imagemProdutoUrl(file),
+                                                    imageUrl:
+                                                        '${ip}getimagem?categoria=PRO&file=$file&result=URL',
                                                   ),
 
                                                   if (controller.getQuantidade(
