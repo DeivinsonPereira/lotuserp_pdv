@@ -17,6 +17,10 @@ class MovimentRegisterController extends GetxController {
   //open register
   void openRegisterValue() {
 
+    if (openRegisterController.text.isEmpty) {
+      openRegisterController.text = '0.0';
+    }
+
     openRegister.value = double.parse(openRegisterController.text);
   }
 

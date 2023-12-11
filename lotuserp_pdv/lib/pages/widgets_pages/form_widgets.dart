@@ -83,38 +83,42 @@ class FormWidgets {
 
   Widget customTextFieldIcon(IconData icon, String text,
       {bool obscureText = false}) {
-    return Obx(() {
-      return TextFormField(
-        controller: passwordController.passwordController,
-        obscureText: obscureText ? !loginController.obscureText.value : false,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(4),
-            borderSide: BorderSide(color: CustomColors.customSwatchColor),
+    return Obx(
+      () {
+        return TextFormField(
+          controller: passwordController.passwordController,
+          obscureText: obscureText ? !loginController.obscureText.value : false,
+          decoration: InputDecoration(
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(4),
+              borderSide: BorderSide(color: CustomColors.customSwatchColor),
+            ),
+            prefixIcon: Icon(icon),
+            labelText: text,
+            suffixIcon: obscureText
+                ? IconButton(
+                    icon: Icon(
+                      loginController.obscureText.value
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      loginController.obscureText.toggle();
+                    },
+                  )
+                : null,
           ),
-          prefixIcon: Icon(icon),
-          labelText: text,
-          suffixIcon: obscureText
-              ? IconButton(
-                  icon: Icon(
-                    loginController.obscureText.value
-                        ? Icons.visibility
-                        : Icons.visibility_off,
-                  ),
-                  onPressed: () {
-                    loginController.obscureText.toggle();
-                  },
-                )
-              : null,
-        ),
-      );
-    },);
+        );
+      },
+    );
   }
 
-  Widget textFieldOpenRegister(IconData icon, String text, TextEditingController? controller ) {
+  Widget textFieldOpenRegister(
+      IconData icon, String text, TextEditingController? controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: TextField(
+        keyboardType: TextInputType.number,
         controller: controller,
         decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -124,7 +128,7 @@ class FormWidgets {
           prefixIcon: Icon(
             icon,
           ),
-          labelText: text,
+          labelText: 'R\$ $text',
         ),
       ),
     );
