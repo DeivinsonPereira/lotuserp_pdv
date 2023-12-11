@@ -52,8 +52,8 @@ class _ConfigPageState extends State<ConfigPage> {
 
   @override
   Widget build(BuildContext context) {
-    Widget textFormFields(IconData icon, TextEditingController? controller,
-        String text, String variableName,
+    Widget textFormFields(
+        IconData icon, TextEditingController? controller, String variableName,
         {bool numericKeyboard = false, bool useIconButton = false}) {
       return Padding(
         padding: const EdgeInsets.only(
@@ -62,81 +62,89 @@ class _ConfigPageState extends State<ConfigPage> {
           top: 15,
           bottom: 15,
         ),
-        child: TextFormField(
-          controller: controller,
-          keyboardType: numericKeyboard ? TextInputType.number : null,
-          decoration: InputDecoration(
-            prefixIcon: Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: useIconButton
-                  ? Container(
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: CustomColors.customSwatchColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Container(
+              width: 510,
+              child: Text(
+                variableName,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
+            ),
+            TextFormField(
+              controller: controller,
+              keyboardType: numericKeyboard ? TextInputType.number : null,
+              decoration: InputDecoration(
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: useIconButton
+                      ? Container(
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: CustomColors.customSwatchColor,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
+                          ),
+                          child: IconButton(
+                            icon: Icon(
+                              icon,
+                              color: Colors.white,
+                            ),
+                            onPressed: () async {
+                              if (controller!.text.isEmpty) {
+                                const CustomSnackBar(
+                                  title: 'Erro',
+                                  message: 'O campo obrigatório',
+                                  icon: Icons.error,
+                                  backgroundColor: Colors.red,
+                                  textColor: Colors.white,
+                                ).show(context);
+                              } else {
+                                textFieldController.salvarInformacoesContrato();
+                                String ip = await service.getIpEmpresa(context);
+                                if (ip.isNotEmpty) {
+                                  setState(
+                                    () {
+                                      textFieldController
+                                          .updateNumeroContratoToIp(ip);
+                                      controller.text = textFieldController
+                                          .numContratoEmpresa;
+                                    },
+                                  );
+                                }
+                              }
+                            },
+                          ),
+                        )
+                      : Container(
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: CustomColors.customSwatchColor,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(10),
+                              bottomLeft: Radius.circular(10),
+                            ),
+                          ),
+                          child: Icon(
+                            icon,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          icon,
-                          color: Colors.white,
-                        ),
-                        onPressed: () async {
-                          if (controller!.text.isEmpty) {
-                            const CustomSnackBar(
-                              title: 'Erro',
-                              message: 'O campo obrigatório',
-                              icon: Icons.error,
-                              backgroundColor: Colors.red,
-                              textColor: Colors.white,
-                            ).show(context);
-                          } else {
-                            textFieldController.salvarInformacoesContrato();
-                            String ip = await service.getIpEmpresa(context);
-                            if (ip.isNotEmpty) {
-                              setState(
-                                () {
-                                  textFieldController
-                                      .updateNumeroContratoToIp(ip);
-                                  controller.text =
-                                      textFieldController.numContratoEmpresa;
-                                },
-                              );
-                            }
-                          }
-                        },
-                      ),
-                    )
-                  : Container(
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: CustomColors.customSwatchColor,
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(10),
-                          bottomLeft: Radius.circular(10),
-                        ),
-                      ),
-                      child: Icon(
-                        icon,
-                        color: Colors.white,
-                      ),
-                    ),
+                ),
+                fillColor: Colors.grey[200],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 12.0,
+                  horizontal: 16.0,
+                ),
+              ),
             ),
-            fillColor: Colors.grey[200],
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-            ),
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 12.0,
-              horizontal: 16.0,
-            ),
-            hintText: text,
-            hintStyle: const TextStyle(
-              color: Color.fromARGB(255, 201, 200, 200),
-            ),
-          ),
+          ],
         ),
       );
     }
@@ -152,30 +160,21 @@ class _ConfigPageState extends State<ConfigPage> {
                     FontAwesomeIcons.wifi,
                     textFieldController.numContratoEmpresaController,
                     'Digite o IP da empresa',
-                    'IP',
                     useIconButton: true),
-                textFormFields(
-                    FontAwesomeIcons.solidBuilding,
-                    textFieldController.idEmpresaController,
-                    'Digite o ID da empresa',
-                    'ID da empresa',
+                textFormFields(FontAwesomeIcons.solidBuilding,
+                    textFieldController.idEmpresaController, 'ID da empresa',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.fileInvoiceDollar,
                     textFieldController.idSerieNfceController,
-                    'Digite o ID da serie NFCe',
                     'ID da serie NFCe',
                     numericKeyboard: true),
-                textFormFields(
-                    FontAwesomeIcons.cashRegister,
-                    textFieldController.numCaixaController,
-                    'Digite o número do caixa',
-                    'Número do caixa',
+                textFormFields(FontAwesomeIcons.cashRegister,
+                    textFieldController.numCaixaController, 'Número do caixa',
                     numericKeyboard: true),
                 textFormFields(
                     FontAwesomeIcons.solidClock,
                     textFieldController.intervaloEnvioController,
-                    'Digite o intervalo de envio',
                     'Intervalo de envio',
                     numericKeyboard: true),
               ],
@@ -302,7 +301,7 @@ class _ConfigPageState extends State<ConfigPage> {
     Widget centerContainer() {
       return Container(
         width: 1100,
-        height: 425,
+        height: 550,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           color: Colors.white,
