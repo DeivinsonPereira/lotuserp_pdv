@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
@@ -24,91 +25,125 @@ class OpenRegisterPage extends StatelessWidget {
 
     var date = DateFormat('dd/MM/yyyy').format(atualDate);
 
-    return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      
-      title: Text(
-        'Confirmar Abertura de Caixa:',
-        style: TextStyle(
-          color: CustomColors.customSwatchColor[900],
-          fontSize: 16,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Data: $date | Operador: $userName',
-            style: TextStyle(
-              fontSize: 14,
-              color: CustomColors.customSwatchColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Valor da Abertura:',
-            style: TextStyle(
-                height: 3,
-                color: CustomColors.customSwatchColor[900],
-                fontSize: 16,
-                fontWeight: FontWeight.w400),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(
-              top: 10,
-            ),
-            child: FormWidgets().textFieldOpenRegister(Icons.add, 'R\$ 0,00',
-                movimentRegisterController.openRegisterController),
-          ),
-        ],
-      ),
-      actions: [
-        TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.white,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          onPressed: () {
-            movimentRegisterController.clearOpenRegister();
-            Get.back();
-          },
-          child: Text(
-            "Não",
-            style: TextStyle(
-              color: CustomColors.customSwatchColor[900],
-            ),
-          ),
-        ),
-        ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: CustomColors.customSwatchColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          onPressed: () async {
-            movimentRegisterController.openRegisterValue();
-            DadoEmpresa? dataEmpresa = await service.getIpEmpresaFromDatabase();
-            int? idEmpresa = dataEmpresa?.idEmpresa;
-            
+    return Dialog(
+      child: Container(
+        height: 350,
+        width: 400,
+        child: Scaffold(
+          appBar: AppBar(
+              toolbarHeight: 50,
+              backgroundColor: CustomColors.customSwatchColor,
+              automaticallyImplyLeading: false,
+              title: const Row(
+                children: [
+                  Row(
+                    children: [
+                      Icon(
+                        FontAwesomeIcons.cashRegister,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 10),
+                      Text(
+                        'Abertura de Caixa:',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              actions: [
+                Container(
+                  height: 50,
+                  color: Colors.blue,
+                  child: IconButton(
+                    onPressed: () {
+                      Get.back();
+                    },
+                    icon: Icon(
+                      Icons.close,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
+              ]),
+          body: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Data: $date | Operador: $userName',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: CustomColors.customSwatchColor,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Valor da Abertura:',
+                style: TextStyle(
+                    height: 3,
+                    color: CustomColors.customSwatchColor[900],
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 10,
+                ),
+                child: FormWidgets().textFieldOpenRegister(
+                    Icons.add,
+                    'R\$ 0,00',
+                    movimentRegisterController.openRegisterController),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () {
+                  movimentRegisterController.clearOpenRegister();
+                  Get.back();
+                },
+                child: Text(
+                  "Não",
+                  style: TextStyle(
+                    color: CustomColors.customSwatchColor[900],
+                  ),
+                ),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: CustomColors.customSwatchColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                ),
+                onPressed: () async {
+                  movimentRegisterController.openRegisterValue();
+                  DadoEmpresa? dataEmpresa =
+                      await service.getIpEmpresaFromDatabase();
+                  int? idEmpresa = dataEmpresa?.idEmpresa;
 
-            movimentRegisterController.clearOpenRegister();
-            Get.back();
-          },
-          child: Text(
-            "Sim",
-            style: TextStyle(
-              color: CustomColors.customContrastColor,
-            ),
+                  movimentRegisterController.clearOpenRegister();
+                  Get.back();
+                },
+                child: Text(
+                  "Sim",
+                  style: TextStyle(
+                    color: CustomColors.customContrastColor,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
-      ],
+      ),
     );
   }
 }
