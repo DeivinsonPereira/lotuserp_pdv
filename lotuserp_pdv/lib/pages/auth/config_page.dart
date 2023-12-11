@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/home/home_page.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ConfigPage extends StatefulWidget {
@@ -290,7 +291,9 @@ class _ConfigPageState extends State<ConfigPage> {
                     ..ipEmpresa = textFieldController.numContratoEmpresa;
 
                   await service.insertDadosEmpresariais(dadosEmpresa);
-                  await Get.offAndToNamed(PagesRoutes.loginRoute);
+                  // ignore: unused_local_variable
+                  HomeController home = Get.put(HomeController());
+                  await Get.offAllNamed(PagesRoutes.loginRoute);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CustomColors

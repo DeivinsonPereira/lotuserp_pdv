@@ -134,8 +134,11 @@ class LoginPage extends StatelessWidget {
                                         );
                                         return;
                                       }
-                                      String login = passwordController.userController.text.toUpperCase();
-                                      String? savedLogin = await service.getLoginFromDatabase(login);
+                                      String login = passwordController
+                                          .userController.text
+                                          .toUpperCase();
+                                      String? savedLogin = await service
+                                          .getLoginFromDatabase(login);
 
                                       // Verifica se o login existe
                                       if (savedLogin == null) {

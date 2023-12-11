@@ -267,7 +267,7 @@ class OpenRegisterPage extends StatelessWidget {
 
                                         var dadosUsuario =
                                             await service.getUserLogged();
-
+/*
                                         var caixa = Caixa()
                                           ..idEmpresa = dadosEmpresa!.idEmpresa!
                                           ..aberturaIdUser =
@@ -284,7 +284,7 @@ class OpenRegisterPage extends StatelessWidget {
                                         late double fechouValor;
                                         late int enviado;
                                         late int idCaixaServidor;
-
+*/
                                         movimentRegisterController
                                             .clearOpenRegister();
                                         Get.back();
