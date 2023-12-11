@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/grupo_produto.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/usuario.dart';
+import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
@@ -31,6 +32,7 @@ class IsarService {
   //buscar ipEmpresa na tabela 'Dados Empresarias'
   Future<DadoEmpresa?> getIpEmpresaFromDatabase() async {
     final isar = await db;
+
     return await isar.dadoEmpresas.where().findFirst();
   }
 
@@ -506,7 +508,6 @@ class IsarService {
     return await isar.dadoEmpresas.where().findFirst();
   }
 
-
   //inserir dados na tabela 'Dados Empresariais'
   Future<Isar> insertDadosEmpresariais(DadoEmpresa empresa) async {
     final isar = await db;
@@ -555,6 +556,41 @@ class IsarService {
     return isar;
   }
 
+  //cria um usuario na tabela 'Usuarios'
+  Future<Isar> insertUser(UsuarioLogado user) async {
+    final isar = await db;
+    
+    int i = await isar.usuarioLogados.count();
+
+    if (i > 0) {
+      isar.writeTxn(() async {
+        await isar.usuarioLogados.clear();
+      });
+    }
+
+    isar.writeTxn(() async {
+      await isar.usuarioLogados.put(user);
+    });
+
+
+    return isar;
+  }
+
+  //buscar todos os dados do login com as verificações
+  Future<int?> getUserIdColaborador(String login) async {
+    final isar = await db;
+
+    Usuario? usuario =
+        await isar.usuarios.filter().loginEqualTo(login).findFirst();
+
+    if (usuario != null) {
+      return usuario
+          .idColaborador; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
+    } else {
+      return null;
+    }
+  }
+
   //abre o banco de dados
   Future<Isar> openDB() async {
     final dir = await getApplicationSupportDirectory();
@@ -571,6 +607,7 @@ class IsarService {
           VendaItemSchema,
           VendaSchema,
           DadoEmpresaSchema,
+          UsuarioLogadoSchema,
         ],
         directory: dir.path,
       );

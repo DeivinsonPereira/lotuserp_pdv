@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/controllers/home_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
@@ -133,15 +134,11 @@ class LoginPage extends StatelessWidget {
                                         );
                                         return;
                                       }
-      
-                                      String? login =
-                                          await service.getLoginFromDatabase(
-                                              PasswordController()
-                                                  .userController
-                                                  .text);
-                                                  
+                                      String login = passwordController.userController.text.toUpperCase();
+                                      String? savedLogin = await service.getLoginFromDatabase(login);
+
                                       // Verifica se o login existe
-                                      if (login == null) {
+                                      if (savedLogin == null) {
                                         Get.snackbar(
                                           'Login inválido',
                                           'O login digitado não existe. Por favor, tente novamente.',
@@ -151,7 +148,7 @@ class LoginPage extends StatelessWidget {
                                         );
                                         return;
                                       }
-      
+
                                       if (await areloginEquals() == false) {
                                         Get.snackbar(
                                           'Login inválido',
@@ -161,11 +158,17 @@ class LoginPage extends StatelessWidget {
                                           snackPosition: SnackPosition.BOTTOM,
                                         );
                                       }
-      
+
                                       // Verifica se login está igual ao usuario digitado
-      
+
                                       if (await arePasswordsEquals() &&
                                           await areloginEquals()) {
+                                        var userOnline = await service
+                                            .getUserIdColaborador(savedLogin);
+                                        var usuarioLogado = UsuarioLogado()
+                                          ..login = savedLogin
+                                          ..idColaborador = userOnline;
+                                        await service.insertUser(usuarioLogado);
                                         Get.toNamed('/');
                                       } else {
                                         Get.snackbar(
@@ -176,7 +179,7 @@ class LoginPage extends StatelessWidget {
                                           snackPosition: SnackPosition.BOTTOM,
                                         );
                                       }
-      
+
                                       passwordController.clear();
                                     },
                                     child: const Padding(

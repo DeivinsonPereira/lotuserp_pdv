@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/grupo_produto.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/usuario.dart';
+import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/core/app_widget.dart';
@@ -19,7 +20,7 @@ void main() async {
   final dir = await getApplicationSupportDirectory();
   await Isar.open(
     [
-      EmpresaSchema, GrupoProdutoSchema, ProdutoSchema, UsuarioSchema, CaixaItemSchema, CaixaSchema, VendaItemSchema, VendaSchema, DadoEmpresaSchema
+      EmpresaSchema, GrupoProdutoSchema, ProdutoSchema, UsuarioSchema, CaixaItemSchema, CaixaSchema, VendaItemSchema, VendaSchema, DadoEmpresaSchema,UsuarioLogadoSchema
     ],
     directory: dir.path,
     inspector: true,

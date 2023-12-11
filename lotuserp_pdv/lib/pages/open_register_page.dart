@@ -76,204 +76,214 @@ class OpenRegisterPage extends StatelessWidget {
                 ]),
             body: Column(
               children: [
-                SizedBox(
-                  height: 350,
-                  width: 450,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          height: 61,
-                          child: Padding(
-                            padding: const EdgeInsets.only(
-                                top: 8, left: 8.0, right: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: Container(
-                                    width: 150,
-                                    height: 50,
-                                    color: Colors.grey[350],
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'DATA MOVIMENTO',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color:
-                                                CustomColors.customSwatchColor,
-                                          ),
-                                          textAlign: TextAlign.center,
+                Column(
+                  children: [
+                    SizedBox(
+                      height: 350,
+                      width: 450,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Container(
+                              height: 61,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 8, left: 8.0, right: 8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                        width: 150,
+                                        height: 50,
+                                        color: Colors.grey[350],
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'DATA MOVIMENTO',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .customSwatchColor,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            Text(
+                                              date,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: CustomColors
+                                                    .customSwatchColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Text(
-                                          date,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color:
-                                                CustomColors.customSwatchColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                Expanded(
-                                  flex: 2,
-                                  child: Container(
-                                    width: 235,
-                                    height: 50,
-                                    color: Colors.grey[350],
-                                    child: Column(
-                                      children: [
-                                        Text(
-                                          'OPERADOR',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color:
-                                                CustomColors.customSwatchColor,
-                                          ),
-                                        ),
-                                        Text(
-                                          userName,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color:
-                                                CustomColors.customSwatchColor,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
+                                    const SizedBox(
+                                      width: 2,
                                     ),
-                                  ),
+                                    Expanded(
+                                      flex: 2,
+                                      child: Container(
+                                        width: 235,
+                                        height: 50,
+                                        color: Colors.grey[350],
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              'OPERADOR',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .customSwatchColor,
+                                              ),
+                                            ),
+                                            Text(
+                                              userName,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                color: CustomColors
+                                                    .customSwatchColor,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                      Flexible(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: SizedBox(
-                            height: 150,
-                            child: Container(
-                              padding: EdgeInsets.all(8),
-                              color: Colors.grey[350],
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          Flexible(
+                            flex: 2,
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 8.0, right: 8.0),
+                              child: SizedBox(
+                                height: 150,
+                                child: Container(
+                                  padding: EdgeInsets.all(8),
+                                  color: Colors.grey[350],
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Positioned(
+                                        child: Text(
+                                          'VALOR ABERTURA',
+                                          style: TextStyle(
+                                              height: 3,
+                                              color: CustomColors
+                                                  .customSwatchColor[900],
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Container(
+                                        height: 70,
+                                        child: FormWidgets()
+                                            .textFieldOpenRegister(
+                                                Icons.add,
+                                                '0,00',
+                                                movimentRegisterController
+                                                    .openRegisterController),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 80,
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: SizedBox(
+                              height: 150,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
-                                  Positioned(
-                                    child: Text(
-                                      'VALOR ABERTURA',
-                                      style: TextStyle(
-                                          height: 3,
-                                          color: CustomColors
-                                              .customSwatchColor[900],
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.grey,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0),
+                                        ),
+                                      ),
+                                      onPressed: () {
+                                        movimentRegisterController
+                                            .clearOpenRegister();
+                                        Get.back();
+                                      },
+                                      child: const Text(
+                                        "VOLTAR",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                  Container(
-                                    height: 70,
-                                    child: FormWidgets().textFieldOpenRegister(
-                                        Icons.add,
-                                        '0,00',
+                                  const SizedBox(
+                                    width: 1,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 116, 187, 102),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0),
+                                        ),
+                                      ),
+                                      onPressed: () async {
                                         movimentRegisterController
-                                            .openRegisterController),
+                                            .openRegisterValue();
+                                        await service
+                                            .getIpEmpresaFromDatabase();
+                                        
+
+
+
+                                        movimentRegisterController
+                                            .clearOpenRegister();
+                                        Get.back();
+                                      },
+                                      child: const Text(
+                                        "CONFIRMAR",
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 24),
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                      const SizedBox(
-                        height: 80,
-                      ),
-                      Flexible(
-                        flex: 1,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-                          child: SizedBox(
-                            height: 150,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor: Colors.grey,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      movimentRegisterController
-                                          .clearOpenRegister();
-                                      Get.back();
-                                    },
-                                    child: const Text(
-                                      "VOLTAR",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 22,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 2,
-                                ),
-                                Expanded(
-                                  flex: 1,
-                                  child: TextButton(
-                                    style: TextButton.styleFrom(
-                                      backgroundColor:
-                                          Color.fromARGB(255, 116, 187, 102),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(0),
-                                      ),
-                                    ),
-                                    onPressed: () async {
-                                      movimentRegisterController
-                                          .openRegisterValue();
-                                      DadoEmpresa? dataEmpresa = await service
-                                          .getIpEmpresaFromDatabase();
-                                      int? idEmpresa = dataEmpresa?.idEmpresa;
-
-                                      movimentRegisterController
-                                          .clearOpenRegister();
-                                      Get.back();
-                                    },
-                                    child: const Text(
-                                      "CONFIRMAR",
-                                      style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 22),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
