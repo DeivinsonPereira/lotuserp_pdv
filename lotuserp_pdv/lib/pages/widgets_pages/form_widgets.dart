@@ -108,6 +108,25 @@ class FormWidgets {
               : null,
         ),
       );
-    });
+    },);
+  }
+
+  Widget textFieldOpenRegister(IconData icon, String text, TextEditingController? controller ) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 10.0),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(4),
+            borderSide: BorderSide(color: CustomColors.customSwatchColor),
+          ),
+          prefixIcon: Icon(
+            icon,
+          ),
+          labelText: text,
+        ),
+      ),
+    );
   }
 }

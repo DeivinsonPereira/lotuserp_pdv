@@ -7,13 +7,15 @@ part 'venda_item.g.dart';
 class VendaItem {
 
   Id id = Isar.autoIncrement;
-  late int idVenda;
+  
+  @Index()
+  late int idVenda; //id da venda que vem da tabela Venda
   late int idProduto;
   late int item;
-  late double vlrVendido;
-  late double qtde;
-  late double totBruto;
-  late String grade;
+  late double? vlrVendido;
+  late double? qtde;
+  late double? totBruto;
+  late String? grade;
 
   VendaItem(
     this.idVenda,

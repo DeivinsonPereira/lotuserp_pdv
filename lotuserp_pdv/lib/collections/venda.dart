@@ -20,6 +20,7 @@ class Venda {
   late int status;
   late int idSerieNfce;
   late int enviado;
+  late String cpfCnpj;
 
   final vendaProdutos = IsarLink<VendaItem>();
 
@@ -36,6 +37,7 @@ class Venda {
     this.status,
     this.idSerieNfce,
     this.enviado,
+    this.cpfCnpj,
   );
 }
 

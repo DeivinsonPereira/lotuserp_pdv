@@ -58,7 +58,21 @@ const VendaItemSchema = CollectionSchema(
   deserialize: _vendaItemDeserialize,
   deserializeProp: _vendaItemDeserializeProp,
   idName: r'id',
-  indexes: {},
+  indexes: {
+    r'idVenda': IndexSchema(
+      id: -8081471043793571604,
+      name: r'idVenda',
+      unique: false,
+      replace: false,
+      properties: [
+        IndexPropertySchema(
+          name: r'idVenda',
+          type: IndexType.value,
+          caseSensitive: false,
+        )
+      ],
+    )
+  },
   links: {},
   embeddedSchemas: {},
   getId: _vendaItemGetId,
@@ -73,7 +87,12 @@ int _vendaItemEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.grade.length * 3;
+  {
+    final value = object.grade;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -102,10 +121,10 @@ VendaItem _vendaItemDeserialize(
     reader.readLong(offsets[2]),
     reader.readLong(offsets[1]),
     reader.readLong(offsets[3]),
-    reader.readDouble(offsets[6]),
-    reader.readDouble(offsets[4]),
-    reader.readDouble(offsets[5]),
-    reader.readString(offsets[0]),
+    reader.readDoubleOrNull(offsets[6]),
+    reader.readDoubleOrNull(offsets[4]),
+    reader.readDoubleOrNull(offsets[5]),
+    reader.readStringOrNull(offsets[0]),
   );
   object.id = id;
   return object;
@@ -119,7 +138,7 @@ P _vendaItemDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
       return (reader.readLong(offset)) as P;
     case 2:
@@ -127,11 +146,11 @@ P _vendaItemDeserializeProp<P>(
     case 3:
       return (reader.readLong(offset)) as P;
     case 4:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 5:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 6:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -154,6 +173,14 @@ extension VendaItemQueryWhereSort
   QueryBuilder<VendaItem, VendaItem, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterWhere> anyIdVenda() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(
+        const IndexWhereClause.any(indexName: r'idVenda'),
+      );
     });
   }
 }
@@ -224,12 +251,118 @@ extension VendaItemQueryWhere
       ));
     });
   }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterWhereClause> idVendaEqualTo(
+      int idVenda) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.equalTo(
+        indexName: r'idVenda',
+        value: [idVenda],
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterWhereClause> idVendaNotEqualTo(
+      int idVenda) {
+    return QueryBuilder.apply(this, (query) {
+      if (query.whereSort == Sort.asc) {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'idVenda',
+              lower: [],
+              upper: [idVenda],
+              includeUpper: false,
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'idVenda',
+              lower: [idVenda],
+              includeLower: false,
+              upper: [],
+            ));
+      } else {
+        return query
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'idVenda',
+              lower: [idVenda],
+              includeLower: false,
+              upper: [],
+            ))
+            .addWhereClause(IndexWhereClause.between(
+              indexName: r'idVenda',
+              lower: [],
+              upper: [idVenda],
+              includeUpper: false,
+            ));
+      }
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterWhereClause> idVendaGreaterThan(
+    int idVenda, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'idVenda',
+        lower: [idVenda],
+        includeLower: include,
+        upper: [],
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterWhereClause> idVendaLessThan(
+    int idVenda, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'idVenda',
+        lower: [],
+        upper: [idVenda],
+        includeUpper: include,
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterWhereClause> idVendaBetween(
+    int lowerIdVenda,
+    int upperIdVenda, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addWhereClause(IndexWhereClause.between(
+        indexName: r'idVenda',
+        lower: [lowerIdVenda],
+        includeLower: includeLower,
+        upper: [upperIdVenda],
+        includeUpper: includeUpper,
+      ));
+    });
+  }
 }
 
 extension VendaItemQueryFilter
     on QueryBuilder<VendaItem, VendaItem, QFilterCondition> {
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> gradeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'grade',
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> gradeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'grade',
+      ));
+    });
+  }
+
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> gradeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -242,7 +375,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> gradeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -257,7 +390,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> gradeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -272,8 +405,8 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> gradeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -571,8 +704,24 @@ extension VendaItemQueryFilter
     });
   }
 
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> qtdeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'qtde',
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> qtdeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'qtde',
+      ));
+    });
+  }
+
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> qtdeEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -585,7 +734,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> qtdeGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -600,7 +749,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> qtdeLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -615,8 +764,8 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> qtdeBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -633,8 +782,25 @@ extension VendaItemQueryFilter
     });
   }
 
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> totBrutoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'totBruto',
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition>
+      totBrutoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'totBruto',
+      ));
+    });
+  }
+
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> totBrutoEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -647,7 +813,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> totBrutoGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -662,7 +828,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> totBrutoLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -677,8 +843,8 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> totBrutoBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -695,8 +861,25 @@ extension VendaItemQueryFilter
     });
   }
 
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> vlrVendidoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'vlrVendido',
+      ));
+    });
+  }
+
+  QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition>
+      vlrVendidoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'vlrVendido',
+      ));
+    });
+  }
+
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> vlrVendidoEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -710,7 +893,7 @@ extension VendaItemQueryFilter
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition>
       vlrVendidoGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -725,7 +908,7 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> vlrVendidoLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -740,8 +923,8 @@ extension VendaItemQueryFilter
   }
 
   QueryBuilder<VendaItem, VendaItem, QAfterFilterCondition> vlrVendidoBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -1004,7 +1187,7 @@ extension VendaItemQueryProperty
     });
   }
 
-  QueryBuilder<VendaItem, String, QQueryOperations> gradeProperty() {
+  QueryBuilder<VendaItem, String?, QQueryOperations> gradeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'grade');
     });
@@ -1028,19 +1211,19 @@ extension VendaItemQueryProperty
     });
   }
 
-  QueryBuilder<VendaItem, double, QQueryOperations> qtdeProperty() {
+  QueryBuilder<VendaItem, double?, QQueryOperations> qtdeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'qtde');
     });
   }
 
-  QueryBuilder<VendaItem, double, QQueryOperations> totBrutoProperty() {
+  QueryBuilder<VendaItem, double?, QQueryOperations> totBrutoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'totBruto');
     });
   }
 
-  QueryBuilder<VendaItem, double, QQueryOperations> vlrVendidoProperty() {
+  QueryBuilder<VendaItem, double?, QQueryOperations> vlrVendidoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'vlrVendido');
     });

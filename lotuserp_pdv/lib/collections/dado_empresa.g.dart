@@ -20,17 +20,17 @@ const DadoEmpresaSchema = CollectionSchema(
     r'idEmpresa': PropertySchema(
       id: 0,
       name: r'idEmpresa',
-      type: IsarType.string,
+      type: IsarType.long,
     ),
     r'idNfce': PropertySchema(
       id: 1,
       name: r'idNfce',
-      type: IsarType.string,
+      type: IsarType.long,
     ),
     r'intervaloEnvio': PropertySchema(
       id: 2,
       name: r'intervaloEnvio',
-      type: IsarType.string,
+      type: IsarType.long,
     ),
     r'ipEmpresa': PropertySchema(
       id: 3,
@@ -40,7 +40,7 @@ const DadoEmpresaSchema = CollectionSchema(
     r'numCaixa': PropertySchema(
       id: 4,
       name: r'numCaixa',
-      type: IsarType.string,
+      type: IsarType.long,
     )
   },
   estimateSize: _dadoEmpresaEstimateSize,
@@ -64,31 +64,7 @@ int _dadoEmpresaEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
-    final value = object.idEmpresa;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.idNfce;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.intervaloEnvio;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
     final value = object.ipEmpresa;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.numCaixa;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -102,11 +78,11 @@ void _dadoEmpresaSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.idEmpresa);
-  writer.writeString(offsets[1], object.idNfce);
-  writer.writeString(offsets[2], object.intervaloEnvio);
+  writer.writeLong(offsets[0], object.idEmpresa);
+  writer.writeLong(offsets[1], object.idNfce);
+  writer.writeLong(offsets[2], object.intervaloEnvio);
   writer.writeString(offsets[3], object.ipEmpresa);
-  writer.writeString(offsets[4], object.numCaixa);
+  writer.writeLong(offsets[4], object.numCaixa);
 }
 
 DadoEmpresa _dadoEmpresaDeserialize(
@@ -117,11 +93,11 @@ DadoEmpresa _dadoEmpresaDeserialize(
 ) {
   final object = DadoEmpresa();
   object.id = id;
-  object.idEmpresa = reader.readStringOrNull(offsets[0]);
-  object.idNfce = reader.readStringOrNull(offsets[1]);
-  object.intervaloEnvio = reader.readStringOrNull(offsets[2]);
+  object.idEmpresa = reader.readLongOrNull(offsets[0]);
+  object.idNfce = reader.readLongOrNull(offsets[1]);
+  object.intervaloEnvio = reader.readLongOrNull(offsets[2]);
   object.ipEmpresa = reader.readStringOrNull(offsets[3]);
-  object.numCaixa = reader.readStringOrNull(offsets[4]);
+  object.numCaixa = reader.readLongOrNull(offsets[4]);
   return object;
 }
 
@@ -133,15 +109,15 @@ P _dadoEmpresaDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
       return (reader.readStringOrNull(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -312,58 +288,49 @@ extension DadoEmpresaQueryFilter
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      idEmpresaEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idEmpresa',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       idEmpresaGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'idEmpresa',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       idEmpresaLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'idEmpresa',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       idEmpresaBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -372,77 +339,6 @@ extension DadoEmpresaQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'idEmpresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'idEmpresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'idEmpresa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'idEmpresa',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idEmpresa',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idEmpresaIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'idEmpresa',
-        value: '',
       ));
     });
   }
@@ -465,55 +361,47 @@ extension DadoEmpresaQueryFilter
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> idNfceEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idNfce',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       idNfceGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'idNfce',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> idNfceLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'idNfce',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> idNfceBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -522,78 +410,6 @@ extension DadoEmpresaQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idNfceStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'idNfce',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> idNfceEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'idNfce',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> idNfceContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'idNfce',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> idNfceMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'idNfce',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idNfceIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idNfce',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      idNfceIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'idNfce',
-        value: '',
       ));
     });
   }
@@ -617,58 +433,49 @@ extension DadoEmpresaQueryFilter
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      intervaloEnvioEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'intervaloEnvio',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       intervaloEnvioGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'intervaloEnvio',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       intervaloEnvioLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'intervaloEnvio',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       intervaloEnvioBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -677,77 +484,6 @@ extension DadoEmpresaQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'intervaloEnvio',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'intervaloEnvio',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'intervaloEnvio',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'intervaloEnvio',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'intervaloEnvio',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      intervaloEnvioIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'intervaloEnvio',
-        value: '',
       ));
     });
   }
@@ -925,56 +661,48 @@ extension DadoEmpresaQueryFilter
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> numCaixaEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'numCaixa',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       numCaixaGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'numCaixa',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
       numCaixaLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'numCaixa',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> numCaixaBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -983,78 +711,6 @@ extension DadoEmpresaQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      numCaixaStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'numCaixa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      numCaixaEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'numCaixa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      numCaixaContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'numCaixa',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition> numCaixaMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'numCaixa',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      numCaixaIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'numCaixa',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QAfterFilterCondition>
-      numCaixaIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'numCaixa',
-        value: '',
       ));
     });
   }
@@ -1208,25 +864,21 @@ extension DadoEmpresaQuerySortThenBy
 
 extension DadoEmpresaQueryWhereDistinct
     on QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> {
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByIdEmpresa(
-      {bool caseSensitive = true}) {
+  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByIdEmpresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idEmpresa', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'idEmpresa');
     });
   }
 
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByIdNfce(
-      {bool caseSensitive = true}) {
+  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByIdNfce() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idNfce', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'idNfce');
     });
   }
 
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByIntervaloEnvio(
-      {bool caseSensitive = true}) {
+  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByIntervaloEnvio() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'intervaloEnvio',
-          caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'intervaloEnvio');
     });
   }
 
@@ -1237,10 +889,9 @@ extension DadoEmpresaQueryWhereDistinct
     });
   }
 
-  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByNumCaixa(
-      {bool caseSensitive = true}) {
+  QueryBuilder<DadoEmpresa, DadoEmpresa, QDistinct> distinctByNumCaixa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'numCaixa', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'numCaixa');
     });
   }
 }
@@ -1253,20 +904,19 @@ extension DadoEmpresaQueryProperty
     });
   }
 
-  QueryBuilder<DadoEmpresa, String?, QQueryOperations> idEmpresaProperty() {
+  QueryBuilder<DadoEmpresa, int?, QQueryOperations> idEmpresaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idEmpresa');
     });
   }
 
-  QueryBuilder<DadoEmpresa, String?, QQueryOperations> idNfceProperty() {
+  QueryBuilder<DadoEmpresa, int?, QQueryOperations> idNfceProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idNfce');
     });
   }
 
-  QueryBuilder<DadoEmpresa, String?, QQueryOperations>
-      intervaloEnvioProperty() {
+  QueryBuilder<DadoEmpresa, int?, QQueryOperations> intervaloEnvioProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'intervaloEnvio');
     });
@@ -1278,7 +928,7 @@ extension DadoEmpresaQueryProperty
     });
   }
 
-  QueryBuilder<DadoEmpresa, String?, QQueryOperations> numCaixaProperty() {
+  QueryBuilder<DadoEmpresa, int?, QQueryOperations> numCaixaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'numCaixa');
     });

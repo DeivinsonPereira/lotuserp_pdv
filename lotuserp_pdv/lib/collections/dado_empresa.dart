@@ -7,9 +7,9 @@ part 'dado_empresa.g.dart';
 class DadoEmpresa {
   late Id id = Isar.autoIncrement;
   late String? ipEmpresa;
-  late String? idEmpresa;
-  late String? idNfce;
-  late String? numCaixa;
-  late String? intervaloEnvio;
+  late int? idEmpresa;
+  late int? idNfce;
+  late int? numCaixa;
+  late int? intervaloEnvio;
   
 }

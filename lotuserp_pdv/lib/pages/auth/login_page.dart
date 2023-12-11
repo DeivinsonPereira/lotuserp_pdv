@@ -133,7 +133,7 @@ class LoginPage extends StatelessWidget {
                                         );
                                         return;
                                       }
-
+      
                                       String? login =
                                           await service.getLoginFromDatabase(
                                               PasswordController()
@@ -151,7 +151,7 @@ class LoginPage extends StatelessWidget {
                                         );
                                         return;
                                       }
-
+      
                                       if (await areloginEquals() == false) {
                                         Get.snackbar(
                                           'Login inválido',
@@ -161,9 +161,9 @@ class LoginPage extends StatelessWidget {
                                           snackPosition: SnackPosition.BOTTOM,
                                         );
                                       }
-
+      
                                       // Verifica se login está igual ao usuario digitado
-
+      
                                       if (await arePasswordsEquals() &&
                                           await areloginEquals()) {
                                         Get.toNamed('/');
@@ -176,7 +176,7 @@ class LoginPage extends StatelessWidget {
                                           snackPosition: SnackPosition.BOTTOM,
                                         );
                                       }
-
+      
                                       passwordController.clear();
                                     },
                                     child: const Padding(

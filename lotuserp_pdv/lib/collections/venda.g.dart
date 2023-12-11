@@ -17,63 +17,68 @@ const VendaSchema = CollectionSchema(
   name: r'Venda',
   id: 5343115897127578360,
   properties: {
-    r'data': PropertySchema(
+    r'cpfCnpj': PropertySchema(
       id: 0,
+      name: r'cpfCnpj',
+      type: IsarType.string,
+    ),
+    r'data': PropertySchema(
+      id: 1,
       name: r'data',
       type: IsarType.dateTime,
     ),
     r'enviado': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'enviado',
       type: IsarType.long,
     ),
     r'hora': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'hora',
       type: IsarType.string,
     ),
     r'idEmpresa': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'idEmpresa',
       type: IsarType.long,
     ),
     r'idSerieNfce': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'idSerieNfce',
       type: IsarType.long,
     ),
     r'idUsuario': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'idUsuario',
       type: IsarType.long,
     ),
     r'status': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'status',
       type: IsarType.long,
     ),
     r'totBruto': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'totBruto',
       type: IsarType.double,
     ),
     r'totDescPrc': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'totDescPrc',
       type: IsarType.double,
     ),
     r'totDescVlr': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'totDescVlr',
       type: IsarType.double,
     ),
     r'totLiquido': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'totLiquido',
       type: IsarType.double,
     ),
     r'valorTroco': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'valorTroco',
       type: IsarType.double,
     )
@@ -105,6 +110,7 @@ int _vendaEstimateSize(
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
+  bytesCount += 3 + object.cpfCnpj.length * 3;
   bytesCount += 3 + object.hora.length * 3;
   return bytesCount;
 }
@@ -115,18 +121,19 @@ void _vendaSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.data);
-  writer.writeLong(offsets[1], object.enviado);
-  writer.writeString(offsets[2], object.hora);
-  writer.writeLong(offsets[3], object.idEmpresa);
-  writer.writeLong(offsets[4], object.idSerieNfce);
-  writer.writeLong(offsets[5], object.idUsuario);
-  writer.writeLong(offsets[6], object.status);
-  writer.writeDouble(offsets[7], object.totBruto);
-  writer.writeDouble(offsets[8], object.totDescPrc);
-  writer.writeDouble(offsets[9], object.totDescVlr);
-  writer.writeDouble(offsets[10], object.totLiquido);
-  writer.writeDouble(offsets[11], object.valorTroco);
+  writer.writeString(offsets[0], object.cpfCnpj);
+  writer.writeDateTime(offsets[1], object.data);
+  writer.writeLong(offsets[2], object.enviado);
+  writer.writeString(offsets[3], object.hora);
+  writer.writeLong(offsets[4], object.idEmpresa);
+  writer.writeLong(offsets[5], object.idSerieNfce);
+  writer.writeLong(offsets[6], object.idUsuario);
+  writer.writeLong(offsets[7], object.status);
+  writer.writeDouble(offsets[8], object.totBruto);
+  writer.writeDouble(offsets[9], object.totDescPrc);
+  writer.writeDouble(offsets[10], object.totDescVlr);
+  writer.writeDouble(offsets[11], object.totLiquido);
+  writer.writeDouble(offsets[12], object.valorTroco);
 }
 
 Venda _vendaDeserialize(
@@ -136,18 +143,19 @@ Venda _vendaDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Venda(
-    reader.readDateTime(offsets[0]),
-    reader.readString(offsets[2]),
-    reader.readLong(offsets[3]),
-    reader.readLong(offsets[5]),
-    reader.readDouble(offsets[7]),
+    reader.readDateTime(offsets[1]),
+    reader.readString(offsets[3]),
+    reader.readLong(offsets[4]),
+    reader.readLong(offsets[6]),
     reader.readDouble(offsets[8]),
     reader.readDouble(offsets[9]),
     reader.readDouble(offsets[10]),
     reader.readDouble(offsets[11]),
-    reader.readLong(offsets[6]),
-    reader.readLong(offsets[4]),
-    reader.readLong(offsets[1]),
+    reader.readDouble(offsets[12]),
+    reader.readLong(offsets[7]),
+    reader.readLong(offsets[5]),
+    reader.readLong(offsets[2]),
+    reader.readString(offsets[0]),
   );
   object.id = id;
   return object;
@@ -161,13 +169,13 @@ P _vendaDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTime(offset)) as P;
-    case 1:
-      return (reader.readLong(offset)) as P;
-    case 2:
       return (reader.readString(offset)) as P;
-    case 3:
+    case 1:
+      return (reader.readDateTime(offset)) as P;
+    case 2:
       return (reader.readLong(offset)) as P;
+    case 3:
+      return (reader.readString(offset)) as P;
     case 4:
       return (reader.readLong(offset)) as P;
     case 5:
@@ -175,7 +183,7 @@ P _vendaDeserializeProp<P>(
     case 6:
       return (reader.readLong(offset)) as P;
     case 7:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 8:
       return (reader.readDouble(offset)) as P;
     case 9:
@@ -183,6 +191,8 @@ P _vendaDeserializeProp<P>(
     case 10:
       return (reader.readDouble(offset)) as P;
     case 11:
+      return (reader.readDouble(offset)) as P;
+    case 12:
       return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -279,6 +289,136 @@ extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
 }
 
 extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'cpfCnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'cpfCnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'cpfCnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'cpfCnpj',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'cpfCnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'cpfCnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'cpfCnpj',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'cpfCnpj',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'cpfCnpj',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'cpfCnpj',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<Venda, Venda, QAfterFilterCondition> dataEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
@@ -1104,6 +1244,18 @@ extension VendaQueryLinks on QueryBuilder<Venda, Venda, QFilterCondition> {
 }
 
 extension VendaQuerySortBy on QueryBuilder<Venda, Venda, QSortBy> {
+  QueryBuilder<Venda, Venda, QAfterSortBy> sortByCpfCnpj() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cpfCnpj', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterSortBy> sortByCpfCnpjDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cpfCnpj', Sort.desc);
+    });
+  }
+
   QueryBuilder<Venda, Venda, QAfterSortBy> sortByData() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'data', Sort.asc);
@@ -1250,6 +1402,18 @@ extension VendaQuerySortBy on QueryBuilder<Venda, Venda, QSortBy> {
 }
 
 extension VendaQuerySortThenBy on QueryBuilder<Venda, Venda, QSortThenBy> {
+  QueryBuilder<Venda, Venda, QAfterSortBy> thenByCpfCnpj() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cpfCnpj', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Venda, Venda, QAfterSortBy> thenByCpfCnpjDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cpfCnpj', Sort.desc);
+    });
+  }
+
   QueryBuilder<Venda, Venda, QAfterSortBy> thenByData() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'data', Sort.asc);
@@ -1408,6 +1572,13 @@ extension VendaQuerySortThenBy on QueryBuilder<Venda, Venda, QSortThenBy> {
 }
 
 extension VendaQueryWhereDistinct on QueryBuilder<Venda, Venda, QDistinct> {
+  QueryBuilder<Venda, Venda, QDistinct> distinctByCpfCnpj(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'cpfCnpj', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<Venda, Venda, QDistinct> distinctByData() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'data');
@@ -1486,6 +1657,12 @@ extension VendaQueryProperty on QueryBuilder<Venda, Venda, QQueryProperty> {
   QueryBuilder<Venda, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<Venda, String, QQueryOperations> cpfCnpjProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'cpfCnpj');
     });
   }
 

@@ -50,14 +50,15 @@ class IsarService {
     DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
-    var idEmpresaNum = '';
+    var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
       ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
       idEmpresaNum = dadoEmpresa.idEmpresa!;
     }
 
-    Uri getEmpresa = Uri.parse('${ipEmpresaUrl}pdvmobget01_empresa?pidEmpresa=$idEmpresaNum');
+    Uri getEmpresa = Uri.parse(
+        '${ipEmpresaUrl}pdvmobget01_empresa?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getEmpresa,
       headers: _headers,
@@ -138,14 +139,15 @@ class IsarService {
     DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
-    var idEmpresaNum = '';
+    var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
       ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
       idEmpresaNum = dadoEmpresa.idEmpresa!;
     }
 
-    Uri getGrupo = Uri.parse('${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
+    Uri getGrupo = Uri.parse(
+        '${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getGrupo,
       headers: _headers,
@@ -202,14 +204,15 @@ class IsarService {
     DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
-    var idEmpresaNum = '';
+    var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
       ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
       idEmpresaNum = dadoEmpresa.idEmpresa!;
     }
 
-    Uri getProdutos = Uri.parse('${ipEmpresaUrl}pdvmobget05_produtos?pidEmpresa=$idEmpresaNum');
+    Uri getProdutos = Uri.parse(
+        '${ipEmpresaUrl}pdvmobget05_produtos?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getProdutos,
       headers: _headers,
@@ -305,14 +308,15 @@ class IsarService {
     DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
-    var idEmpresaNum = '';
+    var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
       ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
       idEmpresaNum = dadoEmpresa.idEmpresa!;
     }
 
-    Uri getUsuarios = Uri.parse('${ipEmpresaUrl}pdvmobget02_usuarios?pidEmpresa=$idEmpresaNum');
+    Uri getUsuarios = Uri.parse(
+        '${ipEmpresaUrl}pdvmobget02_usuarios?pidEmpresa=$idEmpresaNum');
     final response = await http.get(
       getUsuarios,
       headers: _headers,
@@ -369,12 +373,11 @@ class IsarService {
   //metodos para inserir dados no banco
 
   //inserir dados na tabela caixa
-  Future<Isar> insertCaixa(Caixa caixa, CaixaItem caixaItem) async {
+  Future<Isar> insertCaixa(CaixaItem caixaItem) async {
     final isar = await db;
 
     //inserindo dados na tabela caixa
     isar.writeTxn(() async {
-      await isar.caixas.put(caixa);
       await isar.caixaItems.put(caixaItem);
     });
     return isar;
@@ -383,7 +386,7 @@ class IsarService {
   //stream para buscar dados da tabela caixa
   Stream<List<Caixa>> listenCaixa() async* {
     final isar = await db;
-    yield* isar.caixas.where().sortByIdProduto().watch(fireImmediately: true);
+    yield* isar.caixas.where().sortByIdCaixa().watch(fireImmediately: true);
   }
 
   //inserir dados na tabela caixaItem
@@ -468,7 +471,7 @@ class IsarService {
 
   //buscar informações de acordo com a url e o numero do contrato
   Future<String> getIpEmpresa(context) async {
-    Uri getIpEmpresa = Uri.parse(await Endpoints().ipEmpresa());
+    Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
     final response = await http.get(
       getIpEmpresa,
       headers: _headers,
@@ -496,6 +499,13 @@ class IsarService {
     }
     return "";
   }
+
+  //criar um listen que faz a busca dos dados da tabela 'Dados Empresariais'
+  Future<DadoEmpresa?> getDataEmpresa() async {
+    final isar = await db;
+    return await isar.dadoEmpresas.where().findFirst();
+  }
+
 
   //inserir dados na tabela 'Dados Empresariais'
   Future<Isar> insertDadosEmpresariais(DadoEmpresa empresa) async {

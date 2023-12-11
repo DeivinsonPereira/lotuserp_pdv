@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
+import 'package:lotuserp_pdv/controllers/home_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -30,22 +32,29 @@ class _ConfigPageState extends State<ConfigPage> {
   Future<void> fetchDataFromDatabase(String variableName) async {
     final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
     if (dadoEmpresa != null) {
-      if (variableName == 'IP') {
-        textFieldController.numContratoEmpresaController.text =
-            dadoEmpresa.ipEmpresa!;
-      }
-      if (variableName == 'ID da empresa') {
-        textFieldController.idEmpresaController.text = dadoEmpresa.idEmpresa!;
-      }
-      if (variableName == 'ID da serie NFCe') {
-        textFieldController.idSerieNfceController.text = dadoEmpresa.idNfce!;
-      }
-      if (variableName == 'Número do caixa') {
-        textFieldController.numCaixaController.text = dadoEmpresa.numCaixa!;
-      }
-      if (variableName == 'Intervalo de envio') {
-        textFieldController.intervaloEnvioController.text =
-            dadoEmpresa.intervaloEnvio!;
+      if (dadoEmpresa.ipEmpresa == null) {
+        service.deleteDadosEmpresariais();
+      } else {
+        if (variableName == 'IP') {
+          textFieldController.numContratoEmpresaController.text =
+              dadoEmpresa.ipEmpresa.toString();
+        }
+        if (variableName == 'ID da empresa') {
+          textFieldController.idEmpresaController.text =
+              dadoEmpresa.idEmpresa.toString();
+        }
+        if (variableName == 'ID da serie NFCe') {
+          textFieldController.idSerieNfceController.text =
+              dadoEmpresa.idNfce.toString();
+        }
+        if (variableName == 'Número do caixa') {
+          textFieldController.numCaixaController.text =
+              dadoEmpresa.numCaixa.toString();
+        }
+        if (variableName == 'Intervalo de envio') {
+          textFieldController.intervaloEnvioController.text =
+              dadoEmpresa.intervaloEnvio.toString();
+        }
       }
     }
   }
@@ -273,13 +282,15 @@ class _ConfigPageState extends State<ConfigPage> {
                   if (verificacoes() == true) {}
                   textFieldController.salvarInformacoes(context);
                   DadoEmpresa dadosEmpresa = DadoEmpresa()
-                    ..idEmpresa = textFieldController.idEmpresa
-                    ..idNfce = textFieldController.idSerieNfce
-                    ..numCaixa = textFieldController.numCaixa
-                    ..intervaloEnvio = textFieldController.intervaloEnvio
+                    ..idEmpresa = int.parse(textFieldController.idEmpresa)
+                    ..idNfce = int.parse(textFieldController.idSerieNfce)
+                    ..numCaixa = int.parse(textFieldController.numCaixa)
+                    ..intervaloEnvio =
+                        int.parse(textFieldController.intervaloEnvio)
                     ..ipEmpresa = textFieldController.numContratoEmpresa;
 
                   await service.insertDadosEmpresariais(dadosEmpresa);
+                  await Get.offAndToNamed(PagesRoutes.loginRoute);
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CustomColors

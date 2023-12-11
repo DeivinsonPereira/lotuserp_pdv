@@ -32,7 +32,7 @@ class TextFieldController extends GetxController {
     if (numContratoEmpresaController.text.isEmpty) {
       final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
       if (dadoEmpresa != null) {
-        ip = dadoEmpresa.ipEmpresa!;
+        ip = dadoEmpresa.ipEmpresa!.toString();
       } else {
          // ignore: use_build_context_synchronously
          const CustomSnackBar(

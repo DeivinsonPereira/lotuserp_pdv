@@ -7,7 +7,7 @@ part 'caixa_item.g.dart';
 class CaixaItem {
 
   Id id = Isar.autoIncrement;
-  late int idCaixa;
+  late int idCaixa; //id do caixa que vem da tabela Caixa
   late String? descricao;
   late DateTime data;
   late String hora;

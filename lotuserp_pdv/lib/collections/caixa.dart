@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import "package:isar/isar.dart";
-import "package:lotuserp_pdv/collections/caixa_item.dart";
 
 part 'caixa.g.dart';
 
@@ -8,24 +7,36 @@ part 'caixa.g.dart';
 class Caixa {
 
   Id id = Isar.autoIncrement;
-  late int idVenda;
-  late int idProduto;
-  late int item;
-  late double vlrVendido;
-  late double qtde;
-  late double totBruto;
-  late String grade;
 
-  final caixaItens = IsarLink<CaixaItem>();
+  late int idCaixa;
+  late int idEmpresa;
+  late int aberturaIdUser;
+  late DateTime aberturaData;
+  late String aberturaHora;
+  late double aberturaValor;
+  late int status;
+  late int fechouIdUser;
+  late DateTime fechouData;
+  late String fechouHora;
+  late double fechouValor;
+  late int enviado;
+  late int idCaixaServidor;
 
+  //construtor
   Caixa(
-    this.idVenda,
-    this.idProduto,
-    this.item,
-    this.vlrVendido,
-    this.qtde,
-    this.totBruto,
-    this.grade,
+    this.idCaixa,
+    this.idEmpresa,
+    this.aberturaIdUser,
+    this.aberturaData,
+    this.aberturaHora,
+    this.aberturaValor,
+    this.status,
+    this.fechouIdUser,
+    this.fechouData,
+    this.fechouHora,
+    this.fechouValor,
+    this.enviado,
+    this.idCaixaServidor
   );
 
 }
