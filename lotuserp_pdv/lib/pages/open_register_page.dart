@@ -26,6 +26,9 @@ class OpenRegisterPage extends StatelessWidget {
 
     var date = DateFormat('dd/MM/yyyy').format(atualDate);
     DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
+    String hourFormatted = DateFormat('hh:mm').format(atualDate);
+
+    
 
     return SingleChildScrollView(
       child: Dialog(
