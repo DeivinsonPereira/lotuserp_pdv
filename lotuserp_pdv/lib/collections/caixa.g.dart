@@ -62,23 +62,18 @@ const CaixaSchema = CollectionSchema(
       name: r'fechouValor',
       type: IsarType.double,
     ),
-    r'idCaixa': PropertySchema(
-      id: 9,
-      name: r'idCaixa',
-      type: IsarType.long,
-    ),
     r'idCaixaServidor': PropertySchema(
-      id: 10,
+      id: 9,
       name: r'idCaixaServidor',
       type: IsarType.long,
     ),
     r'idEmpresa': PropertySchema(
-      id: 11,
+      id: 10,
       name: r'idEmpresa',
       type: IsarType.long,
     ),
     r'status': PropertySchema(
-      id: 12,
+      id: 11,
       name: r'status',
       type: IsarType.long,
     )
@@ -87,7 +82,7 @@ const CaixaSchema = CollectionSchema(
   serialize: _caixaSerialize,
   deserialize: _caixaDeserialize,
   deserializeProp: _caixaDeserializeProp,
-  idName: r'id',
+  idName: r'idCaixa',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -123,10 +118,9 @@ void _caixaSerialize(
   writer.writeString(offsets[6], object.fechouHora);
   writer.writeLong(offsets[7], object.fechouIdUser);
   writer.writeDouble(offsets[8], object.fechouValor);
-  writer.writeLong(offsets[9], object.idCaixa);
-  writer.writeLong(offsets[10], object.idCaixaServidor);
-  writer.writeLong(offsets[11], object.idEmpresa);
-  writer.writeLong(offsets[12], object.status);
+  writer.writeLong(offsets[9], object.idCaixaServidor);
+  writer.writeLong(offsets[10], object.idEmpresa);
+  writer.writeLong(offsets[11], object.status);
 }
 
 Caixa _caixaDeserialize(
@@ -135,22 +129,20 @@ Caixa _caixaDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Caixa(
-    reader.readLong(offsets[9]),
-    reader.readLong(offsets[11]),
-    reader.readLong(offsets[2]),
-    reader.readDateTime(offsets[0]),
-    reader.readString(offsets[1]),
-    reader.readDouble(offsets[3]),
-    reader.readLong(offsets[12]),
-    reader.readLong(offsets[7]),
-    reader.readDateTime(offsets[5]),
-    reader.readString(offsets[6]),
-    reader.readDouble(offsets[8]),
-    reader.readLong(offsets[4]),
-    reader.readLong(offsets[10]),
-  );
-  object.id = id;
+  final object = Caixa();
+  object.aberturaData = reader.readDateTime(offsets[0]);
+  object.aberturaHora = reader.readString(offsets[1]);
+  object.aberturaIdUser = reader.readLong(offsets[2]);
+  object.aberturaValor = reader.readDouble(offsets[3]);
+  object.enviado = reader.readLong(offsets[4]);
+  object.fechouData = reader.readDateTime(offsets[5]);
+  object.fechouHora = reader.readString(offsets[6]);
+  object.fechouIdUser = reader.readLong(offsets[7]);
+  object.fechouValor = reader.readDouble(offsets[8]);
+  object.idCaixa = id;
+  object.idCaixaServidor = reader.readLong(offsets[9]);
+  object.idEmpresa = reader.readLong(offsets[10]);
+  object.status = reader.readLong(offsets[11]);
   return object;
 }
 
@@ -185,15 +177,13 @@ P _caixaDeserializeProp<P>(
       return (reader.readLong(offset)) as P;
     case 11:
       return (reader.readLong(offset)) as P;
-    case 12:
-      return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
 Id _caixaGetId(Caixa object) {
-  return object.id;
+  return object.idCaixa;
 }
 
 List<IsarLinkBase<dynamic>> _caixaGetLinks(Caixa object) {
@@ -201,11 +191,11 @@ List<IsarLinkBase<dynamic>> _caixaGetLinks(Caixa object) {
 }
 
 void _caixaAttach(IsarCollection<dynamic> col, Id id, Caixa object) {
-  object.id = id;
+  object.idCaixa = id;
 }
 
 extension CaixaQueryWhereSort on QueryBuilder<Caixa, Caixa, QWhere> {
-  QueryBuilder<Caixa, Caixa, QAfterWhere> anyId() {
+  QueryBuilder<Caixa, Caixa, QAfterWhere> anyIdCaixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -213,66 +203,66 @@ extension CaixaQueryWhereSort on QueryBuilder<Caixa, Caixa, QWhere> {
 }
 
 extension CaixaQueryWhere on QueryBuilder<Caixa, Caixa, QWhereClause> {
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaEqualTo(Id idCaixa) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: idCaixa,
+        upper: idCaixa,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaNotEqualTo(Id idCaixa) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: idCaixa, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: idCaixa, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: idCaixa, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: idCaixa, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaGreaterThan(Id idCaixa,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(lower: idCaixa, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaLessThan(Id idCaixa,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: idCaixa, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaBetween(
+    Id lowerIdCaixa,
+    Id upperIdCaixa, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerIdCaixa,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperIdCaixa,
         includeUpper: includeUpper,
       ));
     });
@@ -928,59 +918,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idEqualTo(Id value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idGreaterThan(
-    Id value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idLessThan(
-    Id value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaEqualTo(int value) {
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idCaixa',
@@ -990,7 +928,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaGreaterThan(
-    int value, {
+    Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1003,7 +941,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaLessThan(
-    int value, {
+    Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1016,8 +954,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaBetween(
-    int lower,
-    int upper, {
+    Id lower,
+    Id upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1304,18 +1242,6 @@ extension CaixaQuerySortBy on QueryBuilder<Caixa, Caixa, QSortBy> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdCaixa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixa', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdCaixaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixa', Sort.desc);
-    });
-  }
-
   QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdCaixaServidor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idCaixaServidor', Sort.asc);
@@ -1462,18 +1388,6 @@ extension CaixaQuerySortThenBy on QueryBuilder<Caixa, Caixa, QSortThenBy> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenById() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
-    });
-  }
-
   QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdCaixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idCaixa', Sort.asc);
@@ -1580,12 +1494,6 @@ extension CaixaQueryWhereDistinct on QueryBuilder<Caixa, Caixa, QDistinct> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByIdCaixa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idCaixa');
-    });
-  }
-
   QueryBuilder<Caixa, Caixa, QDistinct> distinctByIdCaixaServidor() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'idCaixaServidor');
@@ -1606,9 +1514,9 @@ extension CaixaQueryWhereDistinct on QueryBuilder<Caixa, Caixa, QDistinct> {
 }
 
 extension CaixaQueryProperty on QueryBuilder<Caixa, Caixa, QQueryProperty> {
-  QueryBuilder<Caixa, int, QQueryOperations> idProperty() {
+  QueryBuilder<Caixa, int, QQueryOperations> idCaixaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'idCaixa');
     });
   }
 
@@ -1663,12 +1571,6 @@ extension CaixaQueryProperty on QueryBuilder<Caixa, Caixa, QQueryProperty> {
   QueryBuilder<Caixa, double, QQueryOperations> fechouValorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechouValor');
-    });
-  }
-
-  QueryBuilder<Caixa, int, QQueryOperations> idCaixaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idCaixa');
     });
   }
 

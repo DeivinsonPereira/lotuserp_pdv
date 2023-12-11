@@ -116,18 +116,17 @@ CaixaItem _caixaItemDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = CaixaItem(
-    reader.readLong(offsets[4]),
-    reader.readStringOrNull(offsets[1]),
-    reader.readDateTime(offsets[0]),
-    reader.readString(offsets[3]),
-    reader.readLong(offsets[5]),
-    reader.readDouble(offsets[7]),
-    reader.readDouble(offsets[8]),
-    reader.readLong(offsets[6]),
-    reader.readLong(offsets[2]),
-  );
+  final object = CaixaItem();
+  object.data = reader.readDateTime(offsets[0]);
+  object.descricao = reader.readStringOrNull(offsets[1]);
+  object.enviado = reader.readLong(offsets[2]);
+  object.hora = reader.readString(offsets[3]);
   object.id = id;
+  object.idCaixa = reader.readLong(offsets[4]);
+  object.idTipoRecebimento = reader.readLong(offsets[5]);
+  object.idVenda = reader.readLong(offsets[6]);
+  object.valorCre = reader.readDouble(offsets[7]);
+  object.valorDeb = reader.readDouble(offsets[8]);
   return object;
 }
 

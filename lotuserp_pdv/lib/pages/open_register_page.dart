@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
@@ -24,6 +25,7 @@ class OpenRegisterPage extends StatelessWidget {
     DateTime atualDate = DateTime.now();
 
     var date = DateFormat('dd/MM/yyyy').format(atualDate);
+    DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
 
     return SingleChildScrollView(
       child: Dialog(
@@ -257,11 +259,28 @@ class OpenRegisterPage extends StatelessWidget {
                                       onPressed: () async {
                                         movimentRegisterController
                                             .openRegisterValue();
-                                        await service
+                                        var dadosEmpresa = await service
                                             .getIpEmpresaFromDatabase();
-                                        
 
+                                        var dadosUsuario =
+                                            await service.getUserLogged();
 
+                                        var caixa = Caixa()
+                                          ..idEmpresa = dadosEmpresa!.idEmpresa!
+                                          ..aberturaIdUser =
+                                              dadosUsuario!.idColaborador!
+                                          .. aberturaData = dateTime
+                                          .. 
+
+                                        late String aberturaHora;
+                                        late double aberturaValor;
+                                        late int status;
+                                        late int fechouIdUser;
+                                        late DateTime fechouData;
+                                        late String fechouHora;
+                                        late double fechouValor;
+                                        late int enviado;
+                                        late int idCaixaServidor;
 
                                         movimentRegisterController
                                             .clearOpenRegister();

@@ -17,17 +17,4 @@ class CaixaItem {
   late int idVenda;
   late int enviado;
 
-  //construtor
-  CaixaItem(
-    this.idCaixa,
-    this.descricao,
-    this.data,
-    this.hora,
-    this.idTipoRecebimento,
-    this.valorCre,
-    this.valorDeb,
-    this.idVenda,
-    this.enviado,
-  );
-
 }

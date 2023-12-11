@@ -6,9 +6,8 @@ part 'caixa.g.dart';
 @Collection()
 class Caixa {
 
-  Id id = Isar.autoIncrement;
+  Id idCaixa = Isar.autoIncrement;
 
-  late int idCaixa;
   late int idEmpresa;
   late int aberturaIdUser;
   late DateTime aberturaData;
@@ -21,22 +20,5 @@ class Caixa {
   late double fechouValor;
   late int enviado;
   late int idCaixaServidor;
-
-  //construtor
-  Caixa(
-    this.idCaixa,
-    this.idEmpresa,
-    this.aberturaIdUser,
-    this.aberturaData,
-    this.aberturaHora,
-    this.aberturaValor,
-    this.status,
-    this.fechouIdUser,
-    this.fechouData,
-    this.fechouHora,
-    this.fechouValor,
-    this.enviado,
-    this.idCaixaServidor
-  );
 
 }

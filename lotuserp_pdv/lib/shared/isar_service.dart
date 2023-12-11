@@ -388,7 +388,7 @@ class IsarService {
   //stream para buscar dados da tabela caixa
   Stream<List<Caixa>> listenCaixa() async* {
     final isar = await db;
-    yield* isar.caixas.where().sortByIdCaixa().watch(fireImmediately: true);
+    yield* isar.caixas.where().sortByIdEmpresa().watch(fireImmediately: true);
   }
 
   //inserir dados na tabela caixaItem
@@ -559,7 +559,7 @@ class IsarService {
   //cria um usuario na tabela 'Usuarios'
   Future<Isar> insertUser(UsuarioLogado user) async {
     final isar = await db;
-    
+
     int i = await isar.usuarioLogados.count();
 
     if (i > 0) {
@@ -571,7 +571,6 @@ class IsarService {
     isar.writeTxn(() async {
       await isar.usuarioLogados.put(user);
     });
-
 
     return isar;
   }
@@ -589,6 +588,15 @@ class IsarService {
     } else {
       return null;
     }
+  }
+
+  Future<UsuarioLogado?> getUserLogged() async {
+    final isar = await db;
+
+    UsuarioLogado? usuario =
+        await isar.usuarioLogados.filter().idEqualTo(1).findFirst();
+
+    return usuario;
   }
 
   //abre o banco de dados
