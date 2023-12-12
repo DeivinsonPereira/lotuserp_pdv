@@ -391,6 +391,18 @@ class IsarService {
     yield* isar.caixas.where().sortByIdEmpresa().watch(fireImmediately: true);
   }
 
+  //buscar id caixa na tabela 'caixa'
+  Future<int?> getIdCaixa(int AberturaIdUser) async {
+    final isar = await db;
+    
+    Caixa? caixa = await isar.caixas.filter().aberturaIdUserEqualTo(AberturaIdUser).findFirst();
+    if (caixa != null) {
+      return caixa.idCaixa;
+    }else{
+      return null;
+    }
+  }
+
   //inserir dados na tabela caixaItem
   Future<Isar> insertCaixaItem(CaixaItem caixaItem) async {
     final isar = await db;

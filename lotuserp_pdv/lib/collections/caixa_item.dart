@@ -12,9 +12,9 @@ class CaixaItem {
   late DateTime data;
   late String hora;
   late int idTipoRecebimento;
-  late double valorCre;
-  late double valorDeb;
-  late int idVenda;
+  late double? valorCre;
+  late double? valorDeb;
+  late int? idVenda;
   late int enviado;
 
 }

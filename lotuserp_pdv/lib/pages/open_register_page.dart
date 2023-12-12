@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
+import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -303,9 +304,35 @@ class OpenRegisterPage extends StatelessWidget {
 
                                           await service.insertCaixa(caixa);
 
-                                          movimentRegisterController
-                                              .clearOpenRegister();
-                                          Get.back();
+                                          var caixaId = await service
+                                              .getIdCaixa(dadosUsuario.idUser!);
+                                              
+                                          if (caixaId != null) {
+                                            CaixaItem caixaitem = CaixaItem()
+                                              ..idCaixa = caixaId
+                                              ..descricao = 'ABERTURA DE CAIXA'
+                                              ..data = atualDate
+                                              ..hora = hourFormatted
+                                              ..idTipoRecebimento = 0
+                                              ..valorCre = openRegisterDouble
+                                              ..valorDeb = null
+                                              ..idVenda = null
+                                              ..enviado = 0;
+
+                                            await service.insertCaixaItem(caixaitem);
+                                            movimentRegisterController
+                                                .clearOpenRegister();
+                                            Get.back();
+                                          } else {
+                                            Get.snackbar(
+                                              'Atenção',
+                                              'Não foi possivel abrir o caixa.',
+                                              backgroundColor: Colors.red,
+                                              colorText: Colors.white,
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                            );
+                                          }
                                         }
                                       },
                                       child: const Text(

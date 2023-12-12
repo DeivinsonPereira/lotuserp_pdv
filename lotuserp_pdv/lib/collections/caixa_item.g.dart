@@ -124,9 +124,9 @@ CaixaItem _caixaItemDeserialize(
   object.id = id;
   object.idCaixa = reader.readLong(offsets[4]);
   object.idTipoRecebimento = reader.readLong(offsets[5]);
-  object.idVenda = reader.readLong(offsets[6]);
-  object.valorCre = reader.readDouble(offsets[7]);
-  object.valorDeb = reader.readDouble(offsets[8]);
+  object.idVenda = reader.readLongOrNull(offsets[6]);
+  object.valorCre = reader.readDoubleOrNull(offsets[7]);
+  object.valorDeb = reader.readDoubleOrNull(offsets[8]);
   return object;
 }
 
@@ -150,11 +150,11 @@ P _caixaItemDeserializeProp<P>(
     case 5:
       return (reader.readLong(offset)) as P;
     case 6:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 7:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 8:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -798,8 +798,24 @@ extension CaixaItemQueryFilter
     });
   }
 
+  QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> idVendaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'idVenda',
+      ));
+    });
+  }
+
+  QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> idVendaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'idVenda',
+      ));
+    });
+  }
+
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> idVendaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idVenda',
@@ -809,7 +825,7 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> idVendaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -822,7 +838,7 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> idVendaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -835,8 +851,8 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> idVendaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -851,8 +867,25 @@ extension CaixaItemQueryFilter
     });
   }
 
+  QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorCreIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'valorCre',
+      ));
+    });
+  }
+
+  QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition>
+      valorCreIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'valorCre',
+      ));
+    });
+  }
+
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorCreEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -865,7 +898,7 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorCreGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -880,7 +913,7 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorCreLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -895,8 +928,8 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorCreBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -913,8 +946,25 @@ extension CaixaItemQueryFilter
     });
   }
 
+  QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorDebIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'valorDeb',
+      ));
+    });
+  }
+
+  QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition>
+      valorDebIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'valorDeb',
+      ));
+    });
+  }
+
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorDebEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -927,7 +977,7 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorDebGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -942,7 +992,7 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorDebLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -957,8 +1007,8 @@ extension CaixaItemQueryFilter
   }
 
   QueryBuilder<CaixaItem, CaixaItem, QAfterFilterCondition> valorDebBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -1320,19 +1370,19 @@ extension CaixaItemQueryProperty
     });
   }
 
-  QueryBuilder<CaixaItem, int, QQueryOperations> idVendaProperty() {
+  QueryBuilder<CaixaItem, int?, QQueryOperations> idVendaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idVenda');
     });
   }
 
-  QueryBuilder<CaixaItem, double, QQueryOperations> valorCreProperty() {
+  QueryBuilder<CaixaItem, double?, QQueryOperations> valorCreProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'valorCre');
     });
   }
 
-  QueryBuilder<CaixaItem, double, QQueryOperations> valorDebProperty() {
+  QueryBuilder<CaixaItem, double?, QQueryOperations> valorDebProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'valorDeb');
     });
