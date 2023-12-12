@@ -58,6 +58,7 @@ class HomeMonitor extends StatelessWidget {
                       return const OpenRegisterPage(); // Your AlertDialog widget
                     },
                   );
+                  
                 },
               ),
               Button().homeButton(
