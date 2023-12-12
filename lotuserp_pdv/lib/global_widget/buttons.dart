@@ -18,7 +18,7 @@ class ButtonsWidgets {
   );
 
   Widget iconBackspace() {
-    return Container(
+    return SizedBox(
       width: 150,
       height: 37,
       child: InkWell(
@@ -38,12 +38,12 @@ class ButtonsWidgets {
       onTap: () {
         controller.addNumberDiscount(number);
       },
-      child: Container(
+      child: SizedBox(
         width: 150,
         child: Center(
           child: Text(
             number,
-            style: TextStyle(fontSize: 26),
+            style: const TextStyle(fontSize: 26),
           ),
         ),
       ),
@@ -55,11 +55,11 @@ class ButtonsWidgets {
       onTap: () {
         controller.addNumberDiscount(number);
       },
-      child: Container(
+      child: SizedBox(
         width: 150,
         child: Text(
           number,
-          style: TextStyle(fontSize: 26),
+          style: const TextStyle(fontSize: 26),
         ),
       ),
     );

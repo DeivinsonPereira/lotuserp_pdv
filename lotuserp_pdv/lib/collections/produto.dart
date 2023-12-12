@@ -1,74 +1,75 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names, camel_case_types
 import 'package:isar/isar.dart';
 
 part 'produto.g.dart';
 
 @Collection()
-class Produto {
-  late Id idAUtoincrement = Isar.autoIncrement;
-
-  late int idEmpresa;
-  late int idProduto;
+class produto {
+  late int id_empresa;
+  late Id id_produto;
   late String grade;
-  late int? idGrupo;
+  late int? id_grupo;
   late String? descricao;
   late String? unidade;
   late String? gtin;
   late int? composto;
-  late int? vendaKg;
-  late int? naoRecDesconto;
+  late int? venda_kg;
+  late int? nao_rec_desconto;
   late int? status;
-  late double saldoProduto;
+  late double saldo_produto;
   late double pvenda;
-  late int? altPrecoVenda;
-  late int? altPrecoVendaTipo;
-  late int? balancaTipoPesagem;
-  late int? balancaIdproduto;
-  late String? gtinGrade;
-  late int? promocaoAtivar;
-  late double? promocaoPreco;
-  late DateTime? promocaoDataInicio;
-  late DateTime? promocaoDataLimite;
-  late String? promocaoHoraInicial;
-  late String? promocaoHoraFinal;
-  late int? promocaoTipoDesc;
-  late int? promocaoCompre;
-  late int? promocaoLeve;
-  late int? promocaoApartir;
-  late double? promocaoApartirPerc;
-  late String? fileImagem;
-
-  Produto(
-    
-    this.idEmpresa,
-    this.idProduto,
+  late int? alt_preco_venda;
+  late int? alt_preco_venda_tipo;
+  late int? balanca_tipo_pesagem;
+  late int? balanca_idproduto;
+  late String? gtin_grade;
+  late int? promocao_ativar;
+  late double? promocao_preco;
+  late DateTime? promocao_data_inicio;
+  late DateTime? promocao_data_limite;
+  late String? promocao_hora_inicial;
+  late String? promocao_hora_final;
+  late int? promocao_tipo_desc;
+  late int? promocao_compre;
+  late int? promocao_leve;
+  late int? promocao_apartir;
+  late double? promocao_apartir_perc;
+  late String? file_imagem;
+  
+  produto(
+    this.id_empresa,
+    this.id_produto,
     this.grade,
-    this.idGrupo,
+    this.id_grupo,
     this.descricao,
     this.unidade,
     this.gtin,
     this.composto,
-    this.vendaKg,
-    this.naoRecDesconto,
+    this.venda_kg,
+    this.nao_rec_desconto,
     this.status,
-    this.saldoProduto,
+    this.saldo_produto,
     this.pvenda,
-    this.altPrecoVenda,
-    this.altPrecoVendaTipo,
-    this.balancaTipoPesagem,
-    this.balancaIdproduto,
-    this.gtinGrade,
-    this.promocaoAtivar,
-    this.promocaoPreco,
-    this.promocaoDataInicio,
-    this.promocaoDataLimite,
-    this.promocaoHoraInicial,
-    this.promocaoHoraFinal,
-    this.promocaoTipoDesc,
-    this.promocaoCompre,
-    this.promocaoLeve,
-    this.promocaoApartir,
-    this.promocaoApartirPerc,
-    this.fileImagem,
+    this.alt_preco_venda,
+    this.alt_preco_venda_tipo,
+    this.balanca_tipo_pesagem,
+    this.balanca_idproduto,
+    this.gtin_grade,
+    this.promocao_ativar,
+    this.promocao_preco,
+    this.promocao_data_inicio,
+    this.promocao_data_limite,
+    this.promocao_hora_inicial,
+    this.promocao_hora_final,
+    this.promocao_tipo_desc,
+    this.promocao_compre,
+    this.promocao_leve,
+    this.promocao_apartir,
+    this.promocao_apartir_perc,
+    this.file_imagem,
   );
+  
+ 
+
+  
 }

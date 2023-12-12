@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: camel_case_extensions
+
 part of 'caixa.dart';
 
 // **************************************************************************
@@ -9,32 +11,32 @@ part of 'caixa.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetCaixaCollection on Isar {
-  IsarCollection<Caixa> get caixas => this.collection();
+extension GetcaixaCollection on Isar {
+  IsarCollection<caixa> get caixas => this.collection();
 }
 
 const CaixaSchema = CollectionSchema(
-  name: r'Caixa',
-  id: -4806767503306867375,
+  name: r'caixa',
+  id: 2233208114782871795,
   properties: {
-    r'aberturaData': PropertySchema(
+    r'abertura_data': PropertySchema(
       id: 0,
-      name: r'aberturaData',
+      name: r'abertura_data',
       type: IsarType.dateTime,
     ),
-    r'aberturaHora': PropertySchema(
+    r'abertura_hora': PropertySchema(
       id: 1,
-      name: r'aberturaHora',
+      name: r'abertura_hora',
       type: IsarType.string,
     ),
-    r'aberturaIdUser': PropertySchema(
+    r'abertura_id_user': PropertySchema(
       id: 2,
-      name: r'aberturaIdUser',
+      name: r'abertura_id_user',
       type: IsarType.long,
     ),
-    r'aberturaValor': PropertySchema(
+    r'abertura_valor': PropertySchema(
       id: 3,
-      name: r'aberturaValor',
+      name: r'abertura_valor',
       type: IsarType.double,
     ),
     r'enviado': PropertySchema(
@@ -42,38 +44,33 @@ const CaixaSchema = CollectionSchema(
       name: r'enviado',
       type: IsarType.long,
     ),
-    r'fechouData': PropertySchema(
+    r'fechou_data': PropertySchema(
       id: 5,
-      name: r'fechouData',
+      name: r'fechou_data',
       type: IsarType.dateTime,
     ),
-    r'fechouHora': PropertySchema(
+    r'fechou_hora': PropertySchema(
       id: 6,
-      name: r'fechouHora',
+      name: r'fechou_hora',
       type: IsarType.string,
     ),
-    r'fechouIdUser': PropertySchema(
+    r'fechou_id_user': PropertySchema(
       id: 7,
-      name: r'fechouIdUser',
+      name: r'fechou_id_user',
       type: IsarType.long,
     ),
-    r'fechouValor': PropertySchema(
-      id: 8,
-      name: r'fechouValor',
-      type: IsarType.double,
-    ),
     r'idCaixaServidor': PropertySchema(
-      id: 9,
+      id: 8,
       name: r'idCaixaServidor',
       type: IsarType.long,
     ),
-    r'idEmpresa': PropertySchema(
-      id: 10,
-      name: r'idEmpresa',
+    r'id_empresa': PropertySchema(
+      id: 9,
+      name: r'id_empresa',
       type: IsarType.long,
     ),
     r'status': PropertySchema(
-      id: 11,
+      id: 10,
       name: r'status',
       type: IsarType.long,
     )
@@ -82,7 +79,7 @@ const CaixaSchema = CollectionSchema(
   serialize: _caixaSerialize,
   deserialize: _caixaDeserialize,
   deserializeProp: _caixaDeserializeProp,
-  idName: r'idCaixa',
+  idName: r'id_caixa',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -93,14 +90,14 @@ const CaixaSchema = CollectionSchema(
 );
 
 int _caixaEstimateSize(
-  Caixa object,
+  caixa object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.aberturaHora.length * 3;
+  bytesCount += 3 + object.abertura_hora.length * 3;
   {
-    final value = object.fechouHora;
+    final value = object.fechou_hora;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -109,45 +106,43 @@ int _caixaEstimateSize(
 }
 
 void _caixaSerialize(
-  Caixa object,
+  caixa object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.aberturaData);
-  writer.writeString(offsets[1], object.aberturaHora);
-  writer.writeLong(offsets[2], object.aberturaIdUser);
-  writer.writeDouble(offsets[3], object.aberturaValor);
+  writer.writeDateTime(offsets[0], object.abertura_data);
+  writer.writeString(offsets[1], object.abertura_hora);
+  writer.writeLong(offsets[2], object.abertura_id_user);
+  writer.writeDouble(offsets[3], object.abertura_valor);
   writer.writeLong(offsets[4], object.enviado);
-  writer.writeDateTime(offsets[5], object.fechouData);
-  writer.writeString(offsets[6], object.fechouHora);
-  writer.writeLong(offsets[7], object.fechouIdUser);
-  writer.writeDouble(offsets[8], object.fechouValor);
-  writer.writeLong(offsets[9], object.idCaixaServidor);
-  writer.writeLong(offsets[10], object.idEmpresa);
-  writer.writeLong(offsets[11], object.status);
+  writer.writeDateTime(offsets[5], object.fechou_data);
+  writer.writeString(offsets[6], object.fechou_hora);
+  writer.writeLong(offsets[7], object.fechou_id_user);
+  writer.writeLong(offsets[8], object.idCaixaServidor);
+  writer.writeLong(offsets[9], object.id_empresa);
+  writer.writeLong(offsets[10], object.status);
 }
 
-Caixa _caixaDeserialize(
+caixa _caixaDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Caixa();
-  object.aberturaData = reader.readDateTime(offsets[0]);
-  object.aberturaHora = reader.readString(offsets[1]);
-  object.aberturaIdUser = reader.readLong(offsets[2]);
-  object.aberturaValor = reader.readDouble(offsets[3]);
+  final object = caixa();
+  object.abertura_data = reader.readDateTime(offsets[0]);
+  object.abertura_hora = reader.readString(offsets[1]);
+  object.abertura_id_user = reader.readLong(offsets[2]);
+  object.abertura_valor = reader.readDouble(offsets[3]);
   object.enviado = reader.readLongOrNull(offsets[4]);
-  object.fechouData = reader.readDateTimeOrNull(offsets[5]);
-  object.fechouHora = reader.readStringOrNull(offsets[6]);
-  object.fechouIdUser = reader.readLongOrNull(offsets[7]);
-  object.fechouValor = reader.readDoubleOrNull(offsets[8]);
-  object.idCaixa = id;
-  object.idCaixaServidor = reader.readLongOrNull(offsets[9]);
-  object.idEmpresa = reader.readLong(offsets[10]);
-  object.status = reader.readLong(offsets[11]);
+  object.fechou_data = reader.readDateTimeOrNull(offsets[5]);
+  object.fechou_hora = reader.readStringOrNull(offsets[6]);
+  object.fechou_id_user = reader.readLongOrNull(offsets[7]);
+  object.idCaixaServidor = reader.readLongOrNull(offsets[8]);
+  object.id_caixa = id;
+  object.id_empresa = reader.readLong(offsets[9]);
+  object.status = reader.readLong(offsets[10]);
   return object;
 }
 
@@ -175,143 +170,142 @@ P _caixaDeserializeProp<P>(
     case 7:
       return (reader.readLongOrNull(offset)) as P;
     case 8:
-      return (reader.readDoubleOrNull(offset)) as P;
-    case 9:
       return (reader.readLongOrNull(offset)) as P;
-    case 10:
+    case 9:
       return (reader.readLong(offset)) as P;
-    case 11:
+    case 10:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Id _caixaGetId(Caixa object) {
-  return object.idCaixa;
+Id _caixaGetId(caixa object) {
+  return object.id_caixa;
 }
 
-List<IsarLinkBase<dynamic>> _caixaGetLinks(Caixa object) {
+List<IsarLinkBase<dynamic>> _caixaGetLinks(caixa object) {
   return [];
 }
 
-void _caixaAttach(IsarCollection<dynamic> col, Id id, Caixa object) {
-  object.idCaixa = id;
+void _caixaAttach(IsarCollection<dynamic> col, Id id, caixa object) {
+  object.id_caixa = id;
 }
 
-extension CaixaQueryWhereSort on QueryBuilder<Caixa, Caixa, QWhere> {
-  QueryBuilder<Caixa, Caixa, QAfterWhere> anyIdCaixa() {
+extension caixaQueryWhereSort on QueryBuilder<caixa, caixa, QWhere> {
+  QueryBuilder<caixa, caixa, QAfterWhere> anyId_caixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension CaixaQueryWhere on QueryBuilder<Caixa, Caixa, QWhereClause> {
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaEqualTo(Id idCaixa) {
+extension caixaQueryWhere on QueryBuilder<caixa, caixa, QWhereClause> {
+  QueryBuilder<caixa, caixa, QAfterWhereClause> id_caixaEqualTo(Id id_caixa) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: idCaixa,
-        upper: idCaixa,
+        lower: id_caixa,
+        upper: id_caixa,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaNotEqualTo(Id idCaixa) {
+  QueryBuilder<caixa, caixa, QAfterWhereClause> id_caixaNotEqualTo(
+      Id id_caixa) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: idCaixa, includeUpper: false),
+              IdWhereClause.lessThan(upper: id_caixa, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: idCaixa, includeLower: false),
+              IdWhereClause.greaterThan(lower: id_caixa, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: idCaixa, includeLower: false),
+              IdWhereClause.greaterThan(lower: id_caixa, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: idCaixa, includeUpper: false),
+              IdWhereClause.lessThan(upper: id_caixa, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaGreaterThan(Id idCaixa,
+  QueryBuilder<caixa, caixa, QAfterWhereClause> id_caixaGreaterThan(Id id_caixa,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: idCaixa, includeLower: include),
+        IdWhereClause.greaterThan(lower: id_caixa, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaLessThan(Id idCaixa,
+  QueryBuilder<caixa, caixa, QAfterWhereClause> id_caixaLessThan(Id id_caixa,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: idCaixa, includeUpper: include),
+        IdWhereClause.lessThan(upper: id_caixa, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterWhereClause> idCaixaBetween(
-    Id lowerIdCaixa,
-    Id upperIdCaixa, {
+  QueryBuilder<caixa, caixa, QAfterWhereClause> id_caixaBetween(
+    Id lowerId_caixa,
+    Id upperId_caixa, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerIdCaixa,
+        lower: lowerId_caixa,
         includeLower: includeLower,
-        upper: upperIdCaixa,
+        upper: upperId_caixa,
         includeUpper: includeUpper,
       ));
     });
   }
 }
 
-extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaDataEqualTo(
+extension caixaQueryFilter on QueryBuilder<caixa, caixa, QFilterCondition> {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_dataEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'aberturaData',
+        property: r'abertura_data',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaDataGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_dataGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'aberturaData',
+        property: r'abertura_data',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaDataLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_dataLessThan(
     DateTime value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'aberturaData',
+        property: r'abertura_data',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaDataBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_dataBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -319,7 +313,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'aberturaData',
+        property: r'abertura_data',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -328,20 +322,20 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -349,14 +343,14 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -364,14 +358,14 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -380,7 +374,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -390,111 +384,111 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraStartsWith(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraEndsWith(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraContains(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraMatches(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraIsEmpty() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaHoraIsNotEmpty() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_horaIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'aberturaHora',
+        property: r'abertura_hora',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaIdUserEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_id_userEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'aberturaIdUser',
+        property: r'abertura_id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaIdUserGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_id_userGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'aberturaIdUser',
+        property: r'abertura_id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaIdUserLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_id_userLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'aberturaIdUser',
+        property: r'abertura_id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaIdUserBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_id_userBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -502,7 +496,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'aberturaIdUser',
+        property: r'abertura_id_user',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -511,20 +505,20 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaValorEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_valorEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'aberturaValor',
+        property: r'abertura_valor',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaValorGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_valorGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -532,14 +526,14 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'aberturaValor',
+        property: r'abertura_valor',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaValorLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_valorLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -547,14 +541,14 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'aberturaValor',
+        property: r'abertura_valor',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> aberturaValorBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> abertura_valorBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -563,7 +557,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'aberturaValor',
+        property: r'abertura_valor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -573,7 +567,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoIsNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> enviadoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'enviado',
@@ -581,7 +575,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoIsNotNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> enviadoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'enviado',
@@ -589,7 +583,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoEqualTo(int? value) {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> enviadoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'enviado',
@@ -598,7 +592,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> enviadoGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -611,7 +605,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> enviadoLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -624,7 +618,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> enviadoBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -641,59 +635,59 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataIsNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_dataIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'fechouData',
+        property: r'fechou_data',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataIsNotNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_dataIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'fechouData',
+        property: r'fechou_data',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_dataEqualTo(
       DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fechouData',
+        property: r'fechou_data',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_dataGreaterThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'fechouData',
+        property: r'fechou_data',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_dataLessThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'fechouData',
+        property: r'fechou_data',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_dataBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -701,7 +695,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'fechouData',
+        property: r'fechou_data',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -710,36 +704,36 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraIsNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'fechouHora',
+        property: r'fechou_hora',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraIsNotNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'fechouHora',
+        property: r'fechou_hora',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -747,14 +741,14 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -762,14 +756,14 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -778,7 +772,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -788,127 +782,127 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraStartsWith(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraEndsWith(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraContains(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraMatches(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraIsEmpty() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraIsNotEmpty() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_horaIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'fechouHora',
+        property: r'fechou_hora',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserIsNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_id_userIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'fechouIdUser',
+        property: r'fechou_id_user',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserIsNotNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_id_userIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'fechouIdUser',
+        property: r'fechou_id_user',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_id_userEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fechouIdUser',
+        property: r'fechou_id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_id_userGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'fechouIdUser',
+        property: r'fechou_id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_id_userLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'fechouIdUser',
+        property: r'fechou_id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> fechou_id_userBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -916,7 +910,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'fechouIdUser',
+        property: r'fechou_id_user',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -925,120 +919,111 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorIsNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'fechouValor',
+        property: r'idCaixaServidor',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorIsNotNull() {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'fechouValor',
+        property: r'idCaixaServidor',
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorEqualTo(
-    double? value, {
-    double epsilon = Query.epsilon,
-  }) {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorEqualTo(
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fechouValor',
+        property: r'idCaixaServidor',
         value: value,
-        epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorGreaterThan(
-    double? value, {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorGreaterThan(
+    int? value, {
     bool include = false,
-    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'fechouValor',
+        property: r'idCaixaServidor',
         value: value,
-        epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorLessThan(
-    double? value, {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorLessThan(
+    int? value, {
     bool include = false,
-    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'fechouValor',
+        property: r'idCaixaServidor',
         value: value,
-        epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorBetween(
-    double? lower,
-    double? upper, {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorBetween(
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'fechouValor',
+        property: r'idCaixaServidor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaEqualTo(Id value) {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixaEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idCaixa',
+        property: r'id_caixa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixaGreaterThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idCaixa',
+        property: r'id_caixa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixaLessThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idCaixa',
+        property: r'id_caixa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixaBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -1046,7 +1031,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idCaixa',
+        property: r'id_caixa',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1055,112 +1040,43 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idCaixaServidor',
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idCaixaServidor',
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idCaixaServidor',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'idCaixaServidor',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'idCaixaServidor',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'idCaixaServidor',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idEmpresaEqualTo(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_empresaEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idEmpresa',
+        property: r'id_empresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idEmpresaGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_empresaGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idEmpresa',
+        property: r'id_empresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idEmpresaLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_empresaLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idEmpresa',
+        property: r'id_empresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idEmpresaBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_empresaBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -1168,7 +1084,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idEmpresa',
+        property: r'id_empresa',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1177,7 +1093,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> statusEqualTo(int value) {
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> statusEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'status',
@@ -1186,7 +1102,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> statusGreaterThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> statusGreaterThan(
     int value, {
     bool include = false,
   }) {
@@ -1199,7 +1115,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> statusLessThan(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> statusLessThan(
     int value, {
     bool include = false,
   }) {
@@ -1212,7 +1128,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> statusBetween(
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> statusBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -1230,464 +1146,429 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 }
 
-extension CaixaQueryObject on QueryBuilder<Caixa, Caixa, QFilterCondition> {}
+extension caixaQueryObject on QueryBuilder<caixa, caixa, QFilterCondition> {}
 
-extension CaixaQueryLinks on QueryBuilder<Caixa, Caixa, QFilterCondition> {}
+extension caixaQueryLinks on QueryBuilder<caixa, caixa, QFilterCondition> {}
 
-extension CaixaQuerySortBy on QueryBuilder<Caixa, Caixa, QSortBy> {
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaData() {
+extension caixaQuerySortBy on QueryBuilder<caixa, caixa, QSortBy> {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_data() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaData', Sort.asc);
+      return query.addSortBy(r'abertura_data', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaDataDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_dataDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaData', Sort.desc);
+      return query.addSortBy(r'abertura_data', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaHora() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_hora() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaHora', Sort.asc);
+      return query.addSortBy(r'abertura_hora', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaHoraDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_horaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaHora', Sort.desc);
+      return query.addSortBy(r'abertura_hora', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaIdUser() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_id_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaIdUser', Sort.asc);
+      return query.addSortBy(r'abertura_id_user', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaIdUserDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_id_userDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaIdUser', Sort.desc);
+      return query.addSortBy(r'abertura_id_user', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaValor() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_valor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaValor', Sort.asc);
+      return query.addSortBy(r'abertura_valor', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByAberturaValorDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByAbertura_valorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaValor', Sort.desc);
+      return query.addSortBy(r'abertura_valor', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByEnviado() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByEnviado() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByEnviadoDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByEnviadoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouData() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByFechou_data() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouData', Sort.asc);
+      return query.addSortBy(r'fechou_data', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouDataDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByFechou_dataDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouData', Sort.desc);
+      return query.addSortBy(r'fechou_data', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouHora() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByFechou_hora() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouHora', Sort.asc);
+      return query.addSortBy(r'fechou_hora', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouHoraDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByFechou_horaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouHora', Sort.desc);
+      return query.addSortBy(r'fechou_hora', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouIdUser() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByFechou_id_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouIdUser', Sort.asc);
+      return query.addSortBy(r'fechou_id_user', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouIdUserDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByFechou_id_userDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouIdUser', Sort.desc);
+      return query.addSortBy(r'fechou_id_user', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouValor() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouValor', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByFechouValorDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouValor', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdCaixaServidor() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByIdCaixaServidor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idCaixaServidor', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdCaixaServidorDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByIdCaixaServidorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idCaixaServidor', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdEmpresa() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
+      return query.addSortBy(r'id_empresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByIdEmpresaDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortById_empresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
+      return query.addSortBy(r'id_empresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByStatus() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> sortByStatusDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 }
 
-extension CaixaQuerySortThenBy on QueryBuilder<Caixa, Caixa, QSortThenBy> {
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaData() {
+extension caixaQuerySortThenBy on QueryBuilder<caixa, caixa, QSortThenBy> {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_data() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaData', Sort.asc);
+      return query.addSortBy(r'abertura_data', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaDataDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_dataDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaData', Sort.desc);
+      return query.addSortBy(r'abertura_data', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaHora() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_hora() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaHora', Sort.asc);
+      return query.addSortBy(r'abertura_hora', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaHoraDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_horaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaHora', Sort.desc);
+      return query.addSortBy(r'abertura_hora', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaIdUser() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_id_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaIdUser', Sort.asc);
+      return query.addSortBy(r'abertura_id_user', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaIdUserDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_id_userDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaIdUser', Sort.desc);
+      return query.addSortBy(r'abertura_id_user', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaValor() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_valor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaValor', Sort.asc);
+      return query.addSortBy(r'abertura_valor', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByAberturaValorDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByAbertura_valorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'aberturaValor', Sort.desc);
+      return query.addSortBy(r'abertura_valor', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByEnviado() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByEnviado() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByEnviadoDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByEnviadoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouData() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByFechou_data() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouData', Sort.asc);
+      return query.addSortBy(r'fechou_data', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouDataDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByFechou_dataDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouData', Sort.desc);
+      return query.addSortBy(r'fechou_data', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouHora() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByFechou_hora() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouHora', Sort.asc);
+      return query.addSortBy(r'fechou_hora', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouHoraDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByFechou_horaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouHora', Sort.desc);
+      return query.addSortBy(r'fechou_hora', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouIdUser() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByFechou_id_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouIdUser', Sort.asc);
+      return query.addSortBy(r'fechou_id_user', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouIdUserDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByFechou_id_userDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouIdUser', Sort.desc);
+      return query.addSortBy(r'fechou_id_user', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouValor() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouValor', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByFechouValorDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fechouValor', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdCaixa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixa', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdCaixaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixa', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdCaixaServidor() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByIdCaixaServidor() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idCaixaServidor', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdCaixaServidorDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByIdCaixaServidorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idCaixaServidor', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdEmpresa() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenById_caixa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
+      return query.addSortBy(r'id_caixa', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByIdEmpresaDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenById_caixaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
+      return query.addSortBy(r'id_caixa', Sort.desc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByStatus() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenById_empresa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_empresa', Sort.asc);
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenById_empresaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_empresa', Sort.desc);
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterSortBy> thenByStatusDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 }
 
-extension CaixaQueryWhereDistinct on QueryBuilder<Caixa, Caixa, QDistinct> {
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByAberturaData() {
+extension caixaQueryWhereDistinct on QueryBuilder<caixa, caixa, QDistinct> {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByAbertura_data() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'aberturaData');
+      return query.addDistinctBy(r'abertura_data');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByAberturaHora(
+  QueryBuilder<caixa, caixa, QDistinct> distinctByAbertura_hora(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'aberturaHora', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'abertura_hora',
+          caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByAberturaIdUser() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByAbertura_id_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'aberturaIdUser');
+      return query.addDistinctBy(r'abertura_id_user');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByAberturaValor() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByAbertura_valor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'aberturaValor');
+      return query.addDistinctBy(r'abertura_valor');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByEnviado() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByEnviado() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'enviado');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByFechouData() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByFechou_data() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'fechouData');
+      return query.addDistinctBy(r'fechou_data');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByFechouHora(
+  QueryBuilder<caixa, caixa, QDistinct> distinctByFechou_hora(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'fechouHora', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'fechou_hora', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByFechouIdUser() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByFechou_id_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'fechouIdUser');
+      return query.addDistinctBy(r'fechou_id_user');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByFechouValor() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'fechouValor');
-    });
-  }
-
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByIdCaixaServidor() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByIdCaixaServidor() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'idCaixaServidor');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByIdEmpresa() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idEmpresa');
+      return query.addDistinctBy(r'id_empresa');
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QDistinct> distinctByStatus() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'status');
     });
   }
 }
 
-extension CaixaQueryProperty on QueryBuilder<Caixa, Caixa, QQueryProperty> {
-  QueryBuilder<Caixa, int, QQueryOperations> idCaixaProperty() {
+extension caixaQueryProperty on QueryBuilder<caixa, caixa, QQueryProperty> {
+  QueryBuilder<caixa, int, QQueryOperations> id_caixaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idCaixa');
+      return query.addPropertyName(r'id_caixa');
     });
   }
 
-  QueryBuilder<Caixa, DateTime, QQueryOperations> aberturaDataProperty() {
+  QueryBuilder<caixa, DateTime, QQueryOperations> abertura_dataProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'aberturaData');
+      return query.addPropertyName(r'abertura_data');
     });
   }
 
-  QueryBuilder<Caixa, String, QQueryOperations> aberturaHoraProperty() {
+  QueryBuilder<caixa, String, QQueryOperations> abertura_horaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'aberturaHora');
+      return query.addPropertyName(r'abertura_hora');
     });
   }
 
-  QueryBuilder<Caixa, int, QQueryOperations> aberturaIdUserProperty() {
+  QueryBuilder<caixa, int, QQueryOperations> abertura_id_userProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'aberturaIdUser');
+      return query.addPropertyName(r'abertura_id_user');
     });
   }
 
-  QueryBuilder<Caixa, double, QQueryOperations> aberturaValorProperty() {
+  QueryBuilder<caixa, double, QQueryOperations> abertura_valorProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'aberturaValor');
+      return query.addPropertyName(r'abertura_valor');
     });
   }
 
-  QueryBuilder<Caixa, int?, QQueryOperations> enviadoProperty() {
+  QueryBuilder<caixa, int?, QQueryOperations> enviadoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'enviado');
     });
   }
 
-  QueryBuilder<Caixa, DateTime?, QQueryOperations> fechouDataProperty() {
+  QueryBuilder<caixa, DateTime?, QQueryOperations> fechou_dataProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'fechouData');
+      return query.addPropertyName(r'fechou_data');
     });
   }
 
-  QueryBuilder<Caixa, String?, QQueryOperations> fechouHoraProperty() {
+  QueryBuilder<caixa, String?, QQueryOperations> fechou_horaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'fechouHora');
+      return query.addPropertyName(r'fechou_hora');
     });
   }
 
-  QueryBuilder<Caixa, int?, QQueryOperations> fechouIdUserProperty() {
+  QueryBuilder<caixa, int?, QQueryOperations> fechou_id_userProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'fechouIdUser');
+      return query.addPropertyName(r'fechou_id_user');
     });
   }
 
-  QueryBuilder<Caixa, double?, QQueryOperations> fechouValorProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'fechouValor');
-    });
-  }
-
-  QueryBuilder<Caixa, int?, QQueryOperations> idCaixaServidorProperty() {
+  QueryBuilder<caixa, int?, QQueryOperations> idCaixaServidorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idCaixaServidor');
     });
   }
 
-  QueryBuilder<Caixa, int, QQueryOperations> idEmpresaProperty() {
+  QueryBuilder<caixa, int, QQueryOperations> id_empresaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idEmpresa');
+      return query.addPropertyName(r'id_empresa');
     });
   }
 
-  QueryBuilder<Caixa, int, QQueryOperations> statusProperty() {
+  QueryBuilder<caixa, int, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });

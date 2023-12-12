@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class ButtonsPdv {
   Widget iconsOptions(IconData icon, String text, Function() action) {
     return Expanded(
-      child: Container(
+      child: SizedBox(
         width: 100,
         height: 100,
         child: GestureDetector(
@@ -22,7 +22,7 @@ class ButtonsPdv {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
                     text,
-                    style: TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.black),
                   ),
                 )
               ],

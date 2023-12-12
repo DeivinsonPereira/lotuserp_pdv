@@ -1,13 +1,14 @@
-import 'dart:convert';
+// ignore_for_file: non_constant_identifier_names
 
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
-import 'package:lotuserp_pdv/collections/grupo_produto.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
+import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
@@ -30,10 +31,10 @@ class IsarService {
     db = openDB();
   }
   //buscar ipEmpresa na tabela 'Dados Empresarias'
-  Future<DadoEmpresa?> getIpEmpresaFromDatabase() async {
+  Future<dado_empresa?> getIpEmpresaFromDatabase() async {
     final isar = await db;
 
-    return await isar.dadoEmpresas.where().findFirst();
+    return await isar.dado_empresas.where().findFirst();
   }
 
   //inserindo dados na tabela empresa vindos do servidor
@@ -49,14 +50,14 @@ class IsarService {
       );
     }
 
-    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
     var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
-      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
-      idEmpresaNum = dadoEmpresa.idEmpresa!;
+      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+      idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
     Uri getEmpresa = Uri.parse(
@@ -66,50 +67,50 @@ class IsarService {
       headers: _headers,
     );
     if (response.statusCode == 200) {
-      var empresa = jsonDecode(utf8.decode(response.bodyBytes));
+      var empresas = jsonDecode(utf8.decode(response.bodyBytes));
 
-      final emp = Empresa(
-          empresa['itens'][0]['id'],
-          empresa['itens'][0]['razao'],
-          empresa['itens'][0]['fantasia'],
-          empresa['itens'][0]['cnpj'],
-          empresa['itens'][0]['insc_estadual'],
-          empresa['itens'][0]['insc_municipal'],
-          empresa['itens'][0]['fone1'],
-          empresa['itens'][0]['fone2'],
-          empresa['itens'][0]['fone3'],
-          empresa['itens'][0]['endereco'],
-          empresa['itens'][0]['bairro'],
-          empresa['itens'][0]['numero'],
-          empresa['itens'][0]['municipio'],
-          empresa['itens'][0]['municipio_uf'],
-          empresa['itens'][0]['cep'],
-          empresa['itens'][0]['email'],
-          empresa['itens'][0]['site'],
-          empresa['itens'][0]['complemento'],
-          empresa['itens'][0]['estoque_grade'],
-          empresa['itens'][0]['usar_paf_nfce'],
-          empresa['itens'][0]['param_nf_crt'],
-          empresa['itens'][0]['param_pdv_usar_pvista_pprazo'],
-          empresa['itens'][0]['param_vendas_tpcomissao'],
-          empresa['itens'][0]['param_vendas_portador'],
-          empresa['itens'][0]['param_vendas_descmaximo'].toDouble(),
-          empresa['itens'][0]['param_pdv_codigopesagem'],
-          empresa['itens'][0]['param_pdv_formapagto'],
-          empresa['itens'][0]['param_pdv_cliente'],
-          empresa['itens'][0]['param_pdv_bloq_est_neg'],
-          empresa['itens'][0]['param_pdv_validar_cx_fechado'],
-          empresa['itens'][0]['param_pdv_senha_cancelar'],
-          empresa['itens'][0]['param_pdv_imp_cp_nf_venda'],
-          empresa['itens'][0]['param_pdv_prodcomposto'],
-          empresa['itens'][0]['param_pdv_informa_cliente'],
-          empresa['itens'][0]['param_pdv_vendedor_venda'],
-          empresa['itens'][0]['param_pdv_cartao_gerarparc'],
-          empresa['itens'][0]['param_pdv_imp_comprovante'],
-          empresa['itens'][0]['param_pdv_permitir_desconto'],
-          empresa['itens'][0]['param_pdv_tipo_desconto'],
-          empresa['itens'][0]['param_pdv_gerar_senha'],
-          empresa['itens'][0]['param_pdv_comanda_producao']);
+      final emp = empresa(
+          empresas['itens'][0]['id'],
+          empresas['itens'][0]['razao'],
+          empresas['itens'][0]['fantasia'],
+          empresas['itens'][0]['cnpj'],
+          empresas['itens'][0]['insc_estadual'],
+          empresas['itens'][0]['insc_municipal'],
+          empresas['itens'][0]['fone1'],
+          empresas['itens'][0]['fone2'],
+          empresas['itens'][0]['fone3'],
+          empresas['itens'][0]['endereco'],
+          empresas['itens'][0]['bairro'],
+          empresas['itens'][0]['numero'],
+          empresas['itens'][0]['municipio'],
+          empresas['itens'][0]['municipio_uf'],
+          empresas['itens'][0]['cep'],
+          empresas['itens'][0]['email'],
+          empresas['itens'][0]['site'],
+          empresas['itens'][0]['complemento'],
+          empresas['itens'][0]['estoque_grade'],
+          empresas['itens'][0]['usar_paf_nfce'],
+          empresas['itens'][0]['param_nf_crt'],
+          empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
+          empresas['itens'][0]['param_vendas_tpcomissao'],
+          empresas['itens'][0]['param_vendas_portador'],
+          empresas['itens'][0]['param_vendas_descmaximo'].toDouble(),
+          empresas['itens'][0]['param_pdv_codigopesagem'],
+          empresas['itens'][0]['param_pdv_formapagto'],
+          empresas['itens'][0]['param_pdv_cliente'],
+          empresas['itens'][0]['param_pdv_bloq_est_neg'],
+          empresas['itens'][0]['param_pdv_validar_cx_fechado'],
+          empresas['itens'][0]['param_pdv_senha_cancelar'],
+          empresas['itens'][0]['param_pdv_imp_cp_nf_venda'],
+          empresas['itens'][0]['param_pdv_prodcomposto'],
+          empresas['itens'][0]['param_pdv_informa_cliente'],
+          empresas['itens'][0]['param_pdv_vendedor_venda'],
+          empresas['itens'][0]['param_pdv_cartao_gerarparc'],
+          empresas['itens'][0]['param_pdv_imp_comprovante'],
+          empresas['itens'][0]['param_pdv_permitir_desconto'],
+          empresas['itens'][0]['param_pdv_tipo_desconto'],
+          empresas['itens'][0]['param_pdv_gerar_senha'],
+          empresas['itens'][0]['param_pdv_comanda_producao']);
       isar.writeTxn(() async {
         await isar.empresas.put(emp);
       });
@@ -120,7 +121,7 @@ class IsarService {
   }
 
   //stream para buscar dados da tabela empresa
-  Stream<List<Empresa>> listenEmpresa() async* {
+  Stream<List<empresa>> listenEmpresa() async* {
     final isar = await db;
     yield* isar.empresas.where().sortByRazao().watch(fireImmediately: true);
   }
@@ -128,24 +129,24 @@ class IsarService {
   //inserindo dados na tabela grupo vindos do servidor
   Future getGrupo(int companyId) async {
     final isar = await db;
-    int i = await isar.grupoProdutos.count();
+    int i = await isar.produto_grupos.count();
 
     if (i >= 0) {
       isar.writeTxn(
         () async {
-          await isar.grupoProdutos.clear();
+          await isar.produto_grupos.clear();
         },
       );
     }
 
-    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
     var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
-      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
-      idEmpresaNum = dadoEmpresa.idEmpresa!;
+      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+      idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
     Uri getGrupo = Uri.parse(
@@ -159,10 +160,10 @@ class IsarService {
 
       var grupoCount = grupo['itens'].length;
 
-      final List<GrupoProduto> listaGrupo = [];
+      final List<produto_grupo> listaGrupo = [];
 
       for (int i = 0; i < grupoCount; i++) {
-        final gru = GrupoProduto(
+        final gru = produto_grupo(
           grupo['itens'][i]['id_grupo'],
           grupo['itens'][i]['grupo_descricao'],
           grupo['itens'][i]['status'],
@@ -173,7 +174,7 @@ class IsarService {
       }
 
       isar.writeTxn(() async {
-        await isar.grupoProdutos.putAll(listaGrupo);
+        await isar.produto_grupos.putAll(listaGrupo);
       });
       return isar;
     } else {
@@ -182,11 +183,11 @@ class IsarService {
   }
 
   //stream para buscar dados da tabela grupo
-  Stream<List<GrupoProduto>> listenGrupo() async* {
+  Stream<List<produto_grupo>> listenGrupo() async* {
     final isar = await db;
-    yield* isar.grupoProdutos
+    yield* isar.produto_grupos
         .where()
-        .sortByIdGrupo()
+        .sortByGrupo_descricao()
         .watch(fireImmediately: true);
   }
 
@@ -203,14 +204,14 @@ class IsarService {
       );
     }
 
-    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
     var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
-      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
-      idEmpresaNum = dadoEmpresa.idEmpresa!;
+      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+      idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
     Uri getProdutos = Uri.parse(
@@ -220,60 +221,60 @@ class IsarService {
       headers: _headers,
     );
     if (response.statusCode == 200) {
-      Map<String, dynamic> produto =
+      Map<String, dynamic> produtos =
           jsonDecode(utf8.decode(response.bodyBytes));
 
-      var produtosCount = produto['itens'].length;
+      var produtosCount = produtos['itens'].length;
 
-      final List<Produto> listaProduto = [];
+      final List<produto> listaProduto = [];
 
       for (int i = 0; i < produtosCount; i++) {
         DateTime? dataLimitePromocao;
         DateTime? dataInicioPromocao;
-        if (produto['itens']?[i]?['promocao_data_limite'] != null) {
+        if (produtos['itens']?[i]?['promocao_data_limite'] != null) {
           dataLimitePromocao =
-              DateTime.tryParse(produto['itens']?[i]?['promocao_data_limite']);
+              DateTime.tryParse(produtos['itens']?[i]?['promocao_data_limite']);
         } else {
           dataLimitePromocao = null;
         }
 
-        if (produto['itens']?[i]?['promocao_data_inicio'] != null) {
+        if (produtos['itens']?[i]?['promocao_data_inicio'] != null) {
           dataInicioPromocao =
-              DateTime.parse(produto['itens']![i]['promocao_data_inicio']);
+              DateTime.parse(produtos['itens']![i]['promocao_data_inicio']);
         } else {
           dataInicioPromocao = null;
         }
-        final gru = Produto(
-          produto['itens'][i]['id_empresa'],
-          produto['itens'][i]['id_produto'],
-          produto['itens'][i]['grade'],
-          produto['itens'][i]['id_grupo'],
-          produto['itens'][i]['descricao'],
-          produto['itens'][i]['unidade'],
-          produto['itens'][i]['gtin'],
-          produto['itens'][i]['composto'],
-          produto['itens'][i]['venda_kg'],
-          produto['itens'][i]['nao_rec_desconto'],
-          produto['itens'][i]['status'],
-          produto['itens'][i]['saldo_produto'].toDouble(),
-          produto['itens'][i]['pvenda'].toDouble(),
-          produto['itens'][i]['alt_preco_venda'],
-          produto['itens'][i]['alt_preco_venda_tipo'],
-          produto['itens'][i]['balanca_tipo_pesagem'],
-          produto['itens'][i]['balanca_idproduto'],
-          produto['itens'][i]['gtin_grade'],
-          produto['itens'][i]['promocao_ativar'],
-          produto['itens'][i]['promocao_preco'].toDouble(),
+        final gru = produto(
+          produtos['itens'][i]['id_empresa'],
+          produtos['itens'][i]['id_produto'],
+          produtos['itens'][i]['grade'],
+          produtos['itens'][i]['id_grupo'],
+          produtos['itens'][i]['descricao'],
+          produtos['itens'][i]['unidade'],
+          produtos['itens'][i]['gtin'],
+          produtos['itens'][i]['composto'],
+          produtos['itens'][i]['venda_kg'],
+          produtos['itens'][i]['nao_rec_desconto'],
+          produtos['itens'][i]['status'],
+          produtos['itens'][i]['saldo_produto'].toDouble(),
+          produtos['itens'][i]['pvenda'].toDouble(),
+          produtos['itens'][i]['alt_preco_venda'],
+          produtos['itens'][i]['alt_preco_venda_tipo'],
+          produtos['itens'][i]['balanca_tipo_pesagem'],
+          produtos['itens'][i]['balanca_idproduto'],
+          produtos['itens'][i]['gtin_grade'],
+          produtos['itens'][i]['promocao_ativar'],
+          produtos['itens'][i]['promocao_preco'].toDouble(),
           dataInicioPromocao,
           dataLimitePromocao,
-          produto['itens'][i]['promocao_hora_inicial'],
-          produto['itens'][i]['promocao_hora_final'],
-          produto['itens'][i]['promocao_tipo_desc'],
-          produto['itens'][i]['promocao_compre'],
-          produto['itens'][i]['promocao_leve'],
-          produto['itens'][i]['promocao_apartir'],
-          produto['itens'][i]['promocao_apartir_perc'].toDouble(),
-          produto['itens'][i]['file_imagem'],
+          produtos['itens'][i]['promocao_hora_inicial'],
+          produtos['itens'][i]['promocao_hora_final'],
+          produtos['itens'][i]['promocao_tipo_desc'],
+          produtos['itens'][i]['promocao_compre'],
+          produtos['itens'][i]['promocao_leve'],
+          produtos['itens'][i]['promocao_apartir'],
+          produtos['itens'][i]['promocao_apartir_perc'].toDouble(),
+          produtos['itens'][i]['file_imagem'],
         );
 
         listaProduto.add(gru);
@@ -289,9 +290,9 @@ class IsarService {
   }
 
   //stream para buscar dados da tabela produtos
-  Stream<List<Produto>> listenProdutos() async* {
+  Stream<List<produto>> listenProdutos() async* {
     final isar = await db;
-    yield* isar.produtos.where().sortByIdGrupo().watch(fireImmediately: true);
+    yield* isar.produtos.where().sortById_grupo().watch(fireImmediately: true);
   }
 
   //inserindo dados na tabela usuarios vindos do servidor
@@ -307,14 +308,14 @@ class IsarService {
       );
     }
 
-    DadoEmpresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
     var ipEmpresaUrl = '';
     var idEmpresaNum = 0;
 
     if (dadoEmpresa != null) {
-      ipEmpresaUrl = dadoEmpresa.ipEmpresa!;
-      idEmpresaNum = dadoEmpresa.idEmpresa!;
+      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+      idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
     Uri getUsuarios = Uri.parse(
@@ -324,31 +325,31 @@ class IsarService {
       headers: _headers,
     );
     if (response.statusCode == 200) {
-      Map<String, dynamic> usuario =
+      Map<String, dynamic> usuarios =
           jsonDecode(utf8.decode(response.bodyBytes));
 
-      var usuariosCount = usuario['itens'].length;
+      var usuariosCount = usuarios['itens'].length;
 
-      final List<Usuario> listaUsuarios = [];
+      final List<usuario> listaUsuarios = [];
 
       for (int i = 0; i < usuariosCount; i++) {
-        final usu = Usuario(
-          usuario['itens'][i]['id'],
-          usuario['itens'][i]['login'],
-          usuario['itens'][i]['id_colaborador'],
-          usuario['itens'][i]['senha'],
-          usuario['itens'][i]['status'],
-          usuario['itens'][i]['mob_dashboard'],
-          usuario['itens'][i]['trocar_senha'],
-          usuario['itens'][i]['administrador'],
-          usuario['itens'][i]['logar_empresas'],
-          usuario['itens'][i]['caixa_abrir'],
-          usuario['itens'][i]['caixa_movimentar'],
-          usuario['itens'][i]['caixa_gerenciar'],
-          usuario['itens'][i]['caixa_fechar'],
-          usuario['itens'][i]['caixa_pdv'],
-          usuario['itens'][i]['caixa_carga'],
-          usuario['itens'][i]['caixa_parametros'],
+        final usu = usuario(
+          usuarios['itens'][i]['id'],
+          usuarios['itens'][i]['login'],
+          usuarios['itens'][i]['id_colaborador'],
+          usuarios['itens'][i]['senha'],
+          usuarios['itens'][i]['status'],
+          usuarios['itens'][i]['mob_dashboard'],
+          usuarios['itens'][i]['trocar_senha'],
+          usuarios['itens'][i]['administrador'],
+          usuarios['itens'][i]['logar_empresas'],
+          usuarios['itens'][i]['caixa_abrir'],
+          usuarios['itens'][i]['caixa_movimentar'],
+          usuarios['itens'][i]['caixa_gerenciar'],
+          usuarios['itens'][i]['caixa_fechar'],
+          usuarios['itens'][i]['caixa_pdv'],
+          usuarios['itens'][i]['caixa_carga'],
+          usuarios['itens'][i]['caixa_parametros'],
         );
 
         listaUsuarios.add(usu);
@@ -364,104 +365,139 @@ class IsarService {
   }
 
   //stream para buscar dados da tabela usuarios
-  Stream<List<Usuario>> listenUsuarios() async* {
+  Stream<List<usuario>> listenUsuarios() async* {
     final isar = await db;
     yield* isar.usuarios
         .where()
-        .sortByIdColaborador()
+        .sortById_colaborador()
         .watch(fireImmediately: true);
   }
 
   //metodos para inserir dados no banco
 
   //inserir dados na tabela caixa
-  Future<Isar> insertCaixa(Caixa caixa) async {
+  Future<int?> insertCaixa(caixa caixa) async {
     final isar = await db;
 
+    int? idCaixa;
     //inserindo dados na tabela caixa
     isar.writeTxn(() async {
+      idCaixa = await isar.caixas.put(caixa);
+      print(idCaixa);
+    });
+
+    return idCaixa;
+  }
+
+  Future<Isar> insertCaixaWithCaixaItem(caixa caixa, DateTime atualDate,
+      String hourFormatted, double openRegisterDouble) async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
       await isar.caixas.put(caixa);
+
+      caixa_item caixaItem = caixa_item()
+        ..id_caixa = caixa.id_caixa
+        ..descricao = 'ABERTURA DE CAIXA'
+        ..data = atualDate
+        ..hora = hourFormatted
+        ..id_tipo_recebimento = 0
+        ..valor_cre = openRegisterDouble
+        ..valor_deb = null
+        ..id_venda = null
+        ..enviado = 0;
+
+      await isar.caixa_items.put(caixaItem);
     });
     return isar;
   }
 
   //stream para buscar dados da tabela caixa
-  Stream<List<Caixa>> listenCaixa() async* {
+  Stream<List<caixa>> listenCaixa() async* {
     final isar = await db;
-    yield* isar.caixas.where().sortByIdEmpresa().watch(fireImmediately: true);
+    yield* isar.caixas.where().sortById_empresa().watch(fireImmediately: true);
   }
 
   //buscar id caixa na tabela 'caixa'
-  Future<int?> getIdCaixa(int AberturaIdUser) async {
+  Future<int?> getIdCaixa(int aberturaIdUser) async {
     final isar = await db;
-    
-    Caixa? caixa = await isar.caixas.filter().aberturaIdUserEqualTo(AberturaIdUser).findFirst();
-    if (caixa != null) {
-      return caixa.idCaixa;
-    }else{
+
+    caixa? caixas = await isar.caixas
+        .filter()
+        .abertura_id_userEqualTo(aberturaIdUser)
+        .findFirst();
+    if (caixas != null) {
+      return caixas.id_caixa;
+    } else {
       return null;
     }
   }
 
   //inserir dados na tabela caixaItem
-  Future<Isar> insertCaixaItem(CaixaItem caixaItem) async {
+  Future<Isar> insertCaixaItem(caixa_item caixaItem) async {
     final isar = await db;
 
     isar.writeTxn(() async {
-      await isar.caixaItems.put(caixaItem);
+      await isar.caixa_items.put(caixaItem);
     });
     return isar;
   }
 
   //stream para buscar dados da tabela caixaItem
-  Stream<List<CaixaItem>> listenCaixaItem() async* {
+  Stream<List<caixa_item>> listenCaixaItem() async* {
     final isar = await db;
-    yield* isar.caixaItems.where().sortByIdCaixa().watch(fireImmediately: true);
+    yield* isar.caixa_items
+        .where()
+        .sortById_caixa()
+        .watch(fireImmediately: true);
   }
 
   //inserir dados na tabela venda
-  Future<Isar> insertVenda(Venda venda, VendaItem vendaItem) async {
+  Future<Isar> insertVenda(venda venda, venda_item vendaItem) async {
     final isar = await db;
 
     //inserindo dados na tabela venda
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
-      await isar.vendaItems.put(vendaItem);
+      await isar.venda_items.put(vendaItem);
     });
     return isar;
   }
 
   //stream para buscar dados da tabela venda
-  Stream<List<Venda>> listenVenda() async* {
+  Stream<List<venda>> listenVenda() async* {
     final isar = await db;
-    yield* isar.vendas.where().sortByIdUsuario().watch(fireImmediately: true);
+    yield* isar.vendas.where().sortById_usuario().watch(fireImmediately: true);
   }
 
   //inserir dados na tabela vendaItem
-  Future<Isar> insertVendaItem(VendaItem vendaItem) async {
+  Future<Isar> insertVendaItem(venda_item vendaItem) async {
     final isar = await db;
 
     isar.writeTxn(() async {
-      await isar.vendaItems.put(vendaItem);
+      await isar.venda_items.put(vendaItem);
     });
     return isar;
   }
 
   //stream para buscar dados da tabela vendaItem
-  Stream<List<VendaItem>> listenVendaItem() async* {
+  Stream<List<venda_item>> listenVendaItem() async* {
     final isar = await db;
-    yield* isar.vendaItems.where().sortByIdVenda().watch(fireImmediately: true);
+    yield* isar.venda_items
+        .where()
+        .sortById_venda()
+        .watch(fireImmediately: true);
   }
 
   // busca o login do usuario
   Future<String?> getLoginFromDatabase(String login) async {
     final isar = await db;
 
-    Usuario? usuario =
+    usuario? usuarioUser =
         await isar.usuarios.filter().loginEqualTo(login).findFirst();
 
-    if (usuario != null) {
-      return usuario
+    if (usuarioUser != null) {
+      return usuarioUser
           .login; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
     } else {
       return "";
@@ -472,12 +508,12 @@ class IsarService {
   Future<String?> getPasswordFromDatabase(String login) async {
     final isar = await db;
 
-    Usuario? usuario =
+    usuario? usuarioUser =
         await isar.usuarios.filter().loginEqualTo(login).findFirst();
 
     //verifica se o usuario existe
-    if (usuario != null) {
-      return usuario.senha;
+    if (usuarioUser != null) {
+      return usuarioUser.senha;
     } else {
       return "";
     }
@@ -515,46 +551,46 @@ class IsarService {
   }
 
   //criar um listen que faz a busca dos dados da tabela 'Dados Empresariais'
-  Future<DadoEmpresa?> getDataEmpresa() async {
+  Future<dado_empresa?> getDataEmpresa() async {
     final isar = await db;
-    return await isar.dadoEmpresas.where().findFirst();
+    return await isar.dado_empresas.where().findFirst();
   }
 
   //inserir dados na tabela 'Dados Empresariais'
-  Future<Isar> insertDadosEmpresariais(DadoEmpresa empresa) async {
+  Future<Isar> insertDadosEmpresariais(dado_empresa empresa) async {
     final isar = await db;
 
-    int i = await isar.dadoEmpresas.count();
+    int i = await isar.dado_empresas.count();
 
     if (i > 0) {
       isar.writeTxn(
         () async {
-          await isar.dadoEmpresas.clear();
+          await isar.dado_empresas.clear();
         },
       );
     }
 
     //inserindo dados na tabela 'Dados Empresariais'
     isar.writeTxn(() async {
-      await isar.dadoEmpresas.put(empresa);
+      await isar.dado_empresas.put(empresa);
     });
     return isar;
   }
 
   //stream para buscar dados da tabela 'Dados Empresariais'
-  Stream<List<DadoEmpresa>> listenDadosEmpresariais() async* {
+  Stream<List<dado_empresa>> listenDadosEmpresariais() async* {
     final isar = await db;
-    yield* isar.dadoEmpresas
+    yield* isar.dado_empresas
         .where()
-        .sortByIdEmpresa()
+        .sortById_empresa()
         .watch(fireImmediately: true);
   }
 
   //update do ipEmpresa
-  Future<Isar> updateIpEmpresa(DadoEmpresa empresa) async {
+  Future<Isar> updateIpEmpresa(dado_empresa empresa) async {
     final isar = await db;
     isar.writeTxn(() async {
-      await isar.dadoEmpresas.put(empresa);
+      await isar.dado_empresas.put(empresa);
     });
     return isar;
   }
@@ -563,25 +599,25 @@ class IsarService {
   Future<Isar> deleteDadosEmpresariais() async {
     final isar = await db;
     isar.writeTxn(() async {
-      await isar.dadoEmpresas.clear();
+      await isar.dado_empresas.clear();
     });
     return isar;
   }
 
   //cria um usuario na tabela 'Usuarios'
-  Future<Isar> insertUser(UsuarioLogado user) async {
+  Future<Isar> insertUser(usuario_logado user) async {
     final isar = await db;
 
-    int i = await isar.usuarioLogados.count();
+    int i = await isar.usuario_logados.count();
 
     if (i > 0) {
       isar.writeTxn(() async {
-        await isar.usuarioLogados.clear();
+        await isar.usuario_logados.clear();
       });
     }
 
     isar.writeTxn(() async {
-      await isar.usuarioLogados.put(user);
+      await isar.usuario_logados.put(user);
     });
 
     return isar;
@@ -591,12 +627,12 @@ class IsarService {
   Future<int?> getUserIdColaborador(String login) async {
     final isar = await db;
 
-    Usuario? usuario =
+    usuario? usuariosUser =
         await isar.usuarios.filter().loginEqualTo(login).findFirst();
 
-    if (usuario != null) {
-      return usuario
-          .idColaborador; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
+    if (usuariosUser != null) {
+      return usuariosUser
+          .id_colaborador; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
     } else {
       return null;
     }
@@ -605,22 +641,22 @@ class IsarService {
   Future<int?> getUserIdUser(String login) async {
     final isar = await db;
 
-    Usuario? usuario =
+    usuario? usuariosUser =
         await isar.usuarios.filter().loginEqualTo(login).findFirst();
 
-    if (usuario != null) {
-      return usuario
+    if (usuariosUser != null) {
+      return usuariosUser
           .id; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
     } else {
       return null;
     }
   }
 
-  Future<UsuarioLogado?> getUserLogged() async {
+  Future<usuario_logado?> getUserLogged() async {
     final isar = await db;
 
-    UsuarioLogado? usuario =
-        await isar.usuarioLogados.filter().idEqualTo(1).findFirst();
+    usuario_logado? usuario =
+        await isar.usuario_logados.filter().idEqualTo(1).findFirst();
 
     return usuario;
   }
@@ -628,11 +664,12 @@ class IsarService {
   Future<bool> checkUserCaixa(int idUser) async {
     final isar = await db;
 
-    Caixa? usuario = await isar.caixas.filter().aberturaIdUserEqualTo(idUser).findFirst();
+    caixa? usuario =
+        await isar.caixas.filter().abertura_id_userEqualTo(idUser).findFirst();
 
     if (usuario != null) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
@@ -645,15 +682,15 @@ class IsarService {
       return await Isar.open(
         [
           EmpresaSchema,
-          GrupoProdutoSchema,
+          Produto_grupoSchema,
           ProdutoSchema,
           UsuarioSchema,
-          CaixaItemSchema,
+          Caixa_itemSchema,
           CaixaSchema,
-          VendaItemSchema,
+          Venda_itemSchema,
           VendaSchema,
-          DadoEmpresaSchema,
-          UsuarioLogadoSchema,
+          Dado_empresaSchema,
+          Usuario_logadoSchema,
         ],
         directory: dir.path,
       );

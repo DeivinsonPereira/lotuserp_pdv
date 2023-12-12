@@ -20,34 +20,32 @@ class ListWidgets {
           var priceFormatado =
               formatoBrasileiro.format(controller.pedidos[index]['price']);
 
-          return Container(
-            child: Card(
-              elevation: 2,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 8.0),
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  leading: IconButton(
-                    onPressed: () {
-                      setStateCallback();
-                    },
-                    icon: const Icon(
-                      FontAwesomeIcons.trash,
-                      size: 20,
-                      color: Color.fromARGB(255, 170, 46, 37),
-                    ),
+          return Card(
+            elevation: 2,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: ListTile(
+                contentPadding: EdgeInsets.zero,
+                leading: IconButton(
+                  onPressed: () {
+                    setStateCallback();
+                  },
+                  icon: const Icon(
+                    FontAwesomeIcons.trash,
+                    size: 20,
+                    color: Color.fromARGB(255, 170, 46, 37),
                   ),
-                  title: Text(
-                    controller.pedidos[index]['nomeProduto'],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  subtitle: Text(
-                      '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                  trailing: Text(
-                    ' $total',
-                    style: const TextStyle(fontSize: 16),
-                  ),
+                ),
+                title: Text(
+                  controller.pedidos[index]['nomeProduto'],
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                subtitle: Text(
+                    '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                trailing: Text(
+                  ' $total',
+                  style: const TextStyle(fontSize: 16),
                 ),
               ),
             ),

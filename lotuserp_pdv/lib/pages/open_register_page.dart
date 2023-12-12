@@ -1,12 +1,8 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
-import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -34,7 +30,6 @@ class OpenRegisterPage extends StatelessWidget {
     var saoPauloTimeZone = tz.getLocation('America/Sao_Paulo');
     var saoPauloDateTime = tz.TZDateTime.from(atualDate, saoPauloTimeZone);
     var hourFormatted = DateFormat('HH:mm:ss').format(saoPauloDateTime);
-    var parsedDateTime = DateFormat('HH:mm:ss').parse(hourFormatted);
 
     return SingleChildScrollView(
       child: Dialog(
@@ -98,7 +93,7 @@ class OpenRegisterPage extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Container(
+                            child: SizedBox(
                               height: 61,
                               child: Padding(
                                 padding: const EdgeInsets.only(
@@ -182,7 +177,7 @@ class OpenRegisterPage extends StatelessWidget {
                               child: SizedBox(
                                 height: 150,
                                 child: Container(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   color: Colors.grey[350],
                                   child: Column(
                                     crossAxisAlignment:
@@ -197,7 +192,7 @@ class OpenRegisterPage extends StatelessWidget {
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Container(
+                                      SizedBox(
                                         height: 70,
                                         child: FormWidgets()
                                             .textFieldOpenRegister(
@@ -257,7 +252,7 @@ class OpenRegisterPage extends StatelessWidget {
                                     child: TextButton(
                                       style: TextButton.styleFrom(
                                         backgroundColor:
-                                            Color.fromARGB(255, 116, 187, 102),
+                                            const Color.fromARGB(255, 116, 187, 102),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(0),
@@ -278,7 +273,7 @@ class OpenRegisterPage extends StatelessWidget {
 
                                         bool caixaExistente =
                                             await service.checkUserCaixa(
-                                                dadosUsuario!.idUser!);
+                                                dadosUsuario!.id_user!);
 
                                         if (caixaExistente) {
                                           Get.snackbar(
@@ -289,28 +284,33 @@ class OpenRegisterPage extends StatelessWidget {
                                             snackPosition: SnackPosition.BOTTOM,
                                           );
                                         } else {
-                                          Caixa caixa = Caixa()
-                                            ..idEmpresa =
-                                                dadosEmpresa!.idEmpresa!
-                                            ..aberturaIdUser =
-                                                dadosUsuario.idUser!
-                                            ..aberturaData = atualDate
-                                            ..aberturaHora = hourFormatted
-                                            ..aberturaValor = openRegisterDouble
+                                          caixa caixas = caixa()
+                                            ..id_empresa =
+                                                dadosEmpresa!.id_empresa!
+                                            ..abertura_id_user =
+                                                dadosUsuario.id_user!
+                                            ..abertura_data = atualDate
+                                            ..abertura_hora = hourFormatted
+                                            ..abertura_valor = openRegisterDouble
                                             ..status = 0
-                                            ..fechouIdUser = null
-                                            ..fechouData = null
-                                            ..fechouHora = null
-                                            ..fechouValor = null
+                                            ..fechou_id_user = null
+                                            ..fechou_data = null
+                                            ..fechou_hora = null
                                             ..enviado = 0
                                             ..idCaixaServidor = 0;
 
-                                          
-                                          await service.insertCaixa(caixa);
+                                          await service
+                                              .insertCaixaWithCaixaItem(
+                                                  caixas,
+                                                  atualDate,
+                                                  hourFormatted,
+                                                  openRegisterDouble);
+
                                           movimentRegisterController
                                               .clearOpenRegister();
                                           Get.back();
                                         }
+                                        
                                       },
                                       child: const Text(
                                         "CONFIRMAR",

@@ -140,7 +140,6 @@ class DialogWidget {
           onPressed: () {
             controller.addPaymentsTotal(name, controller.totalPayment.value);
             controller.totalPayment.value = '0,00';
-            print(controller.paymentsTotal);
             //implementar lógica para armazenar o valor do disconto numa variável e passar para a tela principal;
             callback();
             Get.back();

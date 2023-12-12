@@ -166,10 +166,10 @@ class LoginPage extends StatelessWidget {
                                         var userOnline = await service
                                             .getUserIdColaborador(savedLogin);
                                         var idUser = await service.getUserIdUser(savedLogin);    
-                                        var usuarioLogado = UsuarioLogado()
+                                        var usuarioLogado = usuario_logado()
                                           ..login = savedLogin
-                                          ..idUser = idUser
-                                          ..idColaborador = userOnline;
+                                          ..id_user = idUser
+                                          ..id_colaborador = userOnline;
                                         await service.insertUser(usuarioLogado);
                                         Get.toNamed('/');
                                       } else {

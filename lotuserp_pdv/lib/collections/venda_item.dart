@@ -1,29 +1,20 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, camel_case_types, non_constant_identifier_names
 import "package:isar/isar.dart";
 
 part 'venda_item.g.dart';
 
 @Collection()
-class VendaItem {
+class venda_item{
 
   Id id = Isar.autoIncrement;
   
-  @Index()
-  late int idVenda; //id da venda que vem da tabela Venda
-  late int idProduto;
+  late int id_venda; //id da venda que vem da tabela Venda
+  late int id_produto;
   late int item;
-  late double? vlrVendido;
+  late double? vlr_vendido;
   late double? qtde;
-  late double? totBruto;
+  late double? tot_bruto;
   late String? grade;
 
-  VendaItem(
-    this.idVenda,
-    this.idProduto,
-    this.item,
-    this.vlrVendido,
-    this.qtde,
-    this.totBruto,
-    this.grade,
-  );
+  
 }

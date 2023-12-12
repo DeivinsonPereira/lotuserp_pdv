@@ -25,6 +25,7 @@ class ManageCashPage extends StatelessWidget {
     var saoPauloTimeZone = tz.getLocation('America/Sao_Paulo');
     var saoPauloDateTime = tz.TZDateTime.from(atualDate, saoPauloTimeZone);
     var hourFormatted = DateFormat('HH:mm:ss').format(saoPauloDateTime);
+    // ignore: unused_local_variable
     var parsedDateTime = DateFormat('HH:mm:ss').parse(hourFormatted);
 
     return SingleChildScrollView(
@@ -86,7 +87,7 @@ class ManageCashPage extends StatelessWidget {
                         children: [
                           Expanded(
                             flex: 1,
-                            child: Container(
+                            child: SizedBox(
                               height: 61,
                               child: Padding(
                                 padding: const EdgeInsets.only(
@@ -170,7 +171,7 @@ class ManageCashPage extends StatelessWidget {
                               child: SizedBox(
                                 height: 150,
                                 child: Container(
-                                  padding: EdgeInsets.all(8),
+                                  padding: const EdgeInsets.all(8),
                                   color: Colors.grey[350],
                                   child: Column(
                                     crossAxisAlignment:
@@ -185,7 +186,7 @@ class ManageCashPage extends StatelessWidget {
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold),
                                       ),
-                                      Container(
+                                      SizedBox(
                                         height: 70,
                                         child: FormWidgets()
                                             .textFieldOpenRegister(
@@ -245,7 +246,7 @@ class ManageCashPage extends StatelessWidget {
                                     child: TextButton(
                                       style: TextButton.styleFrom(
                                         backgroundColor:
-                                            Color.fromARGB(255, 116, 187, 102),
+                                            const Color.fromARGB(255, 116, 187, 102),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(0),

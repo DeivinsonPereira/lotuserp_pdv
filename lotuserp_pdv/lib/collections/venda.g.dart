@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: camel_case_extensions
+
 part of 'venda.dart';
 
 // **************************************************************************
@@ -9,17 +11,17 @@ part of 'venda.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetVendaCollection on Isar {
-  IsarCollection<Venda> get vendas => this.collection();
+extension GetvendaCollection on Isar {
+  IsarCollection<venda> get vendas => this.collection();
 }
 
 const VendaSchema = CollectionSchema(
-  name: r'Venda',
-  id: 5343115897127578360,
+  name: r'venda',
+  id: -7199095368956515322,
   properties: {
-    r'cpfCnpj': PropertySchema(
+    r'cpf_cnpj': PropertySchema(
       id: 0,
-      name: r'cpfCnpj',
+      name: r'cpf_cnpj',
       type: IsarType.string,
     ),
     r'data': PropertySchema(
@@ -37,19 +39,19 @@ const VendaSchema = CollectionSchema(
       name: r'hora',
       type: IsarType.string,
     ),
-    r'idEmpresa': PropertySchema(
+    r'id_empresa': PropertySchema(
       id: 4,
-      name: r'idEmpresa',
+      name: r'id_empresa',
       type: IsarType.long,
     ),
-    r'idSerieNfce': PropertySchema(
+    r'id_serie_nfce': PropertySchema(
       id: 5,
-      name: r'idSerieNfce',
+      name: r'id_serie_nfce',
       type: IsarType.long,
     ),
-    r'idUsuario': PropertySchema(
+    r'id_usuario': PropertySchema(
       id: 6,
-      name: r'idUsuario',
+      name: r'id_usuario',
       type: IsarType.long,
     ),
     r'status': PropertySchema(
@@ -57,29 +59,29 @@ const VendaSchema = CollectionSchema(
       name: r'status',
       type: IsarType.long,
     ),
-    r'totBruto': PropertySchema(
+    r'tot_bruto': PropertySchema(
       id: 8,
-      name: r'totBruto',
+      name: r'tot_bruto',
       type: IsarType.double,
     ),
-    r'totDescPrc': PropertySchema(
+    r'tot_desc_prc': PropertySchema(
       id: 9,
-      name: r'totDescPrc',
+      name: r'tot_desc_prc',
       type: IsarType.double,
     ),
-    r'totDescVlr': PropertySchema(
+    r'tot_desc_vlr': PropertySchema(
       id: 10,
-      name: r'totDescVlr',
+      name: r'tot_desc_vlr',
       type: IsarType.double,
     ),
-    r'totLiquido': PropertySchema(
+    r'tot_liquido': PropertySchema(
       id: 11,
-      name: r'totLiquido',
+      name: r'tot_liquido',
       type: IsarType.double,
     ),
-    r'valorTroco': PropertySchema(
+    r'valor_troco': PropertySchema(
       id: 12,
-      name: r'valorTroco',
+      name: r'valor_troco',
       type: IsarType.double,
     )
   },
@@ -89,14 +91,7 @@ const VendaSchema = CollectionSchema(
   deserializeProp: _vendaDeserializeProp,
   idName: r'id',
   indexes: {},
-  links: {
-    r'vendaProdutos': LinkSchema(
-      id: -3536786868747286074,
-      name: r'vendaProdutos',
-      target: r'VendaItem',
-      single: true,
-    )
-  },
+  links: {},
   embeddedSchemas: {},
   getId: _vendaGetId,
   getLinks: _vendaGetLinks,
@@ -105,59 +100,58 @@ const VendaSchema = CollectionSchema(
 );
 
 int _vendaEstimateSize(
-  Venda object,
+  venda object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
   var bytesCount = offsets.last;
-  bytesCount += 3 + object.cpfCnpj.length * 3;
+  bytesCount += 3 + object.cpf_cnpj.length * 3;
   bytesCount += 3 + object.hora.length * 3;
   return bytesCount;
 }
 
 void _vendaSerialize(
-  Venda object,
+  venda object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeString(offsets[0], object.cpfCnpj);
+  writer.writeString(offsets[0], object.cpf_cnpj);
   writer.writeDateTime(offsets[1], object.data);
   writer.writeLong(offsets[2], object.enviado);
   writer.writeString(offsets[3], object.hora);
-  writer.writeLong(offsets[4], object.idEmpresa);
-  writer.writeLong(offsets[5], object.idSerieNfce);
-  writer.writeLong(offsets[6], object.idUsuario);
+  writer.writeLong(offsets[4], object.id_empresa);
+  writer.writeLong(offsets[5], object.id_serie_nfce);
+  writer.writeLong(offsets[6], object.id_usuario);
   writer.writeLong(offsets[7], object.status);
-  writer.writeDouble(offsets[8], object.totBruto);
-  writer.writeDouble(offsets[9], object.totDescPrc);
-  writer.writeDouble(offsets[10], object.totDescVlr);
-  writer.writeDouble(offsets[11], object.totLiquido);
-  writer.writeDouble(offsets[12], object.valorTroco);
+  writer.writeDouble(offsets[8], object.tot_bruto);
+  writer.writeDouble(offsets[9], object.tot_desc_prc);
+  writer.writeDouble(offsets[10], object.tot_desc_vlr);
+  writer.writeDouble(offsets[11], object.tot_liquido);
+  writer.writeDouble(offsets[12], object.valor_troco);
 }
 
-Venda _vendaDeserialize(
+venda _vendaDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Venda(
-    reader.readDateTime(offsets[1]),
-    reader.readString(offsets[3]),
-    reader.readLong(offsets[4]),
-    reader.readLong(offsets[6]),
-    reader.readDouble(offsets[8]),
-    reader.readDouble(offsets[9]),
-    reader.readDouble(offsets[10]),
-    reader.readDouble(offsets[11]),
-    reader.readDouble(offsets[12]),
-    reader.readLong(offsets[7]),
-    reader.readLong(offsets[5]),
-    reader.readLong(offsets[2]),
-    reader.readString(offsets[0]),
-  );
+  final object = venda();
+  object.cpf_cnpj = reader.readString(offsets[0]);
+  object.data = reader.readDateTime(offsets[1]);
+  object.enviado = reader.readLong(offsets[2]);
+  object.hora = reader.readString(offsets[3]);
   object.id = id;
+  object.id_empresa = reader.readLong(offsets[4]);
+  object.id_serie_nfce = reader.readLong(offsets[5]);
+  object.id_usuario = reader.readLong(offsets[6]);
+  object.status = reader.readLong(offsets[7]);
+  object.tot_bruto = reader.readDouble(offsets[8]);
+  object.tot_desc_prc = reader.readDouble(offsets[9]);
+  object.tot_desc_vlr = reader.readDouble(offsets[10]);
+  object.tot_liquido = reader.readDouble(offsets[11]);
+  object.valor_troco = reader.readDouble(offsets[12]);
   return object;
 }
 
@@ -199,30 +193,28 @@ P _vendaDeserializeProp<P>(
   }
 }
 
-Id _vendaGetId(Venda object) {
+Id _vendaGetId(venda object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _vendaGetLinks(Venda object) {
-  return [object.vendaProdutos];
+List<IsarLinkBase<dynamic>> _vendaGetLinks(venda object) {
+  return [];
 }
 
-void _vendaAttach(IsarCollection<dynamic> col, Id id, Venda object) {
+void _vendaAttach(IsarCollection<dynamic> col, Id id, venda object) {
   object.id = id;
-  object.vendaProdutos
-      .attach(col, col.isar.collection<VendaItem>(), r'vendaProdutos', id);
 }
 
-extension VendaQueryWhereSort on QueryBuilder<Venda, Venda, QWhere> {
-  QueryBuilder<Venda, Venda, QAfterWhere> anyId() {
+extension vendaQueryWhereSort on QueryBuilder<venda, venda, QWhere> {
+  QueryBuilder<venda, venda, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
-  QueryBuilder<Venda, Venda, QAfterWhereClause> idEqualTo(Id id) {
+extension vendaQueryWhere on QueryBuilder<venda, venda, QWhereClause> {
+  QueryBuilder<venda, venda, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -231,7 +223,7 @@ extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<venda, venda, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -253,7 +245,7 @@ extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<venda, venda, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -262,7 +254,7 @@ extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<venda, venda, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
@@ -271,7 +263,7 @@ extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterWhereClause> idBetween(
+  QueryBuilder<venda, venda, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -288,21 +280,21 @@ extension VendaQueryWhere on QueryBuilder<Venda, Venda, QWhereClause> {
   }
 }
 
-extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjEqualTo(
+extension vendaQueryFilter on QueryBuilder<venda, venda, QFilterCondition> {
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -310,14 +302,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -325,14 +317,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -341,7 +333,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -351,75 +343,75 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjStartsWith(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjEndsWith(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjContains(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjMatches(
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjIsEmpty() {
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> cpfCnpjIsNotEmpty() {
+  QueryBuilder<venda, venda, QAfterFilterCondition> cpf_cnpjIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'cpfCnpj',
+        property: r'cpf_cnpj',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> dataEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> dataEqualTo(
       DateTime value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -429,7 +421,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> dataGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> dataGreaterThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -442,7 +434,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> dataLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> dataLessThan(
     DateTime value, {
     bool include = false,
   }) {
@@ -455,7 +447,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> dataBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> dataBetween(
     DateTime lower,
     DateTime upper, {
     bool includeLower = true,
@@ -472,7 +464,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> enviadoEqualTo(int value) {
+  QueryBuilder<venda, venda, QAfterFilterCondition> enviadoEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'enviado',
@@ -481,7 +473,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> enviadoGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> enviadoGreaterThan(
     int value, {
     bool include = false,
   }) {
@@ -494,7 +486,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> enviadoLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> enviadoLessThan(
     int value, {
     bool include = false,
   }) {
@@ -507,7 +499,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> enviadoBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> enviadoBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -524,7 +516,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -537,7 +529,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -552,7 +544,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -567,7 +559,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -586,7 +578,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaStartsWith(
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -599,7 +591,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaEndsWith(
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -612,7 +604,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaContains(String value,
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaContains(String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -623,7 +615,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaMatches(String pattern,
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaMatches(String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -634,7 +626,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaIsEmpty() {
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'hora',
@@ -643,7 +635,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> horaIsNotEmpty() {
+  QueryBuilder<venda, venda, QAfterFilterCondition> horaIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'hora',
@@ -652,7 +644,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<venda, venda, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -661,7 +653,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -674,7 +666,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -687,7 +679,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -704,43 +696,43 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idEmpresaEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_empresaEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idEmpresa',
+        property: r'id_empresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idEmpresaGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_empresaGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idEmpresa',
+        property: r'id_empresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idEmpresaLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_empresaLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idEmpresa',
+        property: r'id_empresa',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idEmpresaBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_empresaBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -748,7 +740,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idEmpresa',
+        property: r'id_empresa',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -757,43 +749,43 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idSerieNfceEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_serie_nfceEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idSerieNfce',
+        property: r'id_serie_nfce',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idSerieNfceGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_serie_nfceGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idSerieNfce',
+        property: r'id_serie_nfce',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idSerieNfceLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_serie_nfceLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idSerieNfce',
+        property: r'id_serie_nfce',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idSerieNfceBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_serie_nfceBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -801,7 +793,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idSerieNfce',
+        property: r'id_serie_nfce',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -810,43 +802,43 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idUsuarioEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_usuarioEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idUsuario',
+        property: r'id_usuario',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idUsuarioGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_usuarioGreaterThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idUsuario',
+        property: r'id_usuario',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idUsuarioLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_usuarioLessThan(
     int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idUsuario',
+        property: r'id_usuario',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> idUsuarioBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_usuarioBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -854,7 +846,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idUsuario',
+        property: r'id_usuario',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -863,7 +855,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> statusEqualTo(int value) {
+  QueryBuilder<venda, venda, QAfterFilterCondition> statusEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'status',
@@ -872,7 +864,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> statusGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> statusGreaterThan(
     int value, {
     bool include = false,
   }) {
@@ -885,7 +877,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> statusLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> statusLessThan(
     int value, {
     bool include = false,
   }) {
@@ -898,7 +890,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> statusBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> statusBetween(
     int lower,
     int upper, {
     bool includeLower = true,
@@ -915,20 +907,20 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totBrutoEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_brutoEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'totBruto',
+        property: r'tot_bruto',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totBrutoGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_brutoGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -936,14 +928,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'totBruto',
+        property: r'tot_bruto',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totBrutoLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_brutoLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -951,14 +943,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'totBruto',
+        property: r'tot_bruto',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totBrutoBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_brutoBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -967,7 +959,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'totBruto',
+        property: r'tot_bruto',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -977,20 +969,20 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescPrcEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_prcEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'totDescPrc',
+        property: r'tot_desc_prc',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescPrcGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_prcGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -998,14 +990,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'totDescPrc',
+        property: r'tot_desc_prc',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescPrcLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_prcLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1013,14 +1005,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'totDescPrc',
+        property: r'tot_desc_prc',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescPrcBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_prcBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -1029,7 +1021,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'totDescPrc',
+        property: r'tot_desc_prc',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1039,20 +1031,20 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescVlrEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_vlrEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'totDescVlr',
+        property: r'tot_desc_vlr',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescVlrGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_vlrGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1060,14 +1052,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'totDescVlr',
+        property: r'tot_desc_vlr',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescVlrLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_vlrLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1075,14 +1067,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'totDescVlr',
+        property: r'tot_desc_vlr',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totDescVlrBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_desc_vlrBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -1091,7 +1083,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'totDescVlr',
+        property: r'tot_desc_vlr',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1101,20 +1093,20 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totLiquidoEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_liquidoEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'totLiquido',
+        property: r'tot_liquido',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totLiquidoGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_liquidoGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1122,14 +1114,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'totLiquido',
+        property: r'tot_liquido',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totLiquidoLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_liquidoLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1137,14 +1129,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'totLiquido',
+        property: r'tot_liquido',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> totLiquidoBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> tot_liquidoBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -1153,7 +1145,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'totLiquido',
+        property: r'tot_liquido',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1163,20 +1155,20 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> valorTrocoEqualTo(
+  QueryBuilder<venda, venda, QAfterFilterCondition> valor_trocoEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'valorTroco',
+        property: r'valor_troco',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> valorTrocoGreaterThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> valor_trocoGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1184,14 +1176,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'valorTroco',
+        property: r'valor_troco',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> valorTrocoLessThan(
+  QueryBuilder<venda, venda, QAfterFilterCondition> valor_trocoLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1199,14 +1191,14 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'valorTroco',
+        property: r'valor_troco',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> valorTrocoBetween(
+  QueryBuilder<venda, venda, QAfterFilterCondition> valor_trocoBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -1215,7 +1207,7 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'valorTroco',
+        property: r'valor_troco',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1226,515 +1218,502 @@ extension VendaQueryFilter on QueryBuilder<Venda, Venda, QFilterCondition> {
   }
 }
 
-extension VendaQueryObject on QueryBuilder<Venda, Venda, QFilterCondition> {}
+extension vendaQueryObject on QueryBuilder<venda, venda, QFilterCondition> {}
 
-extension VendaQueryLinks on QueryBuilder<Venda, Venda, QFilterCondition> {
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> vendaProdutos(
-      FilterQuery<VendaItem> q) {
+extension vendaQueryLinks on QueryBuilder<venda, venda, QFilterCondition> {}
+
+extension vendaQuerySortBy on QueryBuilder<venda, venda, QSortBy> {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByCpf_cnpj() {
     return QueryBuilder.apply(this, (query) {
-      return query.link(q, r'vendaProdutos');
+      return query.addSortBy(r'cpf_cnpj', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterFilterCondition> vendaProdutosIsNull() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByCpf_cnpjDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.linkLength(r'vendaProdutos', 0, true, 0, true);
-    });
-  }
-}
-
-extension VendaQuerySortBy on QueryBuilder<Venda, Venda, QSortBy> {
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByCpfCnpj() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cpfCnpj', Sort.asc);
+      return query.addSortBy(r'cpf_cnpj', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByCpfCnpjDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cpfCnpj', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByData() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByData() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'data', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByDataDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByDataDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'data', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByEnviado() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByEnviado() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByEnviadoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByEnviadoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByHora() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByHora() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'hora', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByHoraDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByHoraDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'hora', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByIdEmpresa() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
+      return query.addSortBy(r'id_empresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByIdEmpresaDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_empresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
+      return query.addSortBy(r'id_empresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByIdSerieNfce() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_serie_nfce() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idSerieNfce', Sort.asc);
+      return query.addSortBy(r'id_serie_nfce', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByIdSerieNfceDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_serie_nfceDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idSerieNfce', Sort.desc);
+      return query.addSortBy(r'id_serie_nfce', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByIdUsuario() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_usuario() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.asc);
+      return query.addSortBy(r'id_usuario', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByIdUsuarioDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_usuarioDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.desc);
+      return query.addSortBy(r'id_usuario', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByStatus() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByStatusDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotBruto() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_bruto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totBruto', Sort.asc);
+      return query.addSortBy(r'tot_bruto', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotBrutoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_brutoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totBruto', Sort.desc);
+      return query.addSortBy(r'tot_bruto', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotDescPrc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_desc_prc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescPrc', Sort.asc);
+      return query.addSortBy(r'tot_desc_prc', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotDescPrcDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_desc_prcDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescPrc', Sort.desc);
+      return query.addSortBy(r'tot_desc_prc', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotDescVlr() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_desc_vlr() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescVlr', Sort.asc);
+      return query.addSortBy(r'tot_desc_vlr', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotDescVlrDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_desc_vlrDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescVlr', Sort.desc);
+      return query.addSortBy(r'tot_desc_vlr', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotLiquido() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_liquido() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totLiquido', Sort.asc);
+      return query.addSortBy(r'tot_liquido', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByTotLiquidoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByTot_liquidoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totLiquido', Sort.desc);
+      return query.addSortBy(r'tot_liquido', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByValorTroco() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByValor_troco() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valorTroco', Sort.asc);
+      return query.addSortBy(r'valor_troco', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> sortByValorTrocoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> sortByValor_trocoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valorTroco', Sort.desc);
+      return query.addSortBy(r'valor_troco', Sort.desc);
     });
   }
 }
 
-extension VendaQuerySortThenBy on QueryBuilder<Venda, Venda, QSortThenBy> {
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByCpfCnpj() {
+extension vendaQuerySortThenBy on QueryBuilder<venda, venda, QSortThenBy> {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByCpf_cnpj() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cpfCnpj', Sort.asc);
+      return query.addSortBy(r'cpf_cnpj', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByCpfCnpjDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByCpf_cnpjDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'cpfCnpj', Sort.desc);
+      return query.addSortBy(r'cpf_cnpj', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByData() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByData() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'data', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByDataDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByDataDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'data', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByEnviado() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByEnviado() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByEnviadoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByEnviadoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'enviado', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByHora() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByHora() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'hora', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByHoraDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByHoraDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'hora', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenById() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdEmpresa() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
+      return query.addSortBy(r'id_empresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdEmpresaDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_empresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
+      return query.addSortBy(r'id_empresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdSerieNfce() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_serie_nfce() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idSerieNfce', Sort.asc);
+      return query.addSortBy(r'id_serie_nfce', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdSerieNfceDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_serie_nfceDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idSerieNfce', Sort.desc);
+      return query.addSortBy(r'id_serie_nfce', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdUsuario() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_usuario() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.asc);
+      return query.addSortBy(r'id_usuario', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByIdUsuarioDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_usuarioDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUsuario', Sort.desc);
+      return query.addSortBy(r'id_usuario', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByStatus() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByStatusDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotBruto() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_bruto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totBruto', Sort.asc);
+      return query.addSortBy(r'tot_bruto', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotBrutoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_brutoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totBruto', Sort.desc);
+      return query.addSortBy(r'tot_bruto', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotDescPrc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_desc_prc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescPrc', Sort.asc);
+      return query.addSortBy(r'tot_desc_prc', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotDescPrcDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_desc_prcDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescPrc', Sort.desc);
+      return query.addSortBy(r'tot_desc_prc', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotDescVlr() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_desc_vlr() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescVlr', Sort.asc);
+      return query.addSortBy(r'tot_desc_vlr', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotDescVlrDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_desc_vlrDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totDescVlr', Sort.desc);
+      return query.addSortBy(r'tot_desc_vlr', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotLiquido() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_liquido() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totLiquido', Sort.asc);
+      return query.addSortBy(r'tot_liquido', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByTotLiquidoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByTot_liquidoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'totLiquido', Sort.desc);
+      return query.addSortBy(r'tot_liquido', Sort.desc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByValorTroco() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByValor_troco() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valorTroco', Sort.asc);
+      return query.addSortBy(r'valor_troco', Sort.asc);
     });
   }
 
-  QueryBuilder<Venda, Venda, QAfterSortBy> thenByValorTrocoDesc() {
+  QueryBuilder<venda, venda, QAfterSortBy> thenByValor_trocoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'valorTroco', Sort.desc);
+      return query.addSortBy(r'valor_troco', Sort.desc);
     });
   }
 }
 
-extension VendaQueryWhereDistinct on QueryBuilder<Venda, Venda, QDistinct> {
-  QueryBuilder<Venda, Venda, QDistinct> distinctByCpfCnpj(
+extension vendaQueryWhereDistinct on QueryBuilder<venda, venda, QDistinct> {
+  QueryBuilder<venda, venda, QDistinct> distinctByCpf_cnpj(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'cpfCnpj', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'cpf_cnpj', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByData() {
+  QueryBuilder<venda, venda, QDistinct> distinctByData() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'data');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByEnviado() {
+  QueryBuilder<venda, venda, QDistinct> distinctByEnviado() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'enviado');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByHora(
+  QueryBuilder<venda, venda, QDistinct> distinctByHora(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'hora', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByIdEmpresa() {
+  QueryBuilder<venda, venda, QDistinct> distinctById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idEmpresa');
+      return query.addDistinctBy(r'id_empresa');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByIdSerieNfce() {
+  QueryBuilder<venda, venda, QDistinct> distinctById_serie_nfce() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idSerieNfce');
+      return query.addDistinctBy(r'id_serie_nfce');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByIdUsuario() {
+  QueryBuilder<venda, venda, QDistinct> distinctById_usuario() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idUsuario');
+      return query.addDistinctBy(r'id_usuario');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByStatus() {
+  QueryBuilder<venda, venda, QDistinct> distinctByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'status');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByTotBruto() {
+  QueryBuilder<venda, venda, QDistinct> distinctByTot_bruto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'totBruto');
+      return query.addDistinctBy(r'tot_bruto');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByTotDescPrc() {
+  QueryBuilder<venda, venda, QDistinct> distinctByTot_desc_prc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'totDescPrc');
+      return query.addDistinctBy(r'tot_desc_prc');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByTotDescVlr() {
+  QueryBuilder<venda, venda, QDistinct> distinctByTot_desc_vlr() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'totDescVlr');
+      return query.addDistinctBy(r'tot_desc_vlr');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByTotLiquido() {
+  QueryBuilder<venda, venda, QDistinct> distinctByTot_liquido() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'totLiquido');
+      return query.addDistinctBy(r'tot_liquido');
     });
   }
 
-  QueryBuilder<Venda, Venda, QDistinct> distinctByValorTroco() {
+  QueryBuilder<venda, venda, QDistinct> distinctByValor_troco() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'valorTroco');
+      return query.addDistinctBy(r'valor_troco');
     });
   }
 }
 
-extension VendaQueryProperty on QueryBuilder<Venda, Venda, QQueryProperty> {
-  QueryBuilder<Venda, int, QQueryOperations> idProperty() {
+extension vendaQueryProperty on QueryBuilder<venda, venda, QQueryProperty> {
+  QueryBuilder<venda, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Venda, String, QQueryOperations> cpfCnpjProperty() {
+  QueryBuilder<venda, String, QQueryOperations> cpf_cnpjProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'cpfCnpj');
+      return query.addPropertyName(r'cpf_cnpj');
     });
   }
 
-  QueryBuilder<Venda, DateTime, QQueryOperations> dataProperty() {
+  QueryBuilder<venda, DateTime, QQueryOperations> dataProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'data');
     });
   }
 
-  QueryBuilder<Venda, int, QQueryOperations> enviadoProperty() {
+  QueryBuilder<venda, int, QQueryOperations> enviadoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'enviado');
     });
   }
 
-  QueryBuilder<Venda, String, QQueryOperations> horaProperty() {
+  QueryBuilder<venda, String, QQueryOperations> horaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'hora');
     });
   }
 
-  QueryBuilder<Venda, int, QQueryOperations> idEmpresaProperty() {
+  QueryBuilder<venda, int, QQueryOperations> id_empresaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idEmpresa');
+      return query.addPropertyName(r'id_empresa');
     });
   }
 
-  QueryBuilder<Venda, int, QQueryOperations> idSerieNfceProperty() {
+  QueryBuilder<venda, int, QQueryOperations> id_serie_nfceProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idSerieNfce');
+      return query.addPropertyName(r'id_serie_nfce');
     });
   }
 
-  QueryBuilder<Venda, int, QQueryOperations> idUsuarioProperty() {
+  QueryBuilder<venda, int, QQueryOperations> id_usuarioProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idUsuario');
+      return query.addPropertyName(r'id_usuario');
     });
   }
 
-  QueryBuilder<Venda, int, QQueryOperations> statusProperty() {
+  QueryBuilder<venda, int, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });
   }
 
-  QueryBuilder<Venda, double, QQueryOperations> totBrutoProperty() {
+  QueryBuilder<venda, double, QQueryOperations> tot_brutoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'totBruto');
+      return query.addPropertyName(r'tot_bruto');
     });
   }
 
-  QueryBuilder<Venda, double, QQueryOperations> totDescPrcProperty() {
+  QueryBuilder<venda, double, QQueryOperations> tot_desc_prcProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'totDescPrc');
+      return query.addPropertyName(r'tot_desc_prc');
     });
   }
 
-  QueryBuilder<Venda, double, QQueryOperations> totDescVlrProperty() {
+  QueryBuilder<venda, double, QQueryOperations> tot_desc_vlrProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'totDescVlr');
+      return query.addPropertyName(r'tot_desc_vlr');
     });
   }
 
-  QueryBuilder<Venda, double, QQueryOperations> totLiquidoProperty() {
+  QueryBuilder<venda, double, QQueryOperations> tot_liquidoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'totLiquido');
+      return query.addPropertyName(r'tot_liquido');
     });
   }
 
-  QueryBuilder<Venda, double, QQueryOperations> valorTrocoProperty() {
+  QueryBuilder<venda, double, QQueryOperations> valor_trocoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'valorTroco');
+      return query.addPropertyName(r'valor_troco');
     });
   }
 }

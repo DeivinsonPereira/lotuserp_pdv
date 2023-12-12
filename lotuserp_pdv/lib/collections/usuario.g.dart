@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: camel_case_extensions
+
 part of 'usuario.dart';
 
 // **************************************************************************
@@ -9,92 +11,87 @@ part of 'usuario.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetUsuarioCollection on Isar {
-  IsarCollection<Usuario> get usuarios => this.collection();
+extension GetusuarioCollection on Isar {
+  IsarCollection<usuario> get usuarios => this.collection();
 }
 
 const UsuarioSchema = CollectionSchema(
-  name: r'Usuario',
-  id: 2086545823229412462,
+  name: r'usuario',
+  id: 5509211092415108114,
   properties: {
     r'administrador': PropertySchema(
       id: 0,
       name: r'administrador',
       type: IsarType.long,
     ),
-    r'caixaAbrir': PropertySchema(
+    r'caixa_abrir': PropertySchema(
       id: 1,
-      name: r'caixaAbrir',
+      name: r'caixa_abrir',
       type: IsarType.long,
     ),
-    r'caixaCarga': PropertySchema(
+    r'caixa_carga': PropertySchema(
       id: 2,
-      name: r'caixaCarga',
+      name: r'caixa_carga',
       type: IsarType.long,
     ),
-    r'caixaFechar': PropertySchema(
+    r'caixa_fechar': PropertySchema(
       id: 3,
-      name: r'caixaFechar',
+      name: r'caixa_fechar',
       type: IsarType.long,
     ),
-    r'caixaGerenciar': PropertySchema(
+    r'caixa_gerenciar': PropertySchema(
       id: 4,
-      name: r'caixaGerenciar',
+      name: r'caixa_gerenciar',
       type: IsarType.long,
     ),
-    r'caixaMovimentar': PropertySchema(
+    r'caixa_movimentar': PropertySchema(
       id: 5,
-      name: r'caixaMovimentar',
+      name: r'caixa_movimentar',
       type: IsarType.long,
     ),
-    r'caixaParametros': PropertySchema(
+    r'caixa_parametros': PropertySchema(
       id: 6,
-      name: r'caixaParametros',
+      name: r'caixa_parametros',
       type: IsarType.long,
     ),
-    r'caixaPdv': PropertySchema(
+    r'caixa_pdv': PropertySchema(
       id: 7,
-      name: r'caixaPdv',
+      name: r'caixa_pdv',
       type: IsarType.long,
     ),
-    r'id': PropertySchema(
+    r'id_colaborador': PropertySchema(
       id: 8,
-      name: r'id',
+      name: r'id_colaborador',
       type: IsarType.long,
     ),
-    r'idColaborador': PropertySchema(
+    r'logar_empresas': PropertySchema(
       id: 9,
-      name: r'idColaborador',
-      type: IsarType.long,
-    ),
-    r'logarEmpresas': PropertySchema(
-      id: 10,
-      name: r'logarEmpresas',
+      name: r'logar_empresas',
       type: IsarType.long,
     ),
     r'login': PropertySchema(
-      id: 11,
+      id: 10,
       name: r'login',
       type: IsarType.string,
     ),
-    r'mobDashboard': PropertySchema(
-      id: 12,
-      name: r'mobDashboard',
+    r'mob_dashboard': PropertySchema(
+      id: 11,
+      name: r'mob_dashboard',
       type: IsarType.long,
     ),
     r'senha': PropertySchema(
-      id: 13,
+      id: 12,
       name: r'senha',
       type: IsarType.string,
     ),
     r'status': PropertySchema(
-      id: 14,
+      id: 13,
       name: r'status',
       type: IsarType.long,
     ),
-    r'trocarSenha': PropertySchema(
-      id: 15,
-      name: r'trocarSenha',
+    r'trocar_senha': PropertySchema(
+      id: 14,
+      name: r'trocar_senha',
       type: IsarType.long,
     )
   },
@@ -102,7 +99,7 @@ const UsuarioSchema = CollectionSchema(
   serialize: _usuarioSerialize,
   deserialize: _usuarioDeserialize,
   deserializeProp: _usuarioDeserializeProp,
-  idName: r'idAutoincrement',
+  idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -113,7 +110,7 @@ const UsuarioSchema = CollectionSchema(
 );
 
 int _usuarioEstimateSize(
-  Usuario object,
+  usuario object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -134,45 +131,44 @@ int _usuarioEstimateSize(
 }
 
 void _usuarioSerialize(
-  Usuario object,
+  usuario object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.administrador);
-  writer.writeLong(offsets[1], object.caixaAbrir);
-  writer.writeLong(offsets[2], object.caixaCarga);
-  writer.writeLong(offsets[3], object.caixaFechar);
-  writer.writeLong(offsets[4], object.caixaGerenciar);
-  writer.writeLong(offsets[5], object.caixaMovimentar);
-  writer.writeLong(offsets[6], object.caixaParametros);
-  writer.writeLong(offsets[7], object.caixaPdv);
-  writer.writeLong(offsets[8], object.id);
-  writer.writeLong(offsets[9], object.idColaborador);
-  writer.writeLong(offsets[10], object.logarEmpresas);
-  writer.writeString(offsets[11], object.login);
-  writer.writeLong(offsets[12], object.mobDashboard);
-  writer.writeString(offsets[13], object.senha);
-  writer.writeLong(offsets[14], object.status);
-  writer.writeLong(offsets[15], object.trocarSenha);
+  writer.writeLong(offsets[1], object.caixa_abrir);
+  writer.writeLong(offsets[2], object.caixa_carga);
+  writer.writeLong(offsets[3], object.caixa_fechar);
+  writer.writeLong(offsets[4], object.caixa_gerenciar);
+  writer.writeLong(offsets[5], object.caixa_movimentar);
+  writer.writeLong(offsets[6], object.caixa_parametros);
+  writer.writeLong(offsets[7], object.caixa_pdv);
+  writer.writeLong(offsets[8], object.id_colaborador);
+  writer.writeLong(offsets[9], object.logar_empresas);
+  writer.writeString(offsets[10], object.login);
+  writer.writeLong(offsets[11], object.mob_dashboard);
+  writer.writeString(offsets[12], object.senha);
+  writer.writeLong(offsets[13], object.status);
+  writer.writeLong(offsets[14], object.trocar_senha);
 }
 
-Usuario _usuarioDeserialize(
+usuario _usuarioDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Usuario(
-    reader.readLong(offsets[8]),
-    reader.readStringOrNull(offsets[11]),
-    reader.readLongOrNull(offsets[9]),
-    reader.readStringOrNull(offsets[13]),
+  final object = usuario(
+    id,
+    reader.readStringOrNull(offsets[10]),
+    reader.readLongOrNull(offsets[8]),
+    reader.readStringOrNull(offsets[12]),
+    reader.readLongOrNull(offsets[13]),
+    reader.readLongOrNull(offsets[11]),
     reader.readLongOrNull(offsets[14]),
-    reader.readLongOrNull(offsets[12]),
-    reader.readLongOrNull(offsets[15]),
     reader.readLongOrNull(offsets[0]),
-    reader.readLongOrNull(offsets[10]),
+    reader.readLongOrNull(offsets[9]),
     reader.readLongOrNull(offsets[1]),
     reader.readLongOrNull(offsets[5]),
     reader.readLongOrNull(offsets[4]),
@@ -181,7 +177,6 @@ Usuario _usuarioDeserialize(
     reader.readLongOrNull(offsets[2]),
     reader.readLongOrNull(offsets[6]),
   );
-  object.idAutoincrement = id;
   return object;
 }
 
@@ -209,125 +204,114 @@ P _usuarioDeserializeProp<P>(
     case 7:
       return (reader.readLongOrNull(offset)) as P;
     case 8:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 9:
       return (reader.readLongOrNull(offset)) as P;
     case 10:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
-      return (reader.readLongOrNull(offset)) as P;
-    case 13:
       return (reader.readStringOrNull(offset)) as P;
-    case 14:
+    case 13:
       return (reader.readLongOrNull(offset)) as P;
-    case 15:
+    case 14:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Id _usuarioGetId(Usuario object) {
-  return object.idAutoincrement;
+Id _usuarioGetId(usuario object) {
+  return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _usuarioGetLinks(Usuario object) {
+List<IsarLinkBase<dynamic>> _usuarioGetLinks(usuario object) {
   return [];
 }
 
-void _usuarioAttach(IsarCollection<dynamic> col, Id id, Usuario object) {
-  object.idAutoincrement = id;
+void _usuarioAttach(IsarCollection<dynamic> col, Id id, usuario object) {
+  object.id = id;
 }
 
-extension UsuarioQueryWhereSort on QueryBuilder<Usuario, Usuario, QWhere> {
-  QueryBuilder<Usuario, Usuario, QAfterWhere> anyIdAutoincrement() {
+extension usuarioQueryWhereSort on QueryBuilder<usuario, usuario, QWhere> {
+  QueryBuilder<usuario, usuario, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension UsuarioQueryWhere on QueryBuilder<Usuario, Usuario, QWhereClause> {
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementEqualTo(
-      Id idAutoincrement) {
+extension usuarioQueryWhere on QueryBuilder<usuario, usuario, QWhereClause> {
+  QueryBuilder<usuario, usuario, QAfterWhereClause> idEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: idAutoincrement,
-        upper: idAutoincrement,
+        lower: id,
+        upper: id,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementNotEqualTo(
-      Id idAutoincrement) {
+  QueryBuilder<usuario, usuario, QAfterWhereClause> idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(
-                  upper: idAutoincrement, includeUpper: false),
+              IdWhereClause.lessThan(upper: id, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(
-                  lower: idAutoincrement, includeLower: false),
+              IdWhereClause.greaterThan(lower: id, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(
-                  lower: idAutoincrement, includeLower: false),
+              IdWhereClause.greaterThan(lower: id, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(
-                  upper: idAutoincrement, includeUpper: false),
+              IdWhereClause.lessThan(upper: id, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementGreaterThan(
-      Id idAutoincrement,
+  QueryBuilder<usuario, usuario, QAfterWhereClause> idGreaterThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(
-            lower: idAutoincrement, includeLower: include),
+        IdWhereClause.greaterThan(lower: id, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementLessThan(
-      Id idAutoincrement,
+  QueryBuilder<usuario, usuario, QAfterWhereClause> idLessThan(Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: idAutoincrement, includeUpper: include),
+        IdWhereClause.lessThan(upper: id, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementBetween(
-    Id lowerIdAutoincrement,
-    Id upperIdAutoincrement, {
+  QueryBuilder<usuario, usuario, QAfterWhereClause> idBetween(
+    Id lowerId,
+    Id upperId, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerIdAutoincrement,
+        lower: lowerId,
         includeLower: includeLower,
-        upper: upperIdAutoincrement,
+        upper: upperId,
         includeUpper: includeUpper,
       ));
     });
   }
 }
 
-extension UsuarioQueryFilter
-    on QueryBuilder<Usuario, Usuario, QFilterCondition> {
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorIsNull() {
+extension usuarioQueryFilter
+    on QueryBuilder<usuario, usuario, QFilterCondition> {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> administradorIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'administrador',
@@ -335,7 +319,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
       administradorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -344,7 +328,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> administradorEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -354,7 +338,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
       administradorGreaterThan(
     int? value, {
     bool include = false,
@@ -368,7 +352,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> administradorLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -381,7 +365,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> administradorBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> administradorBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -398,59 +382,59 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_abrirIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaAbrir',
+        property: r'caixa_abrir',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_abrirIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaAbrir',
+        property: r'caixa_abrir',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_abrirEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaAbrir',
+        property: r'caixa_abrir',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_abrirGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaAbrir',
+        property: r'caixa_abrir',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_abrirLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaAbrir',
+        property: r'caixa_abrir',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaAbrirBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_abrirBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -458,7 +442,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaAbrir',
+        property: r'caixa_abrir',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -467,59 +451,59 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_cargaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaCarga',
+        property: r'caixa_carga',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_cargaIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaCarga',
+        property: r'caixa_carga',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_cargaEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaCarga',
+        property: r'caixa_carga',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_cargaGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaCarga',
+        property: r'caixa_carga',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_cargaLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaCarga',
+        property: r'caixa_carga',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaCargaBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_cargaBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -527,7 +511,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaCarga',
+        property: r'caixa_carga',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -536,59 +520,60 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_fecharIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaFechar',
+        property: r'caixa_fechar',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_fecharIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaFechar',
+        property: r'caixa_fechar',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_fecharEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaFechar',
+        property: r'caixa_fechar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_fecharGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaFechar',
+        property: r'caixa_fechar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_fecharLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaFechar',
+        property: r'caixa_fechar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaFecharBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_fecharBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -596,7 +581,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaFechar',
+        property: r'caixa_fechar',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -605,61 +590,62 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_gerenciarIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaGerenciar',
+        property: r'caixa_gerenciar',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaGerenciarIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_gerenciarIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaGerenciar',
+        property: r'caixa_gerenciar',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_gerenciarEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaGerenciar',
+        property: r'caixa_gerenciar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaGerenciarGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_gerenciarGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaGerenciar',
+        property: r'caixa_gerenciar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_gerenciarLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaGerenciar',
+        property: r'caixa_gerenciar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaGerenciarBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_gerenciarBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -667,7 +653,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaGerenciar',
+        property: r'caixa_gerenciar',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -676,62 +662,63 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaMovimentarIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_movimentarIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaMovimentar',
+        property: r'caixa_movimentar',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaMovimentarIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_movimentarIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaMovimentar',
+        property: r'caixa_movimentar',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaMovimentarEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_movimentarEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaMovimentar',
+        property: r'caixa_movimentar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaMovimentarGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_movimentarGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaMovimentar',
+        property: r'caixa_movimentar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaMovimentarLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_movimentarLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaMovimentar',
+        property: r'caixa_movimentar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaMovimentarBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_movimentarBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -739,7 +726,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaMovimentar',
+        property: r'caixa_movimentar',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -748,62 +735,63 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaParametrosIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_parametrosIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaParametros',
+        property: r'caixa_parametros',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaParametrosIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_parametrosIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaParametros',
+        property: r'caixa_parametros',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaParametrosEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_parametrosEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaParametros',
+        property: r'caixa_parametros',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      caixaParametrosGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_parametrosGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaParametros',
+        property: r'caixa_parametros',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaParametrosLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      caixa_parametrosLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaParametros',
+        property: r'caixa_parametros',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaParametrosBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_parametrosBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -811,7 +799,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaParametros',
+        property: r'caixa_parametros',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -820,59 +808,59 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_pdvIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'caixaPdv',
+        property: r'caixa_pdv',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_pdvIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'caixaPdv',
+        property: r'caixa_pdv',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_pdvEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'caixaPdv',
+        property: r'caixa_pdv',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_pdvGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'caixaPdv',
+        property: r'caixa_pdv',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_pdvLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'caixaPdv',
+        property: r'caixa_pdv',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> caixaPdvBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> caixa_pdvBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -880,7 +868,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'caixaPdv',
+        property: r'caixa_pdv',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -889,7 +877,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEqualTo(int value) {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -898,87 +886,33 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idAutoincrementEqualTo(
-      Id value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idAutoincrement',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      idAutoincrementGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> idGreaterThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idAutoincrement',
+        property: r'id',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idAutoincrementLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> idLessThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idAutoincrement',
+        property: r'id',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idAutoincrementBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -986,7 +920,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idAutoincrement',
+        property: r'id',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -995,61 +929,61 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> id_colaboradorIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idColaborador',
+        property: r'id_colaborador',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      idColaboradorIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      id_colaboradorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idColaborador',
+        property: r'id_colaborador',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> id_colaboradorEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idColaborador',
+        property: r'id_colaborador',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      idColaboradorGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      id_colaboradorGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idColaborador',
+        property: r'id_colaborador',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> id_colaboradorLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idColaborador',
+        property: r'id_colaborador',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idColaboradorBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> id_colaboradorBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1057,7 +991,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idColaborador',
+        property: r'id_colaborador',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1066,61 +1000,61 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> logar_empresasIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'logarEmpresas',
+        property: r'logar_empresas',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      logarEmpresasIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      logar_empresasIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'logarEmpresas',
+        property: r'logar_empresas',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> logar_empresasEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'logarEmpresas',
+        property: r'logar_empresas',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      logarEmpresasGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      logar_empresasGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'logarEmpresas',
+        property: r'logar_empresas',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> logar_empresasLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'logarEmpresas',
+        property: r'logar_empresas',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> logarEmpresasBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> logar_empresasBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1128,7 +1062,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'logarEmpresas',
+        property: r'logar_empresas',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1137,7 +1071,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'login',
@@ -1145,7 +1079,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'login',
@@ -1153,7 +1087,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1166,7 +1100,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1181,7 +1115,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1196,7 +1130,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1215,7 +1149,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginStartsWith(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1228,7 +1162,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginEndsWith(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1241,7 +1175,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginContains(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1253,7 +1187,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginMatches(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1265,7 +1199,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginIsEmpty() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'login',
@@ -1274,7 +1208,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> loginIsNotEmpty() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> loginIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'login',
@@ -1283,60 +1217,61 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> mob_dashboardIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'mobDashboard',
+        property: r'mob_dashboard',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
-      mobDashboardIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      mob_dashboardIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'mobDashboard',
+        property: r'mob_dashboard',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> mob_dashboardEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'mobDashboard',
+        property: r'mob_dashboard',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      mob_dashboardGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'mobDashboard',
+        property: r'mob_dashboard',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> mob_dashboardLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'mobDashboard',
+        property: r'mob_dashboard',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> mobDashboardBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> mob_dashboardBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1344,7 +1279,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'mobDashboard',
+        property: r'mob_dashboard',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1353,7 +1288,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'senha',
@@ -1361,7 +1296,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'senha',
@@ -1369,7 +1304,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1382,7 +1317,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1397,7 +1332,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1412,7 +1347,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1431,7 +1366,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaStartsWith(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1444,7 +1379,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaEndsWith(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1457,7 +1392,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaContains(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1469,7 +1404,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaMatches(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1481,7 +1416,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsEmpty() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'senha',
@@ -1490,7 +1425,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> senhaIsNotEmpty() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> senhaIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'senha',
@@ -1499,7 +1434,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> statusIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'status',
@@ -1507,7 +1442,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> statusIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'status',
@@ -1515,7 +1450,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> statusEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -1525,7 +1460,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> statusGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -1538,7 +1473,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> statusLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -1551,7 +1486,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> statusBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> statusBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1568,59 +1503,60 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaIsNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> trocar_senhaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'trocarSenha',
+        property: r'trocar_senha',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaIsNotNull() {
+  QueryBuilder<usuario, usuario, QAfterFilterCondition>
+      trocar_senhaIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'trocarSenha',
+        property: r'trocar_senha',
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaEqualTo(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> trocar_senhaEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'trocarSenha',
+        property: r'trocar_senha',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaGreaterThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> trocar_senhaGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'trocarSenha',
+        property: r'trocar_senha',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaLessThan(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> trocar_senhaLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'trocarSenha',
+        property: r'trocar_senha',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> trocarSenhaBetween(
+  QueryBuilder<usuario, usuario, QAfterFilterCondition> trocar_senhaBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1628,7 +1564,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'trocarSenha',
+        property: r'trocar_senha',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1638,615 +1574,579 @@ extension UsuarioQueryFilter
   }
 }
 
-extension UsuarioQueryObject
-    on QueryBuilder<Usuario, Usuario, QFilterCondition> {}
+extension usuarioQueryObject
+    on QueryBuilder<usuario, usuario, QFilterCondition> {}
 
-extension UsuarioQueryLinks
-    on QueryBuilder<Usuario, Usuario, QFilterCondition> {}
+extension usuarioQueryLinks
+    on QueryBuilder<usuario, usuario, QFilterCondition> {}
 
-extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByAdministrador() {
+extension usuarioQuerySortBy on QueryBuilder<usuario, usuario, QSortBy> {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByAdministrador() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'administrador', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByAdministradorDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByAdministradorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'administrador', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaAbrir() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_abrir() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaAbrir', Sort.asc);
+      return query.addSortBy(r'caixa_abrir', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaAbrirDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_abrirDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaAbrir', Sort.desc);
+      return query.addSortBy(r'caixa_abrir', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaCarga() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_carga() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaCarga', Sort.asc);
+      return query.addSortBy(r'caixa_carga', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaCargaDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_cargaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaCarga', Sort.desc);
+      return query.addSortBy(r'caixa_carga', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaFechar() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_fechar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaFechar', Sort.asc);
+      return query.addSortBy(r'caixa_fechar', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaFecharDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_fecharDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaFechar', Sort.desc);
+      return query.addSortBy(r'caixa_fechar', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaGerenciar() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_gerenciar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaGerenciar', Sort.asc);
+      return query.addSortBy(r'caixa_gerenciar', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaGerenciarDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_gerenciarDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaGerenciar', Sort.desc);
+      return query.addSortBy(r'caixa_gerenciar', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaMovimentar() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_movimentar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaMovimentar', Sort.asc);
+      return query.addSortBy(r'caixa_movimentar', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaMovimentarDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_movimentarDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaMovimentar', Sort.desc);
+      return query.addSortBy(r'caixa_movimentar', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaParametros() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_parametros() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaParametros', Sort.asc);
+      return query.addSortBy(r'caixa_parametros', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaParametrosDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_parametrosDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaParametros', Sort.desc);
+      return query.addSortBy(r'caixa_parametros', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaPdv() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_pdv() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaPdv', Sort.asc);
+      return query.addSortBy(r'caixa_pdv', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByCaixaPdvDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByCaixa_pdvDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaPdv', Sort.desc);
+      return query.addSortBy(r'caixa_pdv', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortById() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortById_colaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r'id_colaborador', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortById_colaboradorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(r'id_colaborador', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdColaborador() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByLogar_empresas() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.asc);
+      return query.addSortBy(r'logar_empresas', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdColaboradorDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByLogar_empresasDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.desc);
+      return query.addSortBy(r'logar_empresas', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByLogarEmpresas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'logarEmpresas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByLogarEmpresasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'logarEmpresas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByLogin() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByLogin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByLoginDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByLoginDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByMobDashboard() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByMob_dashboard() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'mobDashboard', Sort.asc);
+      return query.addSortBy(r'mob_dashboard', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByMobDashboardDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByMob_dashboardDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'mobDashboard', Sort.desc);
+      return query.addSortBy(r'mob_dashboard', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortBySenha() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortBySenha() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senha', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortBySenhaDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortBySenhaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senha', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByStatus() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByStatusDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByTrocarSenha() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByTrocar_senha() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'trocarSenha', Sort.asc);
+      return query.addSortBy(r'trocar_senha', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByTrocarSenhaDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> sortByTrocar_senhaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'trocarSenha', Sort.desc);
+      return query.addSortBy(r'trocar_senha', Sort.desc);
     });
   }
 }
 
-extension UsuarioQuerySortThenBy
-    on QueryBuilder<Usuario, Usuario, QSortThenBy> {
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByAdministrador() {
+extension usuarioQuerySortThenBy
+    on QueryBuilder<usuario, usuario, QSortThenBy> {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByAdministrador() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'administrador', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByAdministradorDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByAdministradorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'administrador', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaAbrir() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_abrir() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaAbrir', Sort.asc);
+      return query.addSortBy(r'caixa_abrir', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaAbrirDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_abrirDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaAbrir', Sort.desc);
+      return query.addSortBy(r'caixa_abrir', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaCarga() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_carga() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaCarga', Sort.asc);
+      return query.addSortBy(r'caixa_carga', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaCargaDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_cargaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaCarga', Sort.desc);
+      return query.addSortBy(r'caixa_carga', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaFechar() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_fechar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaFechar', Sort.asc);
+      return query.addSortBy(r'caixa_fechar', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaFecharDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_fecharDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaFechar', Sort.desc);
+      return query.addSortBy(r'caixa_fechar', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaGerenciar() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_gerenciar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaGerenciar', Sort.asc);
+      return query.addSortBy(r'caixa_gerenciar', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaGerenciarDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_gerenciarDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaGerenciar', Sort.desc);
+      return query.addSortBy(r'caixa_gerenciar', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaMovimentar() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_movimentar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaMovimentar', Sort.asc);
+      return query.addSortBy(r'caixa_movimentar', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaMovimentarDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_movimentarDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaMovimentar', Sort.desc);
+      return query.addSortBy(r'caixa_movimentar', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaParametros() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_parametros() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaParametros', Sort.asc);
+      return query.addSortBy(r'caixa_parametros', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaParametrosDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_parametrosDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaParametros', Sort.desc);
+      return query.addSortBy(r'caixa_parametros', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaPdv() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_pdv() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaPdv', Sort.asc);
+      return query.addSortBy(r'caixa_pdv', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByCaixaPdvDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByCaixa_pdvDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'caixaPdv', Sort.desc);
+      return query.addSortBy(r'caixa_pdv', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenById() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdAutoincrement() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenById_colaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idAutoincrement', Sort.asc);
+      return query.addSortBy(r'id_colaborador', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdAutoincrementDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenById_colaboradorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idAutoincrement', Sort.desc);
+      return query.addSortBy(r'id_colaborador', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdColaborador() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByLogar_empresas() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.asc);
+      return query.addSortBy(r'logar_empresas', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdColaboradorDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByLogar_empresasDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.desc);
+      return query.addSortBy(r'logar_empresas', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByLogarEmpresas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'logarEmpresas', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByLogarEmpresasDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'logarEmpresas', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByLogin() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByLogin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByLoginDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByLoginDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByMobDashboard() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByMob_dashboard() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'mobDashboard', Sort.asc);
+      return query.addSortBy(r'mob_dashboard', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByMobDashboardDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByMob_dashboardDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'mobDashboard', Sort.desc);
+      return query.addSortBy(r'mob_dashboard', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenBySenha() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenBySenha() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senha', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenBySenhaDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenBySenhaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'senha', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByStatus() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByStatusDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByTrocarSenha() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByTrocar_senha() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'trocarSenha', Sort.asc);
+      return query.addSortBy(r'trocar_senha', Sort.asc);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByTrocarSenhaDesc() {
+  QueryBuilder<usuario, usuario, QAfterSortBy> thenByTrocar_senhaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'trocarSenha', Sort.desc);
+      return query.addSortBy(r'trocar_senha', Sort.desc);
     });
   }
 }
 
-extension UsuarioQueryWhereDistinct
-    on QueryBuilder<Usuario, Usuario, QDistinct> {
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByAdministrador() {
+extension usuarioQueryWhereDistinct
+    on QueryBuilder<usuario, usuario, QDistinct> {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByAdministrador() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'administrador');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaAbrir() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_abrir() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaAbrir');
+      return query.addDistinctBy(r'caixa_abrir');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaCarga() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_carga() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaCarga');
+      return query.addDistinctBy(r'caixa_carga');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaFechar() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_fechar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaFechar');
+      return query.addDistinctBy(r'caixa_fechar');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaGerenciar() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_gerenciar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaGerenciar');
+      return query.addDistinctBy(r'caixa_gerenciar');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaMovimentar() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_movimentar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaMovimentar');
+      return query.addDistinctBy(r'caixa_movimentar');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaParametros() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_parametros() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaParametros');
+      return query.addDistinctBy(r'caixa_parametros');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByCaixaPdv() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByCaixa_pdv() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'caixaPdv');
+      return query.addDistinctBy(r'caixa_pdv');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctById() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctById_colaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'id');
+      return query.addDistinctBy(r'id_colaborador');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdColaborador() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByLogar_empresas() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idColaborador');
+      return query.addDistinctBy(r'logar_empresas');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByLogarEmpresas() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'logarEmpresas');
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByLogin(
+  QueryBuilder<usuario, usuario, QDistinct> distinctByLogin(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'login', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByMobDashboard() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByMob_dashboard() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'mobDashboard');
+      return query.addDistinctBy(r'mob_dashboard');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctBySenha(
+  QueryBuilder<usuario, usuario, QDistinct> distinctBySenha(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'senha', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByStatus() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'status');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByTrocarSenha() {
+  QueryBuilder<usuario, usuario, QDistinct> distinctByTrocar_senha() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'trocarSenha');
+      return query.addDistinctBy(r'trocar_senha');
     });
   }
 }
 
-extension UsuarioQueryProperty
-    on QueryBuilder<Usuario, Usuario, QQueryProperty> {
-  QueryBuilder<Usuario, int, QQueryOperations> idAutoincrementProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idAutoincrement');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> administradorProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'administrador');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaAbrirProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaAbrir');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaCargaProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaCarga');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaFecharProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaFechar');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaGerenciarProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaGerenciar');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaMovimentarProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaMovimentar');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaParametrosProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaParametros');
-    });
-  }
-
-  QueryBuilder<Usuario, int?, QQueryOperations> caixaPdvProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'caixaPdv');
-    });
-  }
-
-  QueryBuilder<Usuario, int, QQueryOperations> idProperty() {
+extension usuarioQueryProperty
+    on QueryBuilder<usuario, usuario, QQueryProperty> {
+  QueryBuilder<usuario, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> idColaboradorProperty() {
+  QueryBuilder<usuario, int?, QQueryOperations> administradorProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idColaborador');
+      return query.addPropertyName(r'administrador');
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> logarEmpresasProperty() {
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_abrirProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'logarEmpresas');
+      return query.addPropertyName(r'caixa_abrir');
     });
   }
 
-  QueryBuilder<Usuario, String?, QQueryOperations> loginProperty() {
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_cargaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixa_carga');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_fecharProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixa_fechar');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_gerenciarProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixa_gerenciar');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_movimentarProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixa_movimentar');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_parametrosProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixa_parametros');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> caixa_pdvProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'caixa_pdv');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> id_colaboradorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_colaborador');
+    });
+  }
+
+  QueryBuilder<usuario, int?, QQueryOperations> logar_empresasProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'logar_empresas');
+    });
+  }
+
+  QueryBuilder<usuario, String?, QQueryOperations> loginProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'login');
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> mobDashboardProperty() {
+  QueryBuilder<usuario, int?, QQueryOperations> mob_dashboardProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'mobDashboard');
+      return query.addPropertyName(r'mob_dashboard');
     });
   }
 
-  QueryBuilder<Usuario, String?, QQueryOperations> senhaProperty() {
+  QueryBuilder<usuario, String?, QQueryOperations> senhaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'senha');
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> statusProperty() {
+  QueryBuilder<usuario, int?, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> trocarSenhaProperty() {
+  QueryBuilder<usuario, int?, QQueryOperations> trocar_senhaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'trocarSenha');
+      return query.addPropertyName(r'trocar_senha');
     });
   }
 }

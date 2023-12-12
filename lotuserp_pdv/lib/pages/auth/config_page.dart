@@ -29,30 +29,30 @@ class _ConfigPageState extends State<ConfigPage> {
   }
 
   Future<void> fetchDataFromDatabase(String variableName) async {
-    final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+    final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
     if (dadoEmpresa != null) {
-      if (dadoEmpresa.ipEmpresa == null) {
+      if (dadoEmpresa.ip_empresa == null) {
         service.deleteDadosEmpresariais();
       } else {
         if (variableName == 'IP') {
           textFieldController.numContratoEmpresaController.text =
-              dadoEmpresa.ipEmpresa.toString();
+              dadoEmpresa.ip_empresa.toString();
         }
         if (variableName == 'ID da empresa') {
           textFieldController.idEmpresaController.text =
-              dadoEmpresa.idEmpresa.toString();
+              dadoEmpresa.id_empresa.toString();
         }
         if (variableName == 'ID da serie NFCe') {
           textFieldController.idSerieNfceController.text =
-              dadoEmpresa.idNfce.toString();
+              dadoEmpresa.id_nfce.toString();
         }
         if (variableName == 'Número do caixa') {
           textFieldController.numCaixaController.text =
-              dadoEmpresa.numCaixa.toString();
+              dadoEmpresa.num_caixa.toString();
         }
         if (variableName == 'Intervalo de envio') {
           textFieldController.intervaloEnvioController.text =
-              dadoEmpresa.intervaloEnvio.toString();
+              dadoEmpresa.intervalo_envio.toString();
         }
       }
     }
@@ -73,7 +73,7 @@ class _ConfigPageState extends State<ConfigPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Container(
+            SizedBox(
               width: 510,
               child: Text(
                 variableName,
@@ -280,13 +280,13 @@ class _ConfigPageState extends State<ConfigPage> {
                 onPressed: () async {
                   if (verificacoes() == true) {}
                   textFieldController.salvarInformacoes(context);
-                  DadoEmpresa dadosEmpresa = DadoEmpresa()
-                    ..idEmpresa = int.parse(textFieldController.idEmpresa)
-                    ..idNfce = int.parse(textFieldController.idSerieNfce)
-                    ..numCaixa = int.parse(textFieldController.numCaixa)
-                    ..intervaloEnvio =
+                  dado_empresa dadosEmpresa = dado_empresa()
+                    ..id_empresa = int.parse(textFieldController.idEmpresa)
+                    ..id_nfce = int.parse(textFieldController.idSerieNfce)
+                    ..num_caixa = int.parse(textFieldController.numCaixa)
+                    ..intervalo_envio =
                         int.parse(textFieldController.intervaloEnvio)
-                    ..ipEmpresa = textFieldController.numContratoEmpresa;
+                    ..ip_empresa = textFieldController.numContratoEmpresa;
 
                   var iplocal = textFieldController.numContratoEmpresa;
 

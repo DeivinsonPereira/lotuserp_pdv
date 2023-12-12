@@ -40,9 +40,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   }
 
   Future<void> fetchDataFromDatabase() async {
-    final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+    final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
     if (dadoEmpresa != null) {
-      ip = dadoEmpresa.ipEmpresa!;
+      ip = dadoEmpresa.ip_empresa!;
     }
   }
 
@@ -61,8 +61,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
     List<String> listaGrupos = [];
 
-    List<Produto> getProdutoById(List<Produto> product) {
-      return product.where((product) => product.idGrupo == idGrupo).toList();
+    List<produto> getProdutoById(List<produto> product) {
+      return product.where((product) => product.id_grupo == idGrupo).toList();
     }
 
     return Scaffold(
@@ -148,7 +148,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                       'TODOS',
                                     );
                                     for (var element in grupo) {
-                                      listaGrupos.add(element.grupoDescricao!);
+                                      listaGrupos.add(element.grupo_descricao!);
                                     }
 
                                     return GestureDetector(
@@ -156,7 +156,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         setState(() {
                                           isSelectedList = index;
                                           if (index != 0) {
-                                            idGrupo = grupo[index - 1].idGrupo;
+                                            idGrupo = grupo[index - 1].id_grupo;
                                           }
                                         });
                                       },
@@ -253,7 +253,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     if (listaGrupos[isSelectedList] ==
                                         'TODOS') {
                                       produto.isNotEmpty
-                                          ? file = produto[index].fileImagem!
+                                          ? file = produto[index].file_imagem!
                                           : file = null;
                                       nome = produto[index].descricao;
                                       preco = formatoBrasileiro

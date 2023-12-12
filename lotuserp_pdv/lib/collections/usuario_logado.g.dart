@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: camel_case_extensions
+
 part of 'usuario_logado.dart';
 
 // **************************************************************************
@@ -9,22 +11,22 @@ part of 'usuario_logado.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetUsuarioLogadoCollection on Isar {
-  IsarCollection<UsuarioLogado> get usuarioLogados => this.collection();
+extension Getusuario_logadoCollection on Isar {
+  IsarCollection<usuario_logado> get usuario_logados => this.collection();
 }
 
-const UsuarioLogadoSchema = CollectionSchema(
-  name: r'UsuarioLogado',
-  id: 318919432229487554,
+const Usuario_logadoSchema = CollectionSchema(
+  name: r'usuario_logado',
+  id: 356262191186710369,
   properties: {
-    r'idColaborador': PropertySchema(
+    r'id_colaborador': PropertySchema(
       id: 0,
-      name: r'idColaborador',
+      name: r'id_colaborador',
       type: IsarType.long,
     ),
-    r'idUser': PropertySchema(
+    r'id_user': PropertySchema(
       id: 1,
-      name: r'idUser',
+      name: r'id_user',
       type: IsarType.long,
     ),
     r'login': PropertySchema(
@@ -33,22 +35,22 @@ const UsuarioLogadoSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _usuarioLogadoEstimateSize,
-  serialize: _usuarioLogadoSerialize,
-  deserialize: _usuarioLogadoDeserialize,
-  deserializeProp: _usuarioLogadoDeserializeProp,
+  estimateSize: _usuario_logadoEstimateSize,
+  serialize: _usuario_logadoSerialize,
+  deserialize: _usuario_logadoDeserialize,
+  deserializeProp: _usuario_logadoDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _usuarioLogadoGetId,
-  getLinks: _usuarioLogadoGetLinks,
-  attach: _usuarioLogadoAttach,
+  getId: _usuario_logadoGetId,
+  getLinks: _usuario_logadoGetLinks,
+  attach: _usuario_logadoAttach,
   version: '3.1.0+1',
 );
 
-int _usuarioLogadoEstimateSize(
-  UsuarioLogado object,
+int _usuario_logadoEstimateSize(
+  usuario_logado object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -62,32 +64,32 @@ int _usuarioLogadoEstimateSize(
   return bytesCount;
 }
 
-void _usuarioLogadoSerialize(
-  UsuarioLogado object,
+void _usuario_logadoSerialize(
+  usuario_logado object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.idColaborador);
-  writer.writeLong(offsets[1], object.idUser);
+  writer.writeLong(offsets[0], object.id_colaborador);
+  writer.writeLong(offsets[1], object.id_user);
   writer.writeString(offsets[2], object.login);
 }
 
-UsuarioLogado _usuarioLogadoDeserialize(
+usuario_logado _usuario_logadoDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = UsuarioLogado();
+  final object = usuario_logado();
   object.id = id;
-  object.idColaborador = reader.readLongOrNull(offsets[0]);
-  object.idUser = reader.readLongOrNull(offsets[1]);
+  object.id_colaborador = reader.readLongOrNull(offsets[0]);
+  object.id_user = reader.readLongOrNull(offsets[1]);
   object.login = reader.readStringOrNull(offsets[2]);
   return object;
 }
 
-P _usuarioLogadoDeserializeProp<P>(
+P _usuario_logadoDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -105,31 +107,31 @@ P _usuarioLogadoDeserializeProp<P>(
   }
 }
 
-Id _usuarioLogadoGetId(UsuarioLogado object) {
+Id _usuario_logadoGetId(usuario_logado object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _usuarioLogadoGetLinks(UsuarioLogado object) {
+List<IsarLinkBase<dynamic>> _usuario_logadoGetLinks(usuario_logado object) {
   return [];
 }
 
-void _usuarioLogadoAttach(
-    IsarCollection<dynamic> col, Id id, UsuarioLogado object) {
+void _usuario_logadoAttach(
+    IsarCollection<dynamic> col, Id id, usuario_logado object) {
   object.id = id;
 }
 
-extension UsuarioLogadoQueryWhereSort
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QWhere> {
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterWhere> anyId() {
+extension usuario_logadoQueryWhereSort
+    on QueryBuilder<usuario_logado, usuario_logado, QWhere> {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension UsuarioLogadoQueryWhere
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QWhereClause> {
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterWhereClause> idEqualTo(
+extension usuario_logadoQueryWhere
+    on QueryBuilder<usuario_logado, usuario_logado, QWhereClause> {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterWhereClause> idEqualTo(
       Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
@@ -139,7 +141,7 @@ extension UsuarioLogadoQueryWhere
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterWhereClause> idNotEqualTo(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterWhereClause> idNotEqualTo(
       Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
@@ -162,7 +164,7 @@ extension UsuarioLogadoQueryWhere
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterWhereClause> idGreaterThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterWhereClause> idGreaterThan(
       Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
@@ -172,7 +174,7 @@ extension UsuarioLogadoQueryWhere
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterWhereClause> idLessThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterWhereClause> idLessThan(
       Id id,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
@@ -182,7 +184,7 @@ extension UsuarioLogadoQueryWhere
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterWhereClause> idBetween(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -199,9 +201,9 @@ extension UsuarioLogadoQueryWhere
   }
 }
 
-extension UsuarioLogadoQueryFilter
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QFilterCondition> {
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition> idEqualTo(
+extension usuario_logadoQueryFilter
+    on QueryBuilder<usuario_logado, usuario_logado, QFilterCondition> {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -211,7 +213,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       idGreaterThan(
     Id value, {
     bool include = false,
@@ -225,7 +227,8 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition> idLessThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -238,7 +241,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition> idBetween(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition> idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -255,64 +258,64 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idColaboradorIsNull() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_colaboradorIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idColaborador',
+        property: r'id_colaborador',
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idColaboradorIsNotNull() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_colaboradorIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idColaborador',
+        property: r'id_colaborador',
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idColaboradorEqualTo(int? value) {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_colaboradorEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idColaborador',
+        property: r'id_colaborador',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idColaboradorGreaterThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_colaboradorGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idColaborador',
+        property: r'id_colaborador',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idColaboradorLessThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_colaboradorLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idColaborador',
+        property: r'id_colaborador',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idColaboradorBetween(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_colaboradorBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -320,7 +323,7 @@ extension UsuarioLogadoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idColaborador',
+        property: r'id_colaborador',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -329,64 +332,64 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idUserIsNull() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_userIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idUser',
+        property: r'id_user',
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idUserIsNotNull() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_userIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idUser',
+        property: r'id_user',
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idUserEqualTo(int? value) {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_userEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idUser',
+        property: r'id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idUserGreaterThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_userGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idUser',
+        property: r'id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idUserLessThan(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_userLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idUser',
+        property: r'id_user',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
-      idUserBetween(
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
+      id_userBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -394,7 +397,7 @@ extension UsuarioLogadoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idUser',
+        property: r'id_user',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -403,7 +406,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -412,7 +415,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -421,7 +424,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginEqualTo(
     String? value, {
     bool caseSensitive = true,
@@ -435,7 +438,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginGreaterThan(
     String? value, {
     bool include = false,
@@ -451,7 +454,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginLessThan(
     String? value, {
     bool include = false,
@@ -467,7 +470,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginBetween(
     String? lower,
     String? upper, {
@@ -487,7 +490,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -501,7 +504,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginEndsWith(
     String value, {
     bool caseSensitive = true,
@@ -515,7 +518,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -526,7 +529,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
@@ -537,7 +540,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -547,7 +550,7 @@ extension UsuarioLogadoQueryFilter
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+  QueryBuilder<usuario_logado, usuario_logado, QAfterFilterCondition>
       loginIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -558,122 +561,124 @@ extension UsuarioLogadoQueryFilter
   }
 }
 
-extension UsuarioLogadoQueryObject
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QFilterCondition> {}
+extension usuario_logadoQueryObject
+    on QueryBuilder<usuario_logado, usuario_logado, QFilterCondition> {}
 
-extension UsuarioLogadoQueryLinks
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QFilterCondition> {}
+extension usuario_logadoQueryLinks
+    on QueryBuilder<usuario_logado, usuario_logado, QFilterCondition> {}
 
-extension UsuarioLogadoQuerySortBy
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QSortBy> {
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy>
-      sortByIdColaborador() {
+extension usuario_logadoQuerySortBy
+    on QueryBuilder<usuario_logado, usuario_logado, QSortBy> {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy>
+      sortById_colaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.asc);
+      return query.addSortBy(r'id_colaborador', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy>
-      sortByIdColaboradorDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy>
+      sortById_colaboradorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.desc);
+      return query.addSortBy(r'id_colaborador', Sort.desc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByIdUser() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> sortById_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUser', Sort.asc);
+      return query.addSortBy(r'id_user', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByIdUserDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy>
+      sortById_userDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUser', Sort.desc);
+      return query.addSortBy(r'id_user', Sort.desc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByLogin() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> sortByLogin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByLoginDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> sortByLoginDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.desc);
     });
   }
 }
 
-extension UsuarioLogadoQuerySortThenBy
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QSortThenBy> {
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenById() {
+extension usuario_logadoQuerySortThenBy
+    on QueryBuilder<usuario_logado, usuario_logado, QSortThenBy> {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy>
-      thenByIdColaborador() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy>
+      thenById_colaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.asc);
+      return query.addSortBy(r'id_colaborador', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy>
-      thenByIdColaboradorDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy>
+      thenById_colaboradorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idColaborador', Sort.desc);
+      return query.addSortBy(r'id_colaborador', Sort.desc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByIdUser() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> thenById_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUser', Sort.asc);
+      return query.addSortBy(r'id_user', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByIdUserDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy>
+      thenById_userDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idUser', Sort.desc);
+      return query.addSortBy(r'id_user', Sort.desc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByLogin() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> thenByLogin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.asc);
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByLoginDesc() {
+  QueryBuilder<usuario_logado, usuario_logado, QAfterSortBy> thenByLoginDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.desc);
     });
   }
 }
 
-extension UsuarioLogadoQueryWhereDistinct
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QDistinct> {
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QDistinct>
-      distinctByIdColaborador() {
+extension usuario_logadoQueryWhereDistinct
+    on QueryBuilder<usuario_logado, usuario_logado, QDistinct> {
+  QueryBuilder<usuario_logado, usuario_logado, QDistinct>
+      distinctById_colaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idColaborador');
+      return query.addDistinctBy(r'id_colaborador');
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QDistinct> distinctByIdUser() {
+  QueryBuilder<usuario_logado, usuario_logado, QDistinct> distinctById_user() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idUser');
+      return query.addDistinctBy(r'id_user');
     });
   }
 
-  QueryBuilder<UsuarioLogado, UsuarioLogado, QDistinct> distinctByLogin(
+  QueryBuilder<usuario_logado, usuario_logado, QDistinct> distinctByLogin(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'login', caseSensitive: caseSensitive);
@@ -681,27 +686,28 @@ extension UsuarioLogadoQueryWhereDistinct
   }
 }
 
-extension UsuarioLogadoQueryProperty
-    on QueryBuilder<UsuarioLogado, UsuarioLogado, QQueryProperty> {
-  QueryBuilder<UsuarioLogado, int, QQueryOperations> idProperty() {
+extension usuario_logadoQueryProperty
+    on QueryBuilder<usuario_logado, usuario_logado, QQueryProperty> {
+  QueryBuilder<usuario_logado, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<UsuarioLogado, int?, QQueryOperations> idColaboradorProperty() {
+  QueryBuilder<usuario_logado, int?, QQueryOperations>
+      id_colaboradorProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idColaborador');
+      return query.addPropertyName(r'id_colaborador');
     });
   }
 
-  QueryBuilder<UsuarioLogado, int?, QQueryOperations> idUserProperty() {
+  QueryBuilder<usuario_logado, int?, QQueryOperations> id_userProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idUser');
+      return query.addPropertyName(r'id_user');
     });
   }
 
-  QueryBuilder<UsuarioLogado, String?, QQueryOperations> loginProperty() {
+  QueryBuilder<usuario_logado, String?, QQueryOperations> loginProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'login');
     });

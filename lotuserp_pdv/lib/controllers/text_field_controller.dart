@@ -30,9 +30,9 @@ class TextFieldController extends GetxController {
   Future<void> salvarInformacoes(BuildContext context) async {
     ip = numContratoEmpresaController.text;
     if (numContratoEmpresaController.text.isEmpty) {
-      final DadoEmpresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+      final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
       if (dadoEmpresa != null) {
-        ip = dadoEmpresa.ipEmpresa!.toString();
+        ip = dadoEmpresa.ip_empresa!.toString();
       } else {
          // ignore: use_build_context_synchronously
          const CustomSnackBar(

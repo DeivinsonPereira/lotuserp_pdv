@@ -30,7 +30,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
     var paymentCount = 0.0;
 
-    var total;
+    String total;
 
     var remainingValue = 0.0;
 

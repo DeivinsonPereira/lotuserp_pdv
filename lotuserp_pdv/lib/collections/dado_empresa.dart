@@ -1,15 +1,15 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, camel_case_types, non_constant_identifier_names
 import 'package:isar/isar.dart';
 
 part 'dado_empresa.g.dart';
 
 @Collection()
-class DadoEmpresa {
+class dado_empresa {
   late Id id = Isar.autoIncrement;
-  late String? ipEmpresa;
-  late int? idEmpresa;
-  late int? idNfce;
-  late int? numCaixa;
-  late int? intervaloEnvio;
+  late String? ip_empresa;
+  late int? id_empresa;
+  late int? id_nfce;
+  late int? num_caixa;
+  late int? intervalo_envio;
   
 }

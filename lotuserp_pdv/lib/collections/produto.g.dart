@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: camel_case_extensions
+
 part of 'produto.dart';
 
 // **************************************************************************
@@ -9,32 +11,32 @@ part of 'produto.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension GetProdutoCollection on Isar {
-  IsarCollection<Produto> get produtos => this.collection();
+extension GetprodutoCollection on Isar {
+  IsarCollection<produto> get produtos => this.collection();
 }
 
 const ProdutoSchema = CollectionSchema(
-  name: r'Produto',
-  id: -1962595252623852481,
+  name: r'produto',
+  id: -7709859153173029853,
   properties: {
-    r'altPrecoVenda': PropertySchema(
+    r'alt_preco_venda': PropertySchema(
       id: 0,
-      name: r'altPrecoVenda',
+      name: r'alt_preco_venda',
       type: IsarType.long,
     ),
-    r'altPrecoVendaTipo': PropertySchema(
+    r'alt_preco_venda_tipo': PropertySchema(
       id: 1,
-      name: r'altPrecoVendaTipo',
+      name: r'alt_preco_venda_tipo',
       type: IsarType.long,
     ),
-    r'balancaIdproduto': PropertySchema(
+    r'balanca_idproduto': PropertySchema(
       id: 2,
-      name: r'balancaIdproduto',
+      name: r'balanca_idproduto',
       type: IsarType.long,
     ),
-    r'balancaTipoPesagem': PropertySchema(
+    r'balanca_tipo_pesagem': PropertySchema(
       id: 3,
-      name: r'balancaTipoPesagem',
+      name: r'balanca_tipo_pesagem',
       type: IsarType.long,
     ),
     r'composto': PropertySchema(
@@ -47,9 +49,9 @@ const ProdutoSchema = CollectionSchema(
       name: r'descricao',
       type: IsarType.string,
     ),
-    r'fileImagem': PropertySchema(
+    r'file_imagem': PropertySchema(
       id: 6,
-      name: r'fileImagem',
+      name: r'file_imagem',
       type: IsarType.string,
     ),
     r'grade': PropertySchema(
@@ -62,109 +64,104 @@ const ProdutoSchema = CollectionSchema(
       name: r'gtin',
       type: IsarType.string,
     ),
-    r'gtinGrade': PropertySchema(
+    r'gtin_grade': PropertySchema(
       id: 9,
-      name: r'gtinGrade',
+      name: r'gtin_grade',
       type: IsarType.string,
     ),
-    r'idEmpresa': PropertySchema(
+    r'id_empresa': PropertySchema(
       id: 10,
-      name: r'idEmpresa',
+      name: r'id_empresa',
       type: IsarType.long,
     ),
-    r'idGrupo': PropertySchema(
+    r'id_grupo': PropertySchema(
       id: 11,
-      name: r'idGrupo',
+      name: r'id_grupo',
       type: IsarType.long,
     ),
-    r'idProduto': PropertySchema(
+    r'nao_rec_desconto': PropertySchema(
       id: 12,
-      name: r'idProduto',
+      name: r'nao_rec_desconto',
       type: IsarType.long,
     ),
-    r'naoRecDesconto': PropertySchema(
+    r'promocao_apartir': PropertySchema(
       id: 13,
-      name: r'naoRecDesconto',
+      name: r'promocao_apartir',
       type: IsarType.long,
     ),
-    r'promocaoApartir': PropertySchema(
+    r'promocao_apartir_perc': PropertySchema(
       id: 14,
-      name: r'promocaoApartir',
-      type: IsarType.long,
+      name: r'promocao_apartir_perc',
+      type: IsarType.double,
     ),
-    r'promocaoApartirPerc': PropertySchema(
+    r'promocao_ativar': PropertySchema(
       id: 15,
-      name: r'promocaoApartirPerc',
-      type: IsarType.double,
+      name: r'promocao_ativar',
+      type: IsarType.long,
     ),
-    r'promocaoAtivar': PropertySchema(
+    r'promocao_compre': PropertySchema(
       id: 16,
-      name: r'promocaoAtivar',
+      name: r'promocao_compre',
       type: IsarType.long,
     ),
-    r'promocaoCompre': PropertySchema(
+    r'promocao_data_inicio': PropertySchema(
       id: 17,
-      name: r'promocaoCompre',
-      type: IsarType.long,
+      name: r'promocao_data_inicio',
+      type: IsarType.dateTime,
     ),
-    r'promocaoDataInicio': PropertySchema(
+    r'promocao_data_limite': PropertySchema(
       id: 18,
-      name: r'promocaoDataInicio',
+      name: r'promocao_data_limite',
       type: IsarType.dateTime,
     ),
-    r'promocaoDataLimite': PropertySchema(
+    r'promocao_hora_final': PropertySchema(
       id: 19,
-      name: r'promocaoDataLimite',
-      type: IsarType.dateTime,
+      name: r'promocao_hora_final',
+      type: IsarType.string,
     ),
-    r'promocaoHoraFinal': PropertySchema(
+    r'promocao_hora_inicial': PropertySchema(
       id: 20,
-      name: r'promocaoHoraFinal',
+      name: r'promocao_hora_inicial',
       type: IsarType.string,
     ),
-    r'promocaoHoraInicial': PropertySchema(
+    r'promocao_leve': PropertySchema(
       id: 21,
-      name: r'promocaoHoraInicial',
-      type: IsarType.string,
-    ),
-    r'promocaoLeve': PropertySchema(
-      id: 22,
-      name: r'promocaoLeve',
+      name: r'promocao_leve',
       type: IsarType.long,
     ),
-    r'promocaoPreco': PropertySchema(
-      id: 23,
-      name: r'promocaoPreco',
+    r'promocao_preco': PropertySchema(
+      id: 22,
+      name: r'promocao_preco',
       type: IsarType.double,
     ),
-    r'promocaoTipoDesc': PropertySchema(
-      id: 24,
-      name: r'promocaoTipoDesc',
+    r'promocao_tipo_desc': PropertySchema(
+      id: 23,
+      name: r'promocao_tipo_desc',
       type: IsarType.long,
     ),
     r'pvenda': PropertySchema(
-      id: 25,
+      id: 24,
       name: r'pvenda',
       type: IsarType.double,
     ),
-    r'saldoProduto': PropertySchema(
-      id: 26,
-      name: r'saldoProduto',
+    r'saldo_produto': PropertySchema(
+      id: 25,
+      name: r'saldo_produto',
       type: IsarType.double,
     ),
     r'status': PropertySchema(
-      id: 27,
+      id: 26,
       name: r'status',
       type: IsarType.long,
     ),
     r'unidade': PropertySchema(
-      id: 28,
+      id: 27,
       name: r'unidade',
       type: IsarType.string,
     ),
-    r'vendaKg': PropertySchema(
-      id: 29,
-      name: r'vendaKg',
+    r'venda_kg': PropertySchema(
+      id: 28,
+      name: r'venda_kg',
       type: IsarType.long,
     )
   },
@@ -172,7 +169,7 @@ const ProdutoSchema = CollectionSchema(
   serialize: _produtoSerialize,
   deserialize: _produtoDeserialize,
   deserializeProp: _produtoDeserializeProp,
-  idName: r'idAUtoincrement',
+  idName: r'id_produto',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -183,7 +180,7 @@ const ProdutoSchema = CollectionSchema(
 );
 
 int _produtoEstimateSize(
-  Produto object,
+  produto object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -195,7 +192,7 @@ int _produtoEstimateSize(
     }
   }
   {
-    final value = object.fileImagem;
+    final value = object.file_imagem;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -208,19 +205,19 @@ int _produtoEstimateSize(
     }
   }
   {
-    final value = object.gtinGrade;
+    final value = object.gtin_grade;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
   {
-    final value = object.promocaoHoraFinal;
+    final value = object.promocao_hora_final;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
   }
   {
-    final value = object.promocaoHoraInicial;
+    final value = object.promocao_hora_inicial;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -235,82 +232,80 @@ int _produtoEstimateSize(
 }
 
 void _produtoSerialize(
-  Produto object,
+  produto object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.altPrecoVenda);
-  writer.writeLong(offsets[1], object.altPrecoVendaTipo);
-  writer.writeLong(offsets[2], object.balancaIdproduto);
-  writer.writeLong(offsets[3], object.balancaTipoPesagem);
+  writer.writeLong(offsets[0], object.alt_preco_venda);
+  writer.writeLong(offsets[1], object.alt_preco_venda_tipo);
+  writer.writeLong(offsets[2], object.balanca_idproduto);
+  writer.writeLong(offsets[3], object.balanca_tipo_pesagem);
   writer.writeLong(offsets[4], object.composto);
   writer.writeString(offsets[5], object.descricao);
-  writer.writeString(offsets[6], object.fileImagem);
+  writer.writeString(offsets[6], object.file_imagem);
   writer.writeString(offsets[7], object.grade);
   writer.writeString(offsets[8], object.gtin);
-  writer.writeString(offsets[9], object.gtinGrade);
-  writer.writeLong(offsets[10], object.idEmpresa);
-  writer.writeLong(offsets[11], object.idGrupo);
-  writer.writeLong(offsets[12], object.idProduto);
-  writer.writeLong(offsets[13], object.naoRecDesconto);
-  writer.writeLong(offsets[14], object.promocaoApartir);
-  writer.writeDouble(offsets[15], object.promocaoApartirPerc);
-  writer.writeLong(offsets[16], object.promocaoAtivar);
-  writer.writeLong(offsets[17], object.promocaoCompre);
-  writer.writeDateTime(offsets[18], object.promocaoDataInicio);
-  writer.writeDateTime(offsets[19], object.promocaoDataLimite);
-  writer.writeString(offsets[20], object.promocaoHoraFinal);
-  writer.writeString(offsets[21], object.promocaoHoraInicial);
-  writer.writeLong(offsets[22], object.promocaoLeve);
-  writer.writeDouble(offsets[23], object.promocaoPreco);
-  writer.writeLong(offsets[24], object.promocaoTipoDesc);
-  writer.writeDouble(offsets[25], object.pvenda);
-  writer.writeDouble(offsets[26], object.saldoProduto);
-  writer.writeLong(offsets[27], object.status);
-  writer.writeString(offsets[28], object.unidade);
-  writer.writeLong(offsets[29], object.vendaKg);
+  writer.writeString(offsets[9], object.gtin_grade);
+  writer.writeLong(offsets[10], object.id_empresa);
+  writer.writeLong(offsets[11], object.id_grupo);
+  writer.writeLong(offsets[12], object.nao_rec_desconto);
+  writer.writeLong(offsets[13], object.promocao_apartir);
+  writer.writeDouble(offsets[14], object.promocao_apartir_perc);
+  writer.writeLong(offsets[15], object.promocao_ativar);
+  writer.writeLong(offsets[16], object.promocao_compre);
+  writer.writeDateTime(offsets[17], object.promocao_data_inicio);
+  writer.writeDateTime(offsets[18], object.promocao_data_limite);
+  writer.writeString(offsets[19], object.promocao_hora_final);
+  writer.writeString(offsets[20], object.promocao_hora_inicial);
+  writer.writeLong(offsets[21], object.promocao_leve);
+  writer.writeDouble(offsets[22], object.promocao_preco);
+  writer.writeLong(offsets[23], object.promocao_tipo_desc);
+  writer.writeDouble(offsets[24], object.pvenda);
+  writer.writeDouble(offsets[25], object.saldo_produto);
+  writer.writeLong(offsets[26], object.status);
+  writer.writeString(offsets[27], object.unidade);
+  writer.writeLong(offsets[28], object.venda_kg);
 }
 
-Produto _produtoDeserialize(
+produto _produtoDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Produto(
+  final object = produto(
     reader.readLong(offsets[10]),
-    reader.readLong(offsets[12]),
+    id,
     reader.readString(offsets[7]),
     reader.readLongOrNull(offsets[11]),
     reader.readStringOrNull(offsets[5]),
-    reader.readStringOrNull(offsets[28]),
+    reader.readStringOrNull(offsets[27]),
     reader.readStringOrNull(offsets[8]),
     reader.readLongOrNull(offsets[4]),
-    reader.readLongOrNull(offsets[29]),
-    reader.readLongOrNull(offsets[13]),
-    reader.readLongOrNull(offsets[27]),
-    reader.readDouble(offsets[26]),
+    reader.readLongOrNull(offsets[28]),
+    reader.readLongOrNull(offsets[12]),
+    reader.readLongOrNull(offsets[26]),
     reader.readDouble(offsets[25]),
+    reader.readDouble(offsets[24]),
     reader.readLongOrNull(offsets[0]),
     reader.readLongOrNull(offsets[1]),
     reader.readLongOrNull(offsets[3]),
     reader.readLongOrNull(offsets[2]),
     reader.readStringOrNull(offsets[9]),
-    reader.readLongOrNull(offsets[16]),
-    reader.readDoubleOrNull(offsets[23]),
+    reader.readLongOrNull(offsets[15]),
+    reader.readDoubleOrNull(offsets[22]),
+    reader.readDateTimeOrNull(offsets[17]),
     reader.readDateTimeOrNull(offsets[18]),
-    reader.readDateTimeOrNull(offsets[19]),
-    reader.readStringOrNull(offsets[21]),
     reader.readStringOrNull(offsets[20]),
-    reader.readLongOrNull(offsets[24]),
-    reader.readLongOrNull(offsets[17]),
-    reader.readLongOrNull(offsets[22]),
-    reader.readLongOrNull(offsets[14]),
-    reader.readDoubleOrNull(offsets[15]),
+    reader.readStringOrNull(offsets[19]),
+    reader.readLongOrNull(offsets[23]),
+    reader.readLongOrNull(offsets[16]),
+    reader.readLongOrNull(offsets[21]),
+    reader.readLongOrNull(offsets[13]),
+    reader.readDoubleOrNull(offsets[14]),
     reader.readStringOrNull(offsets[6]),
   );
-  object.idAUtoincrement = id;
   return object;
 }
 
@@ -346,199 +341,193 @@ P _produtoDeserializeProp<P>(
     case 11:
       return (reader.readLongOrNull(offset)) as P;
     case 12:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 13:
       return (reader.readLongOrNull(offset)) as P;
     case 14:
-      return (reader.readLongOrNull(offset)) as P;
-    case 15:
       return (reader.readDoubleOrNull(offset)) as P;
+    case 15:
+      return (reader.readLongOrNull(offset)) as P;
     case 16:
       return (reader.readLongOrNull(offset)) as P;
     case 17:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 18:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 19:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 20:
       return (reader.readStringOrNull(offset)) as P;
     case 21:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 22:
-      return (reader.readLongOrNull(offset)) as P;
-    case 23:
       return (reader.readDoubleOrNull(offset)) as P;
-    case 24:
+    case 23:
       return (reader.readLongOrNull(offset)) as P;
+    case 24:
+      return (reader.readDouble(offset)) as P;
     case 25:
       return (reader.readDouble(offset)) as P;
     case 26:
-      return (reader.readDouble(offset)) as P;
-    case 27:
       return (reader.readLongOrNull(offset)) as P;
-    case 28:
+    case 27:
       return (reader.readStringOrNull(offset)) as P;
-    case 29:
+    case 28:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
-Id _produtoGetId(Produto object) {
-  return object.idAUtoincrement;
+Id _produtoGetId(produto object) {
+  return object.id_produto;
 }
 
-List<IsarLinkBase<dynamic>> _produtoGetLinks(Produto object) {
+List<IsarLinkBase<dynamic>> _produtoGetLinks(produto object) {
   return [];
 }
 
-void _produtoAttach(IsarCollection<dynamic> col, Id id, Produto object) {
-  object.idAUtoincrement = id;
+void _produtoAttach(IsarCollection<dynamic> col, Id id, produto object) {
+  object.id_produto = id;
 }
 
-extension ProdutoQueryWhereSort on QueryBuilder<Produto, Produto, QWhere> {
-  QueryBuilder<Produto, Produto, QAfterWhere> anyIdAUtoincrement() {
+extension produtoQueryWhereSort on QueryBuilder<produto, produto, QWhere> {
+  QueryBuilder<produto, produto, QAfterWhere> anyId_produto() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementEqualTo(
-      Id idAUtoincrement) {
+extension produtoQueryWhere on QueryBuilder<produto, produto, QWhereClause> {
+  QueryBuilder<produto, produto, QAfterWhereClause> id_produtoEqualTo(
+      Id id_produto) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: idAUtoincrement,
-        upper: idAUtoincrement,
+        lower: id_produto,
+        upper: id_produto,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementNotEqualTo(
-      Id idAUtoincrement) {
+  QueryBuilder<produto, produto, QAfterWhereClause> id_produtoNotEqualTo(
+      Id id_produto) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(
-                  upper: idAUtoincrement, includeUpper: false),
+              IdWhereClause.lessThan(upper: id_produto, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(
-                  lower: idAUtoincrement, includeLower: false),
+              IdWhereClause.greaterThan(lower: id_produto, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(
-                  lower: idAUtoincrement, includeLower: false),
+              IdWhereClause.greaterThan(lower: id_produto, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(
-                  upper: idAUtoincrement, includeUpper: false),
+              IdWhereClause.lessThan(upper: id_produto, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementGreaterThan(
-      Id idAUtoincrement,
+  QueryBuilder<produto, produto, QAfterWhereClause> id_produtoGreaterThan(
+      Id id_produto,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(
-            lower: idAUtoincrement, includeLower: include),
+        IdWhereClause.greaterThan(lower: id_produto, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementLessThan(
-      Id idAUtoincrement,
+  QueryBuilder<produto, produto, QAfterWhereClause> id_produtoLessThan(
+      Id id_produto,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: idAUtoincrement, includeUpper: include),
+        IdWhereClause.lessThan(upper: id_produto, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementBetween(
-    Id lowerIdAUtoincrement,
-    Id upperIdAUtoincrement, {
+  QueryBuilder<produto, produto, QAfterWhereClause> id_produtoBetween(
+    Id lowerId_produto,
+    Id upperId_produto, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerIdAUtoincrement,
+        lower: lowerId_produto,
         includeLower: includeLower,
-        upper: upperIdAUtoincrement,
+        upper: upperId_produto,
         includeUpper: includeUpper,
       ));
     });
   }
 }
 
-extension ProdutoQueryFilter
-    on QueryBuilder<Produto, Produto, QFilterCondition> {
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaIsNull() {
+extension produtoQueryFilter
+    on QueryBuilder<produto, produto, QFilterCondition> {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_vendaIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'altPrecoVenda',
+        property: r'alt_preco_venda',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_vendaIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'altPrecoVenda',
+        property: r'alt_preco_venda',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> alt_preco_vendaEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'altPrecoVenda',
+        property: r'alt_preco_venda',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_vendaGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'altPrecoVenda',
+        property: r'alt_preco_venda',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> alt_preco_vendaLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'altPrecoVenda',
+        property: r'alt_preco_venda',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> altPrecoVendaBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> alt_preco_vendaBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -546,7 +535,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'altPrecoVenda',
+        property: r'alt_preco_venda',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -555,64 +544,64 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_venda_tipoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'altPrecoVendaTipo',
+        property: r'alt_preco_venda_tipo',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_venda_tipoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'altPrecoVendaTipo',
+        property: r'alt_preco_venda_tipo',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoEqualTo(int? value) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_venda_tipoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'altPrecoVendaTipo',
+        property: r'alt_preco_venda_tipo',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_venda_tipoGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'altPrecoVendaTipo',
+        property: r'alt_preco_venda_tipo',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_venda_tipoLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'altPrecoVendaTipo',
+        property: r'alt_preco_venda_tipo',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      altPrecoVendaTipoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      alt_preco_venda_tipoBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -620,7 +609,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'altPrecoVendaTipo',
+        property: r'alt_preco_venda_tipo',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -629,180 +618,181 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaIdprodutoIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_idprodutoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'balancaIdproduto',
+        property: r'balanca_idproduto',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaIdprodutoIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_idprodutoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'balancaIdproduto',
+        property: r'balanca_idproduto',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> balancaIdprodutoEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_idprodutoEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'balanca_idproduto',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_idprodutoGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'balanca_idproduto',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_idprodutoLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'balanca_idproduto',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_idprodutoBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'balanca_idproduto',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_tipo_pesagemIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'balanca_tipo_pesagem',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_tipo_pesagemIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'balanca_tipo_pesagem',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_tipo_pesagemEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'balanca_tipo_pesagem',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_tipo_pesagemGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'balanca_tipo_pesagem',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_tipo_pesagemLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'balanca_tipo_pesagem',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      balanca_tipo_pesagemBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'balanca_tipo_pesagem',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> compostoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'composto',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> compostoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'composto',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> compostoEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'balancaIdproduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaIdprodutoGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'balancaIdproduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaIdprodutoLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'balancaIdproduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> balancaIdprodutoBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'balancaIdproduto',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'balancaTipoPesagem',
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'balancaTipoPesagem',
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemEqualTo(int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'balancaTipoPesagem',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'balancaTipoPesagem',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'balancaTipoPesagem',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      balancaTipoPesagemBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'balancaTipoPesagem',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'composto',
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'composto',
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
         property: r'composto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> compostoGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -815,7 +805,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> compostoLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -828,7 +818,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> compostoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> compostoBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -845,7 +835,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'descricao',
@@ -853,7 +843,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'descricao',
@@ -861,7 +851,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -874,7 +864,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -889,7 +879,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -904,7 +894,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -923,7 +913,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -936,7 +926,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -949,7 +939,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoContains(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -961,7 +951,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoMatches(
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -973,7 +963,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'descricao',
@@ -982,7 +972,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> descricaoIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> descricaoIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'descricao',
@@ -991,36 +981,36 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'fileImagem',
+        property: r'file_imagem',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'fileImagem',
+        property: r'file_imagem',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1028,14 +1018,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1043,14 +1033,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1059,7 +1049,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'fileImagem',
+        property: r'file_imagem',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1069,75 +1059,76 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemContains(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemMatches(
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'fileImagem',
+        property: r'file_imagem',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> file_imagemIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> fileImagemIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      file_imagemIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'fileImagem',
+        property: r'file_imagem',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeEqualTo(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1150,7 +1141,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeGreaterThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1165,7 +1156,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeLessThan(
     String value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1180,7 +1171,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeBetween(
     String lower,
     String upper, {
     bool includeLower = true,
@@ -1199,7 +1190,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1212,7 +1203,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1225,7 +1216,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeContains(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1237,7 +1228,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeMatches(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1249,7 +1240,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'grade',
@@ -1258,7 +1249,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gradeIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'grade',
@@ -1267,7 +1258,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'gtin',
@@ -1275,7 +1266,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'gtin',
@@ -1283,7 +1274,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -1296,7 +1287,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1311,7 +1302,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1326,7 +1317,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1345,7 +1336,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1358,7 +1349,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -1371,7 +1362,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinContains(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1383,7 +1374,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinMatches(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1395,7 +1386,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'gtin',
@@ -1404,7 +1395,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtinIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'gtin',
@@ -1413,36 +1404,36 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1450,14 +1441,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -1465,14 +1456,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -1481,7 +1472,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1491,112 +1482,233 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeContains(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeMatches(
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> gtinGradeIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> gtin_gradeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'gtinGrade',
+        property: r'gtin_grade',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idAUtoincrementEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_empresa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_empresa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_empresa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_empresa',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_grupoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_grupo',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_grupoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_grupo',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_grupoEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_grupo',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_grupoGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_grupo',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_grupoLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_grupo',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_grupoBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_grupo',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_produtoEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idAUtoincrement',
+        property: r'id_produto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      idAUtoincrementGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_produtoGreaterThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idAUtoincrement',
+        property: r'id_produto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idAUtoincrementLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_produtoLessThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idAUtoincrement',
+        property: r'id_produto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idAUtoincrementBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_produtoBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -1604,7 +1716,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idAUtoincrement',
+        property: r'id_produto',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1613,112 +1725,63 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idEmpresaEqualTo(
-      int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idEmpresa',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idEmpresaGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'idEmpresa',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idEmpresaLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'idEmpresa',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idEmpresaBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'idEmpresa',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      nao_rec_descontoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idGrupo',
+        property: r'nao_rec_desconto',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      nao_rec_descontoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idGrupo',
+        property: r'nao_rec_desconto',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> nao_rec_descontoEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idGrupo',
+        property: r'nao_rec_desconto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      nao_rec_descontoGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'idGrupo',
+        property: r'nao_rec_desconto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      nao_rec_descontoLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'idGrupo',
+        property: r'nao_rec_desconto',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGrupoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> nao_rec_descontoBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1726,7 +1789,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'idGrupo',
+        property: r'nao_rec_desconto',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1735,114 +1798,63 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idProdutoEqualTo(
-      int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idProduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idProdutoGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'idProduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idProdutoLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'idProduto',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idProdutoBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'idProduto',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartirIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'naoRecDesconto',
+        property: r'promocao_apartir',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      naoRecDescontoIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartirIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'naoRecDesconto',
+        property: r'promocao_apartir',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_apartirEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'naoRecDesconto',
+        property: r'promocao_apartir',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      naoRecDescontoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartirGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'naoRecDesconto',
+        property: r'promocao_apartir',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartirLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'naoRecDesconto',
+        property: r'promocao_apartir',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> naoRecDescontoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_apartirBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -1850,7 +1862,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'naoRecDesconto',
+        property: r'promocao_apartir',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1859,112 +1871,40 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartir_percIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoApartir',
+        property: r'promocao_apartir_perc',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartir_percIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoApartir',
+        property: r'promocao_apartir_perc',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoApartirEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoApartir',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'promocaoApartir',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoApartirLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'promocaoApartir',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoApartirBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoApartir',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirPercIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoApartirPerc',
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirPercIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoApartirPerc',
-      ));
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirPercEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartir_percEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoApartirPerc',
+        property: r'promocao_apartir_perc',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirPercGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartir_percGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1972,15 +1912,15 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoApartirPerc',
+        property: r'promocao_apartir_perc',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirPercLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartir_percLessThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -1988,15 +1928,15 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoApartirPerc',
+        property: r'promocao_apartir_perc',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoApartirPercBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_apartir_percBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -2005,7 +1945,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoApartirPerc',
+        property: r'promocao_apartir_perc',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2015,61 +1955,62 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_ativarIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoAtivar',
+        property: r'promocao_ativar',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoAtivarIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_ativarIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoAtivar',
+        property: r'promocao_ativar',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_ativarEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoAtivar',
+        property: r'promocao_ativar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoAtivarGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_ativarGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoAtivar',
+        property: r'promocao_ativar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_ativarLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoAtivar',
+        property: r'promocao_ativar',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoAtivarBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_ativarBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -2077,7 +2018,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoAtivar',
+        property: r'promocao_ativar',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2086,61 +2027,62 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_compreIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoCompre',
+        property: r'promocao_compre',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoCompreIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_compreIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoCompre',
+        property: r'promocao_compre',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_compreEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoCompre',
+        property: r'promocao_compre',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoCompreGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_compreGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoCompre',
+        property: r'promocao_compre',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_compreLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoCompre',
+        property: r'promocao_compre',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoCompreBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_compreBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -2148,7 +2090,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoCompre',
+        property: r'promocao_compre',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2157,64 +2099,64 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoDataInicio',
+        property: r'promocao_data_inicio',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoDataInicio',
+        property: r'promocao_data_inicio',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioEqualTo(DateTime? value) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoDataInicio',
+        property: r'promocao_data_inicio',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioGreaterThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoDataInicio',
+        property: r'promocao_data_inicio',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioLessThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoDataInicio',
+        property: r'promocao_data_inicio',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataInicioBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -2222,7 +2164,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoDataInicio',
+        property: r'promocao_data_inicio',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2231,64 +2173,64 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoDataLimite',
+        property: r'promocao_data_limite',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoDataLimite',
+        property: r'promocao_data_limite',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteEqualTo(DateTime? value) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoDataLimite',
+        property: r'promocao_data_limite',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteGreaterThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoDataLimite',
+        property: r'promocao_data_limite',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteLessThan(
     DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoDataLimite',
+        property: r'promocao_data_limite',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoDataLimiteBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteBetween(
     DateTime? lower,
     DateTime? upper, {
     bool includeLower = true,
@@ -2296,7 +2238,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoDataLimite',
+        property: r'promocao_data_limite',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2305,40 +2247,40 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2346,15 +2288,15 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2362,15 +2304,15 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -2379,7 +2321,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2389,110 +2331,110 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalMatches(String pattern, {bool caseSensitive = true}) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraFinalIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_finalIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'promocaoHoraFinal',
+        property: r'promocao_hora_final',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2500,15 +2442,15 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -2516,15 +2458,15 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -2533,7 +2475,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2543,130 +2485,132 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialContains(String value, {bool caseSensitive = true}) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: value,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialMatches(String pattern, {bool caseSensitive = true}) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialMatches(String pattern,
+          {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         wildcard: pattern,
         caseSensitive: caseSensitive,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoHoraInicialIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_hora_inicialIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'promocaoHoraInicial',
+        property: r'promocao_hora_inicial',
         value: '',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_leveIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoLeve',
+        property: r'promocao_leve',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoLeveIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_leveIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoLeve',
+        property: r'promocao_leve',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_leveEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoLeve',
+        property: r'promocao_leve',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_leveGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoLeve',
+        property: r'promocao_leve',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_leveLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoLeve',
+        property: r'promocao_leve',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoLeveBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_leveBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -2674,7 +2618,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoLeve',
+        property: r'promocao_leve',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2683,38 +2627,38 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_precoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoPreco',
+        property: r'promocao_preco',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoPrecoIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_precoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoPreco',
+        property: r'promocao_preco',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_precoEqualTo(
     double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoPreco',
+        property: r'promocao_preco',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoPrecoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_precoGreaterThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2722,14 +2666,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoPreco',
+        property: r'promocao_preco',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_precoLessThan(
     double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2737,14 +2681,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoPreco',
+        property: r'promocao_preco',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoPrecoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> promocao_precoBetween(
     double? lower,
     double? upper, {
     bool includeLower = true,
@@ -2753,7 +2697,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoPreco',
+        property: r'promocao_preco',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2763,63 +2707,64 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoTipoDescIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_tipo_descIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'promocaoTipoDesc',
+        property: r'promocao_tipo_desc',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoTipoDescIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_tipo_descIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'promocaoTipoDesc',
+        property: r'promocao_tipo_desc',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoTipoDescEqualTo(
-      int? value) {
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_tipo_descEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'promocaoTipoDesc',
+        property: r'promocao_tipo_desc',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoTipoDescGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_tipo_descGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'promocaoTipoDesc',
+        property: r'promocao_tipo_desc',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition>
-      promocaoTipoDescLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_tipo_descLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'promocaoTipoDesc',
+        property: r'promocao_tipo_desc',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> promocaoTipoDescBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_tipo_descBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -2827,7 +2772,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'promocaoTipoDesc',
+        property: r'promocao_tipo_desc',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2836,7 +2781,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> pvendaEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> pvendaEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
@@ -2849,7 +2794,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> pvendaGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> pvendaGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2864,7 +2809,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> pvendaLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> pvendaLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2879,7 +2824,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> pvendaBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> pvendaBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -2898,20 +2843,21 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> saldoProdutoEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoEqualTo(
     double value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'saldoProduto',
+        property: r'saldo_produto',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> saldoProdutoGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      saldo_produtoGreaterThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2919,14 +2865,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'saldoProduto',
+        property: r'saldo_produto',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> saldoProdutoLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoLessThan(
     double value, {
     bool include = false,
     double epsilon = Query.epsilon,
@@ -2934,14 +2880,14 @@ extension ProdutoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'saldoProduto',
+        property: r'saldo_produto',
         value: value,
         epsilon: epsilon,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> saldoProdutoBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoBetween(
     double lower,
     double upper, {
     bool includeLower = true,
@@ -2950,7 +2896,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'saldoProduto',
+        property: r'saldo_produto',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2960,7 +2906,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> statusIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'status',
@@ -2968,7 +2914,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> statusIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'status',
@@ -2976,7 +2922,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> statusEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -2986,7 +2932,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> statusGreaterThan(
     int? value, {
     bool include = false,
   }) {
@@ -2999,7 +2945,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> statusLessThan(
     int? value, {
     bool include = false,
   }) {
@@ -3012,7 +2958,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> statusBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> statusBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -3029,7 +2975,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
         property: r'unidade',
@@ -3037,7 +2983,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
         property: r'unidade',
@@ -3045,7 +2991,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -3058,7 +3004,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeGreaterThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3073,7 +3019,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeLessThan(
     String? value, {
     bool include = false,
     bool caseSensitive = true,
@@ -3088,7 +3034,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -3107,7 +3053,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeStartsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeStartsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3120,7 +3066,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeEndsWith(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeEndsWith(
     String value, {
     bool caseSensitive = true,
   }) {
@@ -3133,7 +3079,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeContains(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeContains(
       String value,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3145,7 +3091,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeMatches(
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeMatches(
       String pattern,
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -3157,7 +3103,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeIsEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'unidade',
@@ -3166,7 +3112,7 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> unidadeIsNotEmpty() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> unidadeIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'unidade',
@@ -3175,59 +3121,59 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgIsNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> venda_kgIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'vendaKg',
+        property: r'venda_kg',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgIsNotNull() {
+  QueryBuilder<produto, produto, QAfterFilterCondition> venda_kgIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'vendaKg',
+        property: r'venda_kg',
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgEqualTo(
+  QueryBuilder<produto, produto, QAfterFilterCondition> venda_kgEqualTo(
       int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'vendaKg',
+        property: r'venda_kg',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgGreaterThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> venda_kgGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'vendaKg',
+        property: r'venda_kg',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgLessThan(
+  QueryBuilder<produto, produto, QAfterFilterCondition> venda_kgLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'vendaKg',
+        property: r'venda_kg',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> vendaKgBetween(
+  QueryBuilder<produto, produto, QAfterFilterCondition> venda_kgBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -3235,7 +3181,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'vendaKg',
+        property: r'venda_kg',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -3245,1131 +3191,1108 @@ extension ProdutoQueryFilter
   }
 }
 
-extension ProdutoQueryObject
-    on QueryBuilder<Produto, Produto, QFilterCondition> {}
+extension produtoQueryObject
+    on QueryBuilder<produto, produto, QFilterCondition> {}
 
-extension ProdutoQueryLinks
-    on QueryBuilder<Produto, Produto, QFilterCondition> {}
+extension produtoQueryLinks
+    on QueryBuilder<produto, produto, QFilterCondition> {}
 
-extension ProdutoQuerySortBy on QueryBuilder<Produto, Produto, QSortBy> {
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByAltPrecoVenda() {
+extension produtoQuerySortBy on QueryBuilder<produto, produto, QSortBy> {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByAlt_preco_venda() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVenda', Sort.asc);
+      return query.addSortBy(r'alt_preco_venda', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByAltPrecoVendaDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByAlt_preco_vendaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVenda', Sort.desc);
+      return query.addSortBy(r'alt_preco_venda', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByAltPrecoVendaTipo() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByAlt_preco_venda_tipo() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVendaTipo', Sort.asc);
+      return query.addSortBy(r'alt_preco_venda_tipo', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByAltPrecoVendaTipoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortByAlt_preco_venda_tipoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVendaTipo', Sort.desc);
+      return query.addSortBy(r'alt_preco_venda_tipo', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByBalancaIdproduto() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByBalanca_idproduto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaIdproduto', Sort.asc);
+      return query.addSortBy(r'balanca_idproduto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByBalancaIdprodutoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByBalanca_idprodutoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaIdproduto', Sort.desc);
+      return query.addSortBy(r'balanca_idproduto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByBalancaTipoPesagem() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByBalanca_tipo_pesagem() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaTipoPesagem', Sort.asc);
+      return query.addSortBy(r'balanca_tipo_pesagem', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByBalancaTipoPesagemDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortByBalanca_tipo_pesagemDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaTipoPesagem', Sort.desc);
+      return query.addSortBy(r'balanca_tipo_pesagem', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByComposto() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByComposto() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'composto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByCompostoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByCompostoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'composto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByDescricao() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByDescricao() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descricao', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByDescricaoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByDescricaoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descricao', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByFileImagem() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByFile_imagem() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fileImagem', Sort.asc);
+      return query.addSortBy(r'file_imagem', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByFileImagemDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByFile_imagemDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fileImagem', Sort.desc);
+      return query.addSortBy(r'file_imagem', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByGrade() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByGrade() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'grade', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByGradeDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByGradeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'grade', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByGtin() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByGtin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'gtin', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByGtinDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByGtinDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'gtin', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByGtinGrade() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByGtin_grade() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gtinGrade', Sort.asc);
+      return query.addSortBy(r'gtin_grade', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByGtinGradeDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByGtin_gradeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gtinGrade', Sort.desc);
+      return query.addSortBy(r'gtin_grade', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByIdEmpresa() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
+      return query.addSortBy(r'id_empresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByIdEmpresaDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_empresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
+      return query.addSortBy(r'id_empresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByIdGrupo() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_grupo() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idGrupo', Sort.asc);
+      return query.addSortBy(r'id_grupo', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByIdGrupoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_grupoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idGrupo', Sort.desc);
+      return query.addSortBy(r'id_grupo', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByIdProduto() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByNao_rec_desconto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idProduto', Sort.asc);
+      return query.addSortBy(r'nao_rec_desconto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByIdProdutoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByNao_rec_descontoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idProduto', Sort.desc);
+      return query.addSortBy(r'nao_rec_desconto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByNaoRecDesconto() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_apartir() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'naoRecDesconto', Sort.asc);
+      return query.addSortBy(r'promocao_apartir', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByNaoRecDescontoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_apartirDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'naoRecDesconto', Sort.desc);
+      return query.addSortBy(r'promocao_apartir', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoApartir() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_apartir_perc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartir', Sort.asc);
+      return query.addSortBy(r'promocao_apartir_perc', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoApartirDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortByPromocao_apartir_percDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartir', Sort.desc);
+      return query.addSortBy(r'promocao_apartir_perc', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoApartirPerc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_ativar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartirPerc', Sort.asc);
+      return query.addSortBy(r'promocao_ativar', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoApartirPercDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_ativarDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartirPerc', Sort.desc);
+      return query.addSortBy(r'promocao_ativar', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoAtivar() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_compre() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoAtivar', Sort.asc);
+      return query.addSortBy(r'promocao_compre', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoAtivarDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_compreDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoAtivar', Sort.desc);
+      return query.addSortBy(r'promocao_compre', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoCompre() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_data_inicio() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoCompre', Sort.asc);
+      return query.addSortBy(r'promocao_data_inicio', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoCompreDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortByPromocao_data_inicioDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoCompre', Sort.desc);
+      return query.addSortBy(r'promocao_data_inicio', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoDataInicio() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_data_limite() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataInicio', Sort.asc);
+      return query.addSortBy(r'promocao_data_limite', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoDataInicioDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortByPromocao_data_limiteDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataInicio', Sort.desc);
+      return query.addSortBy(r'promocao_data_limite', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoDataLimite() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_hora_final() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataLimite', Sort.asc);
+      return query.addSortBy(r'promocao_hora_final', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoDataLimiteDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_hora_finalDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataLimite', Sort.desc);
+      return query.addSortBy(r'promocao_hora_final', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoHoraFinal() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_hora_inicial() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraFinal', Sort.asc);
+      return query.addSortBy(r'promocao_hora_inicial', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoHoraFinalDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortByPromocao_hora_inicialDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraFinal', Sort.desc);
+      return query.addSortBy(r'promocao_hora_inicial', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoHoraInicial() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_leve() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraInicial', Sort.asc);
+      return query.addSortBy(r'promocao_leve', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoHoraInicialDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_leveDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraInicial', Sort.desc);
+      return query.addSortBy(r'promocao_leve', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoLeve() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_preco() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoLeve', Sort.asc);
+      return query.addSortBy(r'promocao_preco', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoLeveDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_precoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoLeve', Sort.desc);
+      return query.addSortBy(r'promocao_preco', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoPreco() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_tipo_desc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoPreco', Sort.asc);
+      return query.addSortBy(r'promocao_tipo_desc', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoPrecoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPromocao_tipo_descDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoPreco', Sort.desc);
+      return query.addSortBy(r'promocao_tipo_desc', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoTipoDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoTipoDesc', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPromocaoTipoDescDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoTipoDesc', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPvenda() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPvenda() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pvenda', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByPvendaDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByPvendaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pvenda', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortBySaldoProduto() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortBySaldo_produto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'saldoProduto', Sort.asc);
+      return query.addSortBy(r'saldo_produto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortBySaldoProdutoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortBySaldo_produtoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'saldoProduto', Sort.desc);
+      return query.addSortBy(r'saldo_produto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByStatus() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByStatusDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByUnidade() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByUnidade() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unidade', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByUnidadeDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByUnidadeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unidade', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByVendaKg() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByVenda_kg() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaKg', Sort.asc);
+      return query.addSortBy(r'venda_kg', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> sortByVendaKgDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> sortByVenda_kgDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaKg', Sort.desc);
+      return query.addSortBy(r'venda_kg', Sort.desc);
     });
   }
 }
 
-extension ProdutoQuerySortThenBy
-    on QueryBuilder<Produto, Produto, QSortThenBy> {
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByAltPrecoVenda() {
+extension produtoQuerySortThenBy
+    on QueryBuilder<produto, produto, QSortThenBy> {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByAlt_preco_venda() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVenda', Sort.asc);
+      return query.addSortBy(r'alt_preco_venda', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByAltPrecoVendaDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByAlt_preco_vendaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVenda', Sort.desc);
+      return query.addSortBy(r'alt_preco_venda', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByAltPrecoVendaTipo() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByAlt_preco_venda_tipo() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVendaTipo', Sort.asc);
+      return query.addSortBy(r'alt_preco_venda_tipo', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByAltPrecoVendaTipoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenByAlt_preco_venda_tipoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'altPrecoVendaTipo', Sort.desc);
+      return query.addSortBy(r'alt_preco_venda_tipo', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByBalancaIdproduto() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByBalanca_idproduto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaIdproduto', Sort.asc);
+      return query.addSortBy(r'balanca_idproduto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByBalancaIdprodutoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByBalanca_idprodutoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaIdproduto', Sort.desc);
+      return query.addSortBy(r'balanca_idproduto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByBalancaTipoPesagem() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByBalanca_tipo_pesagem() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaTipoPesagem', Sort.asc);
+      return query.addSortBy(r'balanca_tipo_pesagem', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByBalancaTipoPesagemDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenByBalanca_tipo_pesagemDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'balancaTipoPesagem', Sort.desc);
+      return query.addSortBy(r'balanca_tipo_pesagem', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByComposto() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByComposto() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'composto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByCompostoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByCompostoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'composto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByDescricao() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByDescricao() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descricao', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByDescricaoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByDescricaoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'descricao', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByFileImagem() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByFile_imagem() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fileImagem', Sort.asc);
+      return query.addSortBy(r'file_imagem', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByFileImagemDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByFile_imagemDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'fileImagem', Sort.desc);
+      return query.addSortBy(r'file_imagem', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByGrade() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByGrade() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'grade', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByGradeDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByGradeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'grade', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByGtin() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByGtin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'gtin', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByGtinDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByGtinDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'gtin', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByGtinGrade() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByGtin_grade() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gtinGrade', Sort.asc);
+      return query.addSortBy(r'gtin_grade', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByGtinGradeDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByGtin_gradeDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'gtinGrade', Sort.desc);
+      return query.addSortBy(r'gtin_grade', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdAUtoincrement() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idAUtoincrement', Sort.asc);
+      return query.addSortBy(r'id_empresa', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdAUtoincrementDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_empresaDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idAUtoincrement', Sort.desc);
+      return query.addSortBy(r'id_empresa', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdEmpresa() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_grupo() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
+      return query.addSortBy(r'id_grupo', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdEmpresaDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_grupoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
+      return query.addSortBy(r'id_grupo', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdGrupo() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_produto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idGrupo', Sort.asc);
+      return query.addSortBy(r'id_produto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdGrupoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_produtoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idGrupo', Sort.desc);
+      return query.addSortBy(r'id_produto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdProduto() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByNao_rec_desconto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idProduto', Sort.asc);
+      return query.addSortBy(r'nao_rec_desconto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdProdutoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByNao_rec_descontoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idProduto', Sort.desc);
+      return query.addSortBy(r'nao_rec_desconto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByNaoRecDesconto() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_apartir() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'naoRecDesconto', Sort.asc);
+      return query.addSortBy(r'promocao_apartir', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByNaoRecDescontoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_apartirDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'naoRecDesconto', Sort.desc);
+      return query.addSortBy(r'promocao_apartir', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoApartir() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_apartir_perc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartir', Sort.asc);
+      return query.addSortBy(r'promocao_apartir_perc', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoApartirDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenByPromocao_apartir_percDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartir', Sort.desc);
+      return query.addSortBy(r'promocao_apartir_perc', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoApartirPerc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_ativar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartirPerc', Sort.asc);
+      return query.addSortBy(r'promocao_ativar', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoApartirPercDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_ativarDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoApartirPerc', Sort.desc);
+      return query.addSortBy(r'promocao_ativar', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoAtivar() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_compre() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoAtivar', Sort.asc);
+      return query.addSortBy(r'promocao_compre', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoAtivarDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_compreDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoAtivar', Sort.desc);
+      return query.addSortBy(r'promocao_compre', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoCompre() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_data_inicio() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoCompre', Sort.asc);
+      return query.addSortBy(r'promocao_data_inicio', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoCompreDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenByPromocao_data_inicioDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoCompre', Sort.desc);
+      return query.addSortBy(r'promocao_data_inicio', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoDataInicio() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_data_limite() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataInicio', Sort.asc);
+      return query.addSortBy(r'promocao_data_limite', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoDataInicioDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenByPromocao_data_limiteDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataInicio', Sort.desc);
+      return query.addSortBy(r'promocao_data_limite', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoDataLimite() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_hora_final() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataLimite', Sort.asc);
+      return query.addSortBy(r'promocao_hora_final', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoDataLimiteDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_hora_finalDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoDataLimite', Sort.desc);
+      return query.addSortBy(r'promocao_hora_final', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoHoraFinal() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_hora_inicial() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraFinal', Sort.asc);
+      return query.addSortBy(r'promocao_hora_inicial', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoHoraFinalDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenByPromocao_hora_inicialDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraFinal', Sort.desc);
+      return query.addSortBy(r'promocao_hora_inicial', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoHoraInicial() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_leve() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraInicial', Sort.asc);
+      return query.addSortBy(r'promocao_leve', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoHoraInicialDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_leveDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoHoraInicial', Sort.desc);
+      return query.addSortBy(r'promocao_leve', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoLeve() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_preco() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoLeve', Sort.asc);
+      return query.addSortBy(r'promocao_preco', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoLeveDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_precoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoLeve', Sort.desc);
+      return query.addSortBy(r'promocao_preco', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoPreco() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_tipo_desc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoPreco', Sort.asc);
+      return query.addSortBy(r'promocao_tipo_desc', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoPrecoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPromocao_tipo_descDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoPreco', Sort.desc);
+      return query.addSortBy(r'promocao_tipo_desc', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoTipoDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoTipoDesc', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPromocaoTipoDescDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'promocaoTipoDesc', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPvenda() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPvenda() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pvenda', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByPvendaDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByPvendaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'pvenda', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenBySaldoProduto() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenBySaldo_produto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'saldoProduto', Sort.asc);
+      return query.addSortBy(r'saldo_produto', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenBySaldoProdutoDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenBySaldo_produtoDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'saldoProduto', Sort.desc);
+      return query.addSortBy(r'saldo_produto', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByStatus() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByStatusDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByStatusDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByUnidade() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByUnidade() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unidade', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByUnidadeDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByUnidadeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'unidade', Sort.desc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByVendaKg() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByVenda_kg() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaKg', Sort.asc);
+      return query.addSortBy(r'venda_kg', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByVendaKgDesc() {
+  QueryBuilder<produto, produto, QAfterSortBy> thenByVenda_kgDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'vendaKg', Sort.desc);
+      return query.addSortBy(r'venda_kg', Sort.desc);
     });
   }
 }
 
-extension ProdutoQueryWhereDistinct
-    on QueryBuilder<Produto, Produto, QDistinct> {
-  QueryBuilder<Produto, Produto, QDistinct> distinctByAltPrecoVenda() {
+extension produtoQueryWhereDistinct
+    on QueryBuilder<produto, produto, QDistinct> {
+  QueryBuilder<produto, produto, QDistinct> distinctByAlt_preco_venda() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'altPrecoVenda');
+      return query.addDistinctBy(r'alt_preco_venda');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByAltPrecoVendaTipo() {
+  QueryBuilder<produto, produto, QDistinct> distinctByAlt_preco_venda_tipo() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'altPrecoVendaTipo');
+      return query.addDistinctBy(r'alt_preco_venda_tipo');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByBalancaIdproduto() {
+  QueryBuilder<produto, produto, QDistinct> distinctByBalanca_idproduto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'balancaIdproduto');
+      return query.addDistinctBy(r'balanca_idproduto');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByBalancaTipoPesagem() {
+  QueryBuilder<produto, produto, QDistinct> distinctByBalanca_tipo_pesagem() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'balancaTipoPesagem');
+      return query.addDistinctBy(r'balanca_tipo_pesagem');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByComposto() {
+  QueryBuilder<produto, produto, QDistinct> distinctByComposto() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'composto');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByDescricao(
+  QueryBuilder<produto, produto, QDistinct> distinctByDescricao(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'descricao', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByFileImagem(
+  QueryBuilder<produto, produto, QDistinct> distinctByFile_imagem(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'fileImagem', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'file_imagem', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByGrade(
+  QueryBuilder<produto, produto, QDistinct> distinctByGrade(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'grade', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByGtin(
+  QueryBuilder<produto, produto, QDistinct> distinctByGtin(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'gtin', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByGtinGrade(
+  QueryBuilder<produto, produto, QDistinct> distinctByGtin_grade(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'gtinGrade', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'gtin_grade', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByIdEmpresa() {
+  QueryBuilder<produto, produto, QDistinct> distinctById_empresa() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idEmpresa');
+      return query.addDistinctBy(r'id_empresa');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByIdGrupo() {
+  QueryBuilder<produto, produto, QDistinct> distinctById_grupo() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idGrupo');
+      return query.addDistinctBy(r'id_grupo');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByIdProduto() {
+  QueryBuilder<produto, produto, QDistinct> distinctByNao_rec_desconto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idProduto');
+      return query.addDistinctBy(r'nao_rec_desconto');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByNaoRecDesconto() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_apartir() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'naoRecDesconto');
+      return query.addDistinctBy(r'promocao_apartir');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoApartir() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_apartir_perc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoApartir');
+      return query.addDistinctBy(r'promocao_apartir_perc');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoApartirPerc() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_ativar() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoApartirPerc');
+      return query.addDistinctBy(r'promocao_ativar');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoAtivar() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_compre() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoAtivar');
+      return query.addDistinctBy(r'promocao_compre');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoCompre() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_data_inicio() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoCompre');
+      return query.addDistinctBy(r'promocao_data_inicio');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoDataInicio() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_data_limite() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoDataInicio');
+      return query.addDistinctBy(r'promocao_data_limite');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoDataLimite() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoDataLimite');
-    });
-  }
-
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoHoraFinal(
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_hora_final(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoHoraFinal',
+      return query.addDistinctBy(r'promocao_hora_final',
           caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoHoraInicial(
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_hora_inicial(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoHoraInicial',
+      return query.addDistinctBy(r'promocao_hora_inicial',
           caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoLeve() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_leve() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoLeve');
+      return query.addDistinctBy(r'promocao_leve');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoPreco() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_preco() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoPreco');
+      return query.addDistinctBy(r'promocao_preco');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPromocaoTipoDesc() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_tipo_desc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocaoTipoDesc');
+      return query.addDistinctBy(r'promocao_tipo_desc');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByPvenda() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPvenda() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'pvenda');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctBySaldoProduto() {
+  QueryBuilder<produto, produto, QDistinct> distinctBySaldo_produto() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'saldoProduto');
+      return query.addDistinctBy(r'saldo_produto');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByStatus() {
+  QueryBuilder<produto, produto, QDistinct> distinctByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'status');
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByUnidade(
+  QueryBuilder<produto, produto, QDistinct> distinctByUnidade(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'unidade', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<Produto, Produto, QDistinct> distinctByVendaKg() {
+  QueryBuilder<produto, produto, QDistinct> distinctByVenda_kg() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'vendaKg');
+      return query.addDistinctBy(r'venda_kg');
     });
   }
 }
 
-extension ProdutoQueryProperty
-    on QueryBuilder<Produto, Produto, QQueryProperty> {
-  QueryBuilder<Produto, int, QQueryOperations> idAUtoincrementProperty() {
+extension produtoQueryProperty
+    on QueryBuilder<produto, produto, QQueryProperty> {
+  QueryBuilder<produto, int, QQueryOperations> id_produtoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idAUtoincrement');
+      return query.addPropertyName(r'id_produto');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> altPrecoVendaProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> alt_preco_vendaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'altPrecoVenda');
+      return query.addPropertyName(r'alt_preco_venda');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> altPrecoVendaTipoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> alt_preco_venda_tipoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'altPrecoVendaTipo');
+      return query.addPropertyName(r'alt_preco_venda_tipo');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> balancaIdprodutoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> balanca_idprodutoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'balancaIdproduto');
+      return query.addPropertyName(r'balanca_idproduto');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> balancaTipoPesagemProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> balanca_tipo_pesagemProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'balancaTipoPesagem');
+      return query.addPropertyName(r'balanca_tipo_pesagem');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> compostoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> compostoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'composto');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations> descricaoProperty() {
+  QueryBuilder<produto, String?, QQueryOperations> descricaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'descricao');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations> fileImagemProperty() {
+  QueryBuilder<produto, String?, QQueryOperations> file_imagemProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'fileImagem');
+      return query.addPropertyName(r'file_imagem');
     });
   }
 
-  QueryBuilder<Produto, String, QQueryOperations> gradeProperty() {
+  QueryBuilder<produto, String, QQueryOperations> gradeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'grade');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations> gtinProperty() {
+  QueryBuilder<produto, String?, QQueryOperations> gtinProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'gtin');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations> gtinGradeProperty() {
+  QueryBuilder<produto, String?, QQueryOperations> gtin_gradeProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'gtinGrade');
+      return query.addPropertyName(r'gtin_grade');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> idEmpresaProperty() {
+  QueryBuilder<produto, int, QQueryOperations> id_empresaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idEmpresa');
+      return query.addPropertyName(r'id_empresa');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> idGrupoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> id_grupoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idGrupo');
+      return query.addPropertyName(r'id_grupo');
     });
   }
 
-  QueryBuilder<Produto, int, QQueryOperations> idProdutoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> nao_rec_descontoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idProduto');
+      return query.addPropertyName(r'nao_rec_desconto');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> naoRecDescontoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> promocao_apartirProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'naoRecDesconto');
+      return query.addPropertyName(r'promocao_apartir');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> promocaoApartirProperty() {
+  QueryBuilder<produto, double?, QQueryOperations>
+      promocao_apartir_percProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoApartir');
+      return query.addPropertyName(r'promocao_apartir_perc');
     });
   }
 
-  QueryBuilder<Produto, double?, QQueryOperations>
-      promocaoApartirPercProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> promocao_ativarProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoApartirPerc');
+      return query.addPropertyName(r'promocao_ativar');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> promocaoAtivarProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> promocao_compreProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoAtivar');
+      return query.addPropertyName(r'promocao_compre');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> promocaoCompreProperty() {
+  QueryBuilder<produto, DateTime?, QQueryOperations>
+      promocao_data_inicioProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoCompre');
+      return query.addPropertyName(r'promocao_data_inicio');
     });
   }
 
-  QueryBuilder<Produto, DateTime?, QQueryOperations>
-      promocaoDataInicioProperty() {
+  QueryBuilder<produto, DateTime?, QQueryOperations>
+      promocao_data_limiteProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoDataInicio');
+      return query.addPropertyName(r'promocao_data_limite');
     });
   }
 
-  QueryBuilder<Produto, DateTime?, QQueryOperations>
-      promocaoDataLimiteProperty() {
+  QueryBuilder<produto, String?, QQueryOperations>
+      promocao_hora_finalProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoDataLimite');
+      return query.addPropertyName(r'promocao_hora_final');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations> promocaoHoraFinalProperty() {
+  QueryBuilder<produto, String?, QQueryOperations>
+      promocao_hora_inicialProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoHoraFinal');
+      return query.addPropertyName(r'promocao_hora_inicial');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations>
-      promocaoHoraInicialProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> promocao_leveProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoHoraInicial');
+      return query.addPropertyName(r'promocao_leve');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> promocaoLeveProperty() {
+  QueryBuilder<produto, double?, QQueryOperations> promocao_precoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoLeve');
+      return query.addPropertyName(r'promocao_preco');
     });
   }
 
-  QueryBuilder<Produto, double?, QQueryOperations> promocaoPrecoProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> promocao_tipo_descProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoPreco');
+      return query.addPropertyName(r'promocao_tipo_desc');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> promocaoTipoDescProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'promocaoTipoDesc');
-    });
-  }
-
-  QueryBuilder<Produto, double, QQueryOperations> pvendaProperty() {
+  QueryBuilder<produto, double, QQueryOperations> pvendaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pvenda');
     });
   }
 
-  QueryBuilder<Produto, double, QQueryOperations> saldoProdutoProperty() {
+  QueryBuilder<produto, double, QQueryOperations> saldo_produtoProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'saldoProduto');
+      return query.addPropertyName(r'saldo_produto');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> statusProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> statusProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status');
     });
   }
 
-  QueryBuilder<Produto, String?, QQueryOperations> unidadeProperty() {
+  QueryBuilder<produto, String?, QQueryOperations> unidadeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'unidade');
     });
   }
 
-  QueryBuilder<Produto, int?, QQueryOperations> vendaKgProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> venda_kgProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'vendaKg');
+      return query.addPropertyName(r'venda_kg');
     });
   }
 }
