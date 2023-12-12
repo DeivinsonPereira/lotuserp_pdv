@@ -71,6 +71,7 @@ class OpenRegisterPage extends StatelessWidget {
                     color: Colors.blue,
                     child: IconButton(
                       onPressed: () {
+                        movimentRegisterController.clearOpenRegister();
                         Get.back();
                       },
                       icon: const Icon(
@@ -251,8 +252,8 @@ class OpenRegisterPage extends StatelessWidget {
                                     flex: 1,
                                     child: TextButton(
                                       style: TextButton.styleFrom(
-                                        backgroundColor:
-                                            const Color.fromARGB(255, 116, 187, 102),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 116, 187, 102),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(0),
@@ -267,7 +268,7 @@ class OpenRegisterPage extends StatelessWidget {
                                         var dadosUsuario =
                                             await service.getUserLogged();
 
-                                        var openRegisterDouble =
+                                        double openRegisterDouble =
                                             movimentRegisterController
                                                 .openRegisterToDouble();
 
@@ -291,26 +292,44 @@ class OpenRegisterPage extends StatelessWidget {
                                                 dadosUsuario.id_user!
                                             ..abertura_data = atualDate
                                             ..abertura_hora = hourFormatted
-                                            ..abertura_valor = openRegisterDouble
+                                            ..abertura_valor =
+                                                openRegisterDouble
                                             ..status = 0
                                             ..fechou_id_user = null
                                             ..fechou_data = null
                                             ..fechou_hora = null
                                             ..enviado = 0
-                                            ..idCaixaServidor = 0;
-
-                                          await service
-                                              .insertCaixaWithCaixaItem(
-                                                  caixas,
-                                                  atualDate,
-                                                  hourFormatted,
-                                                  openRegisterDouble);
-
-                                          movimentRegisterController
-                                              .clearOpenRegister();
-                                          Get.back();
+                                            ..id_caixa_servidor = 0;
+                                          if (openRegisterDouble > 0.00) {
+                                            print('if: $openRegisterDouble');
+                                            await service
+                                                .insertCaixaWithCaixaItem(
+                                                    caixas,
+                                                    atualDate,
+                                                    hourFormatted,
+                                                    openRegisterDouble);
+                                            movimentRegisterController
+                                                .clearOpenRegister();
+                                            Get.back();
+                                          } else if (openRegisterDouble ==
+                                                  0.00 &&
+                                              !caixaExistente) {
+                                            print('else: $openRegisterDouble');
+                                            service.insertCaixa(caixas);
+                                            movimentRegisterController
+                                                .clearOpenRegister();
+                                            Get.back();
+                                          } else if (caixaExistente) {
+                                            Get.snackbar(
+                                              'Atenção',
+                                              'Ja existe um caixa aberto para este usuário.',
+                                              backgroundColor: Colors.red,
+                                              colorText: Colors.white,
+                                              snackPosition:
+                                                  SnackPosition.BOTTOM,
+                                            );
+                                          }
                                         }
-                                        
                                       },
                                       child: const Text(
                                         "CONFIRMAR",

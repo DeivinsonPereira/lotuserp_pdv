@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
+import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
@@ -373,6 +374,73 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  Future getTipo_recebimento() async {
+    final isar = await db;
+    int i = await isar.tipo_recebimentos.count();
+
+    if (i >= 0) {
+      isar.writeTxn(
+        () async {
+          await isar.tipo_recebimentos.clear();
+        },
+      );
+    }
+
+    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+
+    var ipEmpresaUrl = '';
+    var idEmpresaNum = 0;
+
+    if (dadoEmpresa != null) {
+      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+      idEmpresaNum = dadoEmpresa.id_empresa!;
+    }
+
+    Uri getTipo_recebimento = Uri.parse(
+        '${ipEmpresaUrl}pdvmobget06_tipos_recebimentos?pidEmpresa=$idEmpresaNum');
+    final response = await http.get(
+      getTipo_recebimento,
+      headers: _headers,
+    );
+    if (response.statusCode == 200) {
+      Map<String, dynamic> tipo_recebimentoType =
+          jsonDecode(utf8.decode(response.bodyBytes));
+
+      var tipo_recebimento_count = tipo_recebimentoType['itens'].length;
+
+      final List<tipo_recebimento> lista_tipo_recebimento = [];
+
+      for (int i = 0; i < tipo_recebimento_count; i++) {
+        final tip = tipo_recebimento(
+          tipo_recebimentoType['itens'][i]['id'],
+          tipo_recebimentoType['itens'][i]['id_empresa'],
+          tipo_recebimentoType['itens'][i]['descricao'],
+          tipo_recebimentoType['itens'][i]['permite_troco'],
+          tipo_recebimentoType['itens'][i]['tipo_forma'],
+          tipo_recebimentoType['itens'][i]['status'],
+          tipo_recebimentoType['itens'][i]['listar_pdv'],
+          tipo_recebimentoType['itens'][i]['id_pcontas'],
+          tipo_recebimentoType['itens'][i]['tef'],
+          tipo_recebimentoType['itens'][i]['id_fpagto'],
+          tipo_recebimentoType['itens'][i]['pix_integrado'],
+          tipo_recebimentoType['itens'][i]['imp_comprovante'],
+          tipo_recebimentoType['itens'][i]['cortesia'],
+          tipo_recebimentoType['itens'][i]['obrigar_nfce'],
+          tipo_recebimentoType['itens'][i]['solicitar_senha'],
+        );
+
+        lista_tipo_recebimento.add(tip);
+      }
+
+      isar.writeTxn(() async {
+        await isar.tipo_recebimentos.putAll(lista_tipo_recebimento);
+      });
+      return isar;
+    } else {
+      throw Exception('Não foi possível encontrar os itens do banco de dados');
+    }
+  }
+
   //metodos para inserir dados no banco
 
   //inserir dados na tabela caixa
@@ -383,7 +451,6 @@ class IsarService {
     //inserindo dados na tabela caixa
     isar.writeTxn(() async {
       idCaixa = await isar.caixas.put(caixa);
-      print(idCaixa);
     });
 
     return idCaixa;
@@ -667,7 +734,7 @@ class IsarService {
     caixa? usuario =
         await isar.caixas.filter().abertura_id_userEqualTo(idUser).findFirst();
 
-    if (usuario != null) {
+    if (usuario?.status == 0) {
       return true;
     } else {
       return false;
@@ -691,6 +758,7 @@ class IsarService {
           VendaSchema,
           Dado_empresaSchema,
           Usuario_logadoSchema,
+          Tipo_recebimentoSchema,
         ],
         directory: dir.path,
       );

@@ -302,6 +302,7 @@ class _ConfigPageState extends State<ConfigPage> {
                         .getProduto(int.parse(textFieldController.idEmpresa));
                     await service
                         .getUsuarios(int.parse(textFieldController.idEmpresa));
+                    await service.getTipo_recebimento();
                     await Get.offAllNamed(PagesRoutes.loginRoute);
                   }
                 },

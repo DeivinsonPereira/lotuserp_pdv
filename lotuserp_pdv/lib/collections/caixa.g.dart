@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'caixa.dart';
 
 // **************************************************************************
@@ -59,9 +57,9 @@ const CaixaSchema = CollectionSchema(
       name: r'fechou_id_user',
       type: IsarType.long,
     ),
-    r'idCaixaServidor': PropertySchema(
+    r'id_caixa_servidor': PropertySchema(
       id: 8,
-      name: r'idCaixaServidor',
+      name: r'id_caixa_servidor',
       type: IsarType.long,
     ),
     r'id_empresa': PropertySchema(
@@ -119,7 +117,7 @@ void _caixaSerialize(
   writer.writeDateTime(offsets[5], object.fechou_data);
   writer.writeString(offsets[6], object.fechou_hora);
   writer.writeLong(offsets[7], object.fechou_id_user);
-  writer.writeLong(offsets[8], object.idCaixaServidor);
+  writer.writeLong(offsets[8], object.id_caixa_servidor);
   writer.writeLong(offsets[9], object.id_empresa);
   writer.writeLong(offsets[10], object.status);
 }
@@ -139,8 +137,8 @@ caixa _caixaDeserialize(
   object.fechou_data = reader.readDateTimeOrNull(offsets[5]);
   object.fechou_hora = reader.readStringOrNull(offsets[6]);
   object.fechou_id_user = reader.readLongOrNull(offsets[7]);
-  object.idCaixaServidor = reader.readLongOrNull(offsets[8]);
   object.id_caixa = id;
+  object.id_caixa_servidor = reader.readLongOrNull(offsets[8]);
   object.id_empresa = reader.readLong(offsets[9]);
   object.status = reader.readLong(offsets[10]);
   return object;
@@ -919,75 +917,6 @@ extension caixaQueryFilter on QueryBuilder<caixa, caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorIsNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'idCaixaServidor',
-      ));
-    });
-  }
-
-  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorIsNotNull() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'idCaixaServidor',
-      ));
-    });
-  }
-
-  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorEqualTo(
-      int? value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idCaixaServidor',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorGreaterThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'idCaixaServidor',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorLessThan(
-    int? value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'idCaixaServidor',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<caixa, caixa, QAfterFilterCondition> idCaixaServidorBetween(
-    int? lower,
-    int? upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'idCaixaServidor',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixaEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -1032,6 +961,77 @@ extension caixaQueryFilter on QueryBuilder<caixa, caixa, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id_caixa',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixa_servidorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_caixa_servidor',
+      ));
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterFilterCondition>
+      id_caixa_servidorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_caixa_servidor',
+      ));
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixa_servidorEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_caixa_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterFilterCondition>
+      id_caixa_servidorGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_caixa_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixa_servidorLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_caixa_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterFilterCondition> id_caixa_servidorBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_caixa_servidor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1247,15 +1247,15 @@ extension caixaQuerySortBy on QueryBuilder<caixa, caixa, QSortBy> {
     });
   }
 
-  QueryBuilder<caixa, caixa, QAfterSortBy> sortByIdCaixaServidor() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortById_caixa_servidor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixaServidor', Sort.asc);
+      return query.addSortBy(r'id_caixa_servidor', Sort.asc);
     });
   }
 
-  QueryBuilder<caixa, caixa, QAfterSortBy> sortByIdCaixaServidorDesc() {
+  QueryBuilder<caixa, caixa, QAfterSortBy> sortById_caixa_servidorDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixaServidor', Sort.desc);
+      return query.addSortBy(r'id_caixa_servidor', Sort.desc);
     });
   }
 
@@ -1381,18 +1381,6 @@ extension caixaQuerySortThenBy on QueryBuilder<caixa, caixa, QSortThenBy> {
     });
   }
 
-  QueryBuilder<caixa, caixa, QAfterSortBy> thenByIdCaixaServidor() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixaServidor', Sort.asc);
-    });
-  }
-
-  QueryBuilder<caixa, caixa, QAfterSortBy> thenByIdCaixaServidorDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idCaixaServidor', Sort.desc);
-    });
-  }
-
   QueryBuilder<caixa, caixa, QAfterSortBy> thenById_caixa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_caixa', Sort.asc);
@@ -1402,6 +1390,18 @@ extension caixaQuerySortThenBy on QueryBuilder<caixa, caixa, QSortThenBy> {
   QueryBuilder<caixa, caixa, QAfterSortBy> thenById_caixaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_caixa', Sort.desc);
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenById_caixa_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<caixa, caixa, QAfterSortBy> thenById_caixa_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa_servidor', Sort.desc);
     });
   }
 
@@ -1482,9 +1482,9 @@ extension caixaQueryWhereDistinct on QueryBuilder<caixa, caixa, QDistinct> {
     });
   }
 
-  QueryBuilder<caixa, caixa, QDistinct> distinctByIdCaixaServidor() {
+  QueryBuilder<caixa, caixa, QDistinct> distinctById_caixa_servidor() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idCaixaServidor');
+      return query.addDistinctBy(r'id_caixa_servidor');
     });
   }
 
@@ -1556,9 +1556,9 @@ extension caixaQueryProperty on QueryBuilder<caixa, caixa, QQueryProperty> {
     });
   }
 
-  QueryBuilder<caixa, int?, QQueryOperations> idCaixaServidorProperty() {
+  QueryBuilder<caixa, int?, QQueryOperations> id_caixa_servidorProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idCaixaServidor');
+      return query.addPropertyName(r'id_caixa_servidor');
     });
   }
 

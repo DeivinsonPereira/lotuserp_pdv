@@ -18,6 +18,6 @@ class caixa {
   late DateTime? fechou_data;
   late String? fechou_hora;
   late int? enviado;
-  late int? idCaixaServidor;
+  late int? id_caixa_servidor;
 
 }

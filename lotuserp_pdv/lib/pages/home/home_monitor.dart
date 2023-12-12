@@ -4,7 +4,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/data_manager_page.dart';
 import 'package:lotuserp_pdv/pages/manage_cash_page.dart';
-import 'package:lotuserp_pdv/pages/open_register_page.dart';
+import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
 import 'package:lotuserp_pdv/pages/pdv/pdv_page.dart';
 import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/button.dart';

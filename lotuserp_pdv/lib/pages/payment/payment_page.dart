@@ -207,7 +207,7 @@ class _PaymentPageState extends State<PaymentPage> {
               Text(text),
               Text(
                 calculateTotal ? totalPaid : value,
-                style: TextStyle(fontWeight: FontWeight.bold),
+                style: const TextStyle(fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -295,7 +295,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                           FontAwesomeIcons.trash,
                                           size: 20,
                                         ),
-                                        color: Color.fromARGB(255, 170, 46, 37),
+                                        color: const Color.fromARGB(255, 170, 46, 37),
                                       )),
                                 ],
                               )

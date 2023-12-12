@@ -6,7 +6,7 @@ class MovimentRegisterController extends GetxController {
   TextEditingController closeRegisterController = TextEditingController();
   TextEditingController movimentRegisterController = TextEditingController();
 
-  String openRegister = '0,0';
+  String openRegister = '0,00';
 
   RxDouble closeRegister = 0.0.obs;
 
