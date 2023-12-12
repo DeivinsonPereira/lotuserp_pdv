@@ -261,7 +261,7 @@ class OpenRegisterPage extends StatelessWidget {
                                               BorderRadius.circular(0),
                                         ),
                                       ),
-                                      onPressed: () async {
+                                      onPressed: () async { 
                                         movimentRegisterController
                                             .openRegisterValue();
                                         var dadosEmpresa = await service
@@ -278,12 +278,13 @@ class OpenRegisterPage extends StatelessWidget {
                                           ..aberturaIdUser =
                                               dadosUsuario!.idColaborador!
                                           ..aberturaData = parsedDateTime
+                                          ..aberturaHora = hourFormatted
                                           ..aberturaValor = openRegisterDouble
                                           ..status = 0
                                           ..fechouIdUser = null
                                           ..fechouData = null
                                           ..fechouHora = null
-                                          ..fechouValor = 0
+                                          ..fechouValor = null
                                           ..enviado = 0
                                           ..idCaixaServidor = 0;
 
