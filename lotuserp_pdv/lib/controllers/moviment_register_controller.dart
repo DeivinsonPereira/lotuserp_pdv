@@ -6,7 +6,7 @@ class MovimentRegisterController extends GetxController {
   TextEditingController closeRegisterController = TextEditingController();
   TextEditingController movimentRegisterController = TextEditingController();
 
-  RxString openRegister = '0,0'.obs;
+  String openRegister = '0,0';
 
   RxDouble closeRegister = 0.0.obs;
 
@@ -37,13 +37,20 @@ class MovimentRegisterController extends GetxController {
     super.onClose();
   }
 
+  //crie um método para trasformar o valor guardado no openRegister que é uma string para double, transformando antes virgula em ponto
+  double openRegisterToDouble() {
+    String openRegister = openRegisterController.text;
+    openRegister = openRegister.replaceAll(',', '.');
+    return double.parse(openRegister);
+  }
+
   //open register
   void openRegisterValue() {
     if (openRegisterController.text.isEmpty) {
       openRegisterController.text = '0.0';
     }
     String value = openRegisterController.text;
-    openRegister.value = value;
+    openRegister = value;
   }
 
   //close register

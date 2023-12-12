@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
 
 class OpenRegisterPage extends StatelessWidget {
   const OpenRegisterPage({super.key});
@@ -20,13 +23,14 @@ class OpenRegisterPage extends StatelessWidget {
 
     var userName = passwordController.userController.text;
 
-    DateTime atualDate = DateTime.now();
+    tz.initializeTimeZones();
+    var atualDate = DateTime.now();
+    var formattedDate = DateFormat('dd/MM/yyyy').format(atualDate);
 
-    var date = DateFormat('dd/MM/yyyy').format(atualDate);
-    DateTime dateTime = DateFormat('dd/MM/yyyy').parse(date);
-    String hourFormatted = DateFormat('hh:mm').format(atualDate);
-
-    
+    var saoPauloTimeZone = tz.getLocation('America/Sao_Paulo');
+    var saoPauloDateTime = tz.TZDateTime.from(atualDate, saoPauloTimeZone);
+    var hourFormatted = DateFormat('HH:mm:ss').format(saoPauloDateTime);
+    var parsedDateTime = DateFormat('HH:mm:ss').parse(hourFormatted);
 
     return SingleChildScrollView(
       child: Dialog(
@@ -117,7 +121,7 @@ class OpenRegisterPage extends StatelessWidget {
                                               textAlign: TextAlign.center,
                                             ),
                                             Text(
-                                              date,
+                                              formattedDate,
                                               style: TextStyle(
                                                 fontSize: 20,
                                                 color: CustomColors
@@ -265,24 +269,26 @@ class OpenRegisterPage extends StatelessWidget {
 
                                         var dadosUsuario =
                                             await service.getUserLogged();
-/*
-                                        var caixa = Caixa()
+                                        var openRegisterDouble =
+                                            movimentRegisterController
+                                                .openRegisterToDouble();
+
+                                        Caixa caixa = Caixa()
                                           ..idEmpresa = dadosEmpresa!.idEmpresa!
                                           ..aberturaIdUser =
                                               dadosUsuario!.idColaborador!
-                                          .. aberturaData = dateTime
-                                          .. 
+                                          ..aberturaData = parsedDateTime
+                                          ..aberturaValor = openRegisterDouble
+                                          ..status = 0
+                                          ..fechouIdUser = null
+                                          ..fechouData = null
+                                          ..fechouHora = null
+                                          ..fechouValor = 0
+                                          ..enviado = 0
+                                          ..idCaixaServidor = 0;
 
-                                        late String aberturaHora;
-                                        late double aberturaValor;
-                                        late int status;
-                                        late int fechouIdUser;
-                                        late DateTime fechouData;
-                                        late String fechouHora;
-                                        late double fechouValor;
-                                        late int enviado;
-                                        late int idCaixaServidor;
-*/
+                                        await service.insertCaixa(caixa);
+
                                         movimentRegisterController
                                             .clearOpenRegister();
                                         Get.back();

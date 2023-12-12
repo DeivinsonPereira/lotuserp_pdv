@@ -99,7 +99,12 @@ int _caixaEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.aberturaHora.length * 3;
-  bytesCount += 3 + object.fechouHora.length * 3;
+  {
+    final value = object.fechouHora;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   return bytesCount;
 }
 
@@ -134,13 +139,13 @@ Caixa _caixaDeserialize(
   object.aberturaHora = reader.readString(offsets[1]);
   object.aberturaIdUser = reader.readLong(offsets[2]);
   object.aberturaValor = reader.readDouble(offsets[3]);
-  object.enviado = reader.readLong(offsets[4]);
-  object.fechouData = reader.readDateTime(offsets[5]);
-  object.fechouHora = reader.readString(offsets[6]);
-  object.fechouIdUser = reader.readLong(offsets[7]);
-  object.fechouValor = reader.readDouble(offsets[8]);
+  object.enviado = reader.readLongOrNull(offsets[4]);
+  object.fechouData = reader.readDateTimeOrNull(offsets[5]);
+  object.fechouHora = reader.readStringOrNull(offsets[6]);
+  object.fechouIdUser = reader.readLongOrNull(offsets[7]);
+  object.fechouValor = reader.readDoubleOrNull(offsets[8]);
   object.idCaixa = id;
-  object.idCaixaServidor = reader.readLong(offsets[9]);
+  object.idCaixaServidor = reader.readLongOrNull(offsets[9]);
   object.idEmpresa = reader.readLong(offsets[10]);
   object.status = reader.readLong(offsets[11]);
   return object;
@@ -162,17 +167,17 @@ P _caixaDeserializeProp<P>(
     case 3:
       return (reader.readDouble(offset)) as P;
     case 4:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 5:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 6:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 7:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 8:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 9:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 10:
       return (reader.readLong(offset)) as P;
     case 11:
@@ -568,7 +573,23 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
-  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoEqualTo(int value) {
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'enviado',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'enviado',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'enviado',
@@ -578,7 +599,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -591,7 +612,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -604,8 +625,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> enviadoBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -620,8 +641,24 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fechouData',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fechouData',
+      ));
+    });
+  }
+
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataEqualTo(
-      DateTime value) {
+      DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'fechouData',
@@ -631,7 +668,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -644,7 +681,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -657,8 +694,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouDataBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -673,8 +710,24 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fechouHora',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fechouHora',
+      ));
+    });
+  }
+
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -687,7 +740,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -702,7 +755,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -717,8 +770,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouHoraBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -803,8 +856,24 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fechouIdUser',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fechouIdUser',
+      ));
+    });
+  }
+
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'fechouIdUser',
@@ -814,7 +883,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -827,7 +896,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -840,8 +909,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouIdUserBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -856,8 +925,24 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'fechouValor',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'fechouValor',
+      ));
+    });
+  }
+
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -870,7 +955,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -885,7 +970,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -900,8 +985,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> fechouValorBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -970,8 +1055,24 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
     });
   }
 
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'idCaixaServidor',
+      ));
+    });
+  }
+
+  QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'idCaixaServidor',
+      ));
+    });
+  }
+
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'idCaixaServidor',
@@ -981,7 +1082,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -994,7 +1095,7 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1007,8 +1108,8 @@ extension CaixaQueryFilter on QueryBuilder<Caixa, Caixa, QFilterCondition> {
   }
 
   QueryBuilder<Caixa, Caixa, QAfterFilterCondition> idCaixaServidorBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1544,37 +1645,37 @@ extension CaixaQueryProperty on QueryBuilder<Caixa, Caixa, QQueryProperty> {
     });
   }
 
-  QueryBuilder<Caixa, int, QQueryOperations> enviadoProperty() {
+  QueryBuilder<Caixa, int?, QQueryOperations> enviadoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'enviado');
     });
   }
 
-  QueryBuilder<Caixa, DateTime, QQueryOperations> fechouDataProperty() {
+  QueryBuilder<Caixa, DateTime?, QQueryOperations> fechouDataProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechouData');
     });
   }
 
-  QueryBuilder<Caixa, String, QQueryOperations> fechouHoraProperty() {
+  QueryBuilder<Caixa, String?, QQueryOperations> fechouHoraProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechouHora');
     });
   }
 
-  QueryBuilder<Caixa, int, QQueryOperations> fechouIdUserProperty() {
+  QueryBuilder<Caixa, int?, QQueryOperations> fechouIdUserProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechouIdUser');
     });
   }
 
-  QueryBuilder<Caixa, double, QQueryOperations> fechouValorProperty() {
+  QueryBuilder<Caixa, double?, QQueryOperations> fechouValorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'fechouValor');
     });
   }
 
-  QueryBuilder<Caixa, int, QQueryOperations> idCaixaServidorProperty() {
+  QueryBuilder<Caixa, int?, QQueryOperations> idCaixaServidorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idCaixaServidor');
     });

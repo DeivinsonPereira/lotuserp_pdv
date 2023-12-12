@@ -375,12 +375,12 @@ class IsarService {
   //metodos para inserir dados no banco
 
   //inserir dados na tabela caixa
-  Future<Isar> insertCaixa(CaixaItem caixaItem) async {
+  Future<Isar> insertCaixa(Caixa caixa) async {
     final isar = await db;
 
     //inserindo dados na tabela caixa
     isar.writeTxn(() async {
-      await isar.caixaItems.put(caixaItem);
+      await isar.caixas.put(caixa);
     });
     return isar;
   }

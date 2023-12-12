@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
-import 'package:lotuserp_pdv/controllers/home_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
@@ -42,9 +41,7 @@ class LoginPage extends StatelessWidget {
       return login.toUpperCase() == savedLogin!.toUpperCase();
     }
 
-    return/* GetBuilder(
-      init: HomeController(),
-      builder: (_) => */Scaffold(
+    return Scaffold(
         backgroundColor: CustomColors.customSwatchColor,
         body: SizedBox(
           width: double.infinity,

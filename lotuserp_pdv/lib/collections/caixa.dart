@@ -14,11 +14,11 @@ class Caixa {
   late String aberturaHora;
   late double aberturaValor;
   late int status;
-  late int fechouIdUser;
-  late DateTime fechouData;
-  late String fechouHora;
-  late double fechouValor;
-  late int enviado;
-  late int idCaixaServidor;
+  late int? fechouIdUser;
+  late DateTime? fechouData;
+  late String? fechouHora;
+  late double? fechouValor;
+  late int? enviado;
+  late int? idCaixaServidor;
 
 }
