@@ -42,7 +42,7 @@ const GrupoProdutoSchema = CollectionSchema(
   serialize: _grupoProdutoSerialize,
   deserialize: _grupoProdutoDeserialize,
   deserializeProp: _grupoProdutoDeserializeProp,
-  idName: r'id',
+  idName: r'idAutoincrement',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -97,7 +97,7 @@ GrupoProduto _grupoProdutoDeserialize(
     reader.readLongOrNull(offsets[3]),
     reader.readStringOrNull(offsets[0]),
   );
-  object.id = id;
+  object.idAutoincrement = id;
   return object;
 }
 
@@ -122,7 +122,7 @@ P _grupoProdutoDeserializeProp<P>(
 }
 
 Id _grupoProdutoGetId(GrupoProduto object) {
-  return object.id;
+  return object.idAutoincrement;
 }
 
 List<IsarLinkBase<dynamic>> _grupoProdutoGetLinks(GrupoProduto object) {
@@ -131,12 +131,12 @@ List<IsarLinkBase<dynamic>> _grupoProdutoGetLinks(GrupoProduto object) {
 
 void _grupoProdutoAttach(
     IsarCollection<dynamic> col, Id id, GrupoProduto object) {
-  object.id = id;
+  object.idAutoincrement = id;
 }
 
 extension GrupoProdutoQueryWhereSort
     on QueryBuilder<GrupoProduto, GrupoProduto, QWhere> {
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhere> anyId() {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhere> anyIdAutoincrement() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -145,68 +145,74 @@ extension GrupoProdutoQueryWhereSort
 
 extension GrupoProdutoQueryWhere
     on QueryBuilder<GrupoProduto, GrupoProduto, QWhereClause> {
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause>
+      idAutoincrementEqualTo(Id idAutoincrement) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: idAutoincrement,
+        upper: idAutoincrement,
       ));
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause> idNotEqualTo(
-      Id id) {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause>
+      idAutoincrementNotEqualTo(Id idAutoincrement) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(
+                  upper: idAutoincrement, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(
+                  lower: idAutoincrement, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(
+                  lower: idAutoincrement, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(
+                  upper: idAutoincrement, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause> idGreaterThan(
-      Id id,
-      {bool include = false}) {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause>
+      idAutoincrementGreaterThan(Id idAutoincrement, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(
+            lower: idAutoincrement, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause>
+      idAutoincrementLessThan(Id idAutoincrement, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: idAutoincrement, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterWhereClause>
+      idAutoincrementBetween(
+    Id lowerIdAutoincrement,
+    Id upperIdAutoincrement, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerIdAutoincrement,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperIdAutoincrement,
         includeUpper: includeUpper,
       ));
     });
@@ -523,43 +529,46 @@ extension GrupoProdutoQueryFilter
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition> idEqualTo(
-      Id value) {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      idAutoincrementEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
+        property: r'idAutoincrement',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      idAutoincrementGreaterThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'id',
+        property: r'idAutoincrement',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition> idLessThan(
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      idAutoincrementLessThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'id',
+        property: r'idAutoincrement',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition> idBetween(
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterFilterCondition>
+      idAutoincrementBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -567,7 +576,7 @@ extension GrupoProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r'idAutoincrement',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -795,15 +804,17 @@ extension GrupoProdutoQuerySortThenBy
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy> thenById() {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy>
+      thenByIdAutoincrement() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r'idAutoincrement', Sort.asc);
     });
   }
 
-  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<GrupoProduto, GrupoProduto, QAfterSortBy>
+      thenByIdAutoincrementDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(r'idAutoincrement', Sort.desc);
     });
   }
 
@@ -864,9 +875,9 @@ extension GrupoProdutoQueryWhereDistinct
 
 extension GrupoProdutoQueryProperty
     on QueryBuilder<GrupoProduto, GrupoProduto, QQueryProperty> {
-  QueryBuilder<GrupoProduto, int, QQueryOperations> idProperty() {
+  QueryBuilder<GrupoProduto, int, QQueryOperations> idAutoincrementProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'idAutoincrement');
     });
   }
 

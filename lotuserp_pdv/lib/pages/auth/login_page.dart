@@ -165,8 +165,10 @@ class LoginPage extends StatelessWidget {
                                           await areloginEquals()) {
                                         var userOnline = await service
                                             .getUserIdColaborador(savedLogin);
+                                        var idUser = await service.getUserIdUser(savedLogin);    
                                         var usuarioLogado = UsuarioLogado()
                                           ..login = savedLogin
+                                          ..idUser = idUser
                                           ..idColaborador = userOnline;
                                         await service.insertUser(usuarioLogado);
                                         Get.toNamed('/');

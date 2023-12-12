@@ -57,14 +57,14 @@ const UsuarioSchema = CollectionSchema(
       name: r'caixaPdv',
       type: IsarType.long,
     ),
-    r'idColaborador': PropertySchema(
+    r'id': PropertySchema(
       id: 8,
-      name: r'idColaborador',
+      name: r'id',
       type: IsarType.long,
     ),
-    r'idEmpresa': PropertySchema(
+    r'idColaborador': PropertySchema(
       id: 9,
-      name: r'idEmpresa',
+      name: r'idColaborador',
       type: IsarType.long,
     ),
     r'logarEmpresas': PropertySchema(
@@ -102,7 +102,7 @@ const UsuarioSchema = CollectionSchema(
   serialize: _usuarioSerialize,
   deserialize: _usuarioDeserialize,
   deserializeProp: _usuarioDeserializeProp,
-  idName: r'id',
+  idName: r'idAutoincrement',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -147,8 +147,8 @@ void _usuarioSerialize(
   writer.writeLong(offsets[5], object.caixaMovimentar);
   writer.writeLong(offsets[6], object.caixaParametros);
   writer.writeLong(offsets[7], object.caixaPdv);
-  writer.writeLong(offsets[8], object.idColaborador);
-  writer.writeLong(offsets[9], object.idEmpresa);
+  writer.writeLong(offsets[8], object.id);
+  writer.writeLong(offsets[9], object.idColaborador);
   writer.writeLong(offsets[10], object.logarEmpresas);
   writer.writeString(offsets[11], object.login);
   writer.writeLong(offsets[12], object.mobDashboard);
@@ -164,9 +164,9 @@ Usuario _usuarioDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = Usuario(
-    reader.readLong(offsets[9]),
+    reader.readLong(offsets[8]),
     reader.readStringOrNull(offsets[11]),
-    reader.readLongOrNull(offsets[8]),
+    reader.readLongOrNull(offsets[9]),
     reader.readStringOrNull(offsets[13]),
     reader.readLongOrNull(offsets[14]),
     reader.readLongOrNull(offsets[12]),
@@ -181,7 +181,7 @@ Usuario _usuarioDeserialize(
     reader.readLongOrNull(offsets[2]),
     reader.readLongOrNull(offsets[6]),
   );
-  object.id = id;
+  object.idAutoincrement = id;
   return object;
 }
 
@@ -209,9 +209,9 @@ P _usuarioDeserializeProp<P>(
     case 7:
       return (reader.readLongOrNull(offset)) as P;
     case 8:
-      return (reader.readLongOrNull(offset)) as P;
-    case 9:
       return (reader.readLong(offset)) as P;
+    case 9:
+      return (reader.readLongOrNull(offset)) as P;
     case 10:
       return (reader.readLongOrNull(offset)) as P;
     case 11:
@@ -230,7 +230,7 @@ P _usuarioDeserializeProp<P>(
 }
 
 Id _usuarioGetId(Usuario object) {
-  return object.id;
+  return object.idAutoincrement;
 }
 
 List<IsarLinkBase<dynamic>> _usuarioGetLinks(Usuario object) {
@@ -238,11 +238,11 @@ List<IsarLinkBase<dynamic>> _usuarioGetLinks(Usuario object) {
 }
 
 void _usuarioAttach(IsarCollection<dynamic> col, Id id, Usuario object) {
-  object.id = id;
+  object.idAutoincrement = id;
 }
 
 extension UsuarioQueryWhereSort on QueryBuilder<Usuario, Usuario, QWhere> {
-  QueryBuilder<Usuario, Usuario, QAfterWhere> anyId() {
+  QueryBuilder<Usuario, Usuario, QAfterWhere> anyIdAutoincrement() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -250,66 +250,75 @@ extension UsuarioQueryWhereSort on QueryBuilder<Usuario, Usuario, QWhere> {
 }
 
 extension UsuarioQueryWhere on QueryBuilder<Usuario, Usuario, QWhereClause> {
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementEqualTo(
+      Id idAutoincrement) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: idAutoincrement,
+        upper: idAutoincrement,
       ));
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementNotEqualTo(
+      Id idAutoincrement) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(
+                  upper: idAutoincrement, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(
+                  lower: idAutoincrement, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(
+                  lower: idAutoincrement, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(
+                  upper: idAutoincrement, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementGreaterThan(
+      Id idAutoincrement,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(
+            lower: idAutoincrement, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementLessThan(
+      Id idAutoincrement,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: idAutoincrement, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<Usuario, Usuario, QAfterWhereClause> idAutoincrementBetween(
+    Id lowerIdAutoincrement,
+    Id upperIdAutoincrement, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerIdAutoincrement,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperIdAutoincrement,
         includeUpper: includeUpper,
       ));
     });
@@ -880,7 +889,7 @@ extension UsuarioQueryFilter
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -890,7 +899,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idGreaterThan(
-    Id value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -903,7 +912,7 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idLessThan(
-    Id value, {
+    int value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -916,6 +925,60 @@ extension UsuarioQueryFilter
   }
 
   QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idAutoincrementEqualTo(
+      Id value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'idAutoincrement',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition>
+      idAutoincrementGreaterThan(
+    Id value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'idAutoincrement',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idAutoincrementLessThan(
+    Id value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'idAutoincrement',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idAutoincrementBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -923,7 +986,7 @@ extension UsuarioQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r'idAutoincrement',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -995,59 +1058,6 @@ extension UsuarioQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'idColaborador',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaEqualTo(
-      int value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'idEmpresa',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaGreaterThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'idEmpresa',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaLessThan(
-    int value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'idEmpresa',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterFilterCondition> idEmpresaBetween(
-    int lower,
-    int upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'idEmpresa',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1731,6 +1741,18 @@ extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortById() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id', Sort.desc);
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdColaborador() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idColaborador', Sort.asc);
@@ -1740,18 +1762,6 @@ extension UsuarioQuerySortBy on QueryBuilder<Usuario, Usuario, QSortBy> {
   QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdColaboradorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idColaborador', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdEmpresa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> sortByIdEmpresaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
     });
   }
 
@@ -1938,6 +1948,18 @@ extension UsuarioQuerySortThenBy
     });
   }
 
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdAutoincrement() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'idAutoincrement', Sort.asc);
+    });
+  }
+
+  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdAutoincrementDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'idAutoincrement', Sort.desc);
+    });
+  }
+
   QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdColaborador() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idColaborador', Sort.asc);
@@ -1947,18 +1969,6 @@ extension UsuarioQuerySortThenBy
   QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdColaboradorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idColaborador', Sort.desc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdEmpresa() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.asc);
-    });
-  }
-
-  QueryBuilder<Usuario, Usuario, QAfterSortBy> thenByIdEmpresaDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'idEmpresa', Sort.desc);
     });
   }
 
@@ -2085,15 +2095,15 @@ extension UsuarioQueryWhereDistinct
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdColaborador() {
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctById() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idColaborador');
+      return query.addDistinctBy(r'id');
     });
   }
 
-  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdEmpresa() {
+  QueryBuilder<Usuario, Usuario, QDistinct> distinctByIdColaborador() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'idEmpresa');
+      return query.addDistinctBy(r'idColaborador');
     });
   }
 
@@ -2138,9 +2148,9 @@ extension UsuarioQueryWhereDistinct
 
 extension UsuarioQueryProperty
     on QueryBuilder<Usuario, Usuario, QQueryProperty> {
-  QueryBuilder<Usuario, int, QQueryOperations> idProperty() {
+  QueryBuilder<Usuario, int, QQueryOperations> idAutoincrementProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'idAutoincrement');
     });
   }
 
@@ -2192,15 +2202,15 @@ extension UsuarioQueryProperty
     });
   }
 
-  QueryBuilder<Usuario, int?, QQueryOperations> idColaboradorProperty() {
+  QueryBuilder<Usuario, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idColaborador');
+      return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<Usuario, int, QQueryOperations> idEmpresaProperty() {
+  QueryBuilder<Usuario, int?, QQueryOperations> idColaboradorProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'idEmpresa');
+      return query.addPropertyName(r'idColaborador');
     });
   }
 

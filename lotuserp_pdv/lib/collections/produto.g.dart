@@ -172,7 +172,7 @@ const ProdutoSchema = CollectionSchema(
   serialize: _produtoSerialize,
   deserialize: _produtoDeserialize,
   deserializeProp: _produtoDeserializeProp,
-  idName: r'id',
+  idName: r'idAUtoincrement',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -310,7 +310,7 @@ Produto _produtoDeserialize(
     reader.readDoubleOrNull(offsets[15]),
     reader.readStringOrNull(offsets[6]),
   );
-  object.id = id;
+  object.idAUtoincrement = id;
   return object;
 }
 
@@ -387,7 +387,7 @@ P _produtoDeserializeProp<P>(
 }
 
 Id _produtoGetId(Produto object) {
-  return object.id;
+  return object.idAUtoincrement;
 }
 
 List<IsarLinkBase<dynamic>> _produtoGetLinks(Produto object) {
@@ -395,11 +395,11 @@ List<IsarLinkBase<dynamic>> _produtoGetLinks(Produto object) {
 }
 
 void _produtoAttach(IsarCollection<dynamic> col, Id id, Produto object) {
-  object.id = id;
+  object.idAUtoincrement = id;
 }
 
 extension ProdutoQueryWhereSort on QueryBuilder<Produto, Produto, QWhere> {
-  QueryBuilder<Produto, Produto, QAfterWhere> anyId() {
+  QueryBuilder<Produto, Produto, QAfterWhere> anyIdAUtoincrement() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -407,66 +407,75 @@ extension ProdutoQueryWhereSort on QueryBuilder<Produto, Produto, QWhere> {
 }
 
 extension ProdutoQueryWhere on QueryBuilder<Produto, Produto, QWhereClause> {
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementEqualTo(
+      Id idAUtoincrement) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: idAUtoincrement,
+        upper: idAUtoincrement,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementNotEqualTo(
+      Id idAUtoincrement) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(
+                  upper: idAUtoincrement, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(
+                  lower: idAUtoincrement, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(
+                  lower: idAUtoincrement, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(
+                  upper: idAUtoincrement, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementGreaterThan(
+      Id idAUtoincrement,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(
+            lower: idAUtoincrement, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementLessThan(
+      Id idAUtoincrement,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: idAUtoincrement, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<Produto, Produto, QAfterWhereClause> idAUtoincrementBetween(
+    Id lowerIdAUtoincrement,
+    Id upperIdAUtoincrement, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerIdAUtoincrement,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperIdAUtoincrement,
         includeUpper: includeUpper,
       ));
     });
@@ -1550,42 +1559,44 @@ extension ProdutoQueryFilter
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idEqualTo(Id value) {
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> idAUtoincrementEqualTo(
+      Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
+        property: r'idAUtoincrement',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<Produto, Produto, QAfterFilterCondition>
+      idAUtoincrementGreaterThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'id',
+        property: r'idAUtoincrement',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idLessThan(
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> idAUtoincrementLessThan(
     Id value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'id',
+        property: r'idAUtoincrement',
         value: value,
       ));
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterFilterCondition> idBetween(
+  QueryBuilder<Produto, Produto, QAfterFilterCondition> idAUtoincrementBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -1593,7 +1604,7 @@ extension ProdutoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
+        property: r'idAUtoincrement',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -3724,15 +3735,15 @@ extension ProdutoQuerySortThenBy
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenById() {
+  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdAUtoincrement() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
+      return query.addSortBy(r'idAUtoincrement', Sort.asc);
     });
   }
 
-  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<Produto, Produto, QAfterSortBy> thenByIdAUtoincrementDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
+      return query.addSortBy(r'idAUtoincrement', Sort.desc);
     });
   }
 
@@ -4172,9 +4183,9 @@ extension ProdutoQueryWhereDistinct
 
 extension ProdutoQueryProperty
     on QueryBuilder<Produto, Produto, QQueryProperty> {
-  QueryBuilder<Produto, int, QQueryOperations> idProperty() {
+  QueryBuilder<Produto, int, QQueryOperations> idAUtoincrementProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'idAUtoincrement');
     });
   }
 

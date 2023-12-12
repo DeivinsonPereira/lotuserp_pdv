@@ -590,6 +590,20 @@ class IsarService {
     }
   }
 
+  Future<int?> getUserIdUser(String login) async {
+    final isar = await db;
+
+    Usuario? usuario =
+        await isar.usuarios.filter().loginEqualTo(login).findFirst();
+
+    if (usuario != null) {
+      return usuario
+          .id; // Substitua 'nome' pelo campo correto do nome do usuário no banco de dados
+    } else {
+      return null;
+    }
+  }
+
   Future<UsuarioLogado?> getUserLogged() async {
     final isar = await db;
 
@@ -597,6 +611,18 @@ class IsarService {
         await isar.usuarioLogados.filter().idEqualTo(1).findFirst();
 
     return usuario;
+  }
+
+  Future<bool> checkUserCaixa(int idUser) async {
+    final isar = await db;
+
+    Caixa? usuario = await isar.caixas.filter().aberturaIdUserEqualTo(idUser).findFirst();
+
+    if (usuario != null) {
+      return true;
+    }else{
+      return false;
+    }
   }
 
   //abre o banco de dados

@@ -5,7 +5,7 @@ part 'produto.g.dart';
 
 @Collection()
 class Produto {
-  late Id id = Isar.autoIncrement;
+  late Id idAUtoincrement = Isar.autoIncrement;
 
   late int idEmpresa;
   late int idProduto;

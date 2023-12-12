@@ -184,16 +184,14 @@ class OpenRegisterPage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Positioned(
-                                        child: Text(
-                                          'VALOR ABERTURA',
-                                          style: TextStyle(
-                                              height: 3,
-                                              color: CustomColors
-                                                  .customSwatchColor[900],
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                      Text(
+                                        'VALOR ABERTURA',
+                                        style: TextStyle(
+                                            height: 3,
+                                            color: CustomColors
+                                                .customSwatchColor[900],
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Container(
                                         height: 70,
@@ -261,7 +259,7 @@ class OpenRegisterPage extends StatelessWidget {
                                               BorderRadius.circular(0),
                                         ),
                                       ),
-                                      onPressed: () async { 
+                                      onPressed: () async {
                                         movimentRegisterController
                                             .openRegisterValue();
                                         var dadosEmpresa = await service
@@ -269,30 +267,46 @@ class OpenRegisterPage extends StatelessWidget {
 
                                         var dadosUsuario =
                                             await service.getUserLogged();
+
                                         var openRegisterDouble =
                                             movimentRegisterController
                                                 .openRegisterToDouble();
 
-                                        Caixa caixa = Caixa()
-                                          ..idEmpresa = dadosEmpresa!.idEmpresa!
-                                          ..aberturaIdUser =
-                                              dadosUsuario!.idColaborador!
-                                          ..aberturaData = parsedDateTime
-                                          ..aberturaHora = hourFormatted
-                                          ..aberturaValor = openRegisterDouble
-                                          ..status = 0
-                                          ..fechouIdUser = null
-                                          ..fechouData = null
-                                          ..fechouHora = null
-                                          ..fechouValor = null
-                                          ..enviado = 0
-                                          ..idCaixaServidor = 0;
+                                        bool caixaExistente =
+                                            await service.checkUserCaixa(
+                                                dadosUsuario!.idUser!);
 
-                                        await service.insertCaixa(caixa);
+                                        if (caixaExistente) {
+                                          Get.snackbar(
+                                            'Atenção',
+                                            'Ja existe um caixa aberto para este usuário.',
+                                            backgroundColor: Colors.red,
+                                            colorText: Colors.white,
+                                            snackPosition: SnackPosition.BOTTOM,
+                                          );
+                                        } else {
+                                          Caixa caixa = Caixa()
+                                            ..idEmpresa =
+                                                dadosEmpresa!.idEmpresa!
+                                            ..aberturaIdUser =
+                                                dadosUsuario.idUser!
+                                            ..aberturaData = atualDate
+                                            ..aberturaHora = hourFormatted
+                                            ..aberturaValor = openRegisterDouble
+                                            ..status = 0
+                                            ..fechouIdUser = null
+                                            ..fechouData = null
+                                            ..fechouHora = null
+                                            ..fechouValor = null
+                                            ..enviado = 0
+                                            ..idCaixaServidor = 0;
 
-                                        movimentRegisterController
-                                            .clearOpenRegister();
-                                        Get.back();
+                                          await service.insertCaixa(caixa);
+
+                                          movimentRegisterController
+                                              .clearOpenRegister();
+                                          Get.back();
+                                        }
                                       },
                                       child: const Text(
                                         "CONFIRMAR",

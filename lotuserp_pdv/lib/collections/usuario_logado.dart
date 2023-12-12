@@ -6,8 +6,7 @@ part 'usuario_logado.g.dart';
 @Collection()
 class UsuarioLogado {
   late Id id = Isar.autoIncrement;
+  late int? idUser;
   late String? login;
   late int? idColaborador;
-  
-
 }

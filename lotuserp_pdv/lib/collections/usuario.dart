@@ -5,8 +5,8 @@ part 'usuario.g.dart';
 
 @Collection()
 class Usuario {
-  late Id id = Isar.autoIncrement;
-  late int idEmpresa;
+  late Id idAutoincrement = Isar.autoIncrement;
+  late int id;
   late String? login;
   late int? idColaborador;
   late String? senha;
@@ -24,7 +24,7 @@ class Usuario {
   late int? caixaParametros;  
 
   Usuario(
-    this.idEmpresa,
+    this.id,
     this.login,
     this.idColaborador,
     this.senha,

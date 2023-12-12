@@ -176,16 +176,14 @@ class ManageCashPage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Positioned(
-                                        child: Text(
-                                          'VALOR MOVIMENTAÇÃO',
-                                          style: TextStyle(
-                                              height: 3,
-                                              color: CustomColors
-                                                  .customSwatchColor[900],
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                      Text(
+                                        'VALOR MOVIMENTAÇÃO',
+                                        style: TextStyle(
+                                            height: 3,
+                                            color: CustomColors
+                                                .customSwatchColor[900],
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Container(
                                         height: 70,

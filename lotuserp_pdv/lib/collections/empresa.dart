@@ -5,8 +5,8 @@ part 'empresa.g.dart';
 
 @Collection()
 class Empresa {
-  late Id id = Isar.autoIncrement;
-  late int idEmpresa;
+  late Id idAutoincrement = Isar.autoIncrement;
+  late int id;
   late String? razao;
   late String? fantasia;
   late String? cnpj;
@@ -49,7 +49,7 @@ class Empresa {
   late int? paramPdvComandaProducao;
 
   Empresa(
-    this.idEmpresa,
+    this.id,
     this.razao,
     this.fantasia,
     this.cnpj,

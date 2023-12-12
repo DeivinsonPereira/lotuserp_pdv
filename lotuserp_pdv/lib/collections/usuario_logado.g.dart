@@ -22,8 +22,13 @@ const UsuarioLogadoSchema = CollectionSchema(
       name: r'idColaborador',
       type: IsarType.long,
     ),
-    r'login': PropertySchema(
+    r'idUser': PropertySchema(
       id: 1,
+      name: r'idUser',
+      type: IsarType.long,
+    ),
+    r'login': PropertySchema(
+      id: 2,
       name: r'login',
       type: IsarType.string,
     )
@@ -64,7 +69,8 @@ void _usuarioLogadoSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.idColaborador);
-  writer.writeString(offsets[1], object.login);
+  writer.writeLong(offsets[1], object.idUser);
+  writer.writeString(offsets[2], object.login);
 }
 
 UsuarioLogado _usuarioLogadoDeserialize(
@@ -76,7 +82,8 @@ UsuarioLogado _usuarioLogadoDeserialize(
   final object = UsuarioLogado();
   object.id = id;
   object.idColaborador = reader.readLongOrNull(offsets[0]);
-  object.login = reader.readStringOrNull(offsets[1]);
+  object.idUser = reader.readLongOrNull(offsets[1]);
+  object.login = reader.readStringOrNull(offsets[2]);
   return object;
 }
 
@@ -90,6 +97,8 @@ P _usuarioLogadoDeserializeProp<P>(
     case 0:
       return (reader.readLongOrNull(offset)) as P;
     case 1:
+      return (reader.readLongOrNull(offset)) as P;
+    case 2:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -321,6 +330,80 @@ extension UsuarioLogadoQueryFilter
   }
 
   QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+      idUserIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'idUser',
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+      idUserIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'idUser',
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+      idUserEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'idUser',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+      idUserGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'idUser',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+      idUserLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'idUser',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
+      idUserBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'idUser',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterFilterCondition>
       loginIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -497,6 +580,18 @@ extension UsuarioLogadoQuerySortBy
     });
   }
 
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByIdUser() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'idUser', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByIdUserDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'idUser', Sort.desc);
+    });
+  }
+
   QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> sortByLogin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.asc);
@@ -538,6 +633,18 @@ extension UsuarioLogadoQuerySortThenBy
     });
   }
 
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByIdUser() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'idUser', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByIdUserDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'idUser', Sort.desc);
+    });
+  }
+
   QueryBuilder<UsuarioLogado, UsuarioLogado, QAfterSortBy> thenByLogin() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'login', Sort.asc);
@@ -560,6 +667,12 @@ extension UsuarioLogadoQueryWhereDistinct
     });
   }
 
+  QueryBuilder<UsuarioLogado, UsuarioLogado, QDistinct> distinctByIdUser() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'idUser');
+    });
+  }
+
   QueryBuilder<UsuarioLogado, UsuarioLogado, QDistinct> distinctByLogin(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -579,6 +692,12 @@ extension UsuarioLogadoQueryProperty
   QueryBuilder<UsuarioLogado, int?, QQueryOperations> idColaboradorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idColaborador');
+    });
+  }
+
+  QueryBuilder<UsuarioLogado, int?, QQueryOperations> idUserProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'idUser');
     });
   }
 

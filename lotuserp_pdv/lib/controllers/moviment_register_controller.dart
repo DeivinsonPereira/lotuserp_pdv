@@ -72,7 +72,7 @@ class MovimentRegisterController extends GetxController {
 
   //Clear Open Register
   void clearOpenRegister() {
-    openRegisterController.clear();
+    openRegisterController.text = '0,00';
   }
 
   //Clear Close Register

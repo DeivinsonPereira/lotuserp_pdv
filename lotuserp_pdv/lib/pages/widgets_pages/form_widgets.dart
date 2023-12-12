@@ -128,7 +128,6 @@ class FormWidgets {
           prefixIcon: Icon(
             icon,
           ),
-          labelText: 'R\$ $text',
         ),
       ),
     );
