@@ -290,10 +290,22 @@ class _ConfigPageState extends State<ConfigPage> {
                         int.parse(textFieldController.intervaloEnvio)
                     ..ipEmpresa = textFieldController.numContratoEmpresa;
 
-                  await service.insertDadosEmpresariais(dadosEmpresa);
-                  // ignore: unused_local_variable
-                  HomeController home = Get.put(HomeController());
-                  await Get.offAllNamed(PagesRoutes.loginRoute);
+                  var iplocal = textFieldController.numContratoEmpresa;
+
+                  if (iplocal != '' &&
+                      iplocal.isNotEmpty &&
+                      iplocal.isBlank == false) {
+                    await service.insertDadosEmpresariais(dadosEmpresa);
+                    await service
+                        .getEmpresa(int.parse(textFieldController.idEmpresa));
+                    await service
+                        .getGrupo(int.parse(textFieldController.idEmpresa));
+                    await service
+                        .getProduto(int.parse(textFieldController.idEmpresa));
+                    await service
+                        .getUsuarios(int.parse(textFieldController.idEmpresa));
+                    await Get.offAllNamed(PagesRoutes.loginRoute);
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: CustomColors

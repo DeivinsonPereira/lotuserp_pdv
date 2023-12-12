@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lotuserp_pdv/collections/caixa.dart';
-import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';

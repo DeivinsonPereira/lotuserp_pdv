@@ -11,6 +11,7 @@ abstract class AppPages {
     GetPage(
       name: PagesRoutes.loginRoute,
       page: () => const LoginPage(),
+      
     ),
     GetPage(
       name: PagesRoutes.splashRoute,
@@ -31,6 +32,7 @@ abstract class AppPages {
     GetPage(
       name: PagesRoutes.configRoute,
       page: () => const ConfigPage(),
+      
     ),
   ];
 }

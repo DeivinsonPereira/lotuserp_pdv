@@ -42,9 +42,9 @@ class LoginPage extends StatelessWidget {
       return login.toUpperCase() == savedLogin!.toUpperCase();
     }
 
-    return GetBuilder(
+    return/* GetBuilder(
       init: HomeController(),
-      builder: (_) => Scaffold(
+      builder: (_) => */Scaffold(
         backgroundColor: CustomColors.customSwatchColor,
         body: SizedBox(
           width: double.infinity,
@@ -233,7 +233,7 @@ class LoginPage extends StatelessWidget {
             ),
           ),
         ),
-      ),
+    /*  ),*/
     );
   }
 }
