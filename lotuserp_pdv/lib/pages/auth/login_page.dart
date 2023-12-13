@@ -18,9 +18,6 @@ class LoginPage extends StatelessWidget {
     TextFieldController textFieldController = Get.put(TextFieldController());
     IsarService service = IsarService();
 
-    final _textoMinusculo = TextEditingController();
-    final _textoMaiusculo = TextEditingController();
-
     bool areFieldsEmpty() {
       String enteredPassword = passwordController.passwordController.text;
       String login = passwordController.userController.text;

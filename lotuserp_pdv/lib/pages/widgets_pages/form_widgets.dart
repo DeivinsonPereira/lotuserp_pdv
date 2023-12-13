@@ -90,6 +90,7 @@ class FormWidgets {
     return Obx(
       () {
         return TextFormField(
+          inputFormatters: [UpperCaseTxt()],
           controller: passwordController.passwordController,
           obscureText: obscureText ? !loginController.obscureText.value : false,
           decoration: InputDecoration(

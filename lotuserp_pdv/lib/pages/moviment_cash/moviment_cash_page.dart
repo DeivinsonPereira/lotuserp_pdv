@@ -324,7 +324,7 @@ class MovimentCashPage extends StatelessWidget {
                                           fontSize: 16,
                                         ),
                                       ),
-                                      CustomTextDescricao()
+                                      const CustomTextDescricao()
                                     ],
                                   ),
                                   Text(
@@ -350,71 +350,67 @@ class MovimentCashPage extends StatelessWidget {
                           ),
 
                           //botões Voltar e Confirmar
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5.0),
-                            child: Container(
-                              color: Colors.black,
-                              child: Expanded(
-                                flex: 1,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                        style: TextButton.styleFrom(
-                                          backgroundColor: Colors.grey,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 5.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Colors.grey,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0),
                                         ),
-                                        onPressed: () {
-                                          movimentRegisterController
-                                              .clearOpenRegister();
-                                          Get.back();
-                                        },
-                                        child: const Text(
-                                          "VOLTAR",
-                                          style: TextStyle(
-                                            color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        movimentRegisterController
+                                            .clearOpenRegister();
+                                        Get.back();
+                                      },
+                                      child: const Text(
+                                        "VOLTAR",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 24,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 1,
+                                  ),
+                                  Expanded(
+                                    flex: 1,
+                                    child: TextButton(
+                                      style: TextButton.styleFrom(
+                                        backgroundColor:
+                                            const Color(0xFF86C337),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(0),
+                                        ),
+                                      ),
+                                      onPressed: () async {
+                                        Get.back();
+                                      },
+                                      child: const Text(
+                                        "CONFIRMAR",
+                                        style: TextStyle(
+                                            color: Colors.black,
                                             fontWeight: FontWeight.bold,
-                                            fontSize: 24,
-                                          ),
-                                        ),
+                                            fontSize: 24),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      width: 1,
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: TextButton(
-                                        style: TextButton.styleFrom(
-                                          backgroundColor:
-                                              const Color(0xFF86C337),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(0),
-                                          ),
-                                        ),
-                                        onPressed: () async {
-                                          
-                                          Get.back();
-                                        },
-                                        child: const Text(
-                                          "CONFIRMAR",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 24),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),

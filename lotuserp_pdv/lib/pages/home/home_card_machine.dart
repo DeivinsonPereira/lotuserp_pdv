@@ -71,7 +71,7 @@ class HomeCardMachine extends StatelessWidget {
                   showDialog(
                     context: context,
                     builder: (context) {
-                      return MovimentCashPage(); // Your AlertDialog widget
+                      return const MovimentCashPage(); // Your AlertDialog widget
                     },
                   );
                 },
