@@ -120,7 +120,7 @@ class MovimentCashPage extends StatelessWidget {
                                         color: CustomColors.customSwatchColor,
                                         child: const Center(
                                           child: Text(
-                                            'DATA MOVIMENTO',
+                                            'DATA ABERTURA',
                                             style: TextStyle(
                                               fontSize: 14,
                                               color: Colors.white,
