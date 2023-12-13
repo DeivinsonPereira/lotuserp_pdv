@@ -441,7 +441,18 @@ class IsarService {
     }
   }
 
-  //metodos para inserir dados no banco
+  //stream para buscar dados da tabela tipo_recebimento
+  Stream<List<tipo_recebimento>> listenTipo_recebimento() async* {
+    final isar = await db;
+    yield* isar.tipo_recebimentos
+        .where()
+        .sortById_empresa()
+        .watch(fireImmediately: true);
+  }
+
+  
+
+  //metodos para inserir dados no banco ########################################################
 
   //inserir dados na tabela caixa
   Future<int?> insertCaixa(caixa caixa) async {
@@ -477,6 +488,17 @@ class IsarService {
       await isar.caixa_items.put(caixaItem);
     });
     return isar;
+  }
+
+  Future<caixa?> getCaixaFromDatabase() async {
+    final isar = await db;
+
+    var caixaId = await isar.caixas.where().findFirst();
+    if (caixaId != null) {
+      return caixaId;
+    } else {
+      return null;
+    }
   }
 
   //stream para buscar dados da tabela caixa

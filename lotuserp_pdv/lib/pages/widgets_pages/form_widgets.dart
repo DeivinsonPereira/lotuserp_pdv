@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/core/format_txt.dart';
 
 class FormWidgets {
   final TextEditingController _controller = TextEditingController();
@@ -78,6 +79,9 @@ class FormWidgets {
         prefixIcon: Icon(icon),
         labelText: text,
       ),
+      inputFormatters: [
+        UpperCaseTxt(),
+      ],
     );
   }
 
@@ -121,6 +125,7 @@ class FormWidgets {
         keyboardType: TextInputType.number,
         controller: controller,
         decoration: InputDecoration(
+          isDense: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(4),
             borderSide: BorderSide(color: CustomColors.customSwatchColor),

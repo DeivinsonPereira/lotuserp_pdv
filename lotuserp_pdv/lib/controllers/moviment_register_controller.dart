@@ -5,12 +5,18 @@ class MovimentRegisterController extends GetxController {
   TextEditingController openRegisterController = TextEditingController();
   TextEditingController closeRegisterController = TextEditingController();
   TextEditingController movimentRegisterController = TextEditingController();
+  TextEditingController formaDePagamentoController = TextEditingController();
+  TextEditingController tipoDeMovimentoController = TextEditingController();
 
   String openRegister = '0,00';
 
   RxDouble closeRegister = 0.0.obs;
 
   RxDouble movimentRegister = 0.0.obs;
+
+  RxString tipoMovimento = 'Crédito'.obs;
+
+  RxString formaPagamento = 'DINHEIRO'.obs;
 
   @override
   void onInit() {

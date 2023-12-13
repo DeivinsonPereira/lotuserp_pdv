@@ -252,8 +252,8 @@ class OpenRegisterPage extends StatelessWidget {
                                     flex: 1,
                                     child: TextButton(
                                       style: TextButton.styleFrom(
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 116, 187, 102),
+                                        backgroundColor:
+                                            const Color(0xFF86C337),
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(0),
@@ -276,7 +276,37 @@ class OpenRegisterPage extends StatelessWidget {
                                             await service.checkUserCaixa(
                                                 dadosUsuario!.id_user!);
 
-                                        if (caixaExistente) {
+                                        caixa caixas = caixa()
+                                          ..id_empresa =
+                                              dadosEmpresa!.id_empresa!
+                                          ..abertura_id_user =
+                                              dadosUsuario.id_user!
+                                          ..abertura_data = atualDate
+                                          ..abertura_hora = hourFormatted
+                                          ..abertura_valor = openRegisterDouble
+                                          ..status = 0
+                                          ..fechou_id_user = null
+                                          ..fechou_data = null
+                                          ..fechou_hora = null
+                                          ..enviado = 0
+                                          ..id_caixa_servidor = 0;
+                                        if (openRegisterDouble > 0.00) {
+                                          await service
+                                              .insertCaixaWithCaixaItem(
+                                                  caixas,
+                                                  atualDate,
+                                                  hourFormatted,
+                                                  openRegisterDouble);
+                                          movimentRegisterController
+                                              .clearOpenRegister();
+                                          Get.back();
+                                        } else if (openRegisterDouble == 0.00 &&
+                                            !caixaExistente) {
+                                          service.insertCaixa(caixas);
+                                          movimentRegisterController
+                                              .clearOpenRegister();
+                                          Get.back();
+                                        } else if (caixaExistente) {
                                           Get.snackbar(
                                             'Atenção',
                                             'Ja existe um caixa aberto para este usuário.',
@@ -284,51 +314,6 @@ class OpenRegisterPage extends StatelessWidget {
                                             colorText: Colors.white,
                                             snackPosition: SnackPosition.BOTTOM,
                                           );
-                                        } else {
-                                          caixa caixas = caixa()
-                                            ..id_empresa =
-                                                dadosEmpresa!.id_empresa!
-                                            ..abertura_id_user =
-                                                dadosUsuario.id_user!
-                                            ..abertura_data = atualDate
-                                            ..abertura_hora = hourFormatted
-                                            ..abertura_valor =
-                                                openRegisterDouble
-                                            ..status = 0
-                                            ..fechou_id_user = null
-                                            ..fechou_data = null
-                                            ..fechou_hora = null
-                                            ..enviado = 0
-                                            ..id_caixa_servidor = 0;
-                                          if (openRegisterDouble > 0.00) {
-                                            print('if: $openRegisterDouble');
-                                            await service
-                                                .insertCaixaWithCaixaItem(
-                                                    caixas,
-                                                    atualDate,
-                                                    hourFormatted,
-                                                    openRegisterDouble);
-                                            movimentRegisterController
-                                                .clearOpenRegister();
-                                            Get.back();
-                                          } else if (openRegisterDouble ==
-                                                  0.00 &&
-                                              !caixaExistente) {
-                                            print('else: $openRegisterDouble');
-                                            service.insertCaixa(caixas);
-                                            movimentRegisterController
-                                                .clearOpenRegister();
-                                            Get.back();
-                                          } else if (caixaExistente) {
-                                            Get.snackbar(
-                                              'Atenção',
-                                              'Ja existe um caixa aberto para este usuário.',
-                                              backgroundColor: Colors.red,
-                                              colorText: Colors.white,
-                                              snackPosition:
-                                                  SnackPosition.BOTTOM,
-                                            );
-                                          }
                                         }
                                       },
                                       child: const Text(

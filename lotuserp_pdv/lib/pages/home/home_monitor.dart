@@ -3,17 +3,20 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/data_manager_page.dart';
-import 'package:lotuserp_pdv/pages/manage_cash_page.dart';
+import 'package:lotuserp_pdv/pages/moviment_cash/moviment_cash_page.dart';
 import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
 import 'package:lotuserp_pdv/pages/pdv/pdv_page.dart';
 import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/button.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class HomeMonitor extends StatelessWidget {
   const HomeMonitor({super.key});
 
   @override
   Widget build(BuildContext context) {
+    IsarService service = IsarService();
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
@@ -51,26 +54,53 @@ class HomeMonitor extends StatelessWidget {
               Button().homeButton(
                 'Abrir Caixa',
                 'assets/images/abrir_caixa.png',
-                () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const OpenRegisterPage(); // Your AlertDialog widget
-                    },
-                  );
-                  
+                () async {
+                  var dadosUsuario = await service.getUserLogged();
+                  bool caixaExistente =
+                      await service.checkUserCaixa(dadosUsuario!.id_user!);
+                  if (caixaExistente) {
+                    Get.snackbar(
+                      'Atenção',
+                      'Ja existe um caixa aberto para o usuário logado.',
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const OpenRegisterPage(); // Your AlertDialog widget
+                      },
+                    );
+                  }
                 },
               ),
               Button().homeButton(
                 'Movimentar Caixa',
                 'assets/images/movimentando_caixa.png',
-                () {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const ManageCashPage(); // Your AlertDialog widget
-                    },
-                  );
+                () async {
+                  var dadosUsuario = await service.getUserLogged();
+                  bool caixaExistente =
+                      await service.checkUserCaixa(dadosUsuario!.id_user!);
+                  if (!caixaExistente) {
+                    Get.snackbar(
+                      'Atenção',
+                      'Não existe um caixa aberto para o usuário logado.',
+                      backgroundColor: Colors.red,
+                      colorText: Colors.white,
+                      snackPosition: SnackPosition.BOTTOM,
+                    );
+                  } else {
+                    // ignore: use_build_context_synchronously
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const MovimentCashPage(); // Your AlertDialog widget
+                      },
+                    );
+                  }
                 },
               ),
               Button().homeButton(
@@ -108,4 +138,3 @@ class HomeMonitor extends StatelessWidget {
     );
   }
 }
-
