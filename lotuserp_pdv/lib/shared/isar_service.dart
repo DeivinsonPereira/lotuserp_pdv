@@ -479,7 +479,7 @@ class IsarService {
         ..hora = hourFormatted
         ..id_tipo_recebimento = 0
         ..valor_cre = openRegisterDouble
-        ..valor_deb = null
+        ..valor_deb = 0
         ..id_venda = null
         ..enviado = 0;
 

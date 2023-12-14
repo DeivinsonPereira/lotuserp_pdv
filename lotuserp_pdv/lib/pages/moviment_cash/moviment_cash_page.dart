@@ -508,14 +508,14 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                                                       .text ==
                                                   'CREDITO'
                                               ? movimentRegisterDouble
-                                              : null
+                                              : 0
                                           ..valor_deb = movimentRegisterController
                                                       .tipoDeMovimentoController
                                                       .text ==
                                                   'DEBITO'
                                               ? movimentRegisterDouble
-                                              : null
-                                          ..id_venda = null
+                                              : 0
+                                          ..id_venda = 0
                                           ..enviado = 0;
 
                                         service.insertCaixaItem(caixaItem);

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
+import 'package:lotuserp_pdv/pages/moviment_cash/components/popup_menu.dart';
 
 class CustomTextTipo extends StatelessWidget {
   final TextEditingController controller;
@@ -20,35 +21,15 @@ class CustomTextTipo extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: TextFormField(
         controller: controller,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(left: 15, top: 0, bottom: 0),
+        decoration: const InputDecoration(
+          contentPadding: EdgeInsets.only(left: 15, top: 0, bottom: 0),
           isCollapsed: true,
-          border: const OutlineInputBorder(
+          border: OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(10),
             ),
           ),
-          suffixIcon: PopupMenuButton(
-            padding: EdgeInsets.zero,
-            icon: const Icon(
-              Icons.keyboard_arrow_down,
-              size: 28,
-            ),
-            onSelected: (value) {
-              movimentController.tipoDeMovimentoController.text =
-                  value.toString();
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              const PopupMenuItem<String>(
-                value: 'CREDITO',
-                child: Text('CREDITO', style: TextStyle(fontSize: 22)),
-              ),
-              const PopupMenuItem<String>(
-                value: 'DEBITO',
-                child: Text('DEBITO', style: TextStyle(fontSize: 22)),
-              )
-            ],
-          ),
+          suffixIcon: PopupMenuMoviment(),
         ),
         readOnly: true,
       ),
