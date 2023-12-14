@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/auth/config_page.dart';
 import 'package:lotuserp_pdv/pages/auth/login_page.dart';
 import 'package:lotuserp_pdv/pages/home/home_page.dart';
+import 'package:lotuserp_pdv/pages/home/home_teste.dart';
 import 'package:lotuserp_pdv/pages/payment/payment_page.dart';
 import 'package:lotuserp_pdv/pages/pdv/pdv_monitor_page.dart';
 import 'package:lotuserp_pdv/pages/splash_page.dart';
@@ -11,7 +12,6 @@ abstract class AppPages {
     GetPage(
       name: PagesRoutes.loginRoute,
       page: () => const LoginPage(),
-      
     ),
     GetPage(
       name: PagesRoutes.splashRoute,
@@ -32,7 +32,10 @@ abstract class AppPages {
     GetPage(
       name: PagesRoutes.configRoute,
       page: () => const ConfigPage(),
-      
+    ),
+    GetPage(
+      name: PagesRoutes.testeDrawer,
+      page: () => const TesteDrawer(),
     ),
   ];
 }
@@ -44,4 +47,5 @@ abstract class PagesRoutes {
   static const String homePageRoute = '/';
   static const String pdvMonitor = '/pdv_monitor';
   static const String paymentRoute = '/payment_page';
+  static const String testeDrawer = '/teste_drawer';
 }
