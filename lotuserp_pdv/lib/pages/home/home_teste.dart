@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
@@ -12,7 +11,7 @@ class TesteDrawer extends StatefulWidget {
 }
 
 List<bool> selected = [
-  true,
+  false,
   false,
   false,
   false,
@@ -40,6 +39,8 @@ class _TesteDrawerState extends State<TesteDrawer> {
     }
   }
 
+  Color iconsColor = Colors.black;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,6 +67,7 @@ class _TesteDrawerState extends State<TesteDrawer> {
                           (e) => NavBarItem(
                             icon: e,
                             selected: selected[icons.indexOf(e)],
+                            iconColor: iconsColor,
                             onTap: () {
                               setState(() {
                                 select(icons.indexOf(e));
@@ -89,12 +91,14 @@ class NavBarItem extends StatefulWidget {
   final String? icon;
   final Function? onTap;
   final bool? selected;
+  final Color? iconColor;
   const NavBarItem({
-    super.key,
+    Key? key,
     this.icon,
     this.onTap,
     this.selected,
-  });
+    this.iconColor,
+  }) : super(key: key);
   @override
   // ignore: library_private_types_in_public_api
   _NavBarItemState createState() => _NavBarItemState();
@@ -107,6 +111,7 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
   late Animation<double> _anim1;
   late Animation<double> _anim2;
   late Animation<double> _anim3;
+  // ignore: unused_field
   late Animation<Color?> _color;
 
   bool hovered = false;
@@ -177,7 +182,7 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
           width: 101.0,
           decoration: BoxDecoration(
             color: hovered && !widget.selected!
-                ? Colors.white12
+                ? Colors.transparent
                 : Colors.transparent,
             border: Border.all(color: Colors.transparent),
           ),
@@ -193,14 +198,15 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
                   ),
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 80.0,
                 width: 101.0,
                 child: Center(
                   child: Image.asset(
                     widget.icon!,
-                    width: 18,
-                    height: 18,
+                    width: 32,
+                    height: 32,
+                    color: widget.selected! ? widget.iconColor : Colors.white,
                   ),
                 ),
               ),
