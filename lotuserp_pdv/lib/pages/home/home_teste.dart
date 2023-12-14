@@ -29,6 +29,15 @@ class _TesteDrawerState extends State<TesteDrawer> {
     'assets/images/CargaDados.png',
   ];
 
+  List<String> text = [
+    'Abrir Caixa',
+    'Mov. Caixa',
+    'Fechar Caixa',
+    'Produtos',
+    'PDV',
+    'Carga Dados',
+  ];
+
   void select(int n) {
     for (int i = 0; i < 6; i++) {
       if (i == n) {
@@ -60,6 +69,14 @@ class _TesteDrawerState extends State<TesteDrawer> {
             child: Stack(
               children: [
                 Positioned(
+                  top: 10,
+                  left: 5,
+                  child: Image.asset(
+                    'assets/images/logo-nova-branco.png',
+                    width: 90,
+                  ),
+                ),
+                Positioned(
                   top: 110,
                   child: Column(
                     children: icons
@@ -73,6 +90,7 @@ class _TesteDrawerState extends State<TesteDrawer> {
                                 select(icons.indexOf(e));
                               });
                             },
+                            text: text[icons.indexOf(e)],
                           ),
                         )
                         .toList(),
@@ -90,12 +108,14 @@ class _TesteDrawerState extends State<TesteDrawer> {
 class NavBarItem extends StatefulWidget {
   final String? icon;
   final Function? onTap;
+  final String? text;
   final bool? selected;
   final Color? iconColor;
   const NavBarItem({
     Key? key,
     this.icon,
     this.onTap,
+    this.text,
     this.selected,
     this.iconColor,
   }) : super(key: key);
@@ -188,15 +208,17 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
           ),
           child: Stack(
             children: [
-              Positioned(
-                child: CustomPaint(
-                  painter: CurvePainter(
-                    value1: 0,
-                    animValue1: _anim3.value,
-                    animValue2: _anim2.value,
-                    animValue3: _anim1.value,
+              Column(
+                children: [
+                  CustomPaint(
+                    painter: CurvePainter(
+                      value1: 0,
+                      animValue1: _anim3.value,
+                      animValue2: _anim2.value,
+                      animValue3: _anim1.value,
+                    ),
                   ),
-                ),
+                ],
               ),
               SizedBox(
                 height: 80.0,
@@ -204,10 +226,21 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
                 child: Center(
                   child: Image.asset(
                     widget.icon!,
-                    width: 32,
-                    height: 32,
+                    width: 30,
+                    height: 30,
                     color: widget.selected! ? widget.iconColor : Colors.white,
                   ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  // Adicione um Text para exibir o texto
+                  widget.text!,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
                 ),
               ),
             ],
