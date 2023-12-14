@@ -206,9 +206,9 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
                 : Colors.transparent,
             border: Border.all(color: Colors.transparent),
           ),
-          child: Stack(
+          child: Column(
             children: [
-              Column(
+              Stack(
                 children: [
                   CustomPaint(
                     painter: CurvePainter(
@@ -218,30 +218,31 @@ class _NavBarItemState extends State<NavBarItem> with TickerProviderStateMixin {
                       animValue3: _anim1.value,
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 80.0,
-                width: 101.0,
-                child: Center(
-                  child: Image.asset(
-                    widget.icon!,
-                    width: 30,
-                    height: 30,
-                    color: widget.selected! ? widget.iconColor : Colors.white,
+                  SizedBox(
+                    height: 80.0,
+                    width: 101.0,
+                    child: Center(
+                      child: Image.asset(
+                        widget.icon!,
+                        width: 30,
+                        height: 30,
+                        color:
+                            widget.selected! ? widget.iconColor : Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Center(
-                child: Text(
-                  // Adicione um Text para exibir o texto
-                  widget.text!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
+                  Center(
+                    child: Text(
+                      // Adicione um Text para exibir o texto
+                      widget.text!,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
