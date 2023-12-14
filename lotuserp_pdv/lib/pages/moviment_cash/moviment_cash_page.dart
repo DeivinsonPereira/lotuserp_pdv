@@ -2,20 +2,93 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/components/custom_text_tipo.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import 'components/custom_text_descricao.dart';
 import 'components/custom_text_forma.dart';
 
-class MovimentCashPage extends StatelessWidget {
+class MovimentCashPage extends StatefulWidget {
   const MovimentCashPage({super.key});
+
+  @override
+  State<MovimentCashPage> createState() => _MovimentCashPageState();
+}
+
+class _MovimentCashPageState extends State<MovimentCashPage> {
+  IsarService service = IsarService();
+  late DateTime dataAbertura = DateTime.now();
+  late int idCaixa = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    inicializarDataAbertura();
+    inicializarGetIdCaixa();
+  }
+
+  Future<void> inicializarDataAbertura() async {
+    var userId = await getIdUser();
+    DateTime? date = await getDate(userId!);
+    if (date != null) {
+      setState(() {
+        dataAbertura = date;
+      });
+    }
+  }
+
+  Future<int?> getIdUser() async {
+    var user = await service.getUserLogged();
+
+    if (user != null) {
+      return user.id_user;
+    }
+    return null;
+  }
+
+  Future<DateTime?> getDate(int idUser) async {
+    var data = await service.getDateCaixa(idUser);
+
+    if (data != null) {
+      return data;
+    } else {
+      return null;
+    }
+  }
+
+  //esse metodo deve encontrar o id do caixa referente ao usuario logado
+  Future<void> inicializarGetIdCaixa() async {
+    var userId = await getIdUser();
+    int? caixa = await getIdCaixa(userId!);
+    if (caixa != null) {
+      setState(() {
+        idCaixa = caixa;
+      });
+    }
+  }
+
+  Future<int?> getIdCaixa(int idUser) async {
+    int? idCaixa = await service.getIdCaixa(idUser);
+
+    if (idCaixa != null) {
+      return idCaixa;
+    } else {
+      return null;
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +100,9 @@ class MovimentCashPage extends StatelessWidget {
 
     tz.initializeTimeZones();
     var atualDate = DateTime.now();
-    var formattedDate = DateFormat('dd/MM/yyyy').format(atualDate);
+
+    var formattedDateAberturaCaixa =
+        DateFormat('dd/MM/yyyy').format(dataAbertura);
     var saoPauloTimeZone = tz.getLocation('America/Sao_Paulo');
     var saoPauloDateTime = tz.TZDateTime.from(atualDate, saoPauloTimeZone);
     var hourFormatted = DateFormat('HH:mm:ss').format(saoPauloDateTime);
@@ -80,6 +155,7 @@ class MovimentCashPage extends StatelessWidget {
                     color: Colors.blue,
                     child: IconButton(
                       onPressed: () {
+                        movimentRegisterController.clearMovimentRegister();
                         Get.back();
                       },
                       icon: const Icon(
@@ -95,7 +171,6 @@ class MovimentCashPage extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    //Container superior
                     SizedBox(
                       height: 410,
                       width: double.infinity,
@@ -108,7 +183,7 @@ class MovimentCashPage extends StatelessWidget {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                // Data do movimento
+                                // Data da Abertura
                                 Container(
                                   width: 250,
                                   height: 50,
@@ -130,7 +205,7 @@ class MovimentCashPage extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        formattedDate,
+                                        formattedDateAberturaCaixa.toString(),
                                         style: TextStyle(
                                           fontSize: 20,
                                           color: CustomColors.customSwatchColor,
@@ -202,16 +277,13 @@ class MovimentCashPage extends StatelessWidget {
                                                 ),
                                               ),
                                             ),
-                                            Obx(
-                                              () => Text(
-                                                caixaController.idCaixa.value,
-                                                style: TextStyle(
-                                                    fontSize: 20,
-                                                    color: CustomColors
-                                                        .customSwatchColor,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
+                                            Text(
+                                              idCaixa.toString(),
+                                              style: TextStyle(
+                                                  fontSize: 20,
+                                                  color: CustomColors
+                                                      .customSwatchColor,
+                                                  fontWeight: FontWeight.bold),
                                             ),
                                           ],
                                         ),
@@ -223,9 +295,10 @@ class MovimentCashPage extends StatelessWidget {
                             ),
                           ),
 
-                          //tipo de movimentação
+                          //tipo e forma de movimentação
                           Row(
                             children: [
+                              //tipo de movimentação
                               Expanded(
                                 child: SizedBox(
                                   height: 40,
@@ -263,6 +336,8 @@ class MovimentCashPage extends StatelessWidget {
                                   ),
                                 ),
                               ),
+
+                              //forma de pagamento
                               Expanded(
                                 child: SizedBox(
                                   height: 40,
@@ -301,7 +376,7 @@ class MovimentCashPage extends StatelessWidget {
                             ],
                           ),
 
-                          //valor da movimentação
+                          //Descrição e valor da movimentação
                           Padding(
                             padding:
                                 const EdgeInsets.only(left: 8.0, right: 8.0),
@@ -312,6 +387,7 @@ class MovimentCashPage extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
+                                  //descrição
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
@@ -324,25 +400,36 @@ class MovimentCashPage extends StatelessWidget {
                                           fontSize: 16,
                                         ),
                                       ),
-                                      const CustomTextDescricao()
+                                      CustomTextDescricao(
+                                          controller: movimentRegisterController
+                                              .descriptionController)
                                     ],
                                   ),
-                                  Text(
-                                    'VALOR MOVIMENTAÇÃO',
-                                    style: TextStyle(
-                                        height: 3,
-                                        color:
-                                            CustomColors.customSwatchColor[900],
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  SizedBox(
-                                    height: 70,
-                                    child: FormWidgets().textFieldOpenRegister(
-                                        Icons.add,
-                                        '0,00',
-                                        movimentRegisterController
-                                            .openRegisterController),
+
+                                  //valor da movimentação
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'VALOR MOVIMENTAÇÃO',
+                                        style: TextStyle(
+                                            height: 3,
+                                            color: CustomColors
+                                                .customSwatchColor[900],
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(
+                                        height: 70,
+                                        child: FormWidgets()
+                                            .textFieldOpenRegister(
+                                                Icons.add,
+                                                '0,00',
+                                                movimentRegisterController
+                                                    .movimentRegisterController),
+                                      ),
+                                    ],
                                   ),
                                 ],
                               ),
@@ -359,6 +446,7 @@ class MovimentCashPage extends StatelessWidget {
                                     MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
+                                  //Voltar
                                   Expanded(
                                     flex: 1,
                                     child: TextButton(
@@ -371,7 +459,7 @@ class MovimentCashPage extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         movimentRegisterController
-                                            .clearOpenRegister();
+                                            .clearMovimentRegister();
                                         Get.back();
                                       },
                                       child: const Text(
@@ -387,6 +475,8 @@ class MovimentCashPage extends StatelessWidget {
                                   const SizedBox(
                                     width: 1,
                                   ),
+
+                                  //Confirmar
                                   Expanded(
                                     flex: 1,
                                     child: TextButton(
@@ -399,6 +489,39 @@ class MovimentCashPage extends StatelessWidget {
                                         ),
                                       ),
                                       onPressed: () async {
+                                        double movimentRegisterDouble =
+                                            movimentRegisterController
+                                                .movimentRegisterToDouble();
+
+                                        caixa_item caixaItem = caixa_item()
+                                          ..id_caixa = idCaixa
+                                          ..descricao =
+                                              movimentRegisterController
+                                                  .descriptionController.text
+                                          ..data = DateTime.now()
+                                          ..hora = hourFormatted
+                                          ..id_tipo_recebimento =
+                                              movimentRegisterController
+                                                  .formaPagamentoId
+                                          ..valor_cre = movimentRegisterController
+                                                      .tipoDeMovimentoController
+                                                      .text ==
+                                                  'CREDITO'
+                                              ? movimentRegisterDouble
+                                              : null
+                                          ..valor_deb = movimentRegisterController
+                                                      .tipoDeMovimentoController
+                                                      .text ==
+                                                  'DEBITO'
+                                              ? movimentRegisterDouble
+                                              : null
+                                          ..id_venda = null
+                                          ..enviado = 0;
+
+                                        service.insertCaixaItem(caixaItem);
+
+                                        movimentRegisterController
+                                            .clearMovimentRegister();
                                         Get.back();
                                       },
                                       child: const Text(

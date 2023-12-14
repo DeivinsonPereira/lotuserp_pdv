@@ -119,7 +119,7 @@ class FormWidgets {
   }
 
   Widget textFieldOpenRegister(
-      IconData icon, String text, TextEditingController? controller) {
+      IconData icon, String text, TextEditingController controller) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10.0),
       child: TextField(

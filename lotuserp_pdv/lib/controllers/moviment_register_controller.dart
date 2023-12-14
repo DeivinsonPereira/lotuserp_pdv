@@ -7,14 +7,17 @@ class MovimentRegisterController extends GetxController {
   TextEditingController movimentRegisterController = TextEditingController();
   TextEditingController formaDePagamentoController = TextEditingController();
   TextEditingController tipoDeMovimentoController = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
+
+  int formaPagamentoId = 1;
 
   String openRegister = '0,00';
 
   RxDouble closeRegister = 0.0.obs;
 
-  RxDouble movimentRegister = 0.0.obs;
+  String movimentRegister = '0,00';
 
-  RxString tipoMovimento = 'Crédito'.obs;
+  RxString tipoMovimento = 'CREDITO'.obs;
 
   RxString formaPagamento = 'DINHEIRO'.obs;
 
@@ -23,6 +26,7 @@ class MovimentRegisterController extends GetxController {
     super.onInit();
     openRegisterController = TextEditingController();
     openRegisterController.text = '0,00';
+    movimentRegisterController.text = '0,00';
 
     openRegisterController.addListener(() {
       String text = openRegisterController.text.replaceAll(',', '');
@@ -30,6 +34,18 @@ class MovimentRegisterController extends GetxController {
         double value = double.parse(text) / 100;
         String formattedValue = value.toStringAsFixed(2).replaceAll('.', ',');
         openRegisterController.value = TextEditingValue(
+          text: formattedValue,
+          selection: TextSelection.collapsed(offset: formattedValue.length),
+        );
+      }
+    });
+
+    movimentRegisterController.addListener(() {
+      String text = movimentRegisterController.text.replaceAll(',', '');
+      if (text.isNotEmpty) {
+        double value = double.parse(text) / 100;
+        String formattedValue = value.toStringAsFixed(2).replaceAll('.', ',');
+        movimentRegisterController.value = TextEditingValue(
           text: formattedValue,
           selection: TextSelection.collapsed(offset: formattedValue.length),
         );
@@ -44,6 +60,12 @@ class MovimentRegisterController extends GetxController {
   }
 
   //crie um método para trasformar o valor guardado no openRegister que é uma string para double, transformando antes virgula em ponto
+  double movimentRegisterToDouble() {
+    String movimentRegister = movimentRegisterController.text;
+    movimentRegister = movimentRegister.replaceAll(',', '.');
+    return double.parse(movimentRegister);
+  }
+
   double openRegisterToDouble() {
     String openRegister = openRegisterController.text;
     openRegister = openRegister.replaceAll(',', '.');
@@ -66,7 +88,11 @@ class MovimentRegisterController extends GetxController {
 
   //moviment register
   void movimentRegisterValue() {
-    movimentRegister.value = double.parse(movimentRegisterController.text);
+    if (movimentRegisterController.text.isEmpty) {
+      movimentRegisterController.text = '0.0';
+    }
+    String value = movimentRegisterController.text;
+    openRegister = value;
   }
 
   //Clear All
@@ -86,8 +112,9 @@ class MovimentRegisterController extends GetxController {
     closeRegisterController.clear();
   }
 
-  //Clear Moviment Register
+  //Clear Moviment Register and description
   void clearMovimentRegister() {
-    movimentRegisterController.clear();
+    movimentRegisterController.text = '0,00';
+    descriptionController.clear();
   }
 }

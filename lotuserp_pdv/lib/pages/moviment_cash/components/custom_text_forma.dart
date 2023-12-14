@@ -67,6 +67,18 @@ class CustomTextForma extends StatelessWidget {
                         }).toList();
                       },
                       onSelected: (value) {
+                        //informar o formaPagamentoId qual id do item acima foi escolhido
+
+                        movimentController.formaPagamentoId = int.parse(
+                          snapshot.data!
+                              .firstWhere(
+                                (element) => element.descricao == value,
+                                orElse: () => snapshot.data!.first,
+                              )
+                              .id
+                              .toString(),
+                        );
+
                         movimentController.formaDePagamentoController.text =
                             value.toString();
                       },

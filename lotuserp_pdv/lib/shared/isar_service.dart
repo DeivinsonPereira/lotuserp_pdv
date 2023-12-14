@@ -450,8 +450,6 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
-  
-
   //metodos para inserir dados no banco ########################################################
 
   //inserir dados na tabela caixa
@@ -760,6 +758,19 @@ class IsarService {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<DateTime?> getDateCaixa(int idUser) async {
+    final isar = await db;
+
+    caixa? usuario =
+        await isar.caixas.filter().abertura_id_userEqualTo(idUser).findFirst();
+
+    if (usuario != null) {
+      return usuario.abertura_data;
+    } else {
+      return null;
     }
   }
 

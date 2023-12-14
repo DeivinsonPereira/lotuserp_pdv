@@ -15,7 +15,7 @@ class CustomTextTipo extends StatelessWidget {
   Widget build(BuildContext context) {
     MovimentRegisterController movimentController = Get.find();
 
-    movimentController.tipoDeMovimentoController.text = 'Crédito';
+    movimentController.tipoDeMovimentoController.text = 'CREDITO';
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: TextFormField(
@@ -40,12 +40,12 @@ class CustomTextTipo extends StatelessWidget {
             },
             itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
               const PopupMenuItem<String>(
-                value: 'Crédito',
-                child: Text('Crédito', style: TextStyle(fontSize: 22)),
+                value: 'CREDITO',
+                child: Text('CREDITO', style: TextStyle(fontSize: 22)),
               ),
               const PopupMenuItem<String>(
-                value: 'Débito',
-                child: Text('Débito', style: TextStyle(fontSize: 22)),
+                value: 'DEBITO',
+                child: Text('DEBITO', style: TextStyle(fontSize: 22)),
               )
             ],
           ),
