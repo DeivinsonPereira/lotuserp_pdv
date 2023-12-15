@@ -30,7 +30,7 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
       backgroundColor: Colors.white,
       body: Row(
         children: [
-          const AnimatedDrawer(),
+          const DrawerWidget(),
           Expanded(
             child: Container(
               decoration: BoxDecoration(

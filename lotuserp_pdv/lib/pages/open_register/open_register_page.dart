@@ -33,6 +33,7 @@ class OpenRegisterPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Dialog(
+        
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),

@@ -1,6 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
@@ -8,153 +10,9 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 import '../shared/isar_service.dart';
 
-class AnimatedDrawer extends StatelessWidget {
-  const AnimatedDrawer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    SideBarController sideBarController = Get.find();
-
-    return Obx(
-      () => AnimatedContainer(
-        decoration: BoxDecoration(
-          border: Border.all(width: 0, color: Colors.transparent),
-        ),
-        duration: sideBarController.isOpen.value
-            ? const Duration(milliseconds: 300)
-            : const Duration(milliseconds: 300),
-        width: sideBarController.isOpen.value ? 75 : 250,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: sideBarController.isOpen.value
-              ? const SmallSidebar()
-              : const LargeSideBar(),
-        ),
-      ),
-    );
-  }
-}
-
-class SmallSidebar extends StatefulWidget {
-  const SmallSidebar({super.key});
-
-  @override
-  State<SmallSidebar> createState() => _SmallSidebarState();
-}
-
-// Side bar pequena
-class _SmallSidebarState extends State<SmallSidebar> {
-  @override
-  Widget build(BuildContext context) {
-    SideBarController sideBarController = Get.find();
-
-    var size = MediaQuery.of(context).size;
-
-    return Drawer(
-      backgroundColor: CustomColors.customSwatchColor,
-      width: 75,
-      child: Column(
-        children: [
-          Expanded(
-            child: Image.asset(
-              'assets/images/V_Logo_Branco.png',
-              width: 50,
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: Divider(
-              color: Colors.white.withAlpha(300),
-            ),
-          ),
-          SizedBox(
-            height: size.height - 145,
-            child: const Column(
-              children: [
-                IconbuttomSmallSideBar(
-                  icon: FontAwesomeIcons.handHoldingDollar,
-                  navigationIcon: PagesRoutes.openRegister,
-                  position: 1,
-                ),
-                IconbuttomSmallSideBar(
-                  icon: FontAwesomeIcons.moneyBillTransfer,
-                  navigationIcon: PagesRoutes.movimentRegister,
-                  position: 2,
-                ),
-                IconbuttomSmallSideBar(
-                  icon: FontAwesomeIcons.cashRegister,
-                  navigationIcon: PagesRoutes.finishRegister,
-                  position: 3,
-                ),
-                IconbuttomSmallSideBar(
-                  icon: FontAwesomeIcons.bottleWater,
-                  navigationIcon: PagesRoutes.products,
-                  position: 4,
-                ),
-                IconbuttomSmallSideBar(
-                  icon: FontAwesomeIcons.moneyBill1Wave,
-                  navigationIcon: PagesRoutes.pdvMonitor,
-                  position: 5,
-                ),
-                IconbuttomSmallSideBar(
-                  icon: FontAwesomeIcons.download,
-                  navigationIcon: PagesRoutes.loadData,
-                  position: 6,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: Divider(
-              color: Colors.white.withAlpha(300),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              sideBarController.toggle();
-            },
-            icon: const Icon(Icons.arrow_forward_ios_outlined),
-            color: Colors.white,
-          ),
-          // Adicionar mais itens de menu conforme necessário
-        ],
-      ),
-    );
-  }
-}
-
-// Botões para o side bar pequeno
-class IconbuttomSmallSideBar extends StatelessWidget {
-  const IconbuttomSmallSideBar(
-      {Key? key,
-      required this.navigationIcon,
-      required this.icon,
-      required this.position})
-      : super(key: key);
-
-  final String navigationIcon;
-  final IconData icon;
-  final int position;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {
-        Get.toNamed(navigationIcon);
-      },
-      icon: Icon(
-        icon,
-        color: Colors.white,
-        size: 24,
-      ),
-    );
-  }
-}
-
 // Side bar grande
-class LargeSideBar extends StatelessWidget {
-  const LargeSideBar({super.key});
+class DrawerWidget extends StatelessWidget {
+  const DrawerWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -303,13 +161,6 @@ class LargeSideBar extends StatelessWidget {
                       ],
                     ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    sideBarController.toggle();
-                  },
-                  icon: const Icon(Icons.arrow_back_ios_outlined),
-                  color: Colors.white,
                 ),
               ],
             ),
