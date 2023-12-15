@@ -9,6 +9,7 @@ class SideBarController extends GetxController {
   RxBool isOpen = false.obs;
   RxString dataAbertura = ''.obs;
   RxString hours = ''.obs;
+  RxInt position = 0.obs;
 
   void toggle() {
     isOpen.value = !isOpen.value;
@@ -37,5 +38,9 @@ class SideBarController extends GetxController {
 
     dataAbertura.value = dateFormatted;
     hours.value = hourFormatted;
+  }
+
+  void updatePosition(int index) {
+    position.value = index;
   }
 }

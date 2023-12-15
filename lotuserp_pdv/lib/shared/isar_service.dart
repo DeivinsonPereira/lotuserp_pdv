@@ -725,6 +725,14 @@ class IsarService {
     }
   }
 
+  Future<void> deleteLoggedUser() async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
+      await isar.usuario_logados.clear();
+    });
+  }
+
   Future<int?> getUserIdUser(String login) async {
     final isar = await db;
 

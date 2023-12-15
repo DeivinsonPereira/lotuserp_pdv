@@ -4,13 +4,14 @@ import 'package:lotuserp_pdv/pages/auth/login_page.dart';
 import 'package:lotuserp_pdv/pages/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/data_manager_page.dart';
 import 'package:lotuserp_pdv/pages/home/home_page.dart';
-import 'package:lotuserp_pdv/pages/home/home_testea.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/moviment_cash_page.dart';
 import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
 import 'package:lotuserp_pdv/pages/payment/payment_page.dart';
 import 'package:lotuserp_pdv/pages/pdv/pdv_monitor_page.dart';
 import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/splash_page.dart';
+
+import '../pages/home/Home_Monitor_page.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
@@ -39,8 +40,8 @@ abstract class AppPages {
       page: () => const ConfigPage(),
     ),
     GetPage(
-      name: PagesRoutes.testeDrawer,
-      page: () => const HomeTeste(),
+      name: PagesRoutes.drawerPage,
+      page: () => const HomeMonitorPage(),
     ),
     GetPage(
       name: PagesRoutes.openRegister,
@@ -72,7 +73,7 @@ abstract class PagesRoutes {
   static const String homePageRoute = '/';
   static const String pdvMonitor = '/pdv_monitor';
   static const String paymentRoute = '/payment_page';
-  static const String testeDrawer = '/teste_drawer';
+  static const String drawerPage = '/drawer_pagge';
   static const String openRegister = '/open_register';
   static const String movimentRegister = '/moviment_register';
   static const String finishRegister = '/finish_register';

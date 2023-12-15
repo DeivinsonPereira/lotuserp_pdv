@@ -172,7 +172,7 @@ class LoginPage extends StatelessWidget {
                                         ..id_user = idUser
                                         ..id_colaborador = userOnline;
                                       await service.insertUser(usuarioLogado);
-                                      Get.toNamed('/teste_drawer');
+                                      Get.toNamed('/HomePage');
                                     } else {
                                       Get.snackbar(
                                         'Senha incorreta',
