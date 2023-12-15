@@ -8,6 +8,8 @@ import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
+import '../pages/moviment_cash/moviment_cash_page.dart';
+import '../pages/open_register/open_register_page.dart';
 import '../shared/isar_service.dart';
 
 // Side bar grande
@@ -95,41 +97,41 @@ class DrawerWidget extends StatelessWidget {
               color: Colors.white.withAlpha(300),
             ),
           ),
-          const Column(
+          Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               IconbuttomLargeSideBar(
                 icon: FontAwesomeIcons.handHoldingDollar,
                 navigationIcon: PagesRoutes.openRegister,
                 text: 'Abrir caixa',
-                position: 1,
+                abrirCaixa: true,
               ),
               IconbuttomLargeSideBar(
                 icon: FontAwesomeIcons.moneyBillTransfer,
                 navigationIcon: PagesRoutes.movimentRegister,
                 text: 'Movimentar caixa',
-                position: 2,
+                movimentarCaixa: true,
               ),
               IconbuttomLargeSideBar(
-                  icon: FontAwesomeIcons.cashRegister,
-                  navigationIcon: PagesRoutes.finishRegister,
-                  text: 'Fechar caixa',
-                  position: 3),
+                icon: FontAwesomeIcons.cashRegister,
+                navigationIcon: PagesRoutes.finishRegister,
+                text: 'Fechar caixa',
+              ),
               IconbuttomLargeSideBar(
-                  icon: FontAwesomeIcons.bottleWater,
-                  navigationIcon: PagesRoutes.products,
-                  text: 'Produtos',
-                  position: 4),
+                icon: FontAwesomeIcons.bottleWater,
+                navigationIcon: PagesRoutes.products,
+                text: 'Produtos',
+              ),
               IconbuttomLargeSideBar(
-                  icon: FontAwesomeIcons.moneyBill1Wave,
-                  navigationIcon: PagesRoutes.pdvMonitor,
-                  text: 'PDV',
-                  position: 5),
+                icon: FontAwesomeIcons.moneyBill1Wave,
+                navigationIcon: PagesRoutes.pdvMonitor,
+                text: 'PDV',
+              ),
               IconbuttomLargeSideBar(
-                  icon: FontAwesomeIcons.download,
-                  navigationIcon: PagesRoutes.loadData,
-                  text: 'Carga de dados',
-                  position: 6),
+                icon: FontAwesomeIcons.download,
+                navigationIcon: PagesRoutes.loadData,
+                text: 'Carga de dados',
+              ),
             ],
           ),
           Padding(
@@ -172,24 +174,40 @@ class DrawerWidget extends StatelessWidget {
 }
 
 // Botões para o side bar Grande
+// ignore: must_be_immutable
 class IconbuttomLargeSideBar extends StatelessWidget {
-  const IconbuttomLargeSideBar({
+  final String navigationIcon;
+  final IconData icon;
+  final String text;
+  bool? abrirCaixa = false;
+  bool? movimentarCaixa = false;
+
+  IconbuttomLargeSideBar({
     Key? key,
     required this.navigationIcon,
     required this.icon,
     required this.text,
-    required this.position,
+    this.abrirCaixa,
+    this.movimentarCaixa,
   }) : super(key: key);
-
-  final String navigationIcon;
-  final IconData icon;
-  final String text;
-  final int position;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Get.toNamed(navigationIcon),
+      onTap: () => abrirCaixa == true
+          ? showDialog(
+              context: context,
+              builder: (context) {
+                return const OpenRegisterPage(); // Your AlertDialog widget
+              },
+            )
+          : (movimentarCaixa == true
+              ? showDialog(
+                  context: context,
+                  builder: (context) {
+                    return const MovimentCashPage(); // Your AlertDialog widget
+                  })
+              : Get.toNamed(navigationIcon)),
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
         child: Row(
