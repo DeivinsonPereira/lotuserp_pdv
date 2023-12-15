@@ -13,13 +13,7 @@ class AnimatedDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController;
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
+    SideBarController sideBarController = Get.find();
 
     return Obx(
       () => AnimatedContainer(
@@ -52,13 +46,7 @@ class SmallSidebar extends StatefulWidget {
 class _SmallSidebarState extends State<SmallSidebar> {
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController;
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
+    SideBarController sideBarController = Get.find();
 
     var size = MediaQuery.of(context).size;
 
@@ -151,45 +139,14 @@ class IconbuttomSmallSideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController;
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
-
-    var size = MediaQuery.of(context).size;
-
-    return Padding(
-      padding: EdgeInsets.only(
-          top: 10.0,
-          left: position == sideBarController.position.value ? 10 : 0),
-      child: Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent),
-          color: position == sideBarController.position.value
-              ? Colors.white
-              : CustomColors.customSwatchColor,
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(50),
-            topLeft: Radius.circular(50),
-          ),
-        ),
-        width: position == sideBarController.position.value ? size.width : 40,
-        height: position == sideBarController.position.value ? 60 : 40,
-        child: IconButton(
-          onPressed: () {
-            Get.toNamed(navigationIcon);
-          },
-          icon: Icon(
-            icon,
-            color: position == sideBarController.position.value
-                ? CustomColors.customSwatchColor
-                : Colors.white,
-            size: position == sideBarController.position.value ? 30 : 24,
-          ),
-        ),
+    return IconButton(
+      onPressed: () {
+        Get.toNamed(navigationIcon);
+      },
+      icon: Icon(
+        icon,
+        color: Colors.white,
+        size: 24,
       ),
     );
   }
@@ -380,57 +337,28 @@ class IconbuttomLargeSideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController;
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
-
     return InkWell(
       onTap: () => Get.toNamed(navigationIcon),
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
-        child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              topLeft: Radius.circular(50),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              size: 25,
+              color: Colors.white,
             ),
-            border: Border.all(
-              width: 0,
-              color: Colors.transparent,
+            const SizedBox(
+              width: 15,
             ),
-            color: position == sideBarController.position.value
-                ? Colors.white
-                : Colors.transparent,
-          ),
-          child: Row(
-            children: [
-              Icon(
-                icon,
-                size: position == sideBarController.position.value ? 30 : 20,
-                color: position == sideBarController.position.value
-                    ? CustomColors.customSwatchColor
-                    : Colors.white,
+            Text(
+              text,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 15,
               ),
-              const SizedBox(
-                width: 15,
-              ),
-              Text(
-                text,
-                style: TextStyle(
-                  color: position == sideBarController.position.value
-                      ? CustomColors.customSwatchColor
-                      : Colors.white,
-                  fontSize:
-                      position == sideBarController.position.value ? 20 : 15,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

@@ -264,7 +264,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     } else {
                                       // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
                                       file =
-                                          filteredProducts[index].fileImagem ??
+                                          filteredProducts[index].file_imagem ??
                                               "Valor Padrão";
                                       nome =
                                           filteredProducts[index].descricao ??
