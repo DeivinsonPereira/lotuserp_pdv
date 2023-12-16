@@ -43,7 +43,7 @@ class IsarService {
     final isar = await db;
     int i = await isar.empresas.count();
 
-    if (i >= 0) {
+    if (i > 0) {
       isar.writeTxn(
         () async {
           await isar.empresas.clear();
@@ -653,6 +653,7 @@ class IsarService {
       isar.writeTxn(
         () async {
           await isar.dado_empresas.clear();
+          await isar.dado_empresas.put(empresa);
         },
       );
     }

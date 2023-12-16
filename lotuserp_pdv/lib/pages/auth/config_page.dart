@@ -303,7 +303,6 @@ class _ConfigPageState extends State<ConfigPage> {
                     await service
                         .getUsuarios(int.parse(textFieldController.idEmpresa));
                     await service.getTipo_recebimento();
-                    await Get.offAllNamed(PagesRoutes.loginRoute);
                   }
                 },
                 style: ElevatedButton.styleFrom(
