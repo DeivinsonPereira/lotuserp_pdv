@@ -73,7 +73,7 @@ abstract class PagesRoutes {
   static const String homePageRoute = '/';
   static const String pdvMonitor = '/pdv_monitor';
   static const String paymentRoute = '/payment_page';
-  static const String drawerPage = '/drawer_pagge';
+  static const String drawerPage = '/drawer_page';
   static const String openRegister = '/open_register';
   static const String movimentRegister = '/moviment_register';
   static const String finishRegister = '/finish_register';

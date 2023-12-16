@@ -193,21 +193,48 @@ class IconbuttomLargeSideBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    IsarService service = IsarService();
+
     return InkWell(
-      onTap: () => abrirCaixa == true
-          ? showDialog(
-              context: context,
-              builder: (context) {
-                return const OpenRegisterPage(); // Your AlertDialog widget
-              },
-            )
-          : (movimentarCaixa == true
-              ? showDialog(
-                  context: context,
-                  builder: (context) {
-                    return const MovimentCashPage(); // Your AlertDialog widget
-                  })
-              : Get.toNamed(navigationIcon)),
+      onTap: () async {
+        var dadosUsuario = await service.getUserLogged();
+        bool caixaExistente =
+            await service.checkUserCaixa(dadosUsuario!.id_user!);
+        abrirCaixa == true
+            ? (caixaExistente
+                ? Get.snackbar(
+                    'Atenção',
+                    'já existe um caixa aberto para o usuário logado.',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                    snackPosition: SnackPosition.BOTTOM,
+                  )
+                // ignore: use_build_context_synchronously
+                : showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const OpenRegisterPage(); // Your AlertDialog widget
+                    },
+                  ))
+            : (
+                movimentarCaixa == true
+                    ? (!caixaExistente
+                        ? Get.snackbar(
+                            'Atenção',
+                            'Não existe um caixa aberto para o usuário logado.',
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM,
+                          )
+                        // ignore: use_build_context_synchronously
+                        : showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const MovimentCashPage(); // Your AlertDialog widget
+                            }))
+                    : Get.toNamed(navigationIcon),
+              );
+      },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
         child: Row(

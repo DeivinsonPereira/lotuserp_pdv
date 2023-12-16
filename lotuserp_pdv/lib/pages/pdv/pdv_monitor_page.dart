@@ -436,8 +436,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 ],
               ),
             ),
-            Expanded(
+            
               // Container do Resumo de pedidos
+            Expanded(
               flex: 4,
               child: Column(
                 children: [
@@ -478,9 +479,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     ],
                                   ),
                                 ),
+
+                                    // lista de pedidos
                                 Expanded(
                                   child: SizedBox(
-                                    // lista de pedidos
 
                                     child: Padding(
                                       padding: const EdgeInsets.all(15.0),
@@ -551,8 +553,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                   const SizedBox(
                     height: 10,
                   ),
-                  Flexible(
+
                     //botão de pagamento e total
+                  Flexible(
                     flex: 1,
 
                     child: InkWell(
