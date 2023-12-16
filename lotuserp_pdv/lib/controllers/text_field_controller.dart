@@ -29,21 +29,19 @@ class TextFieldController extends GetxController {
   // salvar informações nas variaveis.
   Future<void> salvarInformacoes(BuildContext context) async {
     ip = numContratoEmpresaController.text;
-    if (numContratoEmpresaController.text.isEmpty) {
-      final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
-      if (dadoEmpresa != null) {
-        ip = dadoEmpresa.ip_empresa!.toString();
-      } else {
-         // ignore: use_build_context_synchronously
-         const CustomSnackBar(
-          title: 'Erro',
-          message: 'O campo obrigatório',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-        ).show(context);
-        return;
-      }
+    final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+    if (dadoEmpresa != null) {
+      ip = dadoEmpresa.ip_empresa!.toString();
+    } else {
+      // ignore: use_build_context_synchronously
+      const CustomSnackBar(
+        title: 'Erro',
+        message: 'O campo obrigatório',
+        icon: Icons.error,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      ).show(context);
+      return;
     }
     idEmpresa = idEmpresaController.text;
     idSerieNfce = idSerieNfceController.text;

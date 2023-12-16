@@ -245,7 +245,7 @@ class IsarService {
         } else {
           dataInicioPromocao = null;
         }
-        final gru = produto(
+        final pro = produto(
           produtos['itens'][i]['id_empresa'],
           produtos['itens'][i]['id_produto'],
           produtos['itens'][i]['grade'],
@@ -278,7 +278,7 @@ class IsarService {
           produtos['itens'][i]['file_imagem'],
         );
 
-        listaProduto.add(gru);
+        listaProduto.add(pro);
       }
 
       isar.writeTxn(() async {

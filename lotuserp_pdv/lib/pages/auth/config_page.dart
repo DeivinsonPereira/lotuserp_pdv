@@ -281,14 +281,17 @@ class _ConfigPageState extends State<ConfigPage> {
                   if (verificacoes() == true) {}
                   textFieldController.salvarInformacoes(context);
                   dado_empresa dadosEmpresa = dado_empresa()
-                    ..id_empresa = int.parse(textFieldController.idEmpresa)
-                    ..id_nfce = int.parse(textFieldController.idSerieNfce)
-                    ..num_caixa = int.parse(textFieldController.numCaixa)
-                    ..intervalo_envio =
-                        int.parse(textFieldController.intervaloEnvio)
-                    ..ip_empresa = textFieldController.numContratoEmpresa;
+                    ..id_empresa =
+                        int.parse(textFieldController.idEmpresaController.text)
+                    ..id_nfce = int.parse(
+                        textFieldController.idSerieNfceController.text)
+                    ..num_caixa =
+                        int.parse(textFieldController.numCaixaController.text)
+                    ..intervalo_envio = int.parse(
+                        textFieldController.intervaloEnvioController.text)
+                    ..ip_empresa = textFieldController.ip;
 
-                  var iplocal = textFieldController.numContratoEmpresa;
+                  var iplocal = textFieldController.ip;
 
                   if (iplocal != '' &&
                       iplocal.isNotEmpty &&
