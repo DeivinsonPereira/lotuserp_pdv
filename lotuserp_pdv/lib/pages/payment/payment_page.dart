@@ -34,6 +34,8 @@ class _PaymentPageState extends State<PaymentPage> {
 
     var remainingValue = 0.0;
 
+    var ramainingValueCb2 = 0.0;
+
     var formatoBrasileiro = NumberFormat.currency(
       locale: 'pt_BR',
       symbol: '',
@@ -128,11 +130,24 @@ class _PaymentPageState extends State<PaymentPage> {
       for (var element in controller.pedidos) {
         totalValue += element['total'];
       }
+
+      String newValuetotalCb2 =
+          controller.numbersDiscountcb2.value.replaceAll(RegExp(r'[^\d]'), '');
+
+      double valorMinusDiscountCb2 =
+          totalValue - (double.parse(newValuetotalCb2) / 100);
+
       String totalValueFormated = formatoBrasileiro.format(totalValue);
-      String totalFormat = formatoBrasileiro.format(controller.totalcheckBox1.value);
-      String numberDiscount = !controller.numbersDiscount.value.isBlank!
-          ? controller.numbersDiscount.value
-          : '0,00';
+      String totalFormat = formatoBrasileiro.format(controller.checkbox1.value
+          ? controller.totalcheckBox1.value
+          : valorMinusDiscountCb2);
+      String numberDiscount = controller.checkbox1.value
+          ? (!controller.numbersDiscount.value.isBlank!
+              ? controller.numbersDiscount.value
+              : '0,00')
+          : (!controller.numbersDiscountcb2.value.isBlank!
+              ? controller.numbersDiscountcb2.value
+              : '0,00');
 
       return Flexible(
         flex: 2,
@@ -213,15 +228,34 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         );
       } else {
-        double totalValue = controller.totalcheckBox1.value;
+        double totalValue = 0.0;
+
+        for (var element in controller.pedidos) {
+          totalValue += element['total'];
+        }
+        String newValuetotalCb2 = controller.numbersDiscountcb2.value
+            .replaceAll(RegExp(r'[^\d]'), '');
+
+        double valorMinusDiscountCb2 =
+            totalValue - (double.parse(newValuetotalCb2) / 100);
+
+        double totalValueCb1 = controller.totalcheckBox1.value;
         double totalPaid = controllerPayment.getTotalPaid();
-        remainingValue = totalValue - totalPaid;
+        remainingValue = totalValueCb1 - totalPaid;
+
+        ramainingValueCb2 = valorMinusDiscountCb2 - totalPaid;
 
         String remainingValueFormatted =
             formatoBrasileiro.format(remainingValue);
 
+        String remainingValueFormattedCb2 =
+            formatoBrasileiro.format(ramainingValueCb2);
+
         String text = remainingValue < 0 ? 'Troco' : 'Falta pagar';
         Color textColor = remainingValue < 0 ? Colors.red : Colors.black;
+
+        String textCb2 = ramainingValueCb2 < 0 ? 'Troco' : 'Falta pagar';
+        Color textColorCb2 = ramainingValueCb2 < 0 ? Colors.red : Colors.black;
 
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -229,16 +263,18 @@ class _PaymentPageState extends State<PaymentPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                text,
+                controller.checkbox1.value ? text : textCb2,
                 style: TextStyle(
-                  color: textColor,
+                  color: controller.checkbox1.value ? textColor : textColorCb2,
                 ),
               ),
               Text(
-                remainingValueFormatted,
+                controller.checkbox1.value
+                    ? remainingValueFormatted
+                    : remainingValueFormattedCb2,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: textColor,
+                  color: controller.checkbox1.value ? textColor : textColorCb2,
                 ),
               ),
             ],
@@ -295,7 +331,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                           FontAwesomeIcons.trash,
                                           size: 20,
                                         ),
-                                        color: const Color.fromARGB(255, 170, 46, 37),
+                                        color: const Color.fromARGB(
+                                            255, 170, 46, 37),
                                       )),
                                 ],
                               )

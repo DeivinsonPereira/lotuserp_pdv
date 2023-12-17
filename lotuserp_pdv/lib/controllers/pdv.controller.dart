@@ -99,6 +99,7 @@ class PdvController extends GetxController {
 
   //########## checkbox 2 true ########
 
+  //adiciona numeros na porcentagem caso checkbox 2 == true
   void addPercentageDiscount(String number) {
     if (number == '0' && discountPercentagecb2.value == '0.00') {
       return;
@@ -112,6 +113,7 @@ class PdvController extends GetxController {
     calculateTotalPercentage();
   }
 
+  //calcula o total entre desconto em porcentagem e subtotal
   void calculateTotalPercentage() {
     double discount = double.parse(
             numbersDiscountcb2.value.replaceAll(RegExp(r'[^\d]'), '')) /
@@ -130,6 +132,7 @@ class PdvController extends GetxController {
     calculateDiscountPercentagecb2();
   }
 
+  //calcula o total entre desconto em porcentagem e subtotal
   void calculateDiscountPercentagecb2() {
     double discount = double.parse(
             discountPercentagecb2.value.replaceAll(RegExp(r'[^\d]'), '')) /
