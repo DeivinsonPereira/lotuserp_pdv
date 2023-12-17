@@ -34,7 +34,6 @@ class RowWidget {
 
 class ButtonsPayment {
   PdvController controller = Get.find();
-  String originalNumbersDiscount = '0,00';
   double originalDiscountPercentage = 0.0;
   double originalTotalValue = 0.0;
 
@@ -71,7 +70,7 @@ class ButtonsPayment {
     );
   }
 
-  //checkbox para Subtotal
+  // Subtotal in dialog discount
   Widget checkedBoxButton(String text) {
     return Row(
       children: [
@@ -139,9 +138,11 @@ class ButtonsPayment {
               Text(text),
               Obx(
                 () => Text(
+
+                  //arrumar questão do desconto em porcentagem.
                   !controller.numbersDiscount.value.isBlank!
                       ? controller.numbersDiscount.value
-                      : originalNumbersDiscount,
+                      : '0,00',
                   style: !controller.checkbox2.value
                       ? const TextStyle(
                           fontSize: 25,

@@ -14,7 +14,6 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
-import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
@@ -40,7 +39,7 @@ class IsarService {
   }
 
   //inserindo dados na tabela empresa vindos do servidor
-  Future getEmpresa(String companyId , String companyIp ) async {
+  Future getEmpresa(String companyId, String companyIp) async {
     final isar = await db;
     int i = await isar.empresas.count();
 
@@ -52,10 +51,8 @@ class IsarService {
       );
     }
 
-    
-
-    Uri getEmpresa = Uri.parse(
-        '${companyIp}pdvmobget01_empresa?pidEmpresa=$companyId');
+    Uri getEmpresa =
+        Uri.parse('${companyIp}pdvmobget01_empresa?pidEmpresa=$companyId');
     final response = await http.get(
       getEmpresa,
       headers: _headers,
