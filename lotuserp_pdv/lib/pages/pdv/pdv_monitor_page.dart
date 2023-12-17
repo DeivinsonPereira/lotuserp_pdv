@@ -604,7 +604,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 ),
                                 child: Builder(builder: (context) {
                                   total = formatoBrasileiro
-                                      .format(controller.total.value);
+                                      .format(controller.totalcheckBox1.value);
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8.0),

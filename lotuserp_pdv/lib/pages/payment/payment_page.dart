@@ -129,7 +129,7 @@ class _PaymentPageState extends State<PaymentPage> {
         totalValue += element['total'];
       }
       String totalValueFormated = formatoBrasileiro.format(totalValue);
-      String totalFormat = formatoBrasileiro.format(controller.total.value);
+      String totalFormat = formatoBrasileiro.format(controller.totalcheckBox1.value);
       String numberDiscount = !controller.numbersDiscount.value.isBlank!
           ? controller.numbersDiscount.value
           : '0,00';
@@ -213,7 +213,7 @@ class _PaymentPageState extends State<PaymentPage> {
           ),
         );
       } else {
-        double totalValue = controller.total.value;
+        double totalValue = controller.totalcheckBox1.value;
         double totalPaid = controllerPayment.getTotalPaid();
         remainingValue = totalValue - totalPaid;
 
@@ -250,7 +250,7 @@ class _PaymentPageState extends State<PaymentPage> {
     //Descontos totais das formas de pagamento.
     Widget paymentForms() {
       String paymentFormsFormated = formatoBrasileiro.format(paymentCount);
-      double totalValue = controller.total.value;
+      double totalValue = controller.totalcheckBox1.value;
 
       var totalToPay = totalValue > 0.0 && totalValue > paymentCount
           ? totalValue - paymentCount
@@ -350,7 +350,7 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     Widget finalizeButton() {
-      double totalValue = controller.total.value;
+      double totalValue = controller.totalcheckBox1.value;
       double totalPaid = controllerPayment.getTotalPaid();
       double remainingValue = totalValue - totalPaid;
 

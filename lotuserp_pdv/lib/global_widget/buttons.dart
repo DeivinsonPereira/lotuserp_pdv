@@ -81,7 +81,7 @@ class ButtonsWidgets {
         Get.back();
         controller.discountPercentage.value = 0.0;
         controller.numbersDiscount.value = '0,00';
-        controller.total.value = totalValue;
+        controller.totalcheckBox1.value = totalValue;
       },
     );
   }
@@ -102,7 +102,7 @@ class ButtonsWidgets {
         Get.back();
         controller.discountPercentage.value = 0.0;
         controller.numbersDiscount.value = '0,00';
-        controller.total.value = totalValue;
+        controller.totalcheckBox1.value = totalValue;
       },
     );
   }

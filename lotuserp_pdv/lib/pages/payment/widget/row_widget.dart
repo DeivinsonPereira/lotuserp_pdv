@@ -1,5 +1,7 @@
 // ignore_for_file: non_constant_identifier_names
 
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -43,7 +45,9 @@ class ButtonsPayment {
       height: 37,
       child: InkWell(
         onTap: () {
-          controller.removeNumberDiscount();
+          controller.checkbox1.value
+              ? controller.removeNumberDiscount()
+              : controller.removeNumberDiscountCb2();
         },
         child: const Icon(
           Icons.backspace,
@@ -56,7 +60,9 @@ class ButtonsPayment {
   Widget buildNumberButton(String number) {
     return InkWell(
       onTap: () {
-        controller.addNumberDiscount(number);
+        controller.checkbox1.value
+            ? controller.addNumberDiscount(number)
+            : controller.addPercentageDiscount(number);
       },
       child: SizedBox(
         width: 150,
@@ -71,7 +77,7 @@ class ButtonsPayment {
   }
 
   // Subtotal in dialog discount
-  Widget checkedBoxButton(String text) {
+  Widget subtotalInDialog(String text) {
     return Row(
       children: [
         Padding(
@@ -85,14 +91,27 @@ class ButtonsPayment {
                 for (var element in controller.pedidos) {
                   valor += element['total'];
                 }
-                String newValue = controller.numbersDiscount.value
+                String newValueCb1 = controller.numbersDiscount.value
                     .replaceAll(RegExp(r'[^\d]'), '');
-                double valorMinusDiscount =
-                    valor - (double.parse(newValue) / 100);
-                final formattedValue =
-                    formatoBrasileiro.format(valorMinusDiscount);
+                double valorMinusDiscountcb1 =
+                    valor - (double.parse(newValueCb1) / 100);
+
+                final formattedValueCb1 =
+                    formatoBrasileiro.format(valorMinusDiscountcb1);
+
+                String newValueCb2 = controller.numbersDiscountcb2.value
+                    .replaceAll(RegExp(r'[^\d]'), '');
+
+                double valorMinusDiscountCb2 =
+                    valor - (double.parse(newValueCb2) / 100);
+
+                final formattedValueCb2 =
+                    formatoBrasileiro.format(valorMinusDiscountCb2);
+
                 return Text(
-                  formattedValue,
+                  controller.checkbox1.value
+                      ? formattedValueCb1
+                      : formattedValueCb2,
                   style: const TextStyle(
                     fontSize: 25,
                     fontWeight: FontWeight.bold,
@@ -111,9 +130,9 @@ class ButtonsPayment {
   Widget checkedDiscountBoxButton(String text) {
     return InkWell(
         onTap: () {
-          controller.checkbox2.value = !controller.checkbox2.value;
-          if (controller.checkbox2.value) {
-            controller.checkbox3.value = false;
+          controller.checkbox1.value = !controller.checkbox1.value;
+          if (controller.checkbox1.value) {
+            controller.checkbox2.value = false;
           }
         },
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -122,12 +141,12 @@ class ButtonsPayment {
               shape: const CircleBorder(),
               checkColor: Colors.white,
               activeColor: CustomColors.customContrastColor,
-              value: controller.checkbox2.value,
+              value: controller.checkbox1.value,
               /*mudar para variavel */
               onChanged: (bool? value) {
-                controller.checkbox2.value = !controller.checkbox2.value;
-                if (controller.checkbox2.value) {
-                  controller.checkbox3.value = false;
+                controller.checkbox1.value = !controller.checkbox1.value;
+                if (controller.checkbox1.value) {
+                  controller.checkbox2.value = false;
                 }
               },
             ),
@@ -138,12 +157,12 @@ class ButtonsPayment {
               Text(text),
               Obx(
                 () => Text(
-
                   //arrumar questão do desconto em porcentagem.
-                  !controller.numbersDiscount.value.isBlank!
+                  controller.checkbox1.value
                       ? controller.numbersDiscount.value
-                      : '0,00',
-                  style: !controller.checkbox2.value
+                      : controller.numbersDiscountcb2.value,
+
+                  style: !controller.checkbox1.value
                       ? const TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -159,15 +178,15 @@ class ButtonsPayment {
         ]));
   }
 
-//checkbox para desconto em percentual
+  //checkbox para desconto em percentual
   Widget checkedPercentualBoxButton(
     String text,
   ) {
     return InkWell(
         onTap: () {
-          controller.checkbox3.value = !controller.checkbox3.value;
-          if (controller.checkbox3.value) {
-            controller.checkbox2.value = false;
+          controller.checkbox2.value = !controller.checkbox2.value;
+          if (controller.checkbox2.value) {
+            controller.checkbox1.value = false;
           }
         },
         child: Row(children: [
@@ -176,12 +195,12 @@ class ButtonsPayment {
               shape: const CircleBorder(),
               checkColor: Colors.white,
               activeColor: CustomColors.customContrastColor,
-              value: controller.checkbox3.value,
+              value: controller.checkbox2.value,
               /*mudar para variavel */
               onChanged: (bool? value) {
-                controller.checkbox3.value = !controller.checkbox3.value;
-                if (controller.checkbox3.value) {
-                  controller.checkbox2.value = false;
+                controller.checkbox2.value = !controller.checkbox2.value;
+                if (controller.checkbox2.value) {
+                  controller.checkbox1.value = false;
                 }
               },
             ),
@@ -194,8 +213,10 @@ class ButtonsPayment {
                 final formattedDiscountPercentage = formatoBrasileiro
                     .format(controller.discountPercentage.value);
                 return Text(
-                  '$formattedDiscountPercentage% ',
-                  style: !controller.checkbox3.value
+                  !controller.checkbox2.value
+                      ? '$formattedDiscountPercentage% '
+                      : '${controller.discountPercentagecb2.value}%',
+                  style: !controller.checkbox2.value
                       ? const TextStyle(
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
@@ -211,6 +232,7 @@ class ButtonsPayment {
         ]));
   }
 
+  //botão de desconto
   Widget textDiscountOnSale(BuildContext context, Function callback) {
     return TextButton(
       onPressed: () {
@@ -285,7 +307,7 @@ class ButtonsPayment {
                           const SizedBox(
                             height: 50,
                           ),
-                          checkedBoxButton('Subtotal'),
+                          subtotalInDialog('Subtotal'),
                         ],
                       ),
                     ),

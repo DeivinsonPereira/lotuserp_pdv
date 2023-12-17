@@ -48,7 +48,7 @@ class DialogWidget {
   }
 
   Widget keyboardNumber(Function callback, double value, String name) {
-    double totalValue = pdvcontroller.total.value;
+    double totalValue = pdvcontroller.totalcheckBox1.value;
     double totalPaid = controller.getTotalPaid();
     double remainingValue = totalValue - totalPaid;
 
