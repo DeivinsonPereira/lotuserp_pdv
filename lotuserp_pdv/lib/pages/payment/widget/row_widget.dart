@@ -1,7 +1,5 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -108,14 +106,16 @@ class ButtonsPayment {
                 final formattedValueCb2 =
                     formatoBrasileiro.format(valorMinusDiscountCb2);
 
-                return Text(
-                  controller.checkbox1.value
-                      ? formattedValueCb1
-                      : formattedValueCb2,
-                  style: const TextStyle(
-                    fontSize: 25,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+                return Obx(
+                  () => Text(
+                    controller.checkbox1.value
+                        ? formattedValueCb1
+                        : formattedValueCb2,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
                 );
               }),

@@ -155,7 +155,7 @@ class PdvController extends GetxController {
     return value.toStringAsFixed(2).replaceAll('.', ',');
   }
 
-  //remove numero do NumberDiscount
+  //remove numero do NumberDiscount cb1
   void removeNumberDiscount() {
     if (numbersDiscount.value.length > 1) {
       String newValue = numbersDiscount.value
@@ -168,6 +168,7 @@ class PdvController extends GetxController {
     calculateTotal();
   }
 
+  //remove numero do percentageDiscount cb2
   void removeNumberDiscountCb2() {
     if (discountPercentagecb2.value.length > 1) {
       String newValue = discountPercentagecb2.value
@@ -178,7 +179,7 @@ class PdvController extends GetxController {
     } else {
       discountPercentagecb2.value = '0,00';
     }
-    calculateTotal();
+    calculateTotalPercentage();
   }
 
   //adiciona itens no pedido
