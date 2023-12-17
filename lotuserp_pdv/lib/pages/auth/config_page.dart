@@ -297,14 +297,11 @@ class _ConfigPageState extends State<ConfigPage> {
                       iplocal.isNotEmpty &&
                       iplocal.isBlank == false) {
                     await service.insertDadosEmpresariais(dadosEmpresa);
-                    await service
-                        .getEmpresa(int.parse(textFieldController.idEmpresa));
-                    await service
-                        .getGrupo(int.parse(textFieldController.idEmpresa));
-                    await service
-                        .getProduto(int.parse(textFieldController.idEmpresa));
-                    await service
-                        .getUsuarios(int.parse(textFieldController.idEmpresa));
+                    await service.getEmpresa(
+                        textFieldController.idEmpresaController.text, iplocal);
+                    await service.getGrupo();
+                    await service.getProduto();
+                    await service.getUsuarios();
                     await service.getTipo_recebimento();
                   }
                 },

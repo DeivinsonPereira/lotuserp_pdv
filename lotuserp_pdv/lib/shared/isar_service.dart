@@ -14,6 +14,7 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
+import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
@@ -39,7 +40,7 @@ class IsarService {
   }
 
   //inserindo dados na tabela empresa vindos do servidor
-  Future getEmpresa(int companyId) async {
+  Future getEmpresa(String companyId , String companyIp ) async {
     final isar = await db;
     int i = await isar.empresas.count();
 
@@ -51,18 +52,10 @@ class IsarService {
       );
     }
 
-    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
-
-    var ipEmpresaUrl = '';
-    var idEmpresaNum = 0;
-
-    if (dadoEmpresa != null) {
-      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
-      idEmpresaNum = dadoEmpresa.id_empresa!;
-    }
+    
 
     Uri getEmpresa = Uri.parse(
-        '${ipEmpresaUrl}pdvmobget01_empresa?pidEmpresa=$idEmpresaNum');
+        '${companyIp}pdvmobget01_empresa?pidEmpresa=$companyId');
     final response = await http.get(
       getEmpresa,
       headers: _headers,
@@ -128,7 +121,7 @@ class IsarService {
   }
 
   //inserindo dados na tabela grupo vindos do servidor
-  Future getGrupo(int companyId) async {
+  Future getGrupo() async {
     final isar = await db;
     int i = await isar.produto_grupos.count();
 
@@ -193,7 +186,7 @@ class IsarService {
   }
 
   //inserindo dados na tabela produtos vindos do servidor
-  Future getProduto(int companyId) async {
+  Future getProduto() async {
     final isar = await db;
     int i = await isar.produtos.count();
 
@@ -297,7 +290,7 @@ class IsarService {
   }
 
   //inserindo dados na tabela usuarios vindos do servidor
-  Future getUsuarios(int companyId) async {
+  Future getUsuarios() async {
     final isar = await db;
     int i = await isar.usuarios.count();
 
