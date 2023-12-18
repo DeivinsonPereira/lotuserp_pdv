@@ -1,407 +1,247 @@
-/*import 'package:flutter/material.dart';
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/collections/produto.dart';
-import 'package:lotuserp_pdv/controllers/product.controller.dart';
-import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-class ProductMonitorPage extends StatefulWidget {
+import 'package:lotuserp_pdv/core/custom_colors.dart';
+
+import '../../controllers/product_controller.dart';
+import '../../core/format_txt.dart';
+import 'components/popup_widget.dart';
+
+class ProductMonitorPage extends StatelessWidget {
   const ProductMonitorPage({super.key});
 
   @override
-  State<ProductMonitorPage> createState() => _ProductMonitorPageState();
-}
-
-class _ProductMonitorPageState extends State<ProductMonitorPage> {
-  int isSelectedList = -1;
-  int idGrupo = -1;
-
-  double totalPedido = 0.0;
-
-  @override
   Widget build(BuildContext context) {
-    IsarService service = IsarService();
     ProdutoController controller = Get.put(ProdutoController());
 
-    List<String> listaGrupos = [];
-
-    List<Produto> getProdutoById(List<Produto> product) {
-      return product.where((product) => product.idGrupo == idGrupo).toList();
-    }
+    var size = MediaQuery.of(context).size;
 
     return Scaffold(
-      body: Row(
-        children: [
-          Expanded(
-            flex: 6,
-            child: Padding(
+      backgroundColor: CustomColors.customSwatchColor,
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //botão voltar
+            Padding(
               padding: const EdgeInsets.all(8.0),
+              child: IconButton(
+                onPressed: () {
+                  Get.back();
+                },
+                icon: const Icon(Icons.arrow_back_ios),
+              ),
+            ),
+
+            // configuração do container branco
+            Container(
+              height: size.height - 64,
+              width: size.width,
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.vertical(
+                    top: Radius.circular(40),
+                  ),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withAlpha(100),
+                      blurRadius: 2,
+                      spreadRadius: 2,
+                    )
+                  ]),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Color.fromARGB(255, 70, 70, 70),
-                          ),
+                  //Título
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
+                    decoration: BoxDecoration(
+                        color: Colors.grey[300],
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40),
+                        )),
+                    child: const Center(
+                      child: Text(
+                        'Constulta de Produtos',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Container(
-                          height: 50,
-                          width: 650,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              prefixIcon: IconButton(
-                                icon: const Icon(Icons.camera_alt),
-                                onPressed: () {
-                                  //Abrir câmera para ler o código de barras do produto
-                                },
+                      ),
+                    ),
+                  ),
+
+                  //campo de pesquisa
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2.0, left: 5, right: 5),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //opções de pesquisa
+                        Obx(() => Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 3),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.grey)),
+                              width: 260,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      controller.textOption.value,
+                                      style: const TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  const SizedBox(child: PopupWidget()),
+                                ],
                               ),
-                              disabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide.none),
-                              border: InputBorder.none,
-                              hintText: 'Busque um produto',
-                              labelStyle: const TextStyle(
-                                  color: Color.fromARGB(255, 53, 53, 53),
-                                  fontSize: 18),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always,
+                            )),
+                        const SizedBox(
+                          width: 5,
+                        ),
+
+                        //input de pesquisa
+                        Expanded(
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 25),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                border: Border.all(color: Colors.grey)),
+                            child: TextFormField(
+                              inputFormatters: [UpperCaseTxt()],
+                              decoration: const InputDecoration(
+                                  suffixIcon: Icon(Icons.search),
+                                  border: InputBorder.none),
+                              style: const TextStyle(
+                                  fontSize: 16,
+                                  overflow: TextOverflow.ellipsis,
+                                  fontWeight: FontWeight.w500),
+                              maxLines: 1,
+                              controller: controller.searchController,
                             ),
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.menu,
-                            color: Colors.black,
-                            size: 35,
-                          ),
-                        )
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: StreamBuilder(
-                      stream: service.listenGrupo(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          return const Text('Grupo não encontrado');
-                        }
-                        if (snapshot.hasData) {
-                          var grupo = snapshot.data!;
-                          return Row(
-                            children: [
-                              SizedBox(
-                                width: 765,
-                                height: 50,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: grupo.length,
-                                  itemBuilder: (context, index) {
-                                    if (listaGrupos.length > 1) {
-                                      listaGrupos.clear();
-                                    }
-                                    listaGrupos.add(
-                                      'TODOS',
-                                    );
-                                    for (var element in grupo) {
-                                      listaGrupos.add(element.grupoDescricao!);
-                                    }
 
-                                    return GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          isSelectedList = index;
-                                          if (index != 0) {
-                                            idGrupo = grupo[index - 1].idGrupo;
-                                          }
-                                        });
-                                      },
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 20),
-                                        child: Container(
-                                          padding: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                              color: isSelectedList == index
-                                                  ? const Color.fromRGBO(
-                                                      43, 48, 91, 1)
-                                                  : Colors.transparent,
-                                              borderRadius:
-                                                  BorderRadius.circular(20)),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                listaGrupos[index],
-                                                style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: isSelectedList == index
-                                                      ? Colors.white
-                                                      : CustomColors
-                                                          .customSwatchColor,
-                                                  fontSize:
-                                                      isSelectedList == index
-                                                          ? 18
-                                                          : 16,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          );
-                        }
-                        return const Center(child: CircularProgressIndicator());
-                      },
-                    ),
+                  const SizedBox(
+                    height: 5,
                   ),
                   Expanded(
-                      flex: 7,
-                      child: StreamBuilder(
-                        stream: service.listenProdutos(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasError) {
-                            return const Text('Produto não encontrado');
-                          }
-                          if (snapshot.hasData) {
-                            var produto = snapshot.data!;
-
-                            dynamic filteredProducts;
-                            if (isSelectedList >= 0) {
-                              if (listaGrupos[isSelectedList] != 'TODOS') {
-                                filteredProducts = getProdutoById(produto);
-                              } else {
-                                filteredProducts = produto;
-                              }
-                            } else {
-                              filteredProducts = [];
-                            }
-
-                            return GridView.builder(
-                              gridDelegate:
-                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 5,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5,
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: const BorderRadius.vertical(
+                                top: Radius.circular(10))),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 50,
+                              decoration: const BoxDecoration(
+                                color: Colors.grey,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(10),
+                                    topRight: Radius.circular(10)),
                               ),
-                              itemCount: filteredProducts.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                String? nome;
-                                double? preco;
-                                String? unidade;
-                                String? file;
-
-                                if (isSelectedList >= 0) {
-                                  if (listaGrupos[isSelectedList] == 'TODOS') {
-                                    produto.isNotEmpty
-                                        ? file = produto[index].fileImagem!
-                                        : file = null;
-
-                                    nome = produto[index].descricao;
-                                    preco = produto[index].pvenda;
-                                    unidade = produto[index].unidade;
-                                  } else {
-                                    // caso o listaGrupos[isSelectedList] não seja igual a 'todos'
-                                    file = filteredProducts[index].fileImagem ??
-                                        "Valor Padrão";
-                                    nome = filteredProducts[index].descricao ??
-                                        "null";
-                                    preco =
-                                        filteredProducts[index].pvenda ?? "";
-
-                                    unidade =
-                                        filteredProducts[index].unidade ?? "";
-                                  }
-
-                                  if (file != null) {
-                                    return InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          controller.adicionarPedidos(
-                                              nome!, unidade!, preco!);
-
-                                          controller.totalSoma();
-                                        });
-                                      },
-                                      child: Column(
-                                        children: [
-                                         /* Expanded(
-                                            flex: 3,
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  await Endpoints().imagemProdutoUrl(
-                                                      file),
-                                            ),
-                                          ),
-                                          if (nome != null)
-                                            Text(
-                                              nome,
-                                              textAlign: TextAlign.center,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),*/
-                                          Text(
-                                            'R\$  ${preco?.toStringAsFixed(2)} $unidade',
-                                            style: const TextStyle(
-                                              fontWeight: FontWeight.w500,
-                                              color: Color.fromARGB(
-                                                  255, 97, 97, 97),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  } else {
-                                    return const CircularProgressIndicator();
-                                  }
-                                }
-                                return const Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                              },
-                            );
-                          }
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        },
-                      ))
+                              child: const Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 3.0),
+                                    child: Text('Resultado',
+                                        style: TextStyle(
+                                            fontSize: 26,
+                                            fontWeight: FontWeight.bold)),
+                                  )),
+                            ),
+                            const Row(
+                              children: [
+                                LegendSearch(
+                                  legend: 'Id',
+                                  size: 75,
+                                ),
+                                LegendSearch(
+                                  legend: 'Descricão Produto',
+                                  size: 500,
+                                  isDescription: true,
+                                ),
+                                LegendSearch(
+                                  legend: 'UN',
+                                  size: 50,
+                                ),
+                                LegendSearch(
+                                  legend: 'Valor Venda',
+                                  size: 150,
+                                ),
+                                LegendSearch(
+                                  legend: 'Saldo Produto',
+                                  size: 150,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
-          ),
-          Expanded(
-            flex: 4,
-            child: Column(
-              children: [
-                Expanded(
-                  flex: 8,
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(25.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                          ),
-                          child: Column(
-                            children: [
-                              Padding(
-                                // Cabeçalho, Resumo
-                                padding: const EdgeInsets.all(15.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Text(
-                                      'Resumo',
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 30,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      '${controller.pedidos.length} itens',
-                                      style: const TextStyle(fontSize: 20),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                // lista de pedidos
-                                width: 550,
-                                height: 500,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: ListView.builder(
-                                    itemCount: controller.pedidos.length,
-                                    itemBuilder: (context, index) {
-                                      return ListTile(
-                                        title: Text(
-                                          controller.pedidos[index]
-                                              ['nomeProduto'],
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        subtitle: Text(
-                                            '${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['price'].toStringAsFixed(2)} ${controller.pedidos[index]['unidade']}'),
-                                        trailing: Text(
-                                          'R\$ ${controller.pedidos[index]['total'].toStringAsFixed(2)}',
-                                          style: const TextStyle(fontSize: 16),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  //botão de pagamento e total
-                  flex: 1,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        bottom: 25.0, left: 24.0, right: 24.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.customContrastColor),
-                      onPressed: () {},
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            alignment: Alignment.centerRight,
-                            child: const Text(
-                              'Pagamento',
-                              style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Text(
-                            'R\$ ${controller.total.toStringAsFixed(2)}',
-                            style: const TextStyle(
-                                fontSize: 24,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
-}*/
+}
+
+class LegendSearch extends StatelessWidget {
+  const LegendSearch({
+    Key? key,
+    required this.legend,
+    required this.size,
+    this.isDescription = false,
+  }) : super(key: key);
+
+  final String legend;
+  final double size;
+  final bool isDescription;
+
+  @override
+  Widget build(BuildContext context) {
+    return isDescription
+        ? Expanded(
+            child: Container(
+              color: Colors.grey,
+              child: Row(children: [
+                Expanded(
+                  child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black),
+                      ),
+                      child: Text(legend)),
+                ),
+              ]),
+            ),
+          )
+        : Container(
+            color: Colors.grey,
+            child: Row(children: [
+              Container(
+                  width: !isDescription ? size : 0,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                  ),
+                  child: Text(legend)),
+            ]),
+          );
+  }
+}

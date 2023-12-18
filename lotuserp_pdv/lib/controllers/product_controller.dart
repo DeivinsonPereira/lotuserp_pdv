@@ -1,9 +1,18 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProdutoController extends GetxController {
+  TextEditingController searchController = TextEditingController();
+
   RxList pedidos = [].obs;
 
   double total = 0.0;
+
+  //variavel para definir a opção selecionada no dropdown de ProdutosPage
+  RxString textOption = 'DESCRIÇÃO'.obs;
+
+  //variavel para guardar o texto digitado no campo de pesquisa
+  RxString search = ''.obs;
 
   void adicionarPedidos(String nomeProduto, String unidade, double price) {
     int index =
@@ -24,9 +33,21 @@ class ProdutoController extends GetxController {
     }
   }
 
+  //substituir valor na variavel search
+  void setSearch() {
+    searchController.text.runtimeType == int
+        ? search.value = searchController.text.toString()
+        : search.value = searchController.text;
+  }
+
   void totalSoma() {
     for (var element in pedidos) {
       total += element['price'];
     }
+  }
+
+  //Muda o texto da variavel textOption
+  void changeTextOption(String value) {
+    textOption.value = value;
   }
 }

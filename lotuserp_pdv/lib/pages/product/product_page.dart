@@ -12,7 +12,7 @@ class ProductPage extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 1200) {
-          return Container();
+          return const ProductMonitorPage();
           /*const ProductMonitorPage();*/
         } else if (constraints.maxWidth < 1200 && constraints.maxWidth >= 800) {
           return const ProductTabletPage();

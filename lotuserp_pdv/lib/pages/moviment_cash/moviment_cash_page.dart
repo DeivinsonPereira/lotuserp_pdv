@@ -109,6 +109,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
     // ignore: unused_local_variable
     var parsedDateTime = DateFormat('HH:mm:ss').parse(hourFormatted);
 
+    // ignore: unused_local_variable
     CaixaController caixaController = Get.put(CaixaController());
 
     return SingleChildScrollView(
