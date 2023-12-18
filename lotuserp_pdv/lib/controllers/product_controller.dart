@@ -14,6 +14,10 @@ class ProdutoController extends GetxController {
   //variavel para guardar o texto digitado no campo de pesquisa
   RxString search = ''.obs;
 
+  //variavel para verificar se o botão de pesquisa foi executado ou não.
+  RxBool searchExecuted = false.obs;
+
+
   void adicionarPedidos(String nomeProduto, String unidade, double price) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);

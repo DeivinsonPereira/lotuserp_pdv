@@ -286,6 +286,25 @@ class IsarService {
     yield* isar.produtos.where().sortById_grupo().watch(fireImmediately: true);
   }
 
+  //busca o objeto produto de acordo com o id
+  Future searchProdutoById(int id) async {
+    final isar = await db;
+
+    return await isar.produtos.filter().id_produtoEqualTo(id).findFirst();
+  }
+
+  //busca o objeto produto de acordo com a descrição
+  Future searchProdutoByDesc(String desc) async {
+    final isar = await db;
+    return await isar.produtos.filter().descricaoContains(desc).findFirst();
+  }
+
+  //busca o objeto produto de acordo com o código de barras
+  Future searchProdutoByBarcode(String barcode) async {
+    final isar = await db;
+    return await isar.produtos.filter().gtinEqualTo(barcode).findFirst();
+  }
+
   //inserindo dados na tabela usuarios vindos do servidor
   Future getUsuarios() async {
     final isar = await db;
@@ -716,6 +735,7 @@ class IsarService {
     }
   }
 
+  //deletar todos os dados do usuario logado
   Future<void> deleteLoggedUser() async {
     final isar = await db;
 
@@ -724,6 +744,7 @@ class IsarService {
     });
   }
 
+  //buscar o id do Usuario logado
   Future<int?> getUserIdUser(String login) async {
     final isar = await db;
 
@@ -738,6 +759,7 @@ class IsarService {
     }
   }
 
+  //buscar o objeto do usuario logado
   Future<usuario_logado?> getUserLogged() async {
     final isar = await db;
 
@@ -747,6 +769,7 @@ class IsarService {
     return usuario;
   }
 
+  //verifica se o usuario possui caixa aberto
   Future<bool> checkUserCaixa(int idUser) async {
     final isar = await db;
 
@@ -760,6 +783,7 @@ class IsarService {
     }
   }
 
+  //Encontrar a data de abertura do caixa
   Future<DateTime?> getDateCaixa(int idUser) async {
     final isar = await db;
 
