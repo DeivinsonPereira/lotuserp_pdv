@@ -194,160 +194,108 @@ class ProductMonitorPage extends StatelessWidget {
                             const Divider(),
 
                             //resultado da pesquisa
-                            Builder(builder: (context) {
-                              return FutureBuilder(
-                                future: controller.searchExecuted.value
-                                    ? controller.textOption.value == 'ID'
-                                        ? service.searchProdutoById(int.parse(
-                                            controller.searchController.text))
-                                        : (controller.textOption.value ==
-                                                'DESCRIÇÃO'
-                                            ? service.searchProdutoByDescPaged(
-                                                controller
-                                                    .searchController.text)
-                                            : service.searchProdutoByBarcode(
-                                                controller
-                                                    .searchController.text))
-                                    : null,
-                                builder: (context, snapshot) {
-                                  if (!snapshot.hasData &&
-                                      controller.searchExecuted.value) {
-                                    return const Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                  }
-                                  if (snapshot.hasError &&
-                                      controller.searchExecuted.value) {
-                                    return const Center(
-                                      child: Text('Erro ao buscar dados'),
-                                    );
-                                  }
-                                  if (snapshot.hasData &&
-                                      controller.searchExecuted.value) {
-                                    var produtos = snapshot.data!;
-                                    controller.updateProduct(produtos);
-                                    controller
-                                        .changeTotalPages(produtos.length);
-                                    print(controller.totalPages.value);
+                            Obx(() => FutureBuilder(
+                                  future: controller.searchExecuted.value
+                                      ? controller.textOption.value == 'ID'
+                                          ? service.searchProdutoById(int.parse(
+                                              controller.searchController.text))
+                                          : (controller.textOption.value ==
+                                                  'DESCRIÇÃO'
+                                              ? service
+                                                  .searchProdutoByDescPaged(
+                                                      controller
+                                                          .searchController
+                                                          .text)
+                                              : service.searchProdutoByBarcode(
+                                                  controller
+                                                      .searchController.text))
+                                      : null,
+                                  builder: (context, snapshot) {
+                                    if (!snapshot.hasData &&
+                                        controller.searchExecuted.value) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(),
+                                      );
+                                    }
+                                    if (snapshot.hasError &&
+                                        controller.searchExecuted.value) {
+                                      return const Center(
+                                        child: Text('Erro ao buscar dados'),
+                                      );
+                                    }
+                                    if (snapshot.hasData &&
+                                        controller.searchExecuted.value) {
+                                      var produtos = snapshot.data!;
 
-                                    return Expanded(
-                                      child: ListView.builder(
-                                        itemCount: produtos.length,
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 2),
-                                                child: Row(
-                                                  children: [
-                                                    LegendSearch(
-                                                      legend: produtos[index]
-                                                          .id_produto
-                                                          .toString(),
-                                                      size: 75,
-                                                    ),
-                                                    LegendSearch(
-                                                      legend: produtos[index]
-                                                          .descricao,
-                                                      size: 500,
-                                                      isDescription: true,
-                                                    ),
-                                                    LegendSearch(
-                                                      legend: produtos[index]
-                                                          .unidade,
-                                                      size: 50,
-                                                    ),
-                                                    LegendSearch(
-                                                      legend:
-                                                          produtos[index].gtin,
-                                                      size: 150,
-                                                    ),
-                                                    LegendSearch(
-                                                      legend: produtos[index]
-                                                          .pvenda
-                                                          .toString(),
-                                                      size: 150,
-                                                      isPvenda: true,
-                                                    ),
-                                                    LegendSearch(
-                                                      legend: produtos[index]
-                                                          .saldo_produto
-                                                          .toString(),
-                                                      size: 150,
-                                                    ),
-                                                  ],
+                                      return Expanded(
+                                        child: ListView.builder(
+                                          itemCount: produtos.length,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 2),
+                                                  child: Row(
+                                                    children: [
+                                                      LegendSearch(
+                                                        legend: produtos[index]
+                                                            .id_produto
+                                                            .toString(),
+                                                        size: 75,
+                                                      ),
+                                                      LegendSearch(
+                                                        legend: produtos[index]
+                                                            .descricao,
+                                                        size: 500,
+                                                        isDescription: true,
+                                                      ),
+                                                      LegendSearch(
+                                                        legend: produtos[index]
+                                                            .unidade,
+                                                        size: 50,
+                                                      ),
+                                                      LegendSearch(
+                                                        legend: produtos[index]
+                                                            .gtin,
+                                                        size: 150,
+                                                      ),
+                                                      LegendSearch(
+                                                        legend: produtos[index]
+                                                            .pvenda
+                                                            .toString(),
+                                                        size: 150,
+                                                        isPvenda: true,
+                                                      ),
+                                                      LegendSearch(
+                                                        legend: produtos[index]
+                                                            .saldo_produto
+                                                            .toString(),
+                                                        size: 150,
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              ),
-                                              Container(
-                                                padding: EdgeInsets.zero,
-                                                child: const Divider(),
-                                              )
-                                            ],
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  }
-                                  controller.searchExecuted.value = false;
+                                                Container(
+                                                  padding: EdgeInsets.zero,
+                                                  child: const Divider(),
+                                                )
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    }
 
-                                  return const Center(
-                                    child: SizedBox(),
-                                  );
-                                },
-                              );
-                            }),
+                                    return const Center(
+                                      child: SizedBox(),
+                                    );
+                                  },
+                                )),
                           ],
                         ),
                       ),
                     ),
-
-                    /* //informativo de paginacao e itens por pagina
-                    Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Itens por página:'),
-                          SizedBox(
-                            width: 90,
-                            height: 25,
-                            child: TextFormField(
-                              controller: controller.itensPerPageController,
-                              keyboardType: TextInputType.number,
-                              decoration: const InputDecoration(
-                                contentPadding:
-                                    EdgeInsets.only(left: 5, bottom: 8),
-                                isCollapsed: true,
-                                suffixIcon: Icon(Icons.arrow_drop_down),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: Text(
-                                '  of ${controller.totalPages.value.toString()}'),
-                          ),
-                          GestureDetector(
-                              onTap: () => controller.changeNumPageMinus(),
-                              child: Icon(Icons.chevron_left,
-                                  color: Colors.grey[300])),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 15.0),
-                          ),
-                          GestureDetector(
-                            onTap: () => controller.changeNumPagePlus(),
-                            child: Icon(
-                              Icons.chevron_right,
-                              color: Colors.grey[300],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),*/
                   ],
                 ),
               ),
