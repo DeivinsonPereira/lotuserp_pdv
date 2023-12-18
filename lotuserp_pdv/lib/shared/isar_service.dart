@@ -293,10 +293,15 @@ class IsarService {
     return await isar.produtos.filter().id_produtoEqualTo(id).findFirst();
   }
 
-  //busca o objeto produto de acordo com a descrição
-  Future searchProdutoByDesc(String desc) async {
+  //busca o objeto produto de acordo com a descrição de forma paginada
+  Future searchProdutoByDescPaged(String desc) async {
     final isar = await db;
-    return await isar.produtos.filter().descricaoContains(desc).findFirst();
+
+    return await isar.produtos
+        .filter()
+        .descricaoContains(desc)
+        .sortByDescricao()
+        .findAll();
   }
 
   //busca o objeto produto de acordo com o código de barras

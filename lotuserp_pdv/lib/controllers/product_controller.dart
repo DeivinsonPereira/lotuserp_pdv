@@ -3,10 +3,16 @@ import 'package:get/get.dart';
 
 class ProdutoController extends GetxController {
   TextEditingController searchController = TextEditingController();
+  TextEditingController itensPerPageController = TextEditingController();
 
-  RxList pedidos = [].obs;
+  //variavel que define quantos itens a paginação irá mostrar
+  RxInt itensPerPage = 10.obs;
 
-  double total = 0.0;
+  //variavel que mostra o total de páginas
+  RxInt totalPages = 0.obs;
+
+  //variavel que mostra o numero do item na páginação atual
+  RxInt numPage = 0.obs;
 
   //variavel para definir a opção selecionada no dropdown de ProdutosPage
   RxString textOption = 'DESCRIÇÃO'.obs;
@@ -17,24 +23,37 @@ class ProdutoController extends GetxController {
   //variavel para verificar se o botão de pesquisa foi executado ou não.
   RxBool searchExecuted = false.obs;
 
+  //objeto vindo do banco de dados local (snapshot)
+  var product = [].obs;
 
-  void adicionarPedidos(String nomeProduto, String unidade, double price) {
-    int index =
-        pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
+  //atualiza a variavel product com o valor do snapshot
+  void updateProduct(List value) {
+    product.value = value;
+  }
 
-    if (index != -1) {
-      pedidos[index]['quantidade'] = (pedidos[index]['quantidade'] ?? 1) + 1;
-      pedidos[index]['total'] =
-          (pedidos[index]['quantidade'] * pedidos[index]['price']);
-    } else {
-      pedidos.add({
-        'nomeProduto': nomeProduto,
-        'quantidade': 1,
-        'unidade': unidade,
-        'price': price,
-        'total': price
-      });
+  //atualiza a variavel numPage para mais
+  void changeNumPagePlus() {
+    if (numPage.value < totalPages.value - 1) {
+      //verificar se é a ultima página ou não ####################################
+      numPage.value++;
     }
+  }
+
+  //atualiza a variavel numPage para menos
+  void changeNumPageMinus() {
+    if (numPage.value > 0) {
+      numPage.value--;
+    }
+  }
+
+  //atualiza a variavel pageSize escolhido pelo usuário ou padrão
+  void changePageSize() {
+    itensPerPage.value = int.parse(itensPerPageController.text);
+  }
+
+  //atualiza a variavel totalPages de acordo com a quantidade de itens por página e o total de itens
+  void changeTotalPages(int value) {
+    totalPages.value = (value / itensPerPage.value).ceil();
   }
 
   //substituir valor na variavel search
@@ -42,12 +61,6 @@ class ProdutoController extends GetxController {
     searchController.text.runtimeType == int
         ? search.value = searchController.text.toString()
         : search.value = searchController.text;
-  }
-
-  void totalSoma() {
-    for (var element in pedidos) {
-      total += element['price'];
-    }
   }
 
   //Muda o texto da variavel textOption

@@ -41,9 +41,10 @@ class ProductMonitorPage extends StatelessWidget {
 
             // Conteúdo
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding:
+                  const EdgeInsets.only(left: 15.0, right: 15.0, bottom: 15.0),
               child: Container(
-                height: size.height - 100,
+                height: size.height - 75,
                 width: size.width,
                 decoration: BoxDecoration(color: Colors.white, boxShadow: [
                   BoxShadow(
@@ -82,14 +83,14 @@ class ProductMonitorPage extends StatelessWidget {
                     //campo de pesquisa
                     Padding(
                       padding:
-                          const EdgeInsets.only(top: 2.0, left: 5, right: 5),
+                          const EdgeInsets.only(top: 2.0, left: 10, right: 10),
                       child: Row(
+                        //opções de pesquisa
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          //opções de pesquisa
                           Obx(() => Container(
                                 padding:
-                                    const EdgeInsets.symmetric(horizontal: 3),
+                                    const EdgeInsets.symmetric(horizontal: 5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     border: Border.all(color: Colors.grey)),
@@ -160,75 +161,193 @@ class ProductMonitorPage extends StatelessWidget {
                         child: Column(
                           children: [
                             //Legenda da tabela de pesquisa
-                            const Row(
+                            Row(
                               children: [
                                 LegendSearch(
-                                  legend: 'Id',
-                                  size: 75,
-                                ),
+                                    legend: 'Id',
+                                    size: 75,
+                                    color: Colors.grey[600]),
                                 LegendSearch(
-                                  legend: 'Descricão Produto',
-                                  size: 500,
-                                  isDescription: true,
-                                ),
+                                    legend: 'Descricão Produto',
+                                    size: 500,
+                                    isDescription: true,
+                                    color: Colors.grey[600]),
                                 LegendSearch(
-                                  legend: 'UN',
-                                  size: 50,
-                                ),
-                                LegendSearch(legend: 'Gtin', size: 150),
+                                    legend: 'UN',
+                                    size: 50,
+                                    color: Colors.grey[600]),
                                 LegendSearch(
-                                  legend: 'Valor Venda',
-                                  size: 150,
-                                ),
+                                    legend: 'Gtin',
+                                    size: 150,
+                                    color: Colors.grey[600]),
                                 LegendSearch(
-                                  legend: 'Saldo Produto',
-                                  size: 150,
-                                ),
+                                    legend: 'Valor Venda',
+                                    size: 150,
+                                    color: Colors.grey[600]),
+                                LegendSearch(
+                                    legend: 'Saldo Produto',
+                                    size: 150,
+                                    color: Colors.grey[600]),
                               ],
                             ),
 
-                            //resultado da pesquisa
-                            Obx(() => FutureBuilder(
-                                  future: controller.searchExecuted.value
-                                      ? controller.textOption.value == 'ID'
-                                          ? service.searchProdutoById(int.parse(
-                                              controller.searchController.text))
-                                          : (controller.textOption.value ==
-                                                  'DESCRIÇÃO'
-                                              ? service.searchProdutoByDesc(
-                                                  controller
-                                                      .searchController.text)
-                                              : service.searchProdutoByBarcode(
-                                                  controller
-                                                      .searchController.text))
-                                      : null,
-                                  builder: (context, snapshot) {
-                                    if (!snapshot.hasData &&
-                                        controller.searchExecuted.value) {
-                                      return const Center(
-                                        child: CircularProgressIndicator(),
-                                      );
-                                    }
-                                    if (snapshot.hasError &&
-                                        controller.searchExecuted.value) {
-                                      return const Center(
-                                        child: Text('Erro ao buscar dados'),
-                                      );
-                                    }
-                                    if (snapshot.hasData &&
-                                        controller.searchExecuted.value) {
-                                      Container();
-                                    }
+                            const Divider(),
 
+                            //resultado da pesquisa
+                            Builder(builder: (context) {
+                              return FutureBuilder(
+                                future: controller.searchExecuted.value
+                                    ? controller.textOption.value == 'ID'
+                                        ? service.searchProdutoById(int.parse(
+                                            controller.searchController.text))
+                                        : (controller.textOption.value ==
+                                                'DESCRIÇÃO'
+                                            ? service.searchProdutoByDescPaged(
+                                                controller
+                                                    .searchController.text)
+                                            : service.searchProdutoByBarcode(
+                                                controller
+                                                    .searchController.text))
+                                    : null,
+                                builder: (context, snapshot) {
+                                  if (!snapshot.hasData &&
+                                      controller.searchExecuted.value) {
                                     return const Center(
-                                      child: SizedBox(),
+                                      child: CircularProgressIndicator(),
                                     );
-                                  },
-                                )),
+                                  }
+                                  if (snapshot.hasError &&
+                                      controller.searchExecuted.value) {
+                                    return const Center(
+                                      child: Text('Erro ao buscar dados'),
+                                    );
+                                  }
+                                  if (snapshot.hasData &&
+                                      controller.searchExecuted.value) {
+                                    var produtos = snapshot.data!;
+                                    controller.updateProduct(produtos);
+                                    controller
+                                        .changeTotalPages(produtos.length);
+                                    print(controller.totalPages.value);
+
+                                    return Expanded(
+                                      child: ListView.builder(
+                                        itemCount: produtos.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: [
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 2),
+                                                child: Row(
+                                                  children: [
+                                                    LegendSearch(
+                                                      legend: produtos[index]
+                                                          .id_produto
+                                                          .toString(),
+                                                      size: 75,
+                                                    ),
+                                                    LegendSearch(
+                                                      legend: produtos[index]
+                                                          .descricao,
+                                                      size: 500,
+                                                      isDescription: true,
+                                                    ),
+                                                    LegendSearch(
+                                                      legend: produtos[index]
+                                                          .unidade,
+                                                      size: 50,
+                                                    ),
+                                                    LegendSearch(
+                                                      legend:
+                                                          produtos[index].gtin,
+                                                      size: 150,
+                                                    ),
+                                                    LegendSearch(
+                                                      legend: produtos[index]
+                                                          .pvenda
+                                                          .toString(),
+                                                      size: 150,
+                                                      isPvenda: true,
+                                                    ),
+                                                    LegendSearch(
+                                                      legend: produtos[index]
+                                                          .saldo_produto
+                                                          .toString(),
+                                                      size: 150,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Container(
+                                                padding: EdgeInsets.zero,
+                                                child: const Divider(),
+                                              )
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
+                                  controller.searchExecuted.value = false;
+
+                                  return const Center(
+                                    child: SizedBox(),
+                                  );
+                                },
+                              );
+                            }),
                           ],
                         ),
                       ),
                     ),
+
+                    /* //informativo de paginacao e itens por pagina
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Itens por página:'),
+                          SizedBox(
+                            width: 90,
+                            height: 25,
+                            child: TextFormField(
+                              controller: controller.itensPerPageController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.only(left: 5, bottom: 8),
+                                isCollapsed: true,
+                                suffixIcon: Icon(Icons.arrow_drop_down),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: Text(
+                                '  of ${controller.totalPages.value.toString()}'),
+                          ),
+                          GestureDetector(
+                              onTap: () => controller.changeNumPageMinus(),
+                              child: Icon(Icons.chevron_left,
+                                  color: Colors.grey[300])),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 15.0),
+                          ),
+                          GestureDetector(
+                            onTap: () => controller.changeNumPagePlus(),
+                            child: Icon(
+                              Icons.chevron_right,
+                              color: Colors.grey[300],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),*/
                   ],
                 ),
               ),
@@ -241,39 +360,47 @@ class ProductMonitorPage extends StatelessWidget {
 }
 
 class LegendSearch extends StatelessWidget {
-  const LegendSearch({
-    Key? key,
-    required this.legend,
-    required this.size,
-    this.isDescription = false,
-  }) : super(key: key);
+  const LegendSearch(
+      {Key? key,
+      required this.legend,
+      required this.size,
+      this.isDescription = false,
+      this.isPvenda = false,
+      this.color = Colors.black})
+      : super(key: key);
 
   final String legend;
   final double size;
   final bool isDescription;
+  final Color? color;
+  final bool isPvenda;
 
   @override
   Widget build(BuildContext context) {
     return isDescription
         ? Expanded(
-            child: Container(
-              child: Row(children: [
-                Expanded(
-                  child: Text(
-                    legend,
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                ),
-              ]),
-            ),
-          )
-        : Row(children: [
-            SizedBox(
-                width: !isDescription ? size : 0,
+            child: Row(children: [
+              Expanded(
                 child: Text(
                   legend,
-                  style: TextStyle(color: Colors.grey[600]),
-                )),
-          ]);
+                  style: TextStyle(color: color),
+                ),
+              ),
+            ]),
+          )
+        : Row(
+            mainAxisAlignment:
+                isPvenda ? MainAxisAlignment.end : MainAxisAlignment.center,
+            children: [
+                SizedBox(
+                  width: !isDescription ? size : 0,
+                  child: Text(
+                    legend,
+                    style: TextStyle(color: color),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ]);
   }
 }
