@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ProdutoController extends GetxController {
   TextEditingController searchController = TextEditingController();
   TextEditingController itensPerPageController = TextEditingController();
+
+  RxString valorVendaFormatted = '0,00'.obs;
 
   //variavel que define quantos itens a paginação irá mostrar
   RxInt itensPerPage = 10.obs;
@@ -25,6 +28,17 @@ class ProdutoController extends GetxController {
 
   //objeto vindo do banco de dados local (snapshot)
   var product = [].obs;
+
+  //atualizar variavel ValorVendaFormatted
+  void updateValorVendaFormatted(double value) {
+    //formatar value para brl
+    String valueFormatted = value.toStringAsFixed(2);
+    valueFormatted = valueFormatted.replaceAll('.', ',');
+    valueFormatted = NumberFormat('#,###.00', 'pt_BR').format(value);
+    //atualizar valorVendaFormatted
+
+    valorVendaFormatted.value = valueFormatted;
+  }
 
   //atualiza a variavel product com o valor do snapshot
   void updateProduct(List value) {

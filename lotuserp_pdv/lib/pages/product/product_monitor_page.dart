@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -182,12 +183,18 @@ class ProductMonitorPage extends StatelessWidget {
                                     color: Colors.grey[600]),
                                 LegendSearch(
                                     legend: 'Valor Venda',
-                                    size: 150,
+                                    size: 80,
                                     color: Colors.grey[600]),
+                                const SizedBox(
+                                  width: 70,
+                                ),
                                 LegendSearch(
                                     legend: 'Saldo Produto',
-                                    size: 150,
+                                    size: 92,
                                     color: Colors.grey[600]),
+                                const SizedBox(
+                                  width: 70,
+                                )
                               ],
                             ),
 
@@ -231,6 +238,11 @@ class ProductMonitorPage extends StatelessWidget {
                                         child: ListView.builder(
                                           itemCount: produtos.length,
                                           itemBuilder: (context, index) {
+                                            //transformar o valor de pvenda em String brl
+                                            controller
+                                                .updateValorVendaFormatted(
+                                                    produtos[index].pvenda);
+
                                             return Column(
                                               children: [
                                                 Container(
@@ -264,15 +276,22 @@ class ProductMonitorPage extends StatelessWidget {
                                                         legend: produtos[index]
                                                             .pvenda
                                                             .toString(),
-                                                        size: 150,
+                                                        size: 80,
                                                         isPvenda: true,
+                                                      ),
+                                                      const SizedBox(
+                                                        width: 70,
                                                       ),
                                                       LegendSearch(
                                                         legend: produtos[index]
                                                             .saldo_produto
                                                             .toString(),
-                                                        size: 150,
+                                                        size: 92,
+                                                        isPvenda: true,
                                                       ),
+                                                      const SizedBox(
+                                                        width: 70,
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -325,6 +344,8 @@ class LegendSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ProdutoController controller = Get.find();
+
     return isDescription
         ? Expanded(
             child: Row(children: [
@@ -336,19 +357,17 @@ class LegendSearch extends StatelessWidget {
               ),
             ]),
           )
-        : Row(
-            mainAxisAlignment:
-                isPvenda ? MainAxisAlignment.end : MainAxisAlignment.center,
-            children: [
-                SizedBox(
-                  width: !isDescription ? size : 0,
-                  child: Text(
-                    legend,
-                    style: TextStyle(color: color),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ]);
+        : Row(children: [
+            SizedBox(
+              width: !isDescription ? size : 0,
+              child: Text(
+                isPvenda ? controller.valorVendaFormatted.value : legend,
+                style: TextStyle(color: color),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: isPvenda ? TextAlign.end : TextAlign.start,
+              ),
+            ),
+          ]);
   }
 }
