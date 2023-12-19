@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
-import 'package:lotuserp_pdv/global_widget/drawer.dart';
+
+import 'component/drawer.dart';
 
 //principal class
 class HomeMonitorPage extends StatefulWidget {

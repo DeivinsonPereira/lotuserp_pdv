@@ -7,14 +7,14 @@ import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/moviment_cash/components/custom_text_tipo.dart';
+import 'package:lotuserp_pdv/pages/moviment_cash/component/custom_text_tipo.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import 'components/custom_text_descricao.dart';
-import 'components/custom_text_forma.dart';
+import 'component/custom_text_descricao.dart';
+import 'component/custom_text_forma.dart';
 
 class MovimentCashPage extends StatefulWidget {
   const MovimentCashPage({super.key});

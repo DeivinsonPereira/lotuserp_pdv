@@ -6,7 +6,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
+import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
@@ -52,6 +54,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     PdvController controller = Get.put(PdvController());
+    SideBarController sideBarController = Get.find();
+    PasswordController passwordController = Get.find();
+
+    var userName = passwordController.userController.text;
 
     var precos = [];
     String total;
@@ -82,8 +88,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                   flex: 6,
                   child: Column(
                     children: [
+                      // linha de pesquisa e voltar
                       Row(
                         children: [
+                          // Icone de voltar
                           IconButton(
                             onPressed: () {
                               controller.pedidos.clear();
@@ -94,6 +102,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               color: Color.fromARGB(255, 70, 70, 70),
                             ),
                           ),
+
+                          // Campo de busca
                           Container(
                             height: 50,
                             width: 650,
@@ -121,6 +131,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               ),
                             ),
                           ),
+
+                          // Icone de menu
                           IconButton(
                             onPressed: () {},
                             icon: const Icon(
@@ -131,6 +143,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           )
                         ],
                       ),
+
+                      //linha de grupos de produtos
                       Expanded(
                         flex: 1,
                         child: StreamBuilder(
@@ -221,7 +235,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                       ),
 
                       //Tabela de produtos.
-
                       Expanded(
                         flex: 4,
                         child: Container(
@@ -423,6 +436,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           ),
                         ),
                       ),
+
+                      //Informações de caixa, logo, botões, etc.
                       Expanded(
                         flex: 1,
                         child: Padding(
@@ -433,8 +448,70 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             ),
                             child: Row(
                               children: [
-                                ButtonsPdv().iconsOptions(FontAwesomeIcons.user,
-                                    'Cliente', () => Container()),
+                                //container que envolve a logo e informações
+                                Container(
+                                  width: 150,
+                                  height: 85,
+                                  decoration: BoxDecoration(
+                                      color: CustomColors.customSwatchColor,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, right: 8.0),
+                                    child: RotatedBox(
+                                      quarterTurns: 1,
+                                      child: Image.asset(
+                                        'assets/images/Logo Nova Branco Vertical.png',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                // Informações
+                                Obx(() => Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: CustomColors.customSwatchColor,
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                        ),
+                                        width: 170,
+                                        height: 85,
+                                        child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(left: 8.0),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                sideBarController.hours.value,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 26),
+                                              ),
+                                              Text(
+                                                sideBarController
+                                                    .dataAbertura.value,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16.0),
+                                              ),
+                                              Text(
+                                                userName,
+                                                style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 16),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )),
+
+                                // Botões
                                 ButtonsPdv().iconsOptions(
                                     FontAwesomeIcons.clipboardList,
                                     'Produtos',
@@ -459,14 +536,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 ButtonsPdv().iconsOptions(
                                     FontAwesomeIcons.moneyBillTrendUp,
                                     'Vendas',
-                                    () => Container()),
-                                ButtonsPdv().iconsOptions(
-                                    FontAwesomeIcons.fileImport,
-                                    'Importar',
-                                    () => Container()),
-                                ButtonsPdv().iconsOptions(
-                                    FontAwesomeIcons.userTie,
-                                    'Vendedor',
                                     () => Container()),
                               ],
                             ),

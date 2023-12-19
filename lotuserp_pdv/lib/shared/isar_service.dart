@@ -534,6 +534,21 @@ class IsarService {
     }
   }
 
+  //buscar caixa de acordo com o idUser
+  Future<caixa?> getCaixaWithIdUser(int aberturaIdUser) async {
+    final isar = await db;
+
+    caixa? caixas = await isar.caixas
+        .filter()
+        .abertura_id_userEqualTo(aberturaIdUser)
+        .findFirst();
+    if (caixas != null) {
+      return caixas;
+    } else {
+      return null;
+    }
+  }
+
   //inserir dados na tabela caixaItem
   Future<Isar> insertCaixaItem(caixa_item caixaItem) async {
     final isar = await db;

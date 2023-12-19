@@ -8,9 +8,9 @@ import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
-import '../pages/moviment_cash/moviment_cash_page.dart';
-import '../pages/open_register/open_register_page.dart';
-import '../shared/isar_service.dart';
+import '../../moviment_cash/moviment_cash_page.dart';
+import '../../open_register/open_register_page.dart';
+import '../../../shared/isar_service.dart';
 
 // Side bar grande
 class DrawerWidget extends StatelessWidget {

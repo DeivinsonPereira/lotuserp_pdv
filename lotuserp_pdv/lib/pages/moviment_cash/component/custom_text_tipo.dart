@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
-import 'package:lotuserp_pdv/pages/moviment_cash/components/popup_menu.dart';
+import 'package:lotuserp_pdv/pages/moviment_cash/component/popup_menu.dart';
 
 class CustomTextTipo extends StatelessWidget {
   final TextEditingController controller;

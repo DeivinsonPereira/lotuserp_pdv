@@ -191,17 +191,18 @@ class _PaymentPageState extends State<PaymentPage> {
             width: 125,
             height: 60,
             child: Card(
+              color: CustomColors.customSwatchColor,
               child: Column(children: [
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Icon(
                     icon,
-                    color: Colors.black,
+                    color: Colors.white,
                   ),
                 ),
                 Text(
                   text,
-                  style: const TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.white),
                 ),
               ]),
             ),
@@ -210,6 +211,7 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    //Pagamento total
     Widget totalPay(String text, String value, {bool calculateTotal = false}) {
       if (calculateTotal) {
         String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
@@ -387,6 +389,7 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    //botão para finalizar o pedido
     Widget finalizeButton() {
       double totalValue = controller.totalcheckBox1.value;
       double totalPaid = controllerPayment.getTotalPaid();
@@ -408,6 +411,7 @@ class _PaymentPageState extends State<PaymentPage> {
           child: InkWell(
             onTap: isButtonEnabled
                 ? () {
+                    //Popup para confirmar o pedido
                     showDialog(
                       context: context,
                       builder: (context) {
@@ -464,8 +468,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                                                   10)),
                                                   color: Colors.grey,
                                                 ),
-                                                child:
-                                                    const ConfirmButtom(text: 'Não')),
+                                                child: const ConfirmButtom(
+                                                    text: 'Não')),
                                           ),
                                           Expanded(
                                             child: Container(
@@ -473,7 +477,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                                 borderRadius: BorderRadius.only(
                                                     bottomRight:
                                                         Radius.circular(10)),
-                                                color:Color(0xFF86C337),
+                                                color: Color(0xFF86C337),
                                               ),
                                               child: const ConfirmButtom(
                                                 text: 'Sim',

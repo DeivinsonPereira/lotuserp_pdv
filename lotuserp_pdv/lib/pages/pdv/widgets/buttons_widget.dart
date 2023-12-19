@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class ButtonsPdv {
   Widget iconsOptions(IconData icon, String text, Function() action) {
@@ -9,20 +10,20 @@ class ButtonsPdv {
         child: GestureDetector(
           onTap: action,
           child: Card(
-            color: Colors.white,
+            color: CustomColors.customSwatchColor,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
                   icon,
-                  color: Colors.blue,
+                  color: Colors.white,
                   size: 40,
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
                     text,
-                    style: const TextStyle(color: Colors.black),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 )
               ],
