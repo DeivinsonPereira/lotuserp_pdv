@@ -6,7 +6,7 @@ part 'venda.g.dart';
 @Collection()
 class venda {
   
-  Id id = Isar.autoIncrement;
+  Id id_venda = Isar.autoIncrement;
   late DateTime data;
   late String hora;
   late int id_empresa;

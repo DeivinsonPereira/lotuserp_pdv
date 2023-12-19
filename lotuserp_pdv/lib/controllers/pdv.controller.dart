@@ -187,7 +187,7 @@ class PdvController extends GetxController {
 
   //adiciona itens no pedido
   void adicionarPedidos(
-      String nomeProduto, String unidade, String price, Function callback) {
+      String nomeProduto, String unidade, String price, int idProduto, Function callback) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -205,6 +205,7 @@ class PdvController extends GetxController {
           (pedidos[index]['quantidade'] * pedidos[index]['price']);
     } else {
       pedidos.add({
+        'idProduto' : idProduto,
         'nomeProduto': nomeProduto,
         'quantidade': 1,
         'unidade': unidade,

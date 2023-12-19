@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'venda.dart';
 
 // **************************************************************************
@@ -89,7 +87,7 @@ const VendaSchema = CollectionSchema(
   serialize: _vendaSerialize,
   deserialize: _vendaDeserialize,
   deserializeProp: _vendaDeserializeProp,
-  idName: r'id',
+  idName: r'id_venda',
   indexes: {},
   links: {},
   embeddedSchemas: {},
@@ -142,10 +140,10 @@ venda _vendaDeserialize(
   object.data = reader.readDateTime(offsets[1]);
   object.enviado = reader.readLong(offsets[2]);
   object.hora = reader.readString(offsets[3]);
-  object.id = id;
   object.id_empresa = reader.readLong(offsets[4]);
   object.id_serie_nfce = reader.readLong(offsets[5]);
   object.id_usuario = reader.readLong(offsets[6]);
+  object.id_venda = id;
   object.status = reader.readLong(offsets[7]);
   object.tot_bruto = reader.readDouble(offsets[8]);
   object.tot_desc_prc = reader.readDouble(offsets[9]);
@@ -194,7 +192,7 @@ P _vendaDeserializeProp<P>(
 }
 
 Id _vendaGetId(venda object) {
-  return object.id;
+  return object.id_venda;
 }
 
 List<IsarLinkBase<dynamic>> _vendaGetLinks(venda object) {
@@ -202,11 +200,11 @@ List<IsarLinkBase<dynamic>> _vendaGetLinks(venda object) {
 }
 
 void _vendaAttach(IsarCollection<dynamic> col, Id id, venda object) {
-  object.id = id;
+  object.id_venda = id;
 }
 
 extension vendaQueryWhereSort on QueryBuilder<venda, venda, QWhere> {
-  QueryBuilder<venda, venda, QAfterWhere> anyId() {
+  QueryBuilder<venda, venda, QAfterWhere> anyId_venda() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
@@ -214,66 +212,67 @@ extension vendaQueryWhereSort on QueryBuilder<venda, venda, QWhere> {
 }
 
 extension vendaQueryWhere on QueryBuilder<venda, venda, QWhereClause> {
-  QueryBuilder<venda, venda, QAfterWhereClause> idEqualTo(Id id) {
+  QueryBuilder<venda, venda, QAfterWhereClause> id_vendaEqualTo(Id id_venda) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: id,
-        upper: id,
+        lower: id_venda,
+        upper: id_venda,
       ));
     });
   }
 
-  QueryBuilder<venda, venda, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<venda, venda, QAfterWhereClause> id_vendaNotEqualTo(
+      Id id_venda) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: id_venda, includeUpper: false),
             )
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: id_venda, includeLower: false),
             );
       } else {
         return query
             .addWhereClause(
-              IdWhereClause.greaterThan(lower: id, includeLower: false),
+              IdWhereClause.greaterThan(lower: id_venda, includeLower: false),
             )
             .addWhereClause(
-              IdWhereClause.lessThan(upper: id, includeUpper: false),
+              IdWhereClause.lessThan(upper: id_venda, includeUpper: false),
             );
       }
     });
   }
 
-  QueryBuilder<venda, venda, QAfterWhereClause> idGreaterThan(Id id,
+  QueryBuilder<venda, venda, QAfterWhereClause> id_vendaGreaterThan(Id id_venda,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.greaterThan(lower: id, includeLower: include),
+        IdWhereClause.greaterThan(lower: id_venda, includeLower: include),
       );
     });
   }
 
-  QueryBuilder<venda, venda, QAfterWhereClause> idLessThan(Id id,
+  QueryBuilder<venda, venda, QAfterWhereClause> id_vendaLessThan(Id id_venda,
       {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
-        IdWhereClause.lessThan(upper: id, includeUpper: include),
+        IdWhereClause.lessThan(upper: id_venda, includeUpper: include),
       );
     });
   }
 
-  QueryBuilder<venda, venda, QAfterWhereClause> idBetween(
-    Id lowerId,
-    Id upperId, {
+  QueryBuilder<venda, venda, QAfterWhereClause> id_vendaBetween(
+    Id lowerId_venda,
+    Id upperId_venda, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
-        lower: lowerId,
+        lower: lowerId_venda,
         includeLower: includeLower,
-        upper: upperId,
+        upper: upperId_venda,
         includeUpper: includeUpper,
       ));
     });
@@ -644,58 +643,6 @@ extension vendaQueryFilter on QueryBuilder<venda, venda, QFilterCondition> {
     });
   }
 
-  QueryBuilder<venda, venda, QAfterFilterCondition> idEqualTo(Id value) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<venda, venda, QAfterFilterCondition> idGreaterThan(
-    Id value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<venda, venda, QAfterFilterCondition> idLessThan(
-    Id value, {
-    bool include = false,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'id',
-        value: value,
-      ));
-    });
-  }
-
-  QueryBuilder<venda, venda, QAfterFilterCondition> idBetween(
-    Id lower,
-    Id upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'id',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-      ));
-    });
-  }
-
   QueryBuilder<venda, venda, QAfterFilterCondition> id_empresaEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
@@ -847,6 +794,58 @@ extension vendaQueryFilter on QueryBuilder<venda, venda, QFilterCondition> {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id_usuario',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_vendaEqualTo(Id value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_venda',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_vendaGreaterThan(
+    Id value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_venda',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_vendaLessThan(
+    Id value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_venda',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_vendaBetween(
+    Id lower,
+    Id upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_venda',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -1429,18 +1428,6 @@ extension vendaQuerySortThenBy on QueryBuilder<venda, venda, QSortThenBy> {
     });
   }
 
-  QueryBuilder<venda, venda, QAfterSortBy> thenById() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.asc);
-    });
-  }
-
-  QueryBuilder<venda, venda, QAfterSortBy> thenByIdDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id', Sort.desc);
-    });
-  }
-
   QueryBuilder<venda, venda, QAfterSortBy> thenById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_empresa', Sort.asc);
@@ -1474,6 +1461,18 @@ extension vendaQuerySortThenBy on QueryBuilder<venda, venda, QSortThenBy> {
   QueryBuilder<venda, venda, QAfterSortBy> thenById_usuarioDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_usuario', Sort.desc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_venda() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_vendaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda', Sort.desc);
     });
   }
 
@@ -1633,9 +1632,9 @@ extension vendaQueryWhereDistinct on QueryBuilder<venda, venda, QDistinct> {
 }
 
 extension vendaQueryProperty on QueryBuilder<venda, venda, QQueryProperty> {
-  QueryBuilder<venda, int, QQueryOperations> idProperty() {
+  QueryBuilder<venda, int, QQueryOperations> id_vendaProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id');
+      return query.addPropertyName(r'id_venda');
     });
   }
 

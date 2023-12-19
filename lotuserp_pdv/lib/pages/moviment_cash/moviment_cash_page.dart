@@ -64,7 +64,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
     }
   }
 
-  //esse metodo deve encontrar o id do caixa referente ao usuario logado
+  //encontra o id do caixa referente ao usuario logado
   Future<void> inicializarGetIdCaixa() async {
     var userId = await getIdUser();
     int? caixa = await getIdCaixa(userId!);

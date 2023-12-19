@@ -27,20 +27,48 @@ class PdvMonitorPage extends StatefulWidget {
 class _PdvMonitorPageState extends State<PdvMonitorPage> {
   int isSelectedList = -1;
   int idGrupo = -1;
+  late int caixaId;
+  late String ip;
 
   late NumberFormat formatoBrasileiro;
   final ScrollController scrollController = ScrollController();
   IsarService service = IsarService();
 
-  late String ip;
-
   @override
   void initState() {
     super.initState();
-
-    // Certifique-se de que o controlador de rolagem está associado ao ListView
+    inicializarGetIdCaixa();
     fetchDataFromDatabase();
     scrollController.addListener(() {});
+  }
+
+  Future<int?> getIdUser() async {
+    var user = await service.getUserLogged();
+
+    if (user != null) {
+      return user.id_user;
+    }
+    return null;
+  }
+
+  Future<int?> getIdCaixa(int idUser) async {
+    int? idCaixa = await service.getIdCaixa(idUser);
+
+    if (idCaixa != null) {
+      return idCaixa;
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> inicializarGetIdCaixa() async {
+    var userId = await getIdUser();
+    int? caixa = await getIdCaixa(userId!);
+    if (caixa != null) {
+      setState(() {
+        caixaId = caixa;
+      });
+    }
   }
 
   Future<void> fetchDataFromDatabase() async {
@@ -52,7 +80,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    IsarService service = IsarService();
     PdvController controller = Get.put(PdvController());
     SideBarController sideBarController = Get.find();
     PasswordController passwordController = Get.find();
@@ -280,6 +307,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                       String? unidade;
                                       String? file;
                                       String preco = '';
+                                      int idProduto = 0;
 
                                       if (isSelectedList >= 0) {
                                         if (listaGrupos[isSelectedList] ==
@@ -309,6 +337,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           unidade =
                                               filteredProducts[index].unidade ??
                                                   "";
+                                          idProduto = filteredProducts[index]
+                                                  .id_produto ??
+                                              0;
                                         }
 
                                         if (file != null) {
@@ -319,6 +350,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                     nome!,
                                                     unidade!,
                                                     preco,
+                                                    idProduto,
                                                     () => setState);
 
                                                 controller.totalSoma();
@@ -467,49 +499,56 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     ),
                                   ),
                                 ),
+
                                 // Informações
-                                Obx(() => Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8.0),
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: CustomColors.customSwatchColor,
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        width: 170,
-                                        height: 85,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 8.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                sideBarController.hours.value,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 26),
+                                Obx(
+                                  () => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8.0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: CustomColors.customSwatchColor,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                      width: 170,
+                                      height: 85,
+                                      child: Padding(
+                                        padding:
+                                            const EdgeInsets.only(left: 8.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'HORA: ${sideBarController.hours.value}',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                            Text(
+                                              'ID CAIXA: ' + caixaId.toString(),
+                                              style: TextStyle(
+                                                color: Colors.white,
                                               ),
-                                              Text(
-                                                sideBarController
-                                                    .dataAbertura.value,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16.0),
-                                              ),
-                                              Text(
-                                                userName,
-                                                style: const TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 16),
-                                              ),
-                                            ],
-                                          ),
+                                            ),
+                                            Text(
+                                              'ABERTURA: ${sideBarController.dataAbertura.value}',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14.0),
+                                            ),
+                                            Text(
+                                              'USUARIO: $userName',
+                                              style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 14),
+                                            ),
+                                          ],
                                         ),
                                       ),
-                                    )),
+                                    ),
+                                  ),
+                                ),
 
                                 // Botões
                                 ButtonsPdv().iconsOptions(
