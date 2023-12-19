@@ -377,7 +377,9 @@ class LegendSearch extends StatelessWidget {
                 style: TextStyle(color: color),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                textAlign: isPvenda ? TextAlign.end : TextAlign.start,
+                textAlign: isPvenda || isSaldoProduto
+                    ? TextAlign.end
+                    : TextAlign.start,
               ),
             ),
           ]);

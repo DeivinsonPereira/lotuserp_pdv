@@ -6,8 +6,9 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
-import 'package:lotuserp_pdv/pages/payment/widget/dialog_payment_widget.dart';
-import 'package:lotuserp_pdv/pages/payment/widget/row_widget.dart';
+import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
+import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
+import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -405,7 +406,90 @@ class _PaymentPageState extends State<PaymentPage> {
           width: double.infinity,
           height: 50,
           child: InkWell(
-            onTap: isButtonEnabled ? () {} : null,
+            onTap: isButtonEnabled
+                ? () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return Dialog(
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Container(
+                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                              height: MediaQuery.of(context).size.height * 0.25,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  SizedBox(
+                                    child: Text(
+                                      'Confirmar Pedido',
+                                      style: TextStyle(
+                                          fontSize: 24,
+                                          color: CustomColors.customSwatchColor,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0),
+                                      child: SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.3,
+                                        child: const Center(
+                                          child: Text(
+                                            'Tem certeza que deseja finalizar o pedido?',
+                                            style: TextStyle(),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 45,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
+                                    child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Expanded(
+                                            child: Container(
+                                                decoration: const BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.only(
+                                                          bottomLeft:
+                                                              Radius.circular(
+                                                                  10)),
+                                                  color: Colors.grey,
+                                                ),
+                                                child:
+                                                    const ConfirmButtom(text: 'Não')),
+                                          ),
+                                          Expanded(
+                                            child: Container(
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    bottomRight:
+                                                        Radius.circular(10)),
+                                                color:Color(0xFF86C337),
+                                              ),
+                                              child: const ConfirmButtom(
+                                                text: 'Sim',
+                                                isConfirmation: true,
+                                              ),
+                                            ),
+                                          ),
+                                        ]),
+                                  )
+                                ],
+                              ),
+                            ));
+                      },
+                    );
+                  }
+                : null,
             child: const Center(
               child: Text(
                 'Finalizar',
