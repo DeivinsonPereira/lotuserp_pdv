@@ -260,6 +260,18 @@ class _PaymentPageState extends State<PaymentPage> {
         String textCb2 = ramainingValueCb2 < 0 ? 'Troco' : 'Falta pagar';
         Color textColorCb2 = ramainingValueCb2 < 0 ? Colors.red : Colors.black;
 
+        //transforma a virgula em ponto
+        String textformatadocb1 =
+            remainingValueFormatted.replaceAll(',', '.').replaceAll('-', '');
+        String textformatadocb2 =
+            remainingValueFormattedCb2.replaceAll(',', '.').replaceAll('-', '');
+
+        double textToDouble = double.parse(textformatadocb1);
+        double textToDoubleCb2 = double.parse(textformatadocb2);
+
+        controller.updateTroco(
+            controller.checkbox1.value ? textToDouble : textToDoubleCb2);
+
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Row(

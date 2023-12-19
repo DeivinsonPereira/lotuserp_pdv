@@ -19,15 +19,21 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideBarController sideBarController;
+    PasswordController passwordController;
+    IsarService service = IsarService();
 
     if (Get.isRegistered<SideBarController>()) {
       sideBarController = Get.find<SideBarController>();
     } else {
-       sideBarController = Get.put(SideBarController());
+      sideBarController = Get.put(SideBarController());
     }
 
-    PasswordController passwordController = Get.find();
-    IsarService service = IsarService();
+    if (Get.isRegistered<PasswordController>()) {
+      passwordController = Get.find<PasswordController>();
+    } else {
+      passwordController = Get.put(PasswordController());
+    }
+
     var userName = passwordController.userController.text;
 
     return Drawer(

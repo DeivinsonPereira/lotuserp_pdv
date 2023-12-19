@@ -33,7 +33,31 @@ class PdvController extends GetxController {
   //percentual de desconto checkbox2
   RxString discountPercentagecb2 = '0,00'.obs;
 
+  //troco em reais se Checkbox 1 for true
+  RxDouble trocoCb1 = 0.0.obs;
+
+  //troco em reais se Checkbox 2 for true
+  RxDouble trocoCb2 = 0.0.obs;
+
+  //total bruto
+  RxDouble totBruto = 0.0.obs;
+
   final ScrollController scrollController = ScrollController();
+
+  //atualiza o valor do troco
+  void updateTroco(double value) {
+    checkbox1.value ? trocoCb1.value = value : trocoCb2.value = value;
+    
+  }
+
+  //soma o valor total e atualiza a cada modificação na lista pedidos
+  void totalSomaPedidos() {
+    double totalBruto = 0.0;
+    for (var element in pedidos) {
+      totalBruto += element['total'];
+    }
+    totBruto.value = totalBruto;
+  }
 
   //busca quantidades pedidos de um determinado item
   int getQuantidade(String nomeProduto) {
@@ -186,8 +210,8 @@ class PdvController extends GetxController {
   }
 
   //adiciona itens no pedido
-  void adicionarPedidos(
-      String nomeProduto, String unidade, String price, int idProduto, Function callback) {
+  void adicionarPedidos(String nomeProduto, String unidade, String price,
+      int idProduto, Function callback) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -205,7 +229,7 @@ class PdvController extends GetxController {
           (pedidos[index]['quantidade'] * pedidos[index]['price']);
     } else {
       pedidos.add({
-        'idProduto' : idProduto,
+        'idProduto': idProduto,
         'nomeProduto': nomeProduto,
         'quantidade': 1,
         'unidade': unidade,

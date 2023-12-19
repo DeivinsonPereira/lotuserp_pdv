@@ -6,8 +6,9 @@ part 'venda_item.g.dart';
 @Collection()
 class venda_item{
 
-  Id id_venda = Isar.autoIncrement;
+  Id id = Isar.autoIncrement;
   
+  late int id_venda;
   late int id_produto;
   late int item;
   late double? vlr_vendido;

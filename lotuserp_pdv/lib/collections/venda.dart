@@ -5,12 +5,12 @@ part 'venda.g.dart';
 
 @Collection()
 class venda {
-  
   Id id_venda = Isar.autoIncrement;
   late DateTime data;
   late String hora;
   late int id_empresa;
   late int id_usuario;
+  late int id_colaborador;
   late double tot_bruto;
   late double tot_desc_prc;
   late double tot_desc_vlr;
@@ -20,7 +20,5 @@ class venda {
   late int id_serie_nfce;
   late int enviado;
   late String cpf_cnpj;
-
+  late int id_caixa;
 }
-
-

@@ -21,7 +21,6 @@ import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
-import '../controllers/moviment_register_controller.dart';
 import '../core/app_routes.dart';
 
 Map<String, String> _headers = {
@@ -508,52 +507,46 @@ class IsarService {
     return isar;
   }
 
-/*
-  Future<Isar> insertVendaWithVendaItemAndCaixaItem(
-      venda venda) async {
+  Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
     PdvController pdvController = Get.find();
-    MovimentRegisterController movimentRegisterController = Get.find();
 
-    //filtrar lista para encontrar o produto pelo nome e guarda o objeto na variavel
-    var produtoList = {};
+    List<venda_item> vendaItems = [];
 
-    for (var element in pdvController.pedidos) {
-      produtoList = element
-        .where((element) =>
-            element['nome'] == pdvController.pedidos)
-        .first;
+    for (var i = 0; i < pdvController.pedidos.length; i++) {
+      venda_item vendaItem = venda_item()
+        ..id_venda = venda.id_venda
+        ..id_produto = pdvController.pedidos[i]['idProduto']
+        ..item = i + 1
+        ..vlr_vendido = pdvController.pedidos[i]['price']
+        ..qtde = pdvController.pedidos[i]['quantidade']
+        ..tot_bruto = pdvController.pedidos[i]['total']
+        ..grade = pdvController.pedidos[i]['unidade'];
 
+        vendaItems.add(vendaItem);
     }
-    
+    /*for (var element in pdvController.pedidos) {
+      venda_item vendaItem = venda_item()
+        ..id_venda = venda.id_venda
+        ..id_produto = element['idProduto']
+        ..item = 
+        ..vlr_vendido = element['price']
+        ..qtde = element['quantidade']
+        ..tot_bruto = element['total']
+        ..grade = element['unidade'];
 
-    venda_item vendaItem = venda_item()
-      ..id_produto = produtoList['idProduto']
-      ..item = 1
-      ..vlr_vendido = produtoList['price']
-      ..qtde = produtoList['quantidade']
-      ..tot_bruto = produtoList['total']
-      ..grade = produtoList['unidade'];
+      vendaItems.add(vendaItem);
+    }
+    */
 
-    caixa_item caixaItem = caixa_item()
-      ..id_caixa = caixa.id_caixa
-      ..descricao = 'VENDA'
-      ..data = DateTime.now()
-      ..hora = DateTime.now().hour.minutes.inSeconds.toString()
-      ..id_tipo_recebimento = movimentRegisterController.formaPagamentoId
-      ..valor_cre = openRegisterDouble
-      ..valor_deb = 0
-      ..id_venda = null
-      ..enviado = 0;
-
+    print(vendaItems);
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
-      await isar.venda_items.put(vendaItem);
-      await isar.caixa_items.put(caixaItem);
+      await isar.venda_items.putAll(vendaItems);
     });
     return isar;
   }
-*/
+
   Future<caixa?> getCaixaFromDatabase() async {
     final isar = await db;
 

@@ -82,7 +82,25 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   Widget build(BuildContext context) {
     PdvController controller = Get.put(PdvController());
     SideBarController sideBarController = Get.find();
-    PasswordController passwordController = Get.find();
+    PasswordController passwordController;
+
+    if (Get.isRegistered<PdvController>()) {
+      controller = Get.find<PdvController>();
+    } else {
+      controller = Get.put(PdvController());
+    }
+
+    if (Get.isRegistered<SideBarController>()) {
+      sideBarController = Get.find<SideBarController>();
+    } else {
+      sideBarController = Get.put(SideBarController());
+    }
+
+    if (Get.isRegistered<PasswordController>()) {
+      passwordController = Get.find<PasswordController>();
+    } else {
+      passwordController = Get.put(PasswordController());
+    }
 
     var userName = passwordController.userController.text;
 
