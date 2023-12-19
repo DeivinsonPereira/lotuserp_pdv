@@ -7,6 +7,7 @@ class ProdutoController extends GetxController {
   TextEditingController itensPerPageController = TextEditingController();
 
   RxString valorVendaFormatted = '0,00'.obs;
+  RxString saldoProdutoFormatted = '0.000'.obs;
 
   //variavel que define quantos itens a paginação irá mostrar
   RxInt itensPerPage = 10.obs;
@@ -29,15 +30,68 @@ class ProdutoController extends GetxController {
   //objeto vindo do banco de dados local (snapshot)
   var product = [].obs;
 
+  //atualizar variavel SaldoProdutoFormatted que deve ser em valor int nesse formato 000.000.000
+  void updateSaldoProdutoFormatted(double value) {
+    String valueFormatted = value.toString();
+
+    if (value == 0) {
+      valueFormatted = '0';
+      saldoProdutoFormatted.value = valueFormatted;
+    }
+
+    if (value < 0) {
+      const negativeSign = '-';
+      valueFormatted = valueFormatted.replaceAll('-', '');
+      final parts = valueFormatted.split('.');
+      final integralPart = parts[0];
+      final decimalPart = parts.length > 1 ? parts[1] : '';
+      final integralPartWithDots = _addDotsToIntegralPart(integralPart);
+      valueFormatted =
+          '$negativeSign$integralPartWithDots${_formatDecimalPart(decimalPart)}';
+      saldoProdutoFormatted.value = valueFormatted;
+    }
+
+    if (value >= 1000) {
+      final parts = valueFormatted.split('.');
+      final integralPart = parts[0];
+      final decimalPart = parts.length > 1 ? parts[1] : '';
+      final integralPartWithDots = _addDotsToIntegralPart(integralPart);
+      valueFormatted =
+          '$integralPartWithDots${_formatDecimalPart(decimalPart)}';
+      saldoProdutoFormatted.value = valueFormatted;
+    }
+  }
+
+  String _addDotsToIntegralPart(String integralPart) {
+    final reversedIntegralPart = integralPart.split('').reversed.join();
+    final integralPartWithDots = reversedIntegralPart.replaceAllMapped(
+      RegExp(r'(\d{3})(?=\d)'),
+      (Match match) => '${match[0]}.',
+    );
+    return integralPartWithDots.split('').reversed.join();
+  }
+
+  String _formatDecimalPart(String decimalPart) {
+    if (decimalPart.isEmpty || decimalPart == '0') {
+      return '';
+    }
+    return '.${decimalPart.replaceAll(',', '.')}';
+  }
+
   //atualizar variavel ValorVendaFormatted
   void updateValorVendaFormatted(double value) {
-    //formatar value para brl
     String valueFormatted = value.toStringAsFixed(2);
     valueFormatted = valueFormatted.replaceAll('.', ',');
-    valueFormatted = NumberFormat('#,###.00', 'pt_BR').format(value);
-    //atualizar valorVendaFormatted
 
-    valorVendaFormatted.value = valueFormatted;
+    if (value == 0) {
+      valueFormatted = '0,00';
+      valorVendaFormatted.value = valueFormatted;
+    }
+
+    if (value > 0) {
+      valueFormatted = NumberFormat('#,###.00', 'pt_BR').format(value);
+      valorVendaFormatted.value = valueFormatted;
+    }
   }
 
   //atualiza a variavel product com o valor do snapshot

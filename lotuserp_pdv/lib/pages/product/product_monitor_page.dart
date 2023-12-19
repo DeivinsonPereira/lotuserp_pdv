@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -243,6 +242,11 @@ class ProductMonitorPage extends StatelessWidget {
                                                 .updateValorVendaFormatted(
                                                     produtos[index].pvenda);
 
+                                            controller
+                                                .updateSaldoProdutoFormatted(
+                                                    produtos[index]
+                                                        .saldo_produto);
+
                                             return Column(
                                               children: [
                                                 Container(
@@ -264,12 +268,14 @@ class ProductMonitorPage extends StatelessWidget {
                                                       ),
                                                       LegendSearch(
                                                         legend: produtos[index]
-                                                            .unidade,
+                                                                .unidade ??
+                                                            'n/a',
                                                         size: 50,
                                                       ),
                                                       LegendSearch(
                                                         legend: produtos[index]
-                                                            .gtin,
+                                                                .gtin ??
+                                                            'n/a',
                                                         size: 150,
                                                       ),
                                                       LegendSearch(
@@ -287,7 +293,7 @@ class ProductMonitorPage extends StatelessWidget {
                                                             .saldo_produto
                                                             .toString(),
                                                         size: 92,
-                                                        isPvenda: true,
+                                                        isSaldoProduto: true,
                                                       ),
                                                       const SizedBox(
                                                         width: 70,
@@ -331,6 +337,7 @@ class LegendSearch extends StatelessWidget {
       {Key? key,
       required this.legend,
       required this.size,
+      this.isSaldoProduto = false,
       this.isDescription = false,
       this.isPvenda = false,
       this.color = Colors.black})
@@ -341,6 +348,7 @@ class LegendSearch extends StatelessWidget {
   final bool isDescription;
   final Color? color;
   final bool isPvenda;
+  final bool isSaldoProduto;
 
   @override
   Widget build(BuildContext context) {
@@ -361,7 +369,11 @@ class LegendSearch extends StatelessWidget {
             SizedBox(
               width: !isDescription ? size : 0,
               child: Text(
-                isPvenda ? controller.valorVendaFormatted.value : legend,
+                isPvenda
+                    ? controller.valorVendaFormatted.value
+                    : (isSaldoProduto
+                        ? controller.saldoProdutoFormatted.value
+                        : legend),
                 style: TextStyle(color: color),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
