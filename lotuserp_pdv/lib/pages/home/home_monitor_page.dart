@@ -19,32 +19,38 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     SideBarController sideBarController = Get.put(SideBarController());
-
+  
     var size = MediaQuery.of(context).size;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Row(
-        children: [
-          const DrawerWidget(),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                color: Colors.white,
-              )),
-              width: size.width,
-              child: Center(
-                child: SizedBox(
-                  child: Image.asset(
-                    'assets/images/Logo_Nova_Transparente.png',
-                    width: 500,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          width: size.width,
+          height: size.height,
+          child: Row(
+            children: [
+              const DrawerWidget(),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                    color: Colors.white,
+                  )),
+                  width: size.width,
+                  child: Center(
+                    child: SizedBox(
+                      child: Image.asset(
+                        'assets/images/Logo_Nova_Transparente.png',
+                        width: 500,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-          )
-        ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

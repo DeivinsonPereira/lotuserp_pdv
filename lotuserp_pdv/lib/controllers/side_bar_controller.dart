@@ -46,14 +46,31 @@ class SideBarController extends GetxController {
 
   //formata a data referente à data de abertura do caixa
   void dateFormatted() async {
-    var logged = service.getUserLogged();
-    var id = await logged.asStream().first.then((value) => value?.id_user ?? 0);
+    int tentativas = 3;
 
-    var caixa = service.getCaixaWithIdUser(id);
-    var dataAberturaCaixa =
-        await caixa.asStream().first.then((value) => value?.abertura_data);
-    var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa!);
+    for (int i = 0; i < tentativas; i++) {
+      var logged = await service.getUserLogged();
+      var id = logged?.id_user ?? 0;
 
-    dataAbertura.value = dateFormatted;
+      var caixa = await service.getCaixaWithIdUser(id);
+      var dataAberturaCaixa = caixa?.abertura_data;
+      if (dataAberturaCaixa != null) {
+        var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa!);
+        dataAbertura.value = dateFormatted;
+      }
+    }
+  }
+
+  //atualiza a data de abertura do caixa e converte para o formato dd/MM/yyyy
+  void updateDataAberturaCaixa() async {
+    var logged = await service.getUserLogged();
+    var id = logged?.id_user ?? 0;
+
+    var caixa = await service.getCaixaWithIdUser(id);
+    var dataAberturaCaixa = caixa?.abertura_data;
+    if (dataAberturaCaixa != null) {
+      var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa!);
+      dataAbertura.value = dateFormatted;
+    }
   }
 }

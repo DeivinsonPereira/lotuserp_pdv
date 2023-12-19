@@ -27,7 +27,7 @@ class PdvMonitorPage extends StatefulWidget {
 class _PdvMonitorPageState extends State<PdvMonitorPage> {
   int isSelectedList = -1;
   int idGrupo = -1;
-  late int caixaId;
+  late int caixaId = 0;
   late String ip;
 
   late NumberFormat formatoBrasileiro;
@@ -519,29 +519,39 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              'HORA: ${sideBarController.hours.value}',
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  sideBarController.hours.value,
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 28),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  '${caixaId.toString().padLeft(6, '0')}  -  ',
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  sideBarController
+                                                      .dataAbertura.value,
+                                                  style: const TextStyle(
+                                                      color: Color.fromRGBO(
+                                                          255, 255, 255, 1),
+                                                      fontSize: 14.0),
+                                                ),
+                                              ],
                                             ),
                                             Text(
-                                              'ID CAIXA: ' + caixaId.toString(),
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Text(
-                                              'ABERTURA: ${sideBarController.dataAbertura.value}',
+                                              userName,
                                               style: const TextStyle(
                                                   color: Colors.white,
-                                                  fontSize: 14.0),
-                                            ),
-                                            Text(
-                                              'USUARIO: $userName',
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 14),
+                                                  fontSize: 16),
                                             ),
                                           ],
                                         ),

@@ -23,7 +23,7 @@ class DrawerWidget extends StatelessWidget {
     if (Get.isRegistered<SideBarController>()) {
       sideBarController = Get.find<SideBarController>();
     } else {
-      sideBarController = Get.put(SideBarController());
+       sideBarController = Get.put(SideBarController());
     }
 
     PasswordController passwordController = Get.find();

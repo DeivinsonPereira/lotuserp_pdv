@@ -20,7 +20,6 @@ class OpenRegisterPage extends StatelessWidget {
     IsarService service = IsarService();
     MovimentRegisterController movimentRegisterController =
         Get.put(MovimentRegisterController());
-
     var userName = passwordController.userController.text;
 
     tz.initializeTimeZones();
@@ -33,7 +32,6 @@ class OpenRegisterPage extends StatelessWidget {
 
     return SingleChildScrollView(
       child: Dialog(
-        
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0),
         ),
@@ -67,18 +65,14 @@ class OpenRegisterPage extends StatelessWidget {
                   ],
                 ),
                 actions: [
-                  Container(
-                    height: 50,
-                    color: Colors.blue,
-                    child: IconButton(
-                      onPressed: () {
-                        movimentRegisterController.clearOpenRegister();
-                        Get.back();
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      ),
+                  IconButton(
+                    onPressed: () {
+                      movimentRegisterController.clearOpenRegister();
+                      Get.back();
+                    },
+                    icon: const Icon(
+                      Icons.close,
+                      color: Colors.white,
                     ),
                   )
                 ]),

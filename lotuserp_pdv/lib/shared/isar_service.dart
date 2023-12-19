@@ -22,6 +22,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../controllers/moviment_register_controller.dart';
+import '../core/app_routes.dart';
 
 Map<String, String> _headers = {
   'content-type': 'application/json',
@@ -506,6 +507,7 @@ class IsarService {
     });
     return isar;
   }
+
 /*
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(
       venda venda) async {
@@ -787,6 +789,7 @@ class IsarService {
       await isar.usuario_logados.put(user);
     });
 
+    Get.toNamed(PagesRoutes.homePageRoute);
     return isar;
   }
 
@@ -836,7 +839,11 @@ class IsarService {
     usuario_logado? usuario =
         await isar.usuario_logados.filter().idEqualTo(1).findFirst();
 
-    return usuario;
+    if (usuario != null) {
+      return usuario;
+    }
+
+    return null;
   }
 
   //verifica se o usuario possui caixa aberto
