@@ -15,6 +15,7 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
+import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -520,9 +521,11 @@ class IsarService {
           ..id_venda = venda.id_venda
           ..id_produto = pdvController.pedidos[i]['idProduto']
           ..item = i + 1
-          ..vlr_vendido = pdvController.pedidos[i]['price']
+          ..vlr_vendido =
+              double.parse(pdvController.pedidos[i]['price'].toStringAsFixed(2))
           ..qtde = pdvController.pedidos[i]['quantidade']
-          ..tot_bruto = pdvController.pedidos[i]['total']
+          ..tot_bruto =
+              double.parse(pdvController.pedidos[i]['total'].toStringAsFixed(2))
           ..grade = pdvController.pedidos[i]['unidade'];
 
         vendaItems.add(vendaItem);
@@ -530,6 +533,7 @@ class IsarService {
 
       await isar.venda_items.putAll(vendaItems);
     });
+
     return isar;
   }
 

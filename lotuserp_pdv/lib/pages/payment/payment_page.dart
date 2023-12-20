@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/global_widget/buttons.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -28,7 +29,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     PaymentController controllerPayment = Get.put(PaymentController());
-
+    IsarService service = IsarService();
     var paymentCount = 0.0;
 
     String total;
@@ -189,7 +190,7 @@ class _PaymentPageState extends State<PaymentPage> {
           padding: const EdgeInsets.only(top: 8.0),
           child: SizedBox(
             width: 125,
-            height: 60,
+            height: 65,
             child: Card(
               color: CustomColors.customSwatchColor,
               child: Column(children: [
@@ -202,7 +203,9 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
                 Text(
                   text,
-                  style: const TextStyle(color: Colors.white),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: Colors.white, fontSize: 10),
                 ),
               ]),
             ),
@@ -381,24 +384,69 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //botões e icones abaixo do container da direita
     Widget listIcons() {
-      return ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              cardsPayment(FontAwesomeIcons.moneyBill1Wave, 'Dinheiro'),
-              cardsPayment(FontAwesomeIcons.creditCard, 'POS Crédito'),
-              cardsPayment(FontAwesomeIcons.solidCreditCard, 'POS Débito'),
-              cardsPayment(FontAwesomeIcons.pix, 'PIX'),
-              cardsPayment(FontAwesomeIcons.moneyCheckDollar, 'TEF Crédito'),
-              cardsPayment(FontAwesomeIcons.moneyCheck, 'TEF Débito'),
-              cardsPayment(FontAwesomeIcons.pix, 'TEF PIX'),
-              cardsPayment(FontAwesomeIcons.moneyBill, 'TEF Voucher'),
-            ],
-          ),
-        ],
-      );
+      return StreamBuilder(
+          stream: service.listenTipo_recebimento(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const SizedBox();
+            }
+
+            if (snapshot.hasError) {
+              return const SizedBox();
+            }
+
+            var tipoRecebimento = snapshot.data;
+            return ListView.builder(
+                itemCount: tipoRecebimento!.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  IconData tipoReceb = FontAwesomeIcons.moneyBill1Wave;
+                  print(tipoReceb);
+                  switch (tipoRecebimento[index].tipo_forma) {
+                    case 0:
+                      tipoReceb = FontAwesomeIcons.moneyBill1Wave;
+                      break;
+                    case 1:
+                      tipoReceb = FontAwesomeIcons.moneyCheck;
+                      break;
+                    case 2:
+                      tipoReceb = FontAwesomeIcons.solidCreditCard;
+                      break;
+                    case 3:
+                      tipoReceb = FontAwesomeIcons.creditCard;
+                      break;
+                    case 4:
+                      tipoReceb = FontAwesomeIcons.addressCard;
+                      break;
+                    case 5:
+                      tipoReceb = FontAwesomeIcons.swatchbook;
+                      break;
+                    case 6:
+                      tipoReceb = FontAwesomeIcons.buildingColumns;
+                      break;
+                    case 7:
+                      tipoReceb = FontAwesomeIcons.ticket;
+                      break;
+                    case 8:
+                      tipoReceb = FontAwesomeIcons.clipboard;
+                      break;
+                    case 9:
+                      tipoReceb = FontAwesomeIcons.heart;
+                      break;
+                    case 10:
+                      tipoReceb = FontAwesomeIcons.pix;
+                      break;
+                  }
+
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      cardsPayment(
+                          tipoReceb, tipoRecebimento[index].descricao!),
+                    ],
+                  );
+                });
+          });
     }
 
     //botão para finalizar o pedido
@@ -407,11 +455,20 @@ class _PaymentPageState extends State<PaymentPage> {
       double totalPaid = controllerPayment.getTotalPaid();
       double remainingValue = totalValue - totalPaid;
 
-      double totalValue2 = controller.totalcheckBox2.value;
+      controller.totalSomaPedidos();
+      var formattednumber = double.parse(
+          controller.numbersDiscountcb2.value.replaceAll(',', '.'));
+
+      double totalValue2 = controller.totBruto.value - formattednumber;
       double totalPaid2 = controllerPayment.getTotalPaid();
       double remainingValue2 = totalValue2 - totalPaid2;
 
-      bool isButtonEnabled = remainingValue <= 0 || remainingValue2 <= 0;
+      bool isButtonEnabled = controller.checkbox1.value
+          ? remainingValue <= 0
+          : false || controller.checkbox2.value
+              ? remainingValue2 <= 0
+              : false;
+
       Color buttonColor =
           isButtonEnabled ? CustomColors.customSwatchColor : Colors.grey;
 

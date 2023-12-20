@@ -16,16 +16,14 @@ class HomeMonitorPage extends StatefulWidget {
 }
 
 class _HomeMonitorPageState extends State<HomeMonitorPage> {
-
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     SideBarController sideBarController = Get.put(SideBarController());
+    // ignore: unused_local_variable
     PdvController pdvController = Get.put(PdvController());
 
     var size = MediaQuery.of(context).size;
-
-    
 
     return Scaffold(
       backgroundColor: Colors.white,

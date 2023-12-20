@@ -42,6 +42,8 @@ class PdvController extends GetxController {
   //total bruto
   RxDouble totBruto = 0.0.obs;
 
+  RxDouble valorAtualCb2 = 0.0.obs;
+
   final ScrollController scrollController = ScrollController();
 
   //atualiza o valor do troco

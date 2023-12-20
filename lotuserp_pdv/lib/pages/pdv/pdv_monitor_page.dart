@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
+import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
@@ -15,6 +16,7 @@ import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../global_widget/global_controller.dart';
 import '../product/product_monitor_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {
@@ -33,6 +35,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   late NumberFormat formatoBrasileiro;
   final ScrollController scrollController = ScrollController();
   IsarService service = IsarService();
+  PdvController controller = Get.put(PdvController());
+  PaymentController paymentController = Get.put(PaymentController());
 
   @override
   void initState() {
@@ -80,15 +84,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    PdvController controller = Get.put(PdvController());
     SideBarController sideBarController = Get.find();
     PasswordController passwordController;
-
-    if (Get.isRegistered<PdvController>()) {
-      controller = Get.find<PdvController>();
-    } else {
-      controller = Get.put(PdvController());
-    }
+    GlobalController globalController = Get.put(GlobalController());
 
     if (Get.isRegistered<SideBarController>()) {
       sideBarController = Get.find<SideBarController>();
@@ -119,6 +117,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     }
 
     var size = MediaQuery.of(context).size;
+
+    globalController.setIdUsuario();
+    globalController.setCaixaAbertaId(globalController.userId);
+
+    int numberOfRoutes = Get.routing.current.length;
+    print("Número de rotas abertas: $numberOfRoutes");
 
     return Scaffold(
       body: SingleChildScrollView(

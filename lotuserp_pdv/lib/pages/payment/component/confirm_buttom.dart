@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/global_widget/global_controller.dart';
@@ -24,12 +25,12 @@ class ConfirmButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    GlobalController globalController = Get.put(GlobalController());
+    GlobalController globalController = Get.find();
     PdvController pdvController = Get.find();
     SideBarController sideBarController = Get.find();
 
     return TextButton(
-      onPressed: () {
+      onPressed: () async {
         //soma o valor bruto total dos itens que estão nos pedidos
         pdvController.totalSomaPedidos();
 
@@ -56,7 +57,8 @@ class ConfirmButtom extends StatelessWidget {
           ..id_empresa = globalController.empresaId //id empresa
           ..id_usuario = globalController.userId //id usuario logado
           ..id_colaborador = globalController.colaboradorId //id colaborador
-          ..tot_bruto = pdvController.totBruto.value //total bruto
+          ..tot_bruto = double.parse(
+              pdvController.totBruto.value.toStringAsFixed(2)) //total bruto
           ..tot_desc_prc = pdvController
                   .checkbox1.value //total desconto em porcentagem
               ? double.parse(
@@ -64,25 +66,29 @@ class ConfirmButtom extends StatelessWidget {
               : double.parse(discountPercentagecb2Formated.toStringAsFixed(2))
           ..tot_desc_vlr =
               pdvController.checkbox1.value //total desconto em valor
-                  ? numbersDiscountFormated
-                  : numbersDiscountcb2Formated
+                  ? double.parse(numbersDiscountFormated.toStringAsFixed(2))
+                  : double.parse(numbersDiscountcb2Formated.toStringAsFixed(2))
           ..tot_liquido = pdvController.checkbox1.value //total liquido
-              ? pdvController.totalcheckBox1.value
-              : pdvController.totalcheckBox2.value
+              ? double.parse(
+                  pdvController.totalcheckBox1.value.toStringAsFixed(2))
+              : double.parse(
+                  pdvController.totalcheckBox2.value.toStringAsFixed(2))
           ..valor_troco = pdvController.checkbox1.value //troco
-              ? pdvController.trocoCb1.value
-              : pdvController.trocoCb2.value
+              ? double.parse(pdvController.trocoCb1.value.toStringAsFixed(2))
+              : double.parse(pdvController.trocoCb2.value.toStringAsFixed(2))
           ..status = 1 //status da venda
           ..id_serie_nfce = globalController.serieNfce //id serie nfce
           ..enviado = 0 //enviado (status de envio)
           ..cpf_cnpj = '000.000.000-00' //cpf cnpj do cliente
-          ..id_caixa = globalController.caixaAberta; //id caixa aberto para o usuario logado
+          ..id_caixa = globalController
+              .caixaAberta; //id caixa aberto para o usuario logado
 
         !isConfirmation
             ? {Get.back()}
             : {
-                service.insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
-                Get.offNamed(PagesRoutes.homePageRoute),
+                await service
+                    .insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
+                Get.until(ModalRoute.withName(PagesRoutes.homePageRoute)),
               };
       },
       child: Text(text,

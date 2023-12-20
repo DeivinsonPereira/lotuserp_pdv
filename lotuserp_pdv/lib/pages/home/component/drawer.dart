@@ -23,6 +23,7 @@ class DrawerWidget extends StatelessWidget {
     SideBarController sideBarController;
     PasswordController passwordController;
     IsarService service = IsarService();
+    // ignore: unused_local_variable
     PdvController pdvController = Get.find();
 
     if (Get.isRegistered<SideBarController>()) {
@@ -249,6 +250,8 @@ class IconbuttomLargeSideBar extends StatelessWidget {
                         pdvController.discountPercentagecb2.value = '0,00',
                         pdvController.numbersDiscount.value = '0,00',
                         pdvController.numbersDiscountcb2.value = '0,00',
+                        pdvController.totalcheckBox1.value = 0.0,
+                        pdvController.totalcheckBox2.value = 0.0,
                         paymentController.paymentsTotal.value =
                             <Map<String, dynamic>>[],
                         Get.toNamed(navigationIcon)

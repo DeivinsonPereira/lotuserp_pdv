@@ -15,8 +15,6 @@ class GlobalController extends GetxController {
   @override
   onInit() {
     super.onInit();
-    setIdUsuario();
-    setCaixaAbertaId(userId);
     updateSerieNfce();
     updateIdEmpresa();
   }
@@ -47,5 +45,10 @@ class GlobalController extends GetxController {
     int? caixaVar = await service.getIdCaixa(userId);
 
     caixaAberta = caixaVar ?? 0;
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
   }
 }
