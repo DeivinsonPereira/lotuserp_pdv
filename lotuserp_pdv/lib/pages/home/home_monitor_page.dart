@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 
@@ -15,12 +16,16 @@ class HomeMonitorPage extends StatefulWidget {
 }
 
 class _HomeMonitorPageState extends State<HomeMonitorPage> {
+
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     SideBarController sideBarController = Get.put(SideBarController());
-  
+    PdvController pdvController = Get.put(PdvController());
+
     var size = MediaQuery.of(context).size;
+
+    
 
     return Scaffold(
       backgroundColor: Colors.white,

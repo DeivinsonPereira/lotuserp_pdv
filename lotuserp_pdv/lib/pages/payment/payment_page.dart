@@ -407,7 +407,11 @@ class _PaymentPageState extends State<PaymentPage> {
       double totalPaid = controllerPayment.getTotalPaid();
       double remainingValue = totalValue - totalPaid;
 
-      bool isButtonEnabled = remainingValue <= 0;
+      double totalValue2 = controller.totalcheckBox2.value;
+      double totalPaid2 = controllerPayment.getTotalPaid();
+      double remainingValue2 = totalValue2 - totalPaid2;
+
+      bool isButtonEnabled = remainingValue <= 0 || remainingValue2 <= 0;
       Color buttonColor =
           isButtonEnabled ? CustomColors.customSwatchColor : Colors.grey;
 

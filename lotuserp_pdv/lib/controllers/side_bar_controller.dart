@@ -55,7 +55,7 @@ class SideBarController extends GetxController {
       var caixa = await service.getCaixaWithIdUser(id);
       var dataAberturaCaixa = caixa?.abertura_data;
       if (dataAberturaCaixa != null) {
-        var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa!);
+        var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa);
         dataAbertura.value = dateFormatted;
       }
     }
@@ -69,7 +69,7 @@ class SideBarController extends GetxController {
     var caixa = await service.getCaixaWithIdUser(id);
     var dataAberturaCaixa = caixa?.abertura_data;
     if (dataAberturaCaixa != null) {
-      var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa!);
+      var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa);
       dataAbertura.value = dateFormatted;
     }
   }

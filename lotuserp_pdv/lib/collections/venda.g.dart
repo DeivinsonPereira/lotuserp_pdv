@@ -37,48 +37,58 @@ const VendaSchema = CollectionSchema(
       name: r'hora',
       type: IsarType.string,
     ),
-    r'id_empresa': PropertySchema(
+    r'id_caixa': PropertySchema(
       id: 4,
+      name: r'id_caixa',
+      type: IsarType.long,
+    ),
+    r'id_colaborador': PropertySchema(
+      id: 5,
+      name: r'id_colaborador',
+      type: IsarType.long,
+    ),
+    r'id_empresa': PropertySchema(
+      id: 6,
       name: r'id_empresa',
       type: IsarType.long,
     ),
     r'id_serie_nfce': PropertySchema(
-      id: 5,
+      id: 7,
       name: r'id_serie_nfce',
       type: IsarType.long,
     ),
     r'id_usuario': PropertySchema(
-      id: 6,
+      id: 8,
       name: r'id_usuario',
       type: IsarType.long,
     ),
     r'status': PropertySchema(
-      id: 7,
+      id: 9,
       name: r'status',
       type: IsarType.long,
     ),
     r'tot_bruto': PropertySchema(
-      id: 8,
+      id: 10,
       name: r'tot_bruto',
       type: IsarType.double,
     ),
     r'tot_desc_prc': PropertySchema(
-      id: 9,
+      id: 11,
       name: r'tot_desc_prc',
       type: IsarType.double,
     ),
     r'tot_desc_vlr': PropertySchema(
-      id: 10,
+      id: 12,
       name: r'tot_desc_vlr',
       type: IsarType.double,
     ),
     r'tot_liquido': PropertySchema(
-      id: 11,
+      id: 13,
       name: r'tot_liquido',
       type: IsarType.double,
     ),
     r'valor_troco': PropertySchema(
-      id: 12,
+      id: 14,
       name: r'valor_troco',
       type: IsarType.double,
     )
@@ -118,15 +128,17 @@ void _vendaSerialize(
   writer.writeDateTime(offsets[1], object.data);
   writer.writeLong(offsets[2], object.enviado);
   writer.writeString(offsets[3], object.hora);
-  writer.writeLong(offsets[4], object.id_empresa);
-  writer.writeLong(offsets[5], object.id_serie_nfce);
-  writer.writeLong(offsets[6], object.id_usuario);
-  writer.writeLong(offsets[7], object.status);
-  writer.writeDouble(offsets[8], object.tot_bruto);
-  writer.writeDouble(offsets[9], object.tot_desc_prc);
-  writer.writeDouble(offsets[10], object.tot_desc_vlr);
-  writer.writeDouble(offsets[11], object.tot_liquido);
-  writer.writeDouble(offsets[12], object.valor_troco);
+  writer.writeLong(offsets[4], object.id_caixa);
+  writer.writeLong(offsets[5], object.id_colaborador);
+  writer.writeLong(offsets[6], object.id_empresa);
+  writer.writeLong(offsets[7], object.id_serie_nfce);
+  writer.writeLong(offsets[8], object.id_usuario);
+  writer.writeLong(offsets[9], object.status);
+  writer.writeDouble(offsets[10], object.tot_bruto);
+  writer.writeDouble(offsets[11], object.tot_desc_prc);
+  writer.writeDouble(offsets[12], object.tot_desc_vlr);
+  writer.writeDouble(offsets[13], object.tot_liquido);
+  writer.writeDouble(offsets[14], object.valor_troco);
 }
 
 venda _vendaDeserialize(
@@ -140,16 +152,18 @@ venda _vendaDeserialize(
   object.data = reader.readDateTime(offsets[1]);
   object.enviado = reader.readLong(offsets[2]);
   object.hora = reader.readString(offsets[3]);
-  object.id_empresa = reader.readLong(offsets[4]);
-  object.id_serie_nfce = reader.readLong(offsets[5]);
-  object.id_usuario = reader.readLong(offsets[6]);
+  object.id_caixa = reader.readLong(offsets[4]);
+  object.id_colaborador = reader.readLong(offsets[5]);
+  object.id_empresa = reader.readLong(offsets[6]);
+  object.id_serie_nfce = reader.readLong(offsets[7]);
+  object.id_usuario = reader.readLong(offsets[8]);
   object.id_venda = id;
-  object.status = reader.readLong(offsets[7]);
-  object.tot_bruto = reader.readDouble(offsets[8]);
-  object.tot_desc_prc = reader.readDouble(offsets[9]);
-  object.tot_desc_vlr = reader.readDouble(offsets[10]);
-  object.tot_liquido = reader.readDouble(offsets[11]);
-  object.valor_troco = reader.readDouble(offsets[12]);
+  object.status = reader.readLong(offsets[9]);
+  object.tot_bruto = reader.readDouble(offsets[10]);
+  object.tot_desc_prc = reader.readDouble(offsets[11]);
+  object.tot_desc_vlr = reader.readDouble(offsets[12]);
+  object.tot_liquido = reader.readDouble(offsets[13]);
+  object.valor_troco = reader.readDouble(offsets[14]);
   return object;
 }
 
@@ -177,14 +191,18 @@ P _vendaDeserializeProp<P>(
     case 7:
       return (reader.readLong(offset)) as P;
     case 8:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 9:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 10:
       return (reader.readDouble(offset)) as P;
     case 11:
       return (reader.readDouble(offset)) as P;
     case 12:
+      return (reader.readDouble(offset)) as P;
+    case 13:
+      return (reader.readDouble(offset)) as P;
+    case 14:
       return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -639,6 +657,111 @@ extension vendaQueryFilter on QueryBuilder<venda, venda, QFilterCondition> {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'hora',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_caixaEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_caixa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_caixaGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_caixa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_caixaLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_caixa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_caixaBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_caixa',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_colaboradorEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_colaborador',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_colaboradorGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_colaborador',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_colaboradorLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_colaborador',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_colaboradorBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_colaborador',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -1270,6 +1393,30 @@ extension vendaQuerySortBy on QueryBuilder<venda, venda, QSortBy> {
     });
   }
 
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_caixa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_caixaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.desc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_colaborador() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_colaborador', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_colaboradorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_colaborador', Sort.desc);
+    });
+  }
+
   QueryBuilder<venda, venda, QAfterSortBy> sortById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_empresa', Sort.asc);
@@ -1428,6 +1575,30 @@ extension vendaQuerySortThenBy on QueryBuilder<venda, venda, QSortThenBy> {
     });
   }
 
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_caixa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_caixaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.desc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_colaborador() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_colaborador', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_colaboradorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_colaborador', Sort.desc);
+    });
+  }
+
   QueryBuilder<venda, venda, QAfterSortBy> thenById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_empresa', Sort.asc);
@@ -1576,6 +1747,18 @@ extension vendaQueryWhereDistinct on QueryBuilder<venda, venda, QDistinct> {
     });
   }
 
+  QueryBuilder<venda, venda, QDistinct> distinctById_caixa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_caixa');
+    });
+  }
+
+  QueryBuilder<venda, venda, QDistinct> distinctById_colaborador() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_colaborador');
+    });
+  }
+
   QueryBuilder<venda, venda, QDistinct> distinctById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id_empresa');
@@ -1659,6 +1842,18 @@ extension vendaQueryProperty on QueryBuilder<venda, venda, QQueryProperty> {
   QueryBuilder<venda, String, QQueryOperations> horaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'hora');
+    });
+  }
+
+  QueryBuilder<venda, int, QQueryOperations> id_caixaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_caixa');
+    });
+  }
+
+  QueryBuilder<venda, int, QQueryOperations> id_colaboradorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_colaborador');
     });
   }
 

@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/global_widget/global_controller.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
-import '../../../controllers/text_field_controller.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({
@@ -26,6 +26,7 @@ class ConfirmButtom extends StatelessWidget {
     IsarService service = IsarService();
     GlobalController globalController = Get.put(GlobalController());
     PdvController pdvController = Get.find();
+    SideBarController sideBarController = Get.find();
 
     return TextButton(
       onPressed: () {
@@ -51,14 +52,16 @@ class ConfirmButtom extends StatelessWidget {
 
         var vendaExecutada = venda()
           ..data = DateTime.now()
-          ..hora = DateTime.now().hour.toString()
-          ..id_empresa = globalController.caixaAberta //id empresa
+          ..hora = sideBarController.hours.value
+          ..id_empresa = globalController.empresaId //id empresa
           ..id_usuario = globalController.userId //id usuario logado
+          ..id_colaborador = globalController.colaboradorId //id colaborador
           ..tot_bruto = pdvController.totBruto.value //total bruto
-          ..tot_desc_prc =
-              pdvController.checkbox1.value //total desconto em porcentagem
-                  ? pdvController.discountPercentage.value
-                  : discountPercentagecb2Formated
+          ..tot_desc_prc = pdvController
+                  .checkbox1.value //total desconto em porcentagem
+              ? double.parse(
+                  pdvController.discountPercentage.value.toStringAsFixed(2))
+              : double.parse(discountPercentagecb2Formated.toStringAsFixed(2))
           ..tot_desc_vlr =
               pdvController.checkbox1.value //total desconto em valor
                   ? numbersDiscountFormated
@@ -73,14 +76,13 @@ class ConfirmButtom extends StatelessWidget {
           ..id_serie_nfce = globalController.serieNfce //id serie nfce
           ..enviado = 0 //enviado (status de envio)
           ..cpf_cnpj = '000.000.000-00' //cpf cnpj do cliente
-          ..id_caixa = globalController
-              .caixaAberta; //id caixa aberto para o usuario logado
+          ..id_caixa = globalController.caixaAberta; //id caixa aberto para o usuario logado
 
         !isConfirmation
             ? {Get.back()}
             : {
                 service.insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
-                Get.offAllNamed(PagesRoutes.homePageRoute)
+                Get.offNamed(PagesRoutes.homePageRoute),
               };
       },
       child: Text(text,

@@ -510,38 +510,24 @@ class IsarService {
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
     PdvController pdvController = Get.find();
-
-    List<venda_item> vendaItems = [];
-
-    for (var i = 0; i < pdvController.pedidos.length; i++) {
-      venda_item vendaItem = venda_item()
-        ..id_venda = venda.id_venda
-        ..id_produto = pdvController.pedidos[i]['idProduto']
-        ..item = i + 1
-        ..vlr_vendido = pdvController.pedidos[i]['price']
-        ..qtde = pdvController.pedidos[i]['quantidade']
-        ..tot_bruto = pdvController.pedidos[i]['total']
-        ..grade = pdvController.pedidos[i]['unidade'];
-
-        vendaItems.add(vendaItem);
-    }
-    /*for (var element in pdvController.pedidos) {
-      venda_item vendaItem = venda_item()
-        ..id_venda = venda.id_venda
-        ..id_produto = element['idProduto']
-        ..item = 
-        ..vlr_vendido = element['price']
-        ..qtde = element['quantidade']
-        ..tot_bruto = element['total']
-        ..grade = element['unidade'];
-
-      vendaItems.add(vendaItem);
-    }
-    */
-
-    print(vendaItems);
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
+
+      List<venda_item> vendaItems = [];
+
+      for (var i = 0; i < pdvController.pedidos.length; i++) {
+        venda_item vendaItem = venda_item()
+          ..id_venda = venda.id_venda
+          ..id_produto = pdvController.pedidos[i]['idProduto']
+          ..item = i + 1
+          ..vlr_vendido = pdvController.pedidos[i]['price']
+          ..qtde = pdvController.pedidos[i]['quantidade']
+          ..tot_bruto = pdvController.pedidos[i]['total']
+          ..grade = pdvController.pedidos[i]['unidade'];
+
+        vendaItems.add(vendaItem);
+      }
+
       await isar.venda_items.putAll(vendaItems);
     });
     return isar;

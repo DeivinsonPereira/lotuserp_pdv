@@ -47,7 +47,6 @@ class PdvController extends GetxController {
   //atualiza o valor do troco
   void updateTroco(double value) {
     checkbox1.value ? trocoCb1.value = value : trocoCb2.value = value;
-    
   }
 
   //soma o valor total e atualiza a cada modificação na lista pedidos
@@ -60,10 +59,10 @@ class PdvController extends GetxController {
   }
 
   //busca quantidades pedidos de um determinado item
-  int getQuantidade(String nomeProduto) {
+  double getQuantidade(String nomeProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
-    return index != -1 ? pedidos[index]['quantidade'] : 0;
+    return index != -1.0 ? pedidos[index]['quantidade'] : 0.0;
   }
 
   //busca o nome do item
@@ -224,14 +223,15 @@ class PdvController extends GetxController {
     double precoDouble = double.parse(priceComPonto);
 
     if (index != -1) {
-      pedidos[index]['quantidade'] = (pedidos[index]['quantidade'] ?? 1) + 1;
+      pedidos[index]['quantidade'] =
+          (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
       pedidos[index]['total'] =
           (pedidos[index]['quantidade'] * pedidos[index]['price']);
     } else {
       pedidos.add({
         'idProduto': idProduto,
         'nomeProduto': nomeProduto,
-        'quantidade': 1,
+        'quantidade': 1.0,
         'unidade': unidade,
         'price': precoDouble,
         'total': precoDouble
@@ -253,9 +253,9 @@ class PdvController extends GetxController {
   //remove item do pedido
   void removerPedido(int index, Function callback) {
     if (index >= 0 && index < pedidos.length) {
-      if (pedidos[index]['quantidade'] > 1) {
+      if (pedidos[index]['quantidade'] > 1.0) {
         totalcheckBox1.value -= pedidos[index]['price'];
-        pedidos[index]['quantidade'] -= 1;
+        pedidos[index]['quantidade'] -= 1.0;
         pedidos[index]['total'] =
             pedidos[index]['quantidade'] * pedidos[index]['price'];
         update();
