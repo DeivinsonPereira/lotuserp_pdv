@@ -8,6 +8,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../controllers/product_controller.dart';
 import '../../core/format_txt.dart';
 import 'components/popup_widget.dart';
+import 'components/search_apresentation.dart';
 
 class ProductMonitorPage extends StatelessWidget {
   const ProductMonitorPage({super.key});
@@ -18,7 +19,7 @@ class ProductMonitorPage extends StatelessWidget {
     IsarService service = IsarService();
 
     var size = MediaQuery.of(context).size;
-
+    
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -124,22 +125,25 @@ class ProductMonitorPage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey)),
                               child: TextFormField(
-                                inputFormatters: [UpperCaseTxt()],
-                                decoration: InputDecoration(
-                                    suffixIcon: IconButton(
-                                      onPressed: () {
-                                        controller.searchExecuted.value = true;
-                                      },
-                                      icon: const Icon(Icons.search),
-                                    ),
-                                    border: InputBorder.none),
-                                style: const TextStyle(
-                                    fontSize: 16,
-                                    overflow: TextOverflow.ellipsis,
-                                    fontWeight: FontWeight.w500),
-                                maxLines: 1,
-                                controller: controller.searchController,
-                              ),
+                                  inputFormatters: [UpperCaseTxt()],
+                                  decoration: InputDecoration(
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          controller.searchExecuted.value =
+                                              true;
+                                        },
+                                        icon: const Icon(Icons.search),
+                                      ),
+                                      border: InputBorder.none),
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      overflow: TextOverflow.ellipsis,
+                                      fontWeight: FontWeight.w500),
+                                  maxLines: 1,
+                                  controller: controller.searchController,
+                                  onChanged: (value) async {
+                                    controller.updateProductVariable(value);
+                                  }),
                             ),
                           ),
                         ],
@@ -200,123 +204,40 @@ class ProductMonitorPage extends StatelessWidget {
                             const Divider(),
 
                             //resultado da pesquisa
-                            Obx(() => FutureBuilder(
-                                  future: controller.searchExecuted.value
-                                      ? controller.textOption.value == 'ID'
-                                          ? service.searchProdutoById(int.parse(
-                                              controller.searchController.text))
-                                          : (controller.textOption.value ==
-                                                  'DESCRIÇÃO'
-                                              ? service
-                                                  .searchProdutoByDescPaged(
-                                                      controller
-                                                          .searchController
-                                                          .text)
-                                              : service.searchProdutoByBarcode(
-                                                  controller
-                                                      .searchController.text))
-                                      : null,
-                                  builder: (context, snapshot) {
-                                    if (!snapshot.hasData &&
-                                        controller.searchExecuted.value) {
+                            Obx(() => controller.textOption.value == 'DESCRIÇÃO'
+                                ? const SearchApresentation(
+                                    isProd: true,
+                                  )
+                                : FutureBuilder(
+                                    future: controller.textOption.value == 'ID'
+                                        ? service.searchProdutoById(int.parse(
+                                            controller.searchController.text))
+                                        : service.searchProdutoByBarcode(
+                                            controller.searchController.text),
+                                    builder: (context, snapshot) {
+                                      if (!snapshot.hasData) {
+                                        return const Center(
+                                          child: CircularProgressIndicator(),
+                                        );
+                                      }
+                                      if (snapshot.hasError) {
+                                        return const Center(
+                                          child: Text('Erro ao buscar dados'),
+                                        );
+                                      }
+                                      if (snapshot.hasData) {
+                                        var produtos = snapshot.data!;
+
+                                        return SearchApresentation(
+                                          produtos: produtos,
+                                        );
+                                      }
+
                                       return const Center(
-                                        child: CircularProgressIndicator(),
+                                        child: SizedBox(),
                                       );
-                                    }
-                                    if (snapshot.hasError &&
-                                        controller.searchExecuted.value) {
-                                      return const Center(
-                                        child: Text('Erro ao buscar dados'),
-                                      );
-                                    }
-                                    if (snapshot.hasData &&
-                                        controller.searchExecuted.value) {
-                                      var produtos = snapshot.data!;
-
-                                      return Expanded(
-                                        child: ListView.builder(
-                                          itemCount: produtos.length,
-                                          itemBuilder: (context, index) {
-                                            //transformar o valor de pvenda em String brl
-                                            controller
-                                                .updateValorVendaFormatted(
-                                                    produtos[index].pvenda);
-
-                                            controller
-                                                .updateSaldoProdutoFormatted(
-                                                    produtos[index]
-                                                        .saldo_produto);
-
-                                            return Column(
-                                              children: [
-                                                Container(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 2),
-                                                  child: Row(
-                                                    children: [
-                                                      LegendSearch(
-                                                        legend: produtos[index]
-                                                            .id_produto
-                                                            .toString(),
-                                                        size: 75,
-                                                      ),
-                                                      LegendSearch(
-                                                        legend: produtos[index]
-                                                            .descricao,
-                                                        size: 500,
-                                                        isDescription: true,
-                                                      ),
-                                                      LegendSearch(
-                                                        legend: produtos[index]
-                                                                .unidade ??
-                                                            'n/a',
-                                                        size: 50,
-                                                      ),
-                                                      LegendSearch(
-                                                        legend: produtos[index]
-                                                                .gtin ??
-                                                            'n/a',
-                                                        size: 150,
-                                                      ),
-                                                      LegendSearch(
-                                                        legend: produtos[index]
-                                                            .pvenda
-                                                            .toString(),
-                                                        size: 80,
-                                                        isPvenda: true,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 70,
-                                                      ),
-                                                      LegendSearch(
-                                                        legend: produtos[index]
-                                                            .saldo_produto
-                                                            .toString(),
-                                                        size: 92,
-                                                        isSaldoProduto: true,
-                                                      ),
-                                                      const SizedBox(
-                                                        width: 70,
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                                Container(
-                                                  padding: EdgeInsets.zero,
-                                                  child: const Divider(),
-                                                )
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    }
-
-                                    return const Center(
-                                      child: SizedBox(),
-                                    );
-                                  },
-                                )),
+                                    },
+                                  )),
                           ],
                         ),
                       ),

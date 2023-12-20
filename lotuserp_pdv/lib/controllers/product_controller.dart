@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ProdutoController extends GetxController {
   TextEditingController searchController = TextEditingController();
   TextEditingController itensPerPageController = TextEditingController();
+  IsarService service = IsarService();
 
   RxString valorVendaFormatted = '0,00'.obs;
   RxString saldoProdutoFormatted = '0.000'.obs;
@@ -29,6 +31,11 @@ class ProdutoController extends GetxController {
 
   //objeto vindo do banco de dados local (snapshot)
   var product = [].obs;
+
+  void updateProductVariable(String value) async {
+    
+    product.value = await service.searchProdutoByDescPaged(value);
+  }
 
   //atualizar variavel SaldoProdutoFormatted que deve ser em valor int nesse formato 000.000.000
   void updateSaldoProdutoFormatted(double value) {

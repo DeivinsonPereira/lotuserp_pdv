@@ -401,7 +401,6 @@ class _PaymentPageState extends State<PaymentPage> {
                 scrollDirection: Axis.horizontal,
                 itemBuilder: (context, index) {
                   IconData tipoReceb = FontAwesomeIcons.moneyBill1Wave;
-                  print(tipoReceb);
                   switch (tipoRecebimento[index].tipo_forma) {
                     case 0:
                       tipoReceb = FontAwesomeIcons.moneyBill1Wave;
