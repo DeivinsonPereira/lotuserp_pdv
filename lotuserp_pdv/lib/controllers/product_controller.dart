@@ -33,7 +33,6 @@ class ProdutoController extends GetxController {
   var product = [].obs;
 
   void updateProductVariable(String value) async {
-    
     product.value = await service.searchProdutoByDescPaged(value);
   }
 

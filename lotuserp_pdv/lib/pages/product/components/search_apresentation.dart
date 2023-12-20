@@ -5,20 +5,17 @@ import 'package:get/get.dart';
 import '../../../controllers/product_controller.dart';
 import '../product_monitor_page.dart';
 
-class SearchApresentation extends StatelessWidget {
-  const SearchApresentation({
-    Key? key,
-    this.produtos,
-    this.isProd = false,
-  }) : super(key: key);
-
+class SearchApresentation extends GetView<ProdutoController> {
   final dynamic produtos;
   final bool isProd;
+  const SearchApresentation({
+    super.key,
+    this.produtos,
+    this.isProd = false,
+  });
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = Get.find();
-
     return Expanded(
       child: Obx(() => ListView.builder(
             itemCount: isProd ? controller.product.length : produtos.length,

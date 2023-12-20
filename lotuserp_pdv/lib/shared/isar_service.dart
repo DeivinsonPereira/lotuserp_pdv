@@ -15,7 +15,6 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
-import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -304,7 +303,7 @@ class IsarService {
 
     return await isar.produtos
         .filter()
-        .descricaoContains(desc)
+        .descricaoStartsWith(desc)
         .sortByDescricao()
         .findAll();
   }

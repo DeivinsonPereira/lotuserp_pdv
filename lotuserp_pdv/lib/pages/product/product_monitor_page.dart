@@ -19,7 +19,7 @@ class ProductMonitorPage extends StatelessWidget {
     IsarService service = IsarService();
 
     var size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -141,8 +141,11 @@ class ProductMonitorPage extends StatelessWidget {
                                       fontWeight: FontWeight.w500),
                                   maxLines: 1,
                                   controller: controller.searchController,
-                                  onChanged: (value) async {
-                                    controller.updateProductVariable(value);
+                                  onChanged: (value) {
+                                    if (controller.textOption.value ==
+                                        'DESCRIÇÃO') {
+                                      controller.updateProductVariable(value);
+                                    }
                                   }),
                             ),
                           ),
@@ -204,40 +207,43 @@ class ProductMonitorPage extends StatelessWidget {
                             const Divider(),
 
                             //resultado da pesquisa
-                            Obx(() => controller.textOption.value == 'DESCRIÇÃO'
-                                ? const SearchApresentation(
-                                    isProd: true,
-                                  )
-                                : FutureBuilder(
-                                    future: controller.textOption.value == 'ID'
-                                        ? service.searchProdutoById(int.parse(
-                                            controller.searchController.text))
-                                        : service.searchProdutoByBarcode(
-                                            controller.searchController.text),
-                                    builder: (context, snapshot) {
-                                      if (!snapshot.hasData) {
-                                        return const Center(
-                                          child: CircularProgressIndicator(),
-                                        );
-                                      }
-                                      if (snapshot.hasError) {
-                                        return const Center(
-                                          child: Text('Erro ao buscar dados'),
-                                        );
-                                      }
-                                      if (snapshot.hasData) {
-                                        var produtos = snapshot.data!;
+                            Obx(
+                              () => controller.textOption.value == 'DESCRIÇÃO'
+                                  ? const SearchApresentation(
+                                      isProd: true,
+                                    )
+                                  : FutureBuilder(
+                                      future: controller.textOption.value ==
+                                              'ID'
+                                          ? service.searchProdutoById(int.parse(
+                                              controller.searchController.text))
+                                          : service.searchProdutoByBarcode(
+                                              controller.searchController.text),
+                                      builder: (context, snapshot) {
+                                        if (!snapshot.hasData) {
+                                          return const Center(
+                                            child: CircularProgressIndicator(),
+                                          );
+                                        }
+                                        if (snapshot.hasError) {
+                                          return const Center(
+                                            child: Text('Erro ao buscar dados'),
+                                          );
+                                        }
+                                        if (snapshot.hasData) {
+                                          var produtos = snapshot.data!;
 
-                                        return SearchApresentation(
-                                          produtos: produtos,
-                                        );
-                                      }
+                                          return SearchApresentation(
+                                            produtos: produtos,
+                                          );
+                                        }
 
-                                      return const Center(
-                                        child: SizedBox(),
-                                      );
-                                    },
-                                  )),
+                                        return const Center(
+                                          child: SizedBox(),
+                                        );
+                                      },
+                                    ),
+                            )
                           ],
                         ),
                       ),
