@@ -15,6 +15,7 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
+import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -510,6 +511,7 @@ class IsarService {
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
     PdvController pdvController = Get.find();
+    PaymentController paymentController = PaymentController();
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
 
@@ -531,6 +533,12 @@ class IsarService {
       }
 
       await isar.venda_items.putAll(vendaItems);
+
+      
+      pdvController.zerarCampos();
+      print('tamanho da lista pdv =  ${pdvController.pedidos.length}');
+      print(
+          'Tamanho da lista pagamento = ${paymentController.paymentsTotal.length}');
     });
 
     return isar;

@@ -4,12 +4,10 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 
-import '../../../controllers/pdv.controller.dart';
 import '../../moviment_cash/moviment_cash_page.dart';
 import '../../open_register/open_register_page.dart';
 import '../../../shared/isar_service.dart';
@@ -24,8 +22,6 @@ class DrawerWidget extends StatelessWidget {
     PasswordController passwordController;
     IsarService service = IsarService();
     // ignore: unused_local_variable
-    PdvController pdvController = Get.find();
-
     if (Get.isRegistered<SideBarController>()) {
       sideBarController = Get.find<SideBarController>();
     } else {
@@ -204,8 +200,6 @@ class IconbuttomLargeSideBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    PdvController pdvController = Get.find();
-    PaymentController paymentController = Get.put(PaymentController());
 
     return InkWell(
       onTap: () async {
@@ -244,18 +238,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
                             builder: (context) {
                               return const MovimentCashPage(); // Your AlertDialog widget
                             }))
-                    : {
-                        pdvController.pedidos.value = [],
-                        pdvController.discountPercentage.value = 0.0,
-                        pdvController.discountPercentagecb2.value = '0,00',
-                        pdvController.numbersDiscount.value = '0,00',
-                        pdvController.numbersDiscountcb2.value = '0,00',
-                        pdvController.totalcheckBox1.value = 0.0,
-                        pdvController.totalcheckBox2.value = 0.0,
-                        paymentController.paymentsTotal.value =
-                            <Map<String, dynamic>>[],
-                        Get.toNamed(navigationIcon)
-                      },
+                    : {Get.toNamed(navigationIcon)},
               );
       },
       child: Padding(

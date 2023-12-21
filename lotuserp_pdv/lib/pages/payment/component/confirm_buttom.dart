@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/global_widget/global_controller.dart';
@@ -88,7 +87,10 @@ class ConfirmButtom extends StatelessWidget {
             : {
                 await service
                     .insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
-                Get.until(ModalRoute.withName(PagesRoutes.homePageRoute)),
+                Get.offNamedUntil(
+                  PagesRoutes.pdvMonitor,
+                  (route) => false,
+                ),
               };
       },
       child: Text(text,

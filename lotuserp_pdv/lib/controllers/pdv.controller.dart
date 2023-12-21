@@ -46,6 +46,21 @@ class PdvController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
 
+  void zerarCampos() {
+    pedidos.value = [];
+    discountPercentage.value = 0.0;
+    discountPercentagecb2.value = '0,00';
+    numbersDiscount.value = '0,00';
+    numbersDiscountcb2.value = '0,00';
+    totalcheckBox1.value = 0.0;
+    totalcheckBox2.value = 0.0;
+  }
+
+
+  void updatePage() {
+    update();
+  }
+
   //atualiza o valor do troco
   void updateTroco(double value) {
     checkbox1.value ? trocoCb1.value = value : trocoCb2.value = value;
@@ -64,6 +79,7 @@ class PdvController extends GetxController {
   double getQuantidade(String nomeProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
+
     return index != -1.0 ? pedidos[index]['quantidade'] : 0.0;
   }
 
@@ -90,6 +106,7 @@ class PdvController extends GetxController {
     discountPercentage.value = (discount / max(subtotal, 1)) * 100;
 
     totalcheckBox1.value = subtotal - discount;
+    update();
   }
 
   //adiciona numeros no desconto caso checkbox 1 == true
@@ -103,6 +120,7 @@ class PdvController extends GetxController {
     numbersDiscount.value = formatAsCurrency(double.parse(newValue) / 100);
 
     calculateTotal();
+    update();
   }
 
   //calcula o total entre desconto em reais e subtotal
@@ -120,6 +138,7 @@ class PdvController extends GetxController {
 
     totalcheckBox1.value = newTotal;
     calculateDiscountPercentage();
+    update();
   }
 
   //########## checkbox 2 true ########
@@ -136,6 +155,7 @@ class PdvController extends GetxController {
         formatAsCurrency(double.parse(newValue) / 100);
 
     calculateTotalPercentage();
+    update();
   }
 
   //calcula o total entre desconto em porcentagem e subtotal
@@ -155,6 +175,7 @@ class PdvController extends GetxController {
     totalcheckBox2.value = newTotal;
 
     calculateDiscountPercentagecb2();
+    update();
   }
 
   //calcula o total entre desconto em porcentagem e subtotal
@@ -176,6 +197,7 @@ class PdvController extends GetxController {
     numbersDiscountcb2.value = aux.toStringAsFixed(2).replaceAll('.', ',');
 
     totalcheckBox2.value = subtotal - discount;
+    update();
   }
 
   //transforma double em string transformando virgula em ponto;
@@ -194,6 +216,7 @@ class PdvController extends GetxController {
       numbersDiscount.value = '0,00';
     }
     calculateTotal();
+    update();
   }
 
   //remove numero do percentageDiscount cb2
@@ -208,6 +231,7 @@ class PdvController extends GetxController {
       discountPercentagecb2.value = '0,00';
     }
     calculateTotalPercentage();
+    update();
   }
 
   //adiciona itens no pedido
@@ -241,6 +265,7 @@ class PdvController extends GetxController {
     }
 
     scrollController.addListener(() {});
+    update();
   }
 
   //cancela o pedido e zera a lista
@@ -249,6 +274,7 @@ class PdvController extends GetxController {
       pedidos.clear();
 
       Get.back();
+      update();
     }
   }
 
@@ -265,6 +291,7 @@ class PdvController extends GetxController {
         totalcheckBox1.value -= pedidos[index]['total'];
         pedidos.removeAt(index);
         update();
+        update();
       }
     }
   }
@@ -277,5 +304,6 @@ class PdvController extends GetxController {
     for (var element in pedidos) {
       totalcheckBox1.value += element['total'];
     }
+    update();
   }
 }

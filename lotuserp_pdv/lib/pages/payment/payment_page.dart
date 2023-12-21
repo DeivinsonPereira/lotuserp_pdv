@@ -157,19 +157,26 @@ class _PaymentPageState extends State<PaymentPage> {
           children: [
             Padding(
               padding: const EdgeInsets.only(
-                  top: 8.0, left: 18.0, right: 18.0, bottom: 8.0),
+                top: 8.0,
+                left: 18.0,
+                right: 18.0,
+              ),
               child: Container(
                 height: 1.0,
                 width: double.infinity,
                 color: Colors.grey,
               ),
             ),
-            RowWidget().Rows('Subtotal', totalValueFormated),
-            RowWidget().Rows(
-              'Desconto na venda',
-              numberDiscount,
+            Row(
+              children: [
+                RowWidget().Rows('Subtotal', totalValueFormated),
+                RowWidget().Rows(
+                  'Desconto na venda',
+                  numberDiscount,
+                ),
+                RowWidget().Rows('Total', totalFormat),
+              ],
             ),
-            RowWidget().Rows('Total', totalFormat),
           ],
         ),
       );
@@ -532,16 +539,15 @@ class _PaymentPageState extends State<PaymentPage> {
                                         children: [
                                           Expanded(
                                             child: Container(
-                                                decoration: const BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.only(
-                                                          bottomLeft:
-                                                              Radius.circular(
-                                                                  10)),
-                                                  color: Colors.grey,
-                                                ),
-                                                child: const ConfirmButtom(
-                                                    text: 'Não')),
+                                              decoration: const BoxDecoration(
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft:
+                                                        Radius.circular(10)),
+                                                color: Colors.grey,
+                                              ),
+                                              child: const ConfirmButtom(
+                                                  text: 'Não'),
+                                            ),
                                           ),
                                           Expanded(
                                             child: Container(

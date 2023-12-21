@@ -7,6 +7,18 @@ class PaymentController extends GetxController {
   //valor da forma de pagamento
   var totalPayment = '0,00'.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    totalPayment.value = '0,00';
+    paymentsTotal.clear();
+  }
+
+  void zerarCampos() {
+    paymentsTotal.clear();
+    totalPayment.value = '0,00';
+  }
+
   //adicionar forma de pagamento e valor no paymentsTotal
   void addPaymentsTotal(String formPayment, String value) {
     Map<String, dynamic> newPayment = {'nome': formPayment, 'valor': value};
