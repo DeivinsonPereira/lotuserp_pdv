@@ -20,7 +20,6 @@ class PaymentPage extends StatefulWidget {
 
 class _PaymentPageState extends State<PaymentPage> {
   late NumberFormat formatoBrasileiro;
-  PdvController controller = Get.find();
 
   void pushSetState() {
     setState(() {});
@@ -28,6 +27,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
+    PdvController controller = Get.find();
     PaymentController controllerPayment = Get.put(PaymentController());
     IsarService service = IsarService();
     var paymentCount = 0.0;
@@ -287,11 +287,12 @@ class _PaymentPageState extends State<PaymentPage> {
 
         ramainingValueCb2 = valorMinusDiscountCb2 - totalPaid;
 
-        String remainingValueFormatted =
-            formatoBrasileiro.format(remainingValue);
+        double trocoCb1 = remainingValue > 0.0 ? 0.0 : remainingValue;
+        double trocoCb2 = ramainingValueCb2 > 0.0 ? 0.0 : ramainingValueCb2;
 
-        String remainingValueFormattedCb2 =
-            formatoBrasileiro.format(ramainingValueCb2);
+        String remainingValueFormatted = formatoBrasileiro.format(trocoCb1);
+
+        String remainingValueFormattedCb2 = formatoBrasileiro.format(trocoCb2);
 
         String text = remainingValue < 0 ? 'Troco' : 'Falta pagar';
         Color textColor = remainingValue < 0 ? Colors.red : Colors.black;
@@ -325,7 +326,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    controller.checkbox1.value ? text : textCb2,
+                    text,
                     style: const TextStyle(
                         color: Colors.black,
                         fontSize: 20,
