@@ -232,22 +232,41 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //Pagamento total
-    Widget totalPay(String text, String value, {bool calculateTotal = false}) {
-      if (calculateTotal) {
+    Widget totalPay(String text, String value,
+        {bool calculateTotal = false, bool isRest = false}) {
+      if (calculateTotal || isRest) {
         String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
         totalPaid = formatoBrasileiro.format(double.parse(totalPaid));
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(text),
-              Text(
-                calculateTotal ? totalPaid : value,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+        return Container(
+          color: const Color.fromARGB(255, 102, 102, 102),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    calculateTotal ? totalPaid : value,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       } else {
@@ -296,27 +315,38 @@ class _PaymentPageState extends State<PaymentPage> {
         controller.updateTroco(
             controller.checkbox1.value ? textToDouble : textToDoubleCb2);
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                controller.checkbox1.value ? text : textCb2,
-                style: TextStyle(
-                  color: controller.checkbox1.value ? textColor : textColorCb2,
+        return Container(
+          color: CustomColors.customContrastColor,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    controller.checkbox1.value ? text : textCb2,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
                 ),
-              ),
-              Text(
-                controller.checkbox1.value
-                    ? textReplaceMinus
-                    : textCb2ReplaceMinus,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: controller.checkbox1.value ? textColor : textColorCb2,
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    controller.checkbox1.value
+                        ? textReplaceMinus
+                        : textCb2ReplaceMinus,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       }
@@ -385,18 +415,24 @@ class _PaymentPageState extends State<PaymentPage> {
               flex: 1,
               child: Column(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-                    child: Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.grey,
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                  ),
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: totalPay(
+                              'Valor Recebido', paymentFormsFormated,
+                              calculateTotal: true),
+                        ),
+                        Expanded(
+                            child: totalPay('Restante', totalToPayFormatted,
+                                isRest: true)),
+                        Expanded(child: totalPay('Troco', totalToPayFormatted)),
+                      ],
                     ),
                   ),
-                  totalPay('Total pago', paymentFormsFormated,
-                      calculateTotal: true),
-                  totalPay('Falta pagar', totalToPayFormatted),
                 ],
               ))
         ],
