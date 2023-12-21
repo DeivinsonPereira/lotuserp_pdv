@@ -234,12 +234,53 @@ class _PaymentPageState extends State<PaymentPage> {
     //Pagamento total
     Widget totalPay(String text, String value,
         {bool calculateTotal = false, bool isRest = false}) {
+      double totalValue = 0.0;
+
+      for (var element in controller.pedidos) {
+        totalValue += element['total'];
+      }
+      String newValuetotalCb2 =
+          controller.numbersDiscountcb2.value.replaceAll(RegExp(r'[^\d]'), '');
+
+      double valorMinusDiscountCb2 =
+          totalValue - (double.parse(newValuetotalCb2) / 100);
+
+      double totalValueCb1 = controller.totalcheckBox1.value;
+      double totalPaid2 = controllerPayment.getTotalPaid();
+      remainingValue = totalValueCb1 - totalPaid2;
+
+      ramainingValueCb2 = valorMinusDiscountCb2 - totalPaid2;
+
+      double trocoCb1 = remainingValue < 0.0 ? 0.0 : remainingValue;
+      double trocoCb2 = ramainingValueCb2 < 0.0 ? 0.0 : ramainingValueCb2;
+
+      String remainingValueFormatted = formatoBrasileiro.format(trocoCb1);
+
+      String remainingValueFormattedCb2 = formatoBrasileiro.format(trocoCb2);
+
+      //transforma a virgula em ponto
+
+      String textReplaceMinus = remainingValueFormatted.replaceAll('-', '');
+      String textCb2ReplaceMinus =
+          remainingValueFormattedCb2.replaceAll('-', '');
+
       if (calculateTotal || isRest) {
         String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
         totalPaid = formatoBrasileiro.format(double.parse(totalPaid));
 
         return Container(
-          color: const Color.fromARGB(255, 102, 102, 102),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.black,
+              width: 1.0,
+            ),
+            color: const Color.fromARGB(255, 102, 102, 102),
+            borderRadius: calculateTotal
+                ? const BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                  )
+                : BorderRadius.circular(0),
+          ),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
@@ -258,7 +299,11 @@ class _PaymentPageState extends State<PaymentPage> {
                 Align(
                   alignment: Alignment.bottomRight,
                   child: Text(
-                    calculateTotal ? totalPaid : value,
+                    calculateTotal
+                        ? totalPaid
+                        : (controller.checkbox1.value
+                            ? textReplaceMinus
+                            : textCb2ReplaceMinus),
                     style: const TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
@@ -293,12 +338,6 @@ class _PaymentPageState extends State<PaymentPage> {
         String remainingValueFormatted = formatoBrasileiro.format(trocoCb1);
 
         String remainingValueFormattedCb2 = formatoBrasileiro.format(trocoCb2);
-
-        String text = remainingValue < 0 ? 'Troco' : 'Falta pagar';
-        Color textColor = remainingValue < 0 ? Colors.red : Colors.black;
-
-        String textCb2 = ramainingValueCb2 < 0 ? 'Troco' : 'Falta pagar';
-        Color textColorCb2 = ramainingValueCb2 < 0 ? Colors.red : Colors.black;
 
         //transforma a virgula em ponto
         String textformatadocb1 =
