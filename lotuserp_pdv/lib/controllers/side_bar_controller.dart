@@ -27,6 +27,7 @@ class SideBarController extends GetxController {
 
     Timer.periodic(const Duration(seconds: 1), (_) {
       hoursFormated();
+      updateDataAberturaCaixa();
     });
   }
 
@@ -46,7 +47,7 @@ class SideBarController extends GetxController {
 
   //formata a data referente à data de abertura do caixa
   void dateFormatted() async {
-    int tentativas = 3;
+    int tentativas = 5;
 
     for (int i = 0; i < tentativas; i++) {
       var logged = await service.getUserLogged();
@@ -71,6 +72,9 @@ class SideBarController extends GetxController {
     if (dataAberturaCaixa != null) {
       var dateFormatted = DateFormat('dd/MM/yyyy').format(dataAberturaCaixa);
       dataAbertura.value = dateFormatted;
+    }
+    if (dataAberturaCaixa == null) {
+      dataAbertura.value = '';
     }
   }
 }

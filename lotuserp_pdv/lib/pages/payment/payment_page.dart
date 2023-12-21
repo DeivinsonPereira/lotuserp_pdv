@@ -1,11 +1,15 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/global_widget/buttons.dart';
+import 'package:lotuserp_pdv/global_widget/global_controller.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
@@ -28,7 +32,34 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    PaymentController controllerPayment = Get.put(PaymentController());
+    PaymentController controllerPayment;
+    PdvController pdvController;
+    GlobalController globalController;
+    SideBarController sideBarController;
+
+    if (Get.isRegistered<PaymentController>()) {
+      controllerPayment = Get.find<PaymentController>();
+    } else {
+      controllerPayment = Get.put(PaymentController());
+    }
+    if (Get.isRegistered<PdvController>()) {
+      pdvController = Get.find<PdvController>();
+    } else {
+      pdvController = Get.put(PdvController());
+    }
+
+    if (Get.isRegistered<GlobalController>()) {
+      globalController = Get.find<GlobalController>();
+    } else {
+      globalController = Get.put(GlobalController());
+    }
+
+    if (Get.isRegistered<SideBarController>()) {
+      sideBarController = Get.find<SideBarController>();
+    } else {
+      sideBarController = Get.put(SideBarController());
+    }
+
     IsarService service = IsarService();
     var paymentCount = 0.0;
 
@@ -50,7 +81,10 @@ class _PaymentPageState extends State<PaymentPage> {
         children: [
           Row(
             children: [
-              ButtonsWidgets().backButtonPayment(),
+              IconButton(
+                  onPressed: () => Get.toNamed(PagesRoutes.pdvMonitor),
+                  icon: const Icon(Icons.arrow_back,
+                      color: Colors.black, size: 25)),
               const Padding(
                 padding: EdgeInsets.only(left: 25.0),
                 child: Text(
@@ -232,22 +266,45 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //Pagamento total
-    Widget totalPay(String text, String value, {bool calculateTotal = false}) {
-      if (calculateTotal) {
+    Widget totalPay(String text, String value, {bool calculateTotal = false, bool rest = false}) {
+      if (calculateTotal || rest) {
         String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
         totalPaid = formatoBrasileiro.format(double.parse(totalPaid));
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(text),
-              Text(
-                calculateTotal ? totalPaid : value,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ],
+        return Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: calculateTotal ? const BorderRadius.only(bottomLeft: Radius.circular(10)) : const BorderRadius.only(bottomRight: Radius.circular(0)),
+            color: const Color.fromARGB(255, 102, 102, 102),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    calculateTotal ? totalPaid : value,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       } else {
@@ -268,17 +325,16 @@ class _PaymentPageState extends State<PaymentPage> {
 
         ramainingValueCb2 = valorMinusDiscountCb2 - totalPaid;
 
+        double textReplaceTrocoCb1 =
+            remainingValue > 0.0 ? 0.0 : remainingValue;
+        double textReplaceTrocoCb2 =
+            ramainingValueCb2 > 0.0 ? 0.0 : ramainingValueCb2;
+
         String remainingValueFormatted =
-            formatoBrasileiro.format(remainingValue);
+            formatoBrasileiro.format(textReplaceTrocoCb1);
 
         String remainingValueFormattedCb2 =
-            formatoBrasileiro.format(ramainingValueCb2);
-
-        String text = remainingValue < 0 ? 'Troco' : 'Falta pagar';
-        Color textColor = remainingValue < 0 ? Colors.red : Colors.black;
-
-        String textCb2 = ramainingValueCb2 < 0 ? 'Troco' : 'Falta pagar';
-        Color textColorCb2 = ramainingValueCb2 < 0 ? Colors.red : Colors.black;
+            formatoBrasileiro.format(textReplaceTrocoCb2);
 
         //transforma a virgula em ponto
         String textformatadocb1 =
@@ -296,27 +352,46 @@ class _PaymentPageState extends State<PaymentPage> {
         controller.updateTroco(
             controller.checkbox1.value ? textToDouble : textToDoubleCb2);
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                controller.checkbox1.value ? text : textCb2,
-                style: TextStyle(
-                  color: controller.checkbox1.value ? textColor : textColorCb2,
+        return Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: CustomColors.customContrastColor,
+            borderRadius: const BorderRadius.only(
+              bottomRight: Radius.circular(10),
+            ),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    text,
+                    style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
-              ),
-              Text(
-                controller.checkbox1.value
-                    ? textReplaceMinus
-                    : textCb2ReplaceMinus,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: controller.checkbox1.value ? textColor : textColorCb2,
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    controller.checkbox1.value
+                        ? textReplaceMinus
+                        : textCb2ReplaceMinus,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      fontSize: 20,
+                    ),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         );
       }
@@ -382,23 +457,19 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
               )),
           Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(left: 20, right: 20, bottom: 15),
-                    child: Container(
-                      width: double.infinity,
-                      height: 1,
-                      color: Colors.grey,
-                    ),
-                  ),
-                  totalPay('Total pago', paymentFormsFormated,
-                      calculateTotal: true),
-                  totalPay('Falta pagar', totalToPayFormatted),
-                ],
-              ))
+              child: Row(
+            children: [
+              Expanded(
+                child: totalPay('Valor Recebido', paymentFormsFormated,
+                    calculateTotal: true),
+              ),
+              Expanded(
+                child: totalPay('Restante', paymentFormsFormated,
+                    rest: true),
+              ),
+              Expanded(child: totalPay('Troco', totalToPayFormatted)),
+            ],
+          ))
         ],
       );
     }

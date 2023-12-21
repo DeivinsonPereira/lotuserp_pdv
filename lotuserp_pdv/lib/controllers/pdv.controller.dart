@@ -61,6 +61,8 @@ class PdvController extends GetxController {
     update();
   }
 
+  
+
   //atualiza o valor do troco
   void updateTroco(double value) {
     checkbox1.value ? trocoCb1.value = value : trocoCb2.value = value;

@@ -151,7 +151,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               IconButton(
                                 onPressed: () {
                                   controller.pedidos.clear();
-                                  Get.back();
+                                  Get.toNamed(PagesRoutes.homePageRoute);
                                 },
                                 icon: const Icon(
                                   Icons.arrow_back,
@@ -774,7 +774,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             child: InkWell(
                               onTap: () {
                                 paymentController.zerarCampos();
-                                Get.toNamed(PagesRoutes.paymentRoute);
+                                Get.offAndToNamed(PagesRoutes.paymentRoute);
                               },
                               child: Padding(
                                 padding:
@@ -824,17 +824,19 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                               horizontal: 8.0),
                                           child: Align(
                                             alignment: Alignment.centerRight,
-                                            child: Obx(() => AutoSizeText(
-                                                  formatoBrasileiro.format(
-                                                      controller.totalcheckBox1
-                                                          .value),
-                                                  style: const TextStyle(
-                                                      fontSize: 30,
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                  maxLines: 1,
-                                                )),
+                                            child: Obx(
+                                              () => AutoSizeText(
+                                                formatoBrasileiro.format(
+                                                    controller
+                                                        .totalcheckBox1.value),
+                                                style: const TextStyle(
+                                                    fontSize: 30,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                                maxLines: 1,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
