@@ -13,20 +13,51 @@ var formatoBrasileiro = NumberFormat.currency(
 );
 
 class RowWidget {
-  Widget Rows(
-    String text,
-    String total,
-  ) {
+  Widget Rows(String text, String total,
+      {bool isSubtotal = false, bool istotal = false}) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 18.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(text),
-          Text(
-            total,
-          ),
-        ],
+      padding: isSubtotal
+          ? const EdgeInsets.only(right: 1.0)
+          : (istotal
+              ? const EdgeInsets.only(left: 1.0)
+              : const EdgeInsets.all(0)),
+      child: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          border: Border.all(width: 1, color: Colors.black),
+          borderRadius: istotal
+              ? const BorderRadius.only(bottomRight: Radius.circular(10))
+              : (isSubtotal
+                  ? const BorderRadius.only(bottomLeft: Radius.circular(10))
+                  : BorderRadius.circular(0)),
+          color: istotal
+              ? CustomColors.customContrastColor
+              : const Color.fromARGB(255, 102, 102, 102),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              text,
+              style: TextStyle(
+                  color: istotal ? Colors.black : Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            ),
+            Expanded(
+              child: Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  total,
+                  style: TextStyle(
+                      color: istotal ? Colors.black : Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

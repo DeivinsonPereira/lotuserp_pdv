@@ -140,9 +140,10 @@ class _PaymentPageState extends State<PaymentPage> {
           totalValue - (double.parse(newValuetotalCb2) / 100);
 
       String totalValueFormated = formatoBrasileiro.format(totalValue);
-      String totalFormat = formatoBrasileiro.format(controller.checkbox1.value
-          ? controller.totalcheckBox1.value
-          : valorMinusDiscountCb2);
+      String totalFormat = NumberFormat('#,##0.00', 'pt_BR').format(
+          controller.checkbox1.value
+              ? controller.totalcheckBox1.value
+              : valorMinusDiscountCb2);
       String numberDiscount = controller.checkbox1.value
           ? (!controller.numbersDiscount.value.isBlank!
               ? controller.numbersDiscount.value
@@ -162,20 +163,29 @@ class _PaymentPageState extends State<PaymentPage> {
                 right: 18.0,
               ),
               child: Container(
-                height: 1.0,
-                width: double.infinity,
-                color: Colors.grey,
+                height: 3.2,
               ),
             ),
-            Row(
-              children: [
-                RowWidget().Rows('Subtotal', totalValueFormated),
-                RowWidget().Rows(
-                  'Desconto na venda',
-                  numberDiscount,
-                ),
-                RowWidget().Rows('Total', totalFormat),
-              ],
+            Expanded(
+              child: Row(
+                children: [
+                  Expanded(
+                      flex: 1,
+                      child: RowWidget().Rows('Total Bruto', totalValueFormated,
+                          isSubtotal: true)),
+                  Expanded(
+                    flex: 1,
+                    child: RowWidget().Rows(
+                      'Descontos ',
+                      numberDiscount,
+                    ),
+                  ),
+                  Expanded(
+                      flex: 2,
+                      child: RowWidget()
+                          .Rows('Total Liquido', totalFormat, istotal: true)),
+                ],
+              ),
             ),
           ],
         ),
@@ -272,12 +282,16 @@ class _PaymentPageState extends State<PaymentPage> {
 
         //transforma a virgula em ponto
         String textformatadocb1 =
-            remainingValueFormatted.replaceAll(',', '.').replaceAll('-', '');
+            remainingValueFormatted.replaceAll(',', '').replaceAll('-', '');
         String textformatadocb2 =
-            remainingValueFormattedCb2.replaceAll(',', '.').replaceAll('-', '');
+            remainingValueFormattedCb2.replaceAll(',', '').replaceAll('-', '');
 
-        double textToDouble = double.parse(textformatadocb1);
-        double textToDoubleCb2 = double.parse(textformatadocb2);
+        String textReplaceMinus = remainingValueFormatted.replaceAll('-', '');
+        String textCb2ReplaceMinus =
+            remainingValueFormattedCb2.replaceAll('-', '');
+
+        double textToDouble = double.parse(textformatadocb1) / 100;
+        double textToDoubleCb2 = double.parse(textformatadocb2) / 100;
 
         controller.updateTroco(
             controller.checkbox1.value ? textToDouble : textToDoubleCb2);
@@ -295,8 +309,8 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
               Text(
                 controller.checkbox1.value
-                    ? remainingValueFormatted
-                    : remainingValueFormattedCb2,
+                    ? textReplaceMinus
+                    : textCb2ReplaceMinus,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: controller.checkbox1.value ? textColor : textColorCb2,
