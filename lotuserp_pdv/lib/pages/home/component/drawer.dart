@@ -83,11 +83,11 @@ class DrawerWidget extends StatelessWidget {
                       style:
                           const TextStyle(color: Colors.white, fontSize: 40.0),
                     ),
-                    Text(
-                      sideBarController.dataAbertura.value,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 14.0),
-                    ),
+                    Obx(() => Text(
+                          sideBarController.dataAbertura.value,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14.0),
+                        )),
                     Text(
                       userName,
                       style: const TextStyle(color: Colors.white, fontSize: 16),
@@ -238,7 +238,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
                             builder: (context) {
                               return const MovimentCashPage(); // Your AlertDialog widget
                             }))
-                    : {Get.toNamed(navigationIcon)},
+                    : {Get.offAndToNamed(navigationIcon)},
               );
       },
       child: Padding(
