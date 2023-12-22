@@ -186,7 +186,7 @@ class LoginPage extends StatelessWidget {
                                         ..id_user = idUser
                                         ..id_colaborador = userOnline;
                                       await service.insertUser(usuarioLogado);
-                                      await Get.toNamed(
+                                      await Get.offNamed(
                                           PagesRoutes.homePageRoute);
                                     } else {
                                       Get.snackbar(

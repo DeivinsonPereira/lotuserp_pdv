@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -196,12 +197,12 @@ class _ConfigPageState extends State<ConfigPage> {
       );
     }
 
-    Widget backButton() {
+    Widget backButton(String route) {
       return Align(
         alignment: Alignment.topLeft,
         child: IconButton(
           onPressed: () {
-            Get.back();
+            Get.offNamed(route);
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -354,7 +355,7 @@ class _ConfigPageState extends State<ConfigPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            backButton(),
+            backButton(PagesRoutes.loginRoute),
             const SizedBox(
               height: 75,
             ),

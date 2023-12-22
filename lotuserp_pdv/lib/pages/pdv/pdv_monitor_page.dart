@@ -91,6 +91,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     SideBarController sideBarController;
     PasswordController passwordController;
     GlobalController globalController;
+    PdvController controller = Get.isRegistered<PdvController>()
+        ? Get.find<PdvController>()
+        : Get.put(PdvController());
+    PaymentController paymentController = Get.isRegistered<PaymentController>()
+        ? Get.find<PaymentController>()
+        : Get.put(PaymentController());
 
     if (Get.isRegistered<SideBarController>()) {
       sideBarController = Get.find<SideBarController>();
@@ -155,7 +161,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               IconButton(
                                 onPressed: () {
                                   controller.pedidos.clear();
-                                  Get.toNamed(PagesRoutes.homePageRoute);
+                                  Get.offNamed(PagesRoutes.homePageRoute);
                                 },
                                 icon: const Icon(
                                   Icons.arrow_back,
@@ -778,7 +784,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             child: InkWell(
                               onTap: () {
                                 paymentController.zerarCampos();
-                                Get.toNamed(PagesRoutes.paymentRoute);
+                                Get.offNamed(PagesRoutes.paymentRoute);
                               },
                               child: Padding(
                                 padding:

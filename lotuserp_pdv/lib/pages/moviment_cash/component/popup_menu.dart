@@ -8,7 +8,10 @@ class PopupMenuMoviment extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MovimentRegisterController movimentController = Get.find();
+    MovimentRegisterController movimentController =
+        Get.isRegistered<MovimentRegisterController>()
+            ? Get.find<MovimentRegisterController>()
+            : Get.put(MovimentRegisterController());
 
     return PopupMenuButton(
       padding: EdgeInsets.zero,

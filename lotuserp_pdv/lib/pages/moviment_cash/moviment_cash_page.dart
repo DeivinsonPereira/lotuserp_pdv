@@ -92,12 +92,22 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController = Get.find();
-    var userName = passwordController.userController.text;
+    PasswordController passwordController =
+        Get.isRegistered<PasswordController>()
+            ? Get.find<PasswordController>()
+            : Get.put(PasswordController());
 
     MovimentRegisterController movimentRegisterController =
-        Get.put(MovimentRegisterController());
+        Get.isRegistered<MovimentRegisterController>()
+            ? Get.find<MovimentRegisterController>()
+            : Get.put(MovimentRegisterController());
 
+    // ignore: unused_local_variable
+    CaixaController caixaController = Get.isRegistered<CaixaController>()
+        ? Get.find<CaixaController>()
+        : Get.put(CaixaController());
+
+    var userName = passwordController.userController.text;
     tz.initializeTimeZones();
     var atualDate = DateTime.now();
 
@@ -106,11 +116,6 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
     var saoPauloTimeZone = tz.getLocation('America/Sao_Paulo');
     var saoPauloDateTime = tz.TZDateTime.from(atualDate, saoPauloTimeZone);
     var hourFormatted = DateFormat('HH:mm:ss').format(saoPauloDateTime);
-    // ignore: unused_local_variable
-    var parsedDateTime = DateFormat('HH:mm:ss').parse(hourFormatted);
-
-    // ignore: unused_local_variable
-    CaixaController caixaController = Get.put(CaixaController());
 
     return SingleChildScrollView(
       child: Dialog(

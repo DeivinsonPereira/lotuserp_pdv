@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/core/app_routes.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -34,7 +35,9 @@ class ProductMonitorPage extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   controller.searchExecuted.value = false;
-                  Get.back();
+                  Get.currentRoute == PagesRoutes.pdvMonitor
+                      ? Get.back()
+                      : Get.offNamed(PagesRoutes.homePageRoute);
                 },
                 icon: const Icon(
                   Icons.arrow_back_ios,

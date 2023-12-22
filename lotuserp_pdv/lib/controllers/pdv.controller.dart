@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math';
 
+import 'package:lotuserp_pdv/core/app_routes.dart';
+
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
 
@@ -56,12 +58,9 @@ class PdvController extends GetxController {
     totalcheckBox2.value = 0.0;
   }
 
-
   void updatePage() {
     update();
   }
-
-  
 
   //atualiza o valor do troco
   void updateTroco(double value) {
@@ -275,7 +274,7 @@ class PdvController extends GetxController {
     if (pedidos.isNotEmpty) {
       pedidos.clear();
 
-      Get.back();
+      Get.offNamed(PagesRoutes.pdvMonitor);
       update();
     }
   }

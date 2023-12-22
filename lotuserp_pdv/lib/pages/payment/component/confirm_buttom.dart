@@ -105,10 +105,7 @@ class ConfirmButtom extends StatelessWidget {
             : {
                 await service
                     .insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
-                Get.offNamedUntil(
-                  PagesRoutes.pdvMonitor,
-                  (route) => false,
-                ),
+                Get.offNamed(PagesRoutes.pdvMonitor)
               };
       },
       child: Text(text,
