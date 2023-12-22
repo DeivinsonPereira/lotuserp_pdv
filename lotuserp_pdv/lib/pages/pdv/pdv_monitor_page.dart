@@ -91,6 +91,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     SideBarController sideBarController;
     PasswordController passwordController;
     GlobalController globalController;
+    // ignore: unused_local_variable
     PdvController controller = Get.isRegistered<PdvController>()
         ? Get.find<PdvController>()
         : Get.put(PdvController());
@@ -784,7 +785,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             child: InkWell(
                               onTap: () {
                                 paymentController.zerarCampos();
-                                Get.offNamed(PagesRoutes.paymentRoute);
+                                Get.toNamed(PagesRoutes.paymentRoute);
                               },
                               child: Padding(
                                 padding:

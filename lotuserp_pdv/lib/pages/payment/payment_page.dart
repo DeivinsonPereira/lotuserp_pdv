@@ -28,7 +28,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     PdvController controller;
-    PaymentController controllerPayment; 
+    PaymentController controllerPayment;
     IsarService service = IsarService();
 
     if (Get.isRegistered<PdvController>()) {
@@ -281,49 +281,52 @@ class _PaymentPageState extends State<PaymentPage> {
         String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
         totalPaid = formatoBrasileiro.format(double.parse(totalPaid));
 
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.black,
-              width: 1.0,
+        return Padding(
+          padding: const EdgeInsets.only(right: 1.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+              color: const Color.fromARGB(255, 102, 102, 102),
+              borderRadius: calculateTotal
+                  ? const BorderRadius.only(
+                      bottomLeft: Radius.circular(10),
+                    )
+                  : BorderRadius.circular(0),
             ),
-            color: const Color.fromARGB(255, 102, 102, 102),
-            borderRadius: calculateTotal
-                ? const BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                  )
-                : BorderRadius.circular(0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    text,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    calculateTotal
-                        ? totalPaid
-                        : (controller.checkbox1.value
-                            ? textReplaceMinus
-                            : textCb2ReplaceMinus),
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      calculateTotal
+                          ? totalPaid
+                          : (controller.checkbox1.value
+                              ? textReplaceMinus
+                              : textCb2ReplaceMinus),
+                      style: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         );
@@ -369,7 +372,11 @@ class _PaymentPageState extends State<PaymentPage> {
             controller.checkbox1.value ? textToDouble : textToDoubleCb2);
 
         return Container(
-          color: CustomColors.customContrastColor,
+          decoration: BoxDecoration(
+              color: CustomColors.customContrastColor,
+              border: Border.all(width: 1, color: Colors.black),
+              borderRadius:
+                  const BorderRadius.only(bottomRight: Radius.circular(10))),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Column(
@@ -578,8 +585,9 @@ class _PaymentPageState extends State<PaymentPage> {
               ? remainingValue2 <= 0
               : false;
 
-      Color buttonColor =
-          isButtonEnabled ? CustomColors.customSwatchColor : Colors.grey;
+      Color buttonColor = isButtonEnabled
+          ? const Color(0xFF3C4055)
+          : const Color.fromARGB(193, 211, 211, 211);
 
       return Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -720,24 +728,20 @@ class _PaymentPageState extends State<PaymentPage> {
                 flex: 1,
                 child: Column(
                   children: [
-                    Expanded(
-                      flex: 7,
-                      child: Container(
-                        width: double.infinity,
-                        height: 500,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                        ),
-                        child: paymentForms(),
+                    Container(
+                      width: double.infinity,
+                      height: 450,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
                       ),
+                      child: paymentForms(),
                     ),
-                    Flexible(
-                      flex: 1,
+                    Container(
+                      height: 75,
                       child: listIcons(),
                     ),
-                    Flexible(
-                      flex: 1,
+                    Expanded(
                       child: finalizeButton(),
                     )
                   ],

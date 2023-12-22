@@ -6,6 +6,7 @@ import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/printer/printerTeste.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ConfigPage extends StatefulWidget {
@@ -265,64 +266,83 @@ class _ConfigPageState extends State<ConfigPage> {
     }
 
     Widget buttonConfirm() {
+      var size = MediaQuery.of(context).size;
+
       return Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Image.asset(
-                'assets/images/Logo_Nova_Transparente.png',
-                width: 250,
-              ),
-            ),
-            const SizedBox(
-              height: 75,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: ElevatedButton(
-                onPressed: () async {
-                  if (verificacoes() == true) {}
-                  textFieldController.salvarInformacoes(context);
-                  dado_empresa dadosEmpresa = dado_empresa()
-                    ..id_empresa =
-                        int.parse(textFieldController.idEmpresaController.text)
-                    ..id_nfce = int.parse(
-                        textFieldController.idSerieNfceController.text)
-                    ..num_caixa =
-                        int.parse(textFieldController.numCaixaController.text)
-                    ..intervalo_envio = int.parse(
-                        textFieldController.intervaloEnvioController.text)
-                    ..ip_empresa = textFieldController.ip;
-
-                  var iplocal = textFieldController.ip;
-
-                  if (iplocal != '' &&
-                      iplocal.isNotEmpty &&
-                      iplocal.isBlank == false) {
-                    await service.insertDadosEmpresariais(dadosEmpresa);
-                    await service.getEmpresa(
-                        textFieldController.idEmpresaController.text, iplocal);
-                    await service.getGrupo();
-                    await service.getProduto();
-                    await service.getUsuarios();
-                    await service.getTipo_recebimento();
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: CustomColors
-                      .customContrastColor, // Define a cor de fundo como amarelo
-                  minimumSize:
-                      const Size(300, 50), // Define a largura mínima como 200
-                ),
-                child: const Text(
-                  'Confirmar',
-                  style: TextStyle(color: Colors.white),
+        child: SizedBox(
+          height: size.height,
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.asset(
+                  'assets/images/Logo_Nova_Transparente.png',
+                  width: 250,
                 ),
               ),
-            )
-          ],
+              const SizedBox(
+                height: 75,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    if (verificacoes() == true) {}
+                    textFieldController.salvarInformacoes(context);
+                    dado_empresa dadosEmpresa = dado_empresa()
+                      ..id_empresa = int.parse(
+                          textFieldController.idEmpresaController.text)
+                      ..id_nfce = int.parse(
+                          textFieldController.idSerieNfceController.text)
+                      ..num_caixa =
+                          int.parse(textFieldController.numCaixaController.text)
+                      ..intervalo_envio = int.parse(
+                          textFieldController.intervaloEnvioController.text)
+                      ..ip_empresa = textFieldController.ip;
+
+                    var iplocal = textFieldController.ip;
+
+                    if (iplocal != '' &&
+                        iplocal.isNotEmpty &&
+                        iplocal.isBlank == false) {
+                      await service.insertDadosEmpresariais(dadosEmpresa);
+                      await service.getEmpresa(
+                          textFieldController.idEmpresaController.text,
+                          iplocal);
+                      await service.getGrupo();
+                      await service.getProduto();
+                      await service.getUsuarios();
+                      await service.getTipo_recebimento();
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: CustomColors
+                        .customContrastColor, // Define a cor de fundo como amarelo
+                    minimumSize:
+                        const Size(300, 50), // Define a largura mínima como 200
+                  ),
+                  child: const Text(
+                    'Confirmar',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  onPressed: () {
+                    Get.to(PrinterTeste());
+                  },
+                  icon: Icon(
+                    Icons.print,
+                    color: CustomColors.customSwatchColor,
+                    size: 50,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }

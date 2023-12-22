@@ -31,6 +31,7 @@ dependencies:
   timezone: ^0.9.2
   flutter_vector_icons: ^2.0.0
   sidebarx: ^0.16.3
+  flutter_simple_bluetooth_printer: ^0.1.4
 
   
 dev_dependencies:

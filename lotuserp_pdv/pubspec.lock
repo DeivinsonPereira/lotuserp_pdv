@@ -275,6 +275,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_simple_bluetooth_printer:
+    dependency: "direct main"
+    description:
+      name: flutter_simple_bluetooth_printer
+      sha256: "8771a87c2e2463b0999440f1a31b3f66f026e8383db0a5643c10b89f9c3494ca"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter

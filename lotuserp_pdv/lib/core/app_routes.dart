@@ -12,6 +12,7 @@ import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/splash_page.dart';
 
 import '../pages/home/Home_Monitor_page.dart';
+import '../pages/printer/printer_page.dart';
 
 abstract class AppPages {
   static final pages = <GetPage>[
@@ -63,6 +64,10 @@ abstract class AppPages {
       name: PagesRoutes.loadData,
       page: () => const DataManagerPage(),
     ),
+    GetPage(
+      name: PagesRoutes.printerPageRoute,
+      page: () => const PrinterPage(),
+    )
   ];
 }
 
@@ -79,4 +84,5 @@ abstract class PagesRoutes {
   static const String finishRegister = '/finish_register';
   static const String products = '/products';
   static const String loadData = '/load_data';
+  static const String printerPageRoute = '/printer_page';
 }

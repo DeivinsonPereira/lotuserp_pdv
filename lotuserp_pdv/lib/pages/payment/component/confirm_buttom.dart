@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/global_widget/global_controller.dart';
+import 'package:lotuserp_pdv/pages/pdv/pdv_monitor_page.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
@@ -105,7 +106,8 @@ class ConfirmButtom extends StatelessWidget {
             : {
                 await service
                     .insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
-                Get.offNamed(PagesRoutes.pdvMonitor)
+                Get.offNamedUntil(
+                    PagesRoutes.pdvMonitor, (route) => route.isFirst),
               };
       },
       child: Text(text,
