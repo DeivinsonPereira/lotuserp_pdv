@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
@@ -41,28 +43,73 @@ class PrinterPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed:
+                              printerController.selectedPrinter == null ||
+                                      printerController.isConnected.value
+                                  ? null
+                                  : () {
+                                      printerController.connectDevice();
+                                    },
                           child: const Text('Conectado'),
                         ),
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed: printerController.selectedPrinter ==
+                                      null ||
+                                  !printerController.isConnected.value
+                              ? null
+                              : () {
+                                  if (printerController.selectedPrinter !=
+                                      null) {
+                                    printerController.bluetoothManager
+                                        .disconnect();
+                                  }
+                                  printerController.isConnected.value = false;
+                                },
                           child: const Text('Desconectado'),
                         ),
                       ],
                     ),
                   ),
-                  const Padding(
-                    padding:  EdgeInsets.symmetric(vertical: 20.0),
-                    child:  Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.print,
-                          color: Colors.black,
-                        ),
-                        Text('Impressora'),
-                      ],
+                  DropdownButtonFormField(
+                    decoration: const InputDecoration(
+                      prefixIcon: Icon(
+                        Icons.print,
+                        size: 24,
+                      ),
+                      labelText: "Tipo de Impressora",
+                      labelStyle: TextStyle(fontSize: 18.0),
+                      focusedBorder: InputBorder.none,
+                      enabledBorder: InputBorder.none,
                     ),
+                    items: <DropdownMenuItem>[
+                      if (Platform.isAndroid || Platform.isIOS)
+                        const DropdownMenuItem(
+                          value: PrinterType.bluetooth,
+                          child: Text("bluetooth"),
+                        ),
+                      if (Platform.isAndroid || Platform.isWindows)
+                        const DropdownMenuItem(
+                          value: PrinterType.usb,
+                          child: Text("usb"),
+                        ),
+                      const DropdownMenuItem(
+                        value: PrinterType.network,
+                        child: Text("Wifi"),
+                      ),
+                    ],
+                    onChanged: (PrinterType? value) {
+                      setState(() {
+                        if (value != null) {
+                          setState(() {
+                            defaultPrinterType = value;
+                            selectedPrinter = null;
+                            isBle = false;
+                            isConnected = false;
+                            _scan();
+                          });
+                        }
+                      });
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20.0),

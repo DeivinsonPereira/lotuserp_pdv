@@ -332,7 +332,7 @@ class _ConfigPageState extends State<ConfigPage> {
                 alignment: Alignment.bottomRight,
                 child: IconButton(
                   onPressed: () {
-                    Get.to(PrinterTeste());
+                    Get.toNamed(PagesRoutes.printerPageRoute);
                   },
                   icon: Icon(
                     Icons.print,
