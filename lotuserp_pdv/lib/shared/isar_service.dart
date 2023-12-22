@@ -510,8 +510,14 @@ class IsarService {
 
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
-    PdvController pdvController = Get.find();
-    PaymentController paymentController = PaymentController();
+    PdvController pdvController = Get.isRegistered<PdvController>()
+        ? Get.find<PdvController>()
+        : Get.put(PdvController());
+    // ignore: unused_local_variable
+    PaymentController paymentController = Get.isRegistered<PaymentController>()
+        ? Get.find<PaymentController>()
+        : Get.put(PaymentController());
+        
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
 
@@ -534,11 +540,7 @@ class IsarService {
 
       await isar.venda_items.putAll(vendaItems);
 
-      
       pdvController.zerarCampos();
-      print('tamanho da lista pdv =  ${pdvController.pedidos.length}');
-      print(
-          'Tamanho da lista pagamento = ${paymentController.paymentsTotal.length}');
     });
 
     return isar;

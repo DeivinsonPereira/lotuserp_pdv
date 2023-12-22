@@ -15,8 +15,13 @@ class ConfigPage extends StatefulWidget {
 }
 
 class _ConfigPageState extends State<ConfigPage> {
-  TextFieldController textFieldController = Get.find();
+  TextFieldController textFieldController =
+      Get.isRegistered<TextFieldController>()
+          ? Get.find<TextFieldController>()
+          : Get.put(TextFieldController());
+
   IsarService service = IsarService();
+
   @override
   void initState() {
     super.initState();

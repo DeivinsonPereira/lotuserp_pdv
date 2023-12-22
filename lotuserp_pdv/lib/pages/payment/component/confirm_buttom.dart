@@ -24,9 +24,27 @@ class ConfirmButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    GlobalController globalController = Get.find();
-    PdvController pdvController = Get.find();
-    SideBarController sideBarController = Get.find();
+    GlobalController globalController;
+    PdvController pdvController;
+    SideBarController sideBarController;
+
+    if (Get.isRegistered<GlobalController>()) {
+      globalController = Get.find<GlobalController>();
+    } else {
+      globalController = Get.put(GlobalController());
+    }
+
+    if (Get.isRegistered<PdvController>()) {
+      pdvController = Get.find<PdvController>();
+    } else {
+      pdvController = Get.put(PdvController());
+    }
+
+    if (Get.isRegistered<SideBarController>()) {
+      sideBarController = Get.find<SideBarController>();
+    } else {
+      sideBarController = Get.put(SideBarController());
+    }
 
     return TextButton(
       onPressed: () async {

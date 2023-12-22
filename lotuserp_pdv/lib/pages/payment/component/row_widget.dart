@@ -64,7 +64,7 @@ class RowWidget {
 }
 
 class ButtonsPayment {
-  PdvController controller = Get.find();
+  PdvController controller = Get.isRegistered<PdvController>() ? Get.find<PdvController>() : Get.put(PdvController());
   double originalDiscountPercentage = 0.0;
   double originalTotalValue = 0.0;
 

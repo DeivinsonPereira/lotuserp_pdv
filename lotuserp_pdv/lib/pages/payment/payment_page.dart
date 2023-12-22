@@ -27,9 +27,22 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    PdvController controller = Get.find();
-    PaymentController controllerPayment = Get.put(PaymentController());
+    PdvController controller;
+    PaymentController controllerPayment; 
     IsarService service = IsarService();
+
+    if (Get.isRegistered<PdvController>()) {
+      controller = Get.find<PdvController>();
+    } else {
+      controller = Get.put(PdvController());
+    }
+
+    if (Get.isRegistered<PaymentController>()) {
+      controllerPayment = Get.find<PaymentController>();
+    } else {
+      controllerPayment = Get.put(PaymentController());
+    }
+
     var paymentCount = 0.0;
 
     String total;

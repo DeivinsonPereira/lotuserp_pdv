@@ -13,9 +13,23 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController = Get.put(PasswordController());
+    PasswordController passwordController;
     // ignore: unused_local_variable
-    TextFieldController textFieldController = Get.put(TextFieldController());
+    TextFieldController textFieldController;
+
+    if (Get.isRegistered<TextFieldController>()) {
+      textFieldController = Get.find<TextFieldController>();
+    } else {
+      textFieldController = Get.put(TextFieldController());
+    }
+    
+    if (Get.isRegistered<PasswordController>()) {
+      passwordController = Get.find<PasswordController>();
+    } else {
+      passwordController = Get.put(PasswordController());
+    }
+    
+    // ignore: unused_local_variable
     IsarService service = IsarService();
 
     bool areFieldsEmpty() {

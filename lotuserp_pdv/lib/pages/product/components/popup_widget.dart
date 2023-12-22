@@ -10,7 +10,9 @@ class PopupWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = Get.find();
+    ProdutoController controller = Get.isRegistered<ProdutoController>()
+        ? Get.find<ProdutoController>()
+        : Get.put(ProdutoController());
 
     return PopupMenuButton(
       padding: EdgeInsets.zero,

@@ -16,8 +16,13 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    SideBarController sideBarController = Get.put(SideBarController());
-    // ignore: unused_local_variable
+    SideBarController sideBarController;
+    if (Get.isRegistered<SideBarController>()) {
+      sideBarController = Get.find<SideBarController>();
+    } else {
+      sideBarController = Get.put(SideBarController());
+    }
+    
   
 
     var size = MediaQuery.of(context).size;

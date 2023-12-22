@@ -35,8 +35,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   late NumberFormat formatoBrasileiro;
   final ScrollController scrollController = ScrollController();
   IsarService service = IsarService();
-  PdvController controller = Get.put(PdvController());
-  PaymentController paymentController = Get.put(PaymentController());
+  PdvController controller = Get.isRegistered<PdvController>()
+      ? Get.find<PdvController>()
+      : Get.put(PdvController());
+  PaymentController paymentController = Get.isRegistered<PaymentController>()
+      ? Get.find<PaymentController>()
+      : Get.put(PaymentController());
 
   @override
   void initState() {

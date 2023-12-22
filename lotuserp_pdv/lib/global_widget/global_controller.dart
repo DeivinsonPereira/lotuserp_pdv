@@ -47,8 +47,5 @@ class GlobalController extends GetxController {
     caixaAberta = caixaVar ?? 0;
   }
 
-  @override
-  void onClose() {
-    super.onClose();
-  }
+  
 }

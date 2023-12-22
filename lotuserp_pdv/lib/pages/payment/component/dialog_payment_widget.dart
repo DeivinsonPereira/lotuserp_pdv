@@ -5,8 +5,12 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
 class DialogWidget {
-  PaymentController controller = Get.find();
-  PdvController pdvcontroller = Get.find();
+  PaymentController controller = Get.isRegistered<PaymentController>()
+      ? Get.find<PaymentController>()
+      : Get.put(PaymentController());
+  PdvController pdvcontroller = Get.isRegistered<PdvController>()
+      ? Get.find<PdvController>()
+      : Get.put(PdvController());
 
   var formatoBrasileiro = NumberFormat.currency(
     locale: 'pt_BR',

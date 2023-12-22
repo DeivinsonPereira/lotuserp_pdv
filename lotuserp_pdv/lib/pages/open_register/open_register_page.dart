@@ -16,10 +16,22 @@ class OpenRegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController = Get.find();
+    PasswordController passwordController; 
+    MovimentRegisterController movimentRegisterController;
     IsarService service = IsarService();
-    MovimentRegisterController movimentRegisterController =
-        Get.put(MovimentRegisterController());
+
+    if (Get.isRegistered<PasswordController>()) {
+      passwordController = Get.find<PasswordController>();
+    } else {
+      passwordController = Get.put(PasswordController());
+    }
+
+    if (Get.isRegistered<MovimentRegisterController>()) {
+      movimentRegisterController = Get.find<MovimentRegisterController>();
+    } else {
+      movimentRegisterController = Get.put(MovimentRegisterController());
+    }
+    
     var userName = passwordController.userController.text;
 
     tz.initializeTimeZones();

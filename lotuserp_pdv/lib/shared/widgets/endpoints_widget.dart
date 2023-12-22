@@ -3,7 +3,7 @@ import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class Endpoints {
-  TextFieldController textFieldController = Get.find();
+  TextFieldController textFieldController = Get.isRegistered<TextFieldController>() ? Get.find<TextFieldController>() : Get.put(TextFieldController());
   IsarService service = IsarService();
   
 

@@ -15,7 +15,10 @@ class ProductMonitorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = Get.put(ProdutoController());
+    ProdutoController controller = Get.isRegistered()
+        ? Get.find<ProdutoController>()
+        : Get.put(ProdutoController());
+
     IsarService service = IsarService();
 
     var size = MediaQuery.of(context).size;
