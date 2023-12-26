@@ -243,11 +243,8 @@ class PrinterController extends GetxController {
       await bluetoothManager
           .writeText('\n --------------------------------- \n');
       await bluetoothManager.writeText('CONFERIDO POR: ');
-      final isSuccess = await bluetoothManager.writeText('\n\n\n\n\n\n\n\n');
+       await bluetoothManager.writeText('\n\n\n\n\n\n\n\n');
 
-      if (isSuccess) {
-        await bluetoothManager.disconnect();
-      }
       update();
     } on BTException {
       return;
