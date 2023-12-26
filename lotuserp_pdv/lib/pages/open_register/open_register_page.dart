@@ -11,14 +11,17 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../controllers/printer_controller.dart';
+
 class OpenRegisterPage extends StatelessWidget {
   const OpenRegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController; 
+    PasswordController passwordController;
     MovimentRegisterController movimentRegisterController;
     IsarService service = IsarService();
+    PrinterController printerController;
 
     if (Get.isRegistered<PasswordController>()) {
       passwordController = Get.find<PasswordController>();
@@ -31,7 +34,7 @@ class OpenRegisterPage extends StatelessWidget {
     } else {
       movimentRegisterController = Get.put(MovimentRegisterController());
     }
-    
+
     var userName = passwordController.userController.text;
 
     tz.initializeTimeZones();
@@ -298,6 +301,7 @@ class OpenRegisterPage extends StatelessWidget {
                                           ..enviado = 0
                                           ..id_caixa_servidor = 0;
                                         if (openRegisterDouble > 0.00) {
+                                          // ignore: use_build_context_synchronously
                                           await service
                                               .insertCaixaWithCaixaItem(
                                                   caixas,
@@ -306,6 +310,7 @@ class OpenRegisterPage extends StatelessWidget {
                                                   openRegisterDouble);
                                           movimentRegisterController
                                               .clearOpenRegister();
+                                          
                                           Get.back();
                                         } else if (openRegisterDouble == 0.00 &&
                                             !caixaExistente) {

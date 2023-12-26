@@ -7,6 +7,7 @@ import 'package:isar/isar.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
+import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
@@ -17,6 +18,7 @@ import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
@@ -469,6 +471,14 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  Future<tipo_recebimento?> search_tipoRecebimento(int id) async {
+    final isar = await db;
+
+    var tipo = await isar.tipo_recebimentos.filter().idEqualTo(id).findFirst();
+
+    return tipo;
+  }
+
   //metodos para inserir dados no banco ########################################################
 
   //inserir dados na tabela caixa
@@ -488,11 +498,20 @@ class IsarService {
   Future<Isar> insertCaixaWithCaixaItem(caixa caixa, DateTime atualDate,
       String hourFormatted, double openRegisterDouble) async {
     final isar = await db;
+    PrinterController printerController;
 
-    isar.writeTxn(() async {
+    caixa_item caixaItem = caixa_item();
+
+    if (Get.isRegistered<PrinterController>()) {
+      printerController = Get.find<PrinterController>();
+    } else {
+      printerController = Get.put(PrinterController());
+    }
+
+    await isar.writeTxn(() async {
       await isar.caixas.put(caixa);
 
-      caixa_item caixaItem = caixa_item()
+      caixaItem = caixa_item()
         ..id_caixa = caixa.id_caixa
         ..descricao = 'ABERTURA DE CAIXA'
         ..data = atualDate
@@ -505,7 +524,16 @@ class IsarService {
 
       await isar.caixa_items.put(caixaItem);
     });
+    await printerController.print2x1OpenRegister(caixaItem);
     return isar;
+  }
+
+  Future<empresa?> searchEmpresa() async {
+    final isar = await db;
+
+    var empresa = await isar.empresas.where().findFirst();
+
+    return empresa;
   }
 
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
@@ -517,7 +545,7 @@ class IsarService {
     PaymentController paymentController = Get.isRegistered<PaymentController>()
         ? Get.find<PaymentController>()
         : Get.put(PaymentController());
-        
+
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
 
@@ -866,6 +894,34 @@ class IsarService {
     }
   }
 
+  //salvar dados da impressora padrão se já houver alguma salva, ele substitui
+  Future<Isar> insertDefaultPrinter(default_printer printer) async {
+    final isar = await db;
+
+    int i = await isar.default_printers.count();
+
+    if (i >= 0) {
+      isar.writeTxn(
+        () async {
+          await isar.default_printers.clear();
+          await isar.default_printers.put(printer);
+        },
+      );
+    }
+
+    isar.writeTxn(() async {
+      await isar.default_printers.put(printer);
+    });
+    return isar;
+  }
+
+  //busca o dados da impressora padrão
+  Future<default_printer?> getDefaultPrinter() async {
+    final isar = await db;
+
+    return await isar.default_printers.where().findFirst();
+  }
+
   //abre o banco de dados
   Future<Isar> openDB() async {
     final dir = await getApplicationSupportDirectory();
@@ -884,6 +940,7 @@ class IsarService {
           Dado_empresaSchema,
           Usuario_logadoSchema,
           Tipo_recebimentoSchema,
+          Default_printerSchema
         ],
         directory: dir.path,
       );

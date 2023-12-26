@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -21,9 +22,10 @@ class GlobalController extends GetxController {
 
   //busca o id da empresa de acordo com as configurações iniciais do sistema
   void updateIdEmpresa() async {
-    await service
-        .getDataEmpresa()
-        .then((value) => empresaId = value!.id_empresa!);
+    dado_empresa? empresa = await service.getDataEmpresa();
+    if (empresa != null) {
+      empresaId = empresa.id;
+    }
   }
 
   //busca a serie do nfce de acordo com as configurações iniciais do sistema
@@ -46,6 +48,4 @@ class GlobalController extends GetxController {
 
     caixaAberta = caixaVar ?? 0;
   }
-
-  
 }

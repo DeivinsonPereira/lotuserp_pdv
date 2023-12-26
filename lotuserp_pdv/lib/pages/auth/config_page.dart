@@ -6,7 +6,6 @@ import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/pages/printer/printerTeste.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class ConfigPage extends StatefulWidget {

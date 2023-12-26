@@ -16,7 +16,7 @@ import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../global_widget/global_controller.dart';
+import '../../controllers/global_controller.dart';
 import '../product/product_monitor_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {

@@ -84,7 +84,7 @@ class DrawerWidget extends StatelessWidget {
                           const TextStyle(color: Colors.white, fontSize: 40.0),
                     ),
                     Obx(() => Text(
-                          sideBarController.dataAbertura.value,
+                          sideBarController.dateNowFormated.value,
                           style: const TextStyle(
                               color: Colors.white, fontSize: 14.0),
                         )),

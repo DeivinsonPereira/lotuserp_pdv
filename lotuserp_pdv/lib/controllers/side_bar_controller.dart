@@ -10,6 +10,7 @@ class SideBarController extends GetxController {
   RxBool isOpen = false.obs;
   RxString dataAbertura = ''.obs;
   RxString hours = ''.obs;
+  RxString dateNowFormated = ''.obs;
 
   IsarService service = IsarService();
 
@@ -22,11 +23,11 @@ class SideBarController extends GetxController {
   void onInit() {
     super.onInit();
     initializeTimezone();
-    hoursFormated();
+    hoursAndDayFormated();
     dateFormatted();
 
     Timer.periodic(const Duration(seconds: 1), (_) {
-      hoursFormated();
+      hoursAndDayFormated();
       updateDataAberturaCaixa();
     });
   }
@@ -37,11 +38,16 @@ class SideBarController extends GetxController {
   }
 
   //formata a hora referente ao horario de São Paulo
-  void hoursFormated() {
+  void hoursAndDayFormated() {
+    //horário de São Paulo
     var saoPauloTimeZone = tz.getLocation('America/Sao_Paulo');
     var saoPauloDateTime = tz.TZDateTime.from(DateTime.now(), saoPauloTimeZone);
     var hourFormatted = DateFormat('HH:mm:ss').format(saoPauloDateTime);
 
+    // data de São Paulo
+    var dateFormatted = DateFormat('dd/MM/yyyy').format(saoPauloDateTime);
+
+    dateNowFormated.value = dateFormatted;
     hours.value = hourFormatted;
   }
 

@@ -8,6 +8,8 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../controllers/printer_controller.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -16,6 +18,15 @@ class LoginPage extends StatelessWidget {
     PasswordController passwordController;
     // ignore: unused_local_variable
     TextFieldController textFieldController;
+    // ignore: unused_local_variable
+    PrinterController printerController;
+
+
+    if (Get.isRegistered<PrinterController>()) {
+      printerController = Get.find<PrinterController>();
+    } else {
+      printerController = Get.put(PrinterController());
+    }
 
     if (Get.isRegistered<TextFieldController>()) {
       textFieldController = Get.find<TextFieldController>();
@@ -28,7 +39,7 @@ class LoginPage extends StatelessWidget {
     } else {
       passwordController = Get.put(PasswordController());
     }
-    
+
     // ignore: unused_local_variable
     IsarService service = IsarService();
 

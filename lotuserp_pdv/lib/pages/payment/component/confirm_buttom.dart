@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
-import 'package:lotuserp_pdv/global_widget/global_controller.dart';
-import 'package:lotuserp_pdv/pages/pdv/pdv_monitor_page.dart';
+import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';

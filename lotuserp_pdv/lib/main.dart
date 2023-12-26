@@ -14,6 +14,8 @@ import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/core/app_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'collections/default_printer.dart';
+
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // só deixa inicializar o run depois dos comandos async abaixo estiverem rodando.
@@ -31,6 +33,7 @@ void main() async {
       Dado_empresaSchema,
       Usuario_logadoSchema,
       Tipo_recebimentoSchema,
+      Default_printerSchema,
     ],
     directory: dir.path,
     inspector: true,
