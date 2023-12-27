@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
 import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printer.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
@@ -93,7 +92,7 @@ class PrinterController extends GetxController {
       final bondedDevices = await bluetoothManager.getAndroidPairedDevices();
       devices.addAll(bondedDevices);
       update();
-    } on BTException catch (e) {
+    } on BTException {
       return;
     } finally {
       isScanning.value = false;
@@ -124,7 +123,7 @@ class PrinterController extends GetxController {
       isConnected.value =
           await bluetoothManager.connect(address: selectedPrinter!.address);
       update();
-    } on BTException catch (e) {
+    } on BTException {
       return;
     }
   }
@@ -169,33 +168,31 @@ class PrinterController extends GetxController {
       if (!isConnected.value) return;
 
       //variáveis para montagem da impressão
-      String nomeEmpresa = ''; // - ok
-      String ruaEmpresa = ''; // - ok
-      String numeroEmpresa = ''; // - ok
-      String bairroEmpresa = ''; // - ok
+      String nomeEmpresa = '';
+      String ruaEmpresa = '';
+      String numeroEmpresa = '';
+      String bairroEmpresa = '';
 
       const typeMovimentation = 'ABERTURA DO CAIXA';
 
-      var name = 'LOTUS ERP PDV:'; // - ok
-      var data = sideBarController.dateNowFormated.value; // - ok
-      var hour = sideBarController.hours.value; // - ok
+      var name = 'LOTUS ERP PDV:';
+      var data = sideBarController.dateNowFormated.value;
+      var hour = sideBarController.hours.value;
 
       //variaveis referente à caixaItem
-      String registro = caixaItem.id.toString(); // - ok
-      var datatransacao = sideBarController.dateNowFormated.value; // - ok
-      String horaTransacao = caixaItem.hora; // - ok
-      String descricao = typeMovimentation; // - ok
+      String registro = caixaItem.id.toString();
+      var datatransacao = sideBarController.dateNowFormated.value;
+      String horaTransacao = caixaItem.hora;
+      String descricao = typeMovimentation;
 
-      String valorCre =
-          FormatNumbers.formatNumbertoString(caixaItem.valor_cre); // - ok
-      String valorDeb =
-          FormatNumbers.formatNumbertoString(caixaItem.valor_deb); // - ok
-      String forma = ''; // - ok
+      String valorCre = FormatNumbers.formatNumbertoString(caixaItem.valor_cre);
+      String valorDeb = FormatNumbers.formatNumbertoString(caixaItem.valor_deb);
+      String forma = '';
 
       //variaveis referente a Caixa
-      int idCaixa = 0; // - ok
-      var usuario = ''; // - ok
-      String? abertura = ''; // - ok
+      int idCaixa = 0;
+      var usuario = '';
+      String? abertura = '';
 
       //busca dados da empresa para alimentar as variaveis de impressão
       empresa? dataEmpresa = await service.searchEmpresa();
@@ -284,33 +281,31 @@ class PrinterController extends GetxController {
       if (!isConnected.value) return;
 
       //variáveis para montagem da impressão
-      String nomeEmpresa = ''; // - ok
-      String ruaEmpresa = ''; // - ok
-      String numeroEmpresa = ''; // - ok
-      String bairroEmpresa = ''; // - ok
+      String nomeEmpresa = '';
+      String ruaEmpresa = '';
+      String numeroEmpresa = '';
+      String bairroEmpresa = '';
 
       const typeMovimentation = 'MOVIMENTACAO CAIXA';
 
-      var name = 'LOTUS ERP PDV:'; // - ok
-      var data = sideBarController.dateNowFormated.value; // - ok
-      var hour = sideBarController.hours.value; // - ok
+      var name = 'LOTUS ERP PDV:';
+      var data = sideBarController.dateNowFormated.value;
+      var hour = sideBarController.hours.value;
 
       //variaveis referente à caixaItem
-      String registro = caixaItem.id.toString(); // - ok
-      var datatransacao = sideBarController.dateNowFormated.value; // - ok
-      String horaTransacao = caixaItem.hora; // - ok
-      String descricao = typeMovimentation; // - ok
+      String registro = caixaItem.id.toString();
+      var datatransacao = sideBarController.dateNowFormated.value;
+      String horaTransacao = caixaItem.hora;
+      String descricao = caixaItem.descricao;
 
-      String valorCre =
-          FormatNumbers.formatNumbertoString(caixaItem.valor_cre); // - ok
-      String valorDeb =
-          FormatNumbers.formatNumbertoString(caixaItem.valor_deb); // - ok
-      String forma = ''; // - ok
+      String valorCre = FormatNumbers.formatNumbertoString(caixaItem.valor_cre);
+      String valorDeb = FormatNumbers.formatNumbertoString(caixaItem.valor_deb);
+      String forma = '';
 
       //variaveis referente a Caixa
-      int idCaixa = 0; // - ok
-      var usuario = ''; // - ok
-      String? abertura = ''; // - ok
+      int idCaixa = 0;
+      var usuario = '';
+      String? abertura = '';
 
       //busca dados da empresa para alimentar as variaveis de impressão
       empresa? dataEmpresa = await service.searchEmpresa();
@@ -374,8 +369,8 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      /*String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);*/
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);
     } on BTException {
       return;
     }

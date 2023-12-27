@@ -5,6 +5,7 @@ import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/core/format_txt.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -23,6 +24,7 @@ class _ConfigPageState extends State<ConfigPage> {
 
   IsarService service = IsarService();
 
+  //inicia o controller dos campos de texto
   @override
   void initState() {
     super.initState();
@@ -33,6 +35,7 @@ class _ConfigPageState extends State<ConfigPage> {
     fetchDataFromDatabase('Intervalo de envio');
   }
 
+  //Busca dados do banco para preencher os campos de texto
   Future<void> fetchDataFromDatabase(String variableName) async {
     final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
     if (dadoEmpresa != null) {
@@ -65,6 +68,7 @@ class _ConfigPageState extends State<ConfigPage> {
 
   @override
   Widget build(BuildContext context) {
+    //Molde dos campos de texto de configuração do PDV
     Widget textFormFields(
         IconData icon, TextEditingController? controller, String variableName,
         {bool numericKeyboard = false, bool useIconButton = false}) {
@@ -114,10 +118,11 @@ class _ConfigPageState extends State<ConfigPage> {
                                   icon: Icons.error,
                                   backgroundColor: Colors.red,
                                   textColor: Colors.white,
-                                ).show(context);
+                                ).show();
                               } else {
                                 textFieldController.salvarInformacoesContrato();
-                                String ip = await service.getIpEmpresa(context);
+                                String ip = await service.getIpEmpresa(
+                                    isCorrectUrl: true);
                                 if (ip.isNotEmpty) {
                                   setState(
                                     () {
@@ -162,6 +167,7 @@ class _ConfigPageState extends State<ConfigPage> {
       );
     }
 
+    //campos de texto do formulário para configuração do sistema
     Widget textFormFieldsCamp() {
       return Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -197,6 +203,7 @@ class _ConfigPageState extends State<ConfigPage> {
       );
     }
 
+    //botão voltar
     Widget backButton(String route) {
       return Align(
         alignment: Alignment.topLeft,
@@ -212,6 +219,7 @@ class _ConfigPageState extends State<ConfigPage> {
       );
     }
 
+    //verificações de campos obrigatórios
     bool verificacoes() {
       if (textFieldController.numContratoEmpresaController.text.isEmpty) {
         const CustomSnackBar(
@@ -220,7 +228,7 @@ class _ConfigPageState extends State<ConfigPage> {
           icon: Icons.error,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-        ).show(context);
+        ).show();
         return true;
       } else if (textFieldController.idEmpresaController.text.isEmpty) {
         const CustomSnackBar(
@@ -229,7 +237,7 @@ class _ConfigPageState extends State<ConfigPage> {
           icon: Icons.error,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-        ).show(context);
+        ).show();
         return true;
       } else if (textFieldController.idSerieNfceController.text.isEmpty) {
         const CustomSnackBar(
@@ -238,7 +246,7 @@ class _ConfigPageState extends State<ConfigPage> {
           icon: Icons.error,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-        ).show(context);
+        ).show();
         return true;
       } else if (textFieldController.numCaixaController.text.isEmpty) {
         const CustomSnackBar(
@@ -247,7 +255,7 @@ class _ConfigPageState extends State<ConfigPage> {
           icon: Icons.error,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-        ).show(context);
+        ).show();
         return true;
       } else if (textFieldController.intervaloEnvioController.text.isEmpty) {
         const CustomSnackBar(
@@ -256,7 +264,7 @@ class _ConfigPageState extends State<ConfigPage> {
           icon: Icons.error,
           backgroundColor: Colors.red,
           textColor: Colors.white,
-        ).show(context);
+        ).show();
         return true;
       } else {
         Get.back();
@@ -264,6 +272,7 @@ class _ConfigPageState extends State<ConfigPage> {
       }
     }
 
+    //Botão de confirmação
     Widget buttonConfirm() {
       var size = MediaQuery.of(context).size;
 
@@ -289,6 +298,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   onPressed: () async {
                     if (verificacoes() == true) {}
                     textFieldController.salvarInformacoes(context);
+                    await service.getIpEmpresa(isCorrectUrl: true);
                     dado_empresa dadosEmpresa = dado_empresa()
                       ..id_empresa = int.parse(
                           textFieldController.idEmpresaController.text)
@@ -346,6 +356,7 @@ class _ConfigPageState extends State<ConfigPage> {
       );
     }
 
+    //Conteiner do conteúdo
     Widget centerContainer() {
       return Container(
         width: 1100,
@@ -369,6 +380,7 @@ class _ConfigPageState extends State<ConfigPage> {
       );
     }
 
+    //Scaffold do conteúdo
     return Scaffold(
       backgroundColor: CustomColors.customSwatchColor,
       body: SingleChildScrollView(

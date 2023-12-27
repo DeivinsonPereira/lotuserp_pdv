@@ -61,61 +61,78 @@ class IsarService {
 
     Uri getEmpresa =
         Uri.parse('${companyIp}pdvmobget01_empresa?pidEmpresa=$companyId');
-    final response = await http.get(
-      getEmpresa,
-      headers: _headers,
-    );
-    if (response.statusCode == 200) {
-      var empresas = jsonDecode(utf8.decode(response.bodyBytes));
+    try {
+      final response = await http.get(
+        getEmpresa,
+        headers: _headers,
+      );
+      if (response.statusCode == 200) {
+        var empresas = jsonDecode(utf8.decode(response.bodyBytes));
 
-      final emp = empresa(
-          empresas['itens'][0]['id'],
-          empresas['itens'][0]['razao'],
-          empresas['itens'][0]['fantasia'],
-          empresas['itens'][0]['cnpj'],
-          empresas['itens'][0]['insc_estadual'],
-          empresas['itens'][0]['insc_municipal'],
-          empresas['itens'][0]['fone1'],
-          empresas['itens'][0]['fone2'],
-          empresas['itens'][0]['fone3'],
-          empresas['itens'][0]['endereco'],
-          empresas['itens'][0]['bairro'],
-          empresas['itens'][0]['numero'],
-          empresas['itens'][0]['municipio'],
-          empresas['itens'][0]['municipio_uf'],
-          empresas['itens'][0]['cep'],
-          empresas['itens'][0]['email'],
-          empresas['itens'][0]['site'],
-          empresas['itens'][0]['complemento'],
-          empresas['itens'][0]['estoque_grade'],
-          empresas['itens'][0]['usar_paf_nfce'],
-          empresas['itens'][0]['param_nf_crt'],
-          empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
-          empresas['itens'][0]['param_vendas_tpcomissao'],
-          empresas['itens'][0]['param_vendas_portador'],
-          empresas['itens'][0]['param_vendas_descmaximo'].toDouble(),
-          empresas['itens'][0]['param_pdv_codigopesagem'],
-          empresas['itens'][0]['param_pdv_formapagto'],
-          empresas['itens'][0]['param_pdv_cliente'],
-          empresas['itens'][0]['param_pdv_bloq_est_neg'],
-          empresas['itens'][0]['param_pdv_validar_cx_fechado'],
-          empresas['itens'][0]['param_pdv_senha_cancelar'],
-          empresas['itens'][0]['param_pdv_imp_cp_nf_venda'],
-          empresas['itens'][0]['param_pdv_prodcomposto'],
-          empresas['itens'][0]['param_pdv_informa_cliente'],
-          empresas['itens'][0]['param_pdv_vendedor_venda'],
-          empresas['itens'][0]['param_pdv_cartao_gerarparc'],
-          empresas['itens'][0]['param_pdv_imp_comprovante'],
-          empresas['itens'][0]['param_pdv_permitir_desconto'],
-          empresas['itens'][0]['param_pdv_tipo_desconto'],
-          empresas['itens'][0]['param_pdv_gerar_senha'],
-          empresas['itens'][0]['param_pdv_comanda_producao']);
-      isar.writeTxn(() async {
-        await isar.empresas.put(emp);
-      });
-      return isar;
-    } else {
-      throw Exception('Não foi possível encontrar os itens do banco de dados');
+        final emp = empresa(
+            empresas['itens'][0]['id'],
+            empresas['itens'][0]['razao'],
+            empresas['itens'][0]['fantasia'],
+            empresas['itens'][0]['cnpj'],
+            empresas['itens'][0]['insc_estadual'],
+            empresas['itens'][0]['insc_municipal'],
+            empresas['itens'][0]['fone1'],
+            empresas['itens'][0]['fone2'],
+            empresas['itens'][0]['fone3'],
+            empresas['itens'][0]['endereco'],
+            empresas['itens'][0]['bairro'],
+            empresas['itens'][0]['numero'],
+            empresas['itens'][0]['municipio'],
+            empresas['itens'][0]['municipio_uf'],
+            empresas['itens'][0]['cep'],
+            empresas['itens'][0]['email'],
+            empresas['itens'][0]['site'],
+            empresas['itens'][0]['complemento'],
+            empresas['itens'][0]['estoque_grade'],
+            empresas['itens'][0]['usar_paf_nfce'],
+            empresas['itens'][0]['param_nf_crt'],
+            empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
+            empresas['itens'][0]['param_vendas_tpcomissao'],
+            empresas['itens'][0]['param_vendas_portador'],
+            empresas['itens'][0]['param_vendas_descmaximo'].toDouble(),
+            empresas['itens'][0]['param_pdv_codigopesagem'],
+            empresas['itens'][0]['param_pdv_formapagto'],
+            empresas['itens'][0]['param_pdv_cliente'],
+            empresas['itens'][0]['param_pdv_bloq_est_neg'],
+            empresas['itens'][0]['param_pdv_validar_cx_fechado'],
+            empresas['itens'][0]['param_pdv_senha_cancelar'],
+            empresas['itens'][0]['param_pdv_imp_cp_nf_venda'],
+            empresas['itens'][0]['param_pdv_prodcomposto'],
+            empresas['itens'][0]['param_pdv_informa_cliente'],
+            empresas['itens'][0]['param_pdv_vendedor_venda'],
+            empresas['itens'][0]['param_pdv_cartao_gerarparc'],
+            empresas['itens'][0]['param_pdv_imp_comprovante'],
+            empresas['itens'][0]['param_pdv_permitir_desconto'],
+            empresas['itens'][0]['param_pdv_tipo_desconto'],
+            empresas['itens'][0]['param_pdv_gerar_senha'],
+            empresas['itens'][0]['param_pdv_comanda_producao']);
+        isar.writeTxn(() async {
+          await isar.empresas.put(emp);
+        });
+        return isar;
+      } else {
+        return const CustomSnackBar(
+          title: 'Erro',
+          message:
+              'Falha ao buscar dados da empresa. Tente novamente mais tarde!',
+          icon: Icons.error,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+        ).show();
+      }
+    } catch (e) {
+      return const CustomSnackBar(
+        title: 'Erro',
+        message: 'Erro ao conectar ao servidor. Tente novamente mais tarde!',
+        icon: Icons.error,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      ).show();
     }
   }
 
@@ -137,47 +154,49 @@ class IsarService {
         },
       );
     }
+    try {
+      dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
-    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+      var ipEmpresaUrl = '';
+      var idEmpresaNum = 0;
 
-    var ipEmpresaUrl = '';
-    var idEmpresaNum = 0;
-
-    if (dadoEmpresa != null) {
-      ipEmpresaUrl = dadoEmpresa.ip_empresa!;
-      idEmpresaNum = dadoEmpresa.id_empresa!;
-    }
-
-    Uri getGrupo = Uri.parse(
-        '${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
-    final response = await http.get(
-      getGrupo,
-      headers: _headers,
-    );
-    if (response.statusCode == 200) {
-      Map<String, dynamic> grupo = jsonDecode(utf8.decode(response.bodyBytes));
-
-      var grupoCount = grupo['itens'].length;
-
-      final List<produto_grupo> listaGrupo = [];
-
-      for (int i = 0; i < grupoCount; i++) {
-        final gru = produto_grupo(
-          grupo['itens'][i]['id_grupo'],
-          grupo['itens'][i]['grupo_descricao'],
-          grupo['itens'][i]['status'],
-          grupo['itens'][i]['file_imagem'],
-        );
-
-        listaGrupo.add(gru);
+      if (dadoEmpresa != null) {
+        ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+        idEmpresaNum = dadoEmpresa.id_empresa!;
       }
 
-      isar.writeTxn(() async {
-        await isar.produto_grupos.putAll(listaGrupo);
-      });
-      return isar;
-    } else {
-      throw Exception('Não foi possível encontrar os itens do banco de dados');
+      Uri getGrupo = Uri.parse(
+          '${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
+      final response = await http.get(
+        getGrupo,
+        headers: _headers,
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> grupo =
+            jsonDecode(utf8.decode(response.bodyBytes));
+
+        var grupoCount = grupo['itens'].length;
+
+        final List<produto_grupo> listaGrupo = [];
+
+        for (int i = 0; i < grupoCount; i++) {
+          final gru = produto_grupo(
+            grupo['itens'][i]['id_grupo'],
+            grupo['itens'][i]['grupo_descricao'],
+            grupo['itens'][i]['status'],
+            grupo['itens'][i]['file_imagem'],
+          );
+
+          listaGrupo.add(gru);
+        }
+
+        isar.writeTxn(() async {
+          await isar.produto_grupos.putAll(listaGrupo);
+        });
+        return isar;
+      }
+    } catch (e) {
+      return Container();
     }
   }
 
@@ -213,78 +232,80 @@ class IsarService {
       idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
-    Uri getProdutos = Uri.parse(
-        '${ipEmpresaUrl}pdvmobget05_produtos?pidEmpresa=$idEmpresaNum');
-    final response = await http.get(
-      getProdutos,
-      headers: _headers,
-    );
-    if (response.statusCode == 200) {
-      Map<String, dynamic> produtos =
-          jsonDecode(utf8.decode(response.bodyBytes));
+    try {
+      Uri getProdutos = Uri.parse(
+          '${ipEmpresaUrl}pdvmobget05_produtos?pidEmpresa=$idEmpresaNum');
+      final response = await http.get(
+        getProdutos,
+        headers: _headers,
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> produtos =
+            jsonDecode(utf8.decode(response.bodyBytes));
 
-      var produtosCount = produtos['itens'].length;
+        var produtosCount = produtos['itens'].length;
 
-      final List<produto> listaProduto = [];
+        final List<produto> listaProduto = [];
 
-      for (int i = 0; i < produtosCount; i++) {
-        DateTime? dataLimitePromocao;
-        DateTime? dataInicioPromocao;
-        if (produtos['itens']?[i]?['promocao_data_limite'] != null) {
-          dataLimitePromocao =
-              DateTime.tryParse(produtos['itens']?[i]?['promocao_data_limite']);
-        } else {
-          dataLimitePromocao = null;
+        for (int i = 0; i < produtosCount; i++) {
+          DateTime? dataLimitePromocao;
+          DateTime? dataInicioPromocao;
+          if (produtos['itens']?[i]?['promocao_data_limite'] != null) {
+            dataLimitePromocao = DateTime.tryParse(
+                produtos['itens']?[i]?['promocao_data_limite']);
+          } else {
+            dataLimitePromocao = null;
+          }
+
+          if (produtos['itens']?[i]?['promocao_data_inicio'] != null) {
+            dataInicioPromocao =
+                DateTime.parse(produtos['itens']![i]['promocao_data_inicio']);
+          } else {
+            dataInicioPromocao = null;
+          }
+          final pro = produto(
+            produtos['itens'][i]['id_empresa'],
+            produtos['itens'][i]['id_produto'],
+            produtos['itens'][i]['grade'],
+            produtos['itens'][i]['id_grupo'],
+            produtos['itens'][i]['descricao'],
+            produtos['itens'][i]['unidade'],
+            produtos['itens'][i]['gtin'],
+            produtos['itens'][i]['composto'],
+            produtos['itens'][i]['venda_kg'],
+            produtos['itens'][i]['nao_rec_desconto'],
+            produtos['itens'][i]['status'],
+            produtos['itens'][i]['saldo_produto'].toDouble(),
+            produtos['itens'][i]['pvenda'].toDouble(),
+            produtos['itens'][i]['alt_preco_venda'],
+            produtos['itens'][i]['alt_preco_venda_tipo'],
+            produtos['itens'][i]['balanca_tipo_pesagem'],
+            produtos['itens'][i]['balanca_idproduto'],
+            produtos['itens'][i]['gtin_grade'],
+            produtos['itens'][i]['promocao_ativar'],
+            produtos['itens'][i]['promocao_preco'].toDouble(),
+            dataInicioPromocao,
+            dataLimitePromocao,
+            produtos['itens'][i]['promocao_hora_inicial'],
+            produtos['itens'][i]['promocao_hora_final'],
+            produtos['itens'][i]['promocao_tipo_desc'],
+            produtos['itens'][i]['promocao_compre'],
+            produtos['itens'][i]['promocao_leve'],
+            produtos['itens'][i]['promocao_apartir'],
+            produtos['itens'][i]['promocao_apartir_perc'].toDouble(),
+            produtos['itens'][i]['file_imagem'],
+          );
+
+          listaProduto.add(pro);
         }
 
-        if (produtos['itens']?[i]?['promocao_data_inicio'] != null) {
-          dataInicioPromocao =
-              DateTime.parse(produtos['itens']![i]['promocao_data_inicio']);
-        } else {
-          dataInicioPromocao = null;
-        }
-        final pro = produto(
-          produtos['itens'][i]['id_empresa'],
-          produtos['itens'][i]['id_produto'],
-          produtos['itens'][i]['grade'],
-          produtos['itens'][i]['id_grupo'],
-          produtos['itens'][i]['descricao'],
-          produtos['itens'][i]['unidade'],
-          produtos['itens'][i]['gtin'],
-          produtos['itens'][i]['composto'],
-          produtos['itens'][i]['venda_kg'],
-          produtos['itens'][i]['nao_rec_desconto'],
-          produtos['itens'][i]['status'],
-          produtos['itens'][i]['saldo_produto'].toDouble(),
-          produtos['itens'][i]['pvenda'].toDouble(),
-          produtos['itens'][i]['alt_preco_venda'],
-          produtos['itens'][i]['alt_preco_venda_tipo'],
-          produtos['itens'][i]['balanca_tipo_pesagem'],
-          produtos['itens'][i]['balanca_idproduto'],
-          produtos['itens'][i]['gtin_grade'],
-          produtos['itens'][i]['promocao_ativar'],
-          produtos['itens'][i]['promocao_preco'].toDouble(),
-          dataInicioPromocao,
-          dataLimitePromocao,
-          produtos['itens'][i]['promocao_hora_inicial'],
-          produtos['itens'][i]['promocao_hora_final'],
-          produtos['itens'][i]['promocao_tipo_desc'],
-          produtos['itens'][i]['promocao_compre'],
-          produtos['itens'][i]['promocao_leve'],
-          produtos['itens'][i]['promocao_apartir'],
-          produtos['itens'][i]['promocao_apartir_perc'].toDouble(),
-          produtos['itens'][i]['file_imagem'],
-        );
-
-        listaProduto.add(pro);
+        isar.writeTxn(() async {
+          await isar.produtos.putAll(listaProduto);
+        });
+        return isar;
       }
-
-      isar.writeTxn(() async {
-        await isar.produtos.putAll(listaProduto);
-      });
-      return isar;
-    } else {
-      throw Exception('Não foi possível encontrar os itens do banco de dados');
+    } catch (e) {
+      return Container();
     }
   }
 
@@ -341,49 +362,51 @@ class IsarService {
       idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
-    Uri getUsuarios = Uri.parse(
-        '${ipEmpresaUrl}pdvmobget02_usuarios?pidEmpresa=$idEmpresaNum');
-    final response = await http.get(
-      getUsuarios,
-      headers: _headers,
-    );
-    if (response.statusCode == 200) {
-      Map<String, dynamic> usuarios =
-          jsonDecode(utf8.decode(response.bodyBytes));
+    try {
+      Uri getUsuarios = Uri.parse(
+          '${ipEmpresaUrl}pdvmobget02_usuarios?pidEmpresa=$idEmpresaNum');
+      final response = await http.get(
+        getUsuarios,
+        headers: _headers,
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> usuarios =
+            jsonDecode(utf8.decode(response.bodyBytes));
 
-      var usuariosCount = usuarios['itens'].length;
+        var usuariosCount = usuarios['itens'].length;
 
-      final List<usuario> listaUsuarios = [];
+        final List<usuario> listaUsuarios = [];
 
-      for (int i = 0; i < usuariosCount; i++) {
-        final usu = usuario(
-          usuarios['itens'][i]['id'],
-          usuarios['itens'][i]['login'],
-          usuarios['itens'][i]['id_colaborador'],
-          usuarios['itens'][i]['senha'],
-          usuarios['itens'][i]['status'],
-          usuarios['itens'][i]['mob_dashboard'],
-          usuarios['itens'][i]['trocar_senha'],
-          usuarios['itens'][i]['administrador'],
-          usuarios['itens'][i]['logar_empresas'],
-          usuarios['itens'][i]['caixa_abrir'],
-          usuarios['itens'][i]['caixa_movimentar'],
-          usuarios['itens'][i]['caixa_gerenciar'],
-          usuarios['itens'][i]['caixa_fechar'],
-          usuarios['itens'][i]['caixa_pdv'],
-          usuarios['itens'][i]['caixa_carga'],
-          usuarios['itens'][i]['caixa_parametros'],
-        );
+        for (int i = 0; i < usuariosCount; i++) {
+          final usu = usuario(
+            usuarios['itens'][i]['id'],
+            usuarios['itens'][i]['login'],
+            usuarios['itens'][i]['id_colaborador'],
+            usuarios['itens'][i]['senha'],
+            usuarios['itens'][i]['status'],
+            usuarios['itens'][i]['mob_dashboard'],
+            usuarios['itens'][i]['trocar_senha'],
+            usuarios['itens'][i]['administrador'],
+            usuarios['itens'][i]['logar_empresas'],
+            usuarios['itens'][i]['caixa_abrir'],
+            usuarios['itens'][i]['caixa_movimentar'],
+            usuarios['itens'][i]['caixa_gerenciar'],
+            usuarios['itens'][i]['caixa_fechar'],
+            usuarios['itens'][i]['caixa_pdv'],
+            usuarios['itens'][i]['caixa_carga'],
+            usuarios['itens'][i]['caixa_parametros'],
+          );
 
-        listaUsuarios.add(usu);
+          listaUsuarios.add(usu);
+        }
+
+        isar.writeTxn(() async {
+          await isar.usuarios.putAll(listaUsuarios);
+        });
+        return isar;
       }
-
-      isar.writeTxn(() async {
-        await isar.usuarios.putAll(listaUsuarios);
-      });
-      return isar;
-    } else {
-      throw Exception('Não foi possível encontrar os itens do banco de dados');
+    } catch (e) {
+      return Container();
     }
   }
 
@@ -419,48 +442,50 @@ class IsarService {
       idEmpresaNum = dadoEmpresa.id_empresa!;
     }
 
-    Uri getTipo_recebimento = Uri.parse(
-        '${ipEmpresaUrl}pdvmobget06_tipos_recebimentos?pidEmpresa=$idEmpresaNum');
-    final response = await http.get(
-      getTipo_recebimento,
-      headers: _headers,
-    );
-    if (response.statusCode == 200) {
-      Map<String, dynamic> tipo_recebimentoType =
-          jsonDecode(utf8.decode(response.bodyBytes));
+    try {
+      Uri getTipo_recebimento = Uri.parse(
+          '${ipEmpresaUrl}pdvmobget06_tipos_recebimentos?pidEmpresa=$idEmpresaNum');
+      final response = await http.get(
+        getTipo_recebimento,
+        headers: _headers,
+      );
+      if (response.statusCode == 200) {
+        Map<String, dynamic> tipo_recebimentoType =
+            jsonDecode(utf8.decode(response.bodyBytes));
 
-      var tipo_recebimento_count = tipo_recebimentoType['itens'].length;
+        var tipo_recebimento_count = tipo_recebimentoType['itens'].length;
 
-      final List<tipo_recebimento> lista_tipo_recebimento = [];
+        final List<tipo_recebimento> lista_tipo_recebimento = [];
 
-      for (int i = 0; i < tipo_recebimento_count; i++) {
-        final tip = tipo_recebimento(
-          tipo_recebimentoType['itens'][i]['id'],
-          tipo_recebimentoType['itens'][i]['id_empresa'],
-          tipo_recebimentoType['itens'][i]['descricao'],
-          tipo_recebimentoType['itens'][i]['permite_troco'],
-          tipo_recebimentoType['itens'][i]['tipo_forma'],
-          tipo_recebimentoType['itens'][i]['status'],
-          tipo_recebimentoType['itens'][i]['listar_pdv'],
-          tipo_recebimentoType['itens'][i]['id_pcontas'],
-          tipo_recebimentoType['itens'][i]['tef'],
-          tipo_recebimentoType['itens'][i]['id_fpagto'],
-          tipo_recebimentoType['itens'][i]['pix_integrado'],
-          tipo_recebimentoType['itens'][i]['imp_comprovante'],
-          tipo_recebimentoType['itens'][i]['cortesia'],
-          tipo_recebimentoType['itens'][i]['obrigar_nfce'],
-          tipo_recebimentoType['itens'][i]['solicitar_senha'],
-        );
+        for (int i = 0; i < tipo_recebimento_count; i++) {
+          final tip = tipo_recebimento(
+            tipo_recebimentoType['itens'][i]['id'],
+            tipo_recebimentoType['itens'][i]['id_empresa'],
+            tipo_recebimentoType['itens'][i]['descricao'],
+            tipo_recebimentoType['itens'][i]['permite_troco'],
+            tipo_recebimentoType['itens'][i]['tipo_forma'],
+            tipo_recebimentoType['itens'][i]['status'],
+            tipo_recebimentoType['itens'][i]['listar_pdv'],
+            tipo_recebimentoType['itens'][i]['id_pcontas'],
+            tipo_recebimentoType['itens'][i]['tef'],
+            tipo_recebimentoType['itens'][i]['id_fpagto'],
+            tipo_recebimentoType['itens'][i]['pix_integrado'],
+            tipo_recebimentoType['itens'][i]['imp_comprovante'],
+            tipo_recebimentoType['itens'][i]['cortesia'],
+            tipo_recebimentoType['itens'][i]['obrigar_nfce'],
+            tipo_recebimentoType['itens'][i]['solicitar_senha'],
+          );
 
-        lista_tipo_recebimento.add(tip);
+          lista_tipo_recebimento.add(tip);
+        }
+
+        isar.writeTxn(() async {
+          await isar.tipo_recebimentos.putAll(lista_tipo_recebimento);
+        });
+        return isar;
       }
-
-      isar.writeTxn(() async {
-        await isar.tipo_recebimentos.putAll(lista_tipo_recebimento);
-      });
-      return isar;
-    } else {
-      throw Exception('Não foi possível encontrar os itens do banco de dados');
+    } catch (e) {
+      return Container();
     }
   }
 
@@ -629,8 +654,8 @@ class IsarService {
 
     isar.writeTxn(() async {
       await isar.caixa_items.put(caixaItem);
+      await printerController.printMovimentationCaixa(caixaItem);
     });
-    printerController.printMovimentationCaixa(caixaItem);
     return isar;
   }
 
@@ -711,31 +736,34 @@ class IsarService {
   }
 
   //buscar informações de acordo com a url e o numero do contrato
-  Future<String> getIpEmpresa(context) async {
+  Future<String> getIpEmpresa({bool isCorrectUrl = false}) async {
     Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
     final response = await http.get(
       getIpEmpresa,
       headers: _headers,
     );
 
-    if (response.statusCode != 200) {
+    if (response.statusCode != 200 && isCorrectUrl == false) {
       throw Exception(
         'Não foi possível encontrar os itens do banco de dados',
       );
     }
+
     if (response.statusCode == 200) {
       var ip = jsonDecode(utf8.decode(response.bodyBytes));
       if (ip != null && ip['itens'] != null && ip['itens'][0]['link'] != null) {
         String link = ip['itens'][0]['link'];
         return link;
       } else {
-        const CustomSnackBar(
-                title: 'Erro',
-                message: 'Numero de contrato inválido',
-                icon: Icons.error,
-                backgroundColor: Colors.red,
-                textColor: Colors.white)
-            .show(context);
+        !isCorrectUrl
+            ? const CustomSnackBar(
+                    title: 'Erro',
+                    message: 'Numero de contrato inválido',
+                    icon: Icons.error,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white)
+                .show()
+            : '';
       }
     }
     return "";

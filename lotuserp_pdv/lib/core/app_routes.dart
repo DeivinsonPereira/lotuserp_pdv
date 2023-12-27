@@ -14,6 +14,7 @@ import 'package:lotuserp_pdv/pages/splash/splash_page.dart';
 import '../pages/home/Home_Monitor_page.dart';
 import '../pages/printer/printer_page.dart';
 
+// CONFIGURA AS ROTAS
 abstract class AppPages {
   static final pages = <GetPage>[
     GetPage(
@@ -71,6 +72,7 @@ abstract class AppPages {
   ];
 }
 
+// CLASSE PARA INSTANCIAÇÃO DAS ROTAS
 abstract class PagesRoutes {
   static const String splashRoute = '/splash_page';
   static const String loginRoute = '/login_page';

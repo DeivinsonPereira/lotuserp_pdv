@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
@@ -75,7 +73,7 @@ class PrinterPage extends StatelessWidget {
                                 padding: EdgeInsets.symmetric(
                                     vertical: 2, horizontal: 20),
                                 child:
-                                    Text("Rescan", textAlign: TextAlign.center),
+                                    Text("Rescan", textAlign: TextAlign.center,),
                               ),
                             ),
                           ],

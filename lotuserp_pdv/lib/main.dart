@@ -20,6 +20,7 @@ void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // só deixa inicializar o run depois dos comandos async abaixo estiverem rodando.
   final dir = await getApplicationSupportDirectory();
+  //abre o banco de dados e as tabelas
   await Isar.open(
     [
       EmpresaSchema,
@@ -38,6 +39,6 @@ void main() async {
     directory: dir.path,
     inspector: true,
   );
-
+  
   runApp(const AppWidget());
 }
