@@ -9,7 +9,7 @@ import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
 import 'package:lotuserp_pdv/pages/payment/payment_page.dart';
 import 'package:lotuserp_pdv/pages/pdv/pdv_monitor_page.dart';
 import 'package:lotuserp_pdv/pages/product/product_page.dart';
-import 'package:lotuserp_pdv/pages/splash_page.dart';
+import 'package:lotuserp_pdv/pages/splash/splash_page.dart';
 
 import '../pages/home/Home_Monitor_page.dart';
 import '../pages/printer/printer_page.dart';

@@ -20,6 +20,7 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
@@ -395,6 +396,7 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //busca tipo_recebimento do servidor e insere na tabela do banco de dados local
   Future getTipo_recebimento() async {
     final isar = await db;
     int i = await isar.tipo_recebimentos.count();
@@ -471,6 +473,7 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //busca o tipo de recebimento de acordo com o id
   Future<tipo_recebimento?> search_tipoRecebimento(int id) async {
     final isar = await db;
 
@@ -498,15 +501,10 @@ class IsarService {
   Future<Isar> insertCaixaWithCaixaItem(caixa caixa, DateTime atualDate,
       String hourFormatted, double openRegisterDouble) async {
     final isar = await db;
-    PrinterController printerController;
+    PrinterController printerController =
+        InjectionDependencies.printerController();
 
     caixa_item caixaItem = caixa_item();
-
-    if (Get.isRegistered<PrinterController>()) {
-      printerController = Get.find<PrinterController>();
-    } else {
-      printerController = Get.put(PrinterController());
-    }
 
     await isar.writeTxn(() async {
       await isar.caixas.put(caixa);
@@ -516,7 +514,7 @@ class IsarService {
         ..descricao = 'ABERTURA DE CAIXA'
         ..data = atualDate
         ..hora = hourFormatted
-        ..id_tipo_recebimento = 0
+        ..id_tipo_recebimento = 1
         ..valor_cre = openRegisterDouble
         ..valor_deb = 0
         ..id_venda = null
@@ -524,10 +522,11 @@ class IsarService {
 
       await isar.caixa_items.put(caixaItem);
     });
-    await printerController.print2x1OpenRegister(caixaItem);
+    await printerController.printOpenRegister(caixaItem);
     return isar;
   }
 
+  //busca dados da empresa cadastrada nas configurações
   Future<empresa?> searchEmpresa() async {
     final isar = await db;
 
@@ -536,6 +535,7 @@ class IsarService {
     return empresa;
   }
 
+  //inserir dados na tabela venda e vendaItem ****** ainda vai ter o caixaItem junto ******
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
     PdvController pdvController = Get.isRegistered<PdvController>()
@@ -574,6 +574,7 @@ class IsarService {
     return isar;
   }
 
+  //busca dados da tabela caixa do banco de dados
   Future<caixa?> getCaixaFromDatabase() async {
     final isar = await db;
 
@@ -624,10 +625,12 @@ class IsarService {
   //inserir dados na tabela caixaItem
   Future<Isar> insertCaixaItem(caixa_item caixaItem) async {
     final isar = await db;
+    var printerController = InjectionDependencies.printerController();
 
     isar.writeTxn(() async {
       await isar.caixa_items.put(caixaItem);
     });
+    printerController.printMovimentationCaixa(caixaItem);
     return isar;
   }
 

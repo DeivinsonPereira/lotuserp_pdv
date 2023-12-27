@@ -1,10 +1,14 @@
 import 'dart:async';
 
+import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
 import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printer.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
+import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
+import 'package:lotuserp_pdv/pages/common/format_numbers.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/caixa.dart';
@@ -50,12 +54,14 @@ class PrinterController extends GetxController {
     await conectarImpressoraPadrao();
   }
 
+  //cancela o scan
   @override
   void dispose() {
     subscriptionBtStatus?.cancel();
     super.dispose();
   }
 
+  //conecta a impressora padrão e salva no banco de dados
   Future<void> conectarImpressoraPadrao() async {
     // Recuperar o dispositivo padrão do banco de dados
     final defaultPrinter = await service.getDefaultPrinter();
@@ -145,21 +151,16 @@ class PrinterController extends GetxController {
     }
   }
 
-  Future<void> print2x1OpenRegister(caixa_item caixaItem) async {
-    SideBarController sideBarController = Get.find();
-    GlobalController globalController;
+  //faz impressão da abertura do caixa (caso o valor seja superior a 0);
+  Future<void> printOpenRegister(caixa_item caixaItem) async {
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
+    GlobalController globalController =
+        InjectionDependencies.globalController();
 
-    if (Get.isRegistered<GlobalController>()) {
-      globalController = Get.find<GlobalController>();
-    } else {
-      globalController = Get.put(GlobalController());
-    }
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(PaperSize.mm80, profile);
+    List<int> bytes = [];
 
     if (selectedPrinter == null) return;
 
@@ -175,24 +176,26 @@ class PrinterController extends GetxController {
 
       const typeMovimentation = 'ABERTURA DO CAIXA';
 
-      var nameAndData =
-          'LOTUS ERP PDV:  ${sideBarController.dateNowFormated.value}'; // - ok
-      var hour = '               ${sideBarController.hours.value}'; // - ok
+      var name = 'LOTUS ERP PDV:'; // - ok
+      var data = sideBarController.dateNowFormated.value; // - ok
+      var hour = sideBarController.hours.value; // - ok
 
-      String datatransacao = caixaItem.data.toString() ?? ''; // - ok
       //variaveis referente à caixaItem
       String registro = caixaItem.id.toString(); // - ok
-      datatransacao = caixaItem.data.toString(); // - ok
-      String horaTransacao = caixaItem.hora.toString(); // - ok
+      var datatransacao = sideBarController.dateNowFormated.value; // - ok
+      String horaTransacao = caixaItem.hora; // - ok
       String descricao = typeMovimentation; // - ok
-      String valorCre = caixaItem.valor_cre.toString(); // - ok
-      String valorDeb = caixaItem.valor_deb.toString(); // - ok
+
+      String valorCre =
+          FormatNumbers.formatNumbertoString(caixaItem.valor_cre); // - ok
+      String valorDeb =
+          FormatNumbers.formatNumbertoString(caixaItem.valor_deb); // - ok
       String forma = ''; // - ok
 
       //variaveis referente a Caixa
       int idCaixa = 0; // - ok
       var usuario = ''; // - ok
-      DateTime abertura = DateTime.now(); // - ok
+      String? abertura = ''; // - ok
 
       //busca dados da empresa para alimentar as variaveis de impressão
       empresa? dataEmpresa = await service.searchEmpresa();
@@ -200,7 +203,7 @@ class PrinterController extends GetxController {
       if (dataEmpresa != null) {
         nomeEmpresa = dataEmpresa.fantasia ?? '';
         ruaEmpresa = dataEmpresa.endereco ?? '';
-        numeroEmpresa = dataEmpresa.cep ?? '';
+        numeroEmpresa = dataEmpresa.numero ?? '';
         bairroEmpresa = dataEmpresa.bairro ?? '';
       }
 
@@ -210,42 +213,169 @@ class PrinterController extends GetxController {
       if (tipoPagto != null) {
         forma = tipoPagto.descricao ?? '';
       }
-
+      globalController.setIdUsuario();
       caixa? dataCaixa =
           await service.getCaixaWithIdUser(globalController.userId);
       usuario_logado? us = await service.getUserLogged();
 
       idCaixa = dataCaixa?.id_caixa ?? 0;
       usuario = us?.login ?? '';
-      abertura = dataCaixa?.abertura_data ?? DateTime.now();
+      abertura = DatetimeFormatterWidget.formatDate(dataCaixa!.abertura_data);
 
-      await bluetoothManager.writeText('$nomeEmpresa \n');
-      await bluetoothManager.writeText('$ruaEmpresa, $numeroEmpresa \n');
-      await bluetoothManager.writeText('$bairroEmpresa \n');
-      await bluetoothManager.writeText('\n ------------------------------- \n');
-      await bluetoothManager.writeText('$nameAndData \n');
-      await bluetoothManager.writeText('$hour \n');
-      await bluetoothManager.writeText('\n ------------------------------- \n');
-      await bluetoothManager.writeText('Registro: $registro \n');
-      await bluetoothManager
-          .writeText('Data: $datatransacao $horaTransacao \n');
-      await bluetoothManager.writeText('Descrição: $descricao \n');
-      await bluetoothManager.writeText('\n\n\n\n\n\n\n');
-      await bluetoothManager.writeText('Valor CRE: $valorCre \n');
-      await bluetoothManager.writeText('Valor DEB: $valorDeb \n');
-      await bluetoothManager.writeText('Forma: $forma \n');
-      await bluetoothManager.writeText('\n ------------------------------- \n');
-      await bluetoothManager.writeText('ID Caixa: $idCaixa \n');
-      await bluetoothManager.writeText('Usuário: $usuario \n');
-      await bluetoothManager.writeText('Abertura: $abertura \n');
-      await bluetoothManager
-          .writeText('\n ------------------------------- \n\n\n\n\n\n\n');
-      await bluetoothManager
-          .writeText('\n --------------------------------- \n');
-      await bluetoothManager.writeText('CONFERIDO POR: ');
-       await bluetoothManager.writeText('\n\n\n\n\n\n\n\n');
+      bytes += generator.text(nomeEmpresa,
+          styles: const PosStyles(align: PosAlign.left, bold: true));
+      bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
+      bytes += generator.text(bairroEmpresa);
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(typeMovimentation,
+          styles: const PosStyles(
+              align: PosAlign.left, bold: true, width: PosTextSize.size2));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('$name $data - $hour',
+          styles: const PosStyles(align: PosAlign.left));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('Registro: $registro');
+      bytes += generator.text('Data: $datatransacao $horaTransacao');
+      bytes += generator.text('Descricao: $descricao',
+          styles: const PosStyles(codeTable: 'CP1252'));
+      bytes += generator.text('');
+      bytes += generator.text('Valor CRE: $valorCre');
+      bytes += generator.text('Valor DEB: $valorDeb');
+      bytes += generator.text('Forma: $forma');
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('ID Caixa: $idCaixa');
+      bytes += generator.text('Usuario: $usuario',
+          styles: const PosStyles(codeTable: 'CP1252'));
+      bytes += generator.text('Abertura: $abertura');
+      bytes += generator.text('-------------------------------------------- ',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(
+          '\n\n--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('CONFERIDO POR: ');
+      bytes += generator.text('\n\n');
 
-      update();
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);
+    } on BTException {
+      return;
+    }
+  }
+
+  //faz impressão da movimentação do caixa
+  Future<void> printMovimentationCaixa(caixaItem) async {
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
+    GlobalController globalController =
+        InjectionDependencies.globalController();
+
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(PaperSize.mm80, profile);
+    List<int> bytes = [];
+
+    if (selectedPrinter == null) return;
+
+    try {
+      await connectDevice();
+      if (!isConnected.value) return;
+
+      //variáveis para montagem da impressão
+      String nomeEmpresa = ''; // - ok
+      String ruaEmpresa = ''; // - ok
+      String numeroEmpresa = ''; // - ok
+      String bairroEmpresa = ''; // - ok
+
+      const typeMovimentation = 'MOVIMENTACAO CAIXA';
+
+      var name = 'LOTUS ERP PDV:'; // - ok
+      var data = sideBarController.dateNowFormated.value; // - ok
+      var hour = sideBarController.hours.value; // - ok
+
+      //variaveis referente à caixaItem
+      String registro = caixaItem.id.toString(); // - ok
+      var datatransacao = sideBarController.dateNowFormated.value; // - ok
+      String horaTransacao = caixaItem.hora; // - ok
+      String descricao = typeMovimentation; // - ok
+
+      String valorCre =
+          FormatNumbers.formatNumbertoString(caixaItem.valor_cre); // - ok
+      String valorDeb =
+          FormatNumbers.formatNumbertoString(caixaItem.valor_deb); // - ok
+      String forma = ''; // - ok
+
+      //variaveis referente a Caixa
+      int idCaixa = 0; // - ok
+      var usuario = ''; // - ok
+      String? abertura = ''; // - ok
+
+      //busca dados da empresa para alimentar as variaveis de impressão
+      empresa? dataEmpresa = await service.searchEmpresa();
+
+      if (dataEmpresa != null) {
+        nomeEmpresa = dataEmpresa.fantasia ?? '';
+        ruaEmpresa = dataEmpresa.endereco ?? '';
+        numeroEmpresa = dataEmpresa.numero ?? '';
+        bairroEmpresa = dataEmpresa.bairro ?? '';
+      }
+
+      tipo_recebimento? tipoPagto =
+          await service.search_tipoRecebimento(caixaItem.id_tipo_recebimento);
+
+      if (tipoPagto != null) {
+        forma = tipoPagto.descricao ?? '';
+      }
+      globalController.setIdUsuario();
+      caixa? dataCaixa =
+          await service.getCaixaWithIdUser(globalController.userId);
+      usuario_logado? us = await service.getUserLogged();
+
+      idCaixa = dataCaixa?.id_caixa ?? 0;
+      usuario = us?.login ?? '';
+      abertura = DatetimeFormatterWidget.formatDate(dataCaixa!.abertura_data);
+
+      bytes += generator.text(nomeEmpresa,
+          styles: const PosStyles(align: PosAlign.left, bold: true));
+      bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
+      bytes += generator.text(bairroEmpresa);
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(typeMovimentation,
+          styles: const PosStyles(
+              align: PosAlign.left, bold: true, width: PosTextSize.size2));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('$name $data - $hour',
+          styles: const PosStyles(align: PosAlign.left));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('Registro: $registro');
+      bytes += generator.text('Data: $datatransacao $horaTransacao');
+      bytes += generator.text('Descricao: $descricao',
+          styles: const PosStyles(codeTable: 'CP1252'));
+      bytes += generator.text('');
+      bytes += generator.text('Valor CRE: $valorCre');
+      bytes += generator.text('Valor DEB: $valorDeb');
+      bytes += generator.text('Forma: $forma');
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('ID Caixa: $idCaixa');
+      bytes += generator.text('Usuario: $usuario',
+          styles: const PosStyles(codeTable: 'CP1252'));
+      bytes += generator.text('Abertura: $abertura');
+      bytes += generator.text('-------------------------------------------- ',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(
+          '\n\n--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('CONFERIDO POR: ');
+      bytes += generator.text('\n\n');
+
+      /*String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
     }
