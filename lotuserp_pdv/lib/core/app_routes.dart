@@ -2,8 +2,8 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/auth/config_page.dart';
 import 'package:lotuserp_pdv/pages/auth/login_page.dart';
 import 'package:lotuserp_pdv/pages/close_register_page.dart';
-import 'package:lotuserp_pdv/pages/data_manager_page.dart';
 import 'package:lotuserp_pdv/pages/home/home_page.dart';
+import 'package:lotuserp_pdv/pages/load_data/load_data_page.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/moviment_cash_page.dart';
 import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
 import 'package:lotuserp_pdv/pages/payment/payment_page.dart';
@@ -63,7 +63,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: PagesRoutes.loadData,
-      page: () => const DataManagerPage(),
+      page: () => const LoadDataPage(),
     ),
     GetPage(
       name: PagesRoutes.printerPageRoute,

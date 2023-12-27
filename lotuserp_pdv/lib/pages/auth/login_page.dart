@@ -5,6 +5,7 @@ import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -15,32 +16,15 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController;
+    PasswordController passwordController =
+        InjectionDependencies.passwordController();
     // ignore: unused_local_variable
-    TextFieldController textFieldController;
+    TextFieldController textFieldController =
+        InjectionDependencies.textFieldController();
     // ignore: unused_local_variable
-    PrinterController printerController;
+    PrinterController printerController =
+        InjectionDependencies.printerController();
 
-
-    if (Get.isRegistered<PrinterController>()) {
-      printerController = Get.find<PrinterController>();
-    } else {
-      printerController = Get.put(PrinterController());
-    }
-
-    if (Get.isRegistered<TextFieldController>()) {
-      textFieldController = Get.find<TextFieldController>();
-    } else {
-      textFieldController = Get.put(TextFieldController());
-    }
-    
-    if (Get.isRegistered<PasswordController>()) {
-      passwordController = Get.find<PasswordController>();
-    } else {
-      passwordController = Get.put(PasswordController());
-    }
-
-    // ignore: unused_local_variable
     IsarService service = IsarService();
 
     bool areFieldsEmpty() {

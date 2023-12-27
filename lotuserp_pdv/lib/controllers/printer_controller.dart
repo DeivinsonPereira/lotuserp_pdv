@@ -217,7 +217,8 @@ class PrinterController extends GetxController {
 
       idCaixa = dataCaixa?.id_caixa ?? 0;
       usuario = us?.login ?? '';
-      abertura = DatetimeFormatterWidget.formatDate(dataCaixa!.abertura_data);
+      abertura = DatetimeFormatterWidget.formatDate(
+          dataCaixa?.abertura_data ?? DateTime.now());
 
       bytes += generator.text(nomeEmpresa,
           styles: const PosStyles(align: PosAlign.left, bold: true));
@@ -256,8 +257,9 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+      print('A impressão está comentada');
+      /*String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
     }

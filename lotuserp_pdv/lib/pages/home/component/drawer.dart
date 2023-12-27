@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 import '../../moviment_cash/moviment_cash_page.dart';
 import '../../open_register/open_register_page.dart';
@@ -18,21 +19,9 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController;
-    PasswordController passwordController;
+    SideBarController sideBarController = InjectionDependencies.sidebarController();
+    PasswordController passwordController = InjectionDependencies.passwordController();
     IsarService service = IsarService();
-    // ignore: unused_local_variable
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
-
-    if (Get.isRegistered<PasswordController>()) {
-      passwordController = Get.find<PasswordController>();
-    } else {
-      passwordController = Get.put(PasswordController());
-    }
 
     var userName = passwordController.userController.text;
 
@@ -132,6 +121,7 @@ class DrawerWidget extends StatelessWidget {
                 icon: FontAwesomeIcons.moneyBill1Wave,
                 navigationIcon: PagesRoutes.pdvMonitor,
                 text: 'PDV',
+                pdv: true,
               ),
               IconbuttomLargeSideBar(
                 icon: FontAwesomeIcons.download,
@@ -187,6 +177,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
   final String text;
   bool? abrirCaixa = false;
   bool? movimentarCaixa = false;
+  bool? pdv = false;
 
   IconbuttomLargeSideBar({
     Key? key,
@@ -195,6 +186,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
     required this.text,
     this.abrirCaixa,
     this.movimentarCaixa,
+    this.pdv,
   }) : super(key: key);
 
   @override
@@ -222,8 +214,22 @@ class IconbuttomLargeSideBar extends StatelessWidget {
                       return const OpenRegisterPage(); // Your AlertDialog widget
                     },
                   ))
-            : (
-                movimentarCaixa == true
+            : (movimentarCaixa == true
+                ? (!caixaExistente
+                    ? Get.snackbar(
+                        'Atenção',
+                        'Não existe um caixa aberto para o usuário logado.',
+                        backgroundColor: Colors.red,
+                        colorText: Colors.white,
+                        snackPosition: SnackPosition.BOTTOM,
+                      )
+                    // ignore: use_build_context_synchronously
+                    : showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const MovimentCashPage(); // Your AlertDialog widget
+                        }))
+                : (pdv == true
                     ? (!caixaExistente
                         ? Get.snackbar(
                             'Atenção',
@@ -232,14 +238,8 @@ class IconbuttomLargeSideBar extends StatelessWidget {
                             colorText: Colors.white,
                             snackPosition: SnackPosition.BOTTOM,
                           )
-                        // ignore: use_build_context_synchronously
-                        : showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const MovimentCashPage(); // Your AlertDialog widget
-                            }))
-                    : {Get.offAndToNamed(navigationIcon)},
-              );
+                        : Get.offAndToNamed(PagesRoutes.pdvMonitor))
+                    : Get.offAndToNamed(navigationIcon)));
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
