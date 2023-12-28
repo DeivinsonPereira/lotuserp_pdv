@@ -117,7 +117,7 @@ class PrinterController extends GetxController {
   }
 
   //conecta o dispositivo bluetooth
-  Future<void>connectDevice() async {
+  Future<void> connectDevice() async {
     if (selectedPrinter == null) return;
     try {
       isConnected.value =
@@ -371,8 +371,9 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+      print('A impressão da movimentação de caixa está comentada');
+      /* String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
     }

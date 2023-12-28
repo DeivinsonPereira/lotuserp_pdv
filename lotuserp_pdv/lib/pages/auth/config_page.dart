@@ -9,6 +9,8 @@ import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../common/loading_screen.dart';
+
 class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
 
@@ -295,6 +297,12 @@ class _ConfigPageState extends State<ConfigPage> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (verificacoes() == true) {}
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return const LoadingScreen();
+                      },
+                    );
                     textFieldController.salvarInformacoes(context);
                     await service.getIpEmpresa(isCorrectUrl: true);
                     dado_empresa dadosEmpresa = dado_empresa()
@@ -322,6 +330,7 @@ class _ConfigPageState extends State<ConfigPage> {
                       await service.getUsuarios();
                       await service.getTipo_recebimento();
                     }
+                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColors

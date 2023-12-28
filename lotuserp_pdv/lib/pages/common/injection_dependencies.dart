@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 
 import '../../controllers/global_controller.dart';
 import '../../controllers/load_controller.dart';
+import '../../controllers/moviment_register_controller.dart';
 import '../../controllers/password_controller.dart';
 import '../../controllers/printer_controller.dart';
 import '../../controllers/side_bar_controller.dart';
@@ -54,6 +56,22 @@ abstract class InjectionDependencies {
       return Get.find<LoadController>();
     } else {
       return Get.put(LoadController());
+    }
+  }
+
+  static MovimentRegisterController movimentRegisterController() {
+    if (Get.isRegistered<MovimentRegisterController>()) {
+      return Get.find<MovimentRegisterController>();
+    } else {
+      return Get.put(MovimentRegisterController());
+    }
+  }
+
+  static CaixaController caixaController() {
+    if (Get.isRegistered<CaixaController>()) {
+      return Get.find<CaixaController>();
+    } else {
+      return Get.put(CaixaController());
     }
   }
 

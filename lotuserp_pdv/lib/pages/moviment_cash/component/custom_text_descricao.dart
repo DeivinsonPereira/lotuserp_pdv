@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
-import '../../../core/format_txt.dart';
+import '../../common/format_txt.dart';
 
 class CustomTextDescricao extends StatelessWidget {
   final TextEditingController controller;

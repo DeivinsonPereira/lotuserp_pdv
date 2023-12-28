@@ -34,6 +34,7 @@ dependencies:
   flutter_simple_bluetooth_printer: ^0.1.4
   flutter_esc_pos_utils: ^1.0.0
   connectivity: ^3.0.6
+  flutter_spinkit: ^5.2.0
 
   
 dev_dependencies:

@@ -661,7 +661,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 25.0),
                                   child: Container(
-                                    height: 568,
+                                    height: 610,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(10),
                                       color: Colors.white,

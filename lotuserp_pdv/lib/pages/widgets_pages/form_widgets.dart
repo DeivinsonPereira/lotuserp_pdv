@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/core/format_txt.dart';
+import 'package:lotuserp_pdv/pages/common/format_txt.dart';
 
 class FormWidgets {
   final TextEditingController _controller = TextEditingController();

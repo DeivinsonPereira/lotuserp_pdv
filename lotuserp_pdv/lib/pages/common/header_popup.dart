@@ -1,10 +1,17 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 
 import '../../core/custom_colors.dart';
 
 class HeaderPopup extends StatelessWidget {
-  const HeaderPopup({super.key});
+  final String text;
+  final IconData icon;
+  const HeaderPopup({
+    Key? key,
+    required this.text,
+    required this.icon,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,27 +24,38 @@ class HeaderPopup extends StatelessWidget {
       decoration: BoxDecoration(
         color: CustomColors.customSwatchColor,
       ),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           //ícone e texto
           Row(
             children: [
               Icon(
-                FontAwesomeIcons.download,
+                icon,
                 color: Colors.white,
               ),
               Padding(
-                padding: EdgeInsets.only(left: 8.0),
+                padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
-                  'Carga de Dados',
-                  style: TextStyle(
+                  text,
+                  style: const TextStyle(
                       color: Colors.white,
                       fontSize: 28,
                       fontWeight: FontWeight.bold),
                 ),
               ),
+              //botão de fechar
             ],
+          ),
+          IconButton(
+            onPressed: () {
+              Get.back();
+            },
+            icon: const Icon(
+              Icons.close,
+              color: Colors.white,
+              size: 20,
+            ),
           ),
         ],
       ),

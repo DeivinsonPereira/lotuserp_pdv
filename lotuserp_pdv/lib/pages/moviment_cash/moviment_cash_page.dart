@@ -3,16 +3,17 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
-import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/component/custom_text_tipo.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../common/header_popup.dart';
 import 'component/custom_text_descricao.dart';
 import 'component/custom_text_forma.dart';
 
@@ -93,19 +94,12 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
   @override
   Widget build(BuildContext context) {
     PasswordController passwordController =
-        Get.isRegistered<PasswordController>()
-            ? Get.find<PasswordController>()
-            : Get.put(PasswordController());
+        InjectionDependencies.passwordController();
 
     MovimentRegisterController movimentRegisterController =
-        Get.isRegistered<MovimentRegisterController>()
-            ? Get.find<MovimentRegisterController>()
-            : Get.put(MovimentRegisterController());
+        InjectionDependencies.movimentRegisterController();
 
-    // ignore: unused_local_variable
-    CaixaController caixaController = Get.isRegistered<CaixaController>()
-        ? Get.find<CaixaController>()
-        : Get.put(CaixaController());
+    InjectionDependencies.caixaController();
 
     var userName = passwordController.userController.text;
     tz.initializeTimeZones();
@@ -123,64 +117,18 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
           height: 460,
           width: 610,
           child: Scaffold(
-            //appBar
-            appBar: AppBar(
-                toolbarHeight: 50,
-                backgroundColor: CustomColors.customSwatchColor,
-                automaticallyImplyLeading: false,
-                title: const Row(
-                  children: [
-                    //title do appBar
-                    Row(
-                      children: [
-                        //icone prefixo
-                        Icon(
-                          FontAwesomeIcons.cashRegister,
-                          color: Colors.white,
-                        ),
-                        SizedBox(width: 10),
-
-                        //texto abertura de caixa
-                        Text(
-                          'Sangria / Suprimento de Caixa',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-
-                //actions appBar (botão fechar)
-                actions: [
-                  Container(
-                    height: 50,
-                    color: Colors.blue,
-                    child: IconButton(
-                      onPressed: () {
-                        movimentRegisterController.clearMovimentRegister();
-                        Get.back();
-                      },
-                      icon: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      ),
-                    ),
-                  )
-                ]),
-
-            //corpo
             body: Column(
               children: [
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 410,
-                      width: double.infinity,
-                      child: Column(
+                // cabeçalho
+                const HeaderPopup(
+                    text: 'Sangria / Suprimento de Caixa',
+                    icon: FontAwesomeIcons.moneyBillTransfer),
+
+                //corpo
+                Expanded(
+                  child: Column(
+                    children: [
+                      Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
@@ -388,7 +336,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                                 const EdgeInsets.only(left: 8.0, right: 8.0),
                             child: Container(
                               padding: const EdgeInsets.all(8),
-                              height: 250,
+                              height: 247,
                               color: Colors.grey[350],
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,112 +389,99 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                               ),
                             ),
                           ),
-
-                          //botões Voltar e Confirmar
-                          Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  //Voltar
-                                  Expanded(
-                                    flex: 1,
-                                    child: TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor: Colors.grey,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                        ),
-                                      ),
-                                      onPressed: () {
-                                        movimentRegisterController
-                                            .clearMovimentRegister();
-                                        Get.back();
-                                      },
-                                      child: const Text(
-                                        "VOLTAR",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 24,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 1,
-                                  ),
-
-                                  //Confirmar
-                                  Expanded(
-                                    flex: 1,
-                                    child: TextButton(
-                                      style: TextButton.styleFrom(
-                                        backgroundColor:
-                                            const Color(0xFF86C337),
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(0),
-                                        ),
-                                      ),
-                                      onPressed: () async {
-                                        double movimentRegisterDouble =
-                                            movimentRegisterController
-                                                .movimentRegisterToDouble();
-
-                                        caixa_item caixaItem = caixa_item()
-                                          ..id_caixa = idCaixa
-                                          ..descricao =
-                                              movimentRegisterController
-                                                  .descriptionController.text
-                                          ..data = DateTime.now()
-                                          ..hora = hourFormatted
-                                          ..id_tipo_recebimento =
-                                              movimentRegisterController
-                                                  .formaPagamentoId
-                                          ..valor_cre = movimentRegisterController
-                                                      .tipoDeMovimentoController
-                                                      .text ==
-                                                  'CREDITO'
-                                              ? movimentRegisterDouble
-                                              : 0
-                                          ..valor_deb = movimentRegisterController
-                                                      .tipoDeMovimentoController
-                                                      .text ==
-                                                  'DEBITO'
-                                              ? movimentRegisterDouble
-                                              : 0
-                                          ..id_venda = 0
-                                          ..enviado = 0;
-
-                                        service.insertCaixaItem(caixaItem);
-
-                                        movimentRegisterController
-                                            .clearMovimentRegister();
-                                        Get.back();
-                                      },
-                                      child: const Text(
-                                        "CONFIRMAR",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 24),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
                         ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                ),
+
+                //botões Voltar e Confirmar
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      //Voltar
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: Colors.grey,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                          ),
+                          onPressed: () {
+                            movimentRegisterController.clearMovimentRegister();
+                            Get.back();
+                          },
+                          child: const Text(
+                            "VOLTAR",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 1,
+                      ),
+
+                      //Confirmar
+                      Expanded(
+                        flex: 1,
+                        child: TextButton(
+                          style: TextButton.styleFrom(
+                            backgroundColor: const Color(0xFF86C337),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                          ),
+                          onPressed: () async {
+                            double movimentRegisterDouble =
+                                movimentRegisterController
+                                    .movimentRegisterToDouble();
+
+                            caixa_item caixaItem = caixa_item()
+                              ..id_caixa = idCaixa
+                              ..descricao = movimentRegisterController
+                                  .descriptionController.text
+                              ..data = DateTime.now()
+                              ..hora = hourFormatted
+                              ..id_tipo_recebimento =
+                                  movimentRegisterController.formaPagamentoId
+                              ..valor_cre = movimentRegisterController
+                                          .tipoDeMovimentoController.text ==
+                                      'CREDITO'
+                                  ? movimentRegisterDouble
+                                  : 0
+                              ..valor_deb = movimentRegisterController
+                                          .tipoDeMovimentoController.text ==
+                                      'DEBITO'
+                                  ? movimentRegisterDouble
+                                  : 0
+                              ..id_venda = 0
+                              ..enviado = 0;
+
+                            service.insertCaixaItem(caixaItem);
+
+                            movimentRegisterController.clearMovimentRegister();
+                            Get.back();
+                          },
+                          child: const Text(
+                            "CONFIRMAR",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

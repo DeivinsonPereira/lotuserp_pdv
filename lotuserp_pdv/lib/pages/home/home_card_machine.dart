@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/close_register_page.dart';
+import 'package:lotuserp_pdv/pages/close_register/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/load_data/load_data_page.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/moviment_cash_page.dart';
 import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';

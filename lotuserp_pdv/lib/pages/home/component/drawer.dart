@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/close_register/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 import '../../load_data/load_data_page.dart';
@@ -114,6 +115,7 @@ class DrawerWidget extends StatelessWidget {
                 icon: FontAwesomeIcons.cashRegister,
                 navigationIcon: PagesRoutes.finishRegister,
                 text: 'Fechar caixa',
+                fecharCaixa: true,
               ),
               IconbuttomLargeSideBar(
                 icon: FontAwesomeIcons.bottleWater,
@@ -183,6 +185,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
   bool? movimentarCaixa = false;
   bool? pdv = false;
   bool? loadData = false;
+  bool? fecharCaixa = false;
 
   IconbuttomLargeSideBar(
       {Key? key,
@@ -192,7 +195,8 @@ class IconbuttomLargeSideBar extends StatelessWidget {
       this.abrirCaixa,
       this.movimentarCaixa,
       this.pdv,
-      this.loadData})
+      this.loadData,
+      this.fecharCaixa})
       : super(key: key);
 
   @override
@@ -205,49 +209,72 @@ class IconbuttomLargeSideBar extends StatelessWidget {
         bool caixaExistente =
             await service.checkUserCaixa(dadosUsuario!.id_user!);
         abrirCaixa == true
-            ? (caixaExistente
-                ? Get.snackbar(
-                    'Atenção',
-                    'já existe um caixa aberto para o usuário logado.',
-                    backgroundColor: Colors.red,
-                    colorText: Colors.white,
-                    snackPosition: SnackPosition.BOTTOM,
-                  )
-                // ignore: use_build_context_synchronously
-                : showDialog(
-                    context: context,
-                    builder: (context) {
-                      return const OpenRegisterPage(); // Your AlertDialog widget
-                    },
-                  ))
-            : (movimentarCaixa == true
-                ? (!caixaExistente
+            ? (
+                caixaExistente
                     ? Get.snackbar(
                         'Atenção',
-                        'Não existe um caixa aberto para o usuário logado.',
+                        'já existe um caixa aberto para o usuário logado.',
                         backgroundColor: Colors.red,
                         colorText: Colors.white,
                         snackPosition: SnackPosition.BOTTOM,
                       )
                     // ignore: use_build_context_synchronously
-                    : showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const MovimentCashPage(); // Your AlertDialog widget
-                        }))
-                : (pdv == true
+                    : Get.dialog(
+                        const OpenRegisterPage(),
+                      ), // Your AlertDialog widget
+              )
+            : (
+                movimentarCaixa == true
                     ? (!caixaExistente
-                        ? Get.snackbar(
-                            'Atenção',
-                            'Não existe um caixa aberto para o usuário logado.',
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
-                            snackPosition: SnackPosition.BOTTOM,
-                          )
-                        : Get.offAndToNamed(PagesRoutes.pdvMonitor))
-                    : (loadData == true
-                        ? Get.dialog(const LoadDataPage())
-                        : Get.offAndToNamed(navigationIcon))));
+                            ? Get.snackbar(
+                                'Atenção',
+                                'Não existe um caixa aberto para o usuário logado.',
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                snackPosition: SnackPosition.BOTTOM,
+                              )
+                            // ignore: use_build_context_synchronously
+                            : Get.dialog(
+                                const MovimentCashPage()) // Your AlertDialog widget
+
+                        )
+                    : (
+                        pdv == true
+                            ? (
+                                !caixaExistente
+                                    ? Get.snackbar(
+                                        'Atenção',
+                                        'Não existe um caixa aberto para o usuário logado.',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      )
+                                    : Get.offAndToNamed(PagesRoutes.pdvMonitor),
+                              )
+                            : (
+                                loadData == true
+                                    ? Get.dialog(
+                                        const LoadDataPage(),
+                                      )
+                                    : (
+                                        fecharCaixa == true
+                                            ? (!caixaExistente
+                                                ? Get.snackbar(
+                                                    'Atenção',
+                                                    'Não existe um caixa aberto para o usuário logado.',
+                                                    backgroundColor: Colors.red,
+                                                    colorText: Colors.white,
+                                                    snackPosition:
+                                                        SnackPosition.BOTTOM,
+                                                  )
+                                                : Get.dialog(
+                                                    const CloseRegisterPage(),
+                                                  ))
+                                            : Get.offAndToNamed(navigationIcon),
+                                      ),
+                              ),
+                      ),
+              );
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),

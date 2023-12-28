@@ -1,17 +1,23 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:http/http.dart' as http;
 
 class LoadController extends GetxController {
+  //conexão com api
   var connectedApi = false.obs;
 
+  //checkbox de escolha de quais dados serão carregados
   var checkbox1 = false.obs;
   var checkbox2 = false.obs;
   var checkbox3 = false.obs;
   var checkbox4 = false.obs;
+
+  var isLoading = true.obs;
 
   IsarService service = IsarService();
 
@@ -44,6 +50,12 @@ class LoadController extends GetxController {
 
   //carregar dados da api
   Future<void> loadData() async {
+    const SpinKitRotatingCircle(
+      color: Colors.red,
+      size: 50.0,
+    );
+    const LoadingScreen();
+
     await verificarConexaoApi();
 
     if (connectedApi.value == true) {
@@ -59,6 +71,8 @@ class LoadController extends GetxController {
           await service.getGrupo();
           await service.getProduto();
         }
+        isLoading = false.obs;
+        update();
       }
     } else {
       const CustomSnackBar(
@@ -69,6 +83,8 @@ class LoadController extends GetxController {
               backgroundColor: Colors.red,
               textColor: Colors.white)
           .show();
+          isLoading = false.obs;
+        update();
     }
   }
 

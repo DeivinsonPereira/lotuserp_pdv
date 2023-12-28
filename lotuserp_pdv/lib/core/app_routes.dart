@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/auth/config_page.dart';
 import 'package:lotuserp_pdv/pages/auth/login_page.dart';
-import 'package:lotuserp_pdv/pages/close_register_page.dart';
+import 'package:lotuserp_pdv/pages/close_register/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/home/home_page.dart';
 import 'package:lotuserp_pdv/pages/load_data/load_data_page.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/moviment_cash_page.dart';
