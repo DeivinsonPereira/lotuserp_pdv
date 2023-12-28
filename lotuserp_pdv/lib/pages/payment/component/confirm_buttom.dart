@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
@@ -24,27 +25,9 @@ class ConfirmButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    GlobalController globalController;
-    PdvController pdvController;
-    SideBarController sideBarController;
-
-    if (Get.isRegistered<GlobalController>()) {
-      globalController = Get.find<GlobalController>();
-    } else {
-      globalController = Get.put(GlobalController());
-    }
-
-    if (Get.isRegistered<PdvController>()) {
-      pdvController = Get.find<PdvController>();
-    } else {
-      pdvController = Get.put(PdvController());
-    }
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
+    GlobalController globalController = InjectionDependencies.globalController();
+    PdvController pdvController = InjectionDependencies.pdvController();
+    SideBarController sideBarController = InjectionDependencies.sidebarController();
 
     return TextButton(
       onPressed: () async {

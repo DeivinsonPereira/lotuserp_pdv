@@ -17,6 +17,7 @@ import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/global_controller.dart';
+import '../common/injection_dependencies.dart';
 import '../product/product_monitor_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {
@@ -35,12 +36,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   late NumberFormat formatoBrasileiro;
   final ScrollController scrollController = ScrollController();
   IsarService service = IsarService();
-  PdvController controller = Get.isRegistered<PdvController>()
-      ? Get.find<PdvController>()
-      : Get.put(PdvController());
-  PaymentController paymentController = Get.isRegistered<PaymentController>()
-      ? Get.find<PaymentController>()
-      : Get.put(PaymentController());
 
   @override
   void initState() {
@@ -88,34 +83,15 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController;
-    PasswordController passwordController;
-    GlobalController globalController;
-    // ignore: unused_local_variable
-    PdvController controller = Get.isRegistered<PdvController>()
-        ? Get.find<PdvController>()
-        : Get.put(PdvController());
-    PaymentController paymentController = Get.isRegistered<PaymentController>()
-        ? Get.find<PaymentController>()
-        : Get.put(PaymentController());
-
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
-
-    if (Get.isRegistered<PasswordController>()) {
-      passwordController = Get.find<PasswordController>();
-    } else {
-      passwordController = Get.put(PasswordController());
-    }
-
-    if (Get.isRegistered<GlobalController>()) {
-      globalController = Get.find<GlobalController>();
-    } else {
-      globalController = Get.put(GlobalController());
-    }
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
+    PasswordController passwordController =
+        InjectionDependencies.passwordController();
+    GlobalController globalController =
+        InjectionDependencies.globalController();
+    InjectionDependencies.pdvController();
+    PaymentController paymentController =
+        InjectionDependencies.paymentController();
 
     var userName = passwordController.userController.text;
 

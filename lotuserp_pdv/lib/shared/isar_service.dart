@@ -563,13 +563,9 @@ class IsarService {
   //inserir dados na tabela venda e vendaItem ****** ainda vai ter o caixaItem junto ******
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
-    PdvController pdvController = Get.isRegistered<PdvController>()
-        ? Get.find<PdvController>()
-        : Get.put(PdvController());
-    // ignore: unused_local_variable
-    PaymentController paymentController = Get.isRegistered<PaymentController>()
-        ? Get.find<PaymentController>()
-        : Get.put(PaymentController());
+    PdvController pdvController = InjectionDependencies.pdvController();
+    PaymentController paymentController =
+        InjectionDependencies.paymentController();
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
@@ -591,11 +587,41 @@ class IsarService {
         vendaItems.add(vendaItem);
       }
 
-      await isar.venda_items.putAll(vendaItems);
+      List<caixa_item> caixaItems = [];
 
+      for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
+        var paymentForm = listenTipo_recebimento();
+        Stream<int?> idPayment = paymentForm.map((event) {
+          if (event[i].descricao ==
+              paymentController.paymentsTotal[i]['nome']) {
+            return event[i].id;
+          } else {
+            return null;
+          }
+        });
+
+        int result = await idPayment.first ?? 0;
+
+        var valuePayment = double.parse(
+            paymentController.paymentsTotal[i]['valor'].replaceAll(',', '.'));
+
+        caixa_item caixaItem = caixa_item()
+          ..id_caixa = venda.id_caixa
+          ..descricao = 'VENDA'
+          ..data = venda.data
+          ..hora = venda.hora
+          ..id_tipo_recebimento = result
+          ..valor_cre = valuePayment
+          ..valor_deb = 0
+          ..id_venda = venda.id_venda
+          ..enviado = 0;
+
+        caixaItems.add(caixaItem);
+      }
+      await isar.venda_items.putAll(vendaItems);
+      await isar.caixa_items.putAll(caixaItems);
       pdvController.zerarCampos();
     });
-
     return isar;
   }
 
