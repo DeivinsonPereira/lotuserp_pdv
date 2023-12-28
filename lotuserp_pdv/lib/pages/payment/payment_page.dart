@@ -6,6 +6,7 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
@@ -27,21 +28,10 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    PdvController controller;
-    PaymentController controllerPayment;
+    PdvController controller = InjectionDependencies.pdvController();
+    PaymentController paymentController =
+        InjectionDependencies.paymentController();
     IsarService service = IsarService();
-
-    if (Get.isRegistered<PdvController>()) {
-      controller = Get.find<PdvController>();
-    } else {
-      controller = Get.put(PdvController());
-    }
-
-    if (Get.isRegistered<PaymentController>()) {
-      controllerPayment = Get.find<PaymentController>();
-    } else {
-      controllerPayment = Get.put(PaymentController());
-    }
 
     var paymentCount = 0.0;
 
@@ -239,7 +229,7 @@ class _PaymentPageState extends State<PaymentPage> {
           totalValue - (double.parse(newValuetotalCb2) / 100);
 
       double totalValueCb1 = controller.totalcheckBox1.value;
-      double totalPaid2 = controllerPayment.getTotalPaid();
+      double totalPaid2 = paymentController.getTotalPaid();
       remainingValue = totalValueCb1 - totalPaid2;
 
       ramainingValueCb2 = valorMinusDiscountCb2 - totalPaid2;
@@ -258,7 +248,7 @@ class _PaymentPageState extends State<PaymentPage> {
           remainingValueFormattedCb2.replaceAll('-', '');
 
       if (calculateTotal || isRest) {
-        String totalPaid = controllerPayment.getTotalPaid().toStringAsFixed(2);
+        String totalPaid = paymentController.getTotalPaid().toStringAsFixed(2);
         totalPaid = formatoBrasileiro.format(double.parse(totalPaid));
 
         return Padding(
@@ -323,7 +313,7 @@ class _PaymentPageState extends State<PaymentPage> {
             totalValue - (double.parse(newValuetotalCb2) / 100);
 
         double totalValueCb1 = controller.totalcheckBox1.value;
-        double totalPaid = controllerPayment.getTotalPaid();
+        double totalPaid = paymentController.getTotalPaid();
         remainingValue = totalValueCb1 - totalPaid;
 
         ramainingValueCb2 = valorMinusDiscountCb2 - totalPaid;
@@ -409,9 +399,9 @@ class _PaymentPageState extends State<PaymentPage> {
               child: Padding(
             padding: const EdgeInsets.all(10.0),
             child: ListView.builder(
-              itemCount: controllerPayment.paymentsTotal.length,
+              itemCount: paymentController.paymentsTotal.length,
               itemBuilder: (context, index) {
-                var mapPaymentsTotal = controllerPayment.paymentsTotal;
+                var mapPaymentsTotal = paymentController.paymentsTotal;
 
                 return Card(
                   child: Padding(
@@ -432,7 +422,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   child: IconButton(
                                     onPressed: () {
                                       setState(() {});
-                                      controllerPayment.deletePayment(index);
+                                      paymentController.deletePayment(index);
                                     },
                                     icon: const Icon(
                                       FontAwesomeIcons.trash,
@@ -547,7 +537,7 @@ class _PaymentPageState extends State<PaymentPage> {
     //botão para finalizar o pedido
     Widget finalizeButton() {
       double totalValue = controller.totalcheckBox1.value;
-      double totalPaid = controllerPayment.getTotalPaid();
+      double totalPaid = paymentController.getTotalPaid();
       double remainingValue = totalValue - totalPaid;
 
       controller.totalSomaPedidos();
@@ -555,7 +545,7 @@ class _PaymentPageState extends State<PaymentPage> {
           controller.numbersDiscountcb2.value.replaceAll(',', '.'));
 
       double totalValue2 = controller.totBruto.value - formattednumber;
-      double totalPaid2 = controllerPayment.getTotalPaid();
+      double totalPaid2 = paymentController.getTotalPaid();
       double remainingValue2 = totalValue2 - totalPaid2;
 
       bool isButtonEnabled = controller.checkbox1.value

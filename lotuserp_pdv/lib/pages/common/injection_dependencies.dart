@@ -1,16 +1,17 @@
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
+import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
 import '../../controllers/global_controller.dart';
 import '../../controllers/load_controller.dart';
 import '../../controllers/moviment_register_controller.dart';
 import '../../controllers/password_controller.dart';
+import '../../controllers/payment_controller.dart';
 import '../../controllers/printer_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 
 abstract class InjectionDependencies {
-  
   static SideBarController sidebarController() {
     if (Get.isRegistered<SideBarController>()) {
       return Get.find<SideBarController>();
@@ -75,4 +76,19 @@ abstract class InjectionDependencies {
     }
   }
 
+  static PdvController pdvController() {
+    if (Get.isRegistered<PdvController>()) {
+      return Get.find<PdvController>();
+    } else {
+      return Get.put(PdvController());
+    }
+  }
+
+  static PaymentController paymentController() {
+    if (Get.isRegistered<PaymentController>()) {
+      return Get.find<PaymentController>();
+    } else {
+      return Get.put(PaymentController());
+    }
+  }
 }
