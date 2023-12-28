@@ -84,55 +84,51 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //lista de pedidos dos itens solicitados
     Widget listViewPedidosList() {
-      return Flexible(
-        flex: 12,
+      return Expanded(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: SizedBox(
-            height: 525,
-            child: ListView.builder(
-              itemCount: controller.pedidos.length,
-              itemBuilder: (context, index) {
-                total = formatoBrasileiro
-                    .format(controller.pedidos[index]['total']);
+          child: ListView.builder(
+            itemCount: controller.pedidos.length,
+            itemBuilder: (context, index) {
+              total =
+                  formatoBrasileiro.format(controller.pedidos[index]['total']);
 
-                var priceFormatado = formatoBrasileiro
-                    .format(controller.pedidos[index]['price']);
+              var priceFormatado =
+                  formatoBrasileiro.format(controller.pedidos[index]['price']);
 
-                return Card(
-                  elevation: 2,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.zero,
-                      leading: IconButton(
-                        onPressed: () {
-                          setState(() {
-                            controller.removerPedido(index, () => setState);
-                          });
-                        },
-                        icon: const Icon(
-                          FontAwesomeIcons.trash,
-                          size: 20,
-                          color: Color.fromARGB(255, 170, 46, 37),
-                        ),
-                      ),
-                      title: Text(
-                        controller.pedidos[index]['nomeProduto'],
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      subtitle: Text(
-                          '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                      trailing: Text(
-                        ' $total',
-                        style: const TextStyle(fontSize: 16),
+              return Card(
+                elevation: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    leading: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          controller.removerPedido(index, () => setState);
+                        });
+                      },
+                      icon: const Icon(
+                        FontAwesomeIcons.trash,
+                        size: 20,
+                        color: Color.fromARGB(255, 170, 46, 37),
                       ),
                     ),
+                    title: Text(
+                      controller.pedidos[index]['nomeProduto'],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    subtitle: Text(
+                        '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
+                    trailing: Text(
+                      ' $total',
+                      style: const TextStyle(fontSize: 16),
+                    ),
                   ),
-                );
-              },
-            ),
+                ),
+              );
+            },
           ),
         ),
       );
@@ -165,41 +161,25 @@ class _PaymentPageState extends State<PaymentPage> {
               ? controller.numbersDiscountcb2.value
               : '0,00');
 
-      return Flexible(
-        flex: 2,
-        child: Column(
+      return SizedBox(
+        height: 78,
+        child: Row(
           children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 8.0,
-                left: 18.0,
-                right: 18.0,
-              ),
-              child: Container(
-                height: 3.2,
+            Expanded(
+                flex: 1,
+                child: RowWidget()
+                    .Rows('Total Bruto', totalValueFormated, isSubtotal: true)),
+            Expanded(
+              flex: 1,
+              child: RowWidget().Rows(
+                'Descontos ',
+                numberDiscount,
               ),
             ),
             Expanded(
-              child: Row(
-                children: [
-                  Expanded(
-                      flex: 1,
-                      child: RowWidget().Rows('Total Bruto', totalValueFormated,
-                          isSubtotal: true)),
-                  Expanded(
-                    flex: 1,
-                    child: RowWidget().Rows(
-                      'Descontos ',
-                      numberDiscount,
-                    ),
-                  ),
-                  Expanded(
-                      flex: 2,
-                      child: RowWidget()
-                          .Rows('Total Liquido', totalFormat, istotal: true)),
-                ],
-              ),
-            ),
+                flex: 2,
+                child: RowWidget()
+                    .Rows('Total Liquido', totalFormat, istotal: true)),
           ],
         ),
       );
@@ -426,75 +406,74 @@ class _PaymentPageState extends State<PaymentPage> {
       return Column(
         children: [
           Expanded(
-              flex: 5,
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ListView.builder(
-                  itemCount: controllerPayment.paymentsTotal.length,
-                  itemBuilder: (context, index) {
-                    var mapPaymentsTotal = controllerPayment.paymentsTotal;
+            padding: const EdgeInsets.all(10.0),
+            child: ListView.builder(
+              itemCount: controllerPayment.paymentsTotal.length,
+              itemBuilder: (context, index) {
+                var mapPaymentsTotal = controllerPayment.paymentsTotal;
 
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                mapPaymentsTotal[index]['nome'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                              Row(
-                                children: [
-                                  Text(mapPaymentsTotal[index]['valor']),
-                                  SizedBox(
-                                      width: 50,
-                                      child: IconButton(
-                                        onPressed: () {
-                                          setState(() {});
-                                          controllerPayment
-                                              .deletePayment(index);
-                                        },
-                                        icon: const Icon(
-                                          FontAwesomeIcons.trash,
-                                          size: 20,
-                                        ),
-                                        color: const Color.fromARGB(
-                                            255, 170, 46, 37),
-                                      )),
-                                ],
-                              )
-                            ]),
-                      ),
-                    );
-                  },
-                ),
-              )),
-          Expanded(
-              flex: 1,
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
-                  ),
-                  Expanded(
+                return Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
                     child: Row(
-                      children: [
-                        Expanded(
-                          child: totalPay(
-                              'Valor Recebido', paymentFormsFormated,
-                              calculateTotal: true),
-                        ),
-                        Expanded(
-                            child: totalPay('Restante', totalToPayFormatted,
-                                isRest: true)),
-                        Expanded(child: totalPay('Troco', totalToPayFormatted)),
-                      ],
-                    ),
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            mapPaymentsTotal[index]['nome'],
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                          Row(
+                            children: [
+                              Text(mapPaymentsTotal[index]['valor']),
+                              SizedBox(
+                                  width: 50,
+                                  child: IconButton(
+                                    onPressed: () {
+                                      setState(() {});
+                                      controllerPayment.deletePayment(index);
+                                    },
+                                    icon: const Icon(
+                                      FontAwesomeIcons.trash,
+                                      size: 20,
+                                    ),
+                                    color:
+                                        const Color.fromARGB(255, 170, 46, 37),
+                                  )),
+                            ],
+                          )
+                        ]),
                   ),
-                ],
-              ))
+                );
+              },
+            ),
+          )),
+          SizedBox(
+            height: 75,
+            width: double.infinity,
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
+                ),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: totalPay('Valor Recebido', paymentFormsFormated,
+                            calculateTotal: true),
+                      ),
+                      Expanded(
+                          child: totalPay('Restante', totalToPayFormatted,
+                              isRest: true)),
+                      Expanded(child: totalPay('Troco', totalToPayFormatted)),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       );
     }
@@ -708,7 +687,7 @@ class _PaymentPageState extends State<PaymentPage> {
               Expanded(
                 flex: 1,
                 child: Container(
-                    height: 625,
+                    height: 670,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -728,22 +707,21 @@ class _PaymentPageState extends State<PaymentPage> {
                 flex: 1,
                 child: Column(
                   children: [
-                    Container(
-                      width: double.infinity,
-                      height: 450,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.white,
+                        ),
+                        child: paymentForms(),
                       ),
-                      child: paymentForms(),
                     ),
                     SizedBox(
-                      child: SizedBox(
-                        height: 75,
-                        child: listIcons(),
-                      ),
+                      height: 75,
+                      child: listIcons(),
                     ),
-                    Expanded(
+                    SizedBox(
+                      height: 100,
                       child: finalizeButton(),
                     )
                   ],
