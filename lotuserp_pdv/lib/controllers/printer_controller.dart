@@ -117,7 +117,7 @@ class PrinterController extends GetxController {
   }
 
   //conecta o dispositivo bluetooth
-  connectDevice() async {
+  Future<void>connectDevice() async {
     if (selectedPrinter == null) return;
     try {
       isConnected.value =
@@ -129,7 +129,7 @@ class PrinterController extends GetxController {
   }
 
   //faz uma impressão teste
-  void print2X1Test() async {
+  Future<void> print2X1Test() async {
     if (selectedPrinter == null) return;
     const name = "Vista Tecnologia\n\n\n";
     const teste = "teste 123\n\n\n";

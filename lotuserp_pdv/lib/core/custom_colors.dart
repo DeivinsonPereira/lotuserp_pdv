@@ -31,4 +31,8 @@ abstract class CustomColors {
 
   static MaterialColor customSwatchColor =
       MaterialColor(0xFF2B305B, _swatchOpacity);
+
+  static Color confirmButtonColor = const Color(0xFF86C337);
+
+
 }

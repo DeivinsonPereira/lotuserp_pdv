@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'component/drawer.dart';
 
 //principal class
@@ -16,14 +16,8 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    SideBarController sideBarController;
-    if (Get.isRegistered<SideBarController>()) {
-      sideBarController = Get.find<SideBarController>();
-    } else {
-      sideBarController = Get.put(SideBarController());
-    }
-    
-  
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
 
     var size = MediaQuery.of(context).size;
 

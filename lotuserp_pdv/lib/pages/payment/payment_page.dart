@@ -737,9 +737,11 @@ class _PaymentPageState extends State<PaymentPage> {
                       ),
                       child: paymentForms(),
                     ),
-                    Container(
-                      height: 75,
-                      child: listIcons(),
+                    SizedBox(
+                      child: SizedBox(
+                        height: 75,
+                        child: listIcons(),
+                      ),
                     ),
                     Expanded(
                       child: finalizeButton(),

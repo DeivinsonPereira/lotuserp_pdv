@@ -260,7 +260,7 @@ class OpenRegisterPage extends StatelessWidget {
                                     child: TextButton(
                                       style: TextButton.styleFrom(
                                         backgroundColor:
-                                            const Color(0xFF86C337),
+                                            CustomColors.confirmButtonColor,
                                         shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(0),

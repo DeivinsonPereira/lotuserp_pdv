@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
+import '../../load_data/load_data_page.dart';
 import '../../moviment_cash/moviment_cash_page.dart';
 import '../../open_register/open_register_page.dart';
 import '../../../shared/isar_service.dart';
@@ -19,8 +20,10 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController = InjectionDependencies.sidebarController();
-    PasswordController passwordController = InjectionDependencies.passwordController();
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
+    PasswordController passwordController =
+        InjectionDependencies.passwordController();
     IsarService service = IsarService();
 
     var userName = passwordController.userController.text;
@@ -127,6 +130,7 @@ class DrawerWidget extends StatelessWidget {
                 icon: FontAwesomeIcons.download,
                 navigationIcon: PagesRoutes.loadData,
                 text: 'Carga de dados',
+                loadData: true,
               ),
             ],
           ),
@@ -178,16 +182,18 @@ class IconbuttomLargeSideBar extends StatelessWidget {
   bool? abrirCaixa = false;
   bool? movimentarCaixa = false;
   bool? pdv = false;
+  bool? loadData = false;
 
-  IconbuttomLargeSideBar({
-    Key? key,
-    required this.navigationIcon,
-    required this.icon,
-    required this.text,
-    this.abrirCaixa,
-    this.movimentarCaixa,
-    this.pdv,
-  }) : super(key: key);
+  IconbuttomLargeSideBar(
+      {Key? key,
+      required this.navigationIcon,
+      required this.icon,
+      required this.text,
+      this.abrirCaixa,
+      this.movimentarCaixa,
+      this.pdv,
+      this.loadData})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -239,7 +245,9 @@ class IconbuttomLargeSideBar extends StatelessWidget {
                             snackPosition: SnackPosition.BOTTOM,
                           )
                         : Get.offAndToNamed(PagesRoutes.pdvMonitor))
-                    : Get.offAndToNamed(navigationIcon)));
+                    : (loadData == true
+                        ? Get.dialog(const LoadDataPage())
+                        : Get.offAndToNamed(navigationIcon))));
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),

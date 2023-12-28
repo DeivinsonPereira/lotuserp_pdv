@@ -964,14 +964,14 @@ class IsarService {
           Produto_grupoSchema,
           ProdutoSchema,
           UsuarioSchema,
+          Tipo_recebimentoSchema,
+          Dado_empresaSchema,
+          Usuario_logadoSchema,
+          Default_printerSchema,
           Caixa_itemSchema,
           CaixaSchema,
           Venda_itemSchema,
           VendaSchema,
-          Dado_empresaSchema,
-          Usuario_logadoSchema,
-          Tipo_recebimentoSchema,
-          Default_printerSchema
         ],
         directory: dir.path,
       );

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
@@ -28,14 +27,14 @@ void main() async {
       Produto_grupoSchema,
       ProdutoSchema,
       UsuarioSchema,
+      Tipo_recebimentoSchema,
+      Dado_empresaSchema,
+      Usuario_logadoSchema,
+      Default_printerSchema,
       Caixa_itemSchema,
       CaixaSchema,
       Venda_itemSchema,
       VendaSchema,
-      Dado_empresaSchema,
-      Usuario_logadoSchema,
-      Tipo_recebimentoSchema,
-      Default_printerSchema,
     ],
     directory: dir.path,
     inspector: true,

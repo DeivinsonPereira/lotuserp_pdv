@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 
 import '../../controllers/global_controller.dart';
+import '../../controllers/load_controller.dart';
 import '../../controllers/password_controller.dart';
 import '../../controllers/printer_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 
 abstract class InjectionDependencies {
+  
   static SideBarController sidebarController() {
     if (Get.isRegistered<SideBarController>()) {
       return Get.find<SideBarController>();
@@ -46,4 +48,13 @@ abstract class InjectionDependencies {
       return Get.put(TextFieldController());
     }
   }
+
+  static LoadController loadController() {
+    if (Get.isRegistered<LoadController>()) {
+      return Get.find<LoadController>();
+    } else {
+      return Get.put(LoadController());
+    }
+  }
+
 }
