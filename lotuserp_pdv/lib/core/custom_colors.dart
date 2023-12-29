@@ -34,5 +34,5 @@ abstract class CustomColors {
 
   static Color confirmButtonColor = const Color(0xFF86C337);
 
-
+  static Color informationBox = const Color.fromARGB(255, 102, 102, 102);
 }

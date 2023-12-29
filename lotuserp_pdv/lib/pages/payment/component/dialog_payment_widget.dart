@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 class DialogWidget {
   PaymentController controller = Get.isRegistered<PaymentController>()
@@ -114,25 +115,57 @@ class DialogWidget {
               ),
             ),
           ),
-          SizedBox(
+          Container(
+            alignment: Alignment.topCenter,
             height: 350,
             width: 500,
-            child: Column(
+            child: Row(
               children: [
-                Text(
-                  'Falta pagar: $remainingValueFormatted',
-                  style: const TextStyle(
-                    color: Color.fromARGB(255, 122, 122, 122),
+                //Informação "falta pagar"
+                Expanded(
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      padding: const EdgeInsets.all(10.0),
+                      color: CustomColors.informationBox,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Falta pagar:',
+                            style: TextStyle(
+                              color: Colors.white,
+                            ),
+                          ),
+                          Text(
+                            remainingValueFormatted,
+                            style: const TextStyle(
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-                Obx(
-                  () {
-                    return Text(
-                      controller.totalPayment.value,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 28),
-                    );
-                  },
+
+                // informação valor digitado
+                Expanded(
+                  child: Container(
+                    color: ,
+                    child: Align(
+                      alignment: Alignment.topRight,
+                      child: Obx(
+                        () {
+                          return Text(
+                            controller.totalPayment.value,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 28),
+                          );
+                        },
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
