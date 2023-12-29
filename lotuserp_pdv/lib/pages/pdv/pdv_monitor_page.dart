@@ -408,38 +408,38 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                                   .getQuantidade(
                                                                       nome!) >
                                                               0) // Verifica se a quantidade é maior que 0
-                                                            Builder(builder:
-                                                                (context) {
-                                                              return Positioned(
-                                                                top: 5,
-                                                                right: 5,
-                                                                child:
-                                                                    Container(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          5),
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: CustomColors
-                                                                        .customSwatchColor,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            100),
-                                                                  ),
-                                                                  child: Obx(
-                                                                      () =>
-                                                                          Text(
-                                                                            '${controller.getQuantidade(nome!)}',
-                                                                            style:
-                                                                                const TextStyle(
-                                                                              color: Colors.white,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                          )),
-                                                                ),
-                                                              );
-                                                            }),
+
+                                                            Positioned(
+                                                              top: 5,
+                                                              right: 5,
+                                                              child: controller
+                                                                          .getQuantidade(
+                                                                              nome) >
+                                                                      0
+                                                                  ? Container(
+                                                                      padding:
+                                                                          const EdgeInsets
+                                                                              .all(
+                                                                              5),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: CustomColors
+                                                                            .customSwatchColor,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(100),
+                                                                      ),
+                                                                      child: Obx(
+                                                                          () =>
+                                                                              Text(
+                                                                                '${controller.getQuantidade(nome!)}',
+                                                                                style: const TextStyle(
+                                                                                  color: Colors.white,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                              )),
+                                                                    )
+                                                                  : Container(),
+                                                            ),
                                                         ],
                                                       ),
                                                     ),

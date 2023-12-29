@@ -56,6 +56,7 @@ class PdvController extends GetxController {
     numbersDiscountcb2.value = '0,00';
     totalcheckBox1.value = 0.0;
     totalcheckBox2.value = 0.0;
+    update();
   }
 
   void updatePage() {

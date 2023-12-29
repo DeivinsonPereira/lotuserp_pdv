@@ -25,9 +25,11 @@ class ConfirmButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    GlobalController globalController = InjectionDependencies.globalController();
+    GlobalController globalController =
+        InjectionDependencies.globalController();
     PdvController pdvController = InjectionDependencies.pdvController();
-    SideBarController sideBarController = InjectionDependencies.sidebarController();
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
 
     return TextButton(
       onPressed: () async {
@@ -88,8 +90,10 @@ class ConfirmButtom extends StatelessWidget {
             : {
                 await service
                     .insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
-                Get.offNamedUntil(
-                    PagesRoutes.pdvMonitor, (route) => route.isFirst),
+
+                // volta a rota até o pdv e
+                Get.back(),
+                Get.back()
               };
       },
       child: Text(text,
