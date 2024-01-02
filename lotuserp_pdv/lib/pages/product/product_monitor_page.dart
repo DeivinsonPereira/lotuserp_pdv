@@ -288,14 +288,16 @@ class LegendSearch extends StatelessWidget {
 
     return isDescription
         ? Expanded(
-            child: Row(children: [
-              Expanded(
-                child: Text(
-                  legend,
-                  style: TextStyle(color: color),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    legend,
+                    style: TextStyle(color: color),
+                  ),
                 ),
-              ),
-            ]),
+              ],
+            ),
           )
         : Row(children: [
             SizedBox(
