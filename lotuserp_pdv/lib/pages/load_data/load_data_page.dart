@@ -24,7 +24,7 @@ class LoadDataPage extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0),
       ),
-      child: Container(
+      child: SizedBox(
         width: size.width * 0.4,
         height: size.height * 0.5,
         child: Scaffold(

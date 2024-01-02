@@ -122,25 +122,38 @@ class DialogWidget {
             child: Row(
               children: [
                 //Informação "falta pagar"
-                Expanded(
+                Flexible(
                   child: Align(
                     alignment: Alignment.topLeft,
                     child: Container(
+                      height: 82,
+                      width: double.infinity,
                       padding: const EdgeInsets.all(10.0),
-                      color: CustomColors.informationBox,
-                      child: Row(
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.black),
+                        color: CustomColors.informationBox,
+                      ),
+                      child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
-                            'Falta pagar:',
-                            style: TextStyle(
-                              color: Colors.white,
+                          const Align(
+                            alignment: Alignment.topLeft,
+                            child: Text(
+                              'À Pagar',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Text(
-                            remainingValueFormatted,
-                            style: const TextStyle(
-                              color: Colors.white,
+                          Align(
+                            alignment: Alignment.bottomRight,
+                            child: Text(
+                              remainingValueFormatted,
+                              style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold),
                             ),
                           )
                         ],
@@ -150,19 +163,49 @@ class DialogWidget {
                 ),
 
                 // informação valor digitado
-                Expanded(
-                  child: Container(
-                    color: ,
-                    child: Align(
-                      alignment: Alignment.topRight,
-                      child: Obx(
-                        () {
-                          return Text(
-                            controller.totalPayment.value,
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 28),
-                          );
-                        },
+                Flexible(
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 1.0),
+                      child: Container(
+                        height: 82,
+                        padding: const EdgeInsets.only(
+                          top: 10,
+                          left: 10,
+                          right: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          border: Border.all(width: 1, color: Colors.black),
+                          color: CustomColors.customContrastColor,
+                        ),
+                        child: Column(
+                          children: [
+                            const Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'Informado',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            Align(
+                              alignment: Alignment.bottomRight,
+                              child: Obx(
+                                () {
+                                  return Text(
+                                    controller.totalPayment.value,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 22),
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -177,18 +220,22 @@ class DialogWidget {
           onPressed: () {
             controller.addPaymentsTotal(name, controller.totalPayment.value);
             controller.totalPayment.value = '0,00';
-            //implementar lógica para armazenar o valor do disconto numa variável e passar para a tela principal;
             callback();
             Get.back();
           },
-          child: const Text('CONFIRMAR'),
+          child: const Text(
+            'CONFIRMAR',
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          ),
         ),
         TextButton(
           onPressed: () {
+            controller.totalPayment.value = '0,00';
             Get.back();
           },
           child: const Text(
             'CANCELAR',
+            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
           ),
         ),
       ],

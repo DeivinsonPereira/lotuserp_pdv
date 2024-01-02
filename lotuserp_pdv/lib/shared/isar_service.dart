@@ -507,6 +507,20 @@ class IsarService {
     return tipo;
   }
 
+  Future<int?> search_tipoRecebimentoIdByDesc(String desc) async {
+    final isar = await db;
+
+    var tipo = await isar.tipo_recebimentos
+        .filter()
+        .descricaoEqualTo(desc)
+        .findFirst();
+
+    if (tipo != null) {
+      return tipo.id;
+    } else {
+      return null;
+    }
+  }
   //metodos para inserir dados no banco ########################################################
 
   //inserir dados na tabela caixa
@@ -589,7 +603,12 @@ class IsarService {
 
       List<caixa_item> caixaItems = [];
 
+      int? idPayment = 0;
       for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
+        idPayment = await search_tipoRecebimentoIdByDesc(
+            paymentController.paymentsTotal[i]['nome']);
+
+        /* for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
         var paymentForm = listenTipo_recebimento();
         Stream<int?> idPayment = paymentForm.map((event) {
           if (event[i].descricao ==
@@ -599,8 +618,7 @@ class IsarService {
             return null;
           }
         });
-
-        int result = await idPayment.first ?? 0;
+*/
 
         var valuePayment = double.parse(
             paymentController.paymentsTotal[i]['valor'].replaceAll(',', '.'));
@@ -610,12 +628,18 @@ class IsarService {
           ..descricao = 'VENDA'
           ..data = venda.data
           ..hora = venda.hora
-          ..id_tipo_recebimento = result
-          ..valor_cre = valuePayment
+          ..id_tipo_recebimento = idPayment!
           ..valor_deb = 0
           ..id_venda = venda.id_venda
           ..enviado = 0;
 
+        if (paymentController.paymentsTotal[i]['nome'] == 'DINHEIRO') {
+          caixaItem.valor_cre = venda.valor_troco > 0
+              ? valuePayment - venda.valor_troco
+              : valuePayment;
+        } else {
+          caixaItem.valor_cre = valuePayment;
+        }
         caixaItems.add(caixaItem);
       }
       await isar.venda_items.putAll(vendaItems);

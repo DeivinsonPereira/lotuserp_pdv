@@ -330,7 +330,6 @@ class _ConfigPageState extends State<ConfigPage> {
                       await service.getUsuarios();
                       await service.getTipo_recebimento();
                     }
-                    Get.back();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColors
@@ -340,21 +339,31 @@ class _ConfigPageState extends State<ConfigPage> {
                   ),
                   child: const Text(
                     'Confirmar',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20),
                   ),
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: IconButton(
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0, top: 16.0),
+                child: ElevatedButton.icon(
                   onPressed: () {
                     Get.toNamed(PagesRoutes.printerPageRoute);
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.print,
-                    color: CustomColors.customSwatchColor,
-                    size: 50,
+                    color: Colors.white,
+                    size: 40,
                   ),
+                  label: const Text(
+                    'Configurar Impressora',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(300, 50),
+                      backgroundColor: CustomColors.customSwatchColor),
                 ),
               ),
             ],

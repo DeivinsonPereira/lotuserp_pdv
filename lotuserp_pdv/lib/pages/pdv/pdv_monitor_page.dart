@@ -760,8 +760,16 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             flex: 1,
                             child: InkWell(
                               onTap: () {
-                                paymentController.zerarCampos();
-                                Get.toNamed(PagesRoutes.paymentRoute);
+                                if (controller.pedidos.isEmpty) {
+                                  Get.snackbar(
+                                      'Atenção', 'Nenhum item adicionado',
+                                      backgroundColor: Colors.red,
+                                      colorText: Colors.white,
+                                      snackPosition: SnackPosition.BOTTOM);
+                                } else {
+                                  paymentController.zerarCampos();
+                                  Get.toNamed(PagesRoutes.paymentRoute);
+                                }
                               },
                               child: Padding(
                                 padding:

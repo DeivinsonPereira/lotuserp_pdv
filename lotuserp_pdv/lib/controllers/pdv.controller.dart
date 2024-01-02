@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'dart:math';
 
 import 'package:lotuserp_pdv/core/app_routes.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
@@ -307,5 +309,22 @@ class PdvController extends GetxController {
       totalcheckBox1.value += element['total'];
     }
     update();
+  }
+
+  //buscar o troco (somente em dinheiro)
+  void getTotalChange() {
+    PaymentController paymentController =
+        InjectionDependencies.paymentController();
+
+    for (var element in paymentController.paymentsTotal) {
+      if (element['nome'] == 'DINHEIRO') {
+        if (totalcheckBox1 < 0) {
+          String valorDinheiro = element['valor'] ?? '0.0';
+          double valorDinheiroDouble =
+              double.parse(valorDinheiro.replaceAll(',', '.'));
+          element['valor'] = valorDinheiroDouble - totalcheckBox1.value;
+        }
+      }
+    }
   }
 }
