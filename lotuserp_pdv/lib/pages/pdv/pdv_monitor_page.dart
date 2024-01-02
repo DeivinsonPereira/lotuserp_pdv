@@ -28,7 +28,7 @@ class PdvMonitorPage extends StatefulWidget {
 }
 
 class _PdvMonitorPageState extends State<PdvMonitorPage> {
-  /*int isSelectedList = 0;*/
+  int isSelectedList = 0;
   int idGrupo = -1;
   late int caixaId = 0;
   late String ip;
@@ -104,7 +104,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
       symbol: '',
     );
 
-    List<String> listaGrupos = [''];
+    List<String> listaGrupos = ['TODOS'];
 
     List<produto> getProdutoById(List<produto> product) {
       return product.where((product) => product.id_grupo == idGrupo).toList();
@@ -218,66 +218,62 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                   element.grupo_descricao!);
                                             }
 
-                                            return Obx(() => GestureDetector(
-                                                  onTap: () {
-                                                    controller.isSelectedList
-                                                        .value = index;
-                                                    if (index != 0) {
-                                                      idGrupo = grupo[index - 1]
-                                                          .id_grupo;
-                                                    }
-                                                  },
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            top: 10.0,
-                                                            left: 20),
-                                                    child: Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              5),
-                                                      decoration: BoxDecoration(
+                                            return GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  controller.isSelectedList
+                                                      .value = index;
+                                                  if (index != 0) {
+                                                    idGrupo = grupo[index - 1]
+                                                        .id_grupo;
+                                                  }
+                                                });
+                                              },
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    top: 10.0, left: 20),
+                                                child: Container(
+                                                  padding:
+                                                      const EdgeInsets.all(5),
+                                                  decoration: BoxDecoration(
+                                                      color: controller
+                                                                  .isSelectedList
+                                                                  .value ==
+                                                              index
+                                                          ? const Color
+                                                              .fromRGBO(
+                                                              43, 48, 91, 1)
+                                                          : Colors.transparent,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20)),
+                                                  child: Row(
+                                                    children: [
+                                                      Text(
+                                                        listaGrupos[index],
+                                                        style: TextStyle(
+                                                          fontWeight:
+                                                              FontWeight.bold,
                                                           color: controller
                                                                       .isSelectedList
                                                                       .value ==
                                                                   index
-                                                              ? const Color
-                                                                  .fromRGBO(
-                                                                  43, 48, 91, 1)
-                                                              : Colors
-                                                                  .transparent,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      20)),
-                                                      child: Row(
-                                                        children: [
-                                                          Text(
-                                                            listaGrupos[index],
-                                                            style: TextStyle(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: controller
-                                                                          .isSelectedList
-                                                                          .value ==
-                                                                      index
-                                                                  ? Colors.white
-                                                                  : CustomColors
-                                                                      .customSwatchColor,
-                                                              fontSize: controller
-                                                                          .isSelectedList
-                                                                          .value ==
-                                                                      index
-                                                                  ? 18
-                                                                  : 16,
-                                                            ),
-                                                          ),
-                                                        ],
+                                                              ? Colors.white
+                                                              : CustomColors
+                                                                  .customSwatchColor,
+                                                          fontSize: controller
+                                                                      .isSelectedList
+                                                                      .value ==
+                                                                  index
+                                                              ? 18
+                                                              : 16,
+                                                        ),
                                                       ),
-                                                    ),
+                                                    ],
                                                   ),
-                                                ));
+                                                ),
+                                              ),
+                                            );
                                           },
                                         ),
                                       ),
