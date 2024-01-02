@@ -339,6 +339,13 @@ class IsarService {
     return await isar.produtos.filter().gtinEqualTo(barcode).findFirst();
   }
 
+  //busca o objeto produtos de acordo com a descrição
+  Future searchProdutoByDesc(String desc) async {
+    final isar = await db;
+
+    return await isar.produtos.filter().descricaoStartsWith(desc).findFirst();
+  }
+
   //inserindo dados na tabela usuarios vindos do servidor
   Future getUsuarios() async {
     final isar = await db;
@@ -521,6 +528,7 @@ class IsarService {
       return null;
     }
   }
+
   //metodos para inserir dados no banco ########################################################
 
   //inserir dados na tabela caixa

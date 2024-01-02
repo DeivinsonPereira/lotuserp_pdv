@@ -9,6 +9,7 @@ import '../../controllers/password_controller.dart';
 import '../../controllers/payment_controller.dart';
 import '../../controllers/printer_controller.dart';
 import '../../controllers/product_controller.dart';
+import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 
@@ -98,6 +99,14 @@ abstract class InjectionDependencies {
       return Get.find<ProdutoController>();
     } else {
       return Get.put(ProdutoController());
+    }
+  }
+
+  static SearchProductPdvController searchProductPdvController() {
+    if (Get.isRegistered<SearchProductPdvController>()) {
+      return Get.find<SearchProductPdvController>();
+    } else {
+      return Get.put(SearchProductPdvController());
     }
   }
 }
