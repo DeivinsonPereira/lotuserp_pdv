@@ -297,36 +297,39 @@ class _ConfigPageState extends State<ConfigPage> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (verificacoes() == true) {}
-                    textFieldController.salvarInformacoes(context);
-                    await service.getIpEmpresa(isCorrectUrl: true);
-                    var iplocal = textFieldController.ip;
-                    var empresa = await service.getEmpresa(
-                        textFieldController.idEmpresaController.text, iplocal);
-                    empresa != null ? Get.dialog(const LoadingScreen()) : '';
-                    dado_empresa dadosEmpresa = dado_empresa()
-                      ..id_empresa = int.parse(
-                          textFieldController.idEmpresaController.text)
-                      ..id_nfce = int.parse(
-                          textFieldController.idSerieNfceController.text)
-                      ..num_caixa =
-                          int.parse(textFieldController.numCaixaController.text)
-                      ..intervalo_envio = int.parse(
-                          textFieldController.intervaloEnvioController.text)
-                      ..ip_empresa = textFieldController.ip;
-
-                    if (iplocal != '' &&
-                        iplocal.isNotEmpty &&
-                        iplocal.isBlank == false) {
-                      await service.insertDadosEmpresariais(dadosEmpresa);
-                      await service.getEmpresa(
+                    try {
+                      textFieldController.salvarInformacoes(context);
+                      await service.getIpEmpresa(isCorrectUrl: true);
+                      var iplocal = textFieldController.ip;
+                      var empresa = await service.getEmpresa(
                           textFieldController.idEmpresaController.text,
                           iplocal);
-                      await service.getGrupo();
-                      await service.getProduto();
-                      await service.getUsuarios();
-                      await service.getTipo_recebimento();
-                      Get.back();
-                    }
+                      empresa != null ? Get.dialog(const LoadingScreen()) : '';
+                      dado_empresa dadosEmpresa = dado_empresa()
+                        ..id_empresa = int.parse(
+                            textFieldController.idEmpresaController.text)
+                        ..id_nfce = int.parse(
+                            textFieldController.idSerieNfceController.text)
+                        ..num_caixa = int.parse(
+                            textFieldController.numCaixaController.text)
+                        ..intervalo_envio = int.parse(
+                            textFieldController.intervaloEnvioController.text)
+                        ..ip_empresa = textFieldController.ip;
+
+                      if (iplocal != '' &&
+                          iplocal.isNotEmpty &&
+                          iplocal.isBlank == false) {
+                        await service.insertDadosEmpresariais(dadosEmpresa);
+                        await service.getEmpresa(
+                            textFieldController.idEmpresaController.text,
+                            iplocal);
+                        await service.getGrupo();
+                        await service.getProduto();
+                        await service.getUsuarios();
+                        await service.getTipo_recebimento();
+                        Get.back();
+                      }
+                    } catch (e) {}
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: CustomColors

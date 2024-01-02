@@ -28,7 +28,7 @@ class PdvMonitorPage extends StatefulWidget {
 }
 
 class _PdvMonitorPageState extends State<PdvMonitorPage> {
-  int isSelectedList = -1;
+  /*int isSelectedList = 0;*/
   int idGrupo = -1;
   late int caixaId = 0;
   late String ip;
@@ -104,7 +104,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
       symbol: '',
     );
 
-    List<String> listaGrupos = [];
+    List<String> listaGrupos = [''];
 
     List<produto> getProdutoById(List<produto> product) {
       return product.where((product) => product.id_grupo == idGrupo).toList();
@@ -625,7 +625,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                       ),
                     ),
 
-                    // Container do Resumo de pedidos
+                    // Container do resumo de pedidos
                     Expanded(
                       flex: 4,
                       child: Column(

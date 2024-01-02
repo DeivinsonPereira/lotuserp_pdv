@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'dart:math';
 
 import 'package:lotuserp_pdv/core/app_routes.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 class PdvController extends GetxController {
   RxList pedidos = [].obs;
+
+  //iniciar o grupo "Todos" selecionado
+  RxInt isSelectedList = 0.obs;
 
   //checkbox desconto real
   RxBool checkbox1 = true.obs;
@@ -50,6 +51,12 @@ class PdvController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
 
+  //atualizar isSelectedList
+  void updateIsSelectedList() {
+    isSelectedList.value = 0;
+  }
+
+  //limpar os campos
   void zerarCampos() {
     pedidos.value = [];
     discountPercentage.value = 0.0;
@@ -58,10 +65,6 @@ class PdvController extends GetxController {
     numbersDiscountcb2.value = '0,00';
     totalcheckBox1.value = 0.0;
     totalcheckBox2.value = 0.0;
-    update();
-  }
-
-  void updatePage() {
     update();
   }
 
@@ -85,13 +88,6 @@ class PdvController extends GetxController {
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
     return index != -1.0 ? pedidos[index]['quantidade'] : 0.0;
-  }
-
-  //busca o nome do item
-  int getNome(String nomeProduto) {
-    int index =
-        pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
-    return index;
   }
 
   // ######### checkbox 1 true ########
@@ -309,22 +305,5 @@ class PdvController extends GetxController {
       totalcheckBox1.value += element['total'];
     }
     update();
-  }
-
-  //buscar o troco (somente em dinheiro)
-  void getTotalChange() {
-    PaymentController paymentController =
-        InjectionDependencies.paymentController();
-
-    for (var element in paymentController.paymentsTotal) {
-      if (element['nome'] == 'DINHEIRO') {
-        if (totalcheckBox1 < 0) {
-          String valorDinheiro = element['valor'] ?? '0.0';
-          double valorDinheiroDouble =
-              double.parse(valorDinheiro.replaceAll(',', '.'));
-          element['valor'] = valorDinheiroDouble - totalcheckBox1.value;
-        }
-      }
-    }
   }
 }

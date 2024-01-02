@@ -85,12 +85,13 @@ class ConfirmButtom extends StatelessWidget {
               .caixaAberta; //id caixa aberto para o usuario logado
 
         !isConfirmation
-            ? {Get.back()}
+            ? {pdvController.updateIsSelectedList(), Get.back()}
             : {
                 await service
                     .insertVendaWithVendaItemAndCaixaItem(vendaExecutada),
 
                 // volta a rota até o pdv e
+                pdvController.updateIsSelectedList(),
                 Get.back(),
                 Get.back()
               };
