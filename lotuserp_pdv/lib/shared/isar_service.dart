@@ -787,34 +787,47 @@ class IsarService {
 
   //buscar informações de acordo com a url e o numero do contrato
   Future<String> getIpEmpresa({bool isCorrectUrl = false}) async {
-    Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
-    final response = await http.get(
-      getIpEmpresa,
-      headers: _headers,
-    );
-
-    if (response.statusCode != 200 && isCorrectUrl == false) {
-      throw Exception(
-        'Não foi possível encontrar os itens do banco de dados',
+    try {
+      Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
+      final response = await http.get(
+        getIpEmpresa,
+        headers: _headers,
       );
-    }
 
-    if (response.statusCode == 200) {
-      var ip = jsonDecode(utf8.decode(response.bodyBytes));
-      if (ip != null && ip['itens'] != null && ip['itens'][0]['link'] != null) {
-        String link = ip['itens'][0]['link'];
-        return link;
-      } else {
-        !isCorrectUrl
-            ? const CustomSnackBar(
-                    title: 'Erro',
-                    message: 'Numero de contrato inválido',
-                    icon: Icons.error,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white)
-                .show()
-            : '';
+      if (response.statusCode != 200 && isCorrectUrl == false) {
+        throw Exception(
+          'Não foi possível encontrar os itens do banco de dados',
+        );
       }
+
+      if (response.statusCode == 200) {
+        var ip = jsonDecode(utf8.decode(response.bodyBytes));
+        if (ip != null &&
+            ip['itens'] != null &&
+            ip['itens'][0]['link'] != null) {
+          String link = ip['itens'][0]['link'];
+          return link;
+        } else {
+          !isCorrectUrl
+              ? const CustomSnackBar(
+                      title: 'Erro',
+                      message: 'Numero de contrato inválido',
+                      icon: Icons.error,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white)
+                  .show()
+              : '';
+        }
+      }
+    } catch (e) {
+      const CustomSnackBar(
+        title: 'Erro',
+        message:
+            'Falha ao buscar dados da empresa. Tente novamente mais tarde!',
+        icon: Icons.error,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+      ).show();
     }
     return "";
   }

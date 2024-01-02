@@ -297,12 +297,7 @@ class _ConfigPageState extends State<ConfigPage> {
                 child: ElevatedButton(
                   onPressed: () async {
                     if (verificacoes() == true) {}
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return const LoadingScreen();
-                      },
-                    );
+
                     textFieldController.salvarInformacoes(context);
                     await service.getIpEmpresa(isCorrectUrl: true);
                     dado_empresa dadosEmpresa = dado_empresa()
@@ -321,14 +316,19 @@ class _ConfigPageState extends State<ConfigPage> {
                     if (iplocal != '' &&
                         iplocal.isNotEmpty &&
                         iplocal.isBlank == false) {
-                      await service.insertDadosEmpresariais(dadosEmpresa);
-                      await service.getEmpresa(
-                          textFieldController.idEmpresaController.text,
-                          iplocal);
-                      await service.getGrupo();
-                      await service.getProduto();
-                      await service.getUsuarios();
-                      await service.getTipo_recebimento();
+                      if (await service.getEmpresa(
+                              textFieldController.idEmpresaController.text,
+                              iplocal) !=
+                          null) {
+                        Get.dialog(const LoadingScreen());
+                        await service.insertDadosEmpresariais(dadosEmpresa);
+
+                        await service.getGrupo();
+                        await service.getProduto();
+                        await service.getUsuarios();
+                        await service.getTipo_recebimento();
+                        Get.back();
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(
