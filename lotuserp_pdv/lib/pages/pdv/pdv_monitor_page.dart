@@ -739,7 +739,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                                       .ellipsis,
                                                             ),
                                                             subtitle: Text(
-                                                                '${controller.pedidos[index]['quantidade']} x R\$ ${controller.pedidos[index]['unidade']}'),
+                                                                '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}'),
                                                             trailing:
                                                                 const Text(
                                                               ' ',

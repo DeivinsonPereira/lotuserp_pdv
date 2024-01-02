@@ -182,8 +182,7 @@ class _PaymentPageState extends State<PaymentPage> {
           showDialog(
               context: context,
               builder: (BuildContext context) {
-                return DialogWidget()
-                    .keyboardNumber(pushSetState, paymentCount, text);
+                return DialogWidget().keyboardNumber(pushSetState, text);
               });
         },
         child: Padding(
@@ -193,21 +192,23 @@ class _PaymentPageState extends State<PaymentPage> {
             height: 65,
             child: Card(
               color: CustomColors.customSwatchColor,
-              child: Column(children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 8.0),
-                  child: Icon(
-                    icon,
-                    color: Colors.white,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Icon(
+                      icon,
+                      color: Colors.white,
+                    ),
                   ),
-                ),
-                Text(
-                  text,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: Colors.white, fontSize: 10),
-                ),
-              ]),
+                  Text(
+                    text,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(color: Colors.white, fontSize: 10),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

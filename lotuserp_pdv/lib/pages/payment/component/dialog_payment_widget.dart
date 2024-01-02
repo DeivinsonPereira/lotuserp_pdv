@@ -52,7 +52,7 @@ class DialogWidget {
     );
   }
 
-  Widget keyboardNumber(Function callback, double value, String name) {
+  Widget keyboardNumber(Function callback, String name) {
     double totalValue = pdvcontroller.totalcheckBox1.value;
     double totalPaid = controller.getTotalPaid();
     double remainingValue = totalValue - totalPaid;
@@ -215,7 +215,21 @@ class DialogWidget {
           ),
         ],
       ),
+
+      // Botões de confirmação e cancelamento
       actions: [
+        //Cancelar
+        TextButton(
+          onPressed: () {
+            controller.totalPayment.value = '0,00';
+            Get.back();
+          },
+          child: const Text(
+            'CANCELAR',
+            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+          ),
+        ),
+        //Confirmar
         TextButton(
           onPressed: () {
             controller.addPaymentsTotal(name, controller.totalPayment.value);
@@ -226,16 +240,6 @@ class DialogWidget {
           child: const Text(
             'CONFIRMAR',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-          ),
-        ),
-        TextButton(
-          onPressed: () {
-            controller.totalPayment.value = '0,00';
-            Get.back();
-          },
-          child: const Text(
-            'CANCELAR',
-            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
           ),
         ),
       ],
