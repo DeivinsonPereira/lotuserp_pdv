@@ -8,6 +8,7 @@ import '../../controllers/moviment_register_controller.dart';
 import '../../controllers/password_controller.dart';
 import '../../controllers/payment_controller.dart';
 import '../../controllers/printer_controller.dart';
+import '../../controllers/product_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 
@@ -89,6 +90,14 @@ abstract class InjectionDependencies {
       return Get.find<PaymentController>();
     } else {
       return Get.put(PaymentController());
+    }
+  }
+
+  static ProdutoController productController() {
+    if (Get.isRegistered<ProdutoController>()) {
+      return Get.find<ProdutoController>();
+    } else {
+      return Get.put(ProdutoController());
     }
   }
 }

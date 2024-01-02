@@ -25,21 +25,21 @@ class PopupWidget extends StatelessWidget {
         controller.textOption.value = value;
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        const PopupMenuItem<String>(
+        /*  const PopupMenuItem<String>(
           value: 'ID',
           child: Text('ID', style: TextStyle(fontSize: 22)),
-        ),
+        ),*/
         const PopupMenuItem<String>(
           value: 'DESCRIÇÃO',
           child: Text('DESCRIÇÃO', style: TextStyle(fontSize: 22)),
         ),
-        const PopupMenuItem<String>(
+        /*   const PopupMenuItem<String>(
           value: 'CÓDIGO BARRAS',
           child: Text(
             'CÓDIGO BARRAS',
             style: TextStyle(fontSize: 22),
           ),
-        ),
+        ),*/
       ],
     );
   }

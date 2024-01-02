@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/product_controller.dart';
@@ -16,9 +17,7 @@ class ProductMonitorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = Get.isRegistered()
-        ? Get.find<ProdutoController>()
-        : Get.put(ProdutoController());
+    ProdutoController controller = InjectionDependencies.productController();
 
     IsarService service = IsarService();
 

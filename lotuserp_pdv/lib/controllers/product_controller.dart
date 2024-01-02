@@ -33,7 +33,13 @@ class ProdutoController extends GetxController {
   var product = [].obs;
 
   void updateProductVariable(String value) async {
-    product.value = await service.searchProdutoByDescPaged(value);
+    if (value != '') {
+      product.value = await service.searchProdutoByDescPaged(value);
+    } else {
+      for (var i = 0; i < 5; i++) {
+        product.value = [];
+      }
+    }
   }
 
   //atualizar variavel SaldoProdutoFormatted que deve ser em valor int nesse formato 000.000.000
@@ -43,27 +49,32 @@ class ProdutoController extends GetxController {
     if (value == 0) {
       valueFormatted = '0';
       saldoProdutoFormatted.value = valueFormatted;
-    }
+    } else {
+      if (valueFormatted == '1.0') {
+        valueFormatted = '1';
+      } else if (value < 0) {
+        const negativeSign = '-';
+        valueFormatted = valueFormatted.replaceAll('-', '');
+        final parts = valueFormatted.split('.');
+        final integralPart = parts[0];
+        final decimalPart = parts.length > 1 ? parts[1] : '';
+        final integralPartWithDots = _addDotsToIntegralPart(integralPart);
+        valueFormatted =
+            '$negativeSign$integralPartWithDots${_formatDecimalPart(decimalPart)}';
+      } else if (value < 1000) {
+        final parts = valueFormatted.split('.');
+        final integralPart = parts[0];
+        final decimalPart = parts.length > 1 ? parts[1] : '';
+        valueFormatted = '$integralPart${_formatDecimalPart(decimalPart)}';
+      } else {
+        final parts = valueFormatted.split('.');
+        final integralPart = parts[0];
+        final decimalPart = parts.length > 1 ? parts[1] : '';
+        final integralPartWithDots = _addDotsToIntegralPart(integralPart);
+        valueFormatted =
+            '$integralPartWithDots${_formatDecimalPart(decimalPart)}';
+      }
 
-    if (value < 0) {
-      const negativeSign = '-';
-      valueFormatted = valueFormatted.replaceAll('-', '');
-      final parts = valueFormatted.split('.');
-      final integralPart = parts[0];
-      final decimalPart = parts.length > 1 ? parts[1] : '';
-      final integralPartWithDots = _addDotsToIntegralPart(integralPart);
-      valueFormatted =
-          '$negativeSign$integralPartWithDots${_formatDecimalPart(decimalPart)}';
-      saldoProdutoFormatted.value = valueFormatted;
-    }
-
-    if (value >= 1000) {
-      final parts = valueFormatted.split('.');
-      final integralPart = parts[0];
-      final decimalPart = parts.length > 1 ? parts[1] : '';
-      final integralPartWithDots = _addDotsToIntegralPart(integralPart);
-      valueFormatted =
-          '$integralPartWithDots${_formatDecimalPart(decimalPart)}';
       saldoProdutoFormatted.value = valueFormatted;
     }
   }
