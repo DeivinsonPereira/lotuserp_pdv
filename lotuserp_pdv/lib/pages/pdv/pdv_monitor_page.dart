@@ -218,56 +218,66 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                   element.grupo_descricao!);
                                             }
 
-                                            return GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  isSelectedList = index;
-                                                  if (index != 0) {
-                                                    idGrupo = grupo[index - 1]
-                                                        .id_grupo;
-                                                  }
-                                                });
-                                              },
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    top: 10.0, left: 20),
-                                                child: Container(
-                                                  padding:
-                                                      const EdgeInsets.all(5),
-                                                  decoration: BoxDecoration(
-                                                      color: isSelectedList ==
-                                                              index
-                                                          ? const Color
-                                                              .fromRGBO(
-                                                              43, 48, 91, 1)
-                                                          : Colors.transparent,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20)),
-                                                  child: Row(
-                                                    children: [
-                                                      Text(
-                                                        listaGrupos[index],
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          color: isSelectedList ==
+                                            return Obx(() => GestureDetector(
+                                                  onTap: () {
+                                                    controller.isSelectedList
+                                                        .value = index;
+                                                    if (index != 0) {
+                                                      idGrupo = grupo[index - 1]
+                                                          .id_grupo;
+                                                    }
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.only(
+                                                            top: 10.0,
+                                                            left: 20),
+                                                    child: Container(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              5),
+                                                      decoration: BoxDecoration(
+                                                          color: controller
+                                                                      .isSelectedList
+                                                                      .value ==
                                                                   index
-                                                              ? Colors.white
-                                                              : CustomColors
-                                                                  .customSwatchColor,
-                                                          fontSize:
-                                                              isSelectedList ==
+                                                              ? const Color
+                                                                  .fromRGBO(
+                                                                  43, 48, 91, 1)
+                                                              : Colors
+                                                                  .transparent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      20)),
+                                                      child: Row(
+                                                        children: [
+                                                          Text(
+                                                            listaGrupos[index],
+                                                            style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: controller
+                                                                          .isSelectedList
+                                                                          .value ==
+                                                                      index
+                                                                  ? Colors.white
+                                                                  : CustomColors
+                                                                      .customSwatchColor,
+                                                              fontSize: controller
+                                                                          .isSelectedList
+                                                                          .value ==
                                                                       index
                                                                   ? 18
                                                                   : 16,
-                                                        ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
-                                                ),
-                                              ),
-                                            );
+                                                ));
                                           },
                                         ),
                                       ),
@@ -301,8 +311,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                       var produto = snapshot.data!;
 
                                       dynamic filteredProducts;
-                                      if (isSelectedList >= 0) {
-                                        if (listaGrupos[isSelectedList] !=
+                                      if (controller.isSelectedList.value >=
+                                          0) {
+                                        if (listaGrupos[controller
+                                                .isSelectedList.value] !=
                                             'TODOS') {
                                           filteredProducts =
                                               getProdutoById(produto);
@@ -329,8 +341,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           String preco = '';
                                           int idProduto = 0;
 
-                                          if (isSelectedList >= 0) {
-                                            if (listaGrupos[isSelectedList] ==
+                                          if (controller.isSelectedList.value >=
+                                              0) {
+                                            if (listaGrupos[controller
+                                                    .isSelectedList.value] ==
                                                 'TODOS') {
                                               produto.isNotEmpty
                                                   ? file = produto[index]
