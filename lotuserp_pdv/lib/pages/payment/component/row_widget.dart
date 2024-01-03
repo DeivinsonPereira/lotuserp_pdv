@@ -113,12 +113,14 @@ class ButtonsPayment {
   Widget subtotalInDialog(String text) {
     return Row(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(left: 45.0),
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(text),
+              Text(
+                text,
+                style: const TextStyle(fontWeight: FontWeight.bold),
+              ),
               Obx(() {
                 double valor = 0.0;
                 for (var element in controller.pedidos) {
@@ -142,14 +144,17 @@ class ButtonsPayment {
                     formatoBrasileiro.format(valorMinusDiscountCb2);
 
                 return Obx(
-                  () => Text(
-                    controller.checkbox1.value
-                        ? formattedValueCb1
-                        : formattedValueCb2,
-                    style: const TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black,
+                  () => Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      controller.checkbox1.value
+                          ? formattedValueCb1
+                          : formattedValueCb2,
+                      style: const TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 );
@@ -173,7 +178,7 @@ class ButtonsPayment {
         child: Row(children: [
           Obx(
             () => Checkbox(
-              shape: const CircleBorder(),
+              shape: const CircleBorder(side: BorderSide.none),
               checkColor: Colors.black,
               activeColor: Colors.white,
               fillColor: MaterialStateProperty.all(Colors.white),
@@ -248,34 +253,40 @@ class ButtonsPayment {
               },
             ),
           ),
-          Column(
-            children: [
-              Text(
-                text,
-                style: const TextStyle(color: Colors.white),
-              ),
-              Obx(() {
-                final formattedDiscountPercentage = formatoBrasileiro
-                    .format(controller.discountPercentage.value);
-                return Align(
-                  alignment: Alignment.bottomRight,
+          Expanded(
+            child: Column(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
                   child: Text(
-                    !controller.checkbox2.value
-                        ? '$formattedDiscountPercentage% '
-                        : '${controller.discountPercentagecb2.value}%',
-                    style: !controller.checkbox2.value
-                        ? const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white)
-                        : TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.customContrastColor),
+                    text,
+                    style: const TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                );
-              }),
-            ],
+                ),
+                Obx(() {
+                  final formattedDiscountPercentage = formatoBrasileiro
+                      .format(controller.discountPercentage.value);
+                  return Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      !controller.checkbox2.value
+                          ? '$formattedDiscountPercentage% '
+                          : '${controller.discountPercentagecb2.value}%',
+                      style: !controller.checkbox2.value
+                          ? const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)
+                          : TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.customContrastColor),
+                    ),
+                  );
+                }),
+              ],
+            ),
           )
         ]));
   }
@@ -359,13 +370,12 @@ class ButtonsPayment {
                                       color: CustomColors.informationBox,
                                     ),
                                     child: checkedDiscountBoxButton(
-                                        'Desconto em Reais'),
+                                        'Desconto em reais'),
                                   ),
                                 ),
                                 const SizedBox(width: 1),
                                 Expanded(
                                   child: Container(
-                                    padding: const EdgeInsets.only(right: 5),
                                     decoration: BoxDecoration(
                                       border: Border.all(
                                           width: 1, color: Colors.black),
@@ -377,7 +387,16 @@ class ButtonsPayment {
                                 )
                               ],
                             ),
-                            subtotalInDialog('Subtotal'),
+                            const SizedBox(height: 1),
+                            Container(
+                              padding: const EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                color: CustomColors.customContrastColor,
+                                border:
+                                    Border.all(width: 1, color: Colors.black),
+                              ),
+                              child: subtotalInDialog('Subtotal'),
+                            ),
                           ],
                         ),
                       ),
