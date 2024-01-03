@@ -64,7 +64,9 @@ class RowWidget {
 }
 
 class ButtonsPayment {
-  PdvController controller = Get.isRegistered<PdvController>() ? Get.find<PdvController>() : Get.put(PdvController());
+  PdvController controller = Get.isRegistered<PdvController>()
+      ? Get.find<PdvController>()
+      : Get.put(PdvController());
   double originalDiscountPercentage = 0.0;
   double originalTotalValue = 0.0;
 
@@ -347,10 +349,16 @@ class ButtonsPayment {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      callback();
                       Get.back();
+                      controller.numbersDiscount('0,00');
+                      controller.discountPercentage(0.00);
+                      controller.discountPercentagecb2('00,00');
+                      controller.numbersDiscountcb2('0,00');
                     },
-                    child: const Text('CONFIRMAR'),
+                    child: const Text(
+                      'CANCELAR',
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   ),
                   TextButton(
                     onPressed: () {
@@ -358,7 +366,8 @@ class ButtonsPayment {
                       Get.back();
                     },
                     child: const Text(
-                      'CANCELAR',
+                      'CONFIRMAR',
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ],
