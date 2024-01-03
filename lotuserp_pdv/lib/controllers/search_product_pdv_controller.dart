@@ -6,6 +6,7 @@ class SearchProductPdvController extends GetxController {
 
   var search = ''.obs;
 
+  var file = ''.obs;
   var nome = ''.obs;
   var unidade = ''.obs;
   var preco = ''.obs;
@@ -13,29 +14,40 @@ class SearchProductPdvController extends GetxController {
 
   // **** atualizar ****
 
+  //atualizar file
+  void updateFile(String value) {
+    file.value = value;
+    update();
+  }
+
   //atualizar campo de pesquisa
   void updateSearch() {
     search.value = searchController.text;
+    update();
   }
 
   //atualizar nome
   void updateNome(String value) {
     nome.value = value;
+    update();
   }
 
   //atualizar unidade
   void updateUnidade(String value) {
     unidade.value = value;
+    update();
   }
 
   //atualizar preco
   void updatePreco(String value) {
     preco.value = value;
+    update();
   }
 
   //atualizar idProduto
   void updateIdProduto(int value) {
     idProduto.value = value;
+    update();
   }
 
   // ***** limpar ****
@@ -48,8 +60,6 @@ class SearchProductPdvController extends GetxController {
     unidade.value = '';
     preco.value = '';
     idProduto.value = 0;
+    update();
   }
-  
-
-
 }

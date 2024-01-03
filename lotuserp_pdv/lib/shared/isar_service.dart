@@ -340,10 +340,10 @@ class IsarService {
   }
 
   //busca o objeto produtos de acordo com a descrição
-  Future searchProdutoByDesc(String desc) async {
+  Future<List<produto?>> searchProdutoByDesc(String desc) async {
     final isar = await db;
 
-    return await isar.produtos.filter().descricaoStartsWith(desc).findFirst();
+    return await isar.produtos.filter().descricaoStartsWith(desc).findAll();
   }
 
   //inserindo dados na tabela usuarios vindos do servidor
