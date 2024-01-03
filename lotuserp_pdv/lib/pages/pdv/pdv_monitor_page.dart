@@ -422,8 +422,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                               if (controller.isSelectedList.value >= 0) {
                                 if (listaGrupos[
-                                        controller.isSelectedList.value] ==
-                                    'TODOS') {
+                                            controller.isSelectedList.value] ==
+                                        'TODOS' &&
+                                    produto[index].file_imagem != null) {
                                   produto.isNotEmpty
                                       ? file = produto[index].file_imagem!
                                       : file = null;
@@ -602,7 +603,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           'TODOS',
                         );
                         for (var element in grupo) {
-                          listaGrupos.add(element.grupo_descricao!);
+                          if (element.grupo_descricao != null) {
+                            listaGrupos.add(element.grupo_descricao!);
+                          }
                         }
 
                         return GestureDetector(
