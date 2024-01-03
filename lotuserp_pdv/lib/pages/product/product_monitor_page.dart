@@ -5,7 +5,6 @@ import 'package:lotuserp_pdv/core/app_routes.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/product_controller.dart';
 import '../common/format_txt.dart';
@@ -18,8 +17,6 @@ class ProductMonitorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ProdutoController controller = InjectionDependencies.productController();
-
-    IsarService service = IsarService();
 
     var size = MediaQuery.of(context).size;
 
@@ -94,29 +91,31 @@ class ProductMonitorPage extends StatelessWidget {
                         //opções de pesquisa
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Obx(() => Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 5),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(color: Colors.grey)),
-                                width: 260,
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text(
-                                        controller.textOption.value,
-                                        style: const TextStyle(
-                                            fontSize: 25,
-                                            fontWeight: FontWeight.w600),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
+                          GetBuilder<ProdutoController>(
+                            builder: (_) => Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 5),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.grey)),
+                              width: 260,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      _.textOption.value,
+                                      style: const TextStyle(
+                                          fontSize: 25,
+                                          fontWeight: FontWeight.w600),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    const SizedBox(child: PopupWidget()),
-                                  ],
-                                ),
-                              )),
+                                  ),
+                                  const SizedBox(child: PopupWidget()),
+                                ],
+                              ),
+                            ),
+                          ),
                           const SizedBox(
                             width: 5,
                           ),
@@ -149,7 +148,13 @@ class ProductMonitorPage extends StatelessWidget {
                                   onChanged: (value) {
                                     if (controller.textOption.value ==
                                         'DESCRIÇÃO') {
-                                      controller.updateProductVariable(value);
+                                      controller.updateProductVariable(
+                                          controller.searchController.text);
+                                    } else if (controller.textOption.value ==
+                                        'ID') {
+                                      controller.updateProductVariableId(
+                                          controller
+                                              .searchController.text);
                                     }
                                   }),
                             ),
@@ -212,43 +217,16 @@ class ProductMonitorPage extends StatelessWidget {
                             const Divider(),
 
                             //resultado da pesquisa
-                            Obx(
-                              () => controller.textOption.value == 'DESCRIÇÃO'
-                                  ? const SearchApresentation(
-                                      isProd: true,
-                                    )
-                                  : FutureBuilder(
-                                      future: controller.textOption.value ==
-                                              'ID'
-                                          ? service.searchProdutoById(int.parse(
-                                              controller.searchController.text))
-                                          : service.searchProdutoByBarcode(
-                                              controller.searchController.text),
-                                      builder: (context, snapshot) {
-                                        if (!snapshot.hasData) {
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        }
-                                        if (snapshot.hasError) {
-                                          return const Center(
-                                            child: Text('Erro ao buscar dados'),
-                                          );
-                                        }
-                                        if (snapshot.hasData) {
-                                          var produtos = snapshot.data!;
-
-                                          return SearchApresentation(
-                                            produtos: produtos,
-                                          );
-                                        }
-
-                                        return const Center(
-                                          child: SizedBox(),
-                                        );
-                                      },
-                                    ),
-                            )
+                            controller.textOption.value == 'DESCRIÇÃO'
+                                ? const SearchApresentation(
+                                    isProd: true,
+                                  )
+                                : (controller.textOption.value == 'ID'
+                                    ? const SearchApresentation()
+                                    : controller.searchController.text ==
+                                            'CODIGO BARRAS'
+                                        ? const SearchApresentation()
+                                        : const SizedBox()),
                           ],
                         ),
                       ),

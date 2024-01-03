@@ -32,6 +32,7 @@ class ProdutoController extends GetxController {
   //objeto vindo do banco de dados local (snapshot)
   var product = [].obs;
 
+  //Busca os produtos de acordo com o que for digitando no campo de pesquisa
   void updateProductVariable(String value) async {
     if (value != '') {
       product.value = await service.searchProdutoByDescPaged(value);
@@ -40,6 +41,20 @@ class ProdutoController extends GetxController {
         product.value = [];
       }
     }
+    update();
+  }
+
+  //busca os produtos de acordo com o id passado
+
+  void updateProductVariableId(String value) async {
+    if (value != '') {
+      product.value = await service.searchProdutoById(int.parse(value));
+    } else {
+      for (var i = 0; i < 5; i++) {
+        product.value = [];
+      }
+    }
+    update();
   }
 
   //atualizar variavel SaldoProdutoFormatted que deve ser em valor int nesse formato 000.000.000
@@ -150,6 +165,9 @@ class ProdutoController extends GetxController {
 
   //Muda o texto da variavel textOption
   void changeTextOption(String value) {
+    searchController.text = '';
     textOption.value = value;
+    product.value = [];
+    update();
   }
 }

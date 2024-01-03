@@ -17,17 +17,22 @@ class SearchApresentation extends GetView<ProdutoController> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Obx(
-        () => ListView.builder(
-          itemCount: isProd ? controller.product.length : produtos.length,
+      child: GetBuilder<ProdutoController>(
+        builder: (controller) => ListView.builder(
+          itemCount: isProd
+              ? controller.product.length
+              : controller.product.isNotEmpty &&
+                      controller.product.isBlank == false
+                  ? 1
+                  : 0,
           itemBuilder: (context, index) {
             //transformar o valor de pvenda em String brl
             controller.updateValorVendaFormatted(isProd
                 ? controller.product[index].pvenda
-                : produtos[index].pvenda);
+                : controller.product[0].pvenda);
             controller.updateSaldoProdutoFormatted(isProd
                 ? controller.product[index].saldo_produto
-                : produtos[index].saldo_produto);
+                : controller.product[0].saldo_produto);
 
             return Column(
               children: [
@@ -38,32 +43,32 @@ class SearchApresentation extends GetView<ProdutoController> {
                       LegendSearch(
                         legend: isProd
                             ? controller.product[index].id_produto.toString()
-                            : produtos[index].id_produto.toString(),
+                            : controller.product[index].id_produto.toString(),
                         size: 75,
                       ),
                       LegendSearch(
                         legend: isProd
                             ? controller.product[index].descricao
-                            : produtos[index].descricao,
+                            : controller.product[index].descricao,
                         size: 500,
                         isDescription: true,
                       ),
                       LegendSearch(
                         legend: isProd
                             ? controller.product[index].unidade
-                            : produtos[index].unidade ?? 'n/a',
+                            : controller.product[index].unidade ?? 'n/a',
                         size: 50,
                       ),
                       LegendSearch(
                         legend: isProd
                             ? controller.product[index].gtin
-                            : produtos[index].gtin ?? 'n/a',
+                            : controller.product[index].gtin ?? 'n/a',
                         size: 150,
                       ),
                       LegendSearch(
                         legend: isProd
                             ? controller.product[index].pvenda.toString()
-                            : produtos[index].pvenda.toString(),
+                            : controller.product[index].pvenda.toString(),
                         size: 80,
                         isPvenda: true,
                       ),
@@ -73,7 +78,8 @@ class SearchApresentation extends GetView<ProdutoController> {
                       LegendSearch(
                         legend: isProd
                             ? controller.product[index].saldo_produto.toString()
-                            : produtos[index].saldo_produto.toString(),
+                            : controller.product[index].saldo_produto
+                                .toString(),
                         size: 92,
                         isSaldoProduto: true,
                       ),

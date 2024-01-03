@@ -22,13 +22,13 @@ class PopupWidget extends StatelessWidget {
         color: Colors.black,
       ),
       onSelected: (value) {
-        controller.textOption.value = value;
+        controller.changeTextOption(value);
       },
       itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-        /*  const PopupMenuItem<String>(
+        const PopupMenuItem<String>(
           value: 'ID',
           child: Text('ID', style: TextStyle(fontSize: 22)),
-        ),*/
+        ),
         const PopupMenuItem<String>(
           value: 'DESCRIÇÃO',
           child: Text('DESCRIÇÃO', style: TextStyle(fontSize: 22)),

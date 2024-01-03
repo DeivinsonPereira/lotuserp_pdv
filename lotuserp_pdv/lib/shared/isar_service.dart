@@ -316,10 +316,10 @@ class IsarService {
   }
 
   //busca o objeto produto de acordo com o id
-  Future searchProdutoById(int id) async {
+  Future<List<produto?>> searchProdutoById(int id) async {
     final isar = await db;
 
-    return await isar.produtos.filter().id_produtoEqualTo(id).findFirst();
+    return await isar.produtos.filter().id_produtoEqualTo(id).findAll();
   }
 
   //busca o objeto produto de acordo com a descrição de forma paginada
