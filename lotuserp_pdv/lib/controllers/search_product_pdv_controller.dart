@@ -12,12 +12,19 @@ class SearchProductPdvController extends GetxController {
   var preco = ''.obs;
   var idProduto = 0.obs;
 
+  bool isSearch = false;
+
   // **** atualizar ****
+
+  //atualizar isSearch
+  void updateIsSearch(bool decision) {
+    isSearch = decision;
+    update();
+  }
 
   //atualizar file
   void updateFile(String value) {
     file.value = value;
-    update();
   }
 
   //atualizar campo de pesquisa
@@ -29,25 +36,21 @@ class SearchProductPdvController extends GetxController {
   //atualizar nome
   void updateNome(String value) {
     nome.value = value;
-    update();
   }
 
   //atualizar unidade
   void updateUnidade(String value) {
     unidade.value = value;
-    update();
   }
 
   //atualizar preco
   void updatePreco(String value) {
     preco.value = value;
-    update();
   }
 
   //atualizar idProduto
   void updateIdProduto(int value) {
     idProduto.value = value;
-    update();
   }
 
   // ***** limpar ****

@@ -20,7 +20,6 @@ import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/global_controller.dart';
-import '../../controllers/product_controller.dart';
 import '../../controllers/search_product_pdv_controller.dart';
 import '../common/injection_dependencies.dart';
 import '../product/product_monitor_page.dart';
@@ -167,7 +166,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   inputFormatters: [UpperCaseTxt()],
                                   decoration: const InputDecoration(
                                     prefixIcon: Icon(Icons.search),
-                                    contentPadding: const EdgeInsets.all(10),
+                                    contentPadding: EdgeInsets.all(10),
                                     disabledBorder: UnderlineInputBorder(
                                         borderSide: BorderSide.none),
                                     border: InputBorder.none,
@@ -180,6 +179,13 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   ),
                                   onChanged: (value) {
                                     searchProductPdvController.updateSearch();
+                                    if (value == '') {
+                                      searchProductPdvController
+                                          .updateIsSearch(false);
+                                    } else {
+                                      searchProductPdvController
+                                          .updateIsSearch(true);
+                                    }
                                   },
                                 ),
                               ),
@@ -303,238 +309,245 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 borderRadius: BorderRadius.circular(10),
                                 color: Colors.white,
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: searchProductPdvController
-                                            .searchController.text !=
-                                        ''
-                                    ? _SearchProduct(
-                                        ip: ip,
-                                        formatoBrasileiro: formatoBrasileiro,
-                                        service: service,
-                                        controller: searchProductPdvController,
-                                        pdvController: controller)
-                                    : StreamBuilder(
-                                        stream: service.listenProdutos(),
-                                        builder: (context, snapshot) {
-                                          if (snapshot.hasError) {
-                                            return const Text(
-                                                'Produto não encontrado');
-                                          }
-                                          if (snapshot.hasData) {
-                                            var produto = snapshot.data!;
-
-                                            dynamic filteredProducts;
-                                            if (controller
-                                                    .isSelectedList.value >=
-                                                0) {
-                                              if (listaGrupos[controller
-                                                      .isSelectedList.value] !=
-                                                  'TODOS') {
-                                                filteredProducts =
-                                                    getProdutoById(produto);
-                                              } else {
-                                                filteredProducts = produto;
-                                              }
-                                            } else {
-                                              filteredProducts = [];
+                              child: GetBuilder<SearchProductPdvController>(
+                                  builder: (_) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: _.isSearch
+                                      ? _SearchProduct(
+                                          ip: ip,
+                                          formatoBrasileiro: formatoBrasileiro,
+                                          service: service,
+                                          controller:
+                                              searchProductPdvController,
+                                          pdvController: controller)
+                                      : StreamBuilder(
+                                          stream: service.listenProdutos(),
+                                          builder: (context, snapshot) {
+                                            if (snapshot.hasError) {
+                                              return const Text(
+                                                  'Produto não encontrado');
                                             }
+                                            if (snapshot.hasData) {
+                                              var produto = snapshot.data!;
 
-                                            return GridView.builder(
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 5,
-                                                crossAxisSpacing: 5,
-                                                mainAxisSpacing: 5,
-                                              ),
-                                              itemCount:
-                                                  filteredProducts.length,
-                                              itemBuilder:
-                                                  (BuildContext context,
-                                                      int index) {
-                                                String? nome;
-                                                String? unidade;
-                                                String? file;
-                                                String preco = '';
-                                                int idProduto = 0;
-
-                                                if (controller
-                                                        .isSelectedList.value >=
-                                                    0) {
-                                                  if (listaGrupos[controller
-                                                          .isSelectedList
-                                                          .value] ==
-                                                      'TODOS') {
-                                                    produto.isNotEmpty
-                                                        ? file = produto[index]
-                                                            .file_imagem!
-                                                        : file = null;
-                                                    nome = produto[index]
-                                                        .descricao;
-                                                    preco = formatoBrasileiro
-                                                        .format(produto[index]
-                                                            .pvenda);
-                                                    if (precos.isNotEmpty) {}
-                                                    precos.add(preco);
-                                                    unidade =
-                                                        produto[index].unidade;
-                                                  } else {
-                                                    file =
-                                                        filteredProducts[index]
-                                                                .file_imagem ??
-                                                            "Valor Padrão";
-                                                    nome =
-                                                        filteredProducts[index]
-                                                                .descricao ??
-                                                            "null";
-
-                                                    preco = formatoBrasileiro
-                                                        .format(
-                                                            filteredProducts[
-                                                                    index]
-                                                                .pvenda);
-
-                                                    unidade =
-                                                        filteredProducts[index]
-                                                                .unidade ??
-                                                            "";
-                                                    idProduto =
-                                                        filteredProducts[index]
-                                                                .id_produto ??
-                                                            0;
-                                                  }
-
-                                                  if (file != null) {
-                                                    return InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          controller
-                                                              .adicionarPedidos(
-                                                                  nome!,
-                                                                  unidade!,
-                                                                  preco,
-                                                                  idProduto,
-                                                                  () =>
-                                                                      setState);
-
-                                                          controller
-                                                              .totalSoma();
-                                                          if (!controller
-                                                              .pedidos
-                                                              .contains(nome)) {
-                                                            WidgetsBinding
-                                                                .instance
-                                                                .addPostFrameCallback(
-                                                                    (_) {
-                                                              scrollController.jumpTo(
-                                                                  scrollController
-                                                                      .position
-                                                                      .maxScrollExtent);
-                                                            });
-                                                          }
-                                                        });
-                                                      },
-                                                      child: Column(
-                                                        children: [
-                                                          Expanded(
-                                                            flex: 3,
-                                                            child: Stack(
-                                                              children: [
-                                                                // CachedNetworkImage que exibe a imagem
-                                                                CachedNetworkImage(
-                                                                  alignment:
-                                                                      const Alignment(
-                                                                          0, 0),
-                                                                  imageUrl:
-                                                                      '${ip}getimagem?categoria=PRO&file=$file&result=URL',
-                                                                ),
-
-                                                                if (controller
-                                                                        .getQuantidade(
-                                                                            nome!) >
-                                                                    0) // Verifica se a quantidade é maior que 0
-
-                                                                  Positioned(
-                                                                    top: 5,
-                                                                    right: 5,
-                                                                    child: controller.getQuantidade(nome) >
-                                                                            0
-                                                                        ? Container(
-                                                                            padding:
-                                                                                const EdgeInsets.all(5),
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: CustomColors.customSwatchColor,
-                                                                              borderRadius: BorderRadius.circular(100),
-                                                                            ),
-                                                                            child: Obx(() =>
-                                                                                Text(
-                                                                                  '${controller.getQuantidade(nome!)}',
-                                                                                  style: const TextStyle(
-                                                                                    color: Colors.white,
-                                                                                    fontWeight: FontWeight.bold,
-                                                                                  ),
-                                                                                )),
-                                                                          )
-                                                                        : Container(),
-                                                                  ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            nome,
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                fontSize: 16,
-                                                                color: TextColors
-                                                                    .titleColor),
-                                                          ),
-                                                          Text(
-                                                            '$unidade',
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                                color: TextColors
-                                                                    .subtitleColor),
-                                                          ),
-                                                          Text(
-                                                            'R\$ $preco ',
-                                                            style: const TextStyle(
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                color: TextColors
-                                                                    .titleColor),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    return const CircularProgressIndicator();
-                                                  }
+                                              dynamic filteredProducts;
+                                              if (controller
+                                                      .isSelectedList.value >=
+                                                  0) {
+                                                if (listaGrupos[controller
+                                                        .isSelectedList
+                                                        .value] !=
+                                                    'TODOS') {
+                                                  filteredProducts =
+                                                      getProdutoById(produto);
+                                                } else {
+                                                  filteredProducts = produto;
                                                 }
-                                                return const Center(
-                                                  child:
-                                                      CircularProgressIndicator(),
-                                                );
-                                              },
+                                              } else {
+                                                filteredProducts = [];
+                                              }
+
+                                              return GridView.builder(
+                                                gridDelegate:
+                                                    const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 5,
+                                                  crossAxisSpacing: 5,
+                                                  mainAxisSpacing: 5,
+                                                ),
+                                                itemCount:
+                                                    filteredProducts.length,
+                                                itemBuilder:
+                                                    (BuildContext context,
+                                                        int index) {
+                                                  String? nome;
+                                                  String? unidade;
+                                                  String? file;
+                                                  String preco = '';
+                                                  int idProduto = 0;
+
+                                                  if (controller.isSelectedList
+                                                          .value >=
+                                                      0) {
+                                                    if (listaGrupos[controller
+                                                            .isSelectedList
+                                                            .value] ==
+                                                        'TODOS') {
+                                                      produto.isNotEmpty
+                                                          ? file =
+                                                              produto[index]
+                                                                  .file_imagem!
+                                                          : file = null;
+                                                      nome = produto[index]
+                                                          .descricao;
+                                                      preco = formatoBrasileiro
+                                                          .format(produto[index]
+                                                              .pvenda);
+                                                      if (precos.isNotEmpty) {}
+                                                      precos.add(preco);
+                                                      unidade = produto[index]
+                                                          .unidade;
+                                                    } else {
+                                                      file = filteredProducts[
+                                                                  index]
+                                                              .file_imagem ??
+                                                          "Valor Padrão";
+                                                      nome = filteredProducts[
+                                                                  index]
+                                                              .descricao ??
+                                                          "null";
+
+                                                      preco = formatoBrasileiro
+                                                          .format(
+                                                              filteredProducts[
+                                                                      index]
+                                                                  .pvenda);
+
+                                                      unidade =
+                                                          filteredProducts[
+                                                                      index]
+                                                                  .unidade ??
+                                                              "";
+                                                      idProduto =
+                                                          filteredProducts[
+                                                                      index]
+                                                                  .id_produto ??
+                                                              0;
+                                                    }
+
+                                                    if (file != null) {
+                                                      return InkWell(
+                                                        onTap: () {
+                                                          setState(() {
+                                                            controller
+                                                                .adicionarPedidos(
+                                                                    nome!,
+                                                                    unidade!,
+                                                                    preco,
+                                                                    idProduto,
+                                                                    () =>
+                                                                        setState);
+
+                                                            controller
+                                                                .totalSoma();
+                                                            if (!controller
+                                                                .pedidos
+                                                                .contains(
+                                                                    nome)) {
+                                                              WidgetsBinding
+                                                                  .instance
+                                                                  .addPostFrameCallback(
+                                                                      (_) {
+                                                                scrollController.jumpTo(
+                                                                    scrollController
+                                                                        .position
+                                                                        .maxScrollExtent);
+                                                              });
+                                                            }
+                                                          });
+                                                        },
+                                                        child: Column(
+                                                          children: [
+                                                            Expanded(
+                                                              flex: 3,
+                                                              child: Stack(
+                                                                children: [
+                                                                  // CachedNetworkImage que exibe a imagem
+                                                                  CachedNetworkImage(
+                                                                    alignment:
+                                                                        const Alignment(
+                                                                            0,
+                                                                            0),
+                                                                    imageUrl:
+                                                                        '${ip}getimagem?categoria=PRO&file=$file&result=URL',
+                                                                  ),
+
+                                                                  if (controller
+                                                                          .getQuantidade(
+                                                                              nome!) >
+                                                                      0) // Verifica se a quantidade é maior que 0
+
+                                                                    Positioned(
+                                                                      top: 5,
+                                                                      right: 5,
+                                                                      child: controller.getQuantidade(nome) >
+                                                                              0
+                                                                          ? Container(
+                                                                              padding: const EdgeInsets.all(5),
+                                                                              decoration: BoxDecoration(
+                                                                                color: CustomColors.customSwatchColor,
+                                                                                borderRadius: BorderRadius.circular(100),
+                                                                              ),
+                                                                              child: Obx(() => Text(
+                                                                                    '${controller.getQuantidade(nome!)}',
+                                                                                    style: const TextStyle(
+                                                                                      color: Colors.white,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                    ),
+                                                                                  )),
+                                                                            )
+                                                                          : Container(),
+                                                                    ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              nome,
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              maxLines: 1,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  fontSize: 16,
+                                                                  color: TextColors
+                                                                      .titleColor),
+                                                            ),
+                                                            Text(
+                                                              '$unidade',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                  color: TextColors
+                                                                      .subtitleColor),
+                                                            ),
+                                                            Text(
+                                                              'R\$ $preco ',
+                                                              style: const TextStyle(
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                  color: TextColors
+                                                                      .titleColor),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    } else {
+                                                      return const CircularProgressIndicator();
+                                                    }
+                                                  }
+                                                  return const Center(
+                                                    child:
+                                                        CircularProgressIndicator(),
+                                                  );
+                                                },
+                                              );
+                                            }
+                                            return const Center(
+                                              child:
+                                                  CircularProgressIndicator(),
                                             );
-                                          }
-                                          return const Center(
-                                            child: CircularProgressIndicator(),
-                                          );
-                                        },
-                                      ),
-                              ),
+                                          },
+                                        ),
+                                );
+                              }),
                             ),
                           ),
 
@@ -898,6 +911,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   }
 }
 
+// busca produtos pela descrição no campo de pesquisa
+
 class _SearchProduct extends StatelessWidget {
   final String ip;
   final NumberFormat formatoBrasileiro;
@@ -915,123 +930,127 @@ class _SearchProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: service.searchProdutoByDesc(controller.search.value),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (snapshot.hasError) {
-          Get.snackbar(
-            'Atenção',
-            'Nenhum resultado encontrado',
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-            snackPosition: SnackPosition.BOTTOM,
-          );
-        }
-        if (snapshot.hasData) {
-          List<produto?> produtos = snapshot.data!;
-
-          return GridView.builder(
-            itemCount: produtos.length == 1 ? 1 : produtos.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-            ),
-            itemBuilder: (context, index) {
-              controller.updateFile(produtos[index]!.file_imagem!);
-
-              controller.updateNome(produtos[index]!.descricao!);
-              controller.updatePreco(
-                  formatoBrasileiro.format(produtos[index]!.pvenda));
-              controller.updateUnidade(produtos[index]!.unidade!);
-              controller.updateIdProduto(produtos[index]!.id_produto);
-
-              return InkWell(
-                onTap: () {
-                  pdvController.adicionarPedidos(
-                      controller.nome.value,
-                      controller.unidade.value,
-                      controller.preco.value,
-                      controller.idProduto.value,
-                      (_) {});
-                },
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Stack(
-                        children: [
-                          // CachedNetworkImage que exibe a imagem
-                          CachedNetworkImage(
-                            alignment: const Alignment(0, 0),
-                            imageUrl:
-                                '${ip}getimagem?categoria=PRO&file=${controller.file.value}&result=URL',
-                          ),
-
-                          if (pdvController
-                                  .getQuantidade(controller.nome.value) >
-                              0) // Verifica se a quantidade é maior que 0
-
-                            Positioned(
-                              top: 5,
-                              right: 5,
-                              child: pdvController.getQuantidade(
-                                          controller.nome.value) >
-                                      0
-                                  ? Container(
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        color: CustomColors.customSwatchColor,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                      child: Obx(() => Text(
-                                            '${pdvController.getQuantidade(controller.nome.value)}',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )),
-                                    )
-                                  : Container(),
-                            ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      controller.nome.value,
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: TextColors.titleColor),
-                    ),
-                    Text(
-                      controller.unidade.value,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: TextColors.subtitleColor),
-                    ),
-                    Text(
-                      'R\$ ${controller.preco.value} ',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: TextColors.titleColor),
-                    ),
-                  ],
-                ),
+    return GetBuilder<SearchProductPdvController>(
+      builder: (_) {
+        return FutureBuilder(
+          future: service.searchProdutoByDesc(_.search.value),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                child: CircularProgressIndicator(),
               );
-            },
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
+            }
+            if (snapshot.hasError) {
+              Get.snackbar(
+                'Atenção',
+                'Nenhum resultado encontrado',
+                backgroundColor: Colors.red,
+                colorText: Colors.white,
+                snackPosition: SnackPosition.BOTTOM,
+              );
+            }
+            if (snapshot.hasData) {
+              List<produto?> produtos = snapshot.data!;
+
+              return GridView.builder(
+                itemCount: produtos.length == 1 ? 1 : produtos.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 5,
+                  crossAxisSpacing: 5,
+                  mainAxisSpacing: 5,
+                ),
+                itemBuilder: (context, index) {
+                  _.updateFile(produtos[index]!.file_imagem!);
+
+                  _.updateNome(produtos[index]!.descricao!);
+                  _.updatePreco(
+                      formatoBrasileiro.format(produtos[index]!.pvenda));
+                  _.updateUnidade(produtos[index]!.unidade!);
+                  _.updateIdProduto(produtos[index]!.id_produto);
+
+                  return InkWell(
+                    onTap: () {
+                      pdvController.adicionarPedidos(
+                          _.nome.value,
+                          _.unidade.value,
+                          _.preco.value,
+                          _.idProduto.value,
+                          (_) {});
+                    },
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 3,
+                          child: Stack(
+                            children: [
+                              // CachedNetworkImage que exibe a imagem
+                              CachedNetworkImage(
+                                alignment: const Alignment(0, 0),
+                                imageUrl:
+                                    '$ip/getimagem?categoria=PRO&file=${_.file.value}&result=URL',
+                              ),
+
+                              if (pdvController.getQuantidade(_.nome.value) >
+                                  0) // Verifica se a quantidade é maior que 0
+
+                                Positioned(
+                                  top: 5,
+                                  right: 5,
+                                  child: pdvController
+                                              .getQuantidade(_.nome.value) >
+                                          0
+                                      ? Container(
+                                          padding: const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                            color:
+                                                CustomColors.customSwatchColor,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                          child: Obx(() => Text(
+                                                '${pdvController.getQuantidade(_.nome.value)}',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              )),
+                                        )
+                                      : Container(),
+                                ),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          _.nome.value,
+                          textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16,
+                              color: TextColors.titleColor),
+                        ),
+                        Text(
+                          _.unidade.value,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w500,
+                              color: TextColors.subtitleColor),
+                        ),
+                        Text(
+                          'R\$ ${_.preco.value} ',
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: TextColors.titleColor),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            }
+            return const Center(child: CircularProgressIndicator());
+          },
+        );
       },
     );
   }
