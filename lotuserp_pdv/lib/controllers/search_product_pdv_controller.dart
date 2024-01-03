@@ -13,8 +13,15 @@ class SearchProductPdvController extends GetxController {
   var idProduto = 0.obs;
 
   bool isSearch = false;
+  bool isBarCode = false;
 
   // **** atualizar ****
+
+  //atualizar isBarCode
+  void updateIsBarCode() {
+    isBarCode = !isBarCode;
+    update();
+  }
 
   //atualizar isSearch
   void updateIsSearch(bool decision) {

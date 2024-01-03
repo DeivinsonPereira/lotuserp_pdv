@@ -378,12 +378,20 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: _.isSearch
-                  ? _SearchProduct(
-                      ip: controller.ip.value,
-                      formatoBrasileiro: formatoBrasileiro,
-                      service: service,
-                      controller: searchProductPdvController,
-                      pdvController: controller)
+                  ? (!_.isBarCode
+                      ? _SearchProduct(
+                          ip: controller.ip.value,
+                          formatoBrasileiro: formatoBrasileiro,
+                          service: service,
+                          controller: searchProductPdvController,
+                          pdvController: controller)
+                      : _SearchProduct(
+                          ip: controller.ip.value,
+                          formatoBrasileiro: formatoBrasileiro,
+                          service: service,
+                          controller: searchProductPdvController,
+                          pdvController: controller,
+                          isBarCode: true))
                   : StreamBuilder(
                       stream: service.listenProdutos(),
                       builder: (context, snapshot) {
@@ -686,16 +694,25 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 borderRadius: BorderRadius.circular(6),
               ),
               child: TextField(
+                autofocus: true,
                 controller: searchProductPdvController.searchController,
                 inputFormatters: [UpperCaseTxt()],
-                decoration: const InputDecoration(
-                  prefixIcon: Icon(Icons.barcode_reader),
-                  contentPadding: EdgeInsets.only(left: 10, right: 10, top: 12),
+                decoration: InputDecoration(
+                  prefixIcon: IconButton(
+                    onPressed: () {
+                      searchProductPdvController.updateIsBarCode();
+                    },
+                    icon: const Icon(Icons.barcode_reader),
+                  ),
+                  contentPadding:
+                      const EdgeInsets.only(left: 10, right: 10, top: 12),
                   disabledBorder:
-                      UnderlineInputBorder(borderSide: BorderSide.none),
+                      const UnderlineInputBorder(borderSide: BorderSide.none),
                   border: InputBorder.none,
-                  hintText: 'Busque um produto',
-                  labelStyle: TextStyle(
+                  hintText: searchProductPdvController.isBarCode
+                      ? 'Busque por Código de Barras'
+                      : 'Busque um produto por nome',
+                  labelStyle: const TextStyle(
                       color: Color.fromARGB(255, 53, 53, 53), fontSize: 18),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                 ),
@@ -766,19 +783,22 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 }
 
 // busca produtos pela descrição no campo de pesquisa
+// ignore: must_be_immutable
 class _SearchProduct extends StatelessWidget {
   final String ip;
   final NumberFormat formatoBrasileiro;
   final IsarService service;
   final SearchProductPdvController controller;
   final PdvController pdvController;
-  const _SearchProduct({
+  bool isBarCode;
+  _SearchProduct({
     Key? key,
     required this.ip,
     required this.formatoBrasileiro,
     required this.service,
     required this.controller,
     required this.pdvController,
+    this.isBarCode = false,
   }) : super(key: key);
 
   @override
@@ -786,7 +806,9 @@ class _SearchProduct extends StatelessWidget {
     return GetBuilder<SearchProductPdvController>(
       builder: (_) {
         return FutureBuilder(
-          future: service.searchProdutoByDesc(_.search.value),
+          future: !isBarCode
+              ? service.searchProdutoByDesc(_.search.value)
+              : service.searchProdutoByBarcode(_.search.value),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(
