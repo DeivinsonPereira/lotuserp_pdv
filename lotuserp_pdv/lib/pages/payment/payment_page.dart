@@ -65,6 +65,8 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ],
           ),
+
+          //botão para acessar o menu de descontos
           ButtonsPayment().textDiscountOnSale(context, pushSetState),
         ],
       );

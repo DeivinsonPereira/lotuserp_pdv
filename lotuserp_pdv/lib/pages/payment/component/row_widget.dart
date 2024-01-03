@@ -70,9 +70,10 @@ class ButtonsPayment {
   double originalDiscountPercentage = 0.0;
   double originalTotalValue = 0.0;
 
+  // Icon backspace (apaga numeros digitados)
   Widget iconBackspace() {
     return SizedBox(
-      width: 150,
+      width: 100,
       height: 37,
       child: InkWell(
         onTap: () {
@@ -88,6 +89,7 @@ class ButtonsPayment {
     );
   }
 
+  // Number buttons
   Widget buildNumberButton(String number) {
     return InkWell(
       onTap: () {
@@ -96,7 +98,7 @@ class ButtonsPayment {
             : controller.addPercentageDiscount(number);
       },
       child: SizedBox(
-        width: 150,
+        width: 100,
         child: Center(
           child: Text(
             number,
@@ -168,12 +170,13 @@ class ButtonsPayment {
             controller.checkbox2.value = false;
           }
         },
-        child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+        child: Row(children: [
           Obx(
             () => Checkbox(
               shape: const CircleBorder(),
-              checkColor: Colors.white,
-              activeColor: CustomColors.customContrastColor,
+              checkColor: Colors.black,
+              activeColor: Colors.white,
+              fillColor: MaterialStateProperty.all(Colors.white),
               value: controller.checkbox1.value,
               /*mudar para variavel */
               onChanged: (bool? value) {
@@ -184,37 +187,43 @@ class ButtonsPayment {
               },
             ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(text),
-              Obx(
-                () => Text(
-                  //arrumar questão do desconto em porcentagem.
-                  controller.checkbox1.value
-                      ? controller.numbersDiscount.value
-                      : controller.numbersDiscountcb2.value,
-
-                  style: !controller.checkbox1.value
-                      ? const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)
-                      : TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.customContrastColor),
-                ),
-              )
-            ],
+          Expanded(
+            child: Column(
+              children: [
+                Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    )),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Obx(
+                    () => Text(
+                      controller.checkbox1.value
+                          ? controller.numbersDiscount.value
+                          : controller.numbersDiscountcb2.value,
+                      style: !controller.checkbox1.value
+                          ? const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)
+                          : TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.customContrastColor),
+                    ),
+                  ),
+                )
+              ],
+            ),
           )
         ]));
   }
 
   //checkbox para desconto em percentual
-  Widget checkedPercentualBoxButton(
-    String text,
-  ) {
+  Widget checkedPercentualBoxButton(String text) {
     return InkWell(
         onTap: () {
           controller.checkbox2.value = !controller.checkbox2.value;
@@ -225,9 +234,10 @@ class ButtonsPayment {
         child: Row(children: [
           Obx(
             () => Checkbox(
+              fillColor: MaterialStateProperty.all(Colors.white),
               shape: const CircleBorder(),
-              checkColor: Colors.white,
-              activeColor: CustomColors.customContrastColor,
+              checkColor: Colors.black,
+              activeColor: Colors.white,
               value: controller.checkbox2.value,
               /*mudar para variavel */
               onChanged: (bool? value) {
@@ -239,25 +249,30 @@ class ButtonsPayment {
             ),
           ),
           Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(text),
+              Text(
+                text,
+                style: const TextStyle(color: Colors.white),
+              ),
               Obx(() {
                 final formattedDiscountPercentage = formatoBrasileiro
                     .format(controller.discountPercentage.value);
-                return Text(
-                  !controller.checkbox2.value
-                      ? '$formattedDiscountPercentage% '
-                      : '${controller.discountPercentagecb2.value}%',
-                  style: !controller.checkbox2.value
-                      ? const TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black)
-                      : TextStyle(
-                          fontSize: 25,
-                          fontWeight: FontWeight.bold,
-                          color: CustomColors.customContrastColor),
+                return Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    !controller.checkbox2.value
+                        ? '$formattedDiscountPercentage% '
+                        : '${controller.discountPercentagecb2.value}%',
+                    style: !controller.checkbox2.value
+                        ? const TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)
+                        : TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold,
+                            color: CustomColors.customContrastColor),
+                  ),
                 );
               }),
             ],
@@ -327,21 +342,44 @@ class ButtonsPayment {
                         ),
                       ),
                     ),
-                    SizedBox(
-                      height: 350,
-                      width: 300,
-                      child: Column(
-                        children: [
-                          checkedDiscountBoxButton('Desconto em Reais'),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          checkedPercentualBoxButton('Desconto percentual'),
-                          const SizedBox(
-                            height: 50,
-                          ),
-                          subtotalInDialog('Subtotal'),
-                        ],
+                    Expanded(
+                      child: SizedBox(
+                        height: 350,
+                        width: 300,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1, color: Colors.black),
+                                      color: CustomColors.informationBox,
+                                    ),
+                                    child: checkedDiscountBoxButton(
+                                        'Desconto em Reais'),
+                                  ),
+                                ),
+                                const SizedBox(width: 1),
+                                Expanded(
+                                  child: Container(
+                                    padding: const EdgeInsets.only(right: 5),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(
+                                          width: 1, color: Colors.black),
+                                      color: CustomColors.informationBox,
+                                    ),
+                                    child: checkedPercentualBoxButton(
+                                        'Desconto percentual'),
+                                  ),
+                                )
+                              ],
+                            ),
+                            subtotalInDialog('Subtotal'),
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -352,7 +390,7 @@ class ButtonsPayment {
                       Get.back();
                       controller.numbersDiscount('0,00');
                       controller.discountPercentage(0.00);
-                      controller.discountPercentagecb2('00,00');
+                      controller.discountPercentagecb2('0,00');
                       controller.numbersDiscountcb2('0,00');
                     },
                     child: const Text(
