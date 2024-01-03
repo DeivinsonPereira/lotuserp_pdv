@@ -322,6 +322,13 @@ class IsarService {
     return await isar.produtos.filter().id_produtoEqualTo(id).findAll();
   }
 
+  //busca o objeto produtos de acordo com o gtin (código de barras)
+  Future<List<produto?>> searchProdutoByGtin(String gtin) async {
+    final isar = await db;
+
+    return await isar.produtos.filter().gtinEqualTo(gtin).findAll();
+  }
+
   //busca o objeto produto de acordo com a descrição de forma paginada
   Future searchProdutoByDescPaged(String desc) async {
     final isar = await db;

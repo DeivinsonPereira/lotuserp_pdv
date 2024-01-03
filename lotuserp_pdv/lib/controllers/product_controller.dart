@@ -45,10 +45,21 @@ class ProdutoController extends GetxController {
   }
 
   //busca os produtos de acordo com o id passado
-
   void updateProductVariableId(String value) async {
     if (value != '') {
       product.value = await service.searchProdutoById(int.parse(value));
+    } else {
+      for (var i = 0; i < 5; i++) {
+        product.value = [];
+      }
+    }
+    update();
+  }
+
+  //busca os produtos de acordo com Gtin passado
+  void updateProductVariableBarCode(String value) async {
+    if (value != '') {
+      product.value = await service.searchProdutoByGtin(value);
     } else {
       for (var i = 0; i < 5; i++) {
         product.value = [];

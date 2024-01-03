@@ -33,13 +33,13 @@ class PopupWidget extends StatelessWidget {
           value: 'DESCRIÇÃO',
           child: Text('DESCRIÇÃO', style: TextStyle(fontSize: 22)),
         ),
-        /*   const PopupMenuItem<String>(
+        const PopupMenuItem<String>(
           value: 'CÓDIGO BARRAS',
           child: Text(
             'CÓDIGO BARRAS',
             style: TextStyle(fontSize: 22),
           ),
-        ),*/
+        ),
       ],
     );
   }

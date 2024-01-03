@@ -153,8 +153,10 @@ class ProductMonitorPage extends StatelessWidget {
                                     } else if (controller.textOption.value ==
                                         'ID') {
                                       controller.updateProductVariableId(
-                                          controller
-                                              .searchController.text);
+                                          controller.searchController.text);
+                                    } else {
+                                      controller.updateProductVariableBarCode(
+                                          controller.searchController.text);
                                     }
                                   }),
                             ),
@@ -223,8 +225,8 @@ class ProductMonitorPage extends StatelessWidget {
                                   )
                                 : (controller.textOption.value == 'ID'
                                     ? const SearchApresentation()
-                                    : controller.searchController.text ==
-                                            'CODIGO BARRAS'
+                                    : controller.textOption.value ==
+                                            'CÓDIGO BARRAS'
                                         ? const SearchApresentation()
                                         : const SizedBox()),
                           ],
