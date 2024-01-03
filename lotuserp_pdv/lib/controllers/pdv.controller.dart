@@ -3,8 +3,13 @@ import 'package:get/get.dart';
 import 'dart:math';
 
 import 'package:lotuserp_pdv/core/app_routes.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
+
+import '../collections/dado_empresa.dart';
 
 class PdvController extends GetxController {
+  IsarService service = IsarService();
+
   RxList pedidos = [].obs;
 
   //iniciar o grupo "Todos" selecionado
@@ -48,6 +53,11 @@ class PdvController extends GetxController {
   RxDouble totBruto = 0.0.obs;
 
   RxDouble valorAtualCb2 = 0.0.obs;
+
+  // ***** construção page pdvPage *****
+
+  var caixaId = 0.obs;
+  var ip = ''.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -279,7 +289,7 @@ class PdvController extends GetxController {
   }
 
   //remove item do pedido
-  void removerPedido(int index, Function callback) {
+  void removerPedido(int index) {
     if (index >= 0 && index < pedidos.length) {
       if (pedidos[index]['quantidade'] > 1.0) {
         totalcheckBox1.value -= pedidos[index]['price'];
@@ -291,8 +301,8 @@ class PdvController extends GetxController {
         totalcheckBox1.value -= pedidos[index]['total'];
         pedidos.removeAt(index);
         update();
-        update();
       }
+      update();
     }
   }
 
@@ -305,5 +315,56 @@ class PdvController extends GetxController {
       totalcheckBox1.value += element['total'];
     }
     update();
+  }
+
+  // ****** métodos para utilizar ao iniciar o controller *****
+
+  //inicializa os métodos necessários
+  @override
+  void onInit() {
+    super.onInit();
+    inicializarGetIdCaixa();
+    fetchDataFromDatabase();
+    scrollController.addListener(() {});
+  }
+
+  //busca o id do usuario logado
+  Future<int?> getIdUser() async {
+    var user = await service.getUserLogged();
+
+    if (user != null) {
+      return user.id_user;
+    }
+    return null;
+  }
+
+  //busca o id do caixa
+  Future<int?> getIdCaixa(int idUser) async {
+    int? idCaixa = await service.getIdCaixa(idUser);
+
+    if (idCaixa != null) {
+      return idCaixa;
+    } else {
+      return null;
+    }
+  }
+
+  //inicializa o id do caixa
+  Future<void> inicializarGetIdCaixa() async {
+    var userId = await getIdUser();
+    int? caixa = await getIdCaixa(userId!);
+    if (caixa != null) {
+      caixaId.value = caixa;
+      update();
+    }
+  }
+
+  //busca o ip da empresa
+  Future<void> fetchDataFromDatabase() async {
+    final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
+    if (dadoEmpresa != null) {
+      ip.value = dadoEmpresa.ip_empresa!;
+      update();
+    }
   }
 }

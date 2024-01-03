@@ -75,51 +75,52 @@ class _PaymentPageState extends State<PaymentPage> {
     //lista de pedidos dos itens solicitados
     Widget listViewPedidosList() {
       return Expanded(
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: ListView.builder(
-            itemCount: controller.pedidos.length,
-            itemBuilder: (context, index) {
-              total =
-                  formatoBrasileiro.format(controller.pedidos[index]['total']);
+        child: GetBuilder<PdvController>(
+          builder: (_) {
+            return Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: ListView.builder(
+                itemCount: _.pedidos.length,
+                itemBuilder: (context, index) {
+                  total = formatoBrasileiro.format(_.pedidos[index]['total']);
 
-              var priceFormatado =
-                  formatoBrasileiro.format(controller.pedidos[index]['price']);
+                  var priceFormatado =
+                      formatoBrasileiro.format(_.pedidos[index]['price']);
 
-              return Card(
-                elevation: 2,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    leading: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          controller.removerPedido(index, () => setState);
-                        });
-                      },
-                      icon: const Icon(
-                        FontAwesomeIcons.trash,
-                        size: 20,
-                        color: Color.fromARGB(255, 170, 46, 37),
+                  return Card(
+                    elevation: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: ListTile(
+                        contentPadding: EdgeInsets.zero,
+                        leading: IconButton(
+                          onPressed: () {
+                            _.removerPedido(index);
+                          },
+                          icon: const Icon(
+                            FontAwesomeIcons.trash,
+                            size: 20,
+                            color: Color.fromARGB(255, 170, 46, 37),
+                          ),
+                        ),
+                        title: Text(
+                          _.pedidos[index]['nomeProduto'],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        subtitle: Text(
+                            '${_.pedidos[index]['quantidade']} x R\$ $priceFormatado ${_.pedidos[index]['unidade']}'),
+                        trailing: Text(
+                          ' ',
+                          style: const TextStyle(fontSize: 16),
+                        ),
                       ),
                     ),
-                    title: Text(
-                      controller.pedidos[index]['nomeProduto'],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    subtitle: Text(
-                        '${controller.pedidos[index]['quantidade']} x R\$$priceFormatado ${controller.pedidos[index]['unidade']}'),
-                    trailing: Text(
-                      ' $total',
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       );
     }
