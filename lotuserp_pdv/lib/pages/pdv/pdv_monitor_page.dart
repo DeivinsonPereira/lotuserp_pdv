@@ -693,38 +693,40 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: TextField(
-                autofocus: true,
-                controller: searchProductPdvController.searchController,
-                inputFormatters: [UpperCaseTxt()],
-                decoration: InputDecoration(
-                  prefixIcon: IconButton(
-                    onPressed: () {
-                      searchProductPdvController.updateIsBarCode();
-                    },
-                    icon: const Icon(Icons.barcode_reader),
+              child: GetBuilder<SearchProductPdvController>(builder: (_) {
+                return TextField(
+                  autofocus: true,
+                  controller: searchProductPdvController.searchController,
+                  inputFormatters: [UpperCaseTxt()],
+                  decoration: InputDecoration(
+                    prefixIcon: IconButton(
+                      onPressed: () {
+                        searchProductPdvController.updateIsBarCode();
+                      },
+                      icon: const Icon(Icons.barcode_reader),
+                    ),
+                    contentPadding:
+                        const EdgeInsets.only(left: 10, right: 10, top: 12),
+                    disabledBorder:
+                        const UnderlineInputBorder(borderSide: BorderSide.none),
+                    border: InputBorder.none,
+                    hintText: _.isBarCode
+                        ? 'Busque um produto por código de barras'
+                        : 'Busque um produto por nome',
+                    labelStyle: const TextStyle(
+                        color: Color.fromARGB(255, 53, 53, 53), fontSize: 18),
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
                   ),
-                  contentPadding:
-                      const EdgeInsets.only(left: 10, right: 10, top: 12),
-                  disabledBorder:
-                      const UnderlineInputBorder(borderSide: BorderSide.none),
-                  border: InputBorder.none,
-                  hintText: searchProductPdvController.isBarCode
-                      ? 'Busque por Código de Barras'
-                      : 'Busque um produto por nome',
-                  labelStyle: const TextStyle(
-                      color: Color.fromARGB(255, 53, 53, 53), fontSize: 18),
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                ),
-                onChanged: (value) {
-                  searchProductPdvController.updateSearch();
-                  if (value == '') {
-                    searchProductPdvController.updateIsSearch(false);
-                  } else {
-                    searchProductPdvController.updateIsSearch(true);
-                  }
-                },
-              ),
+                  onChanged: (value) {
+                    searchProductPdvController.updateSearch();
+                    if (value == '') {
+                      searchProductPdvController.updateIsSearch(false);
+                    } else {
+                      searchProductPdvController.updateIsSearch(true);
+                    }
+                  },
+                );
+              }),
             ),
           ),
         ],
