@@ -58,6 +58,7 @@ class PdvController extends GetxController {
 
   var caixaId = 0.obs;
   var ip = ''.obs;
+  var idGrupo = -1.obs;
 
   final ScrollController scrollController = ScrollController();
 

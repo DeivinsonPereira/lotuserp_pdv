@@ -6,7 +6,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
@@ -36,7 +35,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   late NumberFormat formatoBrasileiro;
   final ScrollController scrollController = ScrollController();
-  IsarService service = IsarService();
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +49,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
         InjectionDependencies.paymentController();
     SearchProductPdvController searchProductPdvController =
         InjectionDependencies.searchProductPdvController();
+
+    IsarService service = IsarService();
 
     var userName = passwordController.userController.text;
 
@@ -75,7 +75,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     globalController.setCaixaAbertaId(globalController.userId);
     controller.inicializarGetIdCaixa();
     controller.fetchDataFromDatabase();
-    
+
     // Pagamento e total
     Widget paymentAndTotal(PdvController controller) {
       return Flexible(
@@ -763,7 +763,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 }
 
 // busca produtos pela descrição no campo de pesquisa
-
 class _SearchProduct extends StatelessWidget {
   final String ip;
   final NumberFormat formatoBrasileiro;

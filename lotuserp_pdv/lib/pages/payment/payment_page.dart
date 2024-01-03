@@ -35,8 +35,6 @@ class _PaymentPageState extends State<PaymentPage> {
 
     var paymentCount = 0.0;
 
-    String total;
-
     var remainingValue = 0.0;
 
     var ramainingValueCb2 = 0.0;
@@ -82,8 +80,6 @@ class _PaymentPageState extends State<PaymentPage> {
               child: ListView.builder(
                 itemCount: _.pedidos.length,
                 itemBuilder: (context, index) {
-                  total = formatoBrasileiro.format(_.pedidos[index]['total']);
-
                   var priceFormatado =
                       formatoBrasileiro.format(_.pedidos[index]['price']);
 
@@ -110,10 +106,6 @@ class _PaymentPageState extends State<PaymentPage> {
                         ),
                         subtitle: Text(
                             '${_.pedidos[index]['quantidade']} x R\$ $priceFormatado ${_.pedidos[index]['unidade']}'),
-                        trailing: Text(
-                          ' ',
-                          style: const TextStyle(fontSize: 16),
-                        ),
                       ),
                     ),
                   );
