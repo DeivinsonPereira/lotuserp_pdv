@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:math';
 
-import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
@@ -246,8 +245,8 @@ class PdvController extends GetxController {
   }
 
   //adiciona itens no pedido
-  void adicionarPedidos(String nomeProduto, String unidade, String price,
-      int idProduto, Function callback) {
+  void adicionarPedidos(
+      String nomeProduto, String unidade, String price, int idProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -283,10 +282,9 @@ class PdvController extends GetxController {
   void cancelarPedido() {
     if (pedidos.isNotEmpty) {
       pedidos.clear();
-
-      Get.offNamed(PagesRoutes.pdvMonitor);
-      update();
+      totalcheckBox1.value = 0.0;
     }
+    update();
   }
 
   //remove item do pedido

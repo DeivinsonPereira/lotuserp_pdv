@@ -77,12 +77,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     controller.fetchDataFromDatabase();
 
     // Pagamento e total
-    Widget paymentAndTotal(PdvController controller) {
+    Widget paymentAndTotal(PdvController _) {
       return Flexible(
         flex: 1,
         child: InkWell(
           onTap: () {
-            if (controller.pedidos.isEmpty) {
+            if (_.pedidos.isEmpty) {
               Get.snackbar('Atenção', 'Nenhum item adicionado',
                   backgroundColor: Colors.red,
                   colorText: Colors.white,
@@ -93,7 +93,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
             }
           },
           child: Padding(
-            padding: const EdgeInsets.only(left: 24.0, top: 3),
+            padding: const EdgeInsets.only(left: 24.0, top: 5, bottom: 5),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,16 +136,13 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                       padding: const EdgeInsets.symmetric(horizontal: 8.0),
                       child: Align(
                         alignment: Alignment.centerRight,
-                        child: Obx(
-                          () => AutoSizeText(
-                            formatoBrasileiro
-                                .format(controller.totalcheckBox1.value),
-                            style: const TextStyle(
-                                fontSize: 30,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                            maxLines: 1,
-                          ),
+                        child: AutoSizeText(
+                          formatoBrasileiro.format(_.totalcheckBox1.value),
+                          style: const TextStyle(
+                              fontSize: 30,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
+                          maxLines: 1,
                         ),
                       ),
                     ),
@@ -257,7 +254,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     }
 
     // Informações de caixa, logo, botões, etc...
-    Widget informationsAndButtons(PdvController controller) {
+    Widget informationsAndButtons(PdvController _) {
       return Expanded(
         flex: 1,
         child: Padding(
@@ -315,7 +312,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             Row(
                               children: [
                                 Text(
-                                  '${controller.caixaId.value.toString().padLeft(6, '0')}  -  ',
+                                  '${_.caixaId.value.toString().padLeft(6, '0')}  -  ',
                                   style: const TextStyle(
                                     color: Colors.white,
                                   ),
@@ -355,7 +352,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 ButtonsPdv().iconsOptions(
                     FontAwesomeIcons.weightScale, 'Balança', () => Container()),
                 ButtonsPdv().iconsOptions(FontAwesomeIcons.solidTrashCan,
-                    'Cancelar', () => controller.cancelarPedido()),
+                    'Cancelar', () => _.cancelarPedido()),
                 ButtonsPdv().iconsOptions(FontAwesomeIcons.moneyBillTrendUp,
                     'Vendas', () => Container()),
               ],
@@ -460,25 +457,18 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 if (file != null) {
                                   return InkWell(
                                     onTap: () {
-                                      setState(() {
-                                        controller.adicionarPedidos(
-                                            nome!,
-                                            unidade!,
-                                            preco,
-                                            idProduto,
-                                            () => setState);
+                                      controller.adicionarPedidos(
+                                          nome!, unidade!, preco, idProduto);
 
-                                        controller.totalSoma();
-                                        if (!controller.pedidos
-                                            .contains(nome)) {
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            scrollController.jumpTo(
-                                                scrollController
-                                                    .position.maxScrollExtent);
-                                          });
-                                        }
-                                      });
+                                      controller.totalSoma();
+                                      if (!controller.pedidos.contains(nome)) {
+                                        WidgetsBinding.instance
+                                            .addPostFrameCallback((_) {
+                                          scrollController.jumpTo(
+                                              scrollController
+                                                  .position.maxScrollExtent);
+                                        });
+                                      }
                                     },
                                     child: Column(
                                       children: [
@@ -695,7 +685,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
               ),
               child: GetBuilder<SearchProductPdvController>(builder: (_) {
                 return TextField(
-                  autofocus: true,
                   controller: searchProductPdvController.searchController,
                   inputFormatters: [UpperCaseTxt()],
                   decoration: InputDecoration(
@@ -711,7 +700,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                         const UnderlineInputBorder(borderSide: BorderSide.none),
                     border: InputBorder.none,
                     hintText: _.isBarCode
-                        ? 'Busque um produto por código de barras'
+                        ? 'Faça a leitura do código de barras'
                         : 'Busque um produto por nome',
                     labelStyle: const TextStyle(
                         color: Color.fromARGB(255, 53, 53, 53), fontSize: 18),
@@ -805,129 +794,124 @@ class _SearchProduct extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SearchProductPdvController>(
-      builder: (_) {
-        return FutureBuilder(
-          future: !isBarCode
-              ? service.searchProdutoByDesc(_.search.value)
-              : service.searchProdutoByBarcode(_.search.value),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-            if (snapshot.hasError) {
-              Get.snackbar(
-                'Atenção',
-                'Nenhum resultado encontrado',
-                backgroundColor: Colors.red,
-                colorText: Colors.white,
-                snackPosition: SnackPosition.BOTTOM,
-              );
-            }
-            if (snapshot.hasData) {
-              List<produto?> produtos = snapshot.data!;
+    return FutureBuilder(
+      future: !isBarCode
+          ? service.searchProdutoByDesc(controller.search.value)
+          : service.searchProdutoByBarcode(controller.search.value),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          Get.snackbar(
+            'Atenção',
+            'Nenhum resultado encontrado',
+            backgroundColor: Colors.red,
+            colorText: Colors.white,
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
+        if (snapshot.hasData) {
+          List<produto?> produtos = snapshot.data!;
 
-              return GridView.builder(
-                itemCount: produtos.length == 1 ? 1 : produtos.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  crossAxisSpacing: 5,
-                  mainAxisSpacing: 5,
-                ),
-                itemBuilder: (context, index) {
-                  _.updateFile(produtos[index]!.file_imagem!);
+          return GridView.builder(
+            itemCount: produtos.length == 1 ? 1 : produtos.length,
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 5,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+            ),
+            itemBuilder: (context, index) {
+              controller.updateFile(produtos[index]!.file_imagem ?? '');
 
-                  _.updateNome(produtos[index]!.descricao!);
-                  _.updatePreco(
-                      formatoBrasileiro.format(produtos[index]!.pvenda));
-                  _.updateUnidade(produtos[index]!.unidade!);
-                  _.updateIdProduto(produtos[index]!.id_produto);
+              controller.updateNome(produtos[index]!.descricao ?? '');
+              controller.updatePreco(
+                  formatoBrasileiro.format(produtos[index]!.pvenda));
+              controller.updateUnidade(produtos[index]!.unidade ?? '');
+              controller.updateIdProduto(produtos[index]!.id_produto);
 
-                  return InkWell(
-                    onTap: () {
-                      pdvController.adicionarPedidos(
-                          _.nome.value,
-                          _.unidade.value,
-                          _.preco.value,
-                          _.idProduto.value,
-                          (_) {});
-                    },
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 3,
-                          child: Stack(
-                            children: [
-                              // CachedNetworkImage que exibe a imagem
-                              CachedNetworkImage(
-                                alignment: const Alignment(0, 0),
-                                imageUrl:
-                                    '${pdvController.ip.value}/getimagem?categoria=PRO&file=${_.file.value}&result=URL',
-                              ),
-
-                              if (pdvController.getQuantidade(_.nome.value) >
-                                  0) // Verifica se a quantidade é maior que 0
-
-                                Positioned(
-                                  top: 5,
-                                  right: 5,
-                                  child: pdvController
-                                              .getQuantidade(_.nome.value) >
-                                          0
-                                      ? Container(
-                                          padding: const EdgeInsets.all(5),
-                                          decoration: BoxDecoration(
-                                            color:
-                                                CustomColors.customSwatchColor,
-                                            borderRadius:
-                                                BorderRadius.circular(100),
-                                          ),
-                                          child: Obx(() => Text(
-                                                '${pdvController.getQuantidade(_.nome.value)}',
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              )),
-                                        )
-                                      : Container(),
-                                ),
-                            ],
-                          ),
-                        ),
-                        Text(
-                          _.nome.value,
-                          textAlign: TextAlign.center,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 16,
-                              color: TextColors.titleColor),
-                        ),
-                        Text(
-                          _.unidade.value,
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              color: TextColors.subtitleColor),
-                        ),
-                        Text(
-                          'R\$ ${_.preco.value} ',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: TextColors.titleColor),
-                        ),
-                      ],
-                    ),
-                  );
+              return InkWell(
+                onTap: () {
+                  pdvController.adicionarPedidos(
+                      controller.nome.value,
+                      controller.unidade.value,
+                      controller.preco.value,
+                      controller.idProduto.value);
                 },
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: Stack(
+                        children: [
+                          // CachedNetworkImage que exibe a imagem
+                          CachedNetworkImage(
+                            alignment: const Alignment(0, 0),
+                            imageUrl:
+                                '${pdvController.ip.value}/getimagem?categoria=PRO&file=${controller.file.value}&result=URL',
+                          ),
+
+                          if (pdvController
+                                  .getQuantidade(controller.nome.value) >
+                              0) // Verifica se a quantidade é maior que 0
+
+                            Positioned(
+                              top: 5,
+                              right: 5,
+                              child: pdvController.getQuantidade(
+                                          controller.nome.value) >
+                                      0
+                                  ? Container(
+                                      padding: const EdgeInsets.all(5),
+                                      decoration: BoxDecoration(
+                                        color: CustomColors.customSwatchColor,
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                      ),
+                                      child: Obx(() => Text(
+                                            '${pdvController.getQuantidade(controller.nome.value)}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          )),
+                                    )
+                                  : Container(),
+                            ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      controller.nome.value,
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 16,
+                          color: TextColors.titleColor),
+                    ),
+                    Text(
+                      controller.unidade.value,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w500,
+                          color: TextColors.subtitleColor),
+                    ),
+                    Text(
+                      'R\$ ${controller.preco.value} ',
+                      style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: TextColors.titleColor),
+                    ),
+                  ],
+                ),
               );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        );
+            },
+          );
+        }
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }
