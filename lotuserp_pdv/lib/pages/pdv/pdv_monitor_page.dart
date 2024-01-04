@@ -381,14 +381,18 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           formatoBrasileiro: formatoBrasileiro,
                           service: service,
                           controller: searchProductPdvController,
-                          pdvController: controller)
+                          pdvController: controller,
+                          scrollController: scrollController,
+                        )
                       : _SearchProduct(
                           ip: controller.ip.value,
                           formatoBrasileiro: formatoBrasileiro,
                           service: service,
                           controller: searchProductPdvController,
                           pdvController: controller,
-                          isBarCode: true))
+                          isBarCode: true,
+                          scrollController: scrollController,
+                        ))
                   : StreamBuilder(
                       stream: service.listenProdutos(),
                       builder: (context, snapshot) {
@@ -781,6 +785,7 @@ class _SearchProduct extends StatelessWidget {
   final IsarService service;
   final SearchProductPdvController controller;
   final PdvController pdvController;
+  final ScrollController scrollController;
   bool isBarCode;
   _SearchProduct({
     Key? key,
@@ -789,6 +794,7 @@ class _SearchProduct extends StatelessWidget {
     required this.service,
     required this.controller,
     required this.pdvController,
+    required this.scrollController,
     this.isBarCode = false,
   }) : super(key: key);
 
@@ -840,6 +846,14 @@ class _SearchProduct extends StatelessWidget {
                       controller.unidade[index],
                       controller.preco[index],
                       controller.idProduto[index]);
+                  pdvController.totalSoma();
+                  if (!pdvController.pedidos.contains(controller.nome[index])) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      scrollController
+                          .jumpTo(scrollController.position.maxScrollExtent);
+                    });
+                  }
+                  ;
                 },
                 child: Column(
                   children: [
