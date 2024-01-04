@@ -66,55 +66,54 @@ class IsarService {
         getEmpresa,
         headers: _headers,
       );
-        var empresas = jsonDecode(utf8.decode(response.bodyBytes));
+      var empresas = jsonDecode(utf8.decode(response.bodyBytes));
 
-        final emp = empresa(
-            empresas['itens'][0]['id'],
-            empresas['itens'][0]['razao'],
-            empresas['itens'][0]['fantasia'],
-            empresas['itens'][0]['cnpj'],
-            empresas['itens'][0]['insc_estadual'],
-            empresas['itens'][0]['insc_municipal'],
-            empresas['itens'][0]['fone1'],
-            empresas['itens'][0]['fone2'],
-            empresas['itens'][0]['fone3'],
-            empresas['itens'][0]['endereco'],
-            empresas['itens'][0]['bairro'],
-            empresas['itens'][0]['numero'],
-            empresas['itens'][0]['municipio'],
-            empresas['itens'][0]['municipio_uf'],
-            empresas['itens'][0]['cep'],
-            empresas['itens'][0]['email'],
-            empresas['itens'][0]['site'],
-            empresas['itens'][0]['complemento'],
-            empresas['itens'][0]['estoque_grade'],
-            empresas['itens'][0]['usar_paf_nfce'],
-            empresas['itens'][0]['param_nf_crt'],
-            empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
-            empresas['itens'][0]['param_vendas_tpcomissao'],
-            empresas['itens'][0]['param_vendas_portador'],
-            empresas['itens'][0]['param_vendas_descmaximo'].toDouble(),
-            empresas['itens'][0]['param_pdv_codigopesagem'],
-            empresas['itens'][0]['param_pdv_formapagto'],
-            empresas['itens'][0]['param_pdv_cliente'],
-            empresas['itens'][0]['param_pdv_bloq_est_neg'],
-            empresas['itens'][0]['param_pdv_validar_cx_fechado'],
-            empresas['itens'][0]['param_pdv_senha_cancelar'],
-            empresas['itens'][0]['param_pdv_imp_cp_nf_venda'],
-            empresas['itens'][0]['param_pdv_prodcomposto'],
-            empresas['itens'][0]['param_pdv_informa_cliente'],
-            empresas['itens'][0]['param_pdv_vendedor_venda'],
-            empresas['itens'][0]['param_pdv_cartao_gerarparc'],
-            empresas['itens'][0]['param_pdv_imp_comprovante'],
-            empresas['itens'][0]['param_pdv_permitir_desconto'],
-            empresas['itens'][0]['param_pdv_tipo_desconto'],
-            empresas['itens'][0]['param_pdv_gerar_senha'],
-            empresas['itens'][0]['param_pdv_comanda_producao']);
-        isar.writeTxn(() async {
-          await isar.empresas.put(emp);
-        });
-        return isar;
-      
+      final emp = empresa(
+          empresas['itens'][0]['id'],
+          empresas['itens'][0]['razao'],
+          empresas['itens'][0]['fantasia'],
+          empresas['itens'][0]['cnpj'],
+          empresas['itens'][0]['insc_estadual'],
+          empresas['itens'][0]['insc_municipal'],
+          empresas['itens'][0]['fone1'],
+          empresas['itens'][0]['fone2'],
+          empresas['itens'][0]['fone3'],
+          empresas['itens'][0]['endereco'],
+          empresas['itens'][0]['bairro'],
+          empresas['itens'][0]['numero'],
+          empresas['itens'][0]['municipio'],
+          empresas['itens'][0]['municipio_uf'],
+          empresas['itens'][0]['cep'],
+          empresas['itens'][0]['email'],
+          empresas['itens'][0]['site'],
+          empresas['itens'][0]['complemento'],
+          empresas['itens'][0]['estoque_grade'],
+          empresas['itens'][0]['usar_paf_nfce'],
+          empresas['itens'][0]['param_nf_crt'],
+          empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
+          empresas['itens'][0]['param_vendas_tpcomissao'],
+          empresas['itens'][0]['param_vendas_portador'],
+          empresas['itens'][0]['param_vendas_descmaximo'].toDouble(),
+          empresas['itens'][0]['param_pdv_codigopesagem'],
+          empresas['itens'][0]['param_pdv_formapagto'],
+          empresas['itens'][0]['param_pdv_cliente'],
+          empresas['itens'][0]['param_pdv_bloq_est_neg'],
+          empresas['itens'][0]['param_pdv_validar_cx_fechado'],
+          empresas['itens'][0]['param_pdv_senha_cancelar'],
+          empresas['itens'][0]['param_pdv_imp_cp_nf_venda'],
+          empresas['itens'][0]['param_pdv_prodcomposto'],
+          empresas['itens'][0]['param_pdv_informa_cliente'],
+          empresas['itens'][0]['param_pdv_vendedor_venda'],
+          empresas['itens'][0]['param_pdv_cartao_gerarparc'],
+          empresas['itens'][0]['param_pdv_imp_comprovante'],
+          empresas['itens'][0]['param_pdv_permitir_desconto'],
+          empresas['itens'][0]['param_pdv_tipo_desconto'],
+          empresas['itens'][0]['param_pdv_gerar_senha'],
+          empresas['itens'][0]['param_pdv_comanda_producao']);
+      isar.writeTxn(() async {
+        await isar.empresas.put(emp);
+      });
+      return isar;
     } catch (e) {
       return const CustomSnackBar(
         title: 'Erro',
@@ -124,12 +123,6 @@ class IsarService {
         textColor: Colors.white,
       ).show();
     }
-  }
-
-  //stream para buscar dados da tabela empresa
-  Stream<List<empresa>> listenEmpresa() async* {
-    final isar = await db;
-    yield* isar.empresas.where().sortByRazao().watch(fireImmediately: true);
   }
 
   //inserindo dados na tabela grupo vindos do servidor
@@ -414,15 +407,6 @@ class IsarService {
     }
   }
 
-  //stream para buscar dados da tabela usuarios
-  Stream<List<usuario>> listenUsuarios() async* {
-    final isar = await db;
-    yield* isar.usuarios
-        .where()
-        .sortById_colaborador()
-        .watch(fireImmediately: true);
-  }
-
   //busca tipo_recebimento do servidor e insere na tabela do banco de dados local
   Future getTipo_recebimento() async {
     final isar = await db;
@@ -666,12 +650,6 @@ class IsarService {
     }
   }
 
-  //stream para buscar dados da tabela caixa
-  Stream<List<caixa>> listenCaixa() async* {
-    final isar = await db;
-    yield* isar.caixas.where().sortById_empresa().watch(fireImmediately: true);
-  }
-
   //buscar id caixa na tabela 'caixa'
   Future<int?> getIdCaixa(int aberturaIdUser) async {
     final isar = await db;
@@ -712,52 +690,6 @@ class IsarService {
       await printerController.printMovimentationCaixa(caixaItem);
     });
     return isar;
-  }
-
-  //stream para buscar dados da tabela caixaItem
-  Stream<List<caixa_item>> listenCaixaItem() async* {
-    final isar = await db;
-    yield* isar.caixa_items
-        .where()
-        .sortById_caixa()
-        .watch(fireImmediately: true);
-  }
-
-  //inserir dados na tabela venda
-  Future<Isar> insertVenda(venda venda, venda_item vendaItem) async {
-    final isar = await db;
-
-    //inserindo dados na tabela venda
-    isar.writeTxn(() async {
-      await isar.vendas.put(venda);
-      await isar.venda_items.put(vendaItem);
-    });
-    return isar;
-  }
-
-  //stream para buscar dados da tabela venda
-  Stream<List<venda>> listenVenda() async* {
-    final isar = await db;
-    yield* isar.vendas.where().sortById_usuario().watch(fireImmediately: true);
-  }
-
-  //inserir dados na tabela vendaItem
-  Future<Isar> insertVendaItem(venda_item vendaItem) async {
-    final isar = await db;
-
-    isar.writeTxn(() async {
-      await isar.venda_items.put(vendaItem);
-    });
-    return isar;
-  }
-
-  //stream para buscar dados da tabela vendaItem
-  Stream<List<venda_item>> listenVendaItem() async* {
-    final isar = await db;
-    yield* isar.venda_items
-        .where()
-        .sortById_produto()
-        .watch(fireImmediately: true);
   }
 
   // busca o login do usuario
@@ -869,24 +801,6 @@ class IsarService {
           "Erro ao inserir dados da empresa. Tente novamente mais tarde!",
           backgroundColor: Colors.red, colorText: Colors.white);
     }
-  }
-
-  //stream para buscar dados da tabela 'Dados Empresariais'
-  Stream<List<dado_empresa>> listenDadosEmpresariais() async* {
-    final isar = await db;
-    yield* isar.dado_empresas
-        .where()
-        .sortById_empresa()
-        .watch(fireImmediately: true);
-  }
-
-  //update do ipEmpresa
-  Future<Isar> updateIpEmpresa(dado_empresa empresa) async {
-    final isar = await db;
-    isar.writeTxn(() async {
-      await isar.dado_empresas.put(empresa);
-    });
-    return isar;
   }
 
   //deletar dados na tabela 'Dados Empresariais'

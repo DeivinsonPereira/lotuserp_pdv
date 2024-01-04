@@ -4,14 +4,11 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 class DialogWidget {
-  PaymentController controller = Get.isRegistered<PaymentController>()
-      ? Get.find<PaymentController>()
-      : Get.put(PaymentController());
-  PdvController pdvcontroller = Get.isRegistered<PdvController>()
-      ? Get.find<PdvController>()
-      : Get.put(PdvController());
+  PaymentController controller = InjectionDependencies.paymentController();
+  PdvController pdvcontroller = InjectionDependencies.pdvController();
 
   var formatoBrasileiro = NumberFormat.currency(
     locale: 'pt_BR',

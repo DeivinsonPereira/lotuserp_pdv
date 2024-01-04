@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 import '../../../controllers/moviment_register_controller.dart';
 
@@ -9,9 +9,7 @@ class PopupMenuMoviment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MovimentRegisterController movimentController =
-        Get.isRegistered<MovimentRegisterController>()
-            ? Get.find<MovimentRegisterController>()
-            : Get.put(MovimentRegisterController());
+        InjectionDependencies.movimentRegisterController();
 
     return PopupMenuButton(
       padding: EdgeInsets.zero,

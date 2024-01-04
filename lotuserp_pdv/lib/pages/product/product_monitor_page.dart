@@ -264,7 +264,7 @@ class LegendSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = Get.find();
+    ProdutoController controller = InjectionDependencies.productController();
 
     return isDescription
         ? Expanded(

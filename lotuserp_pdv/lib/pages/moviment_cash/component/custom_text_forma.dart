@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class CustomTextForma extends StatelessWidget {
@@ -16,7 +16,8 @@ class CustomTextForma extends StatelessWidget {
   Widget build(BuildContext context) {
     IsarService service = IsarService();
 
-    MovimentRegisterController movimentController = Get.find();
+    MovimentRegisterController movimentController =
+        InjectionDependencies.movimentRegisterController();
 
     movimentController.formaDePagamentoController.text = 'DINHEIRO';
 

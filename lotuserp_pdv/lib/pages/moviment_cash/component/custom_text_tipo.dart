@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/component/popup_menu.dart';
 
 class CustomTextTipo extends StatelessWidget {
@@ -14,7 +14,8 @@ class CustomTextTipo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    MovimentRegisterController movimentController = Get.find();
+    MovimentRegisterController movimentController =
+        InjectionDependencies.movimentRegisterController();
 
     movimentController.tipoDeMovimentoController.text = 'CREDITO';
     return Padding(

@@ -4,11 +4,14 @@ import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/format_txt.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 class FormWidgets {
   final TextEditingController _controller = TextEditingController();
-  final LoginController loginController = Get.put(LoginController());
-  final PasswordController passwordController = Get.put(PasswordController());
+  final LoginController loginController =
+      InjectionDependencies.loginController();
+  final PasswordController passwordController =
+      InjectionDependencies.passwordController();
 
   Widget textFieldWidget(IconData icon, String text) {
     return Padding(

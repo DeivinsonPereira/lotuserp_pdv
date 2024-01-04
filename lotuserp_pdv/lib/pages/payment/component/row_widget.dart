@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 
 var formatoBrasileiro = NumberFormat.currency(
   locale: 'pt_BR',
@@ -64,9 +65,7 @@ class RowWidget {
 }
 
 class ButtonsPayment {
-  PdvController controller = Get.isRegistered<PdvController>()
-      ? Get.find<PdvController>()
-      : Get.put(PdvController());
+  PdvController controller = InjectionDependencies.pdvController();
   double originalDiscountPercentage = 0.0;
   double originalTotalValue = 0.0;
 

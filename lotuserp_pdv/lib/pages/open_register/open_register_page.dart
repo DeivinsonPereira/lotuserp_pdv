@@ -6,6 +6,7 @@ import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
@@ -18,21 +19,11 @@ class OpenRegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController;
-    MovimentRegisterController movimentRegisterController;
+    PasswordController passwordController =
+        InjectionDependencies.passwordController();
+    MovimentRegisterController movimentRegisterController =
+        InjectionDependencies.movimentRegisterController();
     IsarService service = IsarService();
-
-    if (Get.isRegistered<PasswordController>()) {
-      passwordController = Get.find<PasswordController>();
-    } else {
-      passwordController = Get.put(PasswordController());
-    }
-
-    if (Get.isRegistered<MovimentRegisterController>()) {
-      movimentRegisterController = Get.find<MovimentRegisterController>();
-    } else {
-      movimentRegisterController = Get.put(MovimentRegisterController());
-    }
 
     var userName = passwordController.userController.text;
 

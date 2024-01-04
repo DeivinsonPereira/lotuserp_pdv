@@ -2,8 +2,10 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
+import '../../controllers/close_register_controller.dart';
 import '../../controllers/global_controller.dart';
 import '../../controllers/load_controller.dart';
+import '../../controllers/login_controller.dart';
 import '../../controllers/moviment_register_controller.dart';
 import '../../controllers/password_controller.dart';
 import '../../controllers/payment_controller.dart';
@@ -107,6 +109,22 @@ abstract class InjectionDependencies {
       return Get.find<SearchProductPdvController>();
     } else {
       return Get.put(SearchProductPdvController());
+    }
+  }
+
+  static LoginController loginController() {
+    if (Get.isRegistered<LoginController>()) {
+      return Get.find<LoginController>();
+    } else {
+      return Get.put(LoginController());
+    }
+  }
+
+  static CloseRegisterController closeRegisterController() {
+    if (Get.isRegistered<CloseRegisterController>()) {
+      return Get.find<CloseRegisterController>();
+    } else {
+      return Get.put(CloseRegisterController());
     }
   }
 }
