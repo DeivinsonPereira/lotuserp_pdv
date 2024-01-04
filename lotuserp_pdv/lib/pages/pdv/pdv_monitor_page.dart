@@ -268,7 +268,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 //container que envolve a logo e informações
                 Container(
                   width: 150,
-                  height: 85,
+                  height: 90,
                   decoration: BoxDecoration(
                       color: CustomColors.customSwatchColor,
                       borderRadius: BorderRadius.circular(10)),
@@ -294,7 +294,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       width: 170,
-                      height: 85,
+                      height: 90,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Column(
@@ -709,6 +709,25 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                     labelStyle: const TextStyle(
                         color: Color.fromARGB(255, 53, 53, 53), fontSize: 18),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
+                    suffixIcon: _.isBarCode
+                        ? IconButton(
+                            onPressed: () {
+                              _.updateIsBarCode();
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.barcode,
+                              color: Colors.black,
+                            ),
+                          )
+                        : IconButton(
+                            onPressed: () {
+                              _.updateIsBarCode();
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.keyboard,
+                              color: Colors.black,
+                            ),
+                          ),
                   ),
                   onChanged: (value) {
                     searchProductPdvController.updateSearch();
