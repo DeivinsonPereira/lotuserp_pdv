@@ -815,6 +815,7 @@ class _SearchProduct extends StatelessWidget {
         }
         if (snapshot.hasData) {
           List<produto?> produtos = snapshot.data!;
+          controller.clearAll();
 
           return GridView.builder(
             itemCount: produtos.length == 1 ? 1 : produtos.length,
@@ -835,10 +836,10 @@ class _SearchProduct extends StatelessWidget {
               return InkWell(
                 onTap: () {
                   pdvController.adicionarPedidos(
-                      controller.nome.value,
-                      controller.unidade.value,
-                      controller.preco.value,
-                      controller.idProduto.value);
+                      controller.nome[index],
+                      controller.unidade[index],
+                      controller.preco[index],
+                      controller.idProduto[index]);
                 },
                 child: Column(
                   children: [
@@ -850,18 +851,18 @@ class _SearchProduct extends StatelessWidget {
                           CachedNetworkImage(
                             alignment: const Alignment(0, 0),
                             imageUrl:
-                                '${pdvController.ip.value}/getimagem?categoria=PRO&file=${controller.file.value}&result=URL',
+                                '${pdvController.ip.value}/getimagem?categoria=PRO&file=${controller.file[index][0]}&result=URL',
                           ),
 
                           if (pdvController
-                                  .getQuantidade(controller.nome.value) >
+                                  .getQuantidade(controller.nome[index]) >
                               0) // Verifica se a quantidade é maior que 0
 
                             Positioned(
                               top: 5,
                               right: 5,
                               child: pdvController.getQuantidade(
-                                          controller.nome.value) >
+                                          controller.nome[index]) >
                                       0
                                   ? Container(
                                       padding: const EdgeInsets.all(5),
@@ -871,7 +872,7 @@ class _SearchProduct extends StatelessWidget {
                                             BorderRadius.circular(100),
                                       ),
                                       child: Obx(() => Text(
-                                            '${pdvController.getQuantidade(controller.nome.value)}',
+                                            '${pdvController.getQuantidade(controller.nome[index])}',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
@@ -884,7 +885,7 @@ class _SearchProduct extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      controller.nome.value,
+                      controller.nome[index],
                       textAlign: TextAlign.center,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -894,13 +895,13 @@ class _SearchProduct extends StatelessWidget {
                           color: TextColors.titleColor),
                     ),
                     Text(
-                      controller.unidade.value,
+                      controller.unidade[index],
                       style: const TextStyle(
                           fontWeight: FontWeight.w500,
                           color: TextColors.subtitleColor),
                     ),
                     Text(
-                      'R\$ ${controller.preco.value} ',
+                      'R\$ ${controller.preco[index]} ',
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
                           color: TextColors.titleColor),
