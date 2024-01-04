@@ -412,7 +412,14 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                           Row(
                             children: [
-                              Text(mapPaymentsTotal[index]['valor']),
+                              Text(
+                                formatoBrasileiro.format(
+                                  double.parse(
+                                    mapPaymentsTotal[index]['valor']
+                                        .replaceAll(',', '.'),
+                                  ),
+                                ),
+                              ),
                               SizedBox(
                                   width: 50,
                                   child: IconButton(

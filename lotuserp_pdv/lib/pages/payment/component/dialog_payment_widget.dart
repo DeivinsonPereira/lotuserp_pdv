@@ -196,7 +196,9 @@ class DialogWidget {
                               child: Obx(
                                 () {
                                   return Text(
-                                    controller.totalPayment.value,
+                                    formatoBrasileiro.format(double.parse(
+                                        controller.totalPayment.value
+                                            .replaceAll(',', '.'))),
                                     style: const TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 22),
