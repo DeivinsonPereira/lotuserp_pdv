@@ -237,9 +237,11 @@ class DialogWidget {
         //Confirmar
         TextButton(
           onPressed: () {
-            controller.addPaymentsTotal(name, controller.totalPayment.value);
-            controller.totalPayment.value = '0,00';
-            callback();
+            if (controller.totalPayment.value != '0,00') {
+              controller.addPaymentsTotal(name, controller.totalPayment.value);
+              controller.totalPayment.value = '0,00';
+              callback();
+            }
             Get.back();
           },
           child: const Text(
