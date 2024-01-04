@@ -42,22 +42,22 @@ class SearchProductPdvController extends GetxController {
 
   //atualizar nome
   void updateNome(String value) {
-    nome.value.add(value);
+    nome.add(value);
   }
 
   //atualizar unidade
   void updateUnidade(String value) {
-    unidade.value.add(value);
+    unidade.add(value);
   }
 
   //atualizar preco
   void updatePreco(String value) {
-    preco.value.add(value);
+    preco.add(value);
   }
 
   //atualizar idProduto
   void updateIdProduto(int value) {
-    idProduto.value.add(value);
+    idProduto.add(value);
   }
 
   // ***** limpar ****
