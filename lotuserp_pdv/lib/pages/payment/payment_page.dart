@@ -322,10 +322,14 @@ class _PaymentPageState extends State<PaymentPage> {
         String remainingValueFormattedCb2 = formatoBrasileiro.format(trocoCb2);
 
         //transforma a virgula em ponto
-        String textformatadocb1 =
-            remainingValueFormatted.replaceAll(',', '').replaceAll('-', '');
-        String textformatadocb2 =
-            remainingValueFormattedCb2.replaceAll(',', '').replaceAll('-', '');
+        String textformatadocb1 = remainingValueFormatted
+            .replaceAll(',', '')
+            .replaceAll('-', '')
+            .replaceAll('.', '');
+        String textformatadocb2 = remainingValueFormattedCb2
+            .replaceAll(',', '')
+            .replaceAll('-', '')
+            .replaceAll('.', '');
 
         String textReplaceMinus = remainingValueFormatted.replaceAll('-', '');
         String textCb2ReplaceMinus =

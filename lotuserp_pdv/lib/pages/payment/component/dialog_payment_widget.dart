@@ -196,6 +196,9 @@ class DialogWidget {
                               child: Obx(
                                 () {
                                   return Text(
+                                    maxLines: 1,
+                                    softWrap: false,
+                                    overflow: TextOverflow.clip,
                                     formatoBrasileiro.format(double.parse(
                                         controller.totalPayment.value
                                             .replaceAll(',', '.'))),

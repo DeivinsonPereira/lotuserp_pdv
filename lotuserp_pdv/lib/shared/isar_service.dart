@@ -66,7 +66,6 @@ class IsarService {
         getEmpresa,
         headers: _headers,
       );
-      if (response.statusCode == 200) {
         var empresas = jsonDecode(utf8.decode(response.bodyBytes));
 
         final emp = empresa(
@@ -115,16 +114,7 @@ class IsarService {
           await isar.empresas.put(emp);
         });
         return isar;
-      } else {
-        return const CustomSnackBar(
-          title: 'Erro',
-          message:
-              'Falha ao buscar dados da empresa. Tente novamente mais tarde!',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-        ).show();
-      }
+      
     } catch (e) {
       return const CustomSnackBar(
         title: 'Erro',
@@ -854,25 +844,31 @@ class IsarService {
   }
 
   //inserir dados na tabela 'Dados Empresariais'
-  Future<Isar> insertDadosEmpresariais(dado_empresa empresa) async {
-    final isar = await db;
+  Future<Object> insertDadosEmpresariais(dado_empresa empresa) async {
+    try {
+      final isar = await db;
 
-    int i = await isar.dado_empresas.count();
+      int i = await isar.dado_empresas.count();
 
-    if (i > 0) {
-      isar.writeTxn(
-        () async {
-          await isar.dado_empresas.clear();
-          await isar.dado_empresas.put(empresa);
-        },
-      );
+      if (i > 0) {
+        isar.writeTxn(
+          () async {
+            await isar.dado_empresas.clear();
+            await isar.dado_empresas.put(empresa);
+          },
+        );
+      }
+
+      //inserindo dados na tabela 'Dados Empresariais'
+      isar.writeTxn(() async {
+        await isar.dado_empresas.put(empresa);
+      });
+      return isar;
+    } catch (e) {
+      return Get.snackbar("Erro",
+          "Erro ao inserir dados da empresa. Tente novamente mais tarde!",
+          backgroundColor: Colors.red, colorText: Colors.white);
     }
-
-    //inserindo dados na tabela 'Dados Empresariais'
-    isar.writeTxn(() async {
-      await isar.dado_empresas.put(empresa);
-    });
-    return isar;
   }
 
   //stream para buscar dados da tabela 'Dados Empresariais'

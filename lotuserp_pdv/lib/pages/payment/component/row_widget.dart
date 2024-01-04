@@ -207,8 +207,16 @@ class ButtonsPayment {
                   child: Obx(
                     () => Text(
                       controller.checkbox1.value
-                          ? controller.numbersDiscount.value
-                          : controller.numbersDiscountcb2.value,
+                          ? formatoBrasileiro.format(double.parse(controller
+                                  .numbersDiscount.value
+                                  .replaceAll(',', '')) /
+                              100)
+                          : formatoBrasileiro.format(double.parse(controller
+                                  .numbersDiscountcb2.value
+                                  .replaceAll(',', '')) /
+                              100),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: !controller.checkbox1.value
                           ? const TextStyle(
                               fontSize: 25,
