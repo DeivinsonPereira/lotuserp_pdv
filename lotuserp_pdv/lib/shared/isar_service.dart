@@ -25,7 +25,9 @@ import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../collections/caixa_fechamento.dart';
 import '../core/app_routes.dart';
+import '../pages/common/datetime_formatter_widget.dart';
 
 Map<String, String> _headers = {
   'content-type': 'application/json',
@@ -885,14 +887,38 @@ class IsarService {
     return null;
   }
 
+  //busca o caixa de acordo com o idUser e status 0
+  Future<int?> getCaixaWithIdUserAndStatus0() async {
+    final isar = await db;
+    usuario_logado? usuariologado =
+        await isar.usuario_logados.filter().idEqualTo(1).findFirst();
+
+    caixa? caixas = await isar.caixas
+        .filter()
+        .abertura_id_userEqualTo(usuariologado!.id)
+        .statusEqualTo(0)
+        .findFirst();
+
+    if (caixas != null) {
+      return caixas.id_caixa;
+    }
+
+    return null;
+  }
+
   //verifica se o usuario possui caixa aberto
   Future<bool> checkUserCaixa(int idUser) async {
     final isar = await db;
 
-    caixa? usuario =
-        await isar.caixas.filter().abertura_id_userEqualTo(idUser).findFirst();
+    caixa? usuario = await isar.caixas
+        .filter()
+        .abertura_id_userEqualTo(idUser)
+        .statusEqualTo(0)
+        .findFirst();
 
-    if (usuario?.status == 0) {
+    int status = usuario?.status ?? 1;
+
+    if (usuario?.status == 0 && status == 0) {
       return true;
     } else {
       return false;
@@ -934,11 +960,38 @@ class IsarService {
     return isar;
   }
 
-  //busca o dados da impressora padrão
+  //busca o dado da impressora padrão
   Future<default_printer?> getDefaultPrinter() async {
     final isar = await db;
 
     return await isar.default_printers.where().findFirst();
+  }
+
+  //cria o fechamento de caixa
+  Future<Isar> insertCaixaFechamento(
+      List<caixa_fechamento> caixaFechamento) async {
+    final isar = await db;
+    IsarService service = IsarService();
+
+    var hourFormatted = DatetimeFormatterWidget.formatHour(DateTime.now());
+    var dadosUsuario = await service.getUserLogged();
+
+    caixa? caixas = await isar.caixas.get(caixaFechamento[0].id_caixa);
+    
+    
+
+    if (caixas != null) {
+      caixas.status = 1;
+      caixas.fechou_data = DateTime.now();
+      caixas.fechou_hora = hourFormatted;
+      caixas.fechou_id_user = dadosUsuario!.id_user;
+
+      isar.writeTxn(() async {
+        await isar.caixas.put(caixas);
+        await isar.caixa_fechamentos.putAll(caixaFechamento);
+      });
+    }
+    return isar;
   }
 
   //abre o banco de dados
@@ -960,6 +1013,7 @@ class IsarService {
           CaixaSchema,
           Venda_itemSchema,
           VendaSchema,
+          Caixa_fechamentoSchema,
         ],
         directory: dir.path,
       );

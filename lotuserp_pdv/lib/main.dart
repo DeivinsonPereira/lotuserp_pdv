@@ -14,6 +14,7 @@ import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/core/app_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
+import 'collections/caixa_fechamento.dart';
 import 'collections/default_printer.dart';
 
 void main() async {
@@ -35,6 +36,7 @@ void main() async {
       CaixaSchema,
       Venda_itemSchema,
       VendaSchema,
+      Caixa_fechamentoSchema,
     ],
     directory: dir.path,
     inspector: true,

@@ -18,6 +18,7 @@ class GlobalController extends GetxController {
     super.onInit();
     updateSerieNfce();
     updateIdEmpresa();
+    setIdUsuario();
   }
 
   //busca o id da empresa de acordo com as configurações iniciais do sistema

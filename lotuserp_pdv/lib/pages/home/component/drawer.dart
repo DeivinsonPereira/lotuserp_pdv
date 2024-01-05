@@ -208,6 +208,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
         var dadosUsuario = await service.getUserLogged();
         bool caixaExistente =
             await service.checkUserCaixa(dadosUsuario!.id_user!);
+
         abrirCaixa == true
             ? (
                 caixaExistente

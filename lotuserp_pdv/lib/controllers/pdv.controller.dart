@@ -322,8 +322,8 @@ class PdvController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    inicializarGetIdCaixa();
     fetchDataFromDatabase();
+    getidCaixa();
     scrollController.addListener(() {});
   }
 
@@ -338,24 +338,9 @@ class PdvController extends GetxController {
   }
 
   //busca o id do caixa
-  Future<int?> getIdCaixa(int idUser) async {
-    int? idCaixa = await service.getIdCaixa(idUser);
-
-    if (idCaixa != null) {
-      return idCaixa;
-    } else {
-      return null;
-    }
-  }
-
-  //inicializa o id do caixa
-  Future<void> inicializarGetIdCaixa() async {
-    var userId = await getIdUser();
-    int? caixa = await getIdCaixa(userId!);
-    if (caixa != null) {
-      caixaId.value = caixa;
-      update();
-    }
+  Future<void> getidCaixa() async {
+    var caixa = await service.getCaixaWithIdUserAndStatus0();
+    caixaId.value = caixa!;
   }
 
   //busca o ip da empresa

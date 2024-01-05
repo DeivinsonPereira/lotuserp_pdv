@@ -73,7 +73,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
     globalController.setIdUsuario();
     globalController.setCaixaAbertaId(globalController.userId);
-    controller.inicializarGetIdCaixa();
     controller.fetchDataFromDatabase();
 
     // Pagamento e total
@@ -872,7 +871,6 @@ class _SearchProduct extends StatelessWidget {
                           .jumpTo(scrollController.position.maxScrollExtent);
                     });
                   }
-                  
                 },
                 child: Column(
                   children: [

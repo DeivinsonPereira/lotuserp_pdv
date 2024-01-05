@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
+import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -81,8 +82,8 @@ class ConfirmButtom extends StatelessWidget {
           ..id_serie_nfce = globalController.serieNfce //id serie nfce
           ..enviado = 0 //enviado (status de envio)
           ..cpf_cnpj = '000.000.000-00' //cpf cnpj do cliente
-          ..id_caixa = globalController
-              .caixaAberta; //id caixa aberto para o usuario logado
+          ..id_caixa = pdvController
+              .caixaId.value; //id caixa aberto para o usuario logado
 
         !isConfirmation
             ? {pdvController.updateIsSelectedList(), Get.back()}

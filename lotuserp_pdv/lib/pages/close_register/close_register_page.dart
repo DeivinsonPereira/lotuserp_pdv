@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/caixa_fechamento.dart';
 
 import 'package:lotuserp_pdv/controllers/close_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
@@ -10,6 +11,7 @@ import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../collections/tipo_recebimento.dart';
 import '../common/header_popup.dart';
 import '../common/injection_dependencies.dart';
 
@@ -23,6 +25,8 @@ class CloseRegisterPage extends StatelessWidget {
 
     CloseRegisterController controller =
         InjectionDependencies.closeRegisterController();
+
+    PdvController pdvController = InjectionDependencies.pdvController();
 
     // botões confirmar e voltar
     Widget backAndConfirmButtons() {
@@ -52,7 +56,26 @@ class CloseRegisterPage extends StatelessWidget {
             child: Container(
               color: CustomColors.confirmButtonColor,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  List<caixa_fechamento> fechamentosCaixa = [];
+
+                  for (var i = 0; i < controller.closeRegister.length; i++) {
+                    var values = controller.closeRegister[i]['value'] =
+                        double.parse(controller.textControllers[i].text
+                            .replaceAll('.', '')
+                            .replaceAll(',', '.'));
+
+                    caixa_fechamento caixaFechamento = caixa_fechamento()
+                      ..id_caixa = pdvController.caixaId.value
+                      ..id_tipo_recebimento = controller.dataOfTipoPagamento![i]
+                      ..valor_informado = values;
+
+                    fechamentosCaixa.add(caixaFechamento);
+                  }
+
+                  service.insertCaixaFechamento(fechamentosCaixa);
+                  Get.back();
+                },
                 child: const Text(
                   'CONFIRMAR',
                   style: TextStyle(
@@ -68,47 +91,128 @@ class CloseRegisterPage extends StatelessWidget {
       );
     }
 
+    // teclado
     Widget keyboardOnDialog() {
-      return const Column(
-        children: [
-          Row(
-            children: [
-              BuildNumberButtom(text: '1'),
-              BuildNumberButtom(text: '2'),
-              BuildNumberButtom(text: '3'),
-            ],
+      return GetBuilder<CloseRegisterController>(builder: (_) {
+        return Column(
+          children: [
+            Row(
+              children: [
+                BuildNumberButtom(
+                    textInformed: '1',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '2',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '3',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+              ],
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              children: [
+                BuildNumberButtom(
+                    textInformed: '4',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '5',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '6',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+              ],
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              children: [
+                BuildNumberButtom(
+                    textInformed: '7',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '8',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '9',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+              ],
+            ),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              children: [
+                BuildNumberButtom(
+                    textInformed: '00',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BuildNumberButtom(
+                    textInformed: '0',
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+                BackSpaceIcon(
+                    setSelectedTextFieldIndex: _.selectedTextFieldIndex.value),
+              ],
+            ),
+          ],
+        );
+      });
+    }
+
+    //tipos de pagamentos
+    Widget tiposPagamentos(int index, List<tipo_recebimento> data) {
+      return Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+        ),
+        height: 50,
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            data[index].descricao!,
+            style: const TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          SizedBox(
-            height: 50,
+        ),
+      );
+    }
+
+    //Campo dos textfield que os usuarios vão digitar
+    Widget valoresDigitados(int index, List<tipo_recebimento> data) {
+      return Container(
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+        ),
+        height: 50,
+        child: TextField(
+          readOnly: true,
+          onTap: () {
+            controller.setSelectedTextFieldIndex(index);
+          },
+          textAlign: TextAlign.end,
+          controller: controller.textControllers[index],
+          keyboardType: TextInputType.none,
+          maxLines: 1,
+          decoration: const InputDecoration(
+            contentPadding: EdgeInsets.all(10),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(0),
+              ),
+              borderSide: BorderSide(color: Colors.black, width: 1),
+            ),
           ),
-          Row(
-            children: [
-              BuildNumberButtom(text: '4'),
-              BuildNumberButtom(text: '5'),
-              BuildNumberButtom(text: '6'),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Row(
-            children: [
-              BuildNumberButtom(text: '7'),
-              BuildNumberButtom(text: '8'),
-              BuildNumberButtom(text: '9'),
-            ],
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          Row(
-            children: [
-              BuildNumberButtom(text: '00'),
-              BuildNumberButtom(text: '0'),
-              BackSpaceIcon(),
-            ],
-          ),
-        ],
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              controller.updateCloseRegister(value, data[index].descricao!);
+            }
+          },
+        ),
       );
     }
 
@@ -119,6 +223,9 @@ class CloseRegisterPage extends StatelessWidget {
         width: size.width,
         child: Row(
           children: [
+            const SizedBox(
+              width: 35,
+            ),
             //Teclado
             keyboardOnDialog(),
 
@@ -147,7 +254,10 @@ class CloseRegisterPage extends StatelessWidget {
                             if (data.length <=
                                 controller.textControllers.length) {
                             } else {
-                              controller.createControllers(index);
+                              controller.createControllers(
+                                  index, data[index].descricao!);
+                              controller.dataOfTipoPagamento!
+                                  .add(data[index].id);
                             }
                             return Column(
                               children: [
@@ -155,63 +265,13 @@ class CloseRegisterPage extends StatelessWidget {
                                   children: [
                                     // tipos de pagamentos
                                     Expanded(
-                                      flex: 2,
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10),
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black),
-                                        ),
-                                        height: 50,
-                                        child: Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Text(
-                                            data[index].descricao!,
-                                            style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
+                                        flex: 4,
+                                        child: tiposPagamentos(index, data)),
 
                                     //valores
                                     Expanded(
-                                      flex: 1,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          border:
-                                              Border.all(color: Colors.black),
-                                        ),
-                                        height: 50,
-                                        child: TextField(
-                                          textAlign: TextAlign.end,
-                                          controller:
-                                              controller.textControllers[index],
-                                          keyboardType: TextInputType.number,
-                                          maxLines: 1,
-                                          decoration: const InputDecoration(
-                                            contentPadding: EdgeInsets.all(10),
-                                            border: OutlineInputBorder(
-                                              borderRadius: BorderRadius.all(
-                                                Radius.circular(0),
-                                              ),
-                                              borderSide: BorderSide(
-                                                  color: Colors.black,
-                                                  width: 1),
-                                            ),
-                                          ),
-                                          onChanged: (value) {
-                                            if (value.isNotEmpty) {
-                                              controller.updateCloseRegister(
-                                                  value,
-                                                  data[index].descricao!);
-                                            }
-                                          },
-                                        ),
-                                      ),
-                                    ),
+                                        flex: 3,
+                                        child: valoresDigitados(index, data)),
                                   ],
                                 ),
                                 const SizedBox(
@@ -264,7 +324,7 @@ class CloseRegisterPage extends StatelessWidget {
                     CointainersInformation(
                       size: size,
                       sizeWidth: 0.2,
-                      text: 'NÚMERO CAIXA',
+                      text: 'ID CAIXA',
                     ),
                   ],
                 ),
@@ -309,7 +369,15 @@ class CloseRegisterPage extends StatelessWidget {
 
 // icone backEspace do teclado.. apaga os numeros digitados
 class BackSpaceIcon extends StatelessWidget {
-  const BackSpaceIcon({super.key});
+  BackSpaceIcon({
+    Key? key,
+    required this.setSelectedTextFieldIndex,
+  }) : super(key: key);
+
+  final int setSelectedTextFieldIndex;
+
+  CloseRegisterController controller =
+      InjectionDependencies.closeRegisterController();
 
   @override
   Widget build(BuildContext context) {
@@ -318,9 +386,7 @@ class BackSpaceIcon extends StatelessWidget {
       height: 37,
       child: InkWell(
         onTap: () {
-          /*  controller.checkbox1.value
-              ? controller.removeNumberDiscount()
-              : controller.removeNumberDiscountCb2();*/
+          controller.removeNumbers(setSelectedTextFieldIndex);
         },
         child: const Icon(
           Icons.backspace,
@@ -333,30 +399,38 @@ class BackSpaceIcon extends StatelessWidget {
 
 // teclado botoes
 class BuildNumberButtom extends StatelessWidget {
-  const BuildNumberButtom({
+  BuildNumberButtom({
     Key? key,
-    required this.text,
+    required this.textInformed,
+    required this.setSelectedTextFieldIndex,
   }) : super(key: key);
 
-  final String text;
+  final String textInformed;
+  final int setSelectedTextFieldIndex;
 
+  CloseRegisterController controller =
+      InjectionDependencies.closeRegisterController();
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        /*controller.checkbox1.value
-            ? controller.addNumberDiscount(number)
-            : controller.addPercentageDiscount(number);*/
-      },
-      child: SizedBox(
-        width: 100,
-        child: Center(
-          child: Text(
-            text,
-            style: const TextStyle(fontSize: 26),
+    return GetBuilder<CloseRegisterController>(
+      builder: (_) {
+        return InkWell(
+          onTap: () {
+            _.textControllers[setSelectedTextFieldIndex].text += textInformed;
+            _.updateCloseRegister(textInformed,
+                _.closeRegister[setSelectedTextFieldIndex]['tipo']);
+          },
+          child: SizedBox(
+            width: 100,
+            child: Center(
+              child: Text(
+                textInformed,
+                style: const TextStyle(fontSize: 26),
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
@@ -381,9 +455,19 @@ class CointainersInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideBarController controller = InjectionDependencies.sidebarController();
-    PdvController pdvController = InjectionDependencies.pdvController();
     PasswordController passwordController =
         InjectionDependencies.passwordController();
+    IsarService service = IsarService();
+    CloseRegisterController closeRegisterController =
+        InjectionDependencies.closeRegisterController();
+
+    Future<int?> getIdUser() async {
+      var caixa = await service.getCaixaWithIdUserAndStatus0();
+
+      print(caixa);
+
+      return caixa;
+    }
 
     return Container(
       height: 55,
@@ -417,13 +501,15 @@ class CointainersInformation extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: CustomColors.customSwatchColor),
                   )
-                : Text(
-                    pdvController.caixaId.value.toString().padLeft(6, '0'),
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.customSwatchColor),
-                  )
+                : Obx(() => Text(
+                      closeRegisterController.caixaId
+                          .toString()
+                          .padLeft(6, '0'),
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.customSwatchColor),
+                    ))
       ]),
     );
   }
