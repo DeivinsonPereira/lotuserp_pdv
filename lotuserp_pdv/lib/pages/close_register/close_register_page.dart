@@ -68,6 +68,50 @@ class CloseRegisterPage extends StatelessWidget {
       );
     }
 
+    Widget keyboardOnDialog() {
+      return const Column(
+        children: [
+          Row(
+            children: [
+              BuildNumberButtom(text: '1'),
+              BuildNumberButtom(text: '2'),
+              BuildNumberButtom(text: '3'),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            children: [
+              BuildNumberButtom(text: '4'),
+              BuildNumberButtom(text: '5'),
+              BuildNumberButtom(text: '6'),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            children: [
+              BuildNumberButtom(text: '7'),
+              BuildNumberButtom(text: '8'),
+              BuildNumberButtom(text: '9'),
+            ],
+          ),
+          SizedBox(
+            height: 50,
+          ),
+          Row(
+            children: [
+              BuildNumberButtom(text: '00'),
+              BuildNumberButtom(text: '0'),
+              BackSpaceIcon(),
+            ],
+          ),
+        ],
+      );
+    }
+
     // lista de pagamentos e informações p/ usuario preencher
     Widget listPayments() {
       return SizedBox(
@@ -76,50 +120,14 @@ class CloseRegisterPage extends StatelessWidget {
         child: Row(
           children: [
             //Teclado
-            const Column(
-              children: [
-                Row(
-                  children: [
-                    BuildNumberButtom(text: '1'),
-                    BuildNumberButtom(text: '2'),
-                    BuildNumberButtom(text: '3'),
-                  ],
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  children: [
-                    BuildNumberButtom(text: '4'),
-                    BuildNumberButtom(text: '5'),
-                    BuildNumberButtom(text: '6'),
-                  ],
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  children: [
-                    BuildNumberButtom(text: '7'),
-                    BuildNumberButtom(text: '8'),
-                    BuildNumberButtom(text: '9'),
-                  ],
-                ),
-                SizedBox(
-                  height: 50,
-                ),
-                Row(
-                  children: [
-                    BuildNumberButtom(text: '00'),
-                    BuildNumberButtom(text: '0'),
-                    BackSpaceIcon(),
-                  ],
-                ),
-              ],
-            ),
+            keyboardOnDialog(),
+
+            //Espaço entre o teclado e a lista
             const SizedBox(
               width: 75,
             ),
+
+            //lista de recebimentos
             Expanded(
               child: SizedBox(
                 child: StreamBuilder(
@@ -133,10 +141,14 @@ class CloseRegisterPage extends StatelessWidget {
                       }
                       if (snapshot.hasData) {
                         var data = snapshot.data;
-
                         return ListView.builder(
                           itemCount: data!.length,
                           itemBuilder: (context, index) {
+                            if (data.length <=
+                                controller.textControllers.length) {
+                            } else {
+                              controller.createControllers(index);
+                            }
                             return Column(
                               children: [
                                 Row(
@@ -174,6 +186,9 @@ class CloseRegisterPage extends StatelessWidget {
                                         ),
                                         height: 50,
                                         child: TextField(
+                                          textAlign: TextAlign.end,
+                                          controller:
+                                              controller.textControllers[index],
                                           keyboardType: TextInputType.number,
                                           maxLines: 1,
                                           decoration: const InputDecoration(
@@ -189,8 +204,9 @@ class CloseRegisterPage extends StatelessWidget {
                                           ),
                                           onChanged: (value) {
                                             if (value.isNotEmpty) {
-                                              controller
-                                                  .updateCloseRegister(value);
+                                              controller.updateCloseRegister(
+                                                  value,
+                                                  data[index].descricao!);
                                             }
                                           },
                                         ),

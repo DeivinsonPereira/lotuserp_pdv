@@ -872,7 +872,7 @@ class _SearchProduct extends StatelessWidget {
                           .jumpTo(scrollController.position.maxScrollExtent);
                     });
                   }
-                  ;
+                  
                 },
                 child: Column(
                   children: [

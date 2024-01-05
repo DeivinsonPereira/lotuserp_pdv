@@ -336,7 +336,9 @@ class _ConfigPageState extends State<ConfigPage> {
                             Get.back();
                           });
                         }
-                      } catch (e) {}
+                      } catch (e) {
+                        const SizedBox.shrink();
+                      }
                     }
                   },
                   style: ElevatedButton.styleFrom(
