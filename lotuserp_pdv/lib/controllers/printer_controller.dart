@@ -11,9 +11,11 @@ import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/caixa.dart';
+import '../collections/caixa_fechamento.dart';
 import '../collections/caixa_item.dart';
 import '../collections/empresa.dart';
 import '../collections/usuario_logado.dart';
+import '../pages/payment/component/row_widget.dart';
 import 'global_controller.dart';
 import 'side_bar_controller.dart';
 
@@ -305,7 +307,7 @@ class PrinterController extends GetxController {
       String forma = '';
 
       //variaveis referente a Caixa
-      int idCaixa = 0;
+      int? idCaixa = 0;
       var usuario = '';
       String? abertura = '';
 
@@ -330,7 +332,7 @@ class PrinterController extends GetxController {
           await service.getCaixaWithIdUser(globalController.userId);
       usuario_logado? us = await service.getUserLogged();
 
-      idCaixa = dataCaixa?.id_caixa ?? 0;
+      idCaixa = await service.getCaixaIdWithIdUserAndStatus0();
       usuario = us?.login ?? '';
       abertura = DatetimeFormatterWidget.formatDate(dataCaixa!.abertura_data);
 
@@ -372,8 +374,130 @@ class PrinterController extends GetxController {
       bytes += generator.text('\n\n');
 
       print('A impressão da movimentação de caixa está comentada');
-      /* String textToPrint = String.fromCharCodes(bytes);
+      /*String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
+    } on BTException {
+      return;
+    }
+  }
+
+  //Faz a impressão do fechamento do caixa
+  Future<void> printCloseCaixa(List<caixa_fechamento> fechamento) async {
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
+    GlobalController globalController =
+        InjectionDependencies.globalController();
+
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(PaperSize.mm80, profile);
+    List<int> bytes = [];
+
+    if (selectedPrinter == null) return;
+
+    try {
+      await connectDevice();
+      if (!isConnected.value) return;
+
+      //variáveis para montagem da impressão
+      String nomeEmpresa = '';
+      String ruaEmpresa = '';
+      String numeroEmpresa = '';
+      String bairroEmpresa = '';
+
+      const typeMovimentation = 'PRÉ-FECHAMENTO CAIXA';
+
+      var name = 'LOTUS ERP PDV:';
+      var data = sideBarController.dateNowFormated.value;
+      var hour = sideBarController.hours.value;
+
+      //variaveis referente a Caixa
+      int? idCaixa = 0;
+      var usuario = '';
+      String? abertura = '';
+
+      //busca dados da empresa para alimentar as variaveis de impressão
+      empresa? dataEmpresa = await service.searchEmpresa();
+
+      if (dataEmpresa != null) {
+        nomeEmpresa = dataEmpresa.fantasia ?? '';
+        ruaEmpresa = dataEmpresa.endereco ?? '';
+        numeroEmpresa = dataEmpresa.numero ?? '';
+        bairroEmpresa = dataEmpresa.bairro ?? '';
+      }
+      usuario_logado? us = await service.getUserLogged();
+
+      idCaixa = await service.getCaixaIdWithIdUserAndStatus0();
+      usuario = us?.login ?? '';
+      var caixaObjeto = await service.getCaixaWithIdUserAndStatus0();
+      abertura = DatetimeFormatterWidget.formatDate(caixaObjeto!.abertura_data);
+      caixa_item? aberturaCaixaItemValue = await service.getCaixaItemValue();
+
+      //formatação da impressão
+      bytes += generator.text(nomeEmpresa,
+          styles: const PosStyles(align: PosAlign.left, bold: true));
+      bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
+      bytes += generator.text(bairroEmpresa);
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(typeMovimentation,
+          styles: const PosStyles(
+              align: PosAlign.left, bold: true, width: PosTextSize.size2));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('$name $data - $hour',
+          styles: const PosStyles(align: PosAlign.left));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      //
+      //
+      bytes += generator.text('ABERTURA', styles: const PosStyles(bold: true));
+      bytes += generator.text('ID Caixa: $idCaixa');
+      bytes += generator.text('Usuario: $usuario',
+          styles: const PosStyles(codeTable: 'CP1252'));
+      bytes += generator.text('Abertura: $abertura');
+      bytes += generator
+          .text('Valor:           ${formatoBrasileiro.format(aberturaCaixaItemValue!.valor_cre)}');
+      //
+      //
+      bytes += generator.text('RESUMO MOVIMENTACAO',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('Descricao Informado',
+          styles: const PosStyles(align: PosAlign.left, bold: true));
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+
+      //
+      //
+      for(var i = 0; i < fechamento.length; i++){
+        bytes += generator.text('${fechamento[i].id_tipo_recebimento} ${formatoBrasileiro.format(fechamento[i].valor_informado)}' , styles: const PosStyles(align: PosAlign.left));
+      }
+      bytes += generator.text('--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      generator.row([
+    PosColumn(
+      text: generator.text('Total Grupo:', styles: const PosStyles(align: PosAlign.left)),
+    ),
+    PosColumn(
+      text: generator.text('valor informado', styles: const PosStyles(align: PosAlign.right)),
+    ),
+  ]);
+      //
+      //
+      bytes += generator.text('ID Caixa: $idCaixa');
+      bytes += generator.text('Usuario: $usuario',
+          styles: const PosStyles(codeTable: 'CP1252'));
+      bytes += generator.text('Abertura: $abertura');
+      bytes += generator.text('-------------------------------------------- ',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(
+          '\n\n--------------------------------------------',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text('CONFERIDO POR: ');
+      bytes += generator.text('\n\n');
+
+      print('A impressão da movimentação de caixa está comentada');
+      /* String textToPrint = String.fromCharCodes(bytes);
+    await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
     }

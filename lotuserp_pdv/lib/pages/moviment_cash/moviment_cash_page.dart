@@ -77,7 +77,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
   }
 
   Future<int?> getIdCaixa(int idUser) async {
-    int? idCaixa = await service.getCaixaWithIdUserAndStatus0();
+    int? idCaixa = await service.getCaixaIdWithIdUserAndStatus0();
 
     if (idCaixa != null) {
       return idCaixa;

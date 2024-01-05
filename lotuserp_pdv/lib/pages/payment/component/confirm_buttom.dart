@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
-import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 

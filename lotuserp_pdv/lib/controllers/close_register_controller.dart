@@ -76,7 +76,7 @@ class CloseRegisterController extends GetxController {
   }
 
   Future<void> getidCaixa() async {
-    var caixa = await service.getCaixaWithIdUserAndStatus0();
+    var caixa = await service.getCaixaIdWithIdUserAndStatus0();
     caixaId.value = caixa!;
   }
 }

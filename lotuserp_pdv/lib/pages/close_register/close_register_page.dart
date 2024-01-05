@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/collections/caixa_fechamento.dart';
 import 'package:lotuserp_pdv/controllers/close_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -25,6 +26,9 @@ class CloseRegisterPage extends StatelessWidget {
 
     CloseRegisterController controller =
         InjectionDependencies.closeRegisterController();
+
+    PrinterController printerController =
+        InjectionDependencies.printerController();
 
     PdvController pdvController = InjectionDependencies.pdvController();
 
@@ -56,7 +60,7 @@ class CloseRegisterPage extends StatelessWidget {
             child: Container(
               color: CustomColors.confirmButtonColor,
               child: TextButton(
-                onPressed: () {
+                onPressed: () async {
                   List<caixa_fechamento> fechamentosCaixa = [];
 
                   for (var i = 0; i < controller.closeRegister.length; i++) {
@@ -72,8 +76,8 @@ class CloseRegisterPage extends StatelessWidget {
 
                     fechamentosCaixa.add(caixaFechamento);
                   }
-
-                  service.insertCaixaFechamento(fechamentosCaixa);
+                  await printerController.printCloseCaixa(fechamentosCaixa);
+                  await service.insertCaixaFechamento(fechamentosCaixa);
                   Get.back();
                 },
                 child: const Text(
@@ -462,7 +466,7 @@ class CointainersInformation extends StatelessWidget {
         InjectionDependencies.closeRegisterController();
 
     Future<int?> getIdUser() async {
-      var caixa = await service.getCaixaWithIdUserAndStatus0();
+      var caixa = await service.getCaixaIdWithIdUserAndStatus0();
 
       print(caixa);
 
