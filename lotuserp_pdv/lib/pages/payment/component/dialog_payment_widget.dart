@@ -51,11 +51,17 @@ class DialogWidget {
 
   Widget keyboardNumber(Function callback, String name) {
     double totalValue = pdvcontroller.totalcheckBox1.value;
+    String numbersDiscountcb2 =
+        pdvcontroller.numbersDiscountcb2.value.replaceAll(',', '.');
+    double numbersDiscountcb2Formated = double.parse(numbersDiscountcb2);
+
+    double totalValue2 =
+        pdvcontroller.totBruto.value - numbersDiscountcb2Formated;
     double totalPaid = controller.getTotalPaid();
     double remainingValue = totalValue - totalPaid;
 
     String remainingValueFormatted =
-        remainingValue < 0 ? '0,00' : formatoBrasileiro.format(remainingValue);
+        remainingValue < 0 ? '0,00' : formatoBrasileiro.format(totalValue);
 
     return AlertDialog(
       content: Row(
@@ -146,7 +152,9 @@ class DialogWidget {
                           Align(
                             alignment: Alignment.bottomRight,
                             child: Text(
-                              remainingValueFormatted,
+                              pdvcontroller.checkbox1.value
+                                  ? remainingValueFormatted
+                                  : formatoBrasileiro.format(totalValue2),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,

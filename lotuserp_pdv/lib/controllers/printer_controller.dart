@@ -17,7 +17,10 @@ import '../collections/caixa.dart';
 import '../collections/caixa_fechamento.dart';
 import '../collections/caixa_item.dart';
 import '../collections/empresa.dart';
+import '../collections/produto.dart';
 import '../collections/usuario_logado.dart';
+import '../collections/venda.dart';
+import '../collections/venda_item.dart';
 import '../pages/payment/component/row_widget.dart';
 import 'global_controller.dart';
 import 'side_bar_controller.dart';
@@ -262,8 +265,8 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      print('A impressão está comentada');
-      /*String textToPrint = String.fromCharCodes(bytes);
+      /*print('A impressão está comentada');
+      String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
@@ -376,8 +379,8 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      print('A impressão da movimentação de caixa está comentada');
-      /*String textToPrint = String.fromCharCodes(bytes);
+      /*print('A impressão da movimentação de caixa está comentada');
+      String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
@@ -388,8 +391,7 @@ class PrinterController extends GetxController {
   Future<void> printCloseCaixa(List<caixa_fechamento> fechamento) async {
     SideBarController sideBarController =
         InjectionDependencies.sidebarController();
-    GlobalController globalController =
-        InjectionDependencies.globalController();
+    InjectionDependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(
@@ -537,6 +539,150 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO EM: ___/___/_______');
       bytes +=
           generator.text('  CONFERENTE: _______________________________\n\n');
+
+      /*print('A impressão da movimentação de caixa está comentada');
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);*/
+    } on BTException {
+      return;
+    }
+  }
+
+  //Faz a impressão (espelho) da venda
+  Future<void> printVendas(venda venda, List<venda_item> vendaItens) async {
+    SideBarController sideBarController =
+        InjectionDependencies.sidebarController();
+    InjectionDependencies.globalController();
+
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(
+      PaperSize.mm80,
+      profile,
+    );
+
+    List<int> bytes = [];
+
+    if (selectedPrinter == null) return;
+
+    try {
+      await connectDevice();
+      if (!isConnected.value) return;
+
+      //variáveis para montagem da impressão
+      String idEmpresa = '';
+      String nomeEmpresa = '';
+
+      const typeMovimentation = 'ESPELHO DE CONFERENCIA';
+
+      var name = 'LOTUS ERP PDV:';
+      var data = sideBarController.dateNowFormated.value;
+      var hour = sideBarController.hours.value;
+
+      //variaveis referente a Caixa
+      int? idCaixa = 0;
+      var usuario = '';
+      String? abertura = '';
+
+      //busca dados da empresa para alimentar as variaveis de impressão
+      empresa? dataEmpresa = await service.searchEmpresa();
+
+      if (dataEmpresa != null) {
+        idEmpresa = dataEmpresa.id.toString().padLeft(6, '0').substring(0, 6);
+        nomeEmpresa = dataEmpresa.fantasia ?? '';
+      }
+      usuario_logado? us = await service.getUserLogged();
+      usuario = us?.login ?? '';
+
+      var descricao = 'Descricao';
+      var informado = 'Informado';
+      var totalGrupo = 'Total Grupo';
+
+      int numeroCaracteres1 = 23 - descricao.length;
+      int numeroCaracteres2 = 23 - informado.length;
+
+      int numeroCaracteresTotGrupo = 23 - totalGrupo.length;
+
+      //formatação da impressão
+      bytes += generator.text('$name $data - $hour',
+          styles: const PosStyles(align: PosAlign.left));
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
+
+      //
+      //
+      //
+      bytes += generator.text(typeMovimentation,
+          styles: const PosStyles(align: PosAlign.center, bold: true));
+      bytes += generator.text('DOCUMENTO SEM VALOR FISCAL',
+          styles: const PosStyles(align: PosAlign.center, bold: true));
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
+
+      //
+      //
+
+      bytes += generator.text(nomeEmpresa,
+          styles: const PosStyles(align: PosAlign.left, bold: true));
+      bytes += generator.text(idEmpresa);
+      bytes += generator
+          .text(venda.id_venda.toString().padLeft(6, '0').substring(0, 6));
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
+
+      //
+      //
+      bytes += generator.text('ITEM  Descricao');
+      bytes += generator.text('ID Caixa: $idCaixa');
+      bytes += generator.text(
+          '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
+      print(
+          '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
+
+      for (var i = 0; i < vendaItens.length; i++) {
+        
+        produto? produtos =
+            await service.searchProdutoById(vendaItens[i].id_produto);
+
+        bytes += generator.text(
+            '${i.toString().padLeft(3, '0').substring(0, 3)} ${vendaItens[i].id} ${produtos!.descricao}',
+            maxCharsPerLine: 58);
+        bytes += generator.text(
+            '${''.padRight(10)}${vendaItens[i].qtde}${''.padRight(10)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(10)}${venda.tot_bruto}');
+        print(
+            '${''.padRight(10)}${vendaItens[i].qtde}${''.padRight(10)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(10)}${venda.tot_bruto}');
+      }
+
+      int lengthTotBruto = 'Total Bruto(=):'.length;
+      int lenghtDescontos = 'Descontos(-):'.length;
+      int lenghtTotalLiquido = 'Total Liquido(=):'.length;
+      int lenghtInformado = 'Informado(=):'.length;
+      int lenghtTroco = 'Troco(=):'.length;
+
+      int lenghtTotBruto = venda.tot_bruto.toString().length;
+      int lenghtDescontosPercent = venda.tot_desc_prc.toStringAsFixed(2).length;
+      int lenghtDescontosReais =
+          formatoBrasileiro.format(venda.tot_desc_vlr).length;
+      int lenghtTotLiquido = formatoBrasileiro.format(venda.tot_liquido).length;
+      int lenghtValorInformado = 0;
+
+      String valueInformado =
+          formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco);
+
+      lenghtValorInformado += formatoBrasileiro
+          .format(venda.tot_liquido + venda.valor_troco)
+          .length;
+
+      bytes += generator.text('Total Bruto(=):',
+          styles: const PosStyles(bold: true));
+
+      //
+      //
+      /*
+      
+*/
 
       /*print('A impressão da movimentação de caixa está comentada');
       String textToPrint = String.fromCharCodes(bytes);

@@ -301,10 +301,17 @@ class IsarService {
   }
 
   //busca o objeto produto de acordo com o id
-  Future<List<produto?>> searchProdutoById(int id) async {
+  Future<List<produto?>> searchListProdutoById(int id) async {
     final isar = await db;
 
     return await isar.produtos.filter().id_produtoEqualTo(id).findAll();
+  }
+
+  //busca o objeto produto de acordo com o id
+  Future<produto?> searchProdutoById(int id) async {
+    final isar = await db;
+
+    return await isar.produtos.filter().id_produtoEqualTo(id).findFirst();
   }
 
   //busca o objeto produtos de acordo com o gtin (código de barras)
@@ -571,6 +578,8 @@ class IsarService {
     PdvController pdvController = InjectionDependencies.pdvController();
     PaymentController paymentController =
         InjectionDependencies.paymentController();
+    PrinterController printerController =
+        InjectionDependencies.printerController();
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
@@ -599,18 +608,6 @@ class IsarService {
         idPayment = await search_tipoRecebimentoIdByDesc(
             paymentController.paymentsTotal[i]['nome']);
 
-        /* for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
-        var paymentForm = listenTipo_recebimento();
-        Stream<int?> idPayment = paymentForm.map((event) {
-          if (event[i].descricao ==
-              paymentController.paymentsTotal[i]['nome']) {
-            return event[i].id;
-          } else {
-            return null;
-          }
-        });
-*/
-
         var valuePayment = double.parse(
             paymentController.paymentsTotal[i]['valor'].replaceAll(',', '.'));
 
@@ -636,6 +633,7 @@ class IsarService {
       await isar.venda_items.putAll(vendaItems);
       await isar.caixa_items.putAll(caixaItems);
       pdvController.zerarCampos();
+      await printerController.printVendas(venda, vendaItems);
     });
     return isar;
   }
@@ -895,7 +893,7 @@ class IsarService {
 
     caixa? caixas = await isar.caixas
         .filter()
-        .abertura_id_userEqualTo(usuariologado!.id)
+        .abertura_id_userEqualTo(usuariologado!.id_user!)
         .statusEqualTo(0)
         .findFirst();
 

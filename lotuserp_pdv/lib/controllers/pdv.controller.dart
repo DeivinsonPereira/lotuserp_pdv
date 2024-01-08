@@ -60,6 +60,21 @@ class PdvController extends GetxController {
   var idGrupo = -1.obs;
 
   final ScrollController scrollController = ScrollController();
+  var liquido = 0.0.obs;
+
+  //total Liquido
+  void totalLiquido() {
+    String numbers1 = numbersDiscountcb2.replaceAll(',', '.');
+    double numbersDiscountcb2Formated = double.parse(numbers1);
+
+    //transforma numbersDiscountcb2 em double
+    String numbers2 = numbersDiscount.value.replaceAll(',', '.');
+    double numbersDiscountFormated = double.parse(numbers2);
+
+    liquido.value = checkbox1.value
+        ? totBruto.value - numbersDiscountFormated
+        : totBruto.value - numbersDiscountcb2Formated;
+  }
 
   //atualizar isSelectedList
   void updateIsSelectedList() {

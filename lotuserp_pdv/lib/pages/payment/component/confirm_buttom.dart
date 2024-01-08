@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
@@ -29,6 +30,8 @@ class ConfirmButtom extends StatelessWidget {
     PdvController pdvController = InjectionDependencies.pdvController();
     SideBarController sideBarController =
         InjectionDependencies.sidebarController();
+    PrinterController printerController =
+        InjectionDependencies.printerController();
 
     return TextButton(
       onPressed: () async {
@@ -52,6 +55,8 @@ class ConfirmButtom extends StatelessWidget {
             pdvController.numbersDiscount.value.replaceAll(',', '.');
         double numbersDiscountFormated = double.parse(numbersDiscount);
 
+        pdvController.totalLiquido();
+
         var vendaExecutada = venda()
           ..data = DateTime.now()
           ..hora = sideBarController.hours.value
@@ -69,11 +74,7 @@ class ConfirmButtom extends StatelessWidget {
               pdvController.checkbox1.value //total desconto em valor
                   ? double.parse(numbersDiscountFormated.toStringAsFixed(2))
                   : double.parse(numbersDiscountcb2Formated.toStringAsFixed(2))
-          ..tot_liquido = pdvController.checkbox1.value //total liquido
-              ? double.parse(
-                  pdvController.totalcheckBox1.value.toStringAsFixed(2))
-              : double.parse(
-                  pdvController.totalcheckBox2.value.toStringAsFixed(2))
+          ..tot_liquido = pdvController.liquido.value
           ..valor_troco = pdvController.checkbox1.value //troco
               ? double.parse(pdvController.trocoCb1.value.toStringAsFixed(2))
               : double.parse(pdvController.trocoCb2.value.toStringAsFixed(2))
@@ -92,6 +93,7 @@ class ConfirmButtom extends StatelessWidget {
 
                 // volta a rota até o pdv e
                 pdvController.updateIsSelectedList(),
+
                 Get.back(),
                 Get.back()
               };

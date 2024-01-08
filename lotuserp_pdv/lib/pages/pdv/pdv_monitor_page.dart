@@ -426,7 +426,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               String? unidade;
                               String? file;
                               String preco = '';
-                              int idProduto = 0;
+                              int? idProduto;
 
                               if (controller.isSelectedList.value >= 0) {
                                 if (listaGrupos[
@@ -461,7 +461,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   return InkWell(
                                     onTap: () {
                                       controller.adicionarPedidos(
-                                          nome!, unidade!, preco, idProduto);
+                                          nome!, unidade!, preco, idProduto!);
 
                                       controller.totalSoma();
                                       if (!controller.pedidos.contains(nome)) {
