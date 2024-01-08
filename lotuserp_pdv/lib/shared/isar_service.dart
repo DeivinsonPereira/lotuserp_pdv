@@ -925,8 +925,7 @@ class IsarService {
     return null;
   }
 
-  //busca o caixaItem referente à Abertura de caixa do caixaAberto.
-  Future<caixa_item?> getCaixaItemValue() async {
+  Future<caixa?> getCaixaItemValue() async {
     final isar = await db;
     usuario_logado? usuariologado =
         await isar.usuario_logados.filter().idEqualTo(1).findFirst();
@@ -937,16 +936,9 @@ class IsarService {
         .statusEqualTo(0)
         .findFirst();
     if (caixas != null) {
-      caixa_item? caixaItem = await isar.caixa_items
-          .filter()
-          .id_caixaEqualTo(caixas!.id_caixa)
-          .descricaoEqualTo('ABERTURA DE CAIXA')
-          .findFirst();
-
-      if (caixaItem != null) {
-        return caixaItem;
-      }
+      return caixas;
     }
+
     return null;
   }
 

@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'dart:convert';
 
-import 'package:flutter_esc_pos_utils/flutter_esc_pos_utils.dart';
+import 'package:flutter/widgets.dart';
+import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printer.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
@@ -389,7 +392,11 @@ class PrinterController extends GetxController {
         InjectionDependencies.globalController();
 
     final profile = await CapabilityProfile.load();
-    final generator = Generator(PaperSize.mm80, profile);
+    final generator = Generator(
+      PaperSize.mm80,
+      profile,
+    );
+
     List<int> bytes = [];
 
     if (selectedPrinter == null) return;
@@ -404,7 +411,7 @@ class PrinterController extends GetxController {
       String numeroEmpresa = '';
       String bairroEmpresa = '';
 
-      const typeMovimentation = 'PRÉ-FECHAMENTO CAIXA';
+      const typeMovimentation = 'PRE-FECHAMENTO CAIXA';
 
       var name = 'LOTUS ERP PDV:';
       var data = sideBarController.dateNowFormated.value;
@@ -430,23 +437,46 @@ class PrinterController extends GetxController {
       usuario = us?.login ?? '';
       var caixaObjeto = await service.getCaixaWithIdUserAndStatus0();
       abertura = DatetimeFormatterWidget.formatDate(caixaObjeto!.abertura_data);
-      caixa_item? aberturaCaixaItemValue = await service.getCaixaItemValue();
+      caixa? aberturaCaixaItemValue = await service.getCaixaItemValue();
+
+      double totalInformado = 0.0;
+      var descricao = 'Descricao';
+      var informado = 'Informado';
+      var totalGrupo = 'Total Grupo';
+
+      int numeroCaracteres1 = 23 - descricao.length;
+      int numeroCaracteres2 = 23 - informado.length;
+
+      int numeroCaracteresTotGrupo = 23 - totalGrupo.length;
+
+      var tipoPagto = [];
+      for (int i = 0; i < fechamento.length; i++) {
+        totalInformado += fechamento[i].valor_informado!;
+
+        tipo_recebimento? tipos = await service
+            .search_tipoRecebimento(fechamento[i].id_tipo_recebimento);
+        tipoPagto.add(tipos!.descricao);
+      }
+      /*  String totalInformadoStr = totalInformado;*/
 
       //formatação da impressão
       bytes += generator.text(nomeEmpresa,
           styles: const PosStyles(align: PosAlign.left, bold: true));
       bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
       bytes += generator.text(bairroEmpresa);
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text(typeMovimentation,
           styles: const PosStyles(
               align: PosAlign.left, bold: true, width: PosTextSize.size2));
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('$name $data - $hour',
           styles: const PosStyles(align: PosAlign.left));
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       //
       //
@@ -455,49 +485,62 @@ class PrinterController extends GetxController {
       bytes += generator.text('Usuario: $usuario',
           styles: const PosStyles(codeTable: 'CP1252'));
       bytes += generator.text('Abertura: $abertura');
-      bytes += generator
-          .text('Valor:           ${formatoBrasileiro.format(aberturaCaixaItemValue!.valor_cre)}');
+      bytes += generator.text(
+        'Valor:           ${formatoBrasileiro.format(aberturaCaixaItemValue?.abertura_valor)}',
+      );
       //
       //
-      bytes += generator.text('RESUMO MOVIMENTACAO',
-          styles: const PosStyles(bold: true));
-      bytes += generator.text('Descricao Informado',
-          styles: const PosStyles(align: PosAlign.left, bold: true));
-      bytes += generator.text('--------------------------------------------',
-          styles: const PosStyles(bold: true));
-
-      //
-      //
-      for(var i = 0; i < fechamento.length; i++){
-        bytes += generator.text('${fechamento[i].id_tipo_recebimento} ${formatoBrasileiro.format(fechamento[i].valor_informado)}' , styles: const PosStyles(align: PosAlign.left));
-      }
-      bytes += generator.text('--------------------------------------------',
-          styles: const PosStyles(bold: true));
-      generator.row([
-    PosColumn(
-      text: generator.text('Total Grupo:', styles: const PosStyles(align: PosAlign.left)),
-    ),
-    PosColumn(
-      text: generator.text('valor informado', styles: const PosStyles(align: PosAlign.right)),
-    ),
-  ]);
-      //
-      //
-      bytes += generator.text('ID Caixa: $idCaixa');
-      bytes += generator.text('Usuario: $usuario',
-          styles: const PosStyles(codeTable: 'CP1252'));
-      bytes += generator.text('Abertura: $abertura');
-      bytes += generator.text('-------------------------------------------- ',
+      bytes += generator.text('\nRESUMO MOVIMENTACAO',
           styles: const PosStyles(bold: true));
       bytes += generator.text(
-          '\n\n--------------------------------------------',
+          'Descricao${''.padRight(numeroCaracteres1)}${''.padLeft(numeroCaracteres2)}Informado',
           styles: const PosStyles(bold: true));
-      bytes += generator.text('CONFERIDO POR: ');
-      bytes += generator.text('\n\n');
 
-      print('A impressão da movimentação de caixa está comentada');
-      /* String textToPrint = String.fromCharCodes(bytes);
-    await bluetoothManager.writeText(textToPrint);*/
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
+      //
+      //
+      for (var i = 0; i < fechamento.length; i++) {
+        var informado = formatoBrasileiro.format(fechamento[i].valor_informado);
+
+        int numeroCaracteres1 = 23 - tipoPagto[i].toString().length;
+        int numeroCaracteres2 = 23 - informado.length;
+
+        bytes += generator.text(tipoPagto[i] +
+            ''.padRight(numeroCaracteres1) +
+            ''.padLeft(numeroCaracteres2) +
+            formatoBrasileiro.format(fechamento[i].valor_informado));
+      }
+
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
+
+      int totInformado = 23 - formatoBrasileiro.format(totalInformado).length;
+      bytes += generator.text(
+          totalGrupo +
+              ''.padRight(numeroCaracteresTotGrupo) +
+              ''.padLeft(totInformado) +
+              formatoBrasileiro.format(totalInformado),
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(
+          '________________________________________________\n\n',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
+      bytes +=
+          generator.text('FECHAMENTO', styles: const PosStyles(bold: true));
+      bytes += generator.text('      Data:');
+      bytes += generator.text('\n');
+      bytes += generator.text('CONFERIDO EM: ___/___/_______');
+      bytes +=
+          generator.text('  CONFERENTE: _______________________________\n\n');
+
+      /*print('A impressão da movimentação de caixa está comentada');
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
     }
