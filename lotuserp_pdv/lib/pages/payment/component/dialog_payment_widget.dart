@@ -59,9 +59,10 @@ class DialogWidget {
         pdvcontroller.totBruto.value - numbersDiscountcb2Formated;
     double totalPaid = controller.getTotalPaid();
     double remainingValue = totalValue - totalPaid;
+    double totalValue2withPayment = totalValue2 - totalPaid;
 
     String remainingValueFormatted =
-        remainingValue < 0 ? '0,00' : formatoBrasileiro.format(totalValue);
+        remainingValue < 0 ? '0,00' : formatoBrasileiro.format(remainingValue);
 
     return AlertDialog(
       content: Row(
@@ -154,7 +155,8 @@ class DialogWidget {
                             child: Text(
                               pdvcontroller.checkbox1.value
                                   ? remainingValueFormatted
-                                  : formatoBrasileiro.format(totalValue2),
+                                  : formatoBrasileiro
+                                      .format(totalValue2withPayment),
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,

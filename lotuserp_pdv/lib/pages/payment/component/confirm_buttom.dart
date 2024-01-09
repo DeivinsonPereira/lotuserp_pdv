@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
@@ -30,8 +29,7 @@ class ConfirmButtom extends StatelessWidget {
     PdvController pdvController = InjectionDependencies.pdvController();
     SideBarController sideBarController =
         InjectionDependencies.sidebarController();
-    PrinterController printerController =
-        InjectionDependencies.printerController();
+    InjectionDependencies.printerController();
 
     return TextButton(
       onPressed: () async {
