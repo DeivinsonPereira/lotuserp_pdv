@@ -594,10 +594,6 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
-
-      //
-      //
-      //
       bytes += generator.text(typeMovimentation,
           styles: const PosStyles(align: PosAlign.center, bold: true));
       bytes += generator.text('          DOCUMENTO SEM VALOR FISCAL',
@@ -605,10 +601,6 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
-
-      //
-      //
-
       bytes += generator.text(nomeEmpresa,
           styles: const PosStyles(align: PosAlign.left, bold: true));
       bytes += generator.text('Empresa: $idEmpresa');
@@ -617,9 +609,6 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
-
-      //
-      //
       bytes += generator.text('ITEM  Descricao');
       bytes += generator.text(
           '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
@@ -668,7 +657,7 @@ class PrinterController extends GetxController {
       String valueInformado =
           formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco);
 
-      int lenghtValorInformado = 9 - valueInformado.length;
+      int lenghtValorInformado = 7 - valueInformado.length;
 
       lenghtValorInformado += formatoBrasileiro
           .format(venda.tot_liquido + venda.valor_troco)
@@ -689,9 +678,6 @@ class PrinterController extends GetxController {
           '________________________________________________',
           styles: const PosStyles(bold: true));
 
-      //
-      //
-
       bytes += generator.text(
           'Informado(=):${''.padRight(lenghtInformado)}${''.padLeft(lenghtValorInformado)}${formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco)}',
           styles: const PosStyles(bold: true));
@@ -700,13 +686,8 @@ class PrinterController extends GetxController {
           'Troco(=):${''.padRight(lenghtTroco)}${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}',
           styles: const PosStyles(bold: true));
 
-      bytes += generator.text(
-          '________________________________________________');    
-
-      //
-      //
-    
-      
+      bytes +=
+          generator.text('________________________________________________');
 
       /*print('A impressão da movimentação de caixa está comentada');*/
       String textToPrint = String.fromCharCodes(bytes);
