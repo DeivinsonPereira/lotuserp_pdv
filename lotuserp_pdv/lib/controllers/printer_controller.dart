@@ -579,9 +579,6 @@ class PrinterController extends GetxController {
       var hour = sideBarController.hours.value;
 
       //variaveis referente a Caixa
-      int? idCaixa = 0;
-      var usuario = '';
-      String? abertura = '';
 
       //busca dados da empresa para alimentar as variaveis de impressão
       empresa? dataEmpresa = await service.searchEmpresa();
@@ -590,17 +587,6 @@ class PrinterController extends GetxController {
         idEmpresa = dataEmpresa.id.toString().padLeft(6, '0').substring(0, 6);
         nomeEmpresa = dataEmpresa.fantasia ?? '';
       }
-      usuario_logado? us = await service.getUserLogged();
-      usuario = us?.login ?? '';
-
-      var descricao = 'Descricao';
-      var informado = 'Informado';
-      var totalGrupo = 'Total Grupo';
-
-      int numeroCaracteres1 = 23 - descricao.length;
-      int numeroCaracteres2 = 23 - informado.length;
-
-      int numeroCaracteresTotGrupo = 23 - totalGrupo.length;
 
       //formatação da impressão
       bytes += generator.text('$name $data - $hour',
@@ -614,7 +600,7 @@ class PrinterController extends GetxController {
       //
       bytes += generator.text(typeMovimentation,
           styles: const PosStyles(align: PosAlign.center, bold: true));
-      bytes += generator.text('DOCUMENTO SEM VALOR FISCAL',
+      bytes += generator.text('          DOCUMENTO SEM VALOR FISCAL',
           styles: const PosStyles(align: PosAlign.center, bold: true));
       bytes += generator.text(
           '________________________________________________',
@@ -625,9 +611,9 @@ class PrinterController extends GetxController {
 
       bytes += generator.text(nomeEmpresa,
           styles: const PosStyles(align: PosAlign.left, bold: true));
-      bytes += generator.text(idEmpresa);
-      bytes += generator
-          .text(venda.id_venda.toString().padLeft(6, '0').substring(0, 6));
+      bytes += generator.text('Empresa: $idEmpresa');
+      bytes += generator.text(
+          'Id Registro:${venda.id_venda.toString().padLeft(6, '0').substring(0, 6)}');
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
@@ -635,58 +621,96 @@ class PrinterController extends GetxController {
       //
       //
       bytes += generator.text('ITEM  Descricao');
-      bytes += generator.text('ID Caixa: $idCaixa');
       bytes += generator.text(
           '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
       print(
           '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
 
       for (var i = 0; i < vendaItens.length; i++) {
-        
         produto? produtos =
             await service.searchProdutoById(vendaItens[i].id_produto);
 
         bytes += generator.text(
-            '${i.toString().padLeft(3, '0').substring(0, 3)} ${vendaItens[i].id} ${produtos!.descricao}',
-            maxCharsPerLine: 58);
+            '${(i + 1).toString().padLeft(3, '0').substring(0, 3)} ${vendaItens[i].id} ${produtos!.descricao}',
+            maxCharsPerLine: 48);
+
+        var produtoslenght =
+            14 - formatoBrasileiro.format(produtos.pvenda).length;
+        var venda =
+            20 - formatoBrasileiro.format(vendaItens[i].tot_bruto).length;
+        var qtde = 13 - vendaItens[i].qtde.toString().length;
+
         bytes += generator.text(
-            '${''.padRight(10)}${vendaItens[i].qtde}${''.padRight(10)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(10)}${venda.tot_bruto}');
+            '${''.padRight(qtde)}${vendaItens[i].qtde}${''.padRight(produtoslenght)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(venda)}${formatoBrasileiro.format(vendaItens[i].tot_bruto)}');
         print(
-            '${''.padRight(10)}${vendaItens[i].qtde}${''.padRight(10)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(10)}${venda.tot_bruto}');
+            '${''.padRight(qtde)}${vendaItens[i].qtde}${''.padRight(produtoslenght)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(venda)}${formatoBrasileiro.format(vendaItens[i].tot_bruto)}');
       }
+      bytes += generator.text(
+          '________________________________________________',
+          styles: const PosStyles(bold: true));
 
-      int lengthTotBruto = 'Total Bruto(=):'.length;
-      int lenghtDescontos = 'Descontos(-):'.length;
-      int lenghtTotalLiquido = 'Total Liquido(=):'.length;
-      int lenghtInformado = 'Informado(=):'.length;
-      int lenghtTroco = 'Troco(=):'.length;
+      int lengthTotBruto = 37 - 'Total Bruto(=):'.length;
+      int lenghtDescontos = 15;
+      int lenghtTotalLiquido = 37 - 'Total Liquido(=):'.length;
+      int lenghtInformado = 32 - 'Informado(=):'.length;
+      int lenghtTroco = 25 - 'Troco(=):'.length;
 
-      int lenghtTotBruto = venda.tot_bruto.toString().length;
-      int lenghtDescontosPercent = venda.tot_desc_prc.toStringAsFixed(2).length;
-      int lenghtDescontosReais =
-          formatoBrasileiro.format(venda.tot_desc_vlr).length;
-      int lenghtTotLiquido = formatoBrasileiro.format(venda.tot_liquido).length;
-      int lenghtValorInformado = 0;
+      int lenghtTotBruto =
+          10 - formatoBrasileiro.format(venda.tot_bruto).length;
+      int lenghtDescontosPercent =
+          10 - venda.tot_desc_prc.toStringAsFixed(2).length;
+      int lenghtTotLiquido =
+          10 - formatoBrasileiro.format(venda.tot_liquido).length;
 
       String valueInformado =
           formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco);
+
+      int lenghtValorInformado = 9 - valueInformado.length;
 
       lenghtValorInformado += formatoBrasileiro
           .format(venda.tot_liquido + venda.valor_troco)
           .length;
 
-      bytes += generator.text('Total Bruto(=):',
+      bytes += generator.text(
+          'Total Bruto(=):${''.padRight(lengthTotBruto)}${''.padLeft(lenghtTotBruto)}${formatoBrasileiro.format(venda.tot_bruto)}',
+          styles: const PosStyles(bold: true));
+
+      bytes += generator.text(
+        'Descontos(-):${''.padRight(lenghtDescontosPercent)} %${venda.tot_desc_prc.toStringAsFixed(2)}${''.padRight(lenghtDescontos)}${formatoBrasileiro.format(venda.tot_desc_vlr)}',
+      );
+
+      bytes += generator.text(
+          'Total Liquido(=):${''.padRight(lenghtTotalLiquido)}${''.padLeft(lenghtTotLiquido)}${formatoBrasileiro.format(venda.tot_liquido)}',
+          styles: const PosStyles(bold: true));
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
 
       //
       //
-      /*
-      
-*/
 
-      /*print('A impressão da movimentação de caixa está comentada');
+      bytes += generator.text(
+          'Informado(=):${''.padRight(lenghtInformado)}${''.padLeft(lenghtValorInformado)}${formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco)}',
+          styles: const PosStyles(bold: true));
+
+      bytes += generator.text(
+          'Troco(=):${''.padRight(lenghtTroco)}${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}',
+          styles: const PosStyles(bold: true));
+
+      bytes += generator.text(
+          '________________________________________________');    
+
+      //
+      //
+    
+      
+
+      /*print('A impressão da movimentação de caixa está comentada');*/
       String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);*/
+      await bluetoothManager.writeText(textToPrint);
     } on BTException {
       return;
     }
