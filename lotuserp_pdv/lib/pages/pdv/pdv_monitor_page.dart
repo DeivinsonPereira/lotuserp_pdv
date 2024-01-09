@@ -431,7 +431,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               if (controller.isSelectedList.value >= 0) {
                                 if (listaGrupos[
                                             controller.isSelectedList.value] ==
-                                        'TODOS' &&
+                                        '0' &&
                                     produto[index].file_imagem != null) {
                                   produto.isNotEmpty
                                       ? file = produto[index].file_imagem!
@@ -454,10 +454,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   unidade =
                                       filteredProducts[index].unidade ?? "";
                                   idProduto =
-                                      filteredProducts[index].id_produto ?? 0;
+                                      filteredProducts[index].id_produto;
                                 }
 
-                                if (file != null) {
+                                if (file != null && idProduto != null) {
                                   return InkWell(
                                     onTap: () {
                                       controller.adicionarPedidos(
