@@ -232,7 +232,9 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                                               ),
                                             ),
                                             Text(
-                                              idCaixa.toString(),
+                                              idCaixa
+                                                  .toString()
+                                                  .padLeft(6, '0'),
                                               style: TextStyle(
                                                   fontSize: 20,
                                                   color: CustomColors

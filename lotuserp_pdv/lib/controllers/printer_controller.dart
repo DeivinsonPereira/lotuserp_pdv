@@ -1,11 +1,8 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter/widgets.dart';
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printer.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
@@ -634,8 +631,6 @@ class PrinterController extends GetxController {
 
         bytes += generator.text(
             '${''.padRight(qtde)}${vendaItens[i].qtde}${''.padRight(produtoslenght)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(venda)}${formatoBrasileiro.format(vendaItens[i].tot_bruto)}');
-        print(
-            '${''.padRight(qtde)}${vendaItens[i].qtde}${''.padRight(produtoslenght)}${formatoBrasileiro.format(produtos.pvenda)}${''.padRight(venda)}${formatoBrasileiro.format(vendaItens[i].tot_bruto)}');
       }
       bytes += generator.text(
           '________________________________________________',
@@ -689,9 +684,9 @@ class PrinterController extends GetxController {
       bytes +=
           generator.text('________________________________________________');
 
-      /*print('A impressão da movimentação de caixa está comentada');*/
+      /*print('A impressão da movimentação de caixa está comentada');
       String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+      await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
     }

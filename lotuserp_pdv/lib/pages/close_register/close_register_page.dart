@@ -461,17 +461,8 @@ class CointainersInformation extends StatelessWidget {
     SideBarController controller = InjectionDependencies.sidebarController();
     PasswordController passwordController =
         InjectionDependencies.passwordController();
-    IsarService service = IsarService();
     CloseRegisterController closeRegisterController =
         InjectionDependencies.closeRegisterController();
-
-    Future<int?> getIdUser() async {
-      var caixa = await service.getCaixaIdWithIdUserAndStatus0();
-
-      print(caixa);
-
-      return caixa;
-    }
 
     return Container(
       height: 55,

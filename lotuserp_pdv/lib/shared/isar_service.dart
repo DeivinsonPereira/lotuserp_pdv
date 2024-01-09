@@ -24,6 +24,7 @@ import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 import '../collections/caixa_fechamento.dart';
 import '../core/app_routes.dart';
@@ -37,38 +38,62 @@ Map<String, String> _headers = {
 class IsarService {
   late Future<Isar> db;
 
+  var logger = Logger();
+
   //chama o método para abrir o banco de dados e atribui a variável db
   IsarService() {
     db = openDB();
   }
+
   //buscar ipEmpresa na tabela 'Dados Empresarias'
   Future<dado_empresa?> getIpEmpresaFromDatabase() async {
-    final isar = await db;
+    try {
+      final isar = await db;
+      final ipEmpresa = await isar.dado_empresas.where().findFirst();
 
-    return await isar.dado_empresas.where().findFirst();
+      if (ipEmpresa == null) {
+        throw Exception("Nenhum registro encontrado na tabela 'dado_empresa'.");
+      }
+
+      return ipEmpresa;
+    } catch (e) {
+      Get.snackbar(
+        'Erro',
+        'Não foi possível obter os dados da empresa. Tente novamente mais tarde.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+
+      logger.e('Erro ao acessar a tabela \'dado_empresa\': $e');
+
+      return null;
+    }
   }
 
   //inserindo dados na tabela empresa vindos do servidor
   Future getEmpresa(String companyId, String companyIp) async {
     final isar = await db;
-    int i = await isar.empresas.count();
 
-    if (i > 0) {
-      isar.writeTxn(
-        () async {
-          await isar.empresas.clear();
-        },
-      );
-    }
-
-    Uri getEmpresa =
+    Uri getEmpresaUri =
         Uri.parse('${companyIp}pdvmobget01_empresa?pidEmpresa=$companyId');
     try {
       final response = await http.get(
-        getEmpresa,
+        getEmpresaUri,
         headers: _headers,
       );
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Falha ao obter dados da empresa do servidor. Código de erro HTTP: ${response.statusCode}');
+      }
       var empresas = jsonDecode(utf8.decode(response.bodyBytes));
+      int i = await isar.empresas.count();
+
+      if (i > 0) {
+        await isar.writeTxn(() async {
+          await isar.empresas.clear();
+        });
+      }
 
       final emp = empresa(
           empresas['itens'][0]['id'],
@@ -117,71 +142,96 @@ class IsarService {
       });
       return isar;
     } catch (e) {
-      return const CustomSnackBar(
-        title: 'Erro',
-        message: 'Erro ao conectar ao servidor. Tente novamente mais tarde!',
-        icon: Icons.error,
+      Get.snackbar(
+        'Erro', // Título
+        'Não foi possível obter os dados da empresa. Tente novamente mais tarde.',
+        snackPosition: SnackPosition.BOTTOM,
         backgroundColor: Colors.red,
-        textColor: Colors.white,
-      ).show();
+        colorText: Colors.white,
+      );
+
+      // Usando Logger para registrar a exceção
+      logger.e('Erro ao obter ou processar dados da empresa: $e');
+
+      return null;
     }
   }
 
   //inserindo dados na tabela grupo vindos do servidor
   Future getGrupo() async {
     final isar = await db;
-    int i = await isar.produto_grupos.count();
 
-    if (i >= 0) {
-      isar.writeTxn(
-        () async {
-          await isar.produto_grupos.clear();
-        },
+    dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
+
+    if (dadoEmpresa == null) {
+      Get.snackbar(
+        'Erro',
+        'Dados da empresa não encontrados.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
       );
+      return null;
     }
+
+    var ipEmpresaUrl = dadoEmpresa.ip_empresa!;
+    var idEmpresaNum = dadoEmpresa.id_empresa!;
+
+    Uri getGrupoUri = Uri.parse(
+        '${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
+
     try {
-      dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
-
-      var ipEmpresaUrl = '';
-      var idEmpresaNum = 0;
-
-      if (dadoEmpresa != null) {
-        ipEmpresaUrl = dadoEmpresa.ip_empresa!;
-        idEmpresaNum = dadoEmpresa.id_empresa!;
-      }
-
-      Uri getGrupo = Uri.parse(
-          '${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
       final response = await http.get(
-        getGrupo,
+        getGrupoUri,
         headers: _headers,
       );
-      if (response.statusCode == 200) {
-        Map<String, dynamic> grupo =
-            jsonDecode(utf8.decode(response.bodyBytes));
 
-        var grupoCount = grupo['itens'].length;
-
-        final List<produto_grupo> listaGrupo = [];
-
-        for (int i = 0; i < grupoCount; i++) {
-          final gru = produto_grupo(
-            grupo['itens'][i]['id_grupo'],
-            grupo['itens'][i]['grupo_descricao'],
-            grupo['itens'][i]['status'],
-            grupo['itens'][i]['file_imagem'],
-          );
-
-          listaGrupo.add(gru);
-        }
-
-        isar.writeTxn(() async {
-          await isar.produto_grupos.putAll(listaGrupo);
-        });
-        return isar;
+      if (response.statusCode != 200) {
+        throw Exception(
+            'Falha ao obter dados dos grupos do servidor. Código de erro HTTP: ${response.statusCode}');
       }
+
+      int i = await isar.produto_grupos.count();
+
+      var gruposData = jsonDecode(utf8.decode(response.bodyBytes));
+
+      if (i >= 0) {
+        isar.writeTxn(() async {
+          await isar.produto_grupos.clear();
+        });
+      }
+
+      var grupoCount = gruposData['itens'].length;
+
+      final List<produto_grupo> listaGrupo = [];
+
+      for (int i = 0; i < grupoCount; i++) {
+        final gru = produto_grupo(
+          gruposData['itens'][i]['id_grupo'],
+          gruposData['itens'][i]['grupo_descricao'],
+          gruposData['itens'][i]['status'],
+          gruposData['itens'][i]['file_imagem'],
+        );
+
+        listaGrupo.add(gru);
+      }
+
+      isar.writeTxn(() async {
+        await isar.produto_grupos.putAll(listaGrupo);
+      });
+      return isar;
     } catch (e) {
-      return Container();
+      Get.snackbar(
+        'Erro',
+        'Não foi possível obter os dados dos grupos. Tente novamente mais tarde.',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.red,
+        colorText: Colors.white,
+      );
+
+      logger.e('Erro ao obter ou processar dados dos grupos: $e');
+
+      return null;
     }
   }
 

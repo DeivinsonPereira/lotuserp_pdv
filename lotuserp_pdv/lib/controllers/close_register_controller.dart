@@ -53,7 +53,6 @@ class CloseRegisterController extends GetxController {
       closeRegister.add({'tipo': tipo, 'value': value});
     }
 
-    print(closeRegister);
   }
 
   // remove numero por numero que está armazenado no textController e no closeRegister
