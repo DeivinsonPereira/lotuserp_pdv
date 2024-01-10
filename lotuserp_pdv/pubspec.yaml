@@ -36,6 +36,7 @@ dependencies:
   flutter_spinkit: ^5.2.0
   esc_pos_utils_plus: ^2.0.3
   logger: ^2.0.2+1
+  android_intent_plus: ^4.0.3
 
   
 dev_dependencies:
