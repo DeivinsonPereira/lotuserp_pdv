@@ -1,5 +1,11 @@
 package com.example.lotuserp_pdv;
 
+
+import androidx.annotation.Nullable;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
+import java.util.Locale;
 import android.util.Log;
 import android.content.Intent;
 import org.json.JSONObject;
@@ -12,7 +18,7 @@ import io.flutter.plugin.common.MethodChannel.Result;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
-    private static final int TEF_REQUEST_CODE = 1234;
+    private static final int TEF_REQUEST_CODE = 2;
     private Result pendingResult;
 
     @Override
@@ -27,19 +33,17 @@ public class MainActivity extends FlutterActivity {
 
                             String funcao = call.argument("funcao");
                             String valor = call.argument("valor");
-                            String parcelas = call.argument("parcelas");
-                            String financiamento = call.argument("financiamento");
+                            
 
                             Log.d("TEF", "Iniciando TEF com função: " + funcao + ", valor: " + valor);
 
                             Intent intent = new Intent("com.elgin.e1.digitalhub.TEF");
                             intent.putExtra("funcao", funcao);
                             intent.putExtra("valor", valor);
-                            if(parcelas != null) intent.putExtra("parcelas", parcelas);
-                            if(financiamento != null) intent.putExtra("financiamento", financiamento);
+                            
 
                             Log.d("TEF", "Iniciando atividade TEF com requestCode: " + TEF_REQUEST_CODE);
-                            startActivityForResult(intent,1234);
+                            startActivityForResult(intent,TEF_REQUEST_CODE);
                         }
                     } catch (Exception e) {
                         Log.e("MethodChannel", "Erro no método: " + call.method, e);
@@ -48,6 +52,8 @@ public class MainActivity extends FlutterActivity {
                 }
             );
     }
+
+    
 
      @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

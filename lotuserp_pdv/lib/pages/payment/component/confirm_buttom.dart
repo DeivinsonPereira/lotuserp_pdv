@@ -142,11 +142,7 @@ class ConfirmButtom extends StatelessWidget {
       // Define os parâmetros para a transação TEF
       Map<String, String?> tefParams = {
         'funcao': tefType,
-        'valor': '247,50', // Substitua pelo valor real da transação
-        if (tefType == 'credito') ...{
-          'parcelas': parcelas,
-          'financiamento': financiamento,
-        },
+        'valor': '100', // Substitua pelo valor real da transação
       };
       String? tefResponseJson = await TefService.startTef(tefParams);
       if (tefResponseJson == null) {
@@ -168,6 +164,9 @@ class ConfirmButtom extends StatelessWidget {
 
       // Processa as operações comuns
       await processCommonOperations();
+
+      Get.back();
+      Get.back();
     }
 
     return TextButton(
