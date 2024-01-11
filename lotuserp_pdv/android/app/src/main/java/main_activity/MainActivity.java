@@ -33,14 +33,16 @@ public class MainActivity extends FlutterActivity {
 
                             String funcao = call.argument("funcao");
                             String valor = call.argument("valor");
-                            
+                            String parcelas = call.argument("parcelas");
+                            String financiamento = call.argument("financiamento");
 
                             Log.d("TEF", "Iniciando TEF com função: " + funcao + ", valor: " + valor);
 
                             Intent intent = new Intent("com.elgin.e1.digitalhub.TEF");
                             intent.putExtra("funcao", funcao);
                             intent.putExtra("valor", valor);
-                            
+                            if(parcelas != null) intent.putExtra("parcelas", parcelas);
+                            if(financiamento != null) intent.putExtra("financiamento", financiamento);
 
                             Log.d("TEF", "Iniciando atividade TEF com requestCode: " + TEF_REQUEST_CODE);
                             startActivityForResult(intent,TEF_REQUEST_CODE);

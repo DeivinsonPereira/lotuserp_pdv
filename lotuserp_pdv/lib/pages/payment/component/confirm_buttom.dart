@@ -124,25 +124,38 @@ class ConfirmButtom extends StatelessWidget {
       String tefType = '';
       String? parcelas;
       String? financiamento;
+      String? valorTransacao;
+
       for (var payment in paymentController.paymentsTotal) {
-        if (payment['nome'] == 'TEF DEBITO') {
-          tefType = 'debito';
-          break;
-        } else if (payment['nome'] == 'TEF CREDITO') {
-          tefType = 'credito';
-          parcelas = '3'; // Defina a quantidade de parcelas aqui
-          financiamento = '3'; // Defina o tipo de financiamento aqui
+        if (payment['nome'] == 'TEF DEBITO' ||
+            payment['nome'] == 'TEF CREDITO') {
+          tefType = payment['nome'] == 'TEF DEBITO' ? 'debito' : 'credito';
+          valorTransacao = payment['valor']; // Aqui você obtém o valor
+
+          if (tefType == 'credito') {
+            parcelas = '1'; // Defina a quantidade de parcelas aqui
+            financiamento = '1'; // Defina o tipo de financiamento aqui
+          }
           break;
         }
       }
 
       // Se não for nem débito nem crédito, retorna
-      if (tefType.isEmpty) return;
+      // Se não for nem débito nem crédito, retorna
+      if (tefType.isEmpty || valorTransacao == null) return;
+
+      // Formatar o valor da transação
+      String valorFormatado = valorTransacao.replaceAll(RegExp(r'[.,]'), '');
+      valorFormatado = (double.parse(valorFormatado)).toStringAsFixed(0);
 
       // Define os parâmetros para a transação TEF
       Map<String, String?> tefParams = {
         'funcao': tefType,
-        'valor': '100', // Substitua pelo valor real da transação
+        'valor': valorFormatado, // Valor formatado
+        if (tefType == 'credito') ...{
+          'parcelas': parcelas,
+          'financiamento': financiamento,
+        },
       };
       String? tefResponseJson = await TefService.startTef(tefParams);
       if (tefResponseJson == null) {
@@ -164,9 +177,6 @@ class ConfirmButtom extends StatelessWidget {
 
       // Processa as operações comuns
       await processCommonOperations();
-
-      Get.back();
-      Get.back();
     }
 
     return TextButton(
