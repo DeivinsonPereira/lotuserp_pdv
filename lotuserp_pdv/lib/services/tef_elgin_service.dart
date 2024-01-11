@@ -5,9 +5,10 @@ abstract class TefService {
 
   static Future<String?> startTef(Map<String, String?> params) async {
     try {
-      final String? result = await platform.invokeMethod('startTef', params);
+      final String? result = await platform.invokeMethod('startTEF', params);
       return result;
     } on PlatformException catch (e) {
+      
       print("Erro ao chamar o TEF: '${e.message}'.");
       return null;
     }

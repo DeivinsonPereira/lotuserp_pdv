@@ -11,7 +11,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
-import '../../../services/tef_service.dart';
+import '../../../services/tef_elgin_service.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({
@@ -91,6 +91,7 @@ class ConfirmButtom extends StatelessWidget {
 
       pdvController.updateIsSelectedList();
       Get.back();
+      Get.back();
     }
 
     bool hasTefPayment() {
@@ -148,8 +149,24 @@ class ConfirmButtom extends StatelessWidget {
         },
       };
       String? tefResponseJson = await TefService.startTef(tefParams);
+      if (tefResponseJson == null) {
+        showTefResultDialog(
+            {'status': 'error', 'message': 'Resposta do TEF nula'});
+      } else {
+        try {
+          // Tenta decodificar a resposta JSON
+          Map<String, dynamic> tefResponse = jsonDecode(tefResponseJson);
+          showTefResultDialog(tefResponse);
+        } catch (e) {
+          // Tratamento de erro se o JSON estiver mal formado
+          showTefResultDialog({
+            'status': 'error',
+            'message': 'Erro ao decodificar a resposta do TEF: $e'
+          });
+        }
+      }
 
-      showTefResultDialog(jsonDecode(tefResponseJson!));
+      // Processa as operações comuns
       await processCommonOperations();
     }
 

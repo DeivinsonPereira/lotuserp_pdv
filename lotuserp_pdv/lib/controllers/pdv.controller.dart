@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/services/tef_service.dart';
+import 'package:lotuserp_pdv/services/tef_elgin_service.dart';
 import 'dart:math';
 
 import 'package:lotuserp_pdv/shared/isar_service.dart';
