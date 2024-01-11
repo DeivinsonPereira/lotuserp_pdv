@@ -177,6 +177,8 @@ class ConfirmButtom extends StatelessWidget {
 
       // Processa as operações comuns
       await processCommonOperations();
+
+      Get.back();
     }
 
     return TextButton(
