@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -11,6 +14,8 @@ import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+
+import '../../services/tef_elgin_service.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -39,11 +44,87 @@ class _PaymentPageState extends State<PaymentPage> {
 
     var ramainingValueCb2 = 0.0;
 
+    Logger logger = Logger();
+
     var formatoBrasileiro = NumberFormat.currency(
       locale: 'pt_BR',
       symbol: '',
     );
-    
+
+    Future<void> processTefPayment(Map<String, dynamic> payment) async {
+      String paymentType = payment['nome'];
+      String valorTransacao = payment['valor'];
+      String paymentId = payment['id'];
+
+      try {
+        // Formata o valor para centavos
+        String valorTransacaoAux =
+            valorTransacao.replaceAll(RegExp(r'[.,]'), '');
+        String valorFormatado = valorTransacaoAux;
+
+        // Prepara os parâmetros para a chamada TEF
+        Map<String, String> tefParams = {
+          'funcao': paymentType == 'TEF DEBITO' ? 'debito' : 'credito',
+          'valor': valorFormatado,
+          // Adicione outros parâmetros necessários
+        };
+
+        if (paymentType == 'TEF CREDITO') {
+          tefParams['parcelas'] = '1';
+          tefParams['financiamento'] = '1';
+        }
+
+        // Chama o serviço TEF
+        String? tefResponseJson = await TefService.startTef(tefParams);
+        if (tefResponseJson == null) throw 'Resposta do TEF nula';
+
+        Map<String, dynamic> tefResponse = jsonDecode(tefResponseJson);
+        if (tefResponse['COMP_DADOS_CONF'] != null) {
+          Map<String, dynamic> compDadosConf =
+              jsonDecode(tefResponse['COMP_DADOS_CONF']);
+          if (compDadosConf['mensagem'] == 'Transacao aprovada') {
+            paymentController.updatePaymentStatus(paymentId, true);
+          } else {
+            throw 'Erro na transação TEF: ${compDadosConf['mensagem']}';
+          }
+        } else {
+          throw 'Resposta do TEF inválida';
+        }
+      } catch (e) {
+        // Trata o erro
+        logger.e('Erro durante a transação TEF: $e');
+      }
+    }
+
+    Widget buildPaymentButton(Map<String, dynamic> payment) {
+      IconData icon =
+          payment['transacaoBemSucedida'] ? Icons.check : Icons.credit_card;
+      Color iconColor =
+          payment['transacaoBemSucedida'] ? Colors.white : Colors.black;
+
+      return Container(
+          width: 60,
+          height: 70,
+          decoration: BoxDecoration(
+            borderRadius: const BorderRadius.only(
+                bottomRight: Radius.circular(10),
+                topRight: Radius.circular(10)),
+            color: payment['transacaoBemSucedida']
+                ? CustomColors.confirmButtonColor
+                : CustomColors.customContrastColor,
+          ),
+          child: IconButton(
+            icon: Icon(icon),
+            color: iconColor,
+            onPressed: () => !payment['transacaoBemSucedida']
+                ? processTefPayment(payment)
+                : Get.snackbar('Erro', 'Pagamento já processado',
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                    icon: const Icon(Icons.error),
+                    snackPosition: SnackPosition.BOTTOM),
+          ));
+    }
 
     //linha do cabeçalho
     Widget lineHeader(BuildContext context) {
@@ -90,11 +171,13 @@ class _PaymentPageState extends State<PaymentPage> {
                     child: Row(
                       children: <Widget>[
                         Container(
-                          width: 100,
+                          width: 60,
                           height: 70,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.red[50],
+                            borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(10),
+                                topLeft: Radius.circular(10)),
+                            color: CustomColors.customSwatchColor[100],
                           ),
                           child: IconButton(
                             onPressed: () {
@@ -410,114 +493,107 @@ class _PaymentPageState extends State<PaymentPage> {
 
       var totalToPayFormatted = formatoBrasileiro.format(totalToPay);
 
-      return Column(
-        children: [
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: ListView.builder(
-              itemCount: paymentController.paymentsTotal.length,
-              itemBuilder: (context, index) {
-                var mapPaymentsTotal = paymentController.paymentsTotal;
+      return GetBuilder<PaymentController>(builder: (_) {
+        return Column(
+          children: [
+            Expanded(
+                child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ListView.builder(
+                itemCount: _.paymentsTotal.length,
+                itemBuilder: (context, index) {
+                  var payment = _.paymentsTotal;
 
-                return Card(
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(children: [
-                          Container(
-                              width: 100,
-                              height: 70,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.red[50],
-                              ),
-                              child: IconButton(
-                                onPressed: () {
-                                  setState(() {});
-                                  paymentController.deletePayment(index);
-                                },
-                                icon: const Icon(
-                                  FontAwesomeIcons.trash,
-                                  size: 20,
+                  return Card(
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(children: [
+                            Container(
+                                width: 60,
+                                height: 70,
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(10),
+                                      bottomLeft: Radius.circular(10)),
+                                  color: CustomColors.customSwatchColor[100],
                                 ),
-                                color: const Color.fromARGB(255, 170, 46, 37),
-                              )),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Text(
-                              mapPaymentsTotal[index]['nome'],
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 16),
-                            ),
-                          ),
-                        ]),
-                        Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Text(
-                                formatoBrasileiro.format(
-                                  double.parse(
-                                    mapPaymentsTotal[index]['valor']
-                                        .replaceAll(',', '.'),
+                                child: IconButton(
+                                  onPressed: () {
+                                    setState(() {});
+                                    paymentController.deletePayment(index);
+                                  },
+                                  icon: const Icon(
+                                    FontAwesomeIcons.trash,
+                                    size: 20,
                                   ),
-                                ),
-                                style: TextStyle(
-                                    fontSize: 22, fontWeight: FontWeight.bold),
+                                  color: const Color.fromARGB(255, 170, 46, 37),
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8.0),
+                              child: Text(
+                                payment[index]['nome'],
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16),
                               ),
                             ),
-                            mapPaymentsTotal[index]['nome'] == 'TEF DEBITO' ||
-                                    mapPaymentsTotal[index]['nome'] ==
-                                        'TEF CREDITO'
-                                ? Container(
-                                    width: 110,
-                                    height: 70,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: CustomColors.customContrastColor,
+                          ]),
+                          Row(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Text(
+                                  formatoBrasileiro.format(
+                                    double.parse(
+                                      payment[index]['valor']
+                                          .replaceAll(',', '.'),
                                     ),
-                                    child: IconButton(
-                                      icon: const Icon(
-                                          FontAwesomeIcons.creditCard),
-                                      color: Colors.black,
-                                      onPressed: () {},
-                                    ))
-                                : Container(),
-                          ],
-                        )
-                      ]),
-                );
-              },
-            ),
-          )),
-          SizedBox(
-            height: 75,
-            width: double.infinity,
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
-                ),
-                Expanded(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: totalPay('Valor Recebido', paymentFormsFormated,
-                            calculateTotal: true),
-                      ),
-                      Expanded(
-                          child: totalPay('Restante', totalToPayFormatted,
-                              isRest: true)),
-                      Expanded(child: totalPay('Troco', totalToPayFormatted)),
-                    ],
+                                  ),
+                                  style: const TextStyle(
+                                      fontSize: 22,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              payment[index]['nome'] == 'TEF DEBITO' ||
+                                      payment[index]['nome'] == 'TEF CREDITO'
+                                  ? buildPaymentButton(payment[index])
+                                  : Container(),
+                            ],
+                          )
+                        ]),
+                  );
+                },
+              ),
+            )),
+            SizedBox(
+              height: 75,
+              width: double.infinity,
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
                   ),
-                ),
-              ],
-            ),
-          )
-        ],
-      );
+                  Expanded(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: totalPay(
+                              'Valor Recebido', paymentFormsFormated,
+                              calculateTotal: true),
+                        ),
+                        Expanded(
+                            child: totalPay('Restante', totalToPayFormatted,
+                                isRest: true)),
+                        Expanded(child: totalPay('Troco', totalToPayFormatted)),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            )
+          ],
+        );
+      });
     }
 
     //botões e icones abaixo do container da direita
@@ -622,86 +698,106 @@ class _PaymentPageState extends State<PaymentPage> {
           child: InkWell(
             onTap: isButtonEnabled
                 ? () {
-                    //Popup para confirmar o pedido
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                              height: MediaQuery.of(context).size.height * 0.25,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  SizedBox(
-                                    child: Text(
-                                      'Confirmar Pedido',
-                                      style: TextStyle(
-                                          fontSize: 24,
-                                          color: CustomColors.customSwatchColor,
-                                          fontWeight: FontWeight.bold),
-                                    ),
+                    paymentController.paymentsTotal
+                            .any((p) => p['transacaoBemSucedida'] == false)
+                        ? Get.snackbar('Erro', 'Existem transações pendentes',
+                            backgroundColor: Colors.red,
+                            colorText: Colors.white,
+                            snackPosition: SnackPosition.BOTTOM)
+                        :
+                        //Popup para confirmar o pedido
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 8.0),
-                                      child: SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.3,
-                                        child: const Center(
+                                  child: Container(
+                                    padding:
+                                        const EdgeInsets.fromLTRB(0, 25, 0, 0),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.25,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(
                                           child: Text(
-                                            'Tem certeza que deseja finalizar o pedido?',
-                                            style: TextStyle(),
+                                            'Confirmar Pedido',
+                                            style: TextStyle(
+                                                fontSize: 24,
+                                                color: CustomColors
+                                                    .customSwatchColor,
+                                                fontWeight: FontWeight.bold),
                                           ),
                                         ),
-                                      ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                vertical: 8.0),
+                                            child: SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.3,
+                                              child: const Center(
+                                                child: Text(
+                                                  'Tem certeza que deseja finalizar o pedido?',
+                                                  style: TextStyle(),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          height: 45,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomLeft: Radius
+                                                                  .circular(
+                                                                      10)),
+                                                      color: Colors.grey,
+                                                    ),
+                                                    child: const ConfirmButtom(
+                                                        text: 'Não'),
+                                                  ),
+                                                ),
+                                                Expanded(
+                                                  child: Container(
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.only(
+                                                              bottomRight:
+                                                                  Radius
+                                                                      .circular(
+                                                                          10)),
+                                                      color: Color(0xFF86C337),
+                                                    ),
+                                                    child: const ConfirmButtom(
+                                                      text: 'Sim',
+                                                      isConfirmation: true,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ]),
+                                        )
+                                      ],
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: 45,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                    child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Expanded(
-                                            child: Container(
-                                              decoration: const BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    bottomLeft:
-                                                        Radius.circular(10)),
-                                                color: Colors.grey,
-                                              ),
-                                              child: const ConfirmButtom(
-                                                  text: 'Não'),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                              decoration: const BoxDecoration(
-                                                borderRadius: BorderRadius.only(
-                                                    bottomRight:
-                                                        Radius.circular(10)),
-                                                color: Color(0xFF86C337),
-                                              ),
-                                              child: const ConfirmButtom(
-                                                text: 'Sim',
-                                                isConfirmation: true,
-                                              ),
-                                            ),
-                                          ),
-                                        ]),
-                                  )
-                                ],
-                              ),
-                            ));
-                      },
-                    );
+                                  ));
+                            },
+                          );
                   }
                 : null,
             child: const Center(

@@ -1,9 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
@@ -11,7 +7,6 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
-import '../../../services/tef_elgin_service.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({
@@ -34,8 +29,7 @@ class ConfirmButtom extends StatelessWidget {
     SideBarController sideBarController =
         InjectionDependencies.sidebarController();
     InjectionDependencies.printerController();
-    PaymentController paymentController =
-        InjectionDependencies.paymentController();
+    InjectionDependencies.paymentController();
 
     Future<void> processCommonOperations() async {
       //soma o valor bruto total dos itens que estão nos pedidos
@@ -92,120 +86,14 @@ class ConfirmButtom extends StatelessWidget {
       pdvController.updateIsSelectedList();
     }
 
-    void showErrorDialog(String errorMessage) {
-      Get.dialog(
-        AlertDialog(
-          title: const Text("Erro"),
-          content: Text(errorMessage),
-          actions: [
-            TextButton(
-              child: Text('OK'),
-              onPressed: () => Get.back(),
-            ),
-          ],
-        ),
-        barrierDismissible: false,
-      );
-    }
-
-    bool hasTefPayment() {
-      return paymentController.paymentsTotal.any((payment) =>
-          payment['nome'] == 'TEF DEBITO' || payment['nome'] == 'TEF CREDITO');
-    }
-
-    Future<bool> processSinglePayment(Map<String, dynamic> payment) async {
-      try {
-        String paymentType = payment['nome'];
-        String valorTransacao = payment['valor'].toString();
-
-        // Formata o valor da transação, removendo pontos e vírgulas
-        String valorFormatado = valorTransacao.replaceAll(RegExp(r'[.,]'), '');
-        valorFormatado = (double.parse(valorFormatado)).toStringAsFixed(0);
-
-        Map<String, String?> tefParams = {
-          'funcao': paymentType == 'TEF DEBITO' ? 'debito' : 'credito',
-          'valor': valorFormatado,
-        };
-
-        // Inclui parâmetros adicionais para pagamentos de crédito
-        if (paymentType == 'TEF CREDITO') {
-          tefParams['parcelas'] = payment['parcelas'] ?? '1';
-          tefParams['financiamento'] = payment['financiamento'] ?? '1';
-        }
-
-        // Realiza a chamada ao serviço TEF
-        String? tefResponseJson = await TefService.startTef(tefParams);
-        if (tefResponseJson == null) {
-          throw 'Resposta do TEF nula';
-        }
-
-        Map<String, dynamic> tefResponse = jsonDecode(tefResponseJson);
-        // Análise do JSON aninhado em COMP_DADOS_CONF
-        if (tefResponse.containsKey('COMP_DADOS_CONF')) {
-          Map<String, dynamic> compDadosConf =
-              jsonDecode(tefResponse['COMP_DADOS_CONF']);
-          if (compDadosConf['mensagem'] != 'Transacao aprovada') {
-            showErrorDialog(
-                'Erro na transação TEF: ${compDadosConf['mensagem']}');
-            return false;
-          }
-        } else {
-          // Caso 'COMP_DADOS_CONF' não esteja presente na resposta
-          showErrorDialog('Resposta do TEF inválida.');
-          return false;
-        }
-        return true;
-      } catch (e) {
-        showErrorDialog('Erro inesperado durante a transação TEF: $e');
-        return false;
-      }
-    }
-
-    Future<void> handleTefTransaction() async {
-      bool allTransactionsSuccessful = true;
-
-      // Processa pagamentos de débito
-      for (var payment in paymentController.paymentsTotal
-          .where((p) => p['nome'] == 'TEF DEBITO')) {
-        bool success = await processSinglePayment(payment);
-        if (!success) {
-          allTransactionsSuccessful = false;
-          break; // Sai do loop se houver erro
-        }
-      }
-
-      // Processa pagamentos de crédito se todos os débitos foram bem-sucedidos
-      if (allTransactionsSuccessful) {
-        for (var payment in paymentController.paymentsTotal
-            .where((p) => p['nome'] == 'TEF CREDITO')) {
-          bool success = await processSinglePayment(payment);
-          if (!success) {
-            allTransactionsSuccessful = false;
-            break; // Sai do loop se houver erro
-          }
-        }
-      }
-
-      if (allTransactionsSuccessful) {
-        await processCommonOperations();
-        Get.back();
-        Get.back();
-      }
-    }
-
     return TextButton(
       onPressed: () async {
         if (isConfirmation) {
-          if (hasTefPayment()) {
-            await handleTefTransaction();
-          } else {
-            await processCommonOperations();
-            Get.back();
-            Get.back();
-          }
+          await processCommonOperations();
+          Get.back(); // Fecha o diálogo atual
+          Get.back(); // Fecha a página de pagamento
         } else {
-          pdvController.updateIsSelectedList();
-          Get.back();
+          Get.back(); // Fecha apenas o diálogo atual
         }
       },
       child: Text(
