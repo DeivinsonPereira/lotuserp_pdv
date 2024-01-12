@@ -47,28 +47,14 @@ class IsarService {
 
   //buscar ipEmpresa na tabela 'Dados Empresarias'
   Future<dado_empresa?> getIpEmpresaFromDatabase() async {
-    try {
-      final isar = await db;
-      final ipEmpresa = await isar.dado_empresas.where().findFirst();
+    final isar = await db;
+    final ipEmpresa = await isar.dado_empresas.where().findFirst();
 
-      if (ipEmpresa == null) {
-        throw Exception("Nenhum registro encontrado na tabela 'dado_empresa'.");
-      }
-
-      return ipEmpresa;
-    } catch (e) {
-      Get.snackbar(
-        'Erro',
-        'Não foi possível obter os dados da empresa. Tente novamente mais tarde.',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
-      );
-
-      logger.e('Erro ao acessar a tabela \'dado_empresa\': $e');
-
-      return null;
+    if (ipEmpresa == null) {
+      throw Exception("Nenhum registro encontrado na tabela 'dado_empresa'.");
     }
+
+    return ipEmpresa;
   }
 
   //inserindo dados na tabela empresa vindos do servidor
@@ -157,9 +143,31 @@ class IsarService {
     }
   }
 
+  //verifica se tem dados na tabela empresa
+  Future<int> empresaCount() async {
+    final isar = await db;
+    return isar.empresas.count();
+  }
+
   //inserindo dados na tabela grupo vindos do servidor
   Future getGrupo() async {
     final isar = await db;
+    int tentativas = 0;
+    const maxTentativas = 3; // Número máximo de tentativas
+    int empresaCount = 0;
+
+    while (tentativas < maxTentativas) {
+      empresaCount = await isar.empresas.count();
+      if (empresaCount > 0) {
+        break; // Sai do loop se encontrar dados na tabela empresa
+      }
+      tentativas++;
+      await Future.delayed(const Duration(milliseconds: 500));
+    }
+
+    if (empresaCount == 0) {
+      throw Exception('Tabela empresa vazia. Não é possível buscar grupos.');
+    }
 
     dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
