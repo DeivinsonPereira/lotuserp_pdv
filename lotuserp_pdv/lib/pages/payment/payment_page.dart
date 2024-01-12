@@ -43,6 +43,7 @@ class _PaymentPageState extends State<PaymentPage> {
       locale: 'pt_BR',
       symbol: '',
     );
+    
 
     //linha do cabeçalho
     Widget lineHeader(BuildContext context) {
@@ -86,29 +87,45 @@ class _PaymentPageState extends State<PaymentPage> {
                       formatoBrasileiro.format(_.pedidos[index]['price']);
 
                   return Card(
-                    elevation: 2,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        leading: IconButton(
-                          onPressed: () {
-                            _.removerPedido(index);
-                          },
-                          icon: const Icon(
-                            FontAwesomeIcons.trash,
-                            size: 20,
-                            color: Color.fromARGB(255, 170, 46, 37),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 100,
+                          height: 70,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.red[50],
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {});
+                              paymentController.deletePayment(index);
+                            },
+                            icon: const Icon(
+                              FontAwesomeIcons.trash,
+                              size: 20,
+                            ),
+                            color: const Color.fromARGB(255, 170, 46, 37),
                           ),
                         ),
-                        title: Text(
-                          _.pedidos[index]['nomeProduto'],
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  _.pedidos[index]['nomeProduto'],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                Text(
+                                    '${_.pedidos[index]['quantidade']} x R\$ $priceFormatado ${_.pedidos[index]['unidade']}'),
+                              ],
+                            ),
+                          ),
                         ),
-                        subtitle: Text(
-                            '${_.pedidos[index]['quantidade']} x R\$ $priceFormatado ${_.pedidos[index]['unidade']}'),
-                      ),
+                      ],
                     ),
                   );
                 },
@@ -404,44 +421,72 @@ class _PaymentPageState extends State<PaymentPage> {
                 var mapPaymentsTotal = paymentController.paymentsTotal;
 
                 return Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            mapPaymentsTotal[index]['nome'],
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(children: [
+                          Container(
+                              width: 100,
+                              height: 70,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.red[50],
+                              ),
+                              child: IconButton(
+                                onPressed: () {
+                                  setState(() {});
+                                  paymentController.deletePayment(index);
+                                },
+                                icon: const Icon(
+                                  FontAwesomeIcons.trash,
+                                  size: 20,
+                                ),
+                                color: const Color.fromARGB(255, 170, 46, 37),
+                              )),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8.0),
+                            child: Text(
+                              mapPaymentsTotal[index]['nome'],
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
                           ),
-                          Row(
-                            children: [
-                              Text(
+                        ]),
+                        Row(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 8.0),
+                              child: Text(
                                 formatoBrasileiro.format(
                                   double.parse(
                                     mapPaymentsTotal[index]['valor']
                                         .replaceAll(',', '.'),
                                   ),
                                 ),
+                                style: TextStyle(
+                                    fontSize: 22, fontWeight: FontWeight.bold),
                               ),
-                              SizedBox(
-                                  width: 50,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      setState(() {});
-                                      paymentController.deletePayment(index);
-                                    },
-                                    icon: const Icon(
-                                      FontAwesomeIcons.trash,
-                                      size: 20,
+                            ),
+                            mapPaymentsTotal[index]['nome'] == 'TEF DEBITO' ||
+                                    mapPaymentsTotal[index]['nome'] ==
+                                        'TEF CREDITO'
+                                ? Container(
+                                    width: 110,
+                                    height: 70,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(10),
+                                      color: CustomColors.customContrastColor,
                                     ),
-                                    color:
-                                        const Color.fromARGB(255, 170, 46, 37),
-                                  )),
-                            ],
-                          )
-                        ]),
-                  ),
+                                    child: IconButton(
+                                      icon: const Icon(
+                                          FontAwesomeIcons.creditCard),
+                                      color: Colors.black,
+                                      onPressed: () {},
+                                    ))
+                                : Container(),
+                          ],
+                        )
+                      ]),
                 );
               },
             ),
