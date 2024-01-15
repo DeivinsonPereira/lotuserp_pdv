@@ -110,192 +110,197 @@ class ButtonsPayment {
 
   // Subtotal in dialog discount
   Widget subtotalInDialog(String text) {
-    return Row(
-      children: [
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                text,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Obx(() {
-                double valor = 0.0;
-                for (var element in controller.pedidos) {
-                  valor += element['total'];
-                }
-                String newValueCb1 = controller.numbersDiscount.value
-                    .replaceAll(RegExp(r'[^\d]'), '');
-                double valorMinusDiscountcb1 =
-                    valor - (double.parse(newValueCb1) / 100);
-
-                final formattedValueCb1 =
-                    formatoBrasileiro.format(valorMinusDiscountcb1);
-
-                String newValueCb2 = controller.numbersDiscountcb2.value
-                    .replaceAll(RegExp(r'[^\d]'), '');
-
-                double valorMinusDiscountCb2 =
-                    valor - (double.parse(newValueCb2) / 100);
-
-                final formattedValueCb2 =
-                    formatoBrasileiro.format(valorMinusDiscountCb2);
-
-                return Obx(
-                  () => Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      controller.checkbox1.value
-                          ? formattedValueCb1
-                          : formattedValueCb2,
-                      style: const TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                );
-              }),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  //checkbox para desconto em reais
-  Widget checkedDiscountBoxButton(String text) {
-    return InkWell(
-        onTap: () {
-          controller.checkbox1.value = !controller.checkbox1.value;
-          if (controller.checkbox1.value) {
-            controller.checkbox2.value = false;
-          }
-        },
-        child: Row(children: [
-          Obx(
-            () => Checkbox(
-              shape: const CircleBorder(side: BorderSide.none),
-              checkColor: Colors.black,
-              activeColor: Colors.white,
-              fillColor: MaterialStateProperty.all(Colors.white),
-              value: controller.checkbox1.value,
-              /*mudar para variavel */
-              onChanged: (bool? value) {
-                controller.checkbox1.value = !controller.checkbox1.value;
-                if (controller.checkbox1.value) {
-                  controller.checkbox2.value = false;
-                }
-              },
-            ),
-          ),
+    return GetBuilder<PdvController>(builder: (pdvController) {
+      return Row(
+        children: [
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Align(
-                    alignment: Alignment.topLeft,
-                    child: Text(
-                      text,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    )),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Obx(
-                    () => Text(
-                      controller.checkbox1.value
-                          ? formatoBrasileiro.format(double.parse(controller
-                                  .numbersDiscount.value
-                                  .replaceAll(',', '')) /
-                              100)
-                          : formatoBrasileiro.format(double.parse(controller
-                                  .numbersDiscountcb2.value
-                                  .replaceAll(',', '')) /
-                              100),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: !controller.checkbox1.value
-                          ? const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)
-                          : TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: CustomColors.customContrastColor),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          )
-        ]));
-  }
-
-  //checkbox para desconto em percentual
-  Widget checkedPercentualBoxButton(String text) {
-    return InkWell(
-        onTap: () {
-          controller.checkbox2.value = !controller.checkbox2.value;
-          if (controller.checkbox2.value) {
-            controller.checkbox1.value = false;
-          }
-        },
-        child: Row(children: [
-          Obx(
-            () => Checkbox(
-              fillColor: MaterialStateProperty.all(Colors.white),
-              shape: const CircleBorder(),
-              checkColor: Colors.black,
-              activeColor: Colors.white,
-              value: controller.checkbox2.value,
-              /*mudar para variavel */
-              onChanged: (bool? value) {
-                controller.checkbox2.value = !controller.checkbox2.value;
-                if (controller.checkbox2.value) {
-                  controller.checkbox1.value = false;
-                }
-              },
-            ),
-          ),
-          Expanded(
-            child: Column(
-              children: [
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Text(
-                    text,
-                    style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
+                Text(
+                  text,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
                 ),
                 Obx(() {
-                  final formattedDiscountPercentage = formatoBrasileiro
-                      .format(controller.discountPercentage.value);
-                  return Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      !controller.checkbox2.value
-                          ? '$formattedDiscountPercentage% '
-                          : '${controller.discountPercentagecb2.value}%',
-                      style: !controller.checkbox2.value
-                          ? const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)
-                          : TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: CustomColors.customContrastColor),
+                  double valor = 0.0;
+                  for (var element in pdvController.pedidos) {
+                    valor += element['total'];
+                  }
+                  String newValueCb1 = pdvController.numbersDiscount.value
+                      .replaceAll(RegExp(r'[^\d]'), '');
+                  double valorMinusDiscountcb1 =
+                      valor - (double.parse(newValueCb1) / 100);
+
+                  final formattedValueCb1 =
+                      formatoBrasileiro.format(valorMinusDiscountcb1);
+
+                  String newValueCb2 = pdvController.numbersDiscountcb2.value
+                      .replaceAll(RegExp(r'[^\d]'), '');
+
+                  double valorMinusDiscountCb2 =
+                      valor - (double.parse(newValueCb2) / 100);
+
+                  final formattedValueCb2 =
+                      formatoBrasileiro.format(valorMinusDiscountCb2);
+
+                  return Obx(
+                    () => Align(
+                      alignment: Alignment.bottomRight,
+                      child: Text(
+                        pdvController.checkbox1.value
+                            ? formattedValueCb1
+                            : formattedValueCb2,
+                        style: const TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
                     ),
                   );
                 }),
               ],
             ),
-          )
-        ]));
+          ),
+        ],
+      );
+    });
+  }
+
+  //checkbox para desconto em reais
+  Widget checkedDiscountBoxButton(String text) {
+    return GetBuilder<PdvController>(builder: (pdvController) {
+      String valueCheckbox1 = formatoBrasileiro.format(double.parse(
+              pdvController.numbersDiscount.value.replaceAll(',', '')) /
+          100);
+
+      String valueCheckbox2 = formatoBrasileiro.format(double.parse(
+              pdvController.numbersDiscountcb2.value.replaceAll(',', '')) /
+          100);
+
+      return InkWell(
+          onTap: () {
+            pdvController.checkbox1.value = !pdvController.checkbox1.value;
+            if (pdvController.checkbox1.value) {
+              pdvController.checkbox2.value = false;
+            }
+          },
+          child: Row(children: [
+            Checkbox(
+              shape: const CircleBorder(side: BorderSide.none),
+              checkColor: Colors.black,
+              activeColor: Colors.white,
+              fillColor: MaterialStateProperty.all(Colors.white),
+              value: pdvController.checkbox1.value,
+              /*mudar para variavel */
+              onChanged: (bool? value) {
+                pdvController.checkbox1.value = !pdvController.checkbox1.value;
+                if (pdvController.checkbox1.value) {
+                  pdvController.checkbox2.value = false;
+                }
+              },
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        text,
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Obx(() => Text(
+                          pdvController.checkbox1.value
+                              ? valueCheckbox1
+                              : valueCheckbox2,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: !pdvController.checkbox1.value
+                              ? const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)
+                              : TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: CustomColors.customContrastColor),
+                        )),
+                  )
+                ],
+              ),
+            )
+          ]));
+    });
+  }
+
+  //checkbox para desconto em percentual
+  Widget checkedPercentualBoxButton(String text) {
+    return GetBuilder<PdvController>(builder: (pdvController) {
+      var formattedDiscountPercentage =
+          formatoBrasileiro.format(pdvController.discountPercentage.value);
+      return InkWell(
+          onTap: () {
+            pdvController.checkbox2.value = !pdvController.checkbox2.value;
+            if (pdvController.checkbox2.value) {
+              pdvController.checkbox1.value = false;
+            }
+          },
+          child: Row(children: [
+            Obx(
+              () => Checkbox(
+                fillColor: MaterialStateProperty.all(Colors.white),
+                shape: const CircleBorder(),
+                checkColor: Colors.black,
+                activeColor: Colors.white,
+                value: pdvController.checkbox2.value,
+                /*mudar para variavel */
+                onChanged: (bool? value) {
+                  pdvController.checkbox2.value =
+                      !pdvController.checkbox2.value;
+                  if (pdvController.checkbox2.value) {
+                    pdvController.checkbox1.value = false;
+                  }
+                },
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Text(
+                      text,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      !pdvController.checkbox2.value
+                          ? '$formattedDiscountPercentage% '
+                          : '${pdvController.discountPercentagecb2.value}%',
+                      style: !pdvController.checkbox2.value
+                          ? const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white)
+                          : TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.bold,
+                              color: CustomColors.customContrastColor),
+                    ),
+                  )
+                ],
+              ),
+            )
+          ]));
+    });
   }
 
   //botão de desconto

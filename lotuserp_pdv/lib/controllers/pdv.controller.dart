@@ -74,6 +74,8 @@ class PdvController extends GetxController {
     liquido.value = checkbox1.value
         ? totBruto.value - numbersDiscountFormated
         : totBruto.value - numbersDiscountcb2Formated;
+
+    update();
   }
 
   //atualizar isSelectedList
