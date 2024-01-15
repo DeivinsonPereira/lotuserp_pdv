@@ -267,8 +267,8 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      /*print('A impressão está comentada');
-      String textToPrint = String.fromCharCodes(bytes);
+      print('A impressão está comentada');
+      /*String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
@@ -386,8 +386,8 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
 
-      /*print('A impressão da movimentação de caixa está comentada');
-      String textToPrint = String.fromCharCodes(bytes);
+      print('A impressão da movimentação de caixa está comentada');
+      /*String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
@@ -547,8 +547,8 @@ class PrinterController extends GetxController {
       bytes +=
           generator.text('  CONFERENTE: _______________________________\n\n');
 
-      /*print('A impressão da movimentação de caixa está comentada');
-      String textToPrint = String.fromCharCodes(bytes);
+      print('A impressão da movimentação de caixa está comentada');
+      /*String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
     } on BTException {
       return;
@@ -586,7 +586,7 @@ class PrinterController extends GetxController {
       var hour = sideBarController.hours.value;
 
       //variaveis referente a Caixa
-
+      
       //busca dados da empresa para alimentar as variaveis de impressão
       empresa? dataEmpresa = await service.searchEmpresa();
 
@@ -619,8 +619,6 @@ class PrinterController extends GetxController {
       bytes += generator.text('ITEM  Descricao');
       bytes += generator.text(
           '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
-      print(
-          '${''.padRight(10)}Qtde${''.padRight(10)}Unitario${''.padRight(10)}Total');
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
@@ -633,11 +631,10 @@ class PrinterController extends GetxController {
             '${(i + 1).toString().padLeft(3, '0').substring(0, 3)} ${vendaItens[i].id} ${produtos!.descricao}';
         if (itemText.length > 48) {
           itemText =
-              itemText.substring(0, 45) + '...'; // Trunca o texto com '...'
+              '${itemText.substring(0, 45)}...'; // Trunca o texto com '...'
         }
         bytes += generator.text(itemText, maxCharsPerLine: 48);
 
-        print(itemText);
         var produtoslenght =
             14 - formatoBrasileiro.format(produtos.pvenda).length;
         var venda =
@@ -680,20 +677,14 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           'Total Bruto(=):${''.padRight(lengthTotBruto)}${''.padLeft(lenghtTotBruto)}${formatoBrasileiro.format(venda.tot_bruto)}',
           styles: const PosStyles(bold: true));
-      print(
-          'Total Bruto(=):${''.padRight(lengthTotBruto)}${''.padLeft(lenghtTotBruto)}${formatoBrasileiro.format(venda.tot_bruto)}');
 
       bytes += generator.text(
         'Descontos(-):${''.padRight(lenghtDescontosPercent)} %${venda.tot_desc_prc.toStringAsFixed(2)}${''.padRight(lenghtDescontos)}${formatoBrasileiro.format(venda.tot_desc_vlr)}',
       );
-      print(
-          'Descontos(-):${''.padRight(lenghtDescontosPercent)} %${venda.tot_desc_prc.toStringAsFixed(2)}${''.padRight(lenghtDescontos)}${formatoBrasileiro.format(venda.tot_desc_vlr)}');
 
       bytes += generator.text(
           'Total Liquido(=):${''.padRight(lenghtTotalLiquido)}${''.padLeft(lenghtTotLiquido)}${formatoBrasileiro.format(venda.tot_liquido)}',
           styles: const PosStyles(bold: true));
-      print(
-          'Total Liquido(=):${''.padRight(lenghtTotalLiquido)}${''.padLeft(lenghtTotLiquido)}${formatoBrasileiro.format(venda.tot_liquido)}');
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
@@ -701,14 +692,10 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           'Informado(=):${''.padRight(lenghtInformado)}${''.padLeft(lenghtValorInformado)}${formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco)}',
           styles: const PosStyles(bold: true));
-      print(
-          'Informado(=):${''.padRight(lenghtInformado)}${''.padLeft(lenghtValorInformado)}${formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco)}');
 
       bytes += generator.text(
           'Troco(=):${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}',
           styles: const PosStyles(bold: true));
-      print(
-          'Troco(=):${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}');
 
       bytes +=
           generator.text('________________________________________________');

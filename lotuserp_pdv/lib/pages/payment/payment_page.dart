@@ -9,12 +9,14 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
+import 'package:lotuserp_pdv/pages/common/format_numbers.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../controllers/information_controller.dart';
 import '../../services/tef_elgin_service.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -37,7 +39,7 @@ class _PaymentPageState extends State<PaymentPage> {
     PaymentController paymentController =
         InjectionDependencies.paymentController();
     IsarService service = IsarService();
-
+    InjectionDependencies.informationController();
     var paymentCount = 0.0;
 
     var remainingValue = 0.0;
@@ -74,10 +76,12 @@ class _PaymentPageState extends State<PaymentPage> {
           tefParams['financiamento'] = '1';
         }
 
-        // Chama o serviço TEF
-        String? tefResponseJson = await TefService.startTef(tefParams);
-        if (tefResponseJson == null) throw 'Resposta do TEF nula';
+        var valueDouble = FormatNumbers.formatStringToDouble(valorTransacao);
 
+        // Chama o serviço TEF
+        String? tefResponseJson = await TefService.startTef(
+            tefParams, valueDouble, int.parse(tefParams['parcelas']!));
+        if (tefResponseJson == null) throw 'Resposta do TEF nula';
         Map<String, dynamic> tefResponse = jsonDecode(tefResponseJson);
         if (tefResponse['COMP_DADOS_CONF'] != null) {
           Map<String, dynamic> compDadosConf =
@@ -124,6 +128,31 @@ class _PaymentPageState extends State<PaymentPage> {
                     icon: const Icon(Icons.error),
                     snackPosition: SnackPosition.BOTTOM),
           ));
+    }
+
+    // Dialog para escolher numero de parcelas
+    Widget choiceNumbersOfInstallments() {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: SizedBox(
+          height: 300,
+          width: 400,
+          child: Column(
+            children: [
+              TextField(
+                keyboardType: TextInputType.number,
+                controller: paymentController.paymentControllerText,
+                decoration: const InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Escolha o número de parcelas',
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
 
     //linha do cabeçalho

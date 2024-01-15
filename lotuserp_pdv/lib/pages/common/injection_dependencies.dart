@@ -4,6 +4,7 @@ import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
 import '../../controllers/close_register_controller.dart';
 import '../../controllers/global_controller.dart';
+import '../../controllers/information_controller.dart';
 import '../../controllers/load_controller.dart';
 import '../../controllers/login_controller.dart';
 import '../../controllers/moviment_register_controller.dart';
@@ -125,6 +126,14 @@ abstract class InjectionDependencies {
       return Get.find<CloseRegisterController>();
     } else {
       return Get.put(CloseRegisterController());
+    }
+  }
+
+  static InformationController informationController() {
+    if (Get.isRegistered<InformationController>()) {
+      return Get.find<InformationController>();
+    } else {
+      return Get.put(InformationController());
     }
   }
 }

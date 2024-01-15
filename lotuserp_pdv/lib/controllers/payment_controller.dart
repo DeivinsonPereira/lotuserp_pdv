@@ -1,6 +1,9 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class PaymentController extends GetxController {
+  TextEditingController paymentControllerText = TextEditingController();
+  
   //lista com forma de pagamentos e valores
   var paymentsTotal = <Map<String, dynamic>>[].obs;
 

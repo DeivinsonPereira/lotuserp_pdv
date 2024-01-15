@@ -235,7 +235,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                             ),
                                           ),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                             width:
                                                 10), // Espaço entre o ícone e o texto
                                         // Text widgets - Título e Subtítulo

@@ -27,6 +27,7 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 import '../collections/caixa_fechamento.dart';
+import '../collections/cartao_item.dart';
 import '../core/app_routes.dart';
 import '../pages/common/datetime_formatter_widget.dart';
 
@@ -1084,6 +1085,15 @@ class IsarService {
     return isar;
   }
 
+  //cria um registro na tabela cartao_item
+  Future<Isar> insertCartaoItem(cartao_item cartaoItem) async {
+    final isar = await db;
+    isar.writeTxn(() async {
+      await isar.cartao_items.put(cartaoItem);
+    });
+    return isar;
+  }
+
   //abre o banco de dados
   Future<Isar> openDB() async {
     final dir = await getApplicationSupportDirectory();
@@ -1104,6 +1114,7 @@ class IsarService {
           Venda_itemSchema,
           VendaSchema,
           Caixa_fechamentoSchema,
+          Cartao_itemSchema
         ],
         directory: dir.path,
       );
