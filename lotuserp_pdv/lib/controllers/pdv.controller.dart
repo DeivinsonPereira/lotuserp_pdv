@@ -351,7 +351,7 @@ class PdvController extends GetxController {
     }
     return null;
   }
-  
+
   //busca o id do caixa
   Future<void> getidCaixa() async {
     var caixa = await service.getCaixaIdWithIdUserAndStatus0();

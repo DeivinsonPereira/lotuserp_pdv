@@ -220,53 +220,53 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //dados informados no rodapé do container do lado esquerdo.
     Widget subtotalDiscountTotal() {
-      double totalValue = 0.0;
+      return GetBuilder<PdvController>(builder: (_) {
+        double totalValue = 0.0;
 
-      for (var element in controller.pedidos) {
-        totalValue += element['total'];
-      }
+        for (var element in _.pedidos) {
+          totalValue += element['total'];
+        }
 
-      String newValuetotalCb2 =
-          controller.numbersDiscountcb2.value.replaceAll(RegExp(r'[^\d]'), '');
+        String newValuetotalCb2 =
+            _.numbersDiscountcb2.value.replaceAll(RegExp(r'[^\d]'), '');
 
-      double valorMinusDiscountCb2 =
-          totalValue - (double.parse(newValuetotalCb2) / 100);
+        double valorMinusDiscountCb2 =
+            totalValue - (double.parse(newValuetotalCb2) / 100);
 
-      String totalValueFormated = formatoBrasileiro.format(totalValue);
-      String totalFormat = NumberFormat('#,##0.00', 'pt_BR').format(
-          controller.checkbox1.value
-              ? controller.totalcheckBox1.value
-              : valorMinusDiscountCb2);
-      String numberDiscount = controller.checkbox1.value
-          ? (!controller.numbersDiscount.value.isBlank!
-              ? controller.numbersDiscount.value
-              : '0,00')
-          : (!controller.numbersDiscountcb2.value.isBlank!
-              ? controller.numbersDiscountcb2.value
-              : '0,00');
+        String totalValueFormated = formatoBrasileiro.format(totalValue);
+        String totalFormat = NumberFormat('#,##0.00', 'pt_BR').format(
+            _.checkbox1.value ? _.totalcheckBox1.value : valorMinusDiscountCb2);
+        String numberDiscount = _.checkbox1.value
+            ? (!_.numbersDiscount.value.isBlank!
+                ? _.numbersDiscount.value
+                : '0,00')
+            : (!_.numbersDiscountcb2.value.isBlank!
+                ? _.numbersDiscountcb2.value
+                : '0,00');
 
-      return SizedBox(
-        height: 78,
-        child: Row(
-          children: [
-            Expanded(
+        return SizedBox(
+          height: 78,
+          child: Row(
+            children: [
+              Expanded(
+                  flex: 1,
+                  child: RowWidget().Rows('Total Bruto', totalValueFormated,
+                      isSubtotal: true)),
+              Expanded(
                 flex: 1,
-                child: RowWidget()
-                    .Rows('Total Bruto', totalValueFormated, isSubtotal: true)),
-            Expanded(
-              flex: 1,
-              child: RowWidget().Rows(
-                'Descontos ',
-                numberDiscount,
+                child: RowWidget().Rows(
+                  'Descontos ',
+                  numberDiscount,
+                ),
               ),
-            ),
-            Expanded(
-                flex: 2,
-                child: RowWidget()
-                    .Rows('Total Liquido', totalFormat, istotal: true)),
-          ],
-        ),
-      );
+              Expanded(
+                  flex: 2,
+                  child: RowWidget()
+                      .Rows('Total Liquido', totalFormat, istotal: true)),
+            ],
+          ),
+        );
+      });
     }
 
     //icones para escolha de forma de pagamento
