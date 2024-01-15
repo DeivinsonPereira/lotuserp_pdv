@@ -714,8 +714,8 @@ class PrinterController extends GetxController {
           generator.text('________________________________________________');
 
       print('A impressão da movimentação de caixa está comentada');
-      String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+      /* String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint); */
     } on BTException {
       return;
     }

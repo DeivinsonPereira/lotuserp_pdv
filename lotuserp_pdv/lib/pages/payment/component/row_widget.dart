@@ -194,9 +194,8 @@ class ButtonsPayment {
                   value: pdvController.checkbox1.value,
                   /*mudar para variavel */
                   onChanged: (bool? value) {
-                    pdvController.checkbox1.value =
-                        !pdvController.checkbox1.value;
-                    if (pdvController.checkbox1.value) {
+                    if (!pdvController.checkbox1.value) {
+                      pdvController.checkbox1.value = true;
                       pdvController.checkbox2.value = false;
                     }
                   },
@@ -259,9 +258,8 @@ class ButtonsPayment {
                 value: pdvController.checkbox2.value,
                 /*mudar para variavel */
                 onChanged: (bool? value) {
-                  pdvController.checkbox2.value =
-                      !pdvController.checkbox2.value;
-                  if (pdvController.checkbox2.value) {
+                  if (!pdvController.checkbox2.value) {
+                    pdvController.checkbox2.value = true;
                     pdvController.checkbox1.value = false;
                   }
                 },
