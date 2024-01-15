@@ -483,114 +483,119 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //Descontos totais das formas de pagamento.
     Widget paymentForms() {
-      String paymentFormsFormated = formatoBrasileiro.format(paymentCount);
-      double totalValue = controller.totalcheckBox1.value;
+      return GetBuilder<PdvController>(builder: (pdvController) {
+        String paymentFormsFormated = formatoBrasileiro.format(paymentCount);
+        double totalValue = pdvController.totalcheckBox1.value;
 
-      var totalToPay = totalValue > 0.0 && totalValue > paymentCount
-          ? totalValue - paymentCount
-          : 0.0;
+        var totalToPay = totalValue > 0.0 && totalValue > paymentCount
+            ? totalValue - paymentCount
+            : 0.0;
 
-      var totalToPayFormatted = formatoBrasileiro.format(totalToPay);
+        var totalToPayFormatted = formatoBrasileiro.format(totalToPay);
 
-      return GetBuilder<PaymentController>(builder: (_) {
-        return Column(
-          children: [
-            Expanded(
-                child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView.builder(
-                itemCount: _.paymentsTotal.length,
-                itemBuilder: (context, index) {
-                  var payment = _.paymentsTotal;
+        return GetBuilder<PaymentController>(builder: (_) {
+          return Column(
+            children: [
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: ListView.builder(
+                  itemCount: _.paymentsTotal.length,
+                  itemBuilder: (context, index) {
+                    var payment = _.paymentsTotal;
 
-                  return Card(
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(children: [
-                            Container(
-                                width: 60,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(10),
-                                      bottomLeft: Radius.circular(10)),
-                                  color: CustomColors.customSwatchColor[100],
-                                ),
-                                child: IconButton(
-                                  onPressed: () {
-                                    _.deletePayment(index);
-                                  },
-                                  icon: const Icon(
-                                    FontAwesomeIcons.trash,
-                                    size: 20,
+                    return Card(
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(children: [
+                              Container(
+                                  width: 60,
+                                  height: 70,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(10),
+                                        bottomLeft: Radius.circular(10)),
+                                    color: CustomColors.customSwatchColor[100],
                                   ),
-                                  color: const Color.fromARGB(255, 170, 46, 37),
-                                )),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Text(
-                                payment[index]['nome'],
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 16),
-                              ),
-                            ),
-                          ]),
-                          Row(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(right: 8.0),
-                                child: Text(
-                                  formatoBrasileiro.format(
-                                    double.parse(
-                                      payment[index]['valor']
-                                          .replaceAll(',', '.'),
+                                  child: IconButton(
+                                    onPressed: () {
+                                      _.deletePayment(index);
+                                    },
+                                    icon: const Icon(
+                                      FontAwesomeIcons.trash,
+                                      size: 20,
                                     ),
-                                  ),
+                                    color:
+                                        const Color.fromARGB(255, 170, 46, 37),
+                                  )),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 8.0),
+                                child: Text(
+                                  payment[index]['nome'],
                                   style: const TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold),
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16),
                                 ),
                               ),
-                              payment[index]['nome'] == 'TEF DEBITO' ||
-                                      payment[index]['nome'] == 'TEF CREDITO'
-                                  ? buildPaymentButton(payment[index])
-                                  : Container(),
-                            ],
-                          )
-                        ]),
-                  );
-                },
-              ),
-            )),
-            SizedBox(
-              height: 75,
-              width: double.infinity,
-              child: Column(
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
-                  ),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: totalPay(
-                              'Valor Recebido', paymentFormsFormated,
-                              calculateTotal: true),
-                        ),
-                        Expanded(
-                            child: totalPay('Restante', totalToPayFormatted,
-                                isRest: true)),
-                        Expanded(child: totalPay('Troco', totalToPayFormatted)),
-                      ],
+                            ]),
+                            Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 8.0),
+                                  child: Text(
+                                    formatoBrasileiro.format(
+                                      double.parse(
+                                        payment[index]['valor']
+                                            .replaceAll(',', '.'),
+                                      ),
+                                    ),
+                                    style: const TextStyle(
+                                        fontSize: 22,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                                payment[index]['nome'] == 'TEF DEBITO' ||
+                                        payment[index]['nome'] == 'TEF CREDITO'
+                                    ? buildPaymentButton(payment[index])
+                                    : Container(),
+                              ],
+                            )
+                          ]),
+                    );
+                  },
+                ),
+              )),
+              SizedBox(
+                height: 75,
+                width: double.infinity,
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 20, right: 20, bottom: 15),
                     ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        );
+                    Expanded(
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: totalPay(
+                                'Valor Recebido', paymentFormsFormated,
+                                calculateTotal: true),
+                          ),
+                          Expanded(
+                              child: totalPay('Restante', totalToPayFormatted,
+                                  isRest: true)),
+                          Expanded(
+                              child: totalPay('Troco', totalToPayFormatted)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          );
+        });
       });
     }
 
