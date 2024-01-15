@@ -229,16 +229,19 @@ class PrinterController extends GetxController {
           styles: const PosStyles(align: PosAlign.left, bold: true));
       bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
       bytes += generator.text(bairroEmpresa);
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text(typeMovimentation,
           styles: const PosStyles(
               align: PosAlign.left, bold: true, width: PosTextSize.size2));
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('$name $data - $hour',
           styles: const PosStyles(align: PosAlign.left));
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('Registro: $registro');
       bytes += generator.text('Data: $datatransacao $horaTransacao');
@@ -248,16 +251,18 @@ class PrinterController extends GetxController {
       bytes += generator.text('Valor CRE: $valorCre');
       bytes += generator.text('Valor DEB: $valorDeb');
       bytes += generator.text('Forma: $forma');
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('ID Caixa: $idCaixa');
       bytes += generator.text('Usuario: $usuario',
           styles: const PosStyles(codeTable: 'CP1252'));
       bytes += generator.text('Abertura: $abertura');
-      bytes += generator.text('-------------------------------------------- ',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text(
-          '\n\n--------------------------------------------',
+          '\n\n________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
@@ -343,16 +348,19 @@ class PrinterController extends GetxController {
           styles: const PosStyles(align: PosAlign.left, bold: true));
       bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
       bytes += generator.text(bairroEmpresa);
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text(typeMovimentation,
           styles: const PosStyles(
               align: PosAlign.left, bold: true, width: PosTextSize.size2));
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('$name $data - $hour',
           styles: const PosStyles(align: PosAlign.left));
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('Registro: $registro');
       bytes += generator.text('Data: $datatransacao $horaTransacao');
@@ -362,16 +370,18 @@ class PrinterController extends GetxController {
       bytes += generator.text('Valor CRE: $valorCre');
       bytes += generator.text('Valor DEB: $valorDeb');
       bytes += generator.text('Forma: $forma');
-      bytes += generator.text('--------------------------------------------',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('ID Caixa: $idCaixa');
       bytes += generator.text('Usuario: $usuario',
           styles: const PosStyles(codeTable: 'CP1252'));
       bytes += generator.text('Abertura: $abertura');
-      bytes += generator.text('-------------------------------------------- ',
+      bytes += generator.text(
+          '________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text(
-          '\n\n--------------------------------------------',
+          '\n\n________________________________________________',
           styles: const PosStyles(bold: true));
       bytes += generator.text('CONFERIDO POR: ');
       bytes += generator.text('\n\n');
@@ -619,10 +629,15 @@ class PrinterController extends GetxController {
         produto? produtos =
             await service.searchProdutoById(vendaItens[i].id_produto);
 
-        bytes += generator.text(
-            '${(i + 1).toString().padLeft(3, '0').substring(0, 3)} ${vendaItens[i].id} ${produtos!.descricao}',
-            maxCharsPerLine: 48);
+        String itemText =
+            '${(i + 1).toString().padLeft(3, '0').substring(0, 3)} ${vendaItens[i].id} ${produtos!.descricao}';
+        if (itemText.length > 48) {
+          itemText =
+              itemText.substring(0, 45) + '...'; // Trunca o texto com '...'
+        }
+        bytes += generator.text(itemText, maxCharsPerLine: 48);
 
+        print(itemText);
         var produtoslenght =
             14 - formatoBrasileiro.format(produtos.pvenda).length;
         var venda =
@@ -637,10 +652,14 @@ class PrinterController extends GetxController {
           styles: const PosStyles(bold: true));
 
       int lengthTotBruto = 37 - 'Total Bruto(=):'.length;
-      int lenghtDescontos = 15;
+      int lenghtDescontos =
+          22 - formatoBrasileiro.format(venda.tot_desc_vlr).length;
       int lenghtTotalLiquido = 37 - 'Total Liquido(=):'.length;
-      int lenghtInformado = 32 - 'Informado(=):'.length;
-      int lenghtTroco = 25 - 'Troco(=):'.length;
+      int lenghtInformado = 27 -
+          formatoBrasileiro
+              .format(venda.tot_liquido + venda.valor_troco)
+              .length;
+      int lenghtTroco = 38 - formatoBrasileiro.format(venda.valor_troco).length;
 
       int lenghtTotBruto =
           10 - formatoBrasileiro.format(venda.tot_bruto).length;
@@ -661,14 +680,20 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           'Total Bruto(=):${''.padRight(lengthTotBruto)}${''.padLeft(lenghtTotBruto)}${formatoBrasileiro.format(venda.tot_bruto)}',
           styles: const PosStyles(bold: true));
+      print(
+          'Total Bruto(=):${''.padRight(lengthTotBruto)}${''.padLeft(lenghtTotBruto)}${formatoBrasileiro.format(venda.tot_bruto)}');
 
       bytes += generator.text(
         'Descontos(-):${''.padRight(lenghtDescontosPercent)} %${venda.tot_desc_prc.toStringAsFixed(2)}${''.padRight(lenghtDescontos)}${formatoBrasileiro.format(venda.tot_desc_vlr)}',
       );
+      print(
+          'Descontos(-):${''.padRight(lenghtDescontosPercent)} %${venda.tot_desc_prc.toStringAsFixed(2)}${''.padRight(lenghtDescontos)}${formatoBrasileiro.format(venda.tot_desc_vlr)}');
 
       bytes += generator.text(
           'Total Liquido(=):${''.padRight(lenghtTotalLiquido)}${''.padLeft(lenghtTotLiquido)}${formatoBrasileiro.format(venda.tot_liquido)}',
           styles: const PosStyles(bold: true));
+      print(
+          'Total Liquido(=):${''.padRight(lenghtTotalLiquido)}${''.padLeft(lenghtTotLiquido)}${formatoBrasileiro.format(venda.tot_liquido)}');
       bytes += generator.text(
           '________________________________________________',
           styles: const PosStyles(bold: true));
@@ -676,17 +701,21 @@ class PrinterController extends GetxController {
       bytes += generator.text(
           'Informado(=):${''.padRight(lenghtInformado)}${''.padLeft(lenghtValorInformado)}${formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco)}',
           styles: const PosStyles(bold: true));
+      print(
+          'Informado(=):${''.padRight(lenghtInformado)}${''.padLeft(lenghtValorInformado)}${formatoBrasileiro.format(venda.tot_liquido + venda.valor_troco)}');
 
       bytes += generator.text(
-          'Troco(=):${''.padRight(lenghtTroco)}${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}',
+          'Troco(=):${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}',
           styles: const PosStyles(bold: true));
+      print(
+          'Troco(=):${''.padLeft(lenghtTroco)}${formatoBrasileiro.format(venda.valor_troco)}');
 
       bytes +=
           generator.text('________________________________________________');
 
-      /*print('A impressão da movimentação de caixa está comentada');
+      print('A impressão da movimentação de caixa está comentada');
       String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);*/
+      await bluetoothManager.writeText(textToPrint);
     } on BTException {
       return;
     }

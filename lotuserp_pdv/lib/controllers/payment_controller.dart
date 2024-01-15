@@ -7,7 +7,6 @@ class PaymentController extends GetxController {
   //valor da forma de pagamento
   var totalPayment = '0,00'.obs;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -21,23 +20,30 @@ class PaymentController extends GetxController {
   }
 
   void updatePaymentStatus(String paymentId, bool status) {
-  var index = paymentsTotal.indexWhere((p) => p['id'] == paymentId);
-  if (index != -1) {
-    paymentsTotal[index]['transacaoBemSucedida'] = status;
-    update(); // Atualiza a UI
+    var index = paymentsTotal.indexWhere((p) => p['id'] == paymentId);
+    if (index != -1) {
+      paymentsTotal[index]['transacaoBemSucedida'] = status;
+      update(); // Atualiza a UI
+    }
   }
-}
 
   //adicionar forma de pagamento e valor no paymentsTotal
   void addPaymentsTotal(String formPayment, String value) {
     Map<String, dynamic> newPayment = {
-        'id': DateTime.now().millisecondsSinceEpoch.toString(), // ID único
-        'nome': formPayment, 
-        'valor': value, 
-        'transacaoBemSucedida': false
+      'id': DateTime.now().millisecondsSinceEpoch.toString(), // ID único
+      'nome': formPayment,
+      'valor': value,
+      'transacaoBemSucedida': false
     };
     paymentsTotal.add(newPayment);
-}
+  }
+
+  //se houver algum pagamento TEF DEBITO ou TEF CREDITO em aberto, retorna false
+  bool verifyOpenTransactionTEF() {
+    return paymentsTotal.any((p) =>
+        p['nome'] == 'TEF DEBITO' && p['transacaoBemSucedida'] == false ||
+        p['nome'] == 'TEF CREDITO' && p['transacaoBemSucedida'] == false);
+  }
 
   //adiciona numero no totalPayments;
   void addNumberPayment(String number) {
@@ -73,6 +79,7 @@ class PaymentController extends GetxController {
   void deletePayment(int index) {
     if (index >= 0 && index < paymentsTotal.length) {
       paymentsTotal.removeAt(index);
+      update();
     }
   }
 

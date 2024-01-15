@@ -181,8 +181,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
                           child: IconButton(
                             onPressed: () {
-                              setState(() {});
-                              paymentController.deletePayment(index);
+                              _.removerPedido(index);
                             },
                             icon: const Icon(
                               FontAwesomeIcons.trash,
@@ -520,8 +519,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 ),
                                 child: IconButton(
                                   onPressed: () {
-                                    setState(() {});
-                                    paymentController.deletePayment(index);
+                                    _.deletePayment(index);
                                   },
                                   icon: const Icon(
                                     FontAwesomeIcons.trash,
@@ -698,8 +696,7 @@ class _PaymentPageState extends State<PaymentPage> {
           child: InkWell(
             onTap: isButtonEnabled
                 ? () {
-                    paymentController.paymentsTotal
-                            .any((p) => p['transacaoBemSucedida'] == false)
+                    paymentController.verifyOpenTransactionTEF()
                         ? Get.snackbar('Erro', 'Existem transações pendentes',
                             backgroundColor: Colors.red,
                             colorText: Colors.white,
