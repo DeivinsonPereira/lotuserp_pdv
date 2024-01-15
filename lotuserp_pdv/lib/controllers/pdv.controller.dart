@@ -315,6 +315,7 @@ class PdvController extends GetxController {
         update();
       } else {
         totalcheckBox1.value -= pedidos[index]['total'];
+
         pedidos.removeAt(index);
         update();
       }

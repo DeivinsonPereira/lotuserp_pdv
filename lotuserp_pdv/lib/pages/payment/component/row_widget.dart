@@ -186,20 +186,21 @@ class ButtonsPayment {
             }
           },
           child: Row(children: [
-            Checkbox(
-              shape: const CircleBorder(side: BorderSide.none),
-              checkColor: Colors.black,
-              activeColor: Colors.white,
-              fillColor: MaterialStateProperty.all(Colors.white),
-              value: pdvController.checkbox1.value,
-              /*mudar para variavel */
-              onChanged: (bool? value) {
-                pdvController.checkbox1.value = !pdvController.checkbox1.value;
-                if (pdvController.checkbox1.value) {
-                  pdvController.checkbox2.value = false;
-                }
-              },
-            ),
+            Obx(() => Checkbox(
+                  shape: const CircleBorder(side: BorderSide.none),
+                  checkColor: Colors.black,
+                  activeColor: Colors.white,
+                  fillColor: MaterialStateProperty.all(Colors.white),
+                  value: pdvController.checkbox1.value,
+                  /*mudar para variavel */
+                  onChanged: (bool? value) {
+                    pdvController.checkbox1.value =
+                        !pdvController.checkbox1.value;
+                    if (pdvController.checkbox1.value) {
+                      pdvController.checkbox2.value = false;
+                    }
+                  },
+                )),
             Expanded(
               child: Column(
                 children: [
@@ -278,24 +279,25 @@ class ButtonsPayment {
                     ),
                   ),
                   Align(
-                    alignment: Alignment.bottomRight,
-                    child: Text(
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      !pdvController.checkbox2.value
-                          ? '$formattedDiscountPercentage% '
-                          : '${pdvController.discountPercentagecb2.value}%',
-                      style: !pdvController.checkbox2.value
-                          ? const TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)
-                          : TextStyle(
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold,
-                              color: CustomColors.customContrastColor),
-                    ),
-                  )
+                      alignment: Alignment.bottomRight,
+                      child: Obx(
+                        () => Text(
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          !pdvController.checkbox2.value
+                              ? '$formattedDiscountPercentage% '
+                              : '${pdvController.discountPercentagecb2.value}%',
+                          style: !pdvController.checkbox2.value
+                              ? const TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)
+                              : TextStyle(
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold,
+                                  color: CustomColors.customContrastColor),
+                        ),
+                      )),
                 ],
               ),
             )
