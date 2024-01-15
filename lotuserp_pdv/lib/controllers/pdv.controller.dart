@@ -319,6 +319,12 @@ class PdvController extends GetxController {
         pedidos.removeAt(index);
         update();
       }
+      totalSomaPedidos();
+      if (checkbox1.value) {
+        calculateTotal(); // Se o checkbox1 estiver marcado, recalcula o total considerando o desconto em reais
+      } else if (checkbox2.value) {
+        calculateTotalPercentage(); // Se o checkbox2 estiver marcado, recalcula o total considerando o desconto percentual
+      }
       update();
     }
   }
