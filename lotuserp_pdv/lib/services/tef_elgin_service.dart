@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/cartao_item.dart';
+import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -14,6 +15,8 @@ abstract class TefService {
   static IsarService service = IsarService();
   static InformationController informationController =
       InjectionDependencies.informationController();
+  static PrinterController printerController =
+      InjectionDependencies.printerController();
 
   static Future<String?> startTef(
       Map<String, String?> params, double valor, String parcelas) async {
@@ -44,6 +47,7 @@ abstract class TefService {
           ..enviado = 0;
 
         await service.insertCartaoItem(cartaoItem);
+        await printerController.printTransactionCard(result);
 
         return result;
       }

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printer.dart';
@@ -586,7 +587,7 @@ class PrinterController extends GetxController {
       var hour = sideBarController.hours.value;
 
       //variaveis referente a Caixa
-      
+
       //busca dados da empresa para alimentar as variaveis de impressão
       empresa? dataEmpresa = await service.searchEmpresa();
 
@@ -706,5 +707,61 @@ class PrinterController extends GetxController {
     } on BTException {
       return;
     }
+  }
+
+  Future<void> printTransactionCard(String result) async {
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(
+      PaperSize.mm80,
+      profile,
+    );
+
+    List<int> bytes = [];
+
+    if (selectedPrinter == null) return;
+
+    try {
+      await connectDevice();
+      if (!isConnected.value) return;
+
+      // Extração dos dados
+      // Decodificação dos dados JSON
+      Map<String, dynamic> data = jsonDecode(result);
+      Map<String, dynamic> compDadosConf = jsonDecode(data['COMP_DADOS_CONF']);
+
+      // Extração de informações comuns
+      String codAutorizacao = data['COD_AUTORIZACAO'];
+      String valor = compDadosConf['valor'];
+      String numCartao = compDadosConf['numeroCartao'];
+      String mensagemAutorizacao = compDadosConf['mensagem'];
+      String dataHoraTransacao = compDadosConf['data'];
+
+      // Extração da Via do Cliente e do Estabelecimento
+      String viaCliente = data['VIA_CLIENTE'];
+      String viaEstabelecimento = data['VIA_ESTABELECIMENTO'];
+
+      // Formatação dos dados para impressão
+      String formattedData =
+          "Via do Cliente:\n$viaCliente\n\nVia do Estabelecimento:\n$viaEstabelecimento";
+      print(formattedData);
+      // Impressão dos dados formatados
+      bytes += generator.text(formattedData);
+
+      print('A impressão da transação está comentada');
+      /* String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint); */
+
+      //formatação da impressão
+      bytes += generator.text(result);
+    } on BTException {
+      return;
+    }
+  }
+
+  String extrairDadosVia(String viaTexto) {
+    // Aqui, você pode usar expressões regulares ou outros métodos de string para extrair os dados
+    // Exemplo: Extrair CNPJ, nome do estabelecimento, número da compra, etc.
+    // Retorne os dados formatados conforme necessário
+    return viaTexto; // Substitua isso pela sua lógica de extração específica
   }
 }
