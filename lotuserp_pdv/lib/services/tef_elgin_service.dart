@@ -16,7 +16,7 @@ abstract class TefService {
       InjectionDependencies.informationController();
 
   static Future<String?> startTef(
-      Map<String, String?> params, double valor, int parcelas) async {
+      Map<String, String?> params, double valor, String parcelas) async {
     try {
       logger.d("Iniciando chamada do método startTEF com parâmetros: $params");
 

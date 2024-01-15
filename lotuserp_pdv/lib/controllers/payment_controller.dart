@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 
 class PaymentController extends GetxController {
   TextEditingController paymentControllerText = TextEditingController();
-  
+
+
+  var installments = '1'.obs;
+
   //lista com forma de pagamentos e valores
   var paymentsTotal = <Map<String, dynamic>>[].obs;
 
@@ -28,6 +31,16 @@ class PaymentController extends GetxController {
       paymentsTotal[index]['transacaoBemSucedida'] = status;
       update(); // Atualiza a UI
     }
+  }
+
+  void updateInstallments() {
+    installments.value = paymentControllerText.text;
+    update();
+  }
+
+  void clearInstallments() {
+    installments.value = '1';
+    update();
   }
 
   //adicionar forma de pagamento e valor no paymentsTotal
