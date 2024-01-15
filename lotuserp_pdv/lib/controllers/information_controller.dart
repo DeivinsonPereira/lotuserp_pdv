@@ -18,29 +18,32 @@ class InformationController extends GetxController {
     searchCaixaId();
   }
 
-  Future<void> searchCaixaId() async {
-    caixaId.value = (await service.getCaixaIdWithIdUserAndStatus0())!;
-    update();
+  Future<int?> searchCaixaId() async {
+    var caixa = await service.getCaixaIdWithIdUserAndStatus0();
+
+    if (caixa != null) {
+      return caixa;
+    } else {
+      return 0;
+    }
   }
 
-  Future<void> searchUserId() async {
+  Future<int?> searchUserId() async {
     var user = await service.getUserLogged();
 
     if (user != null) {
-      usuarioId.value = user.id_user!;
-      update();
+      return user.id_user!;
     } else {
-      usuarioId.value = 0;
-      update();
+      return 0;
     }
   }
 
-  Future<void> searchEmpresaId() async {
+  Future<int?> searchEmpresaId() async {
     dado_empresa? dataEmpresa = await service.getIpEmpresaFromDatabase();
     if (dataEmpresa != null) {
-      empresaId.value = dataEmpresa.id_empresa!;
-      update();
+      return dataEmpresa.id_empresa!;
+    } else {
+      return 0;
     }
-    update();
   }
 }

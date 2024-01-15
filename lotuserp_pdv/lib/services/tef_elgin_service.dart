@@ -2,11 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/collections/cartao_item.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../controllers/information_controller.dart';
-import '../pages/common/datetime_formatter_widget.dart';
 
 abstract class TefService {
   static const platform = MethodChannel('com.lotuserp_pdv/tef');
@@ -26,19 +26,24 @@ abstract class TefService {
         final Map<String, dynamic> data = jsonDecode(result);
 
         logger.d("Método startTEF chamado com sucesso, resultado: $result");
-        print('id do caixa:  ${informationController.caixaId}');
-        print('id da empresa:  ${informationController.empresaId}');
-        print('id do usuario:  ${informationController.usuarioId}');
-        print('id da venda: 0');
-        print(
-            'data lançamento: ${DatetimeFormatterWidget.formatDate(DateTime.now())}');
 
-        // Acessar o valor de COD_AUTORIZACAO
-        String codAutorizacao = data['COD_AUTORIZACAO'];
-        print('id da autorização: $codAutorizacao');
-        print('Enviado: 0');
-        print('Quantidade de parcelas : $parcelas');
-        print('Valor: $valor');
+        int? caixaId = await informationController.searchCaixaId();
+        int? empresaId = await informationController.searchEmpresaId();
+        int? usuarioId = await informationController.searchUserId();
+
+        cartao_item cartaoItem = cartao_item()
+          ..id_caixa = caixaId!
+          ..id_empresa = empresaId!
+          ..id_usuario = usuarioId!
+          ..id_venda = 0
+          ..valor_doc = valor
+          ..parc_qtde = int.parse(parcelas)
+          ..id_autorizacao = data['COD_AUTORIZACAO']
+          ..data_lanca = DateTime.now()
+          ..imagem_comprovante = result
+          ..enviado = 0;
+
+        await service.insertCartaoItem(cartaoItem);
 
         return result;
       }
