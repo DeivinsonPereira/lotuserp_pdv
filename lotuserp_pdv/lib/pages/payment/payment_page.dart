@@ -418,14 +418,24 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //icones para escolha de forma de pagamento
-    Widget cardsPayment(IconData? icon, String text) {
+    Widget cardsPayment(IconData? icon, String text, String? descricao) {
       return InkWell(
         onTap: () {
+          if(descricao != null){
+           if(descricao == 'TEF DEBITO' || descricao == 'TEF CREDITO'){
+             showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return DialogWidget().keyboardNumber(pushSetState, text);
+              });
+             
+           } 
           showDialog(
               context: context,
               builder: (BuildContext context) {
                 return DialogWidget().keyboardNumber(pushSetState, text);
               });
+          }
         },
         child: Padding(
           padding: const EdgeInsets.only(top: 8.0),
@@ -806,7 +816,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       cardsPayment(
-                          tipoReceb, tipoRecebimento[index].descricao!),
+                          tipoReceb, tipoRecebimento[index].descricao!, tipoRecebimento[index].descricao),
                     ],
                   );
                 });
