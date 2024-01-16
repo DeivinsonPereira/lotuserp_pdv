@@ -87,7 +87,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                   colorText: Colors.white,
                   snackPosition: SnackPosition.BOTTOM);
             } else {
-              paymentController.zerarCampos();
               Get.toNamed(PagesRoutes.paymentRoute);
             }
           },

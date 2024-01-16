@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class PaymentController extends GetxController {
   TextEditingController paymentControllerText = TextEditingController();
 
+  var paymentTefId = [].obs;
 
   var installments = '1'.obs;
 
@@ -17,7 +18,6 @@ class PaymentController extends GetxController {
   void onInit() {
     super.onInit();
     totalPayment.value = '0,00';
-    paymentsTotal.clear();
   }
 
   void zerarCampos() {
@@ -41,6 +41,14 @@ class PaymentController extends GetxController {
   void clearInstallments() {
     installments.value = '1';
     update();
+  }
+
+  void updatePaymentTefId(int id) {
+    paymentTefId.add(id);
+  }
+
+  void clearPaymentTef() {
+    paymentTefId.clear();
   }
 
   //adicionar forma de pagamento e valor no paymentsTotal

@@ -19,8 +19,10 @@ import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
+import 'package:lotuserp_pdv/model/payment_model.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/tef_elgin_service.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
@@ -691,8 +693,22 @@ class IsarService {
       }
       await isar.venda_items.putAll(vendaItems);
       await isar.caixa_items.putAll(caixaItems);
-      pdvController.zerarCampos();
+
       await printerController.printVendas(venda, vendaItems);
+      for (var element in paymentController.paymentTefId) {
+        String comprovante = '';
+        var comp = await getCartaoItemById(element);
+        if (comp != null) {
+          comprovante = comp.imagem_comprovante;
+
+          printerController.printTransactionCard(comprovante);
+          await updateCartaoItem(element, venda.id_venda);
+          /*print('imprimindo imagem de transação: ${comprovante}');*/
+        }
+      }
+      pdvController.zerarCampos();
+      paymentController.paymentsTotal.clear();
+      paymentController.clearPaymentTef();
     });
     return isar;
   }
@@ -1087,11 +1103,39 @@ class IsarService {
 
   //cria um registro na tabela cartao_item
   Future<Isar> insertCartaoItem(cartao_item cartaoItem) async {
+    PaymentController controller = InjectionDependencies.paymentController();
     final isar = await db;
     isar.writeTxn(() async {
       await isar.cartao_items.put(cartaoItem);
+      controller.updatePaymentTefId(cartaoItem.id);
+      print(controller.paymentTefId.toString());
     });
     return isar;
+  }
+
+  Future<cartao_item?> getCartaoItemById(int id) async {
+    final isar = await db;
+
+    try {
+      return await isar.cartao_items.where().idEqualTo(id).findFirst();
+    } catch (e) {
+      // Lida com qualquer exceção que possa ocorrer
+      print("Erro ao buscar item: $e");
+      return null;
+    }
+  }
+
+  Future<void> updateCartaoItem(int id, int idVenda) async {
+    final isar = await db;
+
+    final cartao = await isar.cartao_items.where().idEqualTo(id).findFirst();
+
+    if (cartao != null) {
+      cartao.id_venda = idVenda;
+      await isar.cartao_items.put(cartao);
+    } else {
+      print("Erro ao buscar item: $id");
+    }
   }
 
   //abre o banco de dados

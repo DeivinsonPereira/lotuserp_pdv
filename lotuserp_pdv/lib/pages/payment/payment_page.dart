@@ -94,7 +94,7 @@ class _PaymentPageState extends State<PaymentPage> {
           } else {
             throw 'Erro na transação TEF: ${compDadosConf['mensagem']}';
           }
-          if (tefParams['funcao'] == 'TEF CREDITO') {
+          if (tefParams['funcao'] == 'credito') {
             Get.back();
           }
         } else {
@@ -208,9 +208,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               .paymentControllerText.text
                               .trim();
 
-                          if (text.isEmpty ||
-                              int.tryParse(text) == null ||
-                              text.isBlank == true) {
+                          if (text.isEmpty || int.tryParse(text) == null) {
                             Get.snackbar('Erro',
                                 'O campo não pode ser vazio, por favor preencha com um número de parcelas válidas.',
                                 backgroundColor: Colors.red,

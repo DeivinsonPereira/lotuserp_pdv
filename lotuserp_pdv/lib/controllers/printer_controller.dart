@@ -547,10 +547,10 @@ class PrinterController extends GetxController {
       bytes += generator.text('CONFERIDO EM: ___/___/_______');
       bytes +=
           generator.text('  CONFERENTE: _______________________________\n\n');
-
+      bytes += generator.cut();
       print('A impressão da movimentação de caixa está comentada');
-      /*String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);*/
+//      String textToPrint = String.fromCharCodes(bytes);
+//      await bluetoothManager.writeText(textToPrint);
     } on BTException {
       return;
     }
@@ -701,14 +701,17 @@ class PrinterController extends GetxController {
       bytes +=
           generator.text('________________________________________________');
 
+      bytes += generator.cut();
+
       print('A impressão da movimentação de caixa está comentada');
-      /* String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint); */
+//      String textToPrint = String.fromCharCodes(bytes);
+//      await bluetoothManager.writeText(textToPrint);
     } on BTException {
       return;
     }
   }
 
+  //Faz a impressão das transações de cartão
   Future<void> printTransactionCard(String result) async {
     final profile = await CapabilityProfile.load();
     final generator = Generator(
