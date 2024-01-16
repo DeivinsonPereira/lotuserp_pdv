@@ -306,161 +306,221 @@ class ButtonsPayment {
   //botão de desconto
   Widget textDiscountOnSale(BuildContext context, Function callback) {
     return TextButton(
-      onPressed: () {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                content: Row(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: SizedBox(
-                        height: 400,
-                        child: Padding(
-                          padding: const EdgeInsets.all(50.0),
-                          child: Row(children: [
-                            Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    buildNumberButton('1'),
-                                    buildNumberButton('2'),
-                                    buildNumberButton('3'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                Row(
-                                  children: [
-                                    buildNumberButton('4'),
-                                    buildNumberButton('5'),
-                                    buildNumberButton('6'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                Row(
-                                  children: [
-                                    buildNumberButton('7'),
-                                    buildNumberButton('8'),
-                                    buildNumberButton('9'),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 50,
-                                ),
-                                Row(
-                                  children: [
-                                    buildNumberButton('00'),
-                                    buildNumberButton('0'),
-                                    iconBackspace(),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ]),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: SizedBox(
-                        height: 350,
-                        width: 300,
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: const EdgeInsets.only(right: 5),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1, color: Colors.black),
-                                      color: CustomColors.informationBox,
-                                    ),
-                                    child: checkedDiscountBoxButton(
-                                        'Desconto em reais'),
+        onPressed: () {
+          Get.dialog(Dialog(
+            child: SizedBox(
+              height: 500,
+              width: 900,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        child: SizedBox(
+                          height: 400,
+                          child: Padding(
+                            padding: const EdgeInsets.all(50.0),
+                            child: Row(children: [
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      buildNumberButton('1'),
+                                      buildNumberButton('2'),
+                                      buildNumberButton('3'),
+                                    ],
                                   ),
-                                ),
-                                const SizedBox(width: 1),
-                                Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                          width: 1, color: Colors.black),
-                                      color: CustomColors.informationBox,
-                                    ),
-                                    child: checkedPercentualBoxButton(
-                                        'Desconto percentual'),
+                                  const SizedBox(
+                                    height: 50,
                                   ),
-                                )
-                              ],
-                            ),
-                            const SizedBox(height: 1),
-                            Container(
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                color: CustomColors.customContrastColor,
-                                border:
-                                    Border.all(width: 1, color: Colors.black),
+                                  Row(
+                                    children: [
+                                      buildNumberButton('4'),
+                                      buildNumberButton('5'),
+                                      buildNumberButton('6'),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 50,
+                                  ),
+                                  Row(
+                                    children: [
+                                      buildNumberButton('7'),
+                                      buildNumberButton('8'),
+                                      buildNumberButton('9'),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 50,
+                                  ),
+                                  Row(
+                                    children: [
+                                      buildNumberButton('00'),
+                                      buildNumberButton('0'),
+                                      iconBackspace(),
+                                    ],
+                                  ),
+                                ],
                               ),
-                              child: subtotalInDialog('Subtotal'),
-                            ),
-                          ],
+                            ]),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Get.back();
-                      controller.numbersDiscount('0,00');
-                      controller.discountPercentage(0.00);
-                      controller.discountPercentagecb2('0,00');
-                      controller.numbersDiscountcb2('0,00');
-                    },
-                    child: const Text(
-                      'CANCELAR',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      callback();
-                      Get.back();
-                    },
-                    child: const Text(
-                      'CONFIRMAR',
-                      style: TextStyle(color: Colors.black),
-                    ),
+                      Flexible(
+                        child: SizedBox(
+                          height: 500,
+                          width: 400,
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 25.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding:
+                                            const EdgeInsets.only(right: 5),
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 1, color: Colors.black),
+                                          color: CustomColors.informationBox,
+                                        ),
+                                        child: checkedDiscountBoxButton(
+                                            'Desconto em reais'),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 1),
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                              width: 1, color: Colors.black),
+                                          color: CustomColors.informationBox,
+                                        ),
+                                        child: checkedPercentualBoxButton(
+                                            'Desconto percentual'),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 1),
+                              Container(
+                                padding: const EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: CustomColors.customContrastColor,
+                                  border:
+                                      Border.all(width: 1, color: Colors.black),
+                                ),
+                                child: subtotalInDialog('Subtotal'),
+                              ),
+                              const Expanded(child: SizedBox()),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 25.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                              width: 1, color: Colors.black),
+                                        ),
+                                        width: 200,
+                                        height: 60,
+                                        child: Center(
+                                          child: TextButton(
+                                            onPressed: () {
+                                              Get.back();
+                                              controller
+                                                  .numbersDiscount('0,00');
+                                              controller
+                                                  .discountPercentage(0.00);
+                                              controller.discountPercentagecb2(
+                                                  '0,00');
+                                              controller
+                                                  .numbersDiscountcb2('0,00');
+                                            },
+                                            child: const Text(
+                                              'CANCELAR',
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 1,
+                                    ),
+                                    Expanded(
+                                      child: Padding(
+                                        padding: EdgeInsets.zero,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                                width: 1, color: Colors.black),
+                                            color:
+                                                CustomColors.confirmButtonColor,
+                                          ),
+                                          width: 200,
+                                          height: 60,
+                                          child: Center(
+                                            child: TextButton(
+                                              onPressed: () {
+                                                callback();
+                                                Get.back();
+                                              },
+                                              child: const Text(
+                                                'CONFIRMAR',
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
-              );
-            });
-      },
-      child: Row(
-        children: [
-          Icon(
-            FontAwesomeIcons.tags,
-            color: CustomColors.customSwatchColor,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            'Desconto na venda',
-            style: TextStyle(color: CustomColors.customSwatchColor),
-          ),
-          const SizedBox(
-            width: 20,
-          )
-        ],
-      ),
-    );
+              ),
+            ),
+          ));
+        },
+        child: Row(
+          children: [
+            Icon(
+              FontAwesomeIcons.tags,
+              color: CustomColors.customSwatchColor,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              'Desconto na venda',
+              style: TextStyle(color: CustomColors.customSwatchColor),
+            ),
+            const SizedBox(
+              width: 20,
+            )
+          ],
+        ));
   }
 }
