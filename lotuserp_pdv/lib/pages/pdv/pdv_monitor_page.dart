@@ -694,8 +694,20 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
           // Icone de voltar
           IconButton(
             onPressed: () {
-              controller.pedidos.clear();
-              Get.offNamed(PagesRoutes.homePageRoute);
+              bool tefPaymentOpen = paymentController.paymentsTotal.any(
+                  (pagamento) => pagamento['transacaoBemSucedida'] == true);
+              if (tefPaymentOpen == true) {
+                Get.snackbar(
+                  'Error',
+                  'Existem pagamentos em aberto, por favor finalize para voltar.',
+                  backgroundColor: Colors.red,
+                  colorText: Colors.white,
+                  snackPosition: SnackPosition.BOTTOM,
+                );
+              } else {
+                controller.pedidos.clear();
+                Get.offNamed(PagesRoutes.homePageRoute);
+              }
             },
             icon: const Icon(
               Icons.arrow_back,
