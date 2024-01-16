@@ -724,44 +724,24 @@ class PrinterController extends GetxController {
       await connectDevice();
       if (!isConnected.value) return;
 
-      // Extração dos dados
-      // Decodificação dos dados JSON
       Map<String, dynamic> data = jsonDecode(result);
-      Map<String, dynamic> compDadosConf = jsonDecode(data['COMP_DADOS_CONF']);
 
-      // Extração de informações comuns
-      String codAutorizacao = data['COD_AUTORIZACAO'];
-      String valor = compDadosConf['valor'];
-      String numCartao = compDadosConf['numeroCartao'];
-      String mensagemAutorizacao = compDadosConf['mensagem'];
-      String dataHoraTransacao = compDadosConf['data'];
-
-      // Extração da Via do Cliente e do Estabelecimento
       String viaCliente = data['VIA_CLIENTE'];
       String viaEstabelecimento = data['VIA_ESTABELECIMENTO'];
 
-      // Formatação dos dados para impressão
-      String formattedData =
-          "Via do Cliente:\n$viaCliente\n\nVia do Estabelecimento:\n$viaEstabelecimento";
-      print(formattedData);
-      // Impressão dos dados formatados
-      bytes += generator.text(formattedData);
+      bytes += generator.text("Via do Cliente:\n$viaCliente");
+      bytes += generator.cut();
+      bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
+      bytes += generator.cut();
 
       print('A impressão da transação está comentada');
-      /* String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint); */
+//      String textToPrint = String.fromCharCodes(bytes);
+//      await bluetoothManager.writeText(textToPrint);
 
       //formatação da impressão
       bytes += generator.text(result);
     } on BTException {
       return;
     }
-  }
-
-  String extrairDadosVia(String viaTexto) {
-    // Aqui, você pode usar expressões regulares ou outros métodos de string para extrair os dados
-    // Exemplo: Extrair CNPJ, nome do estabelecimento, número da compra, etc.
-    // Retorne os dados formatados conforme necessário
-    return viaTexto; // Substitua isso pela sua lógica de extração específica
   }
 }

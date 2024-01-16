@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -93,10 +94,12 @@ class _PaymentPageState extends State<PaymentPage> {
           } else {
             throw 'Erro na transação TEF: ${compDadosConf['mensagem']}';
           }
+          if (tefParams['funcao'] == 'TEF CREDITO') {
+            Get.back();
+          }
         } else {
           throw 'Resposta do TEF inválida';
         }
-        Get.back();
       } catch (e) {
         Get.snackbar(
           'Erro',
@@ -155,8 +158,16 @@ class _PaymentPageState extends State<PaymentPage> {
                       width: 250,
 
                       //Caixa de texto
-                      child: TextField(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            paymentController.installments.value = '';
+                          }
+                        },
                         keyboardType: TextInputType.number,
+                        inputFormatters: [
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         controller: paymentController.paymentControllerText,
                         decoration: const InputDecoration(
                           border: OutlineInputBorder(),
@@ -193,8 +204,27 @@ class _PaymentPageState extends State<PaymentPage> {
                       height: 50,
                       child: TextButton(
                         onPressed: () {
-                          paymentController.updateInstallments();
-                          processTefPayment(payment);
+                          String text = paymentController
+                              .paymentControllerText.text
+                              .trim();
+
+                          if (text.isEmpty ||
+                              int.tryParse(text) == null ||
+                              text.isBlank == true) {
+                            Get.snackbar('Erro',
+                                'O campo não pode ser vazio, por favor preencha com um número de parcelas válidas.',
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                snackPosition: SnackPosition.BOTTOM);
+                          } else if (int.parse(text) <= 0) {
+                            Get.snackbar('Erro', 'Parcelas inválidas',
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                snackPosition: SnackPosition.BOTTOM);
+                          } else {
+                            paymentController.updateInstallments();
+                            processTefPayment(payment);
+                          }
                         },
                         child: const Text(
                           'CONTINUAR',

@@ -47,7 +47,7 @@ abstract class TefService {
           ..enviado = 0;
 
         await service.insertCartaoItem(cartaoItem);
-        await printerController.printTransactionCard(result);
+        /*await printerController.printTransactionCard(result);*/
 
         return result;
       }
