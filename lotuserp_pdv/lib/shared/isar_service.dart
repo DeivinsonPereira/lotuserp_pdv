@@ -1106,7 +1106,6 @@ class IsarService {
     isar.writeTxn(() async {
       await isar.cartao_items.put(cartaoItem);
       controller.updatePaymentTefId(cartaoItem.id);
-      print(controller.paymentTefId.toString());
     });
     return isar;
   }

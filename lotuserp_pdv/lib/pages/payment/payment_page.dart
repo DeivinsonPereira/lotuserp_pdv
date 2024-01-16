@@ -10,6 +10,7 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
+import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/common/format_numbers.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
@@ -62,13 +63,16 @@ class _PaymentPageState extends State<PaymentPage> {
 
       try {
         // Formata o valor para centavos
-        String valorTransacaoAux =
+        String valorFormatado =
             valorTransacao.replaceAll(RegExp(r'[.,]'), '');
-        String valorFormatado = valorTransacaoAux;
 
         // Prepara os parâmetros para a chamada TEF
         Map<String, String> tefParams = {
-          'funcao': paymentType == 'TEF DEBITO' ? 'debito' : 'credito',
+          'funcao': paymentType == 'TEF DEBITO'
+              ? 'debito'
+              : paymentType == 'TEF CREDITO'
+                  ? 'credito'
+                  : 'pix',
           'valor': valorFormatado,
           // Adicione outros parâmetros necessários
         };
@@ -103,7 +107,7 @@ class _PaymentPageState extends State<PaymentPage> {
       } catch (e) {
         Get.snackbar(
           'Erro',
-          'Erro na transação TEF: $e',
+          'Erro na transação TEF: Operação cancelada',
           backgroundColor: Colors.red,
           colorText: Colors.white,
           snackPosition: SnackPosition.BOTTOM,
@@ -161,7 +165,9 @@ class _PaymentPageState extends State<PaymentPage> {
                       child: TextFormField(
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            paymentController.installments.value = '';
+                            return paymentController.installments.value = '';
+                          } else {
+                            return null;
                           }
                         },
                         keyboardType: TextInputType.number,
@@ -239,6 +245,7 @@ class _PaymentPageState extends State<PaymentPage> {
       );
     }
 
+    // botão para iniciar a transação TEF
     Widget buildPaymentButton(Map<String, dynamic> payment) {
       IconData icon =
           payment['transacaoBemSucedida'] ? Icons.check : Icons.credit_card;
@@ -261,7 +268,8 @@ class _PaymentPageState extends State<PaymentPage> {
           onPressed: () {
             paymentController.paymentControllerText.text = '1';
             !payment['transacaoBemSucedida']
-                ? payment['nome'] == 'TEF DEBITO'
+                ? payment['nome'] == 'TEF DEBITO' ||
+                        payment['nome'] == 'PIX INTEGRADO'
                     ? processTefPayment(payment)
                     : Get.dialog(choiceNumbersOfInstallments(payment))
                 : Get.snackbar('Erro', 'Pagamento já processado',
@@ -421,20 +429,16 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget cardsPayment(IconData? icon, String text, String? descricao) {
       return InkWell(
         onTap: () {
-          if(descricao != null){
-           if(descricao == 'TEF DEBITO' || descricao == 'TEF CREDITO'){
-             showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return DialogWidget().keyboardNumber(pushSetState, text);
-              });
-             
-           } 
-          showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return DialogWidget().keyboardNumber(pushSetState, text);
-              });
+          if (descricao != null) {
+            if (descricao == 'TEF DEBITO' ||
+                descricao == 'TEF CREDITO' ||
+                descricao == 'POS - CARTAO CREDITO' ||
+                descricao == 'POS - CARTAO DEBITO') {
+              Get.dialog(DialogWidget()
+                  .keyboardNumber(pushSetState, text, isTef: true));
+            } else {
+              Get.dialog(DialogWidget().keyboardNumber(pushSetState, text));
+            }
           }
         },
         child: Padding(
@@ -678,7 +682,20 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                   child: IconButton(
                                     onPressed: () {
-                                      _.deletePayment(index);
+                                      if (_.paymentsTotal[index]
+                                              ['transacaoBemSucedida'] ==
+                                          true) {
+                                        const CustomSnackBar(
+                                                title: 'Erro',
+                                                message:
+                                                    'Pagamento não pode ser excluído, pois, já foi precessado.',
+                                                icon: Icons.error,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white)
+                                            .show();
+                                      } else {
+                                        _.deletePayment(index);
+                                      }
                                     },
                                     icon: const Icon(
                                       FontAwesomeIcons.trash,
@@ -714,7 +731,10 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                 ),
                                 payment[index]['nome'] == 'TEF DEBITO' ||
-                                        payment[index]['nome'] == 'TEF CREDITO'
+                                        payment[index]['nome'] ==
+                                            'TEF CREDITO' ||
+                                        payment[index]['nome'] ==
+                                            'PIX INTEGRADO'
                                     ? buildPaymentButton(payment[index])
                                     : Container(),
                               ],
@@ -815,8 +835,8 @@ class _PaymentPageState extends State<PaymentPage> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      cardsPayment(
-                          tipoReceb, tipoRecebimento[index].descricao!, tipoRecebimento[index].descricao),
+                      cardsPayment(tipoReceb, tipoRecebimento[index].descricao!,
+                          tipoRecebimento[index].descricao),
                     ],
                   );
                 });

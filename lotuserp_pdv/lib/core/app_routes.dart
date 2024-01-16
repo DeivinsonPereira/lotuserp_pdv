@@ -12,7 +12,6 @@ import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/splash/splash_page.dart';
 
 import '../pages/home/Home_Monitor_page.dart';
-import '../pages/payment/component/sucess_screen.dart';
 import '../pages/printer/printer_page.dart';
 
 // CONFIGURA AS ROTAS
@@ -70,10 +69,6 @@ abstract class AppPages {
       name: PagesRoutes.printerPageRoute,
       page: () => const PrinterPage(),
     ),
-    GetPage(
-      name: PagesRoutes.successScreen,
-      page: () => const SuccessScreen(data: {}),
-    ),
   ];
 }
 
@@ -92,5 +87,4 @@ abstract class PagesRoutes {
   static const String products = '/products';
   static const String loadData = '/load_data';
   static const String printerPageRoute = '/printer_page';
-  static const String successScreen = '/success_screen';
 }
