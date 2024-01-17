@@ -18,11 +18,11 @@ class IconButtonSideBar extends StatelessWidget {
   final IconData icon;
   final String text;
   String? navigationIcon;
-  bool? abrirCaixa = false;
-  bool? movimentarCaixa = false;
-  bool? pdv = false;
-  bool? loadData = false;
-  bool? fecharCaixa = false;
+  bool? isAbrirCaixa = false;
+  bool? isMovimentarCaixa = false;
+  bool? isPdv = false;
+  bool? isLoadData = false;
+  bool? isFecharCaixa = false;
   bool? isSegundaVia = false;
 
   IconButtonSideBar(
@@ -30,11 +30,11 @@ class IconButtonSideBar extends StatelessWidget {
       required this.icon,
       required this.text,
       this.navigationIcon,
-      this.abrirCaixa,
-      this.movimentarCaixa,
-      this.pdv,
-      this.loadData,
-      this.fecharCaixa,
+      this.isAbrirCaixa,
+      this.isMovimentarCaixa,
+      this.isPdv,
+      this.isLoadData,
+      this.isFecharCaixa,
       this.isSegundaVia})
       : super(key: key);
 
@@ -51,16 +51,16 @@ class IconButtonSideBar extends StatelessWidget {
         bool caixaExistente =
             await service.checkUserCaixa(dadosUsuario!.id_user!);
 
-        if (abrirCaixa == true) {
+        if (isAbrirCaixa == true) {
           caixaExistente
               ? const CustomSnackBar(
                       message:
                           'Já existe um caixa aberto para o usuário logado.')
                   .show()
               : Get.dialog(const OpenRegisterPage());
-        } else if (movimentarCaixa == true ||
-            pdv == true ||
-            fecharCaixa == true ||
+        } else if (isMovimentarCaixa == true ||
+            isPdv == true ||
+            isFecharCaixa == true ||
             isSegundaVia == true) {
           if (!caixaExistente) {
             const CustomSnackBar(
@@ -68,17 +68,17 @@ class IconButtonSideBar extends StatelessWidget {
                         'Não existe um caixa aberto para o usuário logado.')
                 .show();
           } else {
-            if (movimentarCaixa == true) {
+            if (isMovimentarCaixa == true) {
               Get.dialog(const MovimentCashPage());
-            } else if (pdv == true) {
+            } else if (isPdv == true) {
               Get.offAndToNamed(PagesRoutes.pdvMonitor);
-            } else if (fecharCaixa == true) {
+            } else if (isFecharCaixa == true) {
               Get.dialog(const CloseRegisterPage());
             } else if (isSegundaVia == true) {
               Get.dialog(const SecondCopyPage());
             }
           }
-        } else if (loadData == true) {
+        } else if (isLoadData == true) {
           Get.dialog(const LoadDataPage());
         } else {
           Get.offAndToNamed(navigationIcon!);

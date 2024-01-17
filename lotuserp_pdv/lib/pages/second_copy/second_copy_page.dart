@@ -72,6 +72,7 @@ class SecondCopyPage extends StatelessWidget {
                       int idCaixaAberto = informationController.caixaId.value;
                       bool caixaValido = data[index].id_caixa == idCaixaAberto;
 
+                      // TRAZ AS INFORMAÇÕES DAS TRANSAÇÕES EFETUADAS ATRAVÉS DO CARTÃO
                       return caixaValido
                           ? Column(
                               children: [

@@ -97,12 +97,12 @@ class DrawerWidget extends StatelessWidget {
               navigationIcon: IconButtonList.iconButtonlist[i]
                   ['navigationIcon'],
               text: IconButtonList.iconButtonlist[i]['text'],
-              loadData: IconButtonList.iconButtonlist[i]['loadData'],
-              abrirCaixa: IconButtonList.iconButtonlist[i]['abrirCaixa'],
-              movimentarCaixa: IconButtonList.iconButtonlist[i]
+              isLoadData: IconButtonList.iconButtonlist[i]['loadData'],
+              isAbrirCaixa: IconButtonList.iconButtonlist[i]['abrirCaixa'],
+              isMovimentarCaixa: IconButtonList.iconButtonlist[i]
                   ['movimentarCaixa'],
-              pdv: IconButtonList.iconButtonlist[i]['pdv'],
-              fecharCaixa: IconButtonList.iconButtonlist[i]['fecharCaixa'],
+              isPdv: IconButtonList.iconButtonlist[i]['pdv'],
+              isFecharCaixa: IconButtonList.iconButtonlist[i]['fecharCaixa'],
               isSegundaVia: IconButtonList.iconButtonlist[i]['isSegundaVia'],
             )
           }
