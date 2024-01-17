@@ -58,7 +58,7 @@ class SecondCopyPage extends StatelessWidget {
                 }
                 var data = snapshot.data!;
                 return SizedBox(
-                  height: constraints.maxHeight * 0.6,
+                  height: constraints.maxHeight * 0.65,
                   child: ListView.builder(
                     itemCount: snapshot.data!.length,
                     itemBuilder: (context, index) {
@@ -69,7 +69,6 @@ class SecondCopyPage extends StatelessWidget {
                       var valor =
                           formatoBrasileiro.format(data[index].valor_doc);
 
-                      
                       int idCaixaAberto = informationController.caixaId.value;
                       bool caixaValido = data[index].id_caixa == idCaixaAberto;
 

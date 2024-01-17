@@ -774,9 +774,7 @@ class PrinterController extends GetxController {
       bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
       bytes += generator.cut();
 
-      print(
-          "Via do Cliente:\n$viaCliente Via do Estabelecimento:\n$viaEstabelecimento");
-//      print('A impressão da transação está comentada');
+      print('A impressão da transação está comentada');
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {

@@ -76,12 +76,12 @@ class IconButtonSideBar extends StatelessWidget {
               Get.dialog(const CloseRegisterPage());
             } else if (isSegundaVia == true) {
               Get.dialog(const SecondCopyPage());
-            } else if (loadData == true) {
-              Get.dialog(const LoadDataPage());
-            } else {
-              Get.offAndToNamed(navigationIcon!);
             }
           }
+        } else if (loadData == true) {
+          Get.dialog(const LoadDataPage());
+        } else {
+          Get.offAndToNamed(navigationIcon!);
         }
       },
       child: Padding(
