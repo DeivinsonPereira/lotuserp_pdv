@@ -13,8 +13,8 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../collections/tipo_recebimento.dart';
+import '../../services/injection_dependencies.dart';
 import '../common/header_popup.dart';
-import '../common/injection_dependencies.dart';
 
 class CloseRegisterPage extends StatelessWidget {
   const CloseRegisterPage({super.key});
@@ -78,6 +78,7 @@ class CloseRegisterPage extends StatelessWidget {
                   }
                   await printerController.printCloseCaixa(fechamentosCaixa);
                   await service.insertCaixaFechamento(fechamentosCaixa);
+                  await service.deleteCartaoItem();
                   Get.back();
                 },
                 child: const Text(

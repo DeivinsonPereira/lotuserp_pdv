@@ -3,15 +3,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
+import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../services/injection_dependencies.dart';
 import '../common/header_popup.dart';
 
 class OpenRegisterPage extends StatelessWidget {
@@ -23,6 +24,8 @@ class OpenRegisterPage extends StatelessWidget {
         InjectionDependencies.passwordController();
     MovimentRegisterController movimentRegisterController =
         InjectionDependencies.movimentRegisterController();
+    InformationController informationController =
+        InjectionDependencies.informationController();
     IsarService service = IsarService();
 
     var userName = passwordController.userController.text;
@@ -259,6 +262,7 @@ class OpenRegisterPage extends StatelessWidget {
                               !caixaExistente) {
                             service.insertCaixa(caixas);
                             movimentRegisterController.clearOpenRegister();
+                            informationController.searchCaixaId();
                             Get.back();
                           } else if (caixaExistente) {
                             Get.snackbar(

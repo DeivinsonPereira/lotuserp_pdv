@@ -6,9 +6,6 @@ import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printe
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
-import 'package:lotuserp_pdv/pages/common/datetime_formatter_widget.dart';
-import 'package:lotuserp_pdv/pages/common/format_numbers.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/caixa.dart';
@@ -20,6 +17,9 @@ import '../collections/usuario_logado.dart';
 import '../collections/venda.dart';
 import '../collections/venda_item.dart';
 import '../pages/payment/component/row_widget.dart';
+import '../services/datetime_formatter_widget.dart';
+import '../services/format_numbers.dart';
+import '../services/injection_dependencies.dart';
 import 'global_controller.dart';
 import 'side_bar_controller.dart';
 
@@ -742,7 +742,43 @@ class PrinterController extends GetxController {
 //      await bluetoothManager.writeText(textToPrint);
 
       //formatação da impressão
-      bytes += generator.text(result);
+      //bytes += generator.text(result); //FIX: TALVEZ NÂO PRECISA - VERIFICAR
+    } on BTException {
+      return;
+    }
+  }
+
+  //Faz a impressão das transações de cartão
+  Future<void> printSegundaVia(String imagemComprovante) async {
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(
+      PaperSize.mm80,
+      profile,
+    );
+
+    List<int> bytes = [];
+
+    if (selectedPrinter == null) return;
+
+    try {
+      await connectDevice();
+      if (!isConnected.value) return;
+
+      Map<String, dynamic> data = jsonDecode(imagemComprovante);
+
+      String viaCliente = data['VIA_CLIENTE'];
+      String viaEstabelecimento = data['VIA_ESTABELECIMENTO'];
+
+      bytes += generator.text("Via do Cliente:\n$viaCliente");
+      bytes += generator.cut();
+      bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
+      bytes += generator.cut();
+
+      print(
+          "Via do Cliente:\n$viaCliente Via do Estabelecimento:\n$viaEstabelecimento");
+//      print('A impressão da transação está comentada');
+//      String textToPrint = String.fromCharCodes(bytes);
+//      await bluetoothManager.writeText(textToPrint);
     } on BTException {
       return;
     }

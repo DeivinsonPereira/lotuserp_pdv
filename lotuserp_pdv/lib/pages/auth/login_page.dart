@@ -6,8 +6,8 @@ import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
+import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/printer_controller.dart';
@@ -132,13 +132,11 @@ class LoginPage extends StatelessWidget {
                                   onPressed: () async {
                                     //verifica se os campos estão vazios
                                     if (areFieldsEmpty()) {
-                                      Get.snackbar(
-                                        'Campos vazios',
-                                        'Por favor, preencha todos os campos.',
-                                        backgroundColor: Colors.red,
-                                        colorText: Colors.white,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                      );
+                                      const CustomSnackBar(
+                                              message:
+                                                  'Por favor, preencha todos os campos.')
+                                          .show();
+
                                       return;
                                     }
                                     String login = passwordController
@@ -149,24 +147,18 @@ class LoginPage extends StatelessWidget {
 
                                     // Verifica se o login existe
                                     if (savedLogin == null) {
-                                      Get.snackbar(
-                                        'Login inválido',
-                                        'O login digitado não existe. Por favor, tente novamente.',
-                                        backgroundColor: Colors.red,
-                                        colorText: Colors.white,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                      );
+                                      const CustomSnackBar(
+                                        message:
+                                            'O login digitado não existe. Por favor, tente novamente.',
+                                      ).show();
                                       return;
                                     }
 
                                     if (await areloginEquals() == false) {
-                                      Get.snackbar(
-                                        'Login inválido',
-                                        'O Usuario digitado não existe. Por favor, tente novamente.',
-                                        backgroundColor: Colors.red,
-                                        colorText: Colors.white,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                      );
+                                      const CustomSnackBar(
+                                        message:
+                                            'O Usuario digitado não existe. Por favor, tente novamente.',
+                                      ).show();
                                     }
 
                                     // Verifica se login está igual ao usuario digitado
@@ -185,13 +177,10 @@ class LoginPage extends StatelessWidget {
                                       await Get.offNamed(
                                           PagesRoutes.homePageRoute);
                                     } else {
-                                      Get.snackbar(
-                                        'Senha incorreta',
-                                        'A senha digitada está incorreta. Por favor, tente novamente.',
-                                        backgroundColor: Colors.red,
-                                        colorText: Colors.white,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                      );
+                                      const CustomSnackBar(
+                                        message:
+                                            'A senha digitada está incorreta. Por favor, tente novamente.',
+                                      ).show();
                                     }
 
                                     passwordController.clear();

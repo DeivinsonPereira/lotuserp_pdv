@@ -76,15 +76,10 @@ class LoadController extends GetxController {
       }
     } else {
       const CustomSnackBar(
-              title: 'Erro',
-              message:
-                  'Erro ao conectar ao servidor. Tente novamente mais tarde!',
-              icon: Icons.error,
-              backgroundColor: Colors.red,
-              textColor: Colors.white)
-          .show();
-          isLoading = false.obs;
-        update();
+        message: 'Erro ao conectar ao servidor. Tente novamente mais tarde!',
+      ).show();
+      isLoading = false.obs;
+      update();
     }
   }
 
@@ -105,13 +100,8 @@ class LoadController extends GetxController {
       }
     } catch (e) {
       const CustomSnackBar(
-              title: 'Erro',
-              message:
-                  'Erro ao conectar ao servidor. Tente novamente mais tarde!',
-              icon: Icons.error,
-              backgroundColor: Colors.red,
-              textColor: Colors.white)
-          .show();
+        message: 'Erro ao conectar ao servidor. Tente novamente mais tarde!',
+      ).show();
     }
 
     var resultado = await Connectivity().checkConnectivity();

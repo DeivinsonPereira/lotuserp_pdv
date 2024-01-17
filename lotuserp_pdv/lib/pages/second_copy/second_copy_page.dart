@@ -1,0 +1,135 @@
+import 'package:flutter/material.dart';
+import 'package:lotuserp_pdv/controllers/information_controller.dart';
+import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
+import 'package:lotuserp_pdv/pages/second_copy/component/legend_informations.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
+
+import '../../services/injection_dependencies.dart';
+import '../common/header_popup.dart';
+
+class SecondCopyPage extends StatelessWidget {
+  const SecondCopyPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    IsarService service = IsarService();
+    InformationController informationController =
+        InjectionDependencies.informationController();
+
+    // CONTEÚDO - DADOS DO REGISTRO DO CARTÃO E IMPRIMIR
+    Widget dataCardAndPrint(BoxConstraints constraints) {
+      return Expanded(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Row(
+                children: [
+                  // LEGENDA
+                  LegendInformation(
+                    id: 'Id',
+                    data: 'Data',
+                    hora: 'Hora',
+                    idVenda: 'Id Venda',
+                    valor: 'Valor',
+                    isPrint: false,
+                  )
+                ],
+              ),
+            ),
+            const Divider(
+              color: Colors.grey,
+            ),
+
+            // CONTEÚDO - DADOS DO REGISTRO DO CARTÃO
+            StreamBuilder(
+              stream: service.listenCartaoItem(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Text('');
+                }
+                if (snapshot.hasError) {
+                  const CustomSnackBar(
+                          message:
+                              'Ocorreu um erro ao buscar os registros de transações efetuadas. Tente novamente mais tarde')
+                      .show();
+                }
+                var data = snapshot.data!;
+                return SizedBox(
+                  height: constraints.maxHeight * 0.6,
+                  child: ListView.builder(
+                    itemCount: snapshot.data!.length,
+                    itemBuilder: (context, index) {
+                      var date = DatetimeFormatterWidget.formatDate(
+                          data[index].data_lanca);
+                      var hour = DatetimeFormatterWidget.formatHour(
+                          data[index].data_lanca);
+                      var valor =
+                          formatoBrasileiro.format(data[index].valor_doc);
+
+                      
+                      int idCaixaAberto = informationController.caixaId.value;
+                      bool caixaValido = data[index].id_caixa == idCaixaAberto;
+
+                      return caixaValido
+                          ? Column(
+                              children: [
+                                SizedBox(
+                                  height: 40,
+                                  child: LegendInformation(
+                                    id: data[index].id.toString(),
+                                    data: date,
+                                    hora: hour,
+                                    idVenda: data[index].id_venda.toString(),
+                                    valor: valor,
+                                    isPrint: true,
+                                    isCartao: true,
+                                    index: index,
+                                    imagemComprovante:
+                                        data[index].imagem_comprovante,
+                                  ),
+                                ),
+                                const Divider(
+                                  color: Colors.grey,
+                                ),
+                              ],
+                            )
+                          : Container();
+                    },
+                  ),
+                );
+              },
+            )
+          ],
+        ),
+      );
+    }
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+          ),
+          child: SizedBox(
+              width: constraints.maxWidth * 0.5,
+              height: constraints.maxHeight * 0.8,
+              child: Column(
+                children: [
+                  // CABEÇALHO
+                  const HeaderPopup(
+                    icon: Icons.print,
+                    text: 'Impressão 2ª via',
+                  ),
+
+                  // CONTEÚDO - DADOS DO REGISTRO DO CARTÃO E IMPRIMIR
+                  dataCardAndPrint(constraints),
+                ],
+              )),
+        );
+      },
+    );
+  }
+}

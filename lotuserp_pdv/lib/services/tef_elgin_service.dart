@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/cartao_item.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../controllers/information_controller.dart';

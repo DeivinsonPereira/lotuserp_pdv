@@ -11,13 +11,13 @@ import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/pages/common/format_numbers.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../services/format_numbers.dart';
+import '../../services/injection_dependencies.dart';
 import '../../services/tef_elgin_service.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -63,8 +63,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
       try {
         // Formata o valor para centavos
-        String valorFormatado =
-            valorTransacao.replaceAll(RegExp(r'[.,]'), '');
+        String valorFormatado = valorTransacao.replaceAll(RegExp(r'[.,]'), '');
 
         // Prepara os parâmetros para a chamada TEF
         Map<String, String> tefParams = {
@@ -105,13 +104,9 @@ class _PaymentPageState extends State<PaymentPage> {
           throw 'Resposta do TEF inválida';
         }
       } catch (e) {
-        Get.snackbar(
-          'Erro',
-          'Erro na transação TEF: Operação cancelada',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          snackPosition: SnackPosition.BOTTOM,
-        );
+        const CustomSnackBar(
+          message: 'Erro na transação TEF: Operação cancelada',
+        ).show();
         // Trata o erro
         logger.e('Erro durante a transação TEF: $e');
       }
@@ -686,13 +681,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                               ['transacaoBemSucedida'] ==
                                           true) {
                                         const CustomSnackBar(
-                                                title: 'Erro',
-                                                message:
-                                                    'Pagamento não pode ser excluído, pois, já foi precessado.',
-                                                icon: Icons.error,
-                                                backgroundColor: Colors.red,
-                                                textColor: Colors.white)
-                                            .show();
+                                          message:
+                                              'Pagamento não pode ser excluído, pois, já foi precessado.',
+                                        ).show();
                                       } else {
                                         _.deletePayment(index);
                                       }

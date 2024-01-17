@@ -13,14 +13,14 @@ import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/common/format_txt.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/global_controller.dart';
 import '../../controllers/search_product_pdv_controller.dart';
-import '../common/injection_dependencies.dart';
+import '../../services/format_txt.dart';
+import '../../services/injection_dependencies.dart';
 import '../product/product_monitor_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {

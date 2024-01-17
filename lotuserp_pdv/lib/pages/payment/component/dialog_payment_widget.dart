@@ -4,7 +4,8 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
+
+import '../../../services/injection_dependencies.dart';
 
 class DialogWidget {
   PaymentController controller = InjectionDependencies.paymentController();

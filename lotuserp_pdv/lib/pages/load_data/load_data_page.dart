@@ -5,9 +5,9 @@ import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/load_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 
+import '../../services/injection_dependencies.dart';
 import '../common/header_popup.dart';
 
 class LoadDataPage extends StatelessWidget {

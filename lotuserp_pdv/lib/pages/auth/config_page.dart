@@ -7,9 +7,9 @@ import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../services/injection_dependencies.dart';
 import '../common/loading_screen.dart';
 
 class ConfigPage extends StatefulWidget {
@@ -194,11 +194,7 @@ class _ConfigPageState extends State<ConfigPage> {
                             onPressed: () async {
                               if (controller!.text.isEmpty) {
                                 const CustomSnackBar(
-                                  title: 'Erro',
                                   message: 'O campo obrigatório',
-                                  icon: Icons.error,
-                                  backgroundColor: Colors.red,
-                                  textColor: Colors.white,
                                 ).show();
                               } else {
                                 textFieldController.salvarInformacoesContrato();
@@ -304,47 +300,27 @@ class _ConfigPageState extends State<ConfigPage> {
     bool verificacoes() {
       if (textFieldController.numContratoEmpresaController.text.isEmpty) {
         const CustomSnackBar(
-          title: 'Erro',
           message: 'IP obrigatório',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
         ).show();
         return true;
       } else if (textFieldController.idEmpresaController.text.isEmpty) {
         const CustomSnackBar(
-          title: 'Erro',
           message: 'ID da empresa obrigatório',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
         ).show();
         return true;
       } else if (textFieldController.idSerieNfceController.text.isEmpty) {
         const CustomSnackBar(
-          title: 'Erro',
           message: 'ID da serie NFCe obrigatório',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
         ).show();
         return true;
       } else if (textFieldController.numCaixaController.text.isEmpty) {
         const CustomSnackBar(
-          title: 'Erro',
           message: 'Numero do caixa obrigatorio',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
         ).show();
         return true;
       } else if (textFieldController.intervaloEnvioController.text.isEmpty) {
         const CustomSnackBar(
-          title: 'Erro',
           message: 'intervalo de envio obrigatorio',
-          icon: Icons.error,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
         ).show();
         return true;
       } else {

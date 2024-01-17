@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
+import '../../services/injection_dependencies.dart';
 import 'component/drawer.dart';
 
 //principal class
@@ -18,6 +18,7 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
     // ignore: unused_local_variable
     SideBarController sideBarController =
         InjectionDependencies.sidebarController();
+    InjectionDependencies.informationController();
 
     var size = MediaQuery.of(context).size;
 

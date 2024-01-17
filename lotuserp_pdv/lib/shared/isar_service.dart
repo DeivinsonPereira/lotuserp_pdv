@@ -20,7 +20,7 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +29,7 @@ import 'package:logger/logger.dart';
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
 import '../core/app_routes.dart';
-import '../pages/common/datetime_formatter_widget.dart';
+import '../services/injection_dependencies.dart';
 
 Map<String, String> _headers = {
   'content-type': 'application/json',
@@ -820,23 +820,15 @@ class IsarService {
         } else {
           !isCorrectUrl
               ? const CustomSnackBar(
-                      title: 'Erro',
-                      message: 'Numero de contrato inválido',
-                      icon: Icons.error,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white)
-                  .show()
+                  message: 'Numero de contrato inválido',
+                ).show()
               : '';
         }
       }
     } catch (e) {
       const CustomSnackBar(
-        title: 'Erro',
         message:
             'Falha ao buscar dados da empresa. Tente novamente mais tarde!',
-        icon: Icons.error,
-        backgroundColor: Colors.red,
-        textColor: Colors.white,
       ).show();
     }
     return "";
@@ -974,7 +966,7 @@ class IsarService {
       return caixas.id_caixa;
     }
 
-    return null;
+    return 0;
   }
 
   //busca o objeto do caixa de acordo com o idUser e status 0
@@ -1110,6 +1102,7 @@ class IsarService {
     return isar;
   }
 
+  //buscar o cartaoItem pelo id
   Future<cartao_item?> getCartaoItemById(int id) async {
     final isar = await db;
 
@@ -1117,11 +1110,12 @@ class IsarService {
       return await isar.cartao_items.where().idEqualTo(id).findFirst();
     } catch (e) {
       // Lida com qualquer exceção que possa ocorrer
-      print("Erro ao buscar item: $e");
+      logger.e("Erro ao buscar item: $e");
       return null;
     }
   }
 
+  //atualiza os dados do cartao_item
   Future<void> updateCartaoItem(int id, int idVenda) async {
     final isar = await db;
 
@@ -1131,7 +1125,28 @@ class IsarService {
       cartao.id_venda = idVenda;
       await isar.cartao_items.put(cartao);
     } else {
-      print("Erro ao buscar item: $id");
+      logger.e("Erro ao buscar item: $id");
+    }
+  }
+
+  //busca todos os dados da tabela cartao_item
+  Stream<List<cartao_item>> listenCartaoItem() async* {
+    final isar = await db;
+    yield* isar.cartao_items
+        .where()
+        .sortByData_lanca()
+        .watch(fireImmediately: true);
+  }
+
+  Future<void> deleteCartaoItem() async {
+    final isar = await db;
+
+    int i = await isar.cartao_items.count();
+
+    if (i >= 0) {
+      isar.writeTxn(() async {
+        await isar.produto_grupos.clear();
+      });
     }
   }
 

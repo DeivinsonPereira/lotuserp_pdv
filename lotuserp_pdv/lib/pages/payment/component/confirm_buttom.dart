@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
-import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
+import '../../../services/injection_dependencies.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({

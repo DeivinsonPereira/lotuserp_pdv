@@ -19,11 +19,16 @@ class InformationController extends GetxController {
   }
 
   Future<int?> searchCaixaId() async {
-    var caixa = await service.getCaixaIdWithIdUserAndStatus0();
+    try {
+      var caixa = await service.getCaixaIdWithIdUserAndStatus0();
 
-    if (caixa != null) {
-      return caixa;
-    } else {
+      if (caixa != null) {
+        caixaId.value = caixa;
+        return caixa;
+      } else {
+        return 0;
+      }
+    } catch (e) {
       return 0;
     }
   }
