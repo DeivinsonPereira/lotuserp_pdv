@@ -73,8 +73,6 @@ class DialogWidget {
       controller.totalPayment.value = valorAPagar;
     }
 
-    print(controller.paymentsTotal.toString());
-
     return Dialog(
       child: SizedBox(
         width: 1100,
@@ -262,7 +260,7 @@ class DialogWidget {
                                   width: 1,
                                   color: Colors.black,
                                 ),
-                                color: Colors.grey,
+                                color: CustomColors.informationBox,
                               ),
                               child: TextButton(
                                 onPressed: () {

@@ -427,7 +427,7 @@ class ButtonsPayment {
                                     Expanded(
                                       child: Container(
                                         decoration: BoxDecoration(
-                                          color: Colors.grey,
+                                          color: CustomColors.informationBox,
                                           border: Border.all(
                                               width: 1, color: Colors.black),
                                         ),

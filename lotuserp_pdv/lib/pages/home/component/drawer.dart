@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
@@ -9,13 +8,14 @@ import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/close_register/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/common/injection_dependencies.dart';
+import 'package:lotuserp_pdv/pages/home/component/icon_button_list.dart';
 
 import '../../load_data/load_data_page.dart';
 import '../../moviment_cash/moviment_cash_page.dart';
 import '../../open_register/open_register_page.dart';
 import '../../../shared/isar_service.dart';
 
-// Side bar grande
+// Side bar (Drawer)
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({super.key});
 
@@ -99,41 +99,22 @@ class DrawerWidget extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              IconbuttomLargeSideBar(
-                icon: FontAwesomeIcons.handHoldingDollar,
-                navigationIcon: PagesRoutes.openRegister,
-                text: 'Abrir caixa',
-                abrirCaixa: true,
-              ),
-              IconbuttomLargeSideBar(
-                icon: FontAwesomeIcons.moneyBillTransfer,
-                navigationIcon: PagesRoutes.movimentRegister,
-                text: 'Movimentar caixa',
-                movimentarCaixa: true,
-              ),
-              IconbuttomLargeSideBar(
-                icon: FontAwesomeIcons.cashRegister,
-                navigationIcon: PagesRoutes.finishRegister,
-                text: 'Fechar caixa',
-                fecharCaixa: true,
-              ),
-              IconbuttomLargeSideBar(
-                icon: FontAwesomeIcons.bottleWater,
-                navigationIcon: PagesRoutes.products,
-                text: 'Produtos',
-              ),
-              IconbuttomLargeSideBar(
-                icon: FontAwesomeIcons.moneyBill1Wave,
-                navigationIcon: PagesRoutes.pdvMonitor,
-                text: 'PDV',
-                pdv: true,
-              ),
-              IconbuttomLargeSideBar(
-                icon: FontAwesomeIcons.download,
-                navigationIcon: PagesRoutes.loadData,
-                text: 'Carga de dados',
-                loadData: true,
-              ),
+              for (var i = 0;
+                  i < IconButtonList.iconButtonlist.length;
+                  i++) ...{
+                IconButtonSideBar(
+                  icon: IconButtonList.iconButtonlist[i]['icon'],
+                  navigationIcon: IconButtonList.iconButtonlist[i]
+                      ['navigationIcon'],
+                  text: IconButtonList.iconButtonlist[i]['text'],
+                  loadData: IconButtonList.iconButtonlist[i]['loadData'],
+                  abrirCaixa: IconButtonList.iconButtonlist[i]['abrirCaixa'],
+                  movimentarCaixa: IconButtonList.iconButtonlist[i]
+                      ['movimentarCaixa'],
+                  pdv: IconButtonList.iconButtonlist[i]['pdv'],
+                  fecharCaixa: IconButtonList.iconButtonlist[i]['fecharCaixa'],
+                )
+              }
             ],
           ),
           Padding(
@@ -175,9 +156,9 @@ class DrawerWidget extends StatelessWidget {
   }
 }
 
-// Botões para o side bar Grande
+// Botões para o side bar
 // ignore: must_be_immutable
-class IconbuttomLargeSideBar extends StatelessWidget {
+class IconButtonSideBar extends StatelessWidget {
   final String navigationIcon;
   final IconData icon;
   final String text;
@@ -187,7 +168,7 @@ class IconbuttomLargeSideBar extends StatelessWidget {
   bool? loadData = false;
   bool? fecharCaixa = false;
 
-  IconbuttomLargeSideBar(
+  IconButtonSideBar(
       {Key? key,
       required this.navigationIcon,
       required this.icon,
@@ -209,73 +190,36 @@ class IconbuttomLargeSideBar extends StatelessWidget {
         bool caixaExistente =
             await service.checkUserCaixa(dadosUsuario!.id_user!);
 
-        abrirCaixa == true
-            ? (
-                caixaExistente
-                    ? Get.snackbar(
-                        'Atenção',
-                        'já existe um caixa aberto para o usuário logado.',
-                        backgroundColor: Colors.red,
-                        colorText: Colors.white,
-                        snackPosition: SnackPosition.BOTTOM,
-                      )
-                    // ignore: use_build_context_synchronously
-                    : Get.dialog(
-                        const OpenRegisterPage(),
-                      ), // Your AlertDialog widget
-              )
-            : (
-                movimentarCaixa == true
-                    ? (!caixaExistente
-                            ? Get.snackbar(
-                                'Atenção',
-                                'Não existe um caixa aberto para o usuário logado.',
-                                backgroundColor: Colors.red,
-                                colorText: Colors.white,
-                                snackPosition: SnackPosition.BOTTOM,
-                              )
-                            // ignore: use_build_context_synchronously
-                            : Get.dialog(
-                                const MovimentCashPage()) // Your AlertDialog widget
+        void showSnackbar(String message) {
+          Get.snackbar('Atenção', message,
+              backgroundColor: Colors.red,
+              colorText: Colors.white,
+              snackPosition: SnackPosition.BOTTOM);
+        }
 
-                        )
-                    : (
-                        pdv == true
-                            ? (
-                                !caixaExistente
-                                    ? Get.snackbar(
-                                        'Atenção',
-                                        'Não existe um caixa aberto para o usuário logado.',
-                                        backgroundColor: Colors.red,
-                                        colorText: Colors.white,
-                                        snackPosition: SnackPosition.BOTTOM,
-                                      )
-                                    : Get.offAndToNamed(PagesRoutes.pdvMonitor),
-                              )
-                            : (
-                                loadData == true
-                                    ? Get.dialog(
-                                        const LoadDataPage(),
-                                      )
-                                    : (
-                                        fecharCaixa == true
-                                            ? (!caixaExistente
-                                                ? Get.snackbar(
-                                                    'Atenção',
-                                                    'Não existe um caixa aberto para o usuário logado.',
-                                                    backgroundColor: Colors.red,
-                                                    colorText: Colors.white,
-                                                    snackPosition:
-                                                        SnackPosition.BOTTOM,
-                                                  )
-                                                : Get.dialog(
-                                                    const CloseRegisterPage(),
-                                                  ))
-                                            : Get.offAndToNamed(navigationIcon),
-                                      ),
-                              ),
-                      ),
-              );
+        if (abrirCaixa == true) {
+          caixaExistente
+              ? showSnackbar('Já existe um caixa aberto para o usuário logado.')
+              : Get.dialog(const OpenRegisterPage());
+        } else if (movimentarCaixa == true ||
+            pdv == true ||
+            fecharCaixa == true) {
+          if (!caixaExistente) {
+            showSnackbar('Não existe um caixa aberto para o usuário logado.');
+          } else {
+            if (movimentarCaixa == true) {
+              Get.dialog(const MovimentCashPage());
+            } else if (pdv == true) {
+              Get.offAndToNamed(PagesRoutes.pdvMonitor);
+            } else if (fecharCaixa == true) {
+              Get.dialog(const CloseRegisterPage());
+            }
+          }
+        } else if (loadData == true) {
+          Get.dialog(const LoadDataPage());
+        } else {
+          Get.offAndToNamed(navigationIcon);
+        }
       },
       child: Padding(
         padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
