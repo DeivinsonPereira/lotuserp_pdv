@@ -97,6 +97,9 @@ class FormWidgets {
             passwordController.userController.text =
                 fieldTextEditingController.text;
             return TextField(
+              onChanged: (value) {
+                passwordController.userController.text = value;
+              },
               inputFormatters: [UpperCaseTxt()],
               controller: fieldTextEditingController,
               focusNode: fieldFocusNode,

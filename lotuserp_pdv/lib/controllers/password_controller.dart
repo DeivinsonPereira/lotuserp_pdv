@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class PasswordController extends GetxController {
   final passwordController = TextEditingController();
   final userController = TextEditingController();
-
+  
   var hashedPassword = ''.obs;
   var user = ''.obs;
 

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/auth/widget/text_field_list.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/injection_dependencies.dart';
+import 'widget/custom_text_form_field.dart';
 
 class ConfigPage extends StatefulWidget {
   const ConfigPage({super.key});
@@ -24,101 +24,6 @@ class _ConfigPageState extends State<ConfigPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Molde dos campos de texto de configuração do PDV
-    Widget textFormFields(
-        IconData icon, TextEditingController? controller, String variableName,
-        {bool numericKeyboard = false, bool useIconButton = false}) {
-      return Padding(
-        padding: const EdgeInsets.only(
-          left: 15.0,
-          right: 15.0,
-          top: 15,
-          bottom: 15,
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: 510,
-              child: Text(
-                variableName,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            TextFormField(
-              controller: controller,
-              keyboardType: numericKeyboard ? TextInputType.number : null,
-              decoration: InputDecoration(
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: useIconButton
-                      ? Container(
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: CustomColors.customSwatchColor,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                            ),
-                          ),
-                          child: IconButton(
-                            icon: Icon(
-                              icon,
-                              color: Colors.white,
-                            ),
-                            onPressed: () async {
-                              if (controller!.text.isEmpty) {
-                                const CustomSnackBar(
-                                  message: 'O campo obrigatório',
-                                ).show();
-                              } else {
-                                textFieldController.salvarInformacoesContrato();
-                                String ip = await service.getIpEmpresa(
-                                    isCorrectUrl: true);
-                                if (ip.isNotEmpty) {
-                                  setState(
-                                    () {
-                                      textFieldController
-                                          .updateNumeroContratoToIp(ip);
-                                      controller.text = textFieldController
-                                          .numContratoEmpresa;
-                                    },
-                                  );
-                                }
-                              }
-                            },
-                          ),
-                        )
-                      : Container(
-                          width: 50,
-                          decoration: BoxDecoration(
-                            color: CustomColors.customSwatchColor,
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              bottomLeft: Radius.circular(10),
-                            ),
-                          ),
-                          child: Icon(
-                            icon,
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
-                fillColor: Colors.grey[200],
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 12.0,
-                  horizontal: 16.0,
-                ),
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
     //campos de texto do formulário para configuração do sistema
     Widget textFormFieldsCamp() {
       return Column(
@@ -127,27 +32,22 @@ class _ConfigPageState extends State<ConfigPage> {
           Form(
             child: Column(
               children: [
-                textFormFields(
-                    FontAwesomeIcons.wifi,
-                    textFieldController.numContratoEmpresaController,
-                    'Digite o IP da empresa',
-                    useIconButton: true),
-                textFormFields(FontAwesomeIcons.solidBuilding,
-                    textFieldController.idEmpresaController, 'ID da empresa',
-                    numericKeyboard: true),
-                textFormFields(
-                    FontAwesomeIcons.fileInvoiceDollar,
-                    textFieldController.idSerieNfceController,
-                    'ID da serie NFCe',
-                    numericKeyboard: true),
-                textFormFields(FontAwesomeIcons.cashRegister,
-                    textFieldController.numCaixaController, 'Número do caixa',
-                    numericKeyboard: true),
-                textFormFields(
-                    FontAwesomeIcons.solidClock,
-                    textFieldController.intervaloEnvioController,
-                    'Intervalo de envio',
-                    numericKeyboard: true),
+                for (var i = 0;
+                    i < TextFieldList.textFieldList.length;
+                    i++) ...{
+                  //Campos de texto de configuração do PDV
+                  CustomTextFormField(
+                    icon: TextFieldList.textFieldList[i]['icon'],
+                    controller: TextFieldList.textFieldList[i]['controller'],
+                    variableName: TextFieldList.textFieldList[i]['label'],
+                    useIconButton: TextFieldList.textFieldList[i]
+                            ['useIconButton'] ??
+                        false,
+                    numericKeyboard: TextFieldList.textFieldList[i]
+                            ['numericKeyboard'] ??
+                        false,
+                  ),
+                }
               ],
             ),
           ),
