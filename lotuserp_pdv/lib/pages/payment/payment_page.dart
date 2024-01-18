@@ -36,11 +36,11 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    PdvController controller = InjectionDependencies.pdvController();
+    PdvController controller = Dependencies.pdvController();
     PaymentController paymentController =
-        InjectionDependencies.paymentController();
+        Dependencies.paymentController();
     IsarService service = IsarService();
-    InjectionDependencies.informationController();
+    Dependencies.informationController();
     var paymentCount = 0.0;
 
     var remainingValue = 0.0;

@@ -19,9 +19,9 @@ class DrawerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
+        Dependencies.sidebarController();
     PasswordController passwordController =
-        InjectionDependencies.passwordController();
+        Dependencies.passwordController();
     IsarService service = IsarService();
 
     var userName = passwordController.userController.text;

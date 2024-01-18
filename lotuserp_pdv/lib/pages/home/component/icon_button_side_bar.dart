@@ -42,7 +42,7 @@ class IconButtonSideBar extends StatelessWidget {
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     InformationController informationController =
-        InjectionDependencies.informationController();
+        Dependencies.informationController();
 
     return InkWell(
       onTap: () async {

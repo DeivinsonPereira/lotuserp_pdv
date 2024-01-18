@@ -17,8 +17,8 @@ class LoadDataPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    InjectionDependencies.loadController();
-    InjectionDependencies.textFieldController();
+    Dependencies.loadController();
+    Dependencies.textFieldController();
 
     return Dialog(
       shape: RoundedRectangleBorder(

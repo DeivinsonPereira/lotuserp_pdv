@@ -16,7 +16,7 @@ class CustomTextTipo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MovimentRegisterController movimentController =
-        InjectionDependencies.movimentRegisterController();
+        Dependencies.movimentRegisterController();
 
     movimentController.tipoDeMovimentoController.text = 'CREDITO';
     return Padding(

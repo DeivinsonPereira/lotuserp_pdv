@@ -8,8 +8,8 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import '../../../services/injection_dependencies.dart';
 
 class DialogWidget {
-  PaymentController controller = InjectionDependencies.paymentController();
-  PdvController pdvcontroller = InjectionDependencies.pdvController();
+  PaymentController controller = Dependencies.paymentController();
+  PdvController pdvcontroller = Dependencies.pdvController();
 
   var formatoBrasileiro = NumberFormat.currency(
     locale: 'pt_BR',

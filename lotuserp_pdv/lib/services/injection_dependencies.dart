@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
+import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
 import '../../controllers/close_register_controller.dart';
@@ -16,7 +17,7 @@ import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 
-abstract class InjectionDependencies {
+abstract class Dependencies {
   static SideBarController sidebarController() {
     if (Get.isRegistered<SideBarController>()) {
       return Get.find<SideBarController>();
@@ -134,6 +135,14 @@ abstract class InjectionDependencies {
       return Get.find<InformationController>();
     } else {
       return Get.put(InformationController());
+    }
+  }
+
+  static Configcontroller configcontroller() {
+    if (Get.isRegistered<Configcontroller>()) {
+      return Get.find<Configcontroller>();
+    }else {
+      return Get.put(Configcontroller());
     }
   }
 }

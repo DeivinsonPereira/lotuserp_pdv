@@ -159,9 +159,9 @@ class PrinterController extends GetxController {
   //faz impressão da abertura do caixa (caso o valor seja superior a 0);
   Future<void> printOpenRegister(caixa_item caixaItem) async {
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
+        Dependencies.sidebarController();
     GlobalController globalController =
-        InjectionDependencies.globalController();
+        Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm80, profile);
@@ -279,9 +279,9 @@ class PrinterController extends GetxController {
   //faz impressão da movimentação do caixa
   Future<void> printMovimentationCaixa(caixaItem) async {
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
+        Dependencies.sidebarController();
     GlobalController globalController =
-        InjectionDependencies.globalController();
+        Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm80, profile);
@@ -398,8 +398,8 @@ class PrinterController extends GetxController {
   //Faz a impressão do fechamento do caixa
   Future<void> printCloseCaixa(List<caixa_fechamento> fechamento) async {
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
-    InjectionDependencies.globalController();
+        Dependencies.sidebarController();
+    Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(
@@ -559,8 +559,8 @@ class PrinterController extends GetxController {
   //Faz a impressão (espelho) da venda
   Future<void> printVendas(venda venda, List<venda_item> vendaItens) async {
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
-    InjectionDependencies.globalController();
+        Dependencies.sidebarController();
+    Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(

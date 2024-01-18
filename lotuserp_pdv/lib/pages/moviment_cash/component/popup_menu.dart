@@ -9,7 +9,7 @@ class PopupMenuMoviment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     MovimentRegisterController movimentController =
-        InjectionDependencies.movimentRegisterController();
+        Dependencies.movimentRegisterController();
 
     return PopupMenuButton(
       padding: EdgeInsets.zero,

@@ -39,16 +39,16 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
   @override
   Widget build(BuildContext context) {
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
+        Dependencies.sidebarController();
     PasswordController passwordController =
-        InjectionDependencies.passwordController();
+        Dependencies.passwordController();
     GlobalController globalController =
-        InjectionDependencies.globalController();
-    PdvController controller = InjectionDependencies.pdvController();
+        Dependencies.globalController();
+    PdvController controller = Dependencies.pdvController();
     PaymentController paymentController =
-        InjectionDependencies.paymentController();
+        Dependencies.paymentController();
     SearchProductPdvController searchProductPdvController =
-        InjectionDependencies.searchProductPdvController();
+        Dependencies.searchProductPdvController();
 
     IsarService service = IsarService();
 

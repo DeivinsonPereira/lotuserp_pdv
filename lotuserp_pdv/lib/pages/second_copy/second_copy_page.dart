@@ -16,7 +16,7 @@ class SecondCopyPage extends StatelessWidget {
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     InformationController informationController =
-        InjectionDependencies.informationController();
+        Dependencies.informationController();
 
     // CONTEÚDO - DADOS DO REGISTRO DO CARTÃO E IMPRIMIR
     Widget dataCardAndPrint(BoxConstraints constraints) {

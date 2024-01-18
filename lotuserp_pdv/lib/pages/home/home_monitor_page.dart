@@ -17,8 +17,8 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
-    InjectionDependencies.informationController();
+        Dependencies.sidebarController();
+    Dependencies.informationController();
 
     var size = MediaQuery.of(context).size;
 

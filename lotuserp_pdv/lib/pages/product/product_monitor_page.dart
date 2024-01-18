@@ -16,7 +16,7 @@ class ProductMonitorPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = InjectionDependencies.productController();
+    ProdutoController controller = Dependencies.productController();
 
     var size = MediaQuery.of(context).size;
 
@@ -264,7 +264,7 @@ class LegendSearch extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ProdutoController controller = InjectionDependencies.productController();
+    ProdutoController controller = Dependencies.productController();
 
     return isDescription
         ? Expanded(

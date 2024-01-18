@@ -21,11 +21,11 @@ class OpenRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PasswordController passwordController =
-        InjectionDependencies.passwordController();
+        Dependencies.passwordController();
     MovimentRegisterController movimentRegisterController =
-        InjectionDependencies.movimentRegisterController();
+        Dependencies.movimentRegisterController();
     InformationController informationController =
-        InjectionDependencies.informationController();
+        Dependencies.informationController();
     IsarService service = IsarService();
 
     var userName = passwordController.userController.text;

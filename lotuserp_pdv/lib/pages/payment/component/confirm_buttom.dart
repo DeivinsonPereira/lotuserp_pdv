@@ -24,12 +24,12 @@ class ConfirmButtom extends StatelessWidget {
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     GlobalController globalController =
-        InjectionDependencies.globalController();
-    PdvController pdvController = InjectionDependencies.pdvController();
+        Dependencies.globalController();
+    PdvController pdvController = Dependencies.pdvController();
     SideBarController sideBarController =
-        InjectionDependencies.sidebarController();
-    InjectionDependencies.printerController();
-    InjectionDependencies.paymentController();
+        Dependencies.sidebarController();
+    Dependencies.printerController();
+    Dependencies.paymentController();
 
     Future<void> processCommonOperations() async {
       //soma o valor bruto total dos itens que estão nos pedidos

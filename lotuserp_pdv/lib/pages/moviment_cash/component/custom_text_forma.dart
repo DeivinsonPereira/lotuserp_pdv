@@ -18,7 +18,7 @@ class CustomTextForma extends StatelessWidget {
     IsarService service = IsarService();
 
     MovimentRegisterController movimentController =
-        InjectionDependencies.movimentRegisterController();
+        Dependencies.movimentRegisterController();
 
     movimentController.formaDePagamentoController.text = 'DINHEIRO';
 

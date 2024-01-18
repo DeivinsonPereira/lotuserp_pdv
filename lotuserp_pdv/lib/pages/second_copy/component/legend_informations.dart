@@ -74,7 +74,7 @@ class LegendWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PrinterController printController =
-        InjectionDependencies.printerController();
+        Dependencies.printerController();
 
     return SizedBox(
       width: size,

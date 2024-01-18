@@ -4,7 +4,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class Endpoints {
   TextFieldController textFieldController =
-      InjectionDependencies.textFieldController();
+      Dependencies.textFieldController();
   IsarService service = IsarService();
 
   String ipEmpresa() {

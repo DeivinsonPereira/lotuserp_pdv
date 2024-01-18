@@ -25,12 +25,12 @@ class CloseRegisterPage extends StatelessWidget {
     IsarService service = IsarService();
 
     CloseRegisterController controller =
-        InjectionDependencies.closeRegisterController();
+        Dependencies.closeRegisterController();
 
     PrinterController printerController =
-        InjectionDependencies.printerController();
+        Dependencies.printerController();
 
-    PdvController pdvController = InjectionDependencies.pdvController();
+    PdvController pdvController = Dependencies.pdvController();
 
     // botões confirmar e voltar
     Widget backAndConfirmButtons() {
@@ -382,7 +382,7 @@ class BackSpaceIcon extends StatelessWidget {
   final int setSelectedTextFieldIndex;
 
   CloseRegisterController controller =
-      InjectionDependencies.closeRegisterController();
+      Dependencies.closeRegisterController();
 
   @override
   Widget build(BuildContext context) {
@@ -414,7 +414,7 @@ class BuildNumberButtom extends StatelessWidget {
   final int setSelectedTextFieldIndex;
 
   CloseRegisterController controller =
-      InjectionDependencies.closeRegisterController();
+      Dependencies.closeRegisterController();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CloseRegisterController>(
@@ -459,11 +459,11 @@ class CointainersInformation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController controller = InjectionDependencies.sidebarController();
+    SideBarController controller = Dependencies.sidebarController();
     PasswordController passwordController =
-        InjectionDependencies.passwordController();
+        Dependencies.passwordController();
     CloseRegisterController closeRegisterController =
-        InjectionDependencies.closeRegisterController();
+        Dependencies.closeRegisterController();
 
     return Container(
       height: 55,

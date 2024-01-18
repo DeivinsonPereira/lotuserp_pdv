@@ -14,9 +14,9 @@ abstract class TefService {
   static Logger logger = Logger();
   static IsarService service = IsarService();
   static InformationController informationController =
-      InjectionDependencies.informationController();
+      Dependencies.informationController();
   static PrinterController printerController =
-      InjectionDependencies.printerController();
+      Dependencies.printerController();
 
   static Future<String?> startTef(
       Map<String, String?> params, double valor, String parcelas) async {

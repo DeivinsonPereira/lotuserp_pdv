@@ -9,10 +9,9 @@ import '../../services/injection_dependencies.dart';
 
 class FormWidgets {
   final TextEditingController _controller = TextEditingController();
-  final LoginController loginController =
-      InjectionDependencies.loginController();
+  final LoginController loginController = Dependencies.loginController();
   final PasswordController passwordController =
-      InjectionDependencies.passwordController();
+      Dependencies.passwordController();
 
   Widget textFieldWidget(IconData icon, String text) {
     return Padding(
@@ -95,6 +94,8 @@ class FormWidgets {
             FocusNode fieldFocusNode,
             VoidCallback onFieldSubmitted,
           ) {
+            passwordController.userController.text =
+                fieldTextEditingController.text;
             return TextField(
               inputFormatters: [UpperCaseTxt()],
               controller: fieldTextEditingController,

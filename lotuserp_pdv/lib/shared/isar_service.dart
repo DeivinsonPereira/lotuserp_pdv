@@ -598,7 +598,7 @@ class IsarService {
       String hourFormatted, double openRegisterDouble) async {
     final isar = await db;
     PrinterController printerController =
-        InjectionDependencies.printerController();
+        Dependencies.printerController();
 
     caixa_item caixaItem = caixa_item();
 
@@ -634,11 +634,11 @@ class IsarService {
   //inserir dados na tabela venda e vendaItem ****** ainda vai ter o caixaItem junto ******
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
-    PdvController pdvController = InjectionDependencies.pdvController();
+    PdvController pdvController = Dependencies.pdvController();
     PaymentController paymentController =
-        InjectionDependencies.paymentController();
+        Dependencies.paymentController();
     PrinterController printerController =
-        InjectionDependencies.printerController();
+        Dependencies.printerController();
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
@@ -756,7 +756,7 @@ class IsarService {
   //inserir dados na tabela caixaItem
   Future<Isar> insertCaixaItem(caixa_item caixaItem) async {
     final isar = await db;
-    var printerController = InjectionDependencies.printerController();
+    var printerController = Dependencies.printerController();
 
     isar.writeTxn(() async {
       await isar.caixa_items.put(caixaItem);
@@ -1110,7 +1110,7 @@ class IsarService {
 
   //cria um registro na tabela cartao_item
   Future<Isar> insertCartaoItem(cartao_item cartaoItem) async {
-    PaymentController controller = InjectionDependencies.paymentController();
+    PaymentController controller = Dependencies.paymentController();
     final isar = await db;
     isar.writeTxn(() async {
       await isar.cartao_items.put(cartaoItem);

@@ -94,12 +94,12 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
   @override
   Widget build(BuildContext context) {
     PasswordController passwordController =
-        InjectionDependencies.passwordController();
+        Dependencies.passwordController();
 
     MovimentRegisterController movimentRegisterController =
-        InjectionDependencies.movimentRegisterController();
+        Dependencies.movimentRegisterController();
 
-    InjectionDependencies.caixaController();
+    Dependencies.caixaController();
 
     var userName = passwordController.userController.text;
     tz.initializeTimeZones();

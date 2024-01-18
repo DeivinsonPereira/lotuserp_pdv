@@ -66,7 +66,7 @@ class RowWidget {
 }
 
 class ButtonsPayment {
-  PdvController controller = InjectionDependencies.pdvController();
+  PdvController controller = Dependencies.pdvController();
   double originalDiscountPercentage = 0.0;
   double originalTotalValue = 0.0;
 
