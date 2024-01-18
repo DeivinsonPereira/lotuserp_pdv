@@ -1,10 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
-import '../pages/auth/widget/custom_snack_bar.dart';
+import '../pages/common/custom_snack_bar.dart';
 import '../pages/common/loading_screen.dart';
 import 'text_field_controller.dart';
 
@@ -152,6 +153,24 @@ class Configcontroller extends GetxController {
     } else {
       Get.back();
       return false;
+    }
+  }
+
+  // faz a verificação se os campos estão vazios
+  Future<void> verification(
+    TextEditingController controller,
+  ) async {
+    if (controller.text.isEmpty) {
+      const CustomSnackBar(
+        message: 'O campo obrigatório',
+      ).show();
+    } else {
+      textFieldController.salvarInformacoesContrato();
+      String ip = await service.getIpEmpresa(isCorrectUrl: true);
+      if (ip.isNotEmpty) {
+        textFieldController.updateNumeroContratoToIp(ip);
+        controller.text = textFieldController.numContratoEmpresa;
+      }
     }
   }
 }

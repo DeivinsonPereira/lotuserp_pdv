@@ -10,7 +10,7 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
-import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';

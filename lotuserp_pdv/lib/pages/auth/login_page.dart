@@ -2,14 +2,13 @@
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-import 'package:lotuserp_pdv/collections/usuario_logado.dart';
+import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 /// LoginPage
 ///
@@ -21,93 +20,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Inicialização dos controladores
+    LoginController loginController = Dependencies.loginController();
     PasswordController passwordController = Dependencies.passwordController();
-    Dependencies.textFieldController();
-    Dependencies.printerController();
-
-    IsarService service = IsarService();
-
-    // Métodos privados para validações
-
-    // retorna se um dos campos esta vazio
-    bool _areFieldsEmpty() {
-      String enteredPassword = passwordController.passwordController.text;
-      String login = passwordController.userController.text;
-
-      return enteredPassword.isEmpty || login.isEmpty;
-    }
-
-    // faz a verificação da senha
-    Future<bool> _arePasswordsEquals() async {
-      var passwordCrypto = passwordController.createHashedPassword();
-
-      String login = passwordController.userController.text;
-
-      String? savedHashedPassword =
-          await service.getPasswordFromDatabase(login);
-      return passwordCrypto == savedHashedPassword;
-    }
-
-    // faz a verificação do login
-    Future<bool> _areloginEquals() async {
-      String login = passwordController.userController.text.toUpperCase();
-      String? savedLogin = await service.getLoginFromDatabase(login);
-      return login.toUpperCase() == savedLogin!.toUpperCase();
-    }
-
-    // Cria um registro no banco do usuario logado e navega para a homePage
-    Future<void> _proceedToHome(String savedLogin) async {
-      var userOnline = await service.getUserIdColaborador(savedLogin);
-      var idUser = await service.getUserIdUser(savedLogin);
-      var usuarioLogado = usuario_logado()
-        ..login = savedLogin
-        ..id_user = idUser
-        ..id_colaborador = userOnline;
-      await service.insertUser(usuarioLogado);
-      await Get.offNamed(PagesRoutes.homePageRoute);
-    }
-
-    //captura possíveis erros no login
-    Future<void> _handleLogin() async {
-      //verifica se os campos estão vazios
-      if (_areFieldsEmpty()) {
-        const CustomSnackBar(
-          message: 'Por favor, preencha todos os campos.',
-        ).show();
-
-        return;
-      }
-      String login = passwordController.userController.text.toUpperCase();
-      String? savedLogin = await service.getLoginFromDatabase(login);
-
-      // Verifica se o login existe
-      if (savedLogin == null) {
-        const CustomSnackBar(
-          message: 'O login digitado não existe. Por favor, tente novamente.',
-        ).show();
-        return;
-      }
-
-      // se o login não existir exibe o snackbar
-      if (await _areloginEquals() == false) {
-        const CustomSnackBar(
-          message: 'O Usuario digitado não existe. Por favor, tente novamente.',
-        ).show();
-      }
-
-      // Verifica se login está igual ao usuario digitado
-      if (await _arePasswordsEquals() && await _areloginEquals()) {
-        await _proceedToHome(savedLogin);
-      } else {
-        const CustomSnackBar(
-          message:
-              'A senha digitada está incorreta. Por favor, tente novamente.',
-        ).show();
-      }
-      //limpa os campos digitados
-      passwordController.clear();
-    }
-
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
       return const Padding(
@@ -129,10 +43,15 @@ class LoginPage extends StatelessWidget {
       return Form(
         child: Column(
           children: [
-            FormWidgets().customAutocompleteTextField('Usuário', Icons.person),
+            // cria o autocomplete do usuario
+            AutocompleteWidget(
+                controller: passwordController,
+                usuario: 'Usuário',
+                icon: Icons.person),
             const SizedBox(
               height: 15,
             ),
+            // cria o campo de senha
             FormWidgets()
                 .customTextFieldIcon(Icons.lock, 'Senha', obscureText: true),
             const SizedBox(height: 20),
@@ -179,7 +98,7 @@ class LoginPage extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5),
               ),
             ),
-            onPressed: () async => _handleLogin(),
+            onPressed: () async => loginController.handleLogin(),
             child: const Padding(
               padding: EdgeInsets.all(15.0),
               child: Text(

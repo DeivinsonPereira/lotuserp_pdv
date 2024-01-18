@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
-import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/second_copy/component/legend_informations.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
