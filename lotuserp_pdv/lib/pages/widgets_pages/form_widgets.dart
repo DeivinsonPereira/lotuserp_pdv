@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/format_txt.dart';
 import '../../services/injection_dependencies.dart';
@@ -60,9 +59,7 @@ class FormWidgets {
 
   Widget elevatedButtonWidget(String routeName, String text) {
     return ElevatedButton(
-      onPressed: () {
-        Get.toNamed(routeName);
-      },
+      onPressed: () => Get.toNamed(routeName),
       child: Text(
         text,
         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
@@ -75,7 +72,7 @@ class FormWidgets {
       future: loginController.getUsers(),
       builder: (context, snapshot) {
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Text('Nenhum usuário encontrado.');
+          return const Text('Nenhum usuário encontrado.');
         }
 
         return Autocomplete<String>(

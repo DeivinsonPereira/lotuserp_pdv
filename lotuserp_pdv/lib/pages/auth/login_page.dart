@@ -1,8 +1,9 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/custom_snack_bar.dart';
@@ -10,32 +11,32 @@ import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../controllers/printer_controller.dart';
-
+/// LoginPage
+/// 
+/// Uma página de login responsável por autenticar usuários.
+/// Contém campos para entrada de usuário e senha, e um botão para realizar o login.
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // Inicialização dos controladores
     PasswordController passwordController =
         InjectionDependencies.passwordController();
-    // ignore: unused_local_variable
-    TextFieldController textFieldController =
         InjectionDependencies.textFieldController();
-    // ignore: unused_local_variable
-    PrinterController printerController =
         InjectionDependencies.printerController();
 
     IsarService service = IsarService();
 
-    bool areFieldsEmpty() {
+    // Métodos privados para validações
+    bool _areFieldsEmpty() {
       String enteredPassword = passwordController.passwordController.text;
       String login = passwordController.userController.text;
 
       return enteredPassword.isEmpty || login.isEmpty;
     }
 
-    Future<bool> arePasswordsEquals() async {
+    Future<bool> _arePasswordsEquals() async {
       var passwordCrypto = passwordController.createHashedPassword();
 
       String login = passwordController.userController.text;
@@ -45,7 +46,7 @@ class LoginPage extends StatelessWidget {
       return passwordCrypto == savedHashedPassword;
     }
 
-    Future<bool> areloginEquals() async {
+    Future<bool> _areloginEquals() async {
       String login = passwordController.userController.text.toUpperCase();
       String? savedLogin = await service.getLoginFromDatabase(login);
       return login.toUpperCase() == savedLogin!.toUpperCase();
@@ -131,7 +132,7 @@ class LoginPage extends StatelessWidget {
                                   ),
                                   onPressed: () async {
                                     //verifica se os campos estão vazios
-                                    if (areFieldsEmpty()) {
+                                    if (_areFieldsEmpty()) {
                                       const CustomSnackBar(
                                               message:
                                                   'Por favor, preencha todos os campos.')
@@ -154,7 +155,7 @@ class LoginPage extends StatelessWidget {
                                       return;
                                     }
 
-                                    if (await areloginEquals() == false) {
+                                    if (await _areloginEquals() == false) {
                                       const CustomSnackBar(
                                         message:
                                             'O Usuario digitado não existe. Por favor, tente novamente.',
@@ -163,8 +164,8 @@ class LoginPage extends StatelessWidget {
 
                                     // Verifica se login está igual ao usuario digitado
 
-                                    if (await arePasswordsEquals() &&
-                                        await areloginEquals()) {
+                                    if (await _arePasswordsEquals() &&
+                                        await _areloginEquals()) {
                                       var userOnline = await service
                                           .getUserIdColaborador(savedLogin);
                                       var idUser = await service
