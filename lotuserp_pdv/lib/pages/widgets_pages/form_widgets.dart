@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/format_txt.dart';
 import '../../services/injection_dependencies.dart';
@@ -69,23 +70,78 @@ class FormWidgets {
     );
   }
 
-  Widget customTextField(String text, IconData icon) {
-    return TextFormField(
-      controller: passwordController.userController,
-      onChanged: (value) {
-        passwordController.updateUsername(value);
+  Widget customAutocompleteTextField(String usuario, IconData icon) {
+    return FutureBuilder<List<String>>(
+      future: loginController.getUsers(),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData || snapshot.data!.isEmpty) {
+          return Text('Nenhum usuário encontrado.');
+        }
+
+        return Autocomplete<String>(
+          optionsBuilder: (TextEditingValue textEditingValue) {
+            if (textEditingValue.text.isEmpty) {
+              return const Iterable<String>.empty();
+            }
+            return snapshot.data!.where((String option) {
+              return option
+                  .toLowerCase()
+                  .startsWith(textEditingValue.text.toLowerCase());
+            });
+          },
+          onSelected: (String selection) {
+            passwordController.userController.text = selection;
+          },
+          fieldViewBuilder: (
+            BuildContext context,
+            TextEditingController fieldTextEditingController,
+            FocusNode fieldFocusNode,
+            VoidCallback onFieldSubmitted,
+          ) {
+            return TextField(
+              inputFormatters: [UpperCaseTxt()],
+              controller: fieldTextEditingController,
+              focusNode: fieldFocusNode,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(4),
+                  borderSide: BorderSide(color: CustomColors.customSwatchColor),
+                ),
+                labelText: usuario,
+                prefixIcon: Icon(icon),
+              ),
+            );
+          },
+          optionsViewBuilder: (BuildContext context,
+              AutocompleteOnSelected<String> onSelected,
+              Iterable<String> options) {
+            return Align(
+              alignment: Alignment.topLeft,
+              child: Material(
+                elevation: 4.0,
+                child: SizedBox(
+                  width: 300,
+                  height: 150,
+                  child: ListView.builder(
+                    itemCount: options.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final String option = options.elementAt(index);
+                      return GestureDetector(
+                        onTap: () {
+                          onSelected(option);
+                        },
+                        child: ListTile(
+                          title: Text(option),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            );
+          },
+        );
       },
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(4),
-          borderSide: BorderSide(color: CustomColors.customSwatchColor),
-        ),
-        prefixIcon: Icon(icon),
-        labelText: text,
-      ),
-      inputFormatters: [
-        UpperCaseTxt(),
-      ],
     );
   }
 

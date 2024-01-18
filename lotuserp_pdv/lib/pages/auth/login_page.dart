@@ -90,7 +90,7 @@ class LoginPage extends StatelessWidget {
                               child: Column(
                                 children: [
                                   FormWidgets()
-                                      .customTextField('Usuário', Icons.person),
+                                      .customAutocompleteTextField('Usuário', Icons.person),
                                   const SizedBox(
                                     height: 15,
                                   ),

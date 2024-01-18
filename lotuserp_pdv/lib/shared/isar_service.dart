@@ -877,6 +877,23 @@ class IsarService {
     return isar;
   }
 
+  // BUSCA LISTA DE USUARIOS
+  Future<List<String>> getUsersLogin() async {
+    final isar = await db;
+
+    try {
+      var users = await isar.usuarios.where().findAll();
+
+      return users
+          .map((e) => e.login)
+          .where((login) => login != null)
+          .cast<String>()
+          .toList();
+    } catch (e) {
+      return [];
+    }
+  }
+
   //cria um usuario na tabela 'Usuarios'
   Future<Isar> insertUser(usuario_logado user) async {
     final isar = await db;
