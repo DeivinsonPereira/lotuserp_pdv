@@ -88,10 +88,9 @@ class PaymentController extends GetxController {
 
   //remove numero por numero do valor inserido na forma de pagamento.
   void removeNumberDiscount() {
-    if (totalPayment.value.length > 1) {
-      String newPaymentValue = totalPayment.value
-          .replaceAll(RegExp(r'[^\d]'), '')
-          .substring(0, totalPayment.value.length - 2);
+    String digitsOnly = totalPayment.value.replaceAll(RegExp(r'[^\d]'), '');
+    if (digitsOnly.length > 1) {
+      String newPaymentValue = digitsOnly.substring(0, digitsOnly.length - 1);
       totalPayment.value =
           formatAsCurrency(double.parse(newPaymentValue) / 100);
     } else {
