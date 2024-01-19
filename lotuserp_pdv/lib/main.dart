@@ -43,6 +43,5 @@ void main() async {
     directory: dir.path,
     inspector: true,
   );
-
   runApp(const AppWidget());
 }

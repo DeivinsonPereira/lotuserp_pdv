@@ -10,10 +10,6 @@ import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 
-/// LoginPage
-///
-/// Uma página de login responsável por autenticar usuários.
-/// Contém campos para entrada de usuário e senha, e um botão para realizar o login.
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -22,6 +18,7 @@ class LoginPage extends StatelessWidget {
     // Inicialização dos controladores
     LoginController loginController = Dependencies.loginController();
     PasswordController passwordController = Dependencies.passwordController();
+    
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
       return const Padding(

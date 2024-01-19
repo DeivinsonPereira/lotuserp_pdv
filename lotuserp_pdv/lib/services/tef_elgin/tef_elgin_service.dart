@@ -7,16 +7,15 @@ import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../controllers/information_controller.dart';
+import '../../controllers/information_controller.dart';
 
-abstract class TefService {
+abstract class TefElginService {
   static const platform = MethodChannel('com.lotuserp_pdv/tef');
   static Logger logger = Logger();
   static IsarService service = IsarService();
   static InformationController informationController =
       Dependencies.informationController();
-  static PrinterController printerController =
-      Dependencies.printerController();
+  static PrinterController printerController = Dependencies.printerController();
 
   static Future<String?> startTef(
       Map<String, String?> params, double valor, String parcelas) async {

@@ -14,11 +14,12 @@ import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
+import 'package:lotuserp_pdv/services/tef_elgin/tef_elgin_customization_service.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/format_numbers.dart';
 import '../../services/injection_dependencies.dart';
-import '../../services/tef_elgin_service.dart';
+import '../../services/tef_elgin/tef_elgin_service.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -37,8 +38,7 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     PdvController controller = Dependencies.pdvController();
-    PaymentController paymentController =
-        Dependencies.paymentController();
+    PaymentController paymentController = Dependencies.paymentController();
     IsarService service = IsarService();
     Dependencies.informationController();
     var paymentCount = 0.0;
@@ -85,7 +85,9 @@ class _PaymentPageState extends State<PaymentPage> {
         var valueDouble = FormatNumbers.formatStringToDouble(valorTransacao);
 
         // Chama o serviço TEF
-        String? tefResponseJson = await TefService.startTef(
+        await TefElginCustomizationService.customizarAplicacao();
+        
+        String? tefResponseJson = await TefElginService.startTef(
             tefParams, valueDouble, paymentController.installments.toString());
         if (tefResponseJson == null) throw 'Resposta do TEF nula';
         Map<String, dynamic> tefResponse = jsonDecode(tefResponseJson);

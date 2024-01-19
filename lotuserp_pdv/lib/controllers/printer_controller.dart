@@ -137,19 +137,22 @@ class PrinterController extends GetxController {
   //faz uma impressão teste
   Future<void> print2X1Test() async {
     if (selectedPrinter == null) return;
+    final profile = await CapabilityProfile.load();
+    final generator = Generator(PaperSize.mm80, profile);
+    List<int> bytes = [];
+
     const name = "Vista Tecnologia\n\n\n";
     const teste = "teste 123\n\n\n";
-    const espaco = '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n';
+    bytes += generator.text(name);
+    bytes += generator.text(teste);
+    bytes += generator.cut();
 
     try {
       await connectDevice();
       if (!isConnected.value) return;
-      await bluetoothManager.writeText(name);
-      await bluetoothManager.writeText(teste);
-      final isSuccess = await bluetoothManager.writeText(espaco);
-      if (isSuccess) {
-        await bluetoothManager.disconnect();
-      }
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);
+
       update();
     } on BTException {
       return;
@@ -158,10 +161,8 @@ class PrinterController extends GetxController {
 
   //faz impressão da abertura do caixa (caso o valor seja superior a 0);
   Future<void> printOpenRegister(caixa_item caixaItem) async {
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
-    GlobalController globalController =
-        Dependencies.globalController();
+    SideBarController sideBarController = Dependencies.sidebarController();
+    GlobalController globalController = Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm80, profile);
@@ -278,10 +279,8 @@ class PrinterController extends GetxController {
 
   //faz impressão da movimentação do caixa
   Future<void> printMovimentationCaixa(caixaItem) async {
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
-    GlobalController globalController =
-        Dependencies.globalController();
+    SideBarController sideBarController = Dependencies.sidebarController();
+    GlobalController globalController = Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
     final generator = Generator(PaperSize.mm80, profile);
@@ -397,8 +396,7 @@ class PrinterController extends GetxController {
 
   //Faz a impressão do fechamento do caixa
   Future<void> printCloseCaixa(List<caixa_fechamento> fechamento) async {
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
+    SideBarController sideBarController = Dependencies.sidebarController();
     Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
@@ -548,7 +546,7 @@ class PrinterController extends GetxController {
       bytes +=
           generator.text('  CONFERENTE: _______________________________\n\n');
       bytes += generator.cut();
-      print('A impressão da movimentação de caixa está comentada');
+      print('A impressão do fechamento de caixa está comentada');
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {
@@ -558,8 +556,7 @@ class PrinterController extends GetxController {
 
   //Faz a impressão (espelho) da venda
   Future<void> printVendas(venda venda, List<venda_item> vendaItens) async {
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
+    SideBarController sideBarController = Dependencies.sidebarController();
     Dependencies.globalController();
 
     final profile = await CapabilityProfile.load();
@@ -703,7 +700,7 @@ class PrinterController extends GetxController {
 
       bytes += generator.cut();
 
-      print('A impressão da movimentação de caixa está comentada');
+      print('A impressão da venda de caixa está comentada');
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {
@@ -774,7 +771,7 @@ class PrinterController extends GetxController {
       bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
       bytes += generator.cut();
 
-      print('A impressão da transação está comentada');
+      print('A impressão da segunda via está comentada');
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {

@@ -227,9 +227,11 @@ class DialogWidget {
                                               softWrap: false,
                                               overflow: TextOverflow.clip,
                                               formatoBrasileiro.format(
-                                                  double.parse(controller
-                                                      .totalPayment.value
-                                                      .replaceAll(',', '.'))),
+                                                double.parse(controller
+                                                    .totalPayment.value
+                                                    .replaceAll('.', '')
+                                                    .replaceAll(',', '.')),
+                                              ),
                                               style: const TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 22),

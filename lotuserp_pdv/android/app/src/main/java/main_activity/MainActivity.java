@@ -1,6 +1,17 @@
 package com.example.lotuserp_pdv;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+
+import android.os.Environment;
 import androidx.annotation.Nullable;
 import android.os.Bundle;
 import android.view.View;
@@ -19,8 +30,26 @@ import io.flutter.plugin.common.MethodChannel.Result;
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
     private static final int TEF_REQUEST_CODE = 2;
+    private static final int REQUEST_CODE_CUSTOMIZACAO = 1;
     private Result pendingResult;
+    private static final String PATH = "com.elgin.e1.digitalhub.TEF";
+    private String caminhoImagemLogotipo;
+    private static final int REQUEST_CODE_STORAGE_PERMISSION = 1;
+    private static final int YOUR_REQUEST_CODE = 1;
+    File downloadsPath = new File(Environment.getExternalStorageDirectory(), "Download");
+    private File storagePath;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, YOUR_REQUEST_CODE);
+        } else {
+            copiarImagemParaArmazenamentoInterno();
+        }
+    }
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
@@ -38,7 +67,7 @@ public class MainActivity extends FlutterActivity {
 
                             Log.d("TEF", "Iniciando TEF com função: " + funcao + ", valor: " + valor);
 
-                            Intent intent = new Intent("com.elgin.e1.digitalhub.TEF");
+                            Intent intent = new Intent(PATH);
                             intent.putExtra("funcao", funcao);
                             intent.putExtra("valor", valor);
                             if(parcelas != null) intent.putExtra("parcelas", parcelas);
@@ -46,6 +75,10 @@ public class MainActivity extends FlutterActivity {
 
                             Log.d("TEF", "Iniciando atividade TEF com requestCode: " + TEF_REQUEST_CODE);
                             startActivityForResult(intent,TEF_REQUEST_CODE);
+                        }else if (call.method.equals("customizarTEF")) {
+                            copiarImagemParaArmazenamentoInterno();
+                            customizarAplicacao();
+                            result.success(null);
                         }
                     } catch (Exception e) {
                         Log.e("MethodChannel", "Erro no método: " + call.method, e);
@@ -54,8 +87,69 @@ public class MainActivity extends FlutterActivity {
                 }
             );
     }
-
     
+    @Override
+public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    if (requestCode == YOUR_REQUEST_CODE) {
+        if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            copiarImagemParaArmazenamentoInterno();
+        } else {
+            // A permissão foi negada. Lide com a situação.
+        }
+    }
+}
+    
+    
+
+private void copiarImagemParaArmazenamentoInterno() {
+    File storagePath;
+
+    // Verifique se a pasta Pictures existe
+    File picturesPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+    if (picturesPath.exists()) {
+        storagePath = picturesPath;
+    } else {
+        // Se Pictures não existir, use DCIM
+        File dcimPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        if (dcimPath.exists()) {
+            storagePath = dcimPath;
+        } else {
+            // Se nenhum dos dois existir, crie a pasta Pictures
+            storagePath = picturesPath;
+            storagePath.mkdirs();
+        }
+    }
+
+    File newFile = new File(storagePath, "logo.png");
+    Log.d("TEF", "Caminho do logotipo: " + newFile.getAbsolutePath());
+    
+    if (!newFile.exists()) {
+        try {
+            InputStream is = getAssets().open("Logo Nova Branco.png");
+            OutputStream os = new FileOutputStream(newFile);
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = is.read(buffer)) != -1) {
+                os.write(buffer, 0, bytesRead);
+            }
+            is.close();
+            os.flush();
+            os.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+private void customizarAplicacao() {
+    File imagePath = new File(storagePath, "logo.png");
+    Intent intent = new Intent("com.elgin.e1.digitalhub.CUSTOM");
+    intent.putExtra("grupo", "application");
+    intent.putExtra("logotipo", imagePath);
+    intent.putExtra("background", "#2B305B");
+    startActivityForResult(intent, REQUEST_CODE_CUSTOMIZACAO); 
+}
 
      @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -97,8 +191,17 @@ public class MainActivity extends FlutterActivity {
                     pendingResult.error("TEF_ERROR", "Erro na transação TEF", null);
                 }
             }
-            // Reset pendingResult para evitar referências antigas
             pendingResult = null;
+        } else if (requestCode == REQUEST_CODE_CUSTOMIZACAO) {
+            if (resultCode == RESULT_OK && data != null) {
+                try {
+                    String retorno = data.getStringExtra("retorno");
+                } catch (Exception e) {
+                    Log.e("Customizacao", "Erro ao processar o resultado", e);
+                }
+            } else {
+                Log.e("Customizacao", "Resultado da customização não foi OK ou data é null");
+            }
         }
     }
     }
