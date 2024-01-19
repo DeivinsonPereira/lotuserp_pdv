@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/balanca_controller.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/services/balanca/toledo_prix3_fit.dart';
 
 import '../../controllers/text_field_controller.dart';
 import '../../services/format_txt.dart';
@@ -21,15 +21,8 @@ class FormWidgets {
 
   final MethodChannel platform = const MethodChannel('com.lotuserp_pdv/tef');
 
-  FormWidgets() {
-    scaleFocusNode.addListener(() {
-      if (scaleFocusNode.hasFocus) {
-        ToledoPrix3Fit.getScaleValue();
-      }
-    });
-  }
-
-  Widget customTextFieldIcon(IconData icon, String text,
+  Widget customTextFieldIcon(
+      IconData icon, String text, BalancaController controller,
       {bool obscureText = false}) {
     return Obx(
       () {
@@ -42,7 +35,11 @@ class FormWidgets {
               borderRadius: BorderRadius.circular(4),
               borderSide: BorderSide(color: CustomColors.customSwatchColor),
             ),
-            prefixIcon: Icon(icon),
+            prefixIcon: IconButton(
+                icon: Icon(Icons.lock),
+                onPressed: () {
+                  controller.ativarLeituraDaBalanca();
+                }),
             labelText: text,
             suffixIcon: obscureText
                 ? IconButton(

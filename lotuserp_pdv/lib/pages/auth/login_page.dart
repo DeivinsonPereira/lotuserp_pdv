@@ -10,6 +10,8 @@ import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 
+import '../../controllers/balanca_controller.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
@@ -18,6 +20,9 @@ class LoginPage extends StatelessWidget {
     // Inicialização dos controladores
     LoginController loginController = Dependencies.loginController();
     PasswordController passwordController = Dependencies.passwordController();
+    final BalancaController controller = Get.put(BalancaController());
+
+
     
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
@@ -50,7 +55,7 @@ class LoginPage extends StatelessWidget {
             ),
             // cria o campo de senha
             FormWidgets()
-                .customTextFieldIcon(Icons.lock, 'Senha', obscureText: true),
+                .customTextFieldIcon(Icons.lock, 'Senha', controller,  obscureText: true),
             const SizedBox(height: 20),
           ],
         ),
