@@ -26,7 +26,6 @@ import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
     private static final int TEF_REQUEST_CODE = 2;
@@ -38,7 +37,8 @@ public class MainActivity extends FlutterActivity {
     private static final int YOUR_REQUEST_CODE = 1;
     File downloadsPath = new File(Environment.getExternalStorageDirectory(), "Download");
     private File storagePath;
-
+    private OutputStream mOutputStream;
+    private InputStream mInputStream;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,7 @@ public class MainActivity extends FlutterActivity {
             copiarImagemParaArmazenamentoInterno();
         }
     }
+
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);

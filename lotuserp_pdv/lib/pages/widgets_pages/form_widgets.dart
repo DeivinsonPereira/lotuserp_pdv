@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/services/balanca/toledo_prix3_fit.dart';
 
 import '../../controllers/text_field_controller.dart';
 import '../../services/format_txt.dart';
@@ -14,6 +16,18 @@ class FormWidgets {
   final LoginController loginController = Dependencies.loginController();
   final PasswordController passwordController =
       Dependencies.passwordController();
+
+  final FocusNode scaleFocusNode = FocusNode();
+
+  final MethodChannel platform = const MethodChannel('com.lotuserp_pdv/tef');
+
+  FormWidgets() {
+    scaleFocusNode.addListener(() {
+      if (scaleFocusNode.hasFocus) {
+        ToledoPrix3Fit.getScaleValue();
+      }
+    });
+  }
 
   Widget customTextFieldIcon(IconData icon, String text,
       {bool obscureText = false}) {
