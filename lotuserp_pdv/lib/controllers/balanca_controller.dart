@@ -18,7 +18,7 @@ class BalancaController extends GetxController {
 
   void _escutarMudancasNaBalanca() {
     platform.setMethodCallHandler((MethodCall call) async {
-      if (call.method == "onNewWeightData") {
+      if (call.method == "'onNewWeightData'") {
         peso.value = call.arguments; // Atualiza o peso
       }
     });

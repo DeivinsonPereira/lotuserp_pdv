@@ -41,6 +41,17 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.os.Handler;
 import android.os.Looper;
 
+import android.hardware.usb.UsbEndpoint;
+import android.hardware.usb.UsbInterface;
+import android.hardware.usb.UsbManager;
+import android.content.Context;
+import android.content.Intent;
+import android.app.PendingIntent;
+
+import io.flutter.embedding.android.FlutterActivity;
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.plugin.common.MethodChannel;
+
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
     private static final int TEF_REQUEST_CODE = 2;
@@ -56,6 +67,10 @@ public class MainActivity extends FlutterActivity {
     private UsbSerialDevice serialPort;
     private UsbDevice usbDevice;
     private static final String ACTION_USB_PERMISSION = "com.example.lotuserp_pdv.USB_PERMISSION";
+    private UsbDevice device;
+    private UsbDeviceConnection connection;
+    private UsbInterface intf;
+    private UsbEndpoint endpoint;
 
     private Handler handler = new Handler(Looper.getMainLooper());
     private final Runnable readRunnable = new Runnable() {
@@ -97,7 +112,7 @@ public class MainActivity extends FlutterActivity {
         } else {
             copiarImagemParaArmazenamentoInterno();
             
-            usbManager = (UsbManager) getSystemService(this.USB_SERVICE);
+            usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
             detectAndOpenSerialPort();
         }
     }
@@ -134,6 +149,18 @@ public class MainActivity extends FlutterActivity {
                         }if (call.method.equals("activateWeightReading")) {
                             handler.post(readRunnable);
                             result.success(null);
+                        }if (call.method.equals("connectUsb")) {
+                            startUsbConnecting();
+                            result.success(null);
+                        } else if (call.method.equals("sendData")) {
+                            String data = call.argument("data");
+                            sendData(data);
+                            result.success(null);
+                        } else if (call.method.equals("readData")) {
+                            String data = readData();
+                            result.success(data);
+                        } else {
+                            result.notImplemented();
                         }
                     } catch (Exception e) {
                         Log.e("MethodChannel", "Erro no método: " + call.method, e);
@@ -154,6 +181,49 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
         }
     }
 }
+
+private void startUsbConnecting() {
+    HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
+    if (!usbDevices.isEmpty()) {
+        boolean keep = true;
+        for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
+            device = entry.getValue();
+            int deviceVID = device.getVendorId();
+            // TODO: You might need to change the following condition according to your USB device's vendor ID
+            if (deviceVID == 0x1A86)//Arduino Vendor ID
+            {
+                PendingIntent pi = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
+                usbManager.requestPermission(device, pi);
+                keep = false;
+            } else {
+                connection = null;
+                device = null;
+            }
+
+            if (!keep)
+                break;
+        }
+    }
+}
+
+private void sendData(String data) {
+    if (connection != null && endpoint != null) {
+        byte[] bytes = data.getBytes();
+        connection.bulkTransfer(endpoint, bytes, bytes.length, 0);
+    }
+}
+
+private String readData() {
+    if (connection != null && endpoint != null) {
+        byte[] bytes = new byte[64];
+        int result = connection.bulkTransfer(endpoint, bytes, bytes.length, 0);
+        if (result >= 0) {
+            return new String(bytes);
+        }
+    }
+    return null;
+}
+
   
 
 private void detectAndOpenSerialPort() {
