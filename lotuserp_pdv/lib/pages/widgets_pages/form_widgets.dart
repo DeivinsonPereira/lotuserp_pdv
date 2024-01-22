@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/controllers/balanca_controller.dart';
+import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/controllers/balanca_prix_controller.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -9,6 +10,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import '../../controllers/text_field_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/injection_dependencies.dart';
+import '../balaca_page.dart';
 
 class FormWidgets {
   final TextFieldController textFieldController =
@@ -22,7 +24,7 @@ class FormWidgets {
   final MethodChannel platform = const MethodChannel('com.lotuserp_pdv/tef');
 
   Widget customTextFieldIcon(
-      IconData icon, String text, BalancaController controller,
+      IconData icon, String text,
       {bool obscureText = false}) {
     return Obx(
       () {
@@ -36,9 +38,9 @@ class FormWidgets {
               borderSide: BorderSide(color: CustomColors.customSwatchColor),
             ),
             prefixIcon: IconButton(
-                icon: Icon(Icons.lock),
+                icon: const Icon(Icons.lock),
                 onPressed: () {
-                  controller.ativarLeituraDaBalanca();
+                  Get.to(() => BalancaPage());
                 }),
             labelText: text,
             suffixIcon: obscureText

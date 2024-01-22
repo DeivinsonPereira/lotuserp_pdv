@@ -41,17 +41,6 @@ import android.hardware.usb.UsbDeviceConnection;
 import android.os.Handler;
 import android.os.Looper;
 
-import android.hardware.usb.UsbEndpoint;
-import android.hardware.usb.UsbInterface;
-import android.hardware.usb.UsbManager;
-import android.content.Context;
-import android.content.Intent;
-import android.app.PendingIntent;
-
-import io.flutter.embedding.android.FlutterActivity;
-import io.flutter.embedding.engine.FlutterEngine;
-import io.flutter.plugin.common.MethodChannel;
-
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
     private static final int TEF_REQUEST_CODE = 2;
@@ -67,20 +56,17 @@ public class MainActivity extends FlutterActivity {
     private UsbSerialDevice serialPort;
     private UsbDevice usbDevice;
     private static final String ACTION_USB_PERMISSION = "com.example.lotuserp_pdv.USB_PERMISSION";
-    private UsbDevice device;
-    private UsbDeviceConnection connection;
-    private UsbInterface intf;
-    private UsbEndpoint endpoint;
+    private static final int VENDOR_ID_BALANCA = 0x1A86;
 
     private Handler handler = new Handler(Looper.getMainLooper());
-    private final Runnable readRunnable = new Runnable() {
-        @Override
+  /*  private final Runnable readRunnable = new Runnable() {
+       @Override
         public void run() {
             Log.d("SerialRead", "Tentando ler da porta serial");
             if (serialPort != null && serialPort.isOpen()) {
                 Log.d("SerialRead", "A porta serial está aberta. Preparando para ler.");
                 byte[] buffer = new byte[1024];
-                int len = serialPort.syncRead(buffer, 1000); // Ajuste conforme necessário
+                int len = serialPort.syncRead(buffer, 5000); // Ajuste conforme necessário
                 Log.d("SerialRead", "syncRead executado, número de bytes lidos: " + len);
 
 
@@ -97,11 +83,11 @@ public class MainActivity extends FlutterActivity {
             }else {
                 Log.d("SerialRead", "A porta serial não está aberta ou é nula.");
             }
-            handler.postDelayed(this, 1000); // Leia a cada 1 segundo
-            Log.d("SerialRead", "Agendado para ler novamente em 1 segundo.");
+            handler.postDelayed(this, 5000); // Leia a cada 1 segundo
+            Log.d("SerialRead", "Agendado para ler novamente em 5 segundos.");
         }
         
-    };
+    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +98,8 @@ public class MainActivity extends FlutterActivity {
         } else {
             copiarImagemParaArmazenamentoInterno();
             
-            usbManager = (UsbManager) getSystemService(Context.USB_SERVICE);
-            detectAndOpenSerialPort();
+           /* usbManager = (UsbManager) getSystemService(this.USB_SERVICE);
+            detectAndOpenSerialPort();*/
         }
     }
 
@@ -146,22 +132,10 @@ public class MainActivity extends FlutterActivity {
                             copiarImagemParaArmazenamentoInterno();
                             customizarAplicacao();
                             result.success(null);
-                        }if (call.method.equals("activateWeightReading")) {
+                        }/*if (call.method.equals("activateWeightReading")) {
                             handler.post(readRunnable);
                             result.success(null);
-                        }if (call.method.equals("connectUsb")) {
-                            startUsbConnecting();
-                            result.success(null);
-                        } else if (call.method.equals("sendData")) {
-                            String data = call.argument("data");
-                            sendData(data);
-                            result.success(null);
-                        } else if (call.method.equals("readData")) {
-                            String data = readData();
-                            result.success(data);
-                        } else {
-                            result.notImplemented();
-                        }
+                        }*/
                     } catch (Exception e) {
                         Log.e("MethodChannel", "Erro no método: " + call.method, e);
                         result.error("ERROR", "Erro no método: " + call.method, e.getMessage());
@@ -177,70 +151,32 @@ public void onRequestPermissionsResult(int requestCode, @NonNull String[] permis
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             copiarImagemParaArmazenamentoInterno();
         } else {
+            Log.e("Permissão:", "Permissão negada");
             // A permissão foi negada. Lide com a situação.
         }
     }
 }
-
-private void startUsbConnecting() {
-    HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
-    if (!usbDevices.isEmpty()) {
-        boolean keep = true;
-        for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
-            device = entry.getValue();
-            int deviceVID = device.getVendorId();
-            // TODO: You might need to change the following condition according to your USB device's vendor ID
-            if (deviceVID == 0x1A86)//Arduino Vendor ID
-            {
-                PendingIntent pi = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
-                usbManager.requestPermission(device, pi);
-                keep = false;
-            } else {
-                connection = null;
-                device = null;
-            }
-
-            if (!keep)
-                break;
-        }
-    }
-}
-
-private void sendData(String data) {
-    if (connection != null && endpoint != null) {
-        byte[] bytes = data.getBytes();
-        connection.bulkTransfer(endpoint, bytes, bytes.length, 0);
-    }
-}
-
-private String readData() {
-    if (connection != null && endpoint != null) {
-        byte[] bytes = new byte[64];
-        int result = connection.bulkTransfer(endpoint, bytes, bytes.length, 0);
-        if (result >= 0) {
-            return new String(bytes);
-        }
-    }
-    return null;
-}
-
   
 
 private void detectAndOpenSerialPort() {
     HashMap<String, UsbDevice> usbDevices = usbManager.getDeviceList();
+    Log.d("SerialPort", "Detectando dispositivos USB: " + usbDevices.size());
     if (!usbDevices.isEmpty()) {
         for (Map.Entry<String, UsbDevice> entry : usbDevices.entrySet()) {
             UsbDevice device = entry.getValue();
             
             // Verifique se o dispositivo é suportado
-            if (UsbSerialDevice.isSupported(device)) {
+            if (UsbSerialDevice.isSupported(device) && device.getVendorId() == VENDOR_ID_BALANCA) {
                 UsbDeviceConnection connection = usbManager.openDevice(device);
+                Log.d("SerialPort", "Conectado ao dispositivo: " + device.getDeviceName() + " (ID: " + device.getDeviceId() + ")");
+
                 
                 if (connection == null) {
                     Log.d("SerialPort", "Falha ao abrir a conexão com o dispositivo.");
                     PendingIntent permissionIntent = PendingIntent.getBroadcast(this, 0, new Intent(ACTION_USB_PERMISSION), 0);
                     usbManager.requestPermission(device, permissionIntent);
                 } else {
+                    Log.d("SerialPort", "Conexão estabelecida com o dispositivo.");
                     // A conexão foi estabelecida, agora podemos configurar a porta serial
                     serialPort = UsbSerialDevice.createUsbSerialDevice(device, connection);
                     if (serialPort != null && serialPort.open()) {
@@ -250,6 +186,7 @@ private void detectAndOpenSerialPort() {
                         serialPort.setParity(UsbSerialInterface.PARITY_NONE);
                         serialPort.setFlowControl(UsbSerialInterface.FLOW_CONTROL_OFF);
                         // A porta está aberta e configurada
+                        Log.d("SerialPort", "Porta serial aberta com sucesso." + device.getDeviceName());
                     } else {
                         Log.d("SerialPort", "Porta serial não é nula mas não foi possível abri-la.");
                     }
