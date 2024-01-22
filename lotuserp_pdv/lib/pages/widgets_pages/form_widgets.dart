@@ -10,7 +10,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import '../../controllers/text_field_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/injection_dependencies.dart';
-import '../balaca_page.dart';
+import '../pdv/widgets/balanca_page.dart';
 
 class FormWidgets {
   final TextFieldController textFieldController =
