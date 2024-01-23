@@ -11,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   final String variableName;
   bool? numericKeyboard;
   bool? useIconButton;
+  bool? isUrl;
 
   CustomTextFormField({
     Key? key,
@@ -19,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
     required this.variableName,
     this.numericKeyboard = false,
     this.useIconButton = false,
+    this.isUrl = false,
   }) : super(key: key);
 
   @override
@@ -50,7 +52,8 @@ class CustomTextFormField extends StatelessWidget {
             icon,
             color: Colors.white,
           ),
-          onPressed: () async => configController.verification(controller!),
+          onPressed: () async =>
+              configController.verificationEmpty(controller!),
         ),
       );
     }
@@ -98,19 +101,19 @@ class CustomTextFormField extends StatelessWidget {
     // Constrói o formulário
     return Padding(
       padding: const EdgeInsets.only(
-        left: 15.0,
-        right: 15.0,
+        right: 6,
         top: 15,
         bottom: 15,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 510,
+            width: isUrl == true ? 510 : 125,
             child: _buildTextOfLegend(),
           ),
-          _buildTextField(),
+          SizedBox(width: isUrl == true ? 510 : 110, child: _buildTextField()),
         ],
       ),
     );

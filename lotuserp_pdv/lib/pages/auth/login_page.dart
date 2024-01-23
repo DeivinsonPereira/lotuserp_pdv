@@ -10,8 +10,6 @@ import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 
-import '../../controllers/balanca_prix_controller.dart';
-
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 

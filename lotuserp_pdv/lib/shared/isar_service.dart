@@ -834,13 +834,13 @@ class IsarService {
     return "";
   }
 
-  //criar um listen que faz a busca dos dados da tabela 'Dados Empresariais'
+  //criar um listen que faz a busca dos dados da tabela 'Dado_empresa'
   Future<dado_empresa?> getDataEmpresa() async {
     final isar = await db;
     return await isar.dado_empresas.where().findFirst();
   }
 
-  //inserir dados na tabela 'Dados Empresariais'
+  //inserir dados na tabela 'Dado_empresa'
   Future<Object> insertDadosEmpresariais(dado_empresa empresa) async {
     try {
       final isar = await db;
@@ -868,7 +868,7 @@ class IsarService {
     }
   }
 
-  //deletar dados na tabela 'Dados Empresariais'
+  //deletar dados na tabela 'Dado_empresa'
   Future<Isar> deleteDadosEmpresariais() async {
     final isar = await db;
     isar.writeTxn(() async {

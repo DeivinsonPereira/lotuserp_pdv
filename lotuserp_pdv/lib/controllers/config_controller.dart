@@ -14,6 +14,9 @@ class Configcontroller extends GetxController {
   var logger = Logger();
   TextFieldController textFieldController = Dependencies.textFieldController();
 
+  var balanca = 'NENHUMA'.obs;
+  var tef = 'NENHUMA'.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -22,9 +25,11 @@ class Configcontroller extends GetxController {
     fetchDataFromDatabase('ID da serie NFCe');
     fetchDataFromDatabase('Número do caixa');
     fetchDataFromDatabase('Intervalo de envio');
+    loadBalanca();
+    loadTef();
   }
 
-  //Busca dados do banco para preencher os campos de texto
+  // BUSCAR OS DADOS DO BANCO E PREENCHER OS CAMPOS
   Future<void> fetchDataFromDatabase(String variableName) async {
     try {
       final dado_empresa? dadoEmpresa =
@@ -56,6 +61,7 @@ class Configcontroller extends GetxController {
     }
   }
 
+  // BUSCAR DADOS DA EMPRESA
   Future<bool> buscarDadosEmpresa(String ipEmpresa, String idEmpresa) async {
     try {
       var empresaObtida = await service.getEmpresa(idEmpresa, ipEmpresa);
@@ -66,7 +72,12 @@ class Configcontroller extends GetxController {
           ..num_caixa = int.parse(textFieldController.numCaixaController.text)
           ..intervalo_envio =
               int.parse(textFieldController.intervaloEnvioController.text)
-          ..ip_empresa = ipEmpresa;
+          ..ip_empresa = ipEmpresa
+          ..balanca = balanca.value
+          ..status_balanca = balanca.value != 'NENHUMA' ? 1 : 0
+          ..tef = tef.value
+          ..status_tef = tef.value != 'NENHUMA' ? 1 : 0;
+
         await service.insertDadosEmpresariais(dadosEmpresa);
         return true; // Retorna verdadeiro se a empresa for obtida e inserida com sucesso.
       } else {
@@ -81,6 +92,7 @@ class Configcontroller extends GetxController {
     }
   }
 
+  // BUSCAR OUTROS DADOS
   Future<void> buscarOutrosDados() async {
     await service.getGrupo();
     await service.getProduto();
@@ -88,6 +100,7 @@ class Configcontroller extends GetxController {
     await service.getTipo_recebimento();
   }
 
+  // ESPERAR DADOS DA EMPRESA E CHAMAR OUTROS DADOS
   Future<void> esperarDadosEmpresaEChamarOutrosDados(int tentativas) async {
     while (tentativas > 0) {
       await Future.delayed(const Duration(seconds: 1));
@@ -103,6 +116,7 @@ class Configcontroller extends GetxController {
     }
   }
 
+  // CONFIRMAR DADOS
   Future<void> confirmarDados() async {
     var ipEmpresa = textFieldController.numContratoEmpresaController.text;
     var idEmpresa = textFieldController.idEmpresaController.text;
@@ -123,7 +137,7 @@ class Configcontroller extends GetxController {
     }
   }
 
-  //verificações de campos obrigatórios
+  // VERIFICAR SE OS CAMPOS FORAM PREENCHIDOS
   bool verificacoes() {
     if (textFieldController.numContratoEmpresaController.text.isEmpty) {
       const CustomSnackBar(
@@ -156,8 +170,8 @@ class Configcontroller extends GetxController {
     }
   }
 
-  // faz a verificação se os campos estão vazios
-  Future<void> verification(
+  // VERIFICAR SE OS CAMPO DE NUMERO DO CONTRATO FOI PREENCHIDO
+  Future<void> verificationEmpty(
     TextEditingController controller,
   ) async {
     if (controller.text.isEmpty) {
@@ -171,6 +185,46 @@ class Configcontroller extends GetxController {
         textFieldController.updateNumeroContratoToIp(ip);
         controller.text = textFieldController.numContratoEmpresa;
       }
+    }
+  }
+
+  // ATUALIZAR VARIAVEL BALANCA
+  void updateBalanca(String value) {
+    balanca.value = value;
+    update();
+  }
+
+  // ATUALIZAR VARIAVEL TEF
+  void updateTef(String value) {
+    tef.value = value;
+    update();
+  }
+
+  // CARREGA DADOS DA EMPRESA BUSCANDO NOME DA BALANÇA CADASTRADA
+  void loadBalanca() async {
+    dado_empresa? balancaFromDb = await service.getDataEmpresa();
+    if (balancaFromDb != null &&
+        balancaFromDb.balanca != null &&
+        balancaFromDb.balanca!.isNotEmpty) {
+      balanca.value = balancaFromDb.balanca!;
+      update();
+    } else {
+      balanca.value = 'NENHUMA';
+      update();
+    }
+  }
+
+  // CARREGA DADOS DA EMPRESA BUSCANDO NOME DO TEF CADASTRADO
+  void loadTef() async {
+    dado_empresa? tefFromDb = await service.getDataEmpresa();
+    if (tefFromDb != null &&
+        tefFromDb.tef != null &&
+        tefFromDb.tef!.isNotEmpty) {
+      tef.value = tefFromDb.tef!;
+      update();
+    } else {
+      tef.value = 'NENHUMA';
+      update();
     }
   }
 }

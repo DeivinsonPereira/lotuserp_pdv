@@ -11,5 +11,8 @@ class dado_empresa {
   late int? id_nfce;
   late int? num_caixa;
   late int? intervalo_envio;
-  
+  late String? tef;
+  late int? status_tef;
+  late String? balanca;
+  late int? status_balanca;
 }

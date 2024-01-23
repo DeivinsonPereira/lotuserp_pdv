@@ -53,7 +53,7 @@ class BalancaPrixController extends GetxController {
 
       // Inicia o Timer para enviar solicitação de peso a cada segundo
       timer =
-          Timer.periodic(Duration(seconds: 1), (Timer t) => _solicitarPeso());
+          Timer.periodic(const Duration(seconds: 1), (Timer t) => _solicitarPeso());
 
       logger.i("Conexão estabelecida com sucesso");
       return true;

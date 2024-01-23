@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
-import 'package:lotuserp_pdv/controllers/balanca_prix_controller.dart';
 import 'package:lotuserp_pdv/controllers/login_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -23,8 +21,7 @@ class FormWidgets {
 
   final MethodChannel platform = const MethodChannel('com.lotuserp_pdv/tef');
 
-  Widget customTextFieldIcon(
-      IconData icon, String text,
+  Widget customTextFieldIcon(IconData icon, String text,
       {bool obscureText = false}) {
     return Obx(
       () {
@@ -40,7 +37,7 @@ class FormWidgets {
             prefixIcon: IconButton(
                 icon: const Icon(Icons.lock),
                 onPressed: () {
-                  Get.to(() => BalancaPage());
+                  Get.to(() => const BalancaPage());
                 }),
             labelText: text,
             suffixIcon: obscureText

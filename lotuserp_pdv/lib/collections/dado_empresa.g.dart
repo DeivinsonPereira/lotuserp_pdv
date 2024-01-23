@@ -19,30 +19,50 @@ const Dado_empresaSchema = CollectionSchema(
   name: r'dado_empresa',
   id: 8509089205883310449,
   properties: {
-    r'id_empresa': PropertySchema(
+    r'balanca': PropertySchema(
       id: 0,
+      name: r'balanca',
+      type: IsarType.string,
+    ),
+    r'id_empresa': PropertySchema(
+      id: 1,
       name: r'id_empresa',
       type: IsarType.long,
     ),
     r'id_nfce': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'id_nfce',
       type: IsarType.long,
     ),
     r'intervalo_envio': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'intervalo_envio',
       type: IsarType.long,
     ),
     r'ip_empresa': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'ip_empresa',
       type: IsarType.string,
     ),
     r'num_caixa': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'num_caixa',
       type: IsarType.long,
+    ),
+    r'status_balanca': PropertySchema(
+      id: 6,
+      name: r'status_balanca',
+      type: IsarType.long,
+    ),
+    r'status_tef': PropertySchema(
+      id: 7,
+      name: r'status_tef',
+      type: IsarType.long,
+    ),
+    r'tef': PropertySchema(
+      id: 8,
+      name: r'tef',
+      type: IsarType.string,
     )
   },
   estimateSize: _dado_empresaEstimateSize,
@@ -66,7 +86,19 @@ int _dado_empresaEstimateSize(
 ) {
   var bytesCount = offsets.last;
   {
+    final value = object.balanca;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.ip_empresa;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.tef;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -80,11 +112,15 @@ void _dado_empresaSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.id_empresa);
-  writer.writeLong(offsets[1], object.id_nfce);
-  writer.writeLong(offsets[2], object.intervalo_envio);
-  writer.writeString(offsets[3], object.ip_empresa);
-  writer.writeLong(offsets[4], object.num_caixa);
+  writer.writeString(offsets[0], object.balanca);
+  writer.writeLong(offsets[1], object.id_empresa);
+  writer.writeLong(offsets[2], object.id_nfce);
+  writer.writeLong(offsets[3], object.intervalo_envio);
+  writer.writeString(offsets[4], object.ip_empresa);
+  writer.writeLong(offsets[5], object.num_caixa);
+  writer.writeLong(offsets[6], object.status_balanca);
+  writer.writeLong(offsets[7], object.status_tef);
+  writer.writeString(offsets[8], object.tef);
 }
 
 dado_empresa _dado_empresaDeserialize(
@@ -94,12 +130,16 @@ dado_empresa _dado_empresaDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = dado_empresa();
+  object.balanca = reader.readStringOrNull(offsets[0]);
   object.id = id;
-  object.id_empresa = reader.readLongOrNull(offsets[0]);
-  object.id_nfce = reader.readLongOrNull(offsets[1]);
-  object.intervalo_envio = reader.readLongOrNull(offsets[2]);
-  object.ip_empresa = reader.readStringOrNull(offsets[3]);
-  object.num_caixa = reader.readLongOrNull(offsets[4]);
+  object.id_empresa = reader.readLongOrNull(offsets[1]);
+  object.id_nfce = reader.readLongOrNull(offsets[2]);
+  object.intervalo_envio = reader.readLongOrNull(offsets[3]);
+  object.ip_empresa = reader.readStringOrNull(offsets[4]);
+  object.num_caixa = reader.readLongOrNull(offsets[5]);
+  object.status_balanca = reader.readLongOrNull(offsets[6]);
+  object.status_tef = reader.readLongOrNull(offsets[7]);
+  object.tef = reader.readStringOrNull(offsets[8]);
   return object;
 }
 
@@ -111,15 +151,23 @@ P _dado_empresaDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 1:
       return (reader.readLongOrNull(offset)) as P;
     case 2:
       return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
-    case 4:
       return (reader.readLongOrNull(offset)) as P;
+    case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
+      return (reader.readLongOrNull(offset)) as P;
+    case 6:
+      return (reader.readLongOrNull(offset)) as P;
+    case 7:
+      return (reader.readLongOrNull(offset)) as P;
+    case 8:
+      return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -219,6 +267,160 @@ extension dado_empresaQueryWhere
 
 extension dado_empresaQueryFilter
     on QueryBuilder<dado_empresa, dado_empresa, QFilterCondition> {
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'balanca',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'balanca',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'balanca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'balanca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'balanca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'balanca',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'balanca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'balanca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'balanca',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'balanca',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'balanca',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      balancaIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'balanca',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> idEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -721,6 +923,303 @@ extension dado_empresaQueryFilter
       ));
     });
   }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_balancaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'status_balanca',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_balancaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'status_balanca',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_balancaEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'status_balanca',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_balancaGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'status_balanca',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_balancaLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'status_balanca',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_balancaBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'status_balanca',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_tefIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'status_tef',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_tefIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'status_tef',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_tefEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'status_tef',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_tefGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'status_tef',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_tefLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'status_tef',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      status_tefBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'status_tef',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'tef',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tefIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'tef',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'tef',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tefGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'tef',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'tef',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'tef',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'tef',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'tef',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'tef',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'tef',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'tef',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tefIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'tef',
+        value: '',
+      ));
+    });
+  }
 }
 
 extension dado_empresaQueryObject
@@ -731,6 +1230,18 @@ extension dado_empresaQueryLinks
 
 extension dado_empresaQuerySortBy
     on QueryBuilder<dado_empresa, dado_empresa, QSortBy> {
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByBalanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'balanca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByBalancaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'balanca', Sort.desc);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_empresa', Sort.asc);
@@ -794,10 +1305,61 @@ extension dado_empresaQuerySortBy
       return query.addSortBy(r'num_caixa', Sort.desc);
     });
   }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByStatus_balanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_balanca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByStatus_balancaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_balanca', Sort.desc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByStatus_tef() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_tef', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByStatus_tefDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_tef', Sort.desc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByTef() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tef', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByTefDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tef', Sort.desc);
+    });
+  }
 }
 
 extension dado_empresaQuerySortThenBy
     on QueryBuilder<dado_empresa, dado_empresa, QSortThenBy> {
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByBalanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'balanca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByBalancaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'balanca', Sort.desc);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -873,10 +1435,56 @@ extension dado_empresaQuerySortThenBy
       return query.addSortBy(r'num_caixa', Sort.desc);
     });
   }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByStatus_balanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_balanca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByStatus_balancaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_balanca', Sort.desc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByStatus_tef() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_tef', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByStatus_tefDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'status_tef', Sort.desc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByTef() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tef', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByTefDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tef', Sort.desc);
+    });
+  }
 }
 
 extension dado_empresaQueryWhereDistinct
     on QueryBuilder<dado_empresa, dado_empresa, QDistinct> {
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByBalanca(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'balanca', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id_empresa');
@@ -908,6 +1516,26 @@ extension dado_empresaQueryWhereDistinct
       return query.addDistinctBy(r'num_caixa');
     });
   }
+
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct>
+      distinctByStatus_balanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'status_balanca');
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByStatus_tef() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'status_tef');
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByTef(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'tef', caseSensitive: caseSensitive);
+    });
+  }
 }
 
 extension dado_empresaQueryProperty
@@ -915,6 +1543,12 @@ extension dado_empresaQueryProperty
   QueryBuilder<dado_empresa, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<dado_empresa, String?, QQueryOperations> balancaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'balanca');
     });
   }
 
@@ -945,6 +1579,24 @@ extension dado_empresaQueryProperty
   QueryBuilder<dado_empresa, int?, QQueryOperations> num_caixaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'num_caixa');
+    });
+  }
+
+  QueryBuilder<dado_empresa, int?, QQueryOperations> status_balancaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'status_balanca');
+    });
+  }
+
+  QueryBuilder<dado_empresa, int?, QQueryOperations> status_tefProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'status_tef');
+    });
+  }
+
+  QueryBuilder<dado_empresa, String?, QQueryOperations> tefProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'tef');
     });
   }
 }

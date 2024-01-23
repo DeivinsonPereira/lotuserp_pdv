@@ -6,13 +6,16 @@ import '../../../services/injection_dependencies.dart';
 abstract class TextFieldList {
   static TextFieldController textFieldController =
       Dependencies.textFieldController();
-  static List<Map<String, dynamic>> textFieldList = [
-    {
-      'icon': FontAwesomeIcons.wifi,
-      'controller': textFieldController.numContratoEmpresaController,
-      'label': 'Digite o IP da empresa',
-      'useIconButton': true,
-    },
+
+  static Map<String, dynamic> textFieldUrl = {
+    'icon': FontAwesomeIcons.wifi,
+    'controller': textFieldController.numContratoEmpresaController,
+    'label': 'Digite o IP da empresa',
+    'useIconButton': true,
+    'isUrl': true
+  };
+
+  static List<Map<String, dynamic>> textFieldListRow = [
     {
       'icon': FontAwesomeIcons.solidBuilding,
       'controller': textFieldController.idEmpresaController,
