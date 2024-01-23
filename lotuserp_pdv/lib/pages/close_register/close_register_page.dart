@@ -13,7 +13,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../collections/tipo_recebimento.dart';
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 
 class CloseRegisterPage extends StatelessWidget {

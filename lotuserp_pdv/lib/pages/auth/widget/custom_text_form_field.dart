@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../controllers/config_controller.dart';
-import '../../../core/custom_colors.dart';
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final IconData icon;
@@ -12,6 +11,7 @@ class CustomTextFormField extends StatelessWidget {
   bool? numericKeyboard;
   bool? useIconButton;
   bool? isUrl;
+  bool? isSpeed;
 
   CustomTextFormField({
     Key? key,
@@ -21,6 +21,7 @@ class CustomTextFormField extends StatelessWidget {
     this.numericKeyboard = false,
     this.useIconButton = false,
     this.isUrl = false,
+    this.isSpeed = false,
   }) : super(key: key);
 
   @override
@@ -28,21 +29,12 @@ class CustomTextFormField extends StatelessWidget {
     Dependencies.textFieldController();
     Configcontroller configController = Dependencies.configcontroller();
 
-    // cria o texto da legenda do TextField
-    Widget _buildTextOfLegend() {
-      return Text(
-        variableName,
-        style: const TextStyle(fontWeight: FontWeight.bold),
-      );
-    }
-
     //Cria um campo de texto com o iconButton
     Widget _useIconButton() {
       return Container(
         width: 50,
-        decoration: BoxDecoration(
-          color: CustomColors.customSwatchColor,
-          borderRadius: const BorderRadius.only(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             bottomLeft: Radius.circular(10),
           ),
@@ -50,7 +42,7 @@ class CustomTextFormField extends StatelessWidget {
         child: IconButton(
           icon: Icon(
             icon,
-            color: Colors.white,
+            color: Colors.black,
           ),
           onPressed: () async =>
               configController.verificationEmpty(controller!),
@@ -61,17 +53,16 @@ class CustomTextFormField extends StatelessWidget {
     // cria um campo de texto padrão sem o iconButton
     Widget _noUseIconButton() {
       return Container(
-        width: 50,
-        decoration: BoxDecoration(
-          color: CustomColors.customSwatchColor,
-          borderRadius: const BorderRadius.only(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(10),
             bottomLeft: Radius.circular(10),
           ),
         ),
         child: Icon(
           icon,
-          color: Colors.white,
+          size: 20,
+          color: Colors.black,
         ),
       );
     }
@@ -82,17 +73,15 @@ class CustomTextFormField extends StatelessWidget {
         controller: controller,
         keyboardType: numericKeyboard! ? TextInputType.number : null,
         decoration: InputDecoration(
-          prefixIcon: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: useIconButton! ? _useIconButton() : _noUseIconButton(),
-          ),
+          labelText: variableName,
+          prefixIcon: useIconButton! ? _useIconButton() : _noUseIconButton(),
           fillColor: Colors.grey[200],
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10.0),
           ),
           contentPadding: const EdgeInsets.symmetric(
             vertical: 12.0,
-            horizontal: 16.0,
+            horizontal: 10.0,
           ),
         ),
       );
@@ -100,21 +89,14 @@ class CustomTextFormField extends StatelessWidget {
 
     // Constrói o formulário
     return Padding(
-      padding: const EdgeInsets.only(
-        right: 6,
-        top: 15,
-        bottom: 15,
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: isUrl == true ? 510 : 125,
-            child: _buildTextOfLegend(),
-          ),
-          SizedBox(width: isUrl == true ? 510 : 110, child: _buildTextField()),
-        ],
+      padding: const EdgeInsets.only(top: 15, bottom: 15, left: 5),
+      child: SizedBox(
+        width: isUrl == true
+            ? 700
+            : isSpeed == true
+                ? 110
+                : 156,
+        child: _buildTextField(),
       ),
     );
   }

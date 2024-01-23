@@ -6,7 +6,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({

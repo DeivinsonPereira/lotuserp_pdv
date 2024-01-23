@@ -18,7 +18,7 @@ import 'package:lotuserp_pdv/services/tef_elgin/tef_elgin_customization_service.
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/format_numbers.dart';
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import '../../services/tef_elgin/tef_elgin_service.dart';
 
 class PaymentPage extends StatefulWidget {

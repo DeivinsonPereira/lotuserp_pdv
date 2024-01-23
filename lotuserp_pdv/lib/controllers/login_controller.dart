@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/usuario_logado.dart';
 import '../core/app_routes.dart';
 import '../pages/common/custom_snack_bar.dart';
+import '../services/dependencies.dart';
 import 'password_controller.dart';
 
 class LoginController extends GetxController {

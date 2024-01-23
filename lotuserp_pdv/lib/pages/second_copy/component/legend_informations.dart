@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/strings_default.dart';
-import 'package:lotuserp_pdv/services/injection_dependencies.dart';
 
 import '../../../controllers/printer_controller.dart';
+import '../../../services/dependencies.dart';
 
 // CONSTRÓI CADA LINHA
 class LegendInformation extends StatelessWidget {

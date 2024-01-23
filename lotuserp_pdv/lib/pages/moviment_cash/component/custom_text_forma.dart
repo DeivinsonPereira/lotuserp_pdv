@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 
 class CustomTextForma extends StatelessWidget {
   final TextEditingController controller;

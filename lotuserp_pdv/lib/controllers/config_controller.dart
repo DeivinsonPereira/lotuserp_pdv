@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:lotuserp_pdv/services/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
@@ -15,6 +15,7 @@ class Configcontroller extends GetxController {
   TextFieldController textFieldController = Dependencies.textFieldController();
 
   var balanca = 'NENHUMA'.obs;
+  var velocidadeBalanca = ''.obs;
   var tef = 'NENHUMA'.obs;
 
   @override
@@ -26,6 +27,7 @@ class Configcontroller extends GetxController {
     fetchDataFromDatabase('Número do caixa');
     fetchDataFromDatabase('Intervalo de envio');
     loadBalanca();
+    loadSpeedBalance();
     loadTef();
   }
 
@@ -76,7 +78,9 @@ class Configcontroller extends GetxController {
           ..balanca = balanca.value
           ..status_balanca = balanca.value != 'NENHUMA' ? 1 : 0
           ..tef = tef.value
-          ..status_tef = tef.value != 'NENHUMA' ? 1 : 0;
+          ..status_tef = tef.value != 'NENHUMA' ? 1 : 0
+          ..velocidade_balanca =
+              int.parse(textFieldController.velocidadeBalancaController.text);
 
         await service.insertDadosEmpresariais(dadosEmpresa);
         return true; // Retorna verdadeiro se a empresa for obtida e inserida com sucesso.
@@ -201,7 +205,7 @@ class Configcontroller extends GetxController {
   }
 
   // CARREGA DADOS DA EMPRESA BUSCANDO NOME DA BALANÇA CADASTRADA
-  void loadBalanca() async {
+  Future<void> loadBalanca() async {
     dado_empresa? balancaFromDb = await service.getDataEmpresa();
     if (balancaFromDb != null &&
         balancaFromDb.balanca != null &&
@@ -215,7 +219,7 @@ class Configcontroller extends GetxController {
   }
 
   // CARREGA DADOS DA EMPRESA BUSCANDO NOME DO TEF CADASTRADO
-  void loadTef() async {
+  Future<void> loadTef() async {
     dado_empresa? tefFromDb = await service.getDataEmpresa();
     if (tefFromDb != null &&
         tefFromDb.tef != null &&
@@ -224,6 +228,19 @@ class Configcontroller extends GetxController {
       update();
     } else {
       tef.value = 'NENHUMA';
+      update();
+    }
+  }
+
+  // CARREGA DADOS DA EMPRESA BUSCANDO VELOCIDADE DA BALANÇA CADASTRADO
+  Future<void> loadSpeedBalance() async {
+    dado_empresa? speedBalanceDb = await service.getDataEmpresa();
+    if (speedBalanceDb != null && speedBalanceDb.velocidade_balanca != null) {
+      textFieldController.velocidadeBalancaController.text =
+          speedBalanceDb.velocidade_balanca!.toString();
+      update();
+    } else {
+      textFieldController.velocidadeBalancaController.text = '';
       update();
     }
   }

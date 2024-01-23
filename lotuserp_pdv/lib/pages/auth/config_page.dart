@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
@@ -9,7 +10,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/text_field_list.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import 'widget/custom_field_dropdown.dart';
 import 'widget/custom_text_form_field.dart';
 import 'widget/list_dropdown_option.dart';
@@ -33,13 +34,16 @@ class _ConfigPageState extends State<ConfigPage> {
       return Form(
         child: Column(
           children: [
-            CustomTextFormField(
-                icon: TextFieldList.textFieldUrl['icon'],
-                controller: TextFieldList.textFieldUrl['controller'],
-                variableName: TextFieldList.textFieldUrl['label'],
-                useIconButton:
-                    TextFieldList.textFieldUrl['useIconButton'] ?? false,
-                isUrl: TextFieldList.textFieldUrl['isUrl'] ?? false),
+            Padding(
+              padding: const EdgeInsets.only(left: 20.0),
+              child: CustomTextFormField(
+                  icon: TextFieldList.textFieldUrl['icon'],
+                  controller: TextFieldList.textFieldUrl['controller'],
+                  variableName: TextFieldList.textFieldUrl['label'],
+                  useIconButton:
+                      TextFieldList.textFieldUrl['useIconButton'] ?? false,
+                  isUrl: TextFieldList.textFieldUrl['isUrl'] ?? false),
+            ),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
               child: Row(children: [
@@ -72,21 +76,34 @@ class _ConfigPageState extends State<ConfigPage> {
       return GetBuilder<Configcontroller>(
         builder: (_) {
           return Padding(
-            padding: const EdgeInsets.only(top: 15.0, left: 20),
+            padding: const EdgeInsets.only(left: 20),
             child: Row(
               children: [
-                CustomFieldDropdown(
-                    options: ListDropdownOption.listOptionsBalance,
-                    text: 'Balança',
-                    icon: Icons.balance,
-                    value: _.balanca.value,
-                    isBalance: true),
                 Padding(
-                  padding: const EdgeInsets.only(left: 25.0),
+                  padding: const EdgeInsets.only(left: 5.0),
+                  child: CustomFieldDropdown(
+                      options: ListDropdownOption.listOptionsBalance,
+                      text: 'Balança',
+                      icon: FontAwesomeIcons.scaleBalanced,
+                      value: _.balanca.value,
+                      isBalance: true),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 5.0, left: 2),
+                  child: CustomTextFormField(
+                    icon: FontAwesomeIcons.gaugeHigh,
+                    controller: textFieldController.velocidadeBalancaController,
+                    variableName: 'Vel. Balança',
+                    numericKeyboard: true,
+                    isSpeed: true,
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 7.0),
                   child: CustomFieldDropdown(
                       options: ListDropdownOption.listOptionsTef,
                       text: 'TEF',
-                      icon: Icons.credit_card,
+                      icon: FontAwesomeIcons.solidCreditCard,
                       value: _.tef.value),
                 ),
               ],
@@ -105,7 +122,7 @@ class _ConfigPageState extends State<ConfigPage> {
             padding: const EdgeInsets.only(top: 8.0),
             child: _textFormFieldsCompany(),
           ),
-          _dropdownBalanceAndTef(),
+          _dropdownBalanceAndTef()
         ],
       );
     }
@@ -223,11 +240,11 @@ class _ConfigPageState extends State<ConfigPage> {
         child: Row(
           children: [
             Expanded(
-              flex: 1,
+              flex: 3,
               child: _textFormFieldsCamp(),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: _contentRight(),
             ),
           ],

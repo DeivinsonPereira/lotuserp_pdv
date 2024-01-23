@@ -15,4 +15,5 @@ class dado_empresa {
   late int? status_tef;
   late String? balanca;
   late int? status_balanca;
+  late int? velocidade_balanca;
 }

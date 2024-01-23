@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../controllers/moviment_register_controller.dart';
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 
 class PopupMenuMoviment extends StatelessWidget {
   const PopupMenuMoviment({super.key});

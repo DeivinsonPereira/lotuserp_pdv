@@ -11,6 +11,8 @@ class SearchProductPdvController extends GetxController {
   var unidade = [].obs;
   var preco = [].obs;
   var idProduto = [].obs;
+  var quantity = [].obs;
+  
 
   bool isSearch = false;
   bool isBarCode = false;

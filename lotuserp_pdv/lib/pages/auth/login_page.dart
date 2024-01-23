@@ -8,7 +8,7 @@ import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
-import 'package:lotuserp_pdv/services/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});

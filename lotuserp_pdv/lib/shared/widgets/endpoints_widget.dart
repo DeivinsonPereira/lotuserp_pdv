@@ -1,5 +1,5 @@
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
-import 'package:lotuserp_pdv/services/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 class Endpoints {

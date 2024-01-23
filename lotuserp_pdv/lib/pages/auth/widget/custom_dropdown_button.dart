@@ -3,17 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
-import 'package:lotuserp_pdv/services/injection_dependencies.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 
 class CustomDropdownButton extends StatelessWidget {
   final List<String> options;
   final String value;
+  final String text;
   bool? isBalance;
 
   CustomDropdownButton({
     Key? key,
     required this.options,
     required this.value,
+    required this.text,
     this.isBalance = false,
   }) : super(key: key);
 

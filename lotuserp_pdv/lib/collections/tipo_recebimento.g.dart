@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'tipo_recebimento.dart';
 
 // **************************************************************************

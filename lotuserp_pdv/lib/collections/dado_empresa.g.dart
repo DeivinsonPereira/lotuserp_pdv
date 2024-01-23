@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'dado_empresa.dart';
 
 // **************************************************************************
@@ -63,6 +61,11 @@ const Dado_empresaSchema = CollectionSchema(
       id: 8,
       name: r'tef',
       type: IsarType.string,
+    ),
+    r'velocidade_balanca': PropertySchema(
+      id: 9,
+      name: r'velocidade_balanca',
+      type: IsarType.long,
     )
   },
   estimateSize: _dado_empresaEstimateSize,
@@ -121,6 +124,7 @@ void _dado_empresaSerialize(
   writer.writeLong(offsets[6], object.status_balanca);
   writer.writeLong(offsets[7], object.status_tef);
   writer.writeString(offsets[8], object.tef);
+  writer.writeLong(offsets[9], object.velocidade_balanca);
 }
 
 dado_empresa _dado_empresaDeserialize(
@@ -140,6 +144,7 @@ dado_empresa _dado_empresaDeserialize(
   object.status_balanca = reader.readLongOrNull(offsets[6]);
   object.status_tef = reader.readLongOrNull(offsets[7]);
   object.tef = reader.readStringOrNull(offsets[8]);
+  object.velocidade_balanca = reader.readLongOrNull(offsets[9]);
   return object;
 }
 
@@ -168,6 +173,8 @@ P _dado_empresaDeserializeProp<P>(
       return (reader.readLongOrNull(offset)) as P;
     case 8:
       return (reader.readStringOrNull(offset)) as P;
+    case 9:
+      return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -1220,6 +1227,80 @@ extension dado_empresaQueryFilter
       ));
     });
   }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      velocidade_balancaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'velocidade_balanca',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      velocidade_balancaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'velocidade_balanca',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      velocidade_balancaEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'velocidade_balanca',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      velocidade_balancaGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'velocidade_balanca',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      velocidade_balancaLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'velocidade_balanca',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      velocidade_balancaBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'velocidade_balanca',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
 }
 
 extension dado_empresaQueryObject
@@ -1342,6 +1423,20 @@ extension dado_empresaQuerySortBy
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByTefDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'tef', Sort.desc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByVelocidade_balanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'velocidade_balanca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByVelocidade_balancaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'velocidade_balanca', Sort.desc);
     });
   }
 }
@@ -1474,6 +1569,20 @@ extension dado_empresaQuerySortThenBy
       return query.addSortBy(r'tef', Sort.desc);
     });
   }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByVelocidade_balanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'velocidade_balanca', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByVelocidade_balancaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'velocidade_balanca', Sort.desc);
+    });
+  }
 }
 
 extension dado_empresaQueryWhereDistinct
@@ -1534,6 +1643,13 @@ extension dado_empresaQueryWhereDistinct
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'tef', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct>
+      distinctByVelocidade_balanca() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'velocidade_balanca');
     });
   }
 }
@@ -1597,6 +1713,13 @@ extension dado_empresaQueryProperty
   QueryBuilder<dado_empresa, String?, QQueryOperations> tefProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'tef');
+    });
+  }
+
+  QueryBuilder<dado_empresa, int?, QQueryOperations>
+      velocidade_balancaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'velocidade_balanca');
     });
   }
 }

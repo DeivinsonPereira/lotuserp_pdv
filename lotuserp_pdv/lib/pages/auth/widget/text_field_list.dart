@@ -1,7 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../controllers/text_field_controller.dart';
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 
 abstract class TextFieldList {
   static TextFieldController textFieldController =
@@ -10,7 +10,7 @@ abstract class TextFieldList {
   static Map<String, dynamic> textFieldUrl = {
     'icon': FontAwesomeIcons.wifi,
     'controller': textFieldController.numContratoEmpresaController,
-    'label': 'Digite o IP da empresa',
+    'label': 'IP Empresa',
     'useIconButton': true,
     'isUrl': true
   };
@@ -19,25 +19,25 @@ abstract class TextFieldList {
     {
       'icon': FontAwesomeIcons.solidBuilding,
       'controller': textFieldController.idEmpresaController,
-      'label': 'ID da empresa',
+      'label': 'Id Empresa',
       'numericKeyboard': true
     },
     {
       'icon': FontAwesomeIcons.fileInvoiceDollar,
       'controller': textFieldController.idSerieNfceController,
-      'label': 'ID da serie NFCe',
+      'label': 'ID S. NFCe',
       'numericKeyboard': true
     },
     {
       'icon': FontAwesomeIcons.cashRegister,
       'controller': textFieldController.numCaixaController,
-      'label': 'Número do caixa',
+      'label': 'Nº Caixa',
       'numericKeyboard': true
     },
     {
       'icon': FontAwesomeIcons.solidClock,
       'controller': textFieldController.intervaloEnvioController,
-      'label': 'Intervalo de envio',
+      'label': 'Intervalo',
       'numericKeyboard': true
     },
   ];

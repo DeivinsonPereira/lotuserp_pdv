@@ -12,7 +12,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 import 'component/custom_text_descricao.dart';
 import 'component/custom_text_forma.dart';

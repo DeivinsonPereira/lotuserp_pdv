@@ -29,7 +29,7 @@ import 'package:logger/logger.dart';
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
 import '../core/app_routes.dart';
-import '../services/injection_dependencies.dart';
+import '../services/dependencies.dart';
 
 Map<String, String> _headers = {
   'content-type': 'application/json',
@@ -597,8 +597,7 @@ class IsarService {
   Future<Isar> insertCaixaWithCaixaItem(caixa caixa, DateTime atualDate,
       String hourFormatted, double openRegisterDouble) async {
     final isar = await db;
-    PrinterController printerController =
-        Dependencies.printerController();
+    PrinterController printerController = Dependencies.printerController();
 
     caixa_item caixaItem = caixa_item();
 
@@ -635,10 +634,8 @@ class IsarService {
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
     final isar = await db;
     PdvController pdvController = Dependencies.pdvController();
-    PaymentController paymentController =
-        Dependencies.paymentController();
-    PrinterController printerController =
-        Dependencies.printerController();
+    PaymentController paymentController = Dependencies.paymentController();
+    PrinterController printerController = Dependencies.printerController();
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
@@ -837,7 +834,11 @@ class IsarService {
   //criar um listen que faz a busca dos dados da tabela 'Dado_empresa'
   Future<dado_empresa?> getDataEmpresa() async {
     final isar = await db;
-    return await isar.dado_empresas.where().findFirst();
+    try {
+      return await isar.dado_empresas.where().findFirst();
+    } catch (e) {
+      return null;
+    }
   }
 
   //inserir dados na tabela 'Dado_empresa'

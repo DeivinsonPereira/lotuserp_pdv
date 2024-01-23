@@ -5,7 +5,7 @@ import '../../controllers/login_controller.dart';
 import '../../controllers/password_controller.dart';
 import '../../core/custom_colors.dart';
 import '../../services/format_txt.dart';
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 
 class AutocompleteWidget extends StatelessWidget {
   final String usuario;

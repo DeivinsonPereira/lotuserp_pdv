@@ -8,7 +8,7 @@ import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/home/component/icon_button_list.dart';
 
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 import '../../../shared/isar_service.dart';
 import 'icon_button_side_bar.dart';
 

@@ -4,7 +4,7 @@ import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 
 import '../../../core/app_routes.dart';
-import '../../../services/injection_dependencies.dart';
+import '../../../services/dependencies.dart';
 import '../../../shared/isar_service.dart';
 import '../../close_register/close_register_page.dart';
 import '../../load_data/load_data_page.dart';

@@ -62,6 +62,7 @@ class PdvController extends GetxController {
   final ScrollController scrollController = ScrollController();
   var liquido = 0.0.obs;
 
+
   //status se balanca foi cadastrado
   var statusBalanca = 0.obs;
 
@@ -269,7 +270,7 @@ class PdvController extends GetxController {
 
   //adiciona itens no pedido
   void adicionarPedidos(
-      String nomeProduto, String unidade, String price, int idProduto) {
+      String nomeProduto, String unidade, String price, int idProduto, {bool isPesage = false, double quantity = 0.000}) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -290,7 +291,7 @@ class PdvController extends GetxController {
       pedidos.add({
         'idProduto': idProduto,
         'nomeProduto': nomeProduto,
-        'quantidade': 1.0,
+        'quantidade': isPesage == false ? 1.0 : quantity,
         'unidade': unidade,
         'price': precoDouble,
         'total': precoDouble

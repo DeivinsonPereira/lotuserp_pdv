@@ -16,6 +16,7 @@ import '../../controllers/product_controller.dart';
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
+import '../controllers/balanca_prix_controller.dart';
 
 abstract class Dependencies {
   static SideBarController sidebarController() {
@@ -141,8 +142,16 @@ abstract class Dependencies {
   static Configcontroller configcontroller() {
     if (Get.isRegistered<Configcontroller>()) {
       return Get.find<Configcontroller>();
-    }else {
+    } else {
       return Get.put(Configcontroller());
+    }
+  }
+
+  static BalancaPrix3FitController balancaController() {
+    if (Get.isRegistered<BalancaPrix3FitController>()) {
+      return Get.find<BalancaPrix3FitController>();
+    } else {
+      return Get.put(BalancaPrix3FitController());
     }
   }
 }

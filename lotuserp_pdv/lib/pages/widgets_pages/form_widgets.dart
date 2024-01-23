@@ -7,8 +7,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 import '../../controllers/text_field_controller.dart';
 import '../../services/format_txt.dart';
-import '../../services/injection_dependencies.dart';
-import '../pdv/widgets/balanca_page.dart';
+import '../../services/dependencies.dart';
 
 class FormWidgets {
   final TextFieldController textFieldController =
@@ -34,11 +33,7 @@ class FormWidgets {
               borderRadius: BorderRadius.circular(4),
               borderSide: BorderSide(color: CustomColors.customSwatchColor),
             ),
-            prefixIcon: IconButton(
-                icon: const Icon(Icons.lock),
-                onPressed: () {
-                  Get.to(() => const BalancaPage());
-                }),
+            prefixIcon: const Icon(Icons.lock),
             labelText: text,
             suffixIcon: obscureText
                 ? IconButton(

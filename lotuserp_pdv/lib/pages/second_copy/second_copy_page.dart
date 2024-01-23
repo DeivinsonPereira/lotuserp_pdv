@@ -6,7 +6,7 @@ import 'package:lotuserp_pdv/pages/second_copy/component/legend_informations.dar
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 
 class SecondCopyPage extends StatelessWidget {

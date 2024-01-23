@@ -7,7 +7,8 @@ class BalancaPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BalancaPrixController controller = Get.put(BalancaPrixController());
+    final BalancaPrix3FitController controller =
+        Get.put(BalancaPrix3FitController());
 
     return Dialog(
       child: Column(
@@ -21,7 +22,6 @@ class BalancaPage extends StatelessWidget {
           ),
         ],
       ),
-
     );
   }
 }

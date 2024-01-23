@@ -5,7 +5,7 @@ import 'package:logger/logger.dart';
 import 'package:usb_serial/usb_serial.dart';
 import 'package:usb_serial/transaction.dart';
 
-class BalancaPrixController extends GetxController {
+class BalancaPrix3FitController extends GetxController {
   var pesoLido = "".obs;
   UsbPort? port;
   StreamSubscription<Uint8List>? subscription;
@@ -14,19 +14,15 @@ class BalancaPrixController extends GetxController {
   Logger logger = Logger();
   Timer? timer;
 
-  @override
-  void onInit() {
-    super.onInit();
-    _detectBalanca();
-  }
-
-  Future<void> _detectBalanca() async {
+  // Detecta a balança no USB
+  Future<void> detectBalanca() async {
     UsbSerial.usbEventStream!.listen((UsbEvent event) async {
       if (event.event == UsbEvent.ACTION_USB_ATTACHED) {
         await _connectToBalanca(event.device!);
       }
     });
 
+    // Verifica se existe algum dispositivo USB conectado
     List<UsbDevice> devices = await UsbSerial.listDevices();
     logger.i("Dispositivos USB encontrados: ${devices.length}");
     for (UsbDevice device in devices) {
@@ -35,6 +31,7 @@ class BalancaPrixController extends GetxController {
     }
   }
 
+  // Conecta a balança
   Future<bool> _connectToBalanca(UsbDevice device) async {
     try {
       port = await device.create();
@@ -44,6 +41,7 @@ class BalancaPrixController extends GetxController {
         return false;
       }
 
+      // Configura os parâmetros da porta
       port!.setDTR(true);
       port!.setRTS(true);
       port!.setPortParameters(
@@ -52,8 +50,8 @@ class BalancaPrixController extends GetxController {
       _iniciarEscutaDados();
 
       // Inicia o Timer para enviar solicitação de peso a cada segundo
-      timer =
-          Timer.periodic(const Duration(seconds: 1), (Timer t) => _solicitarPeso());
+      timer = Timer.periodic(
+          const Duration(seconds: 1), (Timer t) => _solicitarPeso());
 
       logger.i("Conexão estabelecida com sucesso");
       return true;

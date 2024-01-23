@@ -16,7 +16,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import '../product/product_monitor_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {
@@ -40,6 +40,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var controller = Dependencies.pdvController();
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
+    var balancaController = Dependencies.balancaController();
 
     IsarService service = IsarService();
 
@@ -475,18 +476,38 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
                                 if (file != null && idProduto != null) {
                                   return InkWell(
-                                    onTap: () {
-                                      controller.adicionarPedidos(
-                                          nome!, unidade!, preco, idProduto!);
+                                    onTap: () async {
+                                      if (controller.statusBalanca.value == 1) {
+                                        if (filteredProducts[index].venda_kg ==
+                                            1) {
+                                          await balancaController
+                                              .detectBalanca();
+                                          controller.adicionarPedidos(
+                                            nome!,
+                                            unidade!,
+                                            preco,
+                                            idProduto!,
+                                            isPesage: true,
+                                            quantity: double.parse(
+                                                balancaController
+                                                    .pesoLido.value),
+                                          );
+                                          print(controller.pedidos);
+                                        }
+                                      } else {
+                                        controller.adicionarPedidos(
+                                            nome!, unidade!, preco, idProduto!);
 
-                                      controller.totalSoma();
-                                      if (!controller.pedidos.contains(nome)) {
-                                        WidgetsBinding.instance
-                                            .addPostFrameCallback((_) {
-                                          scrollController.jumpTo(
-                                              scrollController
-                                                  .position.maxScrollExtent);
-                                        });
+                                        controller.totalSoma();
+                                        if (!controller.pedidos
+                                            .contains(nome)) {
+                                          WidgetsBinding.instance
+                                              .addPostFrameCallback((_) {
+                                            scrollController.jumpTo(
+                                                scrollController
+                                                    .position.maxScrollExtent);
+                                          });
+                                        }
                                       }
                                     },
                                     child: Column(
@@ -832,6 +853,7 @@ class _SearchProduct extends StatelessWidget {
   final SearchProductPdvController controller;
   final PdvController pdvController;
   final ScrollController scrollController;
+  bool isPesage;
   bool isBarCode;
   _SearchProduct({
     Key? key,
@@ -842,6 +864,7 @@ class _SearchProduct extends StatelessWidget {
     required this.pdvController,
     required this.scrollController,
     this.isBarCode = false,
+    this.isPesage = false,
   }) : super(key: key);
 
   @override
@@ -886,7 +909,22 @@ class _SearchProduct extends StatelessWidget {
               controller.updateIdProduto(produtos[index]!.id_produto);
 
               return InkWell(
-                onTap: () {
+                onTap: () async {
+                 /* if (pdvController.statusBalanca.value == 1) {
+                    if (controller.[index].venda_kg == 1) {
+                      await balancaController.detectBalanca();
+                      controller.adicionarPedidos(
+                        nome!,
+                        unidade!,
+                        preco,
+                        idProduto!,
+                        isPesage: true,
+                        quantity:
+                            double.parse(balancaController.pesoLido.value),
+                      );
+                      print(controller.pedidos);
+                    }
+                  }*/
                   pdvController.adicionarPedidos(
                       controller.nome[index],
                       controller.unidade[index],

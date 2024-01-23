@@ -7,7 +7,7 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 
 import '../../controllers/product_controller.dart';
 import '../../services/format_txt.dart';
-import '../../services/injection_dependencies.dart';
+import '../../services/dependencies.dart';
 import 'components/popup_widget.dart';
 import 'components/search_apresentation.dart';
 
