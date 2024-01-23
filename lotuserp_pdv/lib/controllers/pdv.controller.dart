@@ -62,6 +62,12 @@ class PdvController extends GetxController {
   final ScrollController scrollController = ScrollController();
   var liquido = 0.0.obs;
 
+  //status se balanca foi cadastrado
+  var statusBalanca = 0.obs;
+
+  //status se tef foi cadastrado
+  var statusTef = 0.obs;
+
   //total Liquido
   void totalLiquido() {
     String numbers1 = numbersDiscountcb2.replaceAll(',', '.');
@@ -348,6 +354,7 @@ class PdvController extends GetxController {
     super.onInit();
     fetchDataFromDatabase();
     getidCaixa();
+    loadStatusBalanca();
     scrollController.addListener(() {});
   }
 
@@ -372,6 +379,40 @@ class PdvController extends GetxController {
     final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
     if (dadoEmpresa != null) {
       ip.value = dadoEmpresa.ip_empresa!;
+      update();
+    }
+  }
+
+  // ******* Buscas de dados *******
+
+  //busca o status da balanca
+  void loadStatusBalanca() async {
+    dado_empresa? balancaFromDb = await service.getDataEmpresa();
+    if (balancaFromDb != null &&
+        balancaFromDb.balanca != null &&
+        balancaFromDb.balanca!.isNotEmpty &&
+        balancaFromDb.balanca != 'NENHUMA' &&
+        balancaFromDb.status_balanca != 0) {
+      statusBalanca.value = balancaFromDb.status_balanca!;
+      update();
+    } else {
+      statusBalanca.value = 0;
+      update();
+    }
+  }
+
+  //busca o status do TEF
+  void loadStatusTef() async {
+    dado_empresa? tefFromDb = await service.getDataEmpresa();
+    if (tefFromDb != null &&
+        tefFromDb.tef != null &&
+        tefFromDb.tef!.isNotEmpty &&
+        tefFromDb.tef != 'NENHUMA' &&
+        tefFromDb.status_tef != 0) {
+      statusTef.value = tefFromDb.status_tef!;
+      update();
+    } else {
+      statusTef.value = 0;
       update();
     }
   }

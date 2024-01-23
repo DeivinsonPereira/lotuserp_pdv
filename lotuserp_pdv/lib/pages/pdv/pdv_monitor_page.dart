@@ -7,17 +7,13 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 import 'package:lotuserp_pdv/collections/produto.dart';
-import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
-import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../controllers/global_controller.dart';
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/injection_dependencies.dart';
@@ -38,17 +34,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
-    PasswordController passwordController =
-        Dependencies.passwordController();
-    GlobalController globalController =
-        Dependencies.globalController();
-    PdvController controller = Dependencies.pdvController();
-    PaymentController paymentController =
-        Dependencies.paymentController();
-    SearchProductPdvController searchProductPdvController =
-        Dependencies.searchProductPdvController();
+    var sideBarController = Dependencies.sidebarController();
+    var passwordController = Dependencies.passwordController();
+    var globalController = Dependencies.globalController();
+    var controller = Dependencies.pdvController();
+    var paymentController = Dependencies.paymentController();
+    var searchProductPdvController = Dependencies.searchProductPdvController();
 
     IsarService service = IsarService();
 
