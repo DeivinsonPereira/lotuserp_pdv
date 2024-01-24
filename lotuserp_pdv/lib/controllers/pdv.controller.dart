@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/balanca_prix_controller.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'dart:math';
 
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -61,7 +63,6 @@ class PdvController extends GetxController {
 
   final ScrollController scrollController = ScrollController();
   var liquido = 0.0.obs;
-
 
   //status se balanca foi cadastrado
   var statusBalanca = 0.obs;
@@ -270,7 +271,8 @@ class PdvController extends GetxController {
 
   //adiciona itens no pedido
   void adicionarPedidos(
-      String nomeProduto, String unidade, String price, int idProduto, {bool isPesage = false, double quantity = 0.000}) {
+      String nomeProduto, String unidade, String price, int idProduto,
+      {bool isPesage = false, String quantity = ''}) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -282,24 +284,41 @@ class PdvController extends GetxController {
 
     double precoDouble = double.parse(priceComPonto);
 
-    if (index != -1) {
-      pedidos[index]['quantidade'] =
-          (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
-      pedidos[index]['total'] =
-          (pedidos[index]['quantidade'] * pedidos[index]['price']);
-    } else {
-      pedidos.add({
-        'idProduto': idProduto,
-        'nomeProduto': nomeProduto,
-        'quantidade': isPesage == false ? 1.0 : quantity,
-        'unidade': unidade,
-        'price': precoDouble,
-        'total': precoDouble
-      });
-    }
+    double quantidade;
 
-    scrollController.addListener(() {});
-    update();
+    try {
+      if (quantity != '' && quantity.isNotEmpty && quantity.isBlank == false) {
+        String cleanedQuantity = quantity.replaceAll(RegExp(r'[^0-9.]'), '');
+        print('quantidade: $cleanedQuantity');
+
+        quantidade = double.parse(cleanedQuantity);
+      } else {
+        quantidade = 0.0;
+      }
+
+      if (index != -1) {
+        pedidos[index]['quantidade'] =
+            (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
+        pedidos[index]['total'] =
+            (pedidos[index]['quantidade'] * pedidos[index]['price']);
+      } else {
+        pedidos.add({
+          'idProduto': idProduto,
+          'nomeProduto': nomeProduto,
+          'quantidade': isPesage == false ? 1.0 : quantidade,
+          'unidade': unidade,
+          'price': precoDouble,
+          'total': quantidade.isGreaterThan(0.0)
+              ? precoDouble * quantidade
+              : precoDouble
+        });
+      }
+
+      scrollController.addListener(() {});
+      update();
+    } catch (e) {
+      print('informativo: $e');
+    }
   }
 
   //cancela o pedido e zera a lista
@@ -415,6 +434,44 @@ class PdvController extends GetxController {
     } else {
       statusTef.value = 0;
       update();
+    }
+  }
+
+  // escutar balança
+  Future<void> listenBalance(dynamic filteredProducts, int index, String? nome,
+      String? unidade, String? preco, int? idProduto) async {
+    final ScrollController scrollController = ScrollController();
+
+    var balancaController = Dependencies.balancaController();
+    try {
+      if (filteredProducts[index].venda_kg == 1) {
+        if (statusBalanca.value == 1) {
+          balancaController.port = null;
+          await balancaController.detectBalanca();
+          if (balancaController.pesoLido.value != '' ||
+              balancaController.pesoLido.value.isNotEmpty) {
+            print("peso da balança:  ${balancaController.pesoLido.value}");
+            adicionarPedidos(nome!, unidade!, preco!, idProduto!,
+                isPesage: true, quantity: balancaController.pesoLido.value);
+          }
+
+          print(pedidos.toString());
+        }
+      } else {
+        adicionarPedidos(nome!, unidade!, preco!, idProduto!);
+
+        totalSoma();
+        if (!pedidos.contains(nome)) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (scrollController.hasClients) {
+              scrollController
+                  .jumpTo(scrollController.position.maxScrollExtent);
+            }
+          });
+        }
+      }
+    } catch (e) {
+      print("erro ao iniciar o controller pdv: $e");
     }
   }
 }

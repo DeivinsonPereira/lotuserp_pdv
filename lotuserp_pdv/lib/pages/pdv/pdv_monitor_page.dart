@@ -40,7 +40,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var controller = Dependencies.pdvController();
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
-    var balancaController = Dependencies.balancaController();
+    var balanceController = Dependencies.balancaController();
 
     IsarService service = IsarService();
 
@@ -477,38 +477,15 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 if (file != null && idProduto != null) {
                                   return InkWell(
                                     onTap: () async {
-                                      if (controller.statusBalanca.value == 1) {
-                                        if (filteredProducts[index].venda_kg ==
-                                            1) {
-                                          await balancaController
-                                              .detectBalanca();
-                                          controller.adicionarPedidos(
-                                            nome!,
-                                            unidade!,
-                                            preco,
-                                            idProduto!,
-                                            isPesage: true,
-                                            quantity: double.parse(
-                                                balancaController
-                                                    .pesoLido.value),
-                                          );
-                                          print(controller.pedidos);
-                                        }
-                                      } else {
-                                        controller.adicionarPedidos(
-                                            nome!, unidade!, preco, idProduto!);
-
-                                        controller.totalSoma();
-                                        if (!controller.pedidos
-                                            .contains(nome)) {
-                                          WidgetsBinding.instance
-                                              .addPostFrameCallback((_) {
-                                            scrollController.jumpTo(
-                                                scrollController
-                                                    .position.maxScrollExtent);
-                                          });
-                                        }
-                                      }
+                                      
+                                      await controller.listenBalance(
+                                        filteredProducts,
+                                        index,
+                                        nome!,
+                                        unidade!,
+                                        preco,
+                                        idProduto!,
+                                      );
                                     },
                                     child: Column(
                                       children: [
@@ -910,7 +887,7 @@ class _SearchProduct extends StatelessWidget {
 
               return InkWell(
                 onTap: () async {
-                 /* if (pdvController.statusBalanca.value == 1) {
+                  /* if (pdvController.statusBalanca.value == 1) {
                     if (controller.[index].venda_kg == 1) {
                       await balancaController.detectBalanca();
                       controller.adicionarPedidos(
