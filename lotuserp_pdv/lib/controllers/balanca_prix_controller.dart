@@ -12,7 +12,6 @@ class BalancaPrix3FitController extends GetxController {
   var pesoLido = "".obs;
   UsbPort? port;
   StreamSubscription<Uint8List>? subscription;
-  Transaction<String>? transaction;
   UsbDevice? device;
   Logger logger = Logger();
   Timer? timer;
@@ -23,7 +22,6 @@ class BalancaPrix3FitController extends GetxController {
   TextFieldController textFieldController = Dependencies.textFieldController();
   Completer<bool> balancaConectadaCompleter = Completer<bool>();
 
-  // Detecta a balança no USB
   Future<void> detectBalanca() async {
     pesagemConcluida = false;
     timer?.cancel();
@@ -40,7 +38,6 @@ class BalancaPrix3FitController extends GetxController {
         }
       });
 
-      // Verifica se existe algum dispositivo USB conectado
       List<UsbDevice> devices = await UsbSerial.listDevices();
       logger.i("Dispositivos USB encontrados: ${devices.length}");
       if (devices.isNotEmpty) {
@@ -48,10 +45,6 @@ class BalancaPrix3FitController extends GetxController {
           if (device.productName == "USB2.0-Ser!") {
             logger.i("Tentando conectar ao dispositivo: ${device.productName}");
             await _connectToBalanca(device);
-            bool sucessoNaConexao = await balancaConectadaCompleter.future;
-            if (sucessoNaConexao) {
-              _iniciarEscutaDados(); // Chama _iniciarEscutaDados somente após a conexão bem-sucedida
-            }
           }
         }
       } else {
@@ -65,20 +58,15 @@ class BalancaPrix3FitController extends GetxController {
     }
   }
 
-  // Conecta a balança
   Future<bool> _connectToBalanca(UsbDevice device) async {
     try {
       port = await device.create();
       if (!await port!.open()) {
         pesoLido.value = "Falha na abertura da porta";
         logger.e("Falha ao abrir a porta USB");
-        if (!balancaConectadaCompleter.isCompleted) {
-          balancaConectadaCompleter.complete(false);
-        }
         return false;
       }
 
-      // Configura os parâmetros da porta
       port!.setDTR(true);
       port!.setRTS(true);
       port!.setPortParameters(
@@ -87,71 +75,59 @@ class BalancaPrix3FitController extends GetxController {
           UsbPort.STOPBITS_1,
           UsbPort.PARITY_NONE);
 
-      // Inicia o Timer para enviar solicitação de peso a cada segundo
-      timer = Timer.periodic(
-          const Duration(seconds: 1), (Timer t) => _solicitarPeso());
-
       logger.i("Conexão estabelecida com sucesso");
-      if (!balancaConectadaCompleter.isCompleted) {
-        balancaConectadaCompleter
-            .complete(true); // Completa com true se a conexão for bem-sucedida
-      }
       return true;
     } catch (e) {
       pesoLido.value = "Erro na conexão com a balança: $e";
       logger.e("Erro na conexão com a balança: $e");
       await Future.delayed(const Duration(seconds: 2));
-      if (!balancaConectadaCompleter.isCompleted) {
-        balancaConectadaCompleter.complete(false);
-      }
+      return false;
     }
+  }
 
-    return false;
+  void iniciarEscutaDados() {
+    if (!isListening && port != null) {
+      _iniciarEscutaDados();
+      timer = Timer.periodic(
+          const Duration(seconds: 1), (Timer t) => _solicitarPeso());
+    }
   }
 
   void _iniciarEscutaDados() async {
-    // Verifica se já está ouvindo os dados para evitar múltiplas escutas
-    if (!isListening && port != null && await port!.open()) {
-      isListening = true; // Marca que a escuta foi iniciada
-      subscription = port!.inputStream!.listen((Uint8List data) {
-        String dataAsString = String.fromCharCodes(data);
-        logger.i("Dados brutos recebidos: $dataAsString");
+    isListening = true;
+    subscription = port!.inputStream!.listen((Uint8List data) {
+      String dataAsString = String.fromCharCodes(data);
+      logger.i("Dados brutos recebidos: $dataAsString");
 
-        if (!pesagemConcluida && dataAsString.isNotEmpty) {
-          pesoLido.value = dataAsString;
-          pararPesagem();
-        }
-      }, onDone: () {
-        // Quando a stream é finalizada, marcar isListening como false
-        isListening = false;
-      }, onError: (e) {
-        // Em caso de erro, também marcar isListening como false
-        isListening = false;
-      });
-    }
+      if (!pesagemConcluida && dataAsString.isNotEmpty) {
+        pesoLido.value = dataAsString;
+        pararPesagem();
+      }
+    }, onDone: () {
+      isListening = false;
+    }, onError: (e) {
+      isListening = false;
+    });
   }
 
   void _solicitarPeso() async {
-    // ENQ - Caracter ASCII (05H)
     try {
       if (!pesagemConcluida && port != null && await port!.open()) {
         port!.write(Uint8List.fromList([0x05]));
         logger.i("Solicitando peso à balança");
       }
     } catch (e) {
-      logger.e('Falha ao solicitar o peso à balança: $e.toString()');
+      logger.e('Falha ao solicitar o peso à balança: $e');
     }
   }
 
   void pararPesagem() {
     pesagemConcluida = true;
-    if (subscription != null) {
-      subscription!.cancel(); // Cancela a subscrição antes de definir como nula
-      subscription = null;
-    }
+    subscription?.cancel();
+    subscription = null;
     port?.close();
     port = null;
-    isListening = false; // Marca que a escuta foi encerrada
+    isListening = false;
   }
 
   void reiniciarBalanca() {
@@ -161,6 +137,7 @@ class BalancaPrix3FitController extends GetxController {
     subscription?.cancel();
     port?.close();
     port = null;
+    isListening = false;
   }
 
   @override

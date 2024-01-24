@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
+import '../core/fixed_variables.dart';
 
 class PdvController extends GetxController {
   IsarService service = IsarService();
@@ -62,6 +63,7 @@ class PdvController extends GetxController {
   var idGrupo = -1.obs;
 
   final ScrollController scrollController = ScrollController();
+  var balancaController = Dependencies.balancaController();
   var liquido = 0.0.obs;
 
   //status se balanca foi cadastrado
@@ -386,6 +388,7 @@ class PdvController extends GetxController {
     getidCaixa();
     loadStatusBalanca();
     scrollController.addListener(() {});
+    detectBalanca();
   }
 
   //busca o id do usuario logado
@@ -416,7 +419,7 @@ class PdvController extends GetxController {
   // ******* Buscas de dados *******
 
   //busca o status da balanca
-  void loadStatusBalanca() async {
+  Future<void> loadStatusBalanca() async {
     dado_empresa? balancaFromDb = await service.getDataEmpresa();
     if (balancaFromDb != null &&
         balancaFromDb.balanca != null &&
@@ -432,7 +435,7 @@ class PdvController extends GetxController {
   }
 
   //busca o status do TEF
-  void loadStatusTef() async {
+  Future<void> loadStatusTef() async {
     dado_empresa? tefFromDb = await service.getDataEmpresa();
     if (tefFromDb != null &&
         tefFromDb.tef != null &&
@@ -456,7 +459,7 @@ class PdvController extends GetxController {
     try {
       if (filteredProducts[index].venda_kg == 1) {
         if (statusBalanca.value == 1) {
-          balancaController.detectBalanca();
+          balancaController.iniciarEscutaDados();
           if (balancaController.pesoLido.value.isNotEmpty) {
             print("peso da balança:  ${balancaController.pesoLido.value}");
             adicionarPedidos(nome!, unidade!, preco!, idProduto!,
@@ -480,6 +483,13 @@ class PdvController extends GetxController {
       }
     } catch (e) {
       print("erro ao iniciar o controller pdv: $e");
+    }
+  }
+
+  Future<void> detectBalanca() async {
+    await loadStatusTef();
+    if (statusBalanca.value == FixedVariables.BALANCE_CONFIGURED) {
+      balancaController.detectBalanca();
     }
   }
 }
