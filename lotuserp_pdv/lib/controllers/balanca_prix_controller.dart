@@ -24,6 +24,12 @@ class BalancaPrix3FitController extends GetxController {
 
   // Detecta a balança no USB
   Future<void> detectBalanca() async {
+    pesagemConcluida = false;
+    timer?.cancel();
+    subscription?.cancel();
+    port?.close();
+    port = null;
+
     try {
       balancaConectadaCompleter = Completer<bool>();
       UsbSerial.usbEventStream!.listen((UsbEvent event) async {
@@ -100,37 +106,52 @@ class BalancaPrix3FitController extends GetxController {
   }
 
   void _iniciarEscutaDados() async {
-    if (!pesagemConcluida && port != null && await port!.open()) {
-      subscription = port!.inputStream!.listen((Uint8List data) {
-        String dataAsString = String.fromCharCodes(data);
-        logger.i("Dados brutos recebidos: $dataAsString");
+    try {
+      if (!pesagemConcluida && port != null && await port!.open()) {
+        subscription = port!.inputStream!.listen((Uint8List data) {
+          String dataAsString = String.fromCharCodes(data);
+          logger.i("Dados brutos recebidos: $dataAsString");
 
-        if (!pesagemConcluida && dataAsString.isNotEmpty) {
-          pesoLido.value = dataAsString;
-          pararPesagem();
-        }
-      });
+          if (!pesagemConcluida && dataAsString.isNotEmpty) {
+            pesoLido.value = dataAsString;
+            pararPesagem();
+          }
+        });
+      }
+    } catch (e) {
+      logger.e("Falha ao iniciar a escuta de dados: $e.toString()");
     }
   }
 
   void _solicitarPeso() async {
     // ENQ - Caracter ASCII (05H)
-    if (!pesagemConcluida && port != null && await port!.open()) {
-      port!.write(Uint8List.fromList([0x05]));
-      logger.i("Solicitando peso à balança");
+    try {
+      if (!pesagemConcluida && port != null && await port!.open()) {
+        port!.write(Uint8List.fromList([0x05]));
+        logger.i("Solicitando peso à balança");
+      }
+    } catch (e) {
+      logger.e('Falha ao solicitar o peso à balança: $e.toString()');
     }
   }
 
   void pararPesagem() {
-    if (!pesagemConcluida) {
-      pesagemConcluida = true;
-      timer?.cancel();
-      subscription?.cancel();
-      port?.close();
-    }
+    pesagemConcluida = true;
+    timer?.cancel();
+    subscription?.cancel();
+    port?.close();
+    port = null;
   }
 
-  @override
+  void reiniciarBalanca() {
+    pesagemConcluida = false;
+    pesoLido.value = "";
+    timer?.cancel();
+    subscription?.cancel();
+    port?.close();
+    port = null;
+  }
+
   @override
   void onClose() {
     pararPesagem();

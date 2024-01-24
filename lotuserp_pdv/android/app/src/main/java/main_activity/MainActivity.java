@@ -52,11 +52,6 @@ public class MainActivity extends FlutterActivity {
     private static final int YOUR_REQUEST_CODE = 1;
     File downloadsPath = new File(Environment.getExternalStorageDirectory(), "Download");
     private File storagePath;
-    private UsbManager usbManager;
-    private UsbSerialDevice serialPort;
-    private UsbDevice usbDevice;
-    private static final String ACTION_USB_PERMISSION = "com.example.lotuserp_pdv.USB_PERMISSION";
-    private static final int VENDOR_ID_BALANCA = 0x1A86;
 
     private Handler handler = new Handler(Looper.getMainLooper());
 

@@ -297,10 +297,21 @@ class PdvController extends GetxController {
       }
 
       if (index != -1) {
-        pedidos[index]['quantidade'] =
-            (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
-        pedidos[index]['total'] =
-            (pedidos[index]['quantidade'] * pedidos[index]['price']);
+        if (isPesage) {
+          var quantidadeFormatted = quantidade.toStringAsFixed(3);
+
+          pedidos[index]['quantidade'] = (pedidos[index]['quantidade'] ?? 0.0) +
+              double.parse(quantidadeFormatted);
+
+          var totalFormated = (quantidade * precoDouble).toStringAsFixed(3);
+
+          pedidos[index]['total'] = double.parse(totalFormated);
+        } else {
+          pedidos[index]['quantidade'] =
+              (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
+          pedidos[index]['total'] =
+              (pedidos[index]['quantidade'] * pedidos[index]['price']);
+        }
       } else {
         pedidos.add({
           'idProduto': idProduto,
@@ -446,10 +457,8 @@ class PdvController extends GetxController {
     try {
       if (filteredProducts[index].venda_kg == 1) {
         if (statusBalanca.value == 1) {
-          balancaController.port = null;
-          await balancaController.detectBalanca();
-          if (balancaController.pesoLido.value != '' ||
-              balancaController.pesoLido.value.isNotEmpty) {
+          balancaController.detectBalanca();
+          if (balancaController.pesoLido.value.isNotEmpty) {
             print("peso da balança:  ${balancaController.pesoLido.value}");
             adicionarPedidos(nome!, unidade!, preco!, idProduto!,
                 isPesage: true, quantity: balancaController.pesoLido.value);
