@@ -298,10 +298,9 @@ class PdvController extends GetxController {
 
       if (index != -1) {
         if (isPesage) {
-          var quantidadeFormatted = quantidade.toStringAsFixed(3);
-
-          pedidos[index]['quantidade'] = (pedidos[index]['quantidade'] ?? 0.0) +
-              double.parse(quantidadeFormatted);
+          double quant = (pedidos[index]['quantidade'] ?? 0.0) + quantidade;
+          String quantidadeStr = quant.toStringAsFixed(3);
+          pedidos[index]['quantidade'] = double.parse(quantidadeStr);
 
           var totalFormated = (quantidade * precoDouble).toStringAsFixed(3);
 
