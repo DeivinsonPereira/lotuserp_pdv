@@ -40,7 +40,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var controller = Dependencies.pdvController();
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
-    var balanceController = Dependencies.balancaController();
+    Dependencies.balancaController();
 
     IsarService service = IsarService();
 
@@ -477,7 +477,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 if (file != null && idProduto != null) {
                                   return InkWell(
                                     onTap: () async {
-                                      
                                       await controller.listenBalance(
                                         filteredProducts,
                                         index,

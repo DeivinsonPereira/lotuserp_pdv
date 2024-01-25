@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/controllers/balanca_prix_controller.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'dart:math';
 

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:usb_serial/usb_serial.dart';
-import 'package:usb_serial/transaction.dart';
 
 import '../services/dependencies.dart';
 
@@ -86,7 +85,11 @@ class BalancaPrix3FitController extends GetxController {
   }
 
   void iniciarEscutaDados() {
-    if (!isListening && port != null) {
+    reiniciarBalanca();
+
+    if (port != null) {
+      // Redefinindo pesoLido antes de começar a escutar
+      
       _iniciarEscutaDados();
       timer = Timer.periodic(
           const Duration(seconds: 1), (Timer t) => _solicitarPeso());
@@ -95,19 +98,29 @@ class BalancaPrix3FitController extends GetxController {
 
   void _iniciarEscutaDados() async {
     isListening = true;
-    subscription = port!.inputStream!.listen((Uint8List data) {
-      String dataAsString = String.fromCharCodes(data);
-      logger.i("Dados brutos recebidos: $dataAsString");
-
-      if (!pesagemConcluida && dataAsString.isNotEmpty) {
-        pesoLido.value = dataAsString;
-        pararPesagem();
-      }
-    }, onDone: () {
-      isListening = false;
-    }, onError: (e) {
-      isListening = false;
-    });
+    try {
+      subscription = port!.inputStream!.listen((Uint8List data) {
+        String dataAsString = String.fromCharCodes(data).trim();
+        logger.i("Dados brutos recebidos: $dataAsString");
+        pesoLido.value = '00.000';
+        if (!pesagemConcluida && dataAsString.isNotEmpty) {
+          String output = dataAsString.replaceAll(RegExp(r'[^0-9]'), '');
+          double peso = double.tryParse(output) ?? 0;
+          if (peso / 1000 > 00.005) {
+            pesoLido.value = dataAsString;
+          } else {
+            pesoLido.value = "00.000";
+          }
+          pararPesagem();
+        }
+      }, onDone: () {
+        isListening = false;
+      }, onError: (e) {
+        isListening = false;
+      });
+    } catch (e) {
+      pesoLido.value = "00.000";
+    }
   }
 
   void _solicitarPeso() async {
@@ -125,18 +138,12 @@ class BalancaPrix3FitController extends GetxController {
     pesagemConcluida = true;
     subscription?.cancel();
     subscription = null;
-    port?.close();
-    port = null;
     isListening = false;
   }
 
   void reiniciarBalanca() {
     pesagemConcluida = false;
-    pesoLido.value = "";
     timer?.cancel();
-    subscription?.cancel();
-    port?.close();
-    port = null;
     isListening = false;
   }
 
