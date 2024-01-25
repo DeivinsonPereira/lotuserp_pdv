@@ -314,6 +314,7 @@ class PdvController extends GetxController {
         }
       } else if (isBalance && quantidade == 00.000) {
       } else {
+        var totalFormated = (quantidade * precoDouble).toStringAsFixed(2);
         pedidos.add({
           'idProduto': idProduto,
           'nomeProduto': nomeProduto,
@@ -325,7 +326,7 @@ class PdvController extends GetxController {
           'unidade': unidade,
           'price': precoDouble,
           'total': quantidade.isGreaterThan(0.0)
-              ? precoDouble * quantidade
+              ? double.parse(totalFormated)
               : precoDouble,
           'isBalance': isBalance
         });

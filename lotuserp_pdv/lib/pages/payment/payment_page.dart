@@ -86,7 +86,7 @@ class _PaymentPageState extends State<PaymentPage> {
 
         // Chama o serviço TEF
         await TefElginCustomizationService.customizarAplicacao();
-        
+
         String? tefResponseJson = await TefElginService.startTef(
             tefParams, valueDouble, paymentController.installments.toString());
         if (tefResponseJson == null) throw 'Resposta do TEF nula';
@@ -317,8 +317,8 @@ class _PaymentPageState extends State<PaymentPage> {
               child: ListView.builder(
                 itemCount: _.pedidos.length,
                 itemBuilder: (context, index) {
-                  var priceFormatado =
-                      formatoBrasileiro.format(_.pedidos[index]['price']);
+                  var total =
+                      formatoBrasileiro.format(_.pedidos[index]['total']);
 
                   return Card(
                     child: Row(
@@ -355,7 +355,8 @@ class _PaymentPageState extends State<PaymentPage> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                    '${_.pedidos[index]['quantidade']} x R\$ $priceFormatado ${_.pedidos[index]['unidade']}'),
+                                  '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}    TOTAL: R\$ $total',
+                                ),
                               ],
                             ),
                           ),

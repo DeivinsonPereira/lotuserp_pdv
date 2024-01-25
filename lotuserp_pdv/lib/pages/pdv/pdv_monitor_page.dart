@@ -242,7 +242,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}',
+                                                '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}    TOTAL: R\$ $total',
                                               ),
                                             ],
                                           ),
