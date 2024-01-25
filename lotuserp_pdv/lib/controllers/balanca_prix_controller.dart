@@ -84,12 +84,12 @@ class BalancaPrix3FitController extends GetxController {
     }
   }
 
-  void iniciarEscutaDados() {
+  Future<void> iniciarEscutaDados() async {
     reiniciarBalanca();
 
     if (port != null) {
       // Redefinindo pesoLido antes de começar a escutar
-      
+
       _iniciarEscutaDados();
       timer = Timer.periodic(
           const Duration(seconds: 1), (Timer t) => _solicitarPeso());
@@ -106,7 +106,7 @@ class BalancaPrix3FitController extends GetxController {
         if (!pesagemConcluida && dataAsString.isNotEmpty) {
           String output = dataAsString.replaceAll(RegExp(r'[^0-9]'), '');
           double peso = double.tryParse(output) ?? 0;
-          if (peso / 1000 > 00.005) {
+          if (peso / 1000 > 00.010) {
             pesoLido.value = dataAsString;
           } else {
             pesoLido.value = "00.000";
@@ -141,10 +141,19 @@ class BalancaPrix3FitController extends GetxController {
     isListening = false;
   }
 
+  void limparBufferEntrada() async {
+    if (port != null) {
+      while (await port!.inputStream!.isEmpty == false) {
+        port!.inputStream!.listen((data) {}).cancel();
+      }
+    }
+  }
+
   void reiniciarBalanca() {
     pesagemConcluida = false;
     timer?.cancel();
     isListening = false;
+    limparBufferEntrada();
   }
 
   @override

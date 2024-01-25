@@ -829,7 +829,7 @@ class _SearchProduct extends StatelessWidget {
   final SearchProductPdvController controller;
   final PdvController pdvController;
   final ScrollController scrollController;
-  bool isPesage;
+  bool isBalance;
   bool isBarCode;
   _SearchProduct({
     Key? key,
@@ -840,7 +840,7 @@ class _SearchProduct extends StatelessWidget {
     required this.pdvController,
     required this.scrollController,
     this.isBarCode = false,
-    this.isPesage = false,
+    this.isBalance = false,
   }) : super(key: key);
 
   @override
@@ -894,7 +894,7 @@ class _SearchProduct extends StatelessWidget {
                         unidade!,
                         preco,
                         idProduto!,
-                        isPesage: true,
+                        isBalance: true,
                         quantity:
                             double.parse(balancaController.pesoLido.value),
                       );

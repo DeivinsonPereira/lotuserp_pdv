@@ -273,7 +273,7 @@ class PdvController extends GetxController {
   //adiciona itens no pedido
   void adicionarPedidos(
       String nomeProduto, String unidade, String price, int idProduto,
-      {bool isPesage = false, String quantity = ''}) {
+      {bool isBalance = false, String quantity = ''}) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -298,7 +298,7 @@ class PdvController extends GetxController {
       }
 
       if (index != -1) {
-        if (isPesage) {
+        if (isBalance && quantidade > 00.000) {
           double quant = (pedidos[index]['quantidade'] ?? 0.0) + quantidade;
           String quantidadeStr = quant.toStringAsFixed(3);
           pedidos[index]['quantidade'] = double.parse(quantidadeStr);
@@ -306,17 +306,22 @@ class PdvController extends GetxController {
           var totalFormated = (quantidade * precoDouble).toStringAsFixed(3);
 
           pedidos[index]['total'] = double.parse(totalFormated);
-        } else {
+        } else if (!isBalance) {
           pedidos[index]['quantidade'] =
               (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
           pedidos[index]['total'] =
               (pedidos[index]['quantidade'] * pedidos[index]['price']);
         }
+      } else if (isBalance && quantidade == 00.000) {
       } else {
         pedidos.add({
           'idProduto': idProduto,
           'nomeProduto': nomeProduto,
-          'quantidade': isPesage == false ? 1.0 : quantidade,
+          'quantidade': isBalance == false
+              ? 1.0
+              : quantidade > 0.000
+                  ? quantidade
+                  : null,
           'unidade': unidade,
           'price': precoDouble,
           'total': quantidade.isGreaterThan(0.0)
@@ -458,12 +463,11 @@ class PdvController extends GetxController {
     try {
       if (filteredProducts[index].venda_kg == 1) {
         if (statusBalanca.value == 1) {
-          balancaController.iniciarEscutaDados();
-          if (balancaController.pesoLido.value.isNotEmpty) {
+          await balancaController.iniciarEscutaDados().then((value) {
             print("peso da balança:  ${balancaController.pesoLido.value}");
             adicionarPedidos(nome!, unidade!, preco!, idProduto!,
-                isPesage: true, quantity: balancaController.pesoLido.value);
-          }
+                isBalance: true, quantity: balancaController.pesoLido.value);
+          });
 
           print(pedidos.toString());
         }
