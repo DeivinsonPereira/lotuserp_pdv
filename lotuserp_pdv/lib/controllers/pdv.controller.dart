@@ -463,11 +463,10 @@ class PdvController extends GetxController {
     try {
       if (filteredProducts[index].venda_kg == 1) {
         if (statusBalanca.value == 1) {
-          await balancaController.iniciarEscutaDados().then((value) {
-            print("peso da balança:  ${balancaController.pesoLido.value}");
-            adicionarPedidos(nome!, unidade!, preco!, idProduto!,
-                isBalance: true, quantity: balancaController.pesoLido.value);
-          });
+          await balancaController.iniciarEscutaDados(
+              nome!, unidade!, preco!, idProduto!,
+              isBalance: true, quantity: balancaController.pesoLido.value);
+          print("peso da balança:  ${balancaController.pesoLido.value}");
 
           print(pedidos.toString());
         }

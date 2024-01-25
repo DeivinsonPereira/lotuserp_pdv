@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:usb_serial/usb_serial.dart';
 
@@ -16,6 +17,7 @@ class BalancaPrix3FitController extends GetxController {
   Timer? timer;
   bool pesagemConcluida = false;
   bool isListening = false;
+  bool isReady = false;
 
   var configController = Dependencies.configcontroller();
   TextFieldController textFieldController = Dependencies.textFieldController();
@@ -84,19 +86,25 @@ class BalancaPrix3FitController extends GetxController {
     }
   }
 
-  Future<void> iniciarEscutaDados() async {
+  Future<void> iniciarEscutaDados(
+      String nomeProduto, String unidade, String price, int idProduto,
+      {bool isBalance = false, String quantity = ''}) async {
     reiniciarBalanca();
 
     if (port != null) {
       // Redefinindo pesoLido antes de começar a escutar
 
-      _iniciarEscutaDados();
+      await _iniciarEscutaDados(nomeProduto, unidade, price, idProduto,
+          isBalance: true);
       timer = Timer.periodic(
           const Duration(seconds: 1), (Timer t) => _solicitarPeso());
     }
   }
 
-  void _iniciarEscutaDados() async {
+  Future<void> _iniciarEscutaDados(
+      String nomeProduto, String unidade, String price, int idProduto,
+      {bool isBalance = false}) async {
+    PdvController pdvController = Dependencies.pdvController();
     isListening = true;
     try {
       subscription = port!.inputStream!.listen((Uint8List data) {
@@ -108,8 +116,14 @@ class BalancaPrix3FitController extends GetxController {
           double peso = double.tryParse(output) ?? 0;
           if (peso / 1000 > 00.010) {
             pesoLido.value = dataAsString;
+            pdvController.adicionarPedidos(
+                nomeProduto, unidade, price, idProduto,
+                isBalance: true, quantity: pesoLido.value);
           } else {
             pesoLido.value = "00.000";
+            pdvController.adicionarPedidos(
+                nomeProduto, unidade, price, idProduto,
+                isBalance: true, quantity: pesoLido.value);
           }
           pararPesagem();
         }
