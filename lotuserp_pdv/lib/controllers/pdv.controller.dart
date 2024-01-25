@@ -270,6 +270,20 @@ class PdvController extends GetxController {
     update();
   }
 
+  // Encontra pedidos com nomes iguais e tem pesagem na balança
+  double findWeightByName(String name) {
+    double peso = 0.0;
+
+    for (var pedido in pedidos) {
+      if (pedido['nomeProduto'] == name) {
+        peso += pedido['quantidade'];
+      }
+    }
+    var pesoFormated = peso.toStringAsFixed(3);
+    peso = double.parse(pesoFormated);
+    return peso;
+  }
+
   //adiciona itens no pedido
   void adicionarPedidos(
       String nomeProduto, String unidade, String price, int idProduto,
@@ -297,15 +311,27 @@ class PdvController extends GetxController {
         quantidade = 0.0;
       }
 
+      var totalFormated = (quantidade * precoDouble).toStringAsFixed(2);
+      bool nameEquals =
+          pedidos.any((nome) => nome['nomeProduto'] == nomeProduto);
+
       if (index != -1) {
-        if (isBalance && quantidade > 00.000) {
-          double quant = (pedidos[index]['quantidade'] ?? 0.0) + quantidade;
-          String quantidadeStr = quant.toStringAsFixed(3);
-          pedidos[index]['quantidade'] = double.parse(quantidadeStr);
-
-          var totalFormated = (quantidade * precoDouble).toStringAsFixed(2);
-
-          pedidos[index]['total'] += double.parse(totalFormated);
+        if (isBalance && quantidade > 00.000 && nameEquals == true) {
+          pedidos.add({
+            'idProduto': idProduto,
+            'nomeProduto': nomeProduto,
+            'quantidade': isBalance == false
+                ? 1.0
+                : quantidade > 0.000
+                    ? quantidade
+                    : null,
+            'unidade': unidade,
+            'price': precoDouble,
+            'total': quantidade.isGreaterThan(0.0)
+                ? double.parse(totalFormated)
+                : precoDouble,
+            'isBalance': isBalance
+          });
         } else if (!isBalance) {
           pedidos[index]['quantidade'] =
               (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
@@ -314,7 +340,6 @@ class PdvController extends GetxController {
         }
       } else if (isBalance && quantidade == 00.000) {
       } else {
-        var totalFormated = (quantidade * precoDouble).toStringAsFixed(2);
         pedidos.add({
           'idProduto': idProduto,
           'nomeProduto': nomeProduto,

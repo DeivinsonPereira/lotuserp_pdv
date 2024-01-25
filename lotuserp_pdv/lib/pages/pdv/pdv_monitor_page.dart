@@ -242,7 +242,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               Text(
-                                                '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}    TOTAL: R\$ $total',
+                                                '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}  =  R\$ $total',
                                               ),
                                             ],
                                           ),
@@ -507,36 +507,38 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 Positioned(
                                                   top: 5,
                                                   right: 5,
-                                                  child: controller
-                                                              .getQuantidade(
+                                                  child:
+                                                      controller.getQuantidade(
                                                                   nome) >
-                                                          0
-                                                      ? Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(5),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: CustomColors
-                                                                .customSwatchColor,
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        100),
-                                                          ),
-                                                          child: Obx(() => Text(
-                                                                '${controller.getQuantidade(nome!)}',
-                                                                style:
-                                                                    const TextStyle(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                              )),
-                                                        )
-                                                      : Container(),
+                                                              0
+                                                          ? Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(5),
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: CustomColors
+                                                                    .customSwatchColor,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            100),
+                                                              ),
+                                                              child:
+                                                                  Obx(
+                                                                      () =>
+                                                                          Text(
+                                                                            filteredProducts[index].venda_kg == 1
+                                                                                ? '${controller.findWeightByName(nome!)}'
+                                                                                : '${controller.getQuantidade(nome!)}',
+                                                                            style:
+                                                                                const TextStyle(
+                                                                              color: Colors.white,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                          )),
+                                                            )
+                                                          : Container(),
                                                 ),
                                             ],
                                           ),

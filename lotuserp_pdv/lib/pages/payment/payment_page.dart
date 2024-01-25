@@ -355,7 +355,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                                 Text(
-                                  '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}    TOTAL: R\$ $total',
+                                  '${controller.pedidos[index]['quantidade']} x R\$ ${formatoBrasileiro.format(controller.pedidos[index]['price'])} ${controller.pedidos[index]['unidade']}  =  R\$ $total',
                                 ),
                               ],
                             ),
