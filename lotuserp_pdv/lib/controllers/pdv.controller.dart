@@ -303,9 +303,9 @@ class PdvController extends GetxController {
           String quantidadeStr = quant.toStringAsFixed(3);
           pedidos[index]['quantidade'] = double.parse(quantidadeStr);
 
-          var totalFormated = (quantidade * precoDouble).toStringAsFixed(3);
+          var totalFormated = (quantidade * precoDouble).toStringAsFixed(2);
 
-          pedidos[index]['total'] = double.parse(totalFormated);
+          pedidos[index]['total'] += double.parse(totalFormated);
         } else if (!isBalance) {
           pedidos[index]['quantidade'] =
               (pedidos[index]['quantidade'] ?? 1.0) + 1.0;
@@ -326,10 +326,11 @@ class PdvController extends GetxController {
           'price': precoDouble,
           'total': quantidade.isGreaterThan(0.0)
               ? precoDouble * quantidade
-              : precoDouble
+              : precoDouble,
+          'isBalance': isBalance
         });
       }
-
+      calculateTotal();
       scrollController.addListener(() {});
       update();
     } catch (e) {
@@ -350,11 +351,18 @@ class PdvController extends GetxController {
   void removerPedido(int index) {
     if (index >= 0 && index < pedidos.length) {
       if (pedidos[index]['quantidade'] > 1.0) {
-        totalcheckBox1.value -= pedidos[index]['price'];
-        pedidos[index]['quantidade'] -= 1.0;
-        pedidos[index]['total'] =
-            pedidos[index]['quantidade'] * pedidos[index]['price'];
-        update();
+        if (pedidos[index]['isBalance'] == true) {
+          totalcheckBox1.value -= pedidos[index]['total'];
+
+          pedidos.removeAt(index);
+          update();
+        } else {
+          totalcheckBox1.value -= pedidos[index]['price'];
+          pedidos[index]['quantidade'] -= 1.0;
+          pedidos[index]['total'] =
+              pedidos[index]['quantidade'] * pedidos[index]['price'];
+          update();
+        }
       } else {
         totalcheckBox1.value -= pedidos[index]['total'];
 
