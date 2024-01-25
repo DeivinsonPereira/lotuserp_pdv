@@ -478,12 +478,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   return InkWell(
                                     onTap: () async {
                                       await controller.listenBalance(
-                                        filteredProducts,
-                                        index,
                                         nome!,
                                         unidade!,
                                         preco,
                                         idProduto!,
+                                        filteredProducts: filteredProducts,
+                                        index: index,
                                       );
                                     },
                                     child: Column(
@@ -829,7 +829,6 @@ class _SearchProduct extends StatelessWidget {
   final SearchProductPdvController controller;
   final PdvController pdvController;
   final ScrollController scrollController;
-  bool isBalance;
   bool isBarCode;
   _SearchProduct({
     Key? key,
@@ -840,11 +839,11 @@ class _SearchProduct extends StatelessWidget {
     required this.pdvController,
     required this.scrollController,
     this.isBarCode = false,
-    this.isBalance = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isBalance = false;
     return FutureBuilder(
       future: !isBarCode
           ? service.searchProdutoByDesc(controller.search.value)
@@ -876,6 +875,8 @@ class _SearchProduct extends StatelessWidget {
               mainAxisSpacing: 5,
             ),
             itemBuilder: (context, index) {
+              if (produtos[index]!.venda_kg == 1) isBalance = true;
+
               controller.updateFile(produtos[index]!.file_imagem ?? '');
 
               controller.updateNome(produtos[index]!.descricao ?? '');
@@ -886,26 +887,22 @@ class _SearchProduct extends StatelessWidget {
 
               return InkWell(
                 onTap: () async {
-                  /* if (pdvController.statusBalanca.value == 1) {
-                    if (controller.[index].venda_kg == 1) {
-                      await balancaController.detectBalanca();
-                      controller.adicionarPedidos(
-                        nome!,
-                        unidade!,
-                        preco,
-                        idProduto!,
-                        isBalance: true,
-                        quantity:
-                            double.parse(balancaController.pesoLido.value),
-                      );
-                      print(controller.pedidos);
-                    }
-                  }*/
-                  pdvController.adicionarPedidos(
-                      controller.nome[index],
-                      controller.unidade[index],
-                      controller.preco[index],
-                      controller.idProduto[index]);
+                  if (isBalance) {
+                    pdvController.listenBalance(
+                        controller.nome[index],
+                        controller.unidade[index],
+                        controller.preco[index],
+                        controller.idProduto[index],
+                        filteredProducts: produtos,
+                        isBalance: isBalance);
+                  } else {
+                    pdvController.adicionarPedidos(
+                        controller.nome[index],
+                        controller.unidade[index],
+                        controller.preco[index],
+                        controller.idProduto[index]);
+                  }
+
                   pdvController.totalSoma();
                   if (!pdvController.pedidos.contains(controller.nome[index])) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {

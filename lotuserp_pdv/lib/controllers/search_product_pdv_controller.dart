@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
+
+import '../collections/produto.dart';
 
 class SearchProductPdvController extends GetxController {
   TextEditingController searchController = TextEditingController();
@@ -12,10 +15,13 @@ class SearchProductPdvController extends GetxController {
   var preco = [].obs;
   var idProduto = [].obs;
   var quantity = [].obs;
-  
+
+  var listaGrupos = ['TODOS'];
 
   bool isSearch = false;
   bool isBarCode = false;
+
+  dynamic filteredProducts;
 
   // **** atualizar ****
 

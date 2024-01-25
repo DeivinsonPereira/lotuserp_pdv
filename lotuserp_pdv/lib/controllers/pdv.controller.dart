@@ -463,13 +463,20 @@ class PdvController extends GetxController {
   }
 
   // escutar balança
-  Future<void> listenBalance(dynamic filteredProducts, int index, String? nome,
-      String? unidade, String? preco, int? idProduto) async {
+  Future<void> listenBalance(
+    String? nome,
+    String? unidade,
+    String? preco,
+    int? idProduto, {
+    bool isBalance = false,
+    dynamic filteredProducts,
+    int index = 0,
+  }) async {
     final ScrollController scrollController = ScrollController();
 
     var balancaController = Dependencies.balancaController();
     try {
-      if (filteredProducts[index].venda_kg == 1) {
+      if (filteredProducts[index].venda_kg == 1 || isBalance == true) {
         if (statusBalanca.value == 1) {
           await balancaController.iniciarEscutaDados(
               nome!, unidade!, preco!, idProduto!,
