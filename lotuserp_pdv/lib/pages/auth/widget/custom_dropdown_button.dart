@@ -10,6 +10,8 @@ class CustomDropdownButton extends StatelessWidget {
   final String value;
   final String text;
   bool? isBalance;
+  bool? isTef;
+  bool? isSizePrinter;
 
   CustomDropdownButton({
     Key? key,
@@ -17,6 +19,8 @@ class CustomDropdownButton extends StatelessWidget {
     required this.value,
     required this.text,
     this.isBalance = false,
+    this.isTef = false,
+    this.isSizePrinter = false,
   }) : super(key: key);
 
   @override
@@ -25,39 +29,51 @@ class CustomDropdownButton extends StatelessWidget {
 
     return GetBuilder<Configcontroller>(builder: (_) {
       return DropdownButtonHideUnderline(
-        child: DropdownButton<String>(
-          isDense: true,
-          value: value,
-          icon: const Icon(Icons.keyboard_arrow_down_outlined),
-          iconSize: 24,
-          elevation: 16,
-          style: const TextStyle(color: Colors.black),
-          onChanged: (newValue) {
-            isBalance == true
-                ? _.updateBalanca(newValue!)
-                : _.updateTef(newValue!);
-          },
-          items: options.map<DropdownMenuItem<String>>((String value) {
-            return DropdownMenuItem<String>(
-              value: value,
-              child: SingleChildScrollView(
-                child: Container(
-                  padding: const EdgeInsets.only(top: 5.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(value),
-                      const Divider(
-                        thickness: 0.5,
-                        color: Colors.black,
-                      )
-                    ],
+        child: SizedBox(
+          width: isTef!
+              ? 250
+              : isSizePrinter!
+                  ? 250
+                  : 95,
+          child: DropdownButton<String>(
+            isExpanded: true,
+            isDense: true,
+            value: value,
+            icon: const Icon(
+              Icons.keyboard_arrow_down_outlined,
+            ),
+            iconSize: 24,
+            elevation: 16,
+            style: const TextStyle(color: Colors.black),
+            onChanged: (newValue) {
+              isBalance == true
+                  ? _.updateBalanca(newValue!)
+                  : isTef == true
+                      ? _.updateTef(newValue!)
+                      : _.updateTamanhoImpressora(newValue!);
+            },
+            items: options.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: SingleChildScrollView(
+                  child: Container(
+                    padding: const EdgeInsets.only(top: 5.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(value),
+                        const Divider(
+                          thickness: 0.5,
+                          color: Colors.black,
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            );
-          }).toList(),
+              );
+            }).toList(),
+          ),
         ),
       );
     });

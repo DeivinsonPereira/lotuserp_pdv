@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
+import 'package:lotuserp_pdv/pages/qr_code/qr_code_page.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../collections/venda.dart';
@@ -23,11 +24,9 @@ class ConfirmButtom extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
-    GlobalController globalController =
-        Dependencies.globalController();
+    GlobalController globalController = Dependencies.globalController();
     PdvController pdvController = Dependencies.pdvController();
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
+    SideBarController sideBarController = Dependencies.sidebarController();
     Dependencies.printerController();
     Dependencies.paymentController();
 
@@ -60,27 +59,26 @@ class ConfirmButtom extends StatelessWidget {
         ..id_empresa = globalController.empresaId //id empresa
         ..id_usuario = globalController.userId //id usuario logado
         ..id_colaborador = globalController.colaboradorId //id colaborador
-        ..tot_bruto = double.parse(
-            pdvController.totBruto.value.toStringAsFixed(2)) //total bruto
+        ..tot_bruto = pdvController.totBruto.value //total bruto
         ..tot_desc_prc =
             pdvController.checkbox1.value //total desconto em porcentagem
-                ? double.parse(
-                    pdvController.discountPercentage.value.toStringAsFixed(2))
-                : double.parse(discountPercentagecb2Formated.toStringAsFixed(2))
+                ? pdvController.discountPercentage.value
+                : discountPercentagecb2Formated
         ..tot_desc_vlr = pdvController.checkbox1.value //total desconto em valor
-            ? double.parse(numbersDiscountFormated.toStringAsFixed(2))
-            : double.parse(numbersDiscountcb2Formated.toStringAsFixed(2))
+            ? numbersDiscountFormated
+            : numbersDiscountcb2Formated
         ..tot_liquido = pdvController.liquido.value
         ..valor_troco = pdvController.checkbox1.value //troco
-            ? double.parse(pdvController.trocoCb1.value.toStringAsFixed(2))
-            : double.parse(pdvController.trocoCb2.value.toStringAsFixed(2))
+            ? pdvController.trocoCb1.value
+            : pdvController.trocoCb2.value
         ..status = 1 //status da venda
         ..id_serie_nfce = globalController.serieNfce //id serie nfce
         ..enviado = 0 //enviado (status de envio)
         ..cpf_cnpj = '000.000.000-00' //cpf cnpj do cliente
         ..id_caixa =
-            pdvController.caixaId.value; //id caixa aberto para o usuario logado
-
+            pdvController.caixaId.value //id caixa aberto para o usuario logado
+        ..id_venda_servidor =
+            0; //id da venda no servidor (recebido após o envio Nfce)
       await service.insertVendaWithVendaItemAndCaixaItem(vendaExecutada);
 
       pdvController.updateIsSelectedList();
@@ -90,6 +88,8 @@ class ConfirmButtom extends StatelessWidget {
       onPressed: () async {
         if (isConfirmation) {
           await processCommonOperations();
+          await Get.dialog(const QrCodePage());
+          
           Get.back(); // Fecha o diálogo atual
           Get.back(); // Fecha a página de pagamento
         } else {

@@ -3,10 +3,13 @@ import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../collections/empresa.dart';
+
 class GlobalController extends GetxController {
   int userId = 0;
   int colaboradorId = 0;
   int caixaAberta = 0;
+  String cnpjEmpresa = '';
 
   int empresaId = 0;
   int serieNfce = 0;
@@ -19,6 +22,7 @@ class GlobalController extends GetxController {
     updateSerieNfce();
     updateIdEmpresa();
     setIdUsuario();
+    setCnpjEmpresa();
   }
 
   //busca o id da empresa de acordo com as configurações iniciais do sistema
@@ -48,5 +52,10 @@ class GlobalController extends GetxController {
     int? caixaVar = await service.getIdCaixa(userId);
 
     caixaAberta = caixaVar ?? 0;
+  }
+
+  void setCnpjEmpresa() async {
+    empresa? cnpjVar = await service.getDadoTabelaEmpresa();
+    cnpjEmpresa = cnpjVar!.cnpj ?? '';
   }
 }

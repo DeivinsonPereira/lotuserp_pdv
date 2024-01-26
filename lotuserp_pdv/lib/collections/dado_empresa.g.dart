@@ -62,13 +62,18 @@ const Dado_empresaSchema = CollectionSchema(
       name: r'status_tef',
       type: IsarType.long,
     ),
-    r'tef': PropertySchema(
+    r'tamanho_impressora': PropertySchema(
       id: 9,
+      name: r'tamanho_impressora',
+      type: IsarType.string,
+    ),
+    r'tef': PropertySchema(
+      id: 10,
       name: r'tef',
       type: IsarType.string,
     ),
     r'velocidade_balanca': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'velocidade_balanca',
       type: IsarType.long,
     )
@@ -112,6 +117,12 @@ int _dado_empresaEstimateSize(
     }
   }
   {
+    final value = object.tamanho_impressora;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.tef;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -135,8 +146,9 @@ void _dado_empresaSerialize(
   writer.writeLong(offsets[6], object.num_caixa);
   writer.writeLong(offsets[7], object.status_balanca);
   writer.writeLong(offsets[8], object.status_tef);
-  writer.writeString(offsets[9], object.tef);
-  writer.writeLong(offsets[10], object.velocidade_balanca);
+  writer.writeString(offsets[9], object.tamanho_impressora);
+  writer.writeString(offsets[10], object.tef);
+  writer.writeLong(offsets[11], object.velocidade_balanca);
 }
 
 dado_empresa _dado_empresaDeserialize(
@@ -156,8 +168,9 @@ dado_empresa _dado_empresaDeserialize(
   object.num_caixa = reader.readLongOrNull(offsets[6]);
   object.status_balanca = reader.readLongOrNull(offsets[7]);
   object.status_tef = reader.readLongOrNull(offsets[8]);
-  object.tef = reader.readStringOrNull(offsets[9]);
-  object.velocidade_balanca = reader.readLongOrNull(offsets[10]);
+  object.tamanho_impressora = reader.readStringOrNull(offsets[9]);
+  object.tef = reader.readStringOrNull(offsets[10]);
+  object.velocidade_balanca = reader.readLongOrNull(offsets[11]);
   return object;
 }
 
@@ -189,6 +202,8 @@ P _dado_empresaDeserializeProp<P>(
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
+      return (reader.readStringOrNull(offset)) as P;
+    case 11:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1248,6 +1263,160 @@ extension dado_empresaQueryFilter
     });
   }
 
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'tamanho_impressora',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'tamanho_impressora',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'tamanho_impressora',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'tamanho_impressora',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'tamanho_impressora',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'tamanho_impressora',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'tamanho_impressora',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'tamanho_impressora',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'tamanho_impressora',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'tamanho_impressora',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'tamanho_impressora',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      tamanho_impressoraIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'tamanho_impressora',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition> tefIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -1596,6 +1765,20 @@ extension dado_empresaQuerySortBy
     });
   }
 
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByTamanho_impressora() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tamanho_impressora', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      sortByTamanho_impressoraDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tamanho_impressora', Sort.desc);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByTef() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'tef', Sort.asc);
@@ -1753,6 +1936,20 @@ extension dado_empresaQuerySortThenBy
     });
   }
 
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByTamanho_impressora() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tamanho_impressora', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy>
+      thenByTamanho_impressoraDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'tamanho_impressora', Sort.desc);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByTef() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'tef', Sort.asc);
@@ -1841,6 +2038,14 @@ extension dado_empresaQueryWhereDistinct
     });
   }
 
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct>
+      distinctByTamanho_impressora({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'tamanho_impressora',
+          caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByTef(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1915,6 +2120,13 @@ extension dado_empresaQueryProperty
   QueryBuilder<dado_empresa, int?, QQueryOperations> status_tefProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'status_tef');
+    });
+  }
+
+  QueryBuilder<dado_empresa, String?, QQueryOperations>
+      tamanho_impressoraProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'tamanho_impressora');
     });
   }
 

@@ -12,6 +12,8 @@ class CustomFieldDropdown extends StatelessWidget {
   final IconData icon;
   final String value;
   bool? isBalance;
+  bool? isTef;
+  bool? isSizePrinter;
 
   CustomFieldDropdown({
     Key? key,
@@ -20,6 +22,8 @@ class CustomFieldDropdown extends StatelessWidget {
     required this.icon,
     required this.value,
     this.isBalance = false,
+    this.isTef = false,
+    this.isSizePrinter = false,
   }) : super(key: key);
 
   @override
@@ -64,10 +68,13 @@ class CustomFieldDropdown extends StatelessWidget {
                           ),
                         ),
                         CustomDropdownButton(
-                            options: options,
-                            value: value,
-                            isBalance: isBalance,
-                            text: text),
+                          options: options,
+                          value: value,
+                          isBalance: isBalance,
+                          text: text,
+                          isTef: isTef!,
+                          isSizePrinter: isSizePrinter!,
+                        ),
                       ],
                     ),
                   ),

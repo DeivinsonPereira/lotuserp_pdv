@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/auth/widget/custom_dropdown_button.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/text_field_list.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -77,50 +78,80 @@ class _ConfigPageState extends State<ConfigPage> {
         builder: (_) {
           return Padding(
             padding: const EdgeInsets.only(left: 20),
-            child: Row(
+            child: Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 5.0),
-                  child: CustomFieldDropdown(
-                      options: ListDropdownOption.listOptionsBalance,
-                      text: 'Balança',
-                      icon: FontAwesomeIcons.scaleBalanced,
-                      value: _.balanca.value,
-                      isBalance: true),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 2),
-                  child: CustomTextFormField(
-                    icon: FontAwesomeIcons.gaugeHigh,
-                    controller: textFieldController.velocidadeBalancaController,
-                    variableName: 'Vel. Balança',
-                    numericKeyboard: true,
-                    isSpeed: true,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 5.0, left: 2),
-                  child: CustomTextFormField(
-                    icon: FontAwesomeIcons.usb,
-                    controller: textFieldController.nomeBalancaController,
-                    variableName: 'Nome Balança',
-                    numericKeyboard: false,
-                    isSpeed: true,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 7.0),
-                  child: CustomFieldDropdown(
-                      options: ListDropdownOption.listOptionsTef,
-                      text: 'TEF',
-                      icon: FontAwesomeIcons.solidCreditCard,
-                      value: _.tef.value),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 5.0),
+                      child: CustomFieldDropdown(
+                          options: ListDropdownOption.listOptionsBalance,
+                          text: 'Balança',
+                          icon: FontAwesomeIcons.scaleBalanced,
+                          value: _.balanca.value,
+                          isBalance: true),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5.0, left: 2),
+                      child: CustomTextFormField(
+                        icon: FontAwesomeIcons.gaugeHigh,
+                        controller:
+                            textFieldController.velocidadeBalancaController,
+                        variableName: 'Vel. Balança',
+                        numericKeyboard: true,
+                        isSpeed: true,
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 7.0),
+                        child: CustomFieldDropdown(
+                            options: ListDropdownOption.listOptionsTef,
+                            text: 'TEF',
+                            icon: FontAwesomeIcons.solidCreditCard,
+                            value: _.tef.value,
+                            isTef: true),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
           );
         },
       );
+    }
+
+    //nome da balança e tamanho da impressora
+    Widget _nameScaleAndSizePrinter() {
+      return GetBuilder<Configcontroller>(builder: (_) {
+        return Padding(
+          padding: const EdgeInsets.only(left: 20.0),
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 5.0, left: 2, right: 7),
+                child: CustomTextFormField(
+                  icon: FontAwesomeIcons.usb,
+                  controller: textFieldController.nomeBalancaController,
+                  variableName: 'Nome Balança',
+                  numericKeyboard: false,
+                  isNome: true,
+                ),
+              ),
+              Expanded(
+                child: CustomFieldDropdown(
+                  icon: FontAwesomeIcons.print,
+                  options: ListDropdownOption.listOptionsSizePrinter,
+                  value: _.tamanhoImpressora.value,
+                  text: 'Tamanho da Impressora',
+                  isSizePrinter: true,
+                ),
+              )
+            ],
+          ),
+        );
+      });
     }
 
     //campos de texto do formulário para configuração do sistema
@@ -132,7 +163,8 @@ class _ConfigPageState extends State<ConfigPage> {
             padding: const EdgeInsets.only(top: 8.0),
             child: _textFormFieldsCompany(),
           ),
-          _dropdownBalanceAndTef()
+          _dropdownBalanceAndTef(),
+          _nameScaleAndSizePrinter(),
         ],
       );
     }

@@ -41,11 +41,13 @@ class _PaymentPageState extends State<PaymentPage> {
     PaymentController paymentController = Dependencies.paymentController();
     IsarService service = IsarService();
     Dependencies.informationController();
+    Dependencies.globalController();
     var paymentCount = 0.0;
 
     var remainingValue = 0.0;
 
     var ramainingValueCb2 = 0.0;
+    
 
     var size = MediaQuery.of(context).size;
 
@@ -56,6 +58,7 @@ class _PaymentPageState extends State<PaymentPage> {
       symbol: '',
     );
 
+    // processamento do pagamento TEF
     Future<void> processTefPayment(Map<String, dynamic> payment) async {
       String paymentType = payment['nome'];
       String valorTransacao = payment['valor'];

@@ -14,10 +14,23 @@ class PaymentController extends GetxController {
   //valor da forma de pagamento
   var totalPayment = '0,00'.obs;
 
+  // variaveis nfce
+
+  var idVenda = 0;
+  var qrCode = '';
+  var xml = '';
+
   @override
   void onInit() {
     super.onInit();
     totalPayment.value = '0,00';
+  }
+
+
+  void updateVariaveisNfce(int idVenda, String qrCode, String xml) {
+    this.idVenda = idVenda;
+    this.qrCode = qrCode;
+    this.xml = xml;
   }
 
   void zerarCampos() {
@@ -118,4 +131,6 @@ class PaymentController extends GetxController {
     }
     return totalPaid;
   }
+
+  
 }

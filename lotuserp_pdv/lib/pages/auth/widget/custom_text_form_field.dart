@@ -12,6 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   bool? useIconButton;
   bool? isUrl;
   bool? isSpeed;
+  bool? isNome;
 
   CustomTextFormField({
     Key? key,
@@ -22,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
     this.useIconButton = false,
     this.isUrl = false,
     this.isSpeed = false,
+    this.isNome = false,
   }) : super(key: key);
 
   @override
@@ -95,7 +97,9 @@ class CustomTextFormField extends StatelessWidget {
             ? 700
             : isSpeed == true
                 ? 156
-                : 156,
+                : isNome == true
+                    ? 317
+                    : 156,
         child: _buildTextField(),
       ),
     );

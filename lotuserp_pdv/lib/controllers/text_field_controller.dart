@@ -16,6 +16,7 @@ class TextFieldController extends GetxController {
   TextEditingController intervaloEnvioController = TextEditingController();
   TextEditingController velocidadeBalancaController = TextEditingController();
   TextEditingController nomeBalancaController = TextEditingController();
+  TextEditingController tamanhoImpressoraController = TextEditingController();
 
   TextEditingController numContratoEmpresaController = TextEditingController();
 

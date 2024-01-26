@@ -20,6 +20,7 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/services/comunication_servidor/post_on_servidor.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
@@ -28,6 +29,7 @@ import 'package:logger/logger.dart';
 
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
+import '../collections/nfce_resultado.dart';
 import '../core/app_routes.dart';
 import '../services/dependencies.dart';
 
@@ -102,7 +104,7 @@ class IsarService {
           empresas['itens'][0]['site'],
           empresas['itens'][0]['complemento'],
           empresas['itens'][0]['estoque_grade'],
-          empresas['itens'][0]['usar_paf_nfce'],
+          1,
           empresas['itens'][0]['param_nf_crt'],
           empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
           empresas['itens'][0]['param_vendas_tpcomissao'],
@@ -701,6 +703,16 @@ class IsarService {
           /*print('imprimindo imagem de transação: ${comprovante}');*/
         }
       }
+      await PostOnServidor.postOnServidor(
+          venda, caixaItems, pdvController, paymentController);
+
+      nfce_resultado nfce = nfce_resultado()
+        ..id_venda = paymentController.idVenda
+        ..qr_code = paymentController.qrCode
+        ..xml = paymentController.xml;
+
+      await isar.nfce_resultados.put(nfce);
+
       pdvController.zerarCampos();
       paymentController.paymentsTotal.clear();
       paymentController.clearPaymentTef();
@@ -1170,6 +1182,30 @@ class IsarService {
     }
   }
 
+  //busca os dados da tabela empresa
+  Future<empresa?> getDadoTabelaEmpresa() async {
+    final isar = await db;
+
+    try {
+      var empresa = await isar.empresas.where().findFirst();
+      return empresa;
+    } catch (e) {
+      logger.e("Erro ao buscar empresa: $e");
+      return null;
+    }
+  }
+
+  // busca os dados da tabela nfce pelo id da venda
+  Future<nfce_resultado?> getDadosNfce(int idVenda) async {
+    final isar = await db;
+    try {
+      var nfce = await isar.nfce_resultados.get(idVenda);
+      return nfce;
+    } catch (e) {
+      logger.e("Erro ao buscar nfce: $e");
+    }
+  }
+
   //abre o banco de dados
   Future<Isar> openDB() async {
     final dir = await getApplicationSupportDirectory();
@@ -1190,7 +1226,8 @@ class IsarService {
           Venda_itemSchema,
           VendaSchema,
           Caixa_fechamentoSchema,
-          Cartao_itemSchema
+          Cartao_itemSchema,
+          Nfce_resultadoSchema
         ],
         directory: dir.path,
       );
