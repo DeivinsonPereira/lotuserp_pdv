@@ -16,6 +16,7 @@ class Configcontroller extends GetxController {
 
   var balanca = 'NENHUMA'.obs;
   var velocidadeBalanca = ''.obs;
+  var nomeBalanca = ''.obs;
   var tef = 'NENHUMA'.obs;
 
   @override
@@ -29,6 +30,7 @@ class Configcontroller extends GetxController {
     loadBalanca();
     loadSpeedBalance();
     loadTef();
+    loadNameBalance();
   }
 
   // BUSCAR OS DADOS DO BANCO E PREENCHER OS CAMPOS
@@ -65,6 +67,15 @@ class Configcontroller extends GetxController {
 
   // BUSCAR DADOS DA EMPRESA
   Future<bool> buscarDadosEmpresa(String ipEmpresa, String idEmpresa) async {
+    bool campoVazio = false;
+    if (textFieldController.velocidadeBalancaController.text.isBlank == false &&
+        textFieldController.velocidadeBalancaController.text.isNotEmpty &&
+        textFieldController.velocidadeBalancaController.text != '') {
+      velocidadeBalanca.value =
+          textFieldController.velocidadeBalancaController.text;
+      campoVazio = true;
+    }
+
     try {
       var empresaObtida = await service.getEmpresa(idEmpresa, ipEmpresa);
       if (empresaObtida != null) {
@@ -79,8 +90,12 @@ class Configcontroller extends GetxController {
           ..status_balanca = balanca.value != 'NENHUMA' ? 1 : 0
           ..tef = tef.value
           ..status_tef = tef.value != 'NENHUMA' ? 1 : 0
-          ..velocidade_balanca =
-              int.parse(textFieldController.velocidadeBalancaController.text);
+          ..velocidade_balanca = campoVazio == true
+              ? int.parse(textFieldController.velocidadeBalancaController.text)
+              : 0
+          ..nome_balanca = campoVazio == true
+              ? textFieldController.nomeBalancaController.text
+              : '';
 
         await service.insertDadosEmpresariais(dadosEmpresa);
         return true; // Retorna verdadeiro se a empresa for obtida e inserida com sucesso.
@@ -198,6 +213,12 @@ class Configcontroller extends GetxController {
     update();
   }
 
+  // ATUALIZA O NOME DA BALANCA CONECTADA NO USB
+  void updateNomeBalanca(String value) {
+    nomeBalanca.value = value;
+    update();
+  }
+
   // ATUALIZAR VARIAVEL TEF
   void updateTef(String value) {
     tef.value = value;
@@ -241,6 +262,19 @@ class Configcontroller extends GetxController {
       update();
     } else {
       textFieldController.velocidadeBalancaController.text = '';
+      update();
+    }
+  }
+
+  // ATUALIZA O NOME DA BALANCA CADASTRADA
+  Future<void> loadNameBalance() async {
+    dado_empresa? nameBalanceDb = await service.getDataEmpresa();
+    if (nameBalanceDb != null && nameBalanceDb.nome_balanca != null) {
+      textFieldController.nomeBalancaController.text =
+          nameBalanceDb.nome_balanca!;
+      update();
+    } else {
+      textFieldController.nomeBalancaController.text = '';
       update();
     }
   }

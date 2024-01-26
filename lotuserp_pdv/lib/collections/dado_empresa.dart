@@ -16,4 +16,5 @@ class dado_empresa {
   late String? balanca;
   late int? status_balanca;
   late int? velocidade_balanca;
+  late String? nome_balanca;
 }

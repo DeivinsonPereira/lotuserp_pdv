@@ -34,7 +34,8 @@ class BalancaPrix3FitController extends GetxController {
       balancaConectadaCompleter = Completer<bool>();
       UsbSerial.usbEventStream!.listen((UsbEvent event) async {
         if (event.event == UsbEvent.ACTION_USB_ATTACHED &&
-            event.device!.productName == "USB2.0-Ser!") {
+            event.device!.productName ==
+                textFieldController.nomeBalancaController.text) {
           await _connectToBalanca(event.device!);
         }
       });
@@ -43,7 +44,8 @@ class BalancaPrix3FitController extends GetxController {
       logger.i("Dispositivos USB encontrados: ${devices.length}");
       if (devices.isNotEmpty) {
         for (UsbDevice device in devices) {
-          if (device.productName == "USB2.0-Ser!") {
+          if (device.productName ==
+              textFieldController.nomeBalancaController.text) {
             logger.i("Tentando conectar ao dispositivo: ${device.productName}");
             await _connectToBalanca(device);
           }

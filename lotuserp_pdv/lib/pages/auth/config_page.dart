@@ -99,6 +99,16 @@ class _ConfigPageState extends State<ConfigPage> {
                   ),
                 ),
                 Padding(
+                  padding: const EdgeInsets.only(top: 5.0, left: 2),
+                  child: CustomTextFormField(
+                    icon: FontAwesomeIcons.usb,
+                    controller: textFieldController.nomeBalancaController,
+                    variableName: 'Nome Balança',
+                    numericKeyboard: false,
+                    isSpeed: true,
+                  ),
+                ),
+                Padding(
                   padding: const EdgeInsets.only(left: 7.0),
                   child: CustomFieldDropdown(
                       options: ListDropdownOption.listOptionsTef,

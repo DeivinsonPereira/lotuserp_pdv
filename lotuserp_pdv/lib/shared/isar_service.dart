@@ -1006,6 +1006,7 @@ class IsarService {
     return null;
   }
 
+  //busca o objeto do caixa de acordo com o idUser e status 0
   Future<caixa?> getCaixaItemValue() async {
     final isar = await db;
     usuario_logado? usuariologado =
@@ -1156,6 +1157,7 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //deletar todos os dados da tabela cartao_item
   Future<void> deleteCartaoItem() async {
     final isar = await db;
 

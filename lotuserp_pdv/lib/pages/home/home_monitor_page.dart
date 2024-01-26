@@ -18,9 +18,10 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
     // ignore: unused_local_variable
     SideBarController sideBarController = Dependencies.sidebarController();
     Dependencies.informationController();
+    Dependencies.configcontroller();
 
     var size = MediaQuery.of(context).size;
-    
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

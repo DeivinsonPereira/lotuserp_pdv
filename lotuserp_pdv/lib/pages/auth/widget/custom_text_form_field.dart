@@ -94,7 +94,7 @@ class CustomTextFormField extends StatelessWidget {
         width: isUrl == true
             ? 700
             : isSpeed == true
-                ? 110
+                ? 156
                 : 156,
         child: _buildTextField(),
       ),

@@ -62,33 +62,38 @@ const VendaSchema = CollectionSchema(
       name: r'id_usuario',
       type: IsarType.long,
     ),
-    r'status': PropertySchema(
+    r'id_venda_servidor': PropertySchema(
       id: 9,
+      name: r'id_venda_servidor',
+      type: IsarType.long,
+    ),
+    r'status': PropertySchema(
+      id: 10,
       name: r'status',
       type: IsarType.long,
     ),
     r'tot_bruto': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'tot_bruto',
       type: IsarType.double,
     ),
     r'tot_desc_prc': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'tot_desc_prc',
       type: IsarType.double,
     ),
     r'tot_desc_vlr': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'tot_desc_vlr',
       type: IsarType.double,
     ),
     r'tot_liquido': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'tot_liquido',
       type: IsarType.double,
     ),
     r'valor_troco': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'valor_troco',
       type: IsarType.double,
     )
@@ -133,12 +138,13 @@ void _vendaSerialize(
   writer.writeLong(offsets[6], object.id_empresa);
   writer.writeLong(offsets[7], object.id_serie_nfce);
   writer.writeLong(offsets[8], object.id_usuario);
-  writer.writeLong(offsets[9], object.status);
-  writer.writeDouble(offsets[10], object.tot_bruto);
-  writer.writeDouble(offsets[11], object.tot_desc_prc);
-  writer.writeDouble(offsets[12], object.tot_desc_vlr);
-  writer.writeDouble(offsets[13], object.tot_liquido);
-  writer.writeDouble(offsets[14], object.valor_troco);
+  writer.writeLong(offsets[9], object.id_venda_servidor);
+  writer.writeLong(offsets[10], object.status);
+  writer.writeDouble(offsets[11], object.tot_bruto);
+  writer.writeDouble(offsets[12], object.tot_desc_prc);
+  writer.writeDouble(offsets[13], object.tot_desc_vlr);
+  writer.writeDouble(offsets[14], object.tot_liquido);
+  writer.writeDouble(offsets[15], object.valor_troco);
 }
 
 venda _vendaDeserialize(
@@ -158,12 +164,13 @@ venda _vendaDeserialize(
   object.id_serie_nfce = reader.readLong(offsets[7]);
   object.id_usuario = reader.readLong(offsets[8]);
   object.id_venda = id;
-  object.status = reader.readLong(offsets[9]);
-  object.tot_bruto = reader.readDouble(offsets[10]);
-  object.tot_desc_prc = reader.readDouble(offsets[11]);
-  object.tot_desc_vlr = reader.readDouble(offsets[12]);
-  object.tot_liquido = reader.readDouble(offsets[13]);
-  object.valor_troco = reader.readDouble(offsets[14]);
+  object.id_venda_servidor = reader.readLong(offsets[9]);
+  object.status = reader.readLong(offsets[10]);
+  object.tot_bruto = reader.readDouble(offsets[11]);
+  object.tot_desc_prc = reader.readDouble(offsets[12]);
+  object.tot_desc_vlr = reader.readDouble(offsets[13]);
+  object.tot_liquido = reader.readDouble(offsets[14]);
+  object.valor_troco = reader.readDouble(offsets[15]);
   return object;
 }
 
@@ -195,7 +202,7 @@ P _vendaDeserializeProp<P>(
     case 9:
       return (reader.readLong(offset)) as P;
     case 10:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 11:
       return (reader.readDouble(offset)) as P;
     case 12:
@@ -203,6 +210,8 @@ P _vendaDeserializeProp<P>(
     case 13:
       return (reader.readDouble(offset)) as P;
     case 14:
+      return (reader.readDouble(offset)) as P;
+    case 15:
       return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -977,6 +986,60 @@ extension vendaQueryFilter on QueryBuilder<venda, venda, QFilterCondition> {
     });
   }
 
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_venda_servidorEqualTo(
+      int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_venda_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition>
+      id_venda_servidorGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_venda_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_venda_servidorLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_venda_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterFilterCondition> id_venda_servidorBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_venda_servidor',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<venda, venda, QAfterFilterCondition> statusEqualTo(int value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -1453,6 +1516,18 @@ extension vendaQuerySortBy on QueryBuilder<venda, venda, QSortBy> {
     });
   }
 
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_venda_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> sortById_venda_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.desc);
+    });
+  }
+
   QueryBuilder<venda, venda, QAfterSortBy> sortByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
@@ -1647,6 +1722,18 @@ extension vendaQuerySortThenBy on QueryBuilder<venda, venda, QSortThenBy> {
     });
   }
 
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_venda_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<venda, venda, QAfterSortBy> thenById_venda_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.desc);
+    });
+  }
+
   QueryBuilder<venda, venda, QAfterSortBy> thenByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'status', Sort.asc);
@@ -1777,6 +1864,12 @@ extension vendaQueryWhereDistinct on QueryBuilder<venda, venda, QDistinct> {
     });
   }
 
+  QueryBuilder<venda, venda, QDistinct> distinctById_venda_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_venda_servidor');
+    });
+  }
+
   QueryBuilder<venda, venda, QDistinct> distinctByStatus() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'status');
@@ -1872,6 +1965,12 @@ extension vendaQueryProperty on QueryBuilder<venda, venda, QQueryProperty> {
   QueryBuilder<venda, int, QQueryOperations> id_usuarioProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id_usuario');
+    });
+  }
+
+  QueryBuilder<venda, int, QQueryOperations> id_venda_servidorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_venda_servidor');
     });
   }
 

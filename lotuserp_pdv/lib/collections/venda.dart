@@ -21,4 +21,5 @@ class venda {
   late int enviado;
   late String cpf_cnpj;
   late int id_caixa;
+  late int id_venda_servidor;
 }
