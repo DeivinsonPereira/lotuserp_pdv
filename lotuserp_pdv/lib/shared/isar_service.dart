@@ -394,13 +394,13 @@ class IsarService {
   //busca o objeto produto de acordo com o código de barras
   Future<List<produto?>> searchProdutoByBarcode(String barcode) async {
     final isar = await db;
+
     return await isar.produtos.filter().gtinEqualTo(barcode).findAll();
   }
 
   //busca o objeto produtos de acordo com a descrição
   Future<List<produto?>> searchProdutoByDesc(String desc) async {
     final isar = await db;
-
     return await isar.produtos.filter().descricaoStartsWith(desc).findAll();
   }
 

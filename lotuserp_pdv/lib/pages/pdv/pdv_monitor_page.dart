@@ -868,6 +868,21 @@ class _SearchProduct extends StatelessWidget {
         if (snapshot.hasData) {
           List<produto?> produtos = snapshot.data!;
           controller.clearAll();
+          for (var produto in produtos) {
+            if (produto!.venda_kg == 1) {
+              controller.updateFile(produto.file_imagem ?? '');
+              controller.updateNome(produto.descricao ?? '');
+              controller.updatePreco(formatoBrasileiro.format(produto.pvenda));
+              controller.updateUnidade(produto.unidade ?? '');
+              controller.updateIdProduto(produto.id_produto);
+            } else if (produto.venda_kg == 0) {
+              controller.updateFile(produto.file_imagem ?? '');
+              controller.updateNome(produto.descricao ?? '');
+              controller.updatePreco(formatoBrasileiro.format(produto.pvenda));
+              controller.updateUnidade(produto.unidade ?? '');
+              controller.updateIdProduto(produto.id_produto);
+            }
+          }
 
           return GridView.builder(
             itemCount: produtos.length == 1 ? 1 : produtos.length,
@@ -877,19 +892,10 @@ class _SearchProduct extends StatelessWidget {
               mainAxisSpacing: 5,
             ),
             itemBuilder: (context, index) {
-              if (produtos[index]!.venda_kg == 1) isBalance = true;
-
-              controller.updateFile(produtos[index]!.file_imagem ?? '');
-
-              controller.updateNome(produtos[index]!.descricao ?? '');
-              controller.updatePreco(
-                  formatoBrasileiro.format(produtos[index]!.pvenda));
-              controller.updateUnidade(produtos[index]!.unidade ?? '');
-              controller.updateIdProduto(produtos[index]!.id_produto);
-
               return InkWell(
                 onTap: () async {
-                  if (isBalance) {
+                  if (produtos[index]!.venda_kg == 1) {
+                    isBalance = true;
                     pdvController.listenBalance(
                         controller.nome[index],
                         controller.unidade[index],
@@ -898,6 +904,7 @@ class _SearchProduct extends StatelessWidget {
                         filteredProducts: produtos,
                         isBalance: isBalance);
                   } else {
+                    isBalance = false;
                     pdvController.adicionarPedidos(
                         controller.nome[index],
                         controller.unidade[index],
@@ -944,7 +951,9 @@ class _SearchProduct extends StatelessWidget {
                                             BorderRadius.circular(100),
                                       ),
                                       child: Obx(() => Text(
-                                            '${pdvController.getQuantidade(controller.nome[index])}',
+                                            produtos[index]!.venda_kg == 1
+                                                ? '${pdvController.findWeightByName(controller.nome[index])}'
+                                                : '${pdvController.getQuantidade(controller.nome[index])}',
                                             style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,

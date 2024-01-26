@@ -23,7 +23,7 @@ class SearchProductPdvController extends GetxController {
 
   dynamic filteredProducts;
 
-  // **** atualizar ****
+  // ** atualizar **
 
   //atualizar isBarCode
   void updateIsBarCode() {
@@ -68,7 +68,7 @@ class SearchProductPdvController extends GetxController {
     idProduto.add(value);
   }
 
-  // ***** limpar ****
+  // ** limpar ***
 
   //limpar todos os campos
   void clearAll() {
@@ -76,5 +76,6 @@ class SearchProductPdvController extends GetxController {
     unidade.value = [];
     preco.value = [];
     idProduto.value = [];
+    file.value = [];
   }
 }
