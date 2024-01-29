@@ -17,6 +17,7 @@ import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 import '../controllers/balanca_prix_controller.dart';
+import '../controllers/response_servidor_controller.dart';
 
 abstract class Dependencies {
   static SideBarController sidebarController() {
@@ -152,6 +153,14 @@ abstract class Dependencies {
       return Get.find<BalancaPrix3FitController>();
     } else {
       return Get.put(BalancaPrix3FitController());
+    }
+  }
+
+  static ResponseServidorController responseServidorController() {
+    if (Get.isRegistered<ResponseServidorController>()) {
+      return Get.find<ResponseServidorController>();
+    } else {
+      return Get.put(ResponseServidorController());
     }
   }
 }

@@ -104,6 +104,7 @@ class DrawerWidget extends StatelessWidget {
               isPdv: IconButtonList.iconButtonlist[i]['pdv'],
               isFecharCaixa: IconButtonList.iconButtonlist[i]['fecharCaixa'],
               isSegundaVia: IconButtonList.iconButtonlist[i]['isSegundaVia'],
+              isNfceSegundaVia: IconButtonList.iconButtonlist[i]['isNfceSegundaVia'],
             )
           }
         ],

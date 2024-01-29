@@ -709,7 +709,7 @@ class IsarService {
       nfce_resultado nfce = nfce_resultado()
         ..id_venda = paymentController.idVenda
         ..qr_code = paymentController.qrCode
-        ..xml = paymentController.xml;
+        ..xml = paymentController.xml.value;
 
       await isar.nfce_resultados.put(nfce);
 
@@ -1169,6 +1169,15 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //busca todos os dados da tabela nfce_resultado
+  Stream<List<nfce_resultado>> listenNfceResultados() async* {
+    final isar = await db;
+    yield* isar.nfce_resultados
+        .where()
+        .sortById_venda()
+        .watch(fireImmediately: true);
+  }
+  
   //deletar todos os dados da tabela cartao_item
   Future<void> deleteCartaoItem() async {
     final isar = await db;
@@ -1203,7 +1212,9 @@ class IsarService {
       return nfce;
     } catch (e) {
       logger.e("Erro ao buscar nfce: $e");
+      return null;
     }
+    
   }
 
   //abre o banco de dados

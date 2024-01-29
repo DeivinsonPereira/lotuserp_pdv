@@ -7,7 +7,6 @@ import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/auth/widget/custom_dropdown_button.dart';
 import 'package:lotuserp_pdv/pages/auth/widget/text_field_list.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -143,7 +142,9 @@ class _ConfigPageState extends State<ConfigPage> {
                 child: CustomFieldDropdown(
                   icon: FontAwesomeIcons.print,
                   options: ListDropdownOption.listOptionsSizePrinter,
-                  value: _.tamanhoImpressora.value,
+                  value: _.tamanhoImpressora.value != ''
+                      ? _.tamanhoImpressora.value
+                      : '80mm',
                   text: 'Tamanho da Impressora',
                   isSizePrinter: true,
                 ),

@@ -10,11 +10,11 @@ import '../../../services/dependencies.dart';
 // CONSTRÓI CADA LINHA
 class LegendInformation extends StatelessWidget {
   final String id;
-  final String data;
-  final String hora;
+  String? data;
+  String? hora;
   final String idVenda;
   final String valor;
-  final bool isPrint;
+  bool? isPrint;
   String? imagemComprovante;
   int? index;
   bool? isCartao;
@@ -22,11 +22,11 @@ class LegendInformation extends StatelessWidget {
   LegendInformation({
     Key? key,
     required this.id,
-    required this.data,
-    required this.hora,
     required this.idVenda,
     required this.valor,
-    required this.isPrint,
+    this.data = '',
+    this.hora = '',
+    this.isPrint,
     this.isCartao = false,
     this.index,
     this.imagemComprovante,
@@ -36,8 +36,8 @@ class LegendInformation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(children: [
       LegendWidget(text: id, size: 75, isCartao: isCartao!),
-      LegendWidget(text: data, size: 100, isCartao: isCartao!),
-      LegendWidget(text: hora, size: 125, isCartao: isCartao!),
+      LegendWidget(text: data!, size: 100, isCartao: isCartao!),
+      LegendWidget(text: hora!, size: 125, isCartao: isCartao!),
       LegendWidget(text: idVenda, size: 100, isCartao: isCartao!),
       LegendWidget(text: valor, size: 100, isCartao: isCartao!),
       LegendWidget(
@@ -73,8 +73,7 @@ class LegendWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PrinterController printController =
-        Dependencies.printerController();
+    PrinterController printController = Dependencies.printerController();
 
     return SizedBox(
       width: size,

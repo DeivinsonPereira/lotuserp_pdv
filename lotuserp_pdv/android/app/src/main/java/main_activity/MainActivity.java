@@ -40,6 +40,9 @@ import android.hardware.usb.UsbDeviceConnection;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Button;
+
+import br.com.daruma.framework.mobile.DarumaMobile;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
@@ -55,16 +58,51 @@ public class MainActivity extends FlutterActivity {
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
+    private DarumaMobile dmf;
+    private String strXML;
+    
+
+    private static final int STORAGE_PERMISSION_CODE = 101;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+            @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == YOUR_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                copiarImagemParaArmazenamentoInterno();
+            } else {
+                Log.e("Permissão:", "Permissão negada");
+                Toast.makeText(MainActivity.this, "Permissão de armazenado negada", Toast.LENGTH_SHORT).show();
+                // A permissão foi negada. Lide com a situação.
+            }
+        }
+    }
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+        if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.INTERNET}, 0);
+        }
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
                     YOUR_REQUEST_CODE);
         } else {
+            
+             try {
             copiarImagemParaArmazenamentoInterno();
+
+            dmf = DarumaMobile.inicializar(MainActivity.this, "@FRAMEWORK(TRATAEXCECAO=TRUE;LOGMEMORIA=25;TIMEOUTWS=10000;);@DISPOSITIVO(NAME=D2S)");
+
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Não tem permissões: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+        }
 
         }
     }
@@ -100,6 +138,11 @@ public class MainActivity extends FlutterActivity {
                                     copiarImagemParaArmazenamentoInterno();
                                     customizarAplicacao();
                                     result.success(null);
+                                } else if(call.method.equals("imprimirNFCE")) {
+                                    strXML = call.argument("xml");
+                                    String tamanhoImpressora = call.argument("tamanhoImpressora");
+                                    imprimirNFCE(strXML, tamanhoImpressora);
+                                    result.success(null);
                                 }
                             } catch (Exception e) {
                                 Log.e("MethodChannel", "Erro no método: " + call.method, e);
@@ -108,18 +151,16 @@ public class MainActivity extends FlutterActivity {
                         });
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == YOUR_REQUEST_CODE) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                copiarImagemParaArmazenamentoInterno();
-            } else {
-                Log.e("Permissão:", "Permissão negada");
-                // A permissão foi negada. Lide com a situação.
-            }
+    private void imprimirNFCE(String xml, String tamanhoImpressora ){
+        try {
+            dmf.RegAlterarValor_NFCe("CONFIGURACAO\\Impressora", tamanhoImpressora); // Exemplo: "Q4" ou "Q8"
+            dmf.RegAlterarValor_NFCe("CONFIGURACAO\\ImpressaoCompleta", "1");// impressão completa 0-resumida(sem itens) |1- tudo.
+            dmf.iCFImprimir_NFCe(xml, xml, "", 34, 1);
+            Toast.makeText(MainActivity.this, "Imprimiu XML NFCE", Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void copiarImagemParaArmazenamentoInterno() {

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
-import 'package:lotuserp_pdv/collections/nfce_resultado.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/header.dart';
@@ -98,19 +97,15 @@ abstract class PostOnServidor {
       if (response.statusCode == 200) {
         logger.i("Requisição enviada com sucesso");
         var jsonResponse = jsonDecode(response.body);
-        var idVenda;
-        var qrCode;
-        var xml;
 
         if (jsonResponse['id_venda'] != null &&
             jsonResponse['qr_code'] != null &&
             jsonResponse['xml'] != null) {
-          idVenda = int.tryParse(jsonResponse['id_venda']);
-          qrCode = jsonResponse['qr_code'];
-          xml = jsonResponse['xml'];
+          var idVenda = int.tryParse(jsonResponse['id_venda']);
+          var qrCode = jsonResponse['qr_code'];
+          var xml = jsonResponse['xml'];
+          await paymentController.updateVariaveisNfce(idVenda!, qrCode!, xml!);
         }
-
-        paymentController.updateVariaveisNfce(idVenda, qrCode, xml);
       } else {
         logger.e("Erro ao fazer a requisição: ${response.statusCode}");
       }

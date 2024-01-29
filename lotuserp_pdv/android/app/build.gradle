@@ -61,6 +61,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs' // refere-se à pasta libs dentro de app
+        }
+    }
 }
 
 flutter {
@@ -69,4 +74,5 @@ flutter {
 
 dependencies {
     implementation 'com.github.felHR85:UsbSerial:6.1.0'
+    implementation(name: 'it4r_06.12.04', ext: 'aar')
 }

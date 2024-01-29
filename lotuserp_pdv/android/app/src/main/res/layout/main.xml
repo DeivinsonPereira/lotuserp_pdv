@@ -8,11 +8,11 @@
     android:orientation="vertical" >
 
     <Button
-        android:id="@+id/ButtonWrite"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="Ler Peso" />
+    android:id="@+id/btnImpDANFE"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Imprimir DANFE NFC-e" />
+   
     <TextView
         android:id="@+id/txtValue"
         android:textSize="32dp"

@@ -88,8 +88,8 @@ class ConfirmButtom extends StatelessWidget {
       onPressed: () async {
         if (isConfirmation) {
           await processCommonOperations();
-          await Get.dialog(const QrCodePage());
-          
+          await Get.dialog(barrierDismissible: false, const QrCodePage());
+
           Get.back(); // Fecha o diálogo atual
           Get.back(); // Fecha a página de pagamento
         } else {

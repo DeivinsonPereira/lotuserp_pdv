@@ -18,7 +18,7 @@ class PaymentController extends GetxController {
 
   var idVenda = 0;
   var qrCode = '';
-  var xml = '';
+  var xml = ''.obs;
 
   @override
   void onInit() {
@@ -26,11 +26,13 @@ class PaymentController extends GetxController {
     totalPayment.value = '0,00';
   }
 
-
-  void updateVariaveisNfce(int idVenda, String qrCode, String xml) {
+  Future<void> updateVariaveisNfce(
+      int idVenda, String qrCode, String xml) async {
     this.idVenda = idVenda;
     this.qrCode = qrCode;
-    this.xml = xml;
+    this.xml.value = xml;
+
+    update();
   }
 
   void zerarCampos() {
@@ -119,6 +121,12 @@ class PaymentController extends GetxController {
     }
   }
 
+  void clearXmlAndQrCodeAndIdVenda() {
+    idVenda = 0;
+    qrCode = '';
+    xml.value = '';
+  }
+
   //retorna o total pago
   double getTotalPaid() {
     double totalPaid = 0.0;
@@ -131,6 +139,4 @@ class PaymentController extends GetxController {
     }
     return totalPaid;
   }
-
-  
 }

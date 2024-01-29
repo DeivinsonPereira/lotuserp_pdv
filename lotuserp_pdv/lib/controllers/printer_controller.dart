@@ -4,8 +4,10 @@ import 'dart:convert';
 import 'package:esc_pos_utils_plus/esc_pos_utils_plus.dart';
 import 'package:flutter_simple_bluetooth_printer/flutter_simple_bluetooth_printer.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
+import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/caixa.dart';
@@ -34,12 +36,21 @@ class PrinterController extends GetxController {
   BluetoothDevice? selectedPrinter;
 
   IsarService service = IsarService();
+  Logger logger = Logger();
+
+  Configcontroller configController = Dependencies.configcontroller();
+  var printerSize = '';
+
+  void setPrinterSize() {
+    printerSize = configController.tamanhoImpressora.value;
+  }
 
   //inicia o scan de dispositivos no bluetooth automaticamente
   @override
   Future<void> onInit() async {
     super.onInit();
     await scan();
+    setPrinterSize();
 
     subscriptionBtStatus = bluetoothManager.connectState.listen((status) {
       currentStatus = status;
@@ -85,6 +96,7 @@ class PrinterController extends GetxController {
       selectedPrinter = device;
       update();
     } catch (e) {
+      logger.e('Erro ao conectar a impressora padrão: $e');
       return;
     }
   }
@@ -98,7 +110,8 @@ class PrinterController extends GetxController {
       final bondedDevices = await bluetoothManager.getAndroidPairedDevices();
       devices.addAll(bondedDevices);
       update();
-    } on BTException {
+    } on BTException catch (e) {
+      logger.e('Erro ao buscar dispositivos: $e');
       return;
     } finally {
       isScanning.value = false;
@@ -128,8 +141,10 @@ class PrinterController extends GetxController {
     try {
       isConnected.value =
           await bluetoothManager.connect(address: selectedPrinter!.address);
+
       update();
-    } on BTException {
+    } on BTException catch (e) {
+      logger.e('Erro ao conectar o dispositivo: $e');
       return;
     }
   }
@@ -154,7 +169,7 @@ class PrinterController extends GetxController {
       await bluetoothManager.writeText(textToPrint);
 
       update();
-    } on BTException {
+    } on BTException catch (e) {
       return;
     }
   }

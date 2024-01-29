@@ -25,7 +25,11 @@ abstract class IconButtonList {
       'navigationIcon': PagesRoutes.products,
       'text': 'Produtos',
     },
-    {'icon': FontAwesomeIcons.moneyBill1Wave, 'text': 'PDV', 'pdv': true},
+    {
+      'icon': FontAwesomeIcons.moneyBill1Wave,
+      'text': 'PDV',
+      'pdv': true,
+    },
     {
       'icon': FontAwesomeIcons.download,
       'text': 'Carga de dados',
@@ -33,8 +37,13 @@ abstract class IconButtonList {
     },
     {
       'icon': Icons.print,
-      'text': '2ª Via Comprovantes',
+      'text': '2ª Via Cartão',
       'isSegundaVia': true,
+    },
+    {
+      'icon': FontAwesomeIcons.receipt,
+      'text': '2ª Via NFCe',
+      'isNfceSegundaVia': true,
     }
   ];
 }

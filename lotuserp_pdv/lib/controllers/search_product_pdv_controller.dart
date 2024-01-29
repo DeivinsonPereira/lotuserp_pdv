@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/services/dependencies.dart';
 
-import '../collections/produto.dart';
 
 class SearchProductPdvController extends GetxController {
   TextEditingController searchController = TextEditingController();

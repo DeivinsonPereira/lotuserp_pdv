@@ -8,10 +8,13 @@ import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
+import 'package:lotuserp_pdv/repositories/open_register_servidor_repository.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 
@@ -20,13 +23,15 @@ class OpenRegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController =
-        Dependencies.passwordController();
+    PasswordController passwordController = Dependencies.passwordController();
     MovimentRegisterController movimentRegisterController =
         Dependencies.movimentRegisterController();
     InformationController informationController =
         Dependencies.informationController();
     IsarService service = IsarService();
+
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
 
     var userName = passwordController.userController.text;
 
@@ -240,8 +245,19 @@ class OpenRegisterPage extends StatelessWidget {
                           bool caixaExistente = await service
                               .checkUserCaixa(dadosUsuario!.id_user!);
 
+                          var atualDateFormatted =
+                              DatetimeFormatterWidget.formatDate(atualDate);
+
+                          await OpenRegisterServidorRepository()
+                              .openRegisterServidor(
+                                  dadosEmpresa!.id_empresa!,
+                                  dadosUsuario.id_user!,
+                                  atualDateFormatted,
+                                  hourFormatted,
+                                  openRegisterDouble);
+
                           caixa caixas = caixa()
-                            ..id_empresa = dadosEmpresa!.id_empresa!
+                            ..id_empresa = dadosEmpresa.id_empresa!
                             ..abertura_id_user = dadosUsuario.id_user!
                             ..abertura_data = atualDate
                             ..abertura_hora = hourFormatted
@@ -251,7 +267,8 @@ class OpenRegisterPage extends StatelessWidget {
                             ..fechou_data = null
                             ..fechou_hora = null
                             ..enviado = 0
-                            ..id_caixa_servidor = 0;
+                            ..id_caixa_servidor =
+                                responseServidorController.openRegisterId.value;
                           if (openRegisterDouble > 0.00) {
                             await service.insertCaixaWithCaixaItem(caixas,
                                 atualDate, hourFormatted, openRegisterDouble);

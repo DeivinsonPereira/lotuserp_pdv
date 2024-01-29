@@ -10,6 +10,7 @@ import '../../close_register/close_register_page.dart';
 import '../../load_data/load_data_page.dart';
 import '../../moviment_cash/moviment_cash_page.dart';
 import '../../open_register/open_register_page.dart';
+import '../../second_copy/nfce_second_copy_page.dart';
 import '../../second_copy/second_copy_page.dart';
 
 //Botões para o side bar
@@ -24,6 +25,7 @@ class IconButtonSideBar extends StatelessWidget {
   bool? isLoadData = false;
   bool? isFecharCaixa = false;
   bool? isSegundaVia = false;
+  bool? isNfceSegundaVia = false;
 
   IconButtonSideBar(
       {Key? key,
@@ -35,7 +37,8 @@ class IconButtonSideBar extends StatelessWidget {
       this.isPdv,
       this.isLoadData,
       this.isFecharCaixa,
-      this.isSegundaVia})
+      this.isSegundaVia,
+      this.isNfceSegundaVia})
       : super(key: key);
 
   @override
@@ -61,7 +64,8 @@ class IconButtonSideBar extends StatelessWidget {
         } else if (isMovimentarCaixa == true ||
             isPdv == true ||
             isFecharCaixa == true ||
-            isSegundaVia == true) {
+            isSegundaVia == true ||
+            isNfceSegundaVia == true) {
           if (!caixaExistente) {
             const CustomSnackBar(
                     message:
@@ -76,6 +80,8 @@ class IconButtonSideBar extends StatelessWidget {
               Get.dialog(const CloseRegisterPage());
             } else if (isSegundaVia == true) {
               Get.dialog(const SecondCopyPage());
+            } else if (isNfceSegundaVia == true) {
+              Get.dialog(const NfceSecondCopyPage());
             }
           }
         } else if (isLoadData == true) {

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
-import 'package:lotuserp_pdv/controllers/search_product_pdv_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/header_popup.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../services/dependencies.dart';
@@ -15,10 +14,10 @@ class QrCodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    IsarService service = IsarService();
     PaymentController paymentController = Dependencies.paymentController();
-    SearchProductPdvController searchProductPdvController =
-        Dependencies.searchProductPdvController();
+    Dependencies.textFieldController();
+    Dependencies.configcontroller();
+    Dependencies.searchProductPdvController();
 
     return Dialog(
       child: Container(
@@ -40,46 +39,55 @@ class QrCodePage extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 50,
-                  color: CustomColors.confirmButtonColor,
-                  child: TextButton(
-                    onPressed: () {
-                      // chamar impressão do XML
-                    },
-                    child: const Text(
-                      'IMPRIMIR',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+          GetBuilder<PaymentController>(builder: (_) {
+            return Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 50,
+                    color: _.xml.value != '' && _.xml.value.isNotEmpty
+                        ? CustomColors.confirmButtonColor
+                        : Colors.grey[300],
+                    child: TextButton(
+                      onPressed: () async {
+                        if (_.xml.value != '' && _.xml.value.isNotEmpty) {
+                          await PrintNfceXml().printNfceXml();
+                          Get.back();
+                        }
+                      },
+                      child: Text(
+                        _.xml.value != '' && _.xml.value.isNotEmpty
+                            ? 'IMPRIMIR'
+                            : 'AGUARDE',
+                        style: const TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  height: 50,
-                  color: CustomColors.informationBox,
-                  child: TextButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: const Text(
-                      'FECHAR ',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                Expanded(
+                  child: Container(
+                    height: 50,
+                    color: CustomColors.informationBox,
+                    child: TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text(
+                        'FECHAR ',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            );
+          }),
 
           //Botões
         ]),

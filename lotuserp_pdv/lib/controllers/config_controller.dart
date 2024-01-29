@@ -101,13 +101,10 @@ class Configcontroller extends GetxController {
           ..velocidade_balanca = campoVazio == true
               ? int.parse(textFieldController.velocidadeBalancaController.text)
               : 0
-          ..nome_balanca = campoVazio == true
+          ..nome_balanca = textFieldController.nomeBalancaController.text != ''
               ? textFieldController.nomeBalancaController.text
               : ''
-          ..tamanho_impressora =
-              textFieldController.tamanhoImpressoraController.text != ''
-                  ? textFieldController.tamanhoImpressoraController.text
-                  : '80mm';
+          ..tamanho_impressora = tamanhoImpressora.value;
 
         await service.insertDadosEmpresariais(dadosEmpresa);
         return true; // Retorna verdadeiro se a empresa for obtida e inserida com sucesso.
@@ -282,7 +279,7 @@ class Configcontroller extends GetxController {
   Future<void> loadNameBalance() async {
     dado_empresa? nameBalanceDb = await service.getDataEmpresa();
     if (nameBalanceDb != null && nameBalanceDb.nome_balanca != null) {
-      textFieldController.tamanhoImpressoraController.text =
+      textFieldController.nomeBalancaController.text =
           nameBalanceDb.nome_balanca!;
       update();
     } else {
@@ -293,14 +290,14 @@ class Configcontroller extends GetxController {
 
   // CARREGA O TAMANHO DA IMPRESSORA CADASTRADA
   Future<void> loadSizePrinter() async {
-    dado_empresa? tamanhoImpressora = await service.getDataEmpresa();
-    if (tamanhoImpressora != null &&
-        tamanhoImpressora.tamanho_impressora != null) {
-      textFieldController.tamanhoImpressoraController.text =
-          tamanhoImpressora.tamanho_impressora!;
+    dado_empresa? tamanhoImpressoraDb = await service.getDataEmpresa();
+    if (tamanhoImpressoraDb != null &&
+        tamanhoImpressoraDb.tamanho_impressora != null) {
+      tamanhoImpressora.value = tamanhoImpressoraDb.tamanho_impressora!;
+      print(tamanhoImpressora.value);
       update();
     } else {
-      textFieldController.tamanhoImpressoraController.text = '';
+      tamanhoImpressora.value = '';
       update();
     }
   }
