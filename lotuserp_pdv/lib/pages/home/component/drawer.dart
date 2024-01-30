@@ -10,6 +10,7 @@ import 'package:lotuserp_pdv/pages/home/component/icon_button_list.dart';
 
 import '../../../services/dependencies.dart';
 import '../../../shared/isar_service.dart';
+import '../../logout/logout_page.dart';
 import 'icon_button_side_bar.dart';
 
 // Side bar (Drawer)
@@ -18,11 +19,8 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarController sideBarController =
-        Dependencies.sidebarController();
-    PasswordController passwordController =
-        Dependencies.passwordController();
-    IsarService service = IsarService();
+    SideBarController sideBarController = Dependencies.sidebarController();
+    PasswordController passwordController = Dependencies.passwordController();
 
     var userName = passwordController.userController.text;
 
@@ -104,7 +102,8 @@ class DrawerWidget extends StatelessWidget {
               isPdv: IconButtonList.iconButtonlist[i]['pdv'],
               isFecharCaixa: IconButtonList.iconButtonlist[i]['fecharCaixa'],
               isSegundaVia: IconButtonList.iconButtonlist[i]['isSegundaVia'],
-              isNfceSegundaVia: IconButtonList.iconButtonlist[i]['isNfceSegundaVia'],
+              isNfceSegundaVia: IconButtonList.iconButtonlist[i]
+                  ['isNfceSegundaVia'],
             )
           }
         ],
@@ -120,8 +119,8 @@ class DrawerWidget extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                Get.offAllNamed(PagesRoutes.loginRoute);
-                service.deleteLoggedUser();
+                
+                Get.dialog(const LogoutPage());
               },
               child: const Padding(
                 padding: EdgeInsets.only(left: 15.0, bottom: 15),

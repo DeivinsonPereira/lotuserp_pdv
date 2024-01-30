@@ -157,7 +157,6 @@ public class MainActivity extends FlutterActivity {
             dmf.RegAlterarValor_NFCe("CONFIGURACAO\\Impressora", tamanhoImpressora); // Exemplo: "Q4" ou "Q8"
             dmf.RegAlterarValor_NFCe("CONFIGURACAO\\ImpressaoCompleta", "1");// impressão completa 0-resumida(sem itens) |1- tudo.
             dmf.iCFImprimir_NFCe(xml, xml, "", 34, 1);
-            Toast.makeText(MainActivity.this, "Imprimiu XML NFCE", Toast.LENGTH_SHORT).show();
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }

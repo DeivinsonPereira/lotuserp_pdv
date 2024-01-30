@@ -19,8 +19,6 @@ class LoginPage extends StatelessWidget {
     LoginController loginController = Dependencies.loginController();
     PasswordController passwordController = Dependencies.passwordController();
 
-
-    
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
       return const Padding(
@@ -52,7 +50,7 @@ class LoginPage extends StatelessWidget {
             ),
             // cria o campo de senha
             FormWidgets()
-                .customTextFieldIcon(Icons.lock, 'Senha',  obscureText: true),
+                .customTextFieldIcon(Icons.lock, 'Senha', obscureText: true),
             const SizedBox(height: 20),
           ],
         ),
