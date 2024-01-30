@@ -1,8 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 import 'component/legend_informations_nfce.dart';
 
@@ -12,6 +14,8 @@ class NfceSecondCopyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     IsarService service = IsarService();
+    InformationController informationController =
+        Dependencies.informationController();
 
     return Dialog(
       child: Container(
@@ -28,6 +32,10 @@ class NfceSecondCopyPage extends StatelessWidget {
 
             // Legenda
             const LegendInformationsNfce(),
+
+            const Divider(
+              color: Colors.black12,
+            ),
             //corpo
             StreamBuilder(
                 stream: service.listenNfceResultados(),
@@ -38,67 +46,76 @@ class NfceSecondCopyPage extends StatelessWidget {
                   if (snapshot.hasData) {
                     var data = snapshot.data!;
                     return SizedBox(
-                      height: 300,
+                      height: 290,
                       width: 600,
                       child: ListView.builder(
                           itemCount: data.length,
                           itemBuilder: (context, index) {
-                            return Column(
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.all(8.0),
-                                  child: Divider(
-                                    color: Colors.black45,
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                            int idCaixaAberto =
+                                informationController.caixaId.value;
+                            bool caixaValido =
+                                data[index].id_caixa == idCaixaAberto;
+
+                            return caixaValido
+                                ? Column(
                                     children: [
-                                      SizedBox(
-                                        width: 100,
-                                        child: Padding(
-                                          padding:
-                                              const EdgeInsets.only(left: 35.0),
-                                          child: Text(
-                                            data[index].id.toString(),
-                                            style: const TextStyle(
-                                                color: Colors.black),
-                                          ),
+                                      const Padding(
+                                        padding: EdgeInsets.all(8.0),
+                                        child: Divider(
+                                          color: Colors.black45,
                                         ),
                                       ),
-                                      SizedBox(
-                                          width: 100,
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
-                                            child: Text(data[index]
-                                                .id_venda
-                                                .toString()),
-                                          )),
-                                      SizedBox(
-                                        width: 100,
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              right: 35.0),
-                                          child: IconButton(
-                                            onPressed: () {
-                                              PrintNfceXml().printNfceXml(
-                                                  xmlArgs: data[index].xml);
-                                            },
-                                            icon: const Icon(Icons.print),
-                                            color: Colors.black,
-                                          ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8.0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: 100,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    left: 35.0),
+                                                child: Text(
+                                                  data[index].id.toString(),
+                                                  style: const TextStyle(
+                                                      color: Colors.black),
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                                width: 100,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8.0),
+                                                  child: Text(data[index]
+                                                      .id_venda
+                                                      .toString()),
+                                                )),
+                                            SizedBox(
+                                              width: 100,
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(
+                                                    right: 35.0),
+                                                child: IconButton(
+                                                  onPressed: () {
+                                                    PrintNfceXml().printNfceXml(
+                                                        xmlArgs:
+                                                            data[index].xml);
+                                                  },
+                                                  icon: const Icon(Icons.print),
+                                                  color: Colors.black,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ),
+                                      )
                                     ],
-                                  ),
-                                )
-                              ],
-                            );
+                                  )
+                                : const Text('');
                           }),
                     );
                   }

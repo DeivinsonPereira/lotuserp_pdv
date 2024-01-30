@@ -165,8 +165,8 @@ class PrinterController extends GetxController {
     try {
       await connectDevice();
       if (!isConnected.value) return;
-      String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+     /* String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);*/
 
       update();
     } on BTException catch (e) {

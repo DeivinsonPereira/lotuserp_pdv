@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 class ResponseServidorController extends GetxController {
   var openRegisterId = 0.obs;
   var enviado = 0.obs;
+  var idVendaServidor = 0.obs;
 
   //atualizar openRegisterId
   void updateOpenRegisterId(int value) {
@@ -10,8 +11,15 @@ class ResponseServidorController extends GetxController {
     update();
   }
 
+  //atualizar enviado
   void updateEnviado(int value) {
     enviado.value = value;
+    update();
+  }
+
+  //atualizar idVendaServidor
+  Future<void> updateIdVendaServidor(int value) async {
+    idVendaServidor.value = value;
     update();
   }
 }

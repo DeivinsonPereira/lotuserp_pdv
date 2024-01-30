@@ -38,7 +38,7 @@ class LegendWidgetNfce extends StatelessWidget {
       width: size,
       child: Center(
         child: Text(data,
-            style: const TextStyle(fontSize: 20, color: Colors.black)),
+            style: const TextStyle(fontSize: 20, color: Colors.black26)),
       ),
     );
   }

@@ -14,33 +14,37 @@ class QrCodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PaymentController paymentController = Dependencies.paymentController();
+    Dependencies.paymentController();
     Dependencies.textFieldController();
     Dependencies.configcontroller();
     Dependencies.searchProductPdvController();
 
     return Dialog(
-      child: Container(
-        color: Colors.white,
-        height: 500,
-        width: 400,
-        child: Column(children: [
-          //header
-          const HeaderPopup(
-              text: 'QR Code NFC-e', icon: FontAwesomeIcons.qrcode),
+      child: GetBuilder<PaymentController>(builder: (_) {
+        return Container(
+          color: Colors.white,
+          height: 500,
+          width: 400,
+          child: Column(children: [
+            //header
+            const HeaderPopup(
+                text: 'QR Code NFC-e', icon: FontAwesomeIcons.qrcode),
 
-          //QR Code
-          Expanded(
-            child: Center(
-              child: QrImageView(
-                data: paymentController.qrCode,
-                version: QrVersions.auto,
-                size: 300.0,
+            //QR Code
+            Expanded(
+              child: Center(
+                child: _.qrCode.isEmpty
+                    ? Container()
+                    : QrImageView(
+                        data: _.qrCode.value,
+                        version: QrVersions.auto,
+                        size: 300.0,
+                      ),
               ),
             ),
-          ),
-          GetBuilder<PaymentController>(builder: (_) {
-            return Row(
+            // botões
+
+            Row(
               children: [
                 Expanded(
                   child: Container(
@@ -86,12 +90,12 @@ class QrCodePage extends StatelessWidget {
                   ),
                 ),
               ],
-            );
-          }),
+            ),
 
-          //Botões
-        ]),
-      ),
+            //Botões
+          ]),
+        );
+      }),
     );
   }
 }

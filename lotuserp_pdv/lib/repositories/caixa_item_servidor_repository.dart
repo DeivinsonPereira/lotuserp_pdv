@@ -14,8 +14,6 @@ import '../core/header.dart';
 import '../services/dependencies.dart';
 
 class CaixaItemServidorRepository {
-  Uri uri = Uri.parse('http://192.168.1.44:9001/pdvmobpost08_caixa_itens');
-
   Logger logger = Logger();
   ResponseServidorController responseServidorController =
       Dependencies.responseServidorController();
@@ -26,6 +24,9 @@ class CaixaItemServidorRepository {
       String atualHour, double valorRecebido, String descricao) async {
     int id_caixa_servidor = responseServidorController.openRegisterId.value;
     String data = atualDate;
+
+    var prefix = await service.getIpEmpresaFromDatabase();
+    Uri uri = Uri.parse('${prefix!.ip_empresa}pdvmobpost08_caixa_itens');
 
     try {
       var requestBody = {
@@ -71,6 +72,9 @@ class CaixaItemServidorRepository {
       double valorDebito,
       int idUser,
       int idCaixaServidor) async {
+    var prefix = await service.getIpEmpresaFromDatabase();
+    Uri uri = Uri.parse('${prefix!.ip_empresa}pdvmobpost08_caixa_itens');
+
     try {
       var requestBody = {
         "id_caixa_servidor": idCaixaServidor,

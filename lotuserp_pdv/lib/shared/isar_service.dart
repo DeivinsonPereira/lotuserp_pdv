@@ -16,6 +16,7 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
+import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
@@ -33,6 +34,7 @@ import '../collections/nfce_resultado.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../core/app_routes.dart';
 import '../repositories/caixa_item_servidor_repository.dart';
+import '../repositories/venda_servidor_repository.dart';
 import '../services/dependencies.dart';
 
 Map<String, String> _headers = {
@@ -649,6 +651,9 @@ class IsarService {
     PdvController pdvController = Dependencies.pdvController();
     PaymentController paymentController = Dependencies.paymentController();
     PrinterController printerController = Dependencies.printerController();
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
+    GlobalController globalController = Dependencies.globalController();
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
@@ -714,15 +719,34 @@ class IsarService {
           /*print('imprimindo imagem de transação: ${comprovante}');*/
         }
       }
+
+      var idCaixaServidor =
+          await globalController.updateCaixaAbertaId(globalController.userId);
+
+      await VendaServidorRepository().vendaToServer(
+          venda, caixaItems, pdvController, paymentController, idCaixaServidor);
+
+      var idVendaServidor = responseServidorController.idVendaServidor.value;
+
       await PostOnServidor.postOnServidor(
-          venda, caixaItems, pdvController, paymentController);
+          venda, caixaItems, pdvController, paymentController, idVendaServidor);
 
       nfce_resultado nfce = nfce_resultado()
+        ..id_caixa = venda.id_caixa
         ..id_venda = paymentController.idVenda
-        ..qr_code = paymentController.qrCode
+        ..qr_code = paymentController.qrCode.value
         ..xml = paymentController.xml.value;
 
       await isar.nfce_resultados.put(nfce);
+
+      var vendas = await isar.vendas.get(venda.id_venda);
+
+      if (vendas != null) {
+        vendas.id_venda_servidor =
+            responseServidorController.idVendaServidor.value;
+        vendas.enviado = responseServidorController.enviado.value;
+        isar.vendas.put(vendas);
+      }
 
       pdvController.zerarCampos();
       paymentController.paymentsTotal.clear();
@@ -1130,7 +1154,8 @@ class IsarService {
     final isar = await db;
     IsarService service = IsarService();
 
-    ResponseServidorController responseServidorController = Dependencies.responseServidorController();
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
 
     var hourFormatted = DatetimeFormatterWidget.formatHour(DateTime.now());
     var dadosUsuario = await service.getUserLogged();

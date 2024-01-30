@@ -24,6 +24,7 @@ class GlobalController extends GetxController {
     updateIdEmpresa();
     setIdUsuario();
     setCnpjEmpresa();
+    setIdCaixaServidor(userId);
   }
 
   //busca o id da empresa de acordo com as configurações iniciais do sistema
@@ -49,7 +50,7 @@ class GlobalController extends GetxController {
   }
 
   //busca o id do caixa aberto
-  void setCaixaAbertaId(int userId) async {
+  Future<void> setCaixaAbertaId(int userId) async {
     int? caixaVar = await service.getIdCaixa(userId);
 
     caixaAberta = caixaVar ?? 0;
@@ -66,5 +67,11 @@ class GlobalController extends GetxController {
     int? idCaixa = await service.getIdCaixaServidor(userId);
 
     idCaixaServidor = idCaixa ?? 0;
+  }
+
+  Future<int> updateCaixaAbertaId(int userId) async {
+    int? caixaVar = await service.getIdCaixaServidor(userId);
+    idCaixaServidor = caixaVar ?? 0;
+    return idCaixaServidor;
   }
 }

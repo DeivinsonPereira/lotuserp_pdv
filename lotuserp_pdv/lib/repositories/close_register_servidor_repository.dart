@@ -13,7 +13,6 @@ import '../pages/common/strings_default.dart';
 import '../services/dependencies.dart';
 
 class CloseRegisterServidorRepository {
-  Uri uri = Uri.parse('http://192.168.1.44:9001/pdvmobpost11_caixa_fechar');
   IsarService service = IsarService();
   Logger logger = Logger();
 
@@ -23,6 +22,9 @@ class CloseRegisterServidorRepository {
   Future<void> closeRegisterServidor(String atualDate, int idCaixaServidor,
       List<caixa_fechamento> fechamentosCaixa) async {
     var dadosUsuario = await service.getUserLogged();
+
+    var prefix = await service.getIpEmpresaFromDatabase();
+    Uri uri = Uri.parse('${prefix!.ip_empresa}pdvmobpost11_caixa_fechar');
 
     List<Map<String, dynamic>> fechamentosCaixaMap = [];
     for (var element in fechamentosCaixa) {

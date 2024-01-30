@@ -17,18 +17,23 @@ const Nfce_resultadoSchema = CollectionSchema(
   name: r'nfce_resultado',
   id: -3757020370277554225,
   properties: {
-    r'id_venda': PropertySchema(
+    r'id_caixa': PropertySchema(
       id: 0,
+      name: r'id_caixa',
+      type: IsarType.long,
+    ),
+    r'id_venda': PropertySchema(
+      id: 1,
       name: r'id_venda',
       type: IsarType.long,
     ),
     r'qr_code': PropertySchema(
-      id: 1,
+      id: 2,
       name: r'qr_code',
       type: IsarType.string,
     ),
     r'xml': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'xml',
       type: IsarType.string,
     )
@@ -74,9 +79,10 @@ void _nfce_resultadoSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeLong(offsets[0], object.id_venda);
-  writer.writeString(offsets[1], object.qr_code);
-  writer.writeString(offsets[2], object.xml);
+  writer.writeLong(offsets[0], object.id_caixa);
+  writer.writeLong(offsets[1], object.id_venda);
+  writer.writeString(offsets[2], object.qr_code);
+  writer.writeString(offsets[3], object.xml);
 }
 
 nfce_resultado _nfce_resultadoDeserialize(
@@ -87,9 +93,10 @@ nfce_resultado _nfce_resultadoDeserialize(
 ) {
   final object = nfce_resultado();
   object.id = id;
-  object.id_venda = reader.readLongOrNull(offsets[0]);
-  object.qr_code = reader.readStringOrNull(offsets[1]);
-  object.xml = reader.readStringOrNull(offsets[2]);
+  object.id_caixa = reader.readLong(offsets[0]);
+  object.id_venda = reader.readLongOrNull(offsets[1]);
+  object.qr_code = reader.readStringOrNull(offsets[2]);
+  object.xml = reader.readStringOrNull(offsets[3]);
   return object;
 }
 
@@ -101,10 +108,12 @@ P _nfce_resultadoDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 1:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 2:
+      return (reader.readStringOrNull(offset)) as P;
+    case 3:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -254,6 +263,62 @@ extension nfce_resultadoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_caixaEqualTo(int value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_caixa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_caixaGreaterThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_caixa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_caixaLessThan(
+    int value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_caixa',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_caixaBetween(
+    int lower,
+    int upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_caixa',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -653,6 +718,19 @@ extension nfce_resultadoQueryLinks
 
 extension nfce_resultadoQuerySortBy
     on QueryBuilder<nfce_resultado, nfce_resultado, QSortBy> {
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> sortById_caixa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.asc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      sortById_caixaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.desc);
+    });
+  }
+
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> sortById_venda() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_venda', Sort.asc);
@@ -706,6 +784,19 @@ extension nfce_resultadoQuerySortThenBy
     });
   }
 
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> thenById_caixa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.asc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      thenById_caixaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_caixa', Sort.desc);
+    });
+  }
+
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> thenById_venda() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_venda', Sort.asc);
@@ -747,6 +838,12 @@ extension nfce_resultadoQuerySortThenBy
 
 extension nfce_resultadoQueryWhereDistinct
     on QueryBuilder<nfce_resultado, nfce_resultado, QDistinct> {
+  QueryBuilder<nfce_resultado, nfce_resultado, QDistinct> distinctById_caixa() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_caixa');
+    });
+  }
+
   QueryBuilder<nfce_resultado, nfce_resultado, QDistinct> distinctById_venda() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id_venda');
@@ -773,6 +870,12 @@ extension nfce_resultadoQueryProperty
   QueryBuilder<nfce_resultado, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
+    });
+  }
+
+  QueryBuilder<nfce_resultado, int, QQueryOperations> id_caixaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_caixa');
     });
   }
 

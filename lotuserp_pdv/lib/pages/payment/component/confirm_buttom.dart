@@ -55,6 +55,7 @@ class ConfirmButtom extends StatelessWidget {
 
       
 
+
       var vendaExecutada = venda()
         ..data = DateTime.now()
         ..hora = sideBarController.hours.value

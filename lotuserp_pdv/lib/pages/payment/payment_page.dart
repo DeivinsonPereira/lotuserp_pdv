@@ -47,11 +47,12 @@ class _PaymentPageState extends State<PaymentPage> {
     var remainingValue = 0.0;
 
     var ramainingValueCb2 = 0.0;
-    
 
     var size = MediaQuery.of(context).size;
 
     Logger logger = Logger();
+
+    paymentController.clearXmlAndQrCodeAndIdVenda();
 
     var formatoBrasileiro = NumberFormat.currency(
       locale: 'pt_BR',
@@ -353,7 +354,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
                                 Text(
-                                  _.pedidos[index]['nomeProduto'],
+                                  '${_.pedidos[index]['idProduto']} - ${_.pedidos[index]['nomeProduto']}',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                 ),

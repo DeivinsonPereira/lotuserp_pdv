@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../controllers/response_servidor_controller.dart';
 import '../core/header.dart';
@@ -14,10 +15,12 @@ class OpenRegisterServidorRepository {
   Logger logger = Logger();
   ResponseServidorController responseServidorController =
       Dependencies.responseServidorController();
-  final uri = Uri.parse('http://192.168.1.44:9001/pdvmobpost07_caixa_abrir');
+  IsarService service = IsarService();
 
   Future<void> openRegisterServidor(int idEmpresa, int idUsuario,
       String atualDate, String atualHour, double valorAbertura) async {
+    var prefix = await service.getIpEmpresaFromDatabase();
+    Uri uri = Uri.parse('${prefix!.ip_empresa}pdvmobpost07_caixa_abrir');
 
     var id_empresa = idEmpresa;
     var id_usuario = idUsuario;

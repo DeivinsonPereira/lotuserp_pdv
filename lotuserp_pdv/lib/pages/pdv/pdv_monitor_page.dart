@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -41,7 +40,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
     Dependencies.balancaController();
-    
 
     IsarService service = IsarService();
 
@@ -237,8 +235,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                controller.pedidos[index]
-                                                    ['nomeProduto'],
+                                                'Id: ${controller.pedidos[index]['idProduto']} ${controller.pedidos[index]['nomeProduto']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -494,12 +491,13 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           child: Stack(
                                             children: [
                                               // CachedNetworkImage que exibe a imagem
-                                              CachedNetworkImage(
-                                                alignment:
-                                                    const Alignment(0, 0),
-                                                imageUrl:
-                                                    '${controller.ip.value}getimagem?categoria=PRO&file=$file&result=URL',
+                                              Image.asset(
+                                                'assets/images/semimagem.png',
+                                                scale: 1.0,
                                               ),
+
+                                              /*ImageViewPdv().getImage(
+                                                  controller.ip.value, file),*/
 
                                               if (controller
                                                       .getQuantidade(nome!) >
@@ -928,11 +926,16 @@ class _SearchProduct extends StatelessWidget {
                       child: Stack(
                         children: [
                           // CachedNetworkImage que exibe a imagem
-                          CachedNetworkImage(
+                          Image.asset(
+                            'assets/images/semimagem.png',
+                            scale: 1.0,
+                          ),
+
+                          /*CachedNetworkImage(
                             alignment: const Alignment(0, 0),
                             imageUrl:
                                 '${pdvController.ip.value}/getimagem?categoria=PRO&file=${controller.file[index][0]}&result=URL',
-                          ),
+                          ),*/
 
                           if (pdvController
                                   .getQuantidade(controller.nome[index]) >
