@@ -10,7 +10,7 @@ class ResponseServidorController extends GetxController {
     update();
   }
 
-  void updateEnviadoOpenRegister(int value) {
+  void updateEnviado(int value) {
     enviado.value = value;
     update();
   }

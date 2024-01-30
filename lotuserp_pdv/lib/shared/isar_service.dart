@@ -688,7 +688,7 @@ class IsarService {
           ..id_tipo_recebimento = idPayment!
           ..valor_deb = 0
           ..id_venda = venda.id_venda
-          ..enviado = 0;
+          ..enviado = 1;
 
         if (paymentController.paymentsTotal[i]['nome'] == 'DINHEIRO') {
           caixaItem.valor_cre = venda.valor_troco > 0
@@ -1130,12 +1130,15 @@ class IsarService {
     final isar = await db;
     IsarService service = IsarService();
 
+    ResponseServidorController responseServidorController = Dependencies.responseServidorController();
+
     var hourFormatted = DatetimeFormatterWidget.formatHour(DateTime.now());
     var dadosUsuario = await service.getUserLogged();
 
     caixa? caixas = await isar.caixas.get(caixaFechamento[0].id_caixa);
 
     if (caixas != null) {
+      caixas.enviado = responseServidorController.enviado.value;
       caixas.status = 1;
       caixas.fechou_data = DateTime.now();
       caixas.fechou_hora = hourFormatted;

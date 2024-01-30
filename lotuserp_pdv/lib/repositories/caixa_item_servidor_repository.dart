@@ -46,21 +46,18 @@ class CaixaItemServidorRepository {
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['success'] == true) {
-          responseServidorController.updateEnviadoOpenRegister(1);
+          responseServidorController.updateEnviado(StringsDefault.enviado);
           logger.i(response.body);
         } else {
-          responseServidorController
-              .updateEnviadoOpenRegister(StringsDefault.naoEnviado);
+          responseServidorController.updateEnviado(StringsDefault.naoEnviado);
           logger.e(response.body);
         }
       } else {
-        responseServidorController
-            .updateEnviadoOpenRegister(StringsDefault.naoEnviado);
+        responseServidorController.updateEnviado(StringsDefault.naoEnviado);
         logger.e(response.body);
       }
     } catch (e) {
-      responseServidorController
-          .updateEnviadoOpenRegister(StringsDefault.naoEnviado);
+      responseServidorController.updateEnviado(StringsDefault.naoEnviado);
       logger.e(e.toString());
     }
   }
@@ -93,22 +90,18 @@ class CaixaItemServidorRepository {
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['success'] == true) {
-          responseServidorController
-              .updateEnviadoOpenRegister(StringsDefault.enviado);
+          responseServidorController.updateEnviado(StringsDefault.enviado);
           logger.i(response.body);
         } else {
-          responseServidorController
-              .updateEnviadoOpenRegister(StringsDefault.naoEnviado);
+          responseServidorController.updateEnviado(StringsDefault.naoEnviado);
           logger.e(response.body);
         }
       } else {
-        responseServidorController
-            .updateEnviadoOpenRegister(StringsDefault.naoEnviado);
+        responseServidorController.updateEnviado(StringsDefault.naoEnviado);
         logger.e(response.body);
       }
     } catch (e) {
-      responseServidorController
-          .updateEnviadoOpenRegister(StringsDefault.naoEnviado);
+      responseServidorController.updateEnviado(StringsDefault.naoEnviado);
       logger.e(e.toString());
     }
   }

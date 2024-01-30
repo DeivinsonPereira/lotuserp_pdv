@@ -5,14 +5,17 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/caixa_fechamento.dart';
 
 import 'package:lotuserp_pdv/controllers/close_register_controller.dart';
+import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../collections/tipo_recebimento.dart';
+import '../../repositories/close_register_servidor_repository.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 
@@ -24,13 +27,13 @@ class CloseRegisterPage extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     IsarService service = IsarService();
 
-    CloseRegisterController controller =
-        Dependencies.closeRegisterController();
+    CloseRegisterController controller = Dependencies.closeRegisterController();
 
-    PrinterController printerController =
-        Dependencies.printerController();
+    PrinterController printerController = Dependencies.printerController();
 
     PdvController pdvController = Dependencies.pdvController();
+
+    GlobalController globalController = Dependencies.globalController();
 
     // botões confirmar e voltar
     Widget backAndConfirmButtons() {
@@ -61,11 +64,13 @@ class CloseRegisterPage extends StatelessWidget {
               color: CustomColors.confirmButtonColor,
               child: TextButton(
                 onPressed: () async {
+                  var atualDateFormatted =
+                      DatetimeFormatterWidget.formatDate(DateTime.now());
 
-                  
-
+                  await globalController.setIdCaixaServidor(globalController.userId);
+                  var idCaixaServidor = globalController.idCaixaServidor;
                   List<caixa_fechamento> fechamentosCaixa = [];
-                  
+
                   for (var i = 0; i < controller.closeRegister.length; i++) {
                     var values = controller.closeRegister[i]['value'] =
                         double.parse(controller.textControllers[i].text
@@ -78,7 +83,12 @@ class CloseRegisterPage extends StatelessWidget {
                       ..valor_informado = values;
 
                     fechamentosCaixa.add(caixaFechamento);
+
                   }
+                  await CloseRegisterServidorRepository().closeRegisterServidor(
+                    atualDateFormatted, idCaixaServidor, fechamentosCaixa
+                  );
+
                   await printerController.printCloseCaixa(fechamentosCaixa);
                   await service.insertCaixaFechamento(fechamentosCaixa);
                   await service.deleteCartaoItem();
@@ -384,8 +394,7 @@ class BackSpaceIcon extends StatelessWidget {
 
   final int setSelectedTextFieldIndex;
 
-  CloseRegisterController controller =
-      Dependencies.closeRegisterController();
+  CloseRegisterController controller = Dependencies.closeRegisterController();
 
   @override
   Widget build(BuildContext context) {
@@ -416,8 +425,7 @@ class BuildNumberButtom extends StatelessWidget {
   final String textInformed;
   final int setSelectedTextFieldIndex;
 
-  CloseRegisterController controller =
-      Dependencies.closeRegisterController();
+  CloseRegisterController controller = Dependencies.closeRegisterController();
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CloseRegisterController>(
@@ -463,8 +471,7 @@ class CointainersInformation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SideBarController controller = Dependencies.sidebarController();
-    PasswordController passwordController =
-        Dependencies.passwordController();
+    PasswordController passwordController = Dependencies.passwordController();
     CloseRegisterController closeRegisterController =
         Dependencies.closeRegisterController();
 

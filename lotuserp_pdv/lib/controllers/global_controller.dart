@@ -3,7 +3,6 @@ import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../collections/caixa.dart';
 import '../collections/empresa.dart';
 
 class GlobalController extends GetxController {
