@@ -271,7 +271,7 @@ class OpenRegisterPage extends StatelessWidget {
                                 responseServidorController.openRegisterId.value;
                           if (openRegisterDouble > 0.00) {
                             await service.insertCaixaWithCaixaItem(caixas,
-                                atualDate, hourFormatted, openRegisterDouble);
+                                atualDate, hourFormatted, openRegisterDouble, dadosUsuario.id_user!);
                             movimentRegisterController.clearOpenRegister();
 
                             Get.back();

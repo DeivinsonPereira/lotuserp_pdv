@@ -61,8 +61,11 @@ class CloseRegisterPage extends StatelessWidget {
               color: CustomColors.confirmButtonColor,
               child: TextButton(
                 onPressed: () async {
-                  List<caixa_fechamento> fechamentosCaixa = [];
 
+                  
+
+                  List<caixa_fechamento> fechamentosCaixa = [];
+                  
                   for (var i = 0; i < controller.closeRegister.length; i++) {
                     var values = controller.closeRegister[i]['value'] =
                         double.parse(controller.textControllers[i].text

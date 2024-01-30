@@ -53,6 +53,7 @@ class ConfirmButtom extends StatelessWidget {
       pdvController
           .totalLiquido(); //soma o valor bruto total dos itens que estão nos pedidos
 
+      
       var vendaExecutada = venda()
         ..data = DateTime.now()
         ..hora = sideBarController.hours.value

@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-class ResponseServidorController extends GetxController{
-
+class ResponseServidorController extends GetxController {
   var openRegisterId = 0.obs;
+  var enviado = 0.obs;
 
   //atualizar openRegisterId
   void updateOpenRegisterId(int value) {
@@ -10,5 +10,8 @@ class ResponseServidorController extends GetxController{
     update();
   }
 
-  
+  void updateEnviadoOpenRegister(int value) {
+    enviado.value = value;
+    update();
+  }
 }

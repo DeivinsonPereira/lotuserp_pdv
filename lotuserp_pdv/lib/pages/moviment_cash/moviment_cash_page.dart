@@ -3,15 +3,19 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
+import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/component/custom_text_tipo.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../controllers/response_servidor_controller.dart';
+import '../../repositories/caixa_item_servidor_repository.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 import 'component/custom_text_descricao.dart';
@@ -93,13 +97,16 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController =
-        Dependencies.passwordController();
+    PasswordController passwordController = Dependencies.passwordController();
 
     MovimentRegisterController movimentRegisterController =
         Dependencies.movimentRegisterController();
 
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
+
     Dependencies.caixaController();
+    GlobalController globalController = Dependencies.globalController();
 
     var userName = passwordController.userController.text;
     tz.initializeTimeZones();
@@ -447,6 +454,39 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                                 movimentRegisterController
                                     .movimentRegisterToDouble();
 
+                            DateTime date = DateTime.now();
+                            String dateFormatted =
+                                DatetimeFormatterWidget.formatDate(date);
+
+                            var valorCredito = movimentRegisterController
+                                        .tipoDeMovimentoController.text ==
+                                    'CREDITO'
+                                ? movimentRegisterDouble
+                                : 0.0;
+
+                            double valorDebito = movimentRegisterController
+                                        .tipoDeMovimentoController.text ==
+                                    'DEBITO'
+                                ? movimentRegisterDouble
+                                : 0.0;
+
+                            var userId = globalController.userId;
+                            await globalController.setIdCaixaServidor(userId);
+                            var idCaixaServidor =
+                                globalController.idCaixaServidor;
+
+                            await CaixaItemServidorRepository()
+                                .caixaItemMovivmentCashServidor(
+                                    movimentRegisterController
+                                        .descriptionController.text,
+                                    dateFormatted,
+                                    hourFormatted,
+                                    movimentRegisterController.formaPagamentoId,
+                                    valorCredito,
+                                    valorDebito,
+                                    userId,
+                                    idCaixaServidor);
+
                             caixa_item caixaItem = caixa_item()
                               ..id_caixa = idCaixa
                               ..descricao = movimentRegisterController
@@ -455,18 +495,11 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                               ..hora = hourFormatted
                               ..id_tipo_recebimento =
                                   movimentRegisterController.formaPagamentoId
-                              ..valor_cre = movimentRegisterController
-                                          .tipoDeMovimentoController.text ==
-                                      'CREDITO'
-                                  ? movimentRegisterDouble
-                                  : 0
-                              ..valor_deb = movimentRegisterController
-                                          .tipoDeMovimentoController.text ==
-                                      'DEBITO'
-                                  ? movimentRegisterDouble
-                                  : 0
+                              ..valor_cre = valorCredito
+                              ..valor_deb = valorDebito
                               ..id_venda = 0
-                              ..enviado = 0;
+                              ..enviado =
+                                  responseServidorController.enviado.value;
 
                             service.insertCaixaItem(caixaItem);
 

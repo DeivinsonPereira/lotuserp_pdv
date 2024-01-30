@@ -30,7 +30,9 @@ import 'package:logger/logger.dart';
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
 import '../collections/nfce_resultado.dart';
+import '../controllers/response_servidor_controller.dart';
 import '../core/app_routes.dart';
+import '../repositories/caixa_item_servidor_repository.dart';
 import '../services/dependencies.dart';
 
 Map<String, String> _headers = {
@@ -597,25 +599,34 @@ class IsarService {
 
   //inserir dados na tabela caixa e caixaItem
   Future<Isar> insertCaixaWithCaixaItem(caixa caixa, DateTime atualDate,
-      String hourFormatted, double openRegisterDouble) async {
+      String hourFormatted, double openRegisterDouble, int? idUser) async {
     final isar = await db;
     PrinterController printerController = Dependencies.printerController();
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
 
     caixa_item caixaItem = caixa_item();
+
+    String atualDateFormatted = DatetimeFormatterWidget.formatDate(atualDate);
 
     await isar.writeTxn(() async {
       await isar.caixas.put(caixa);
 
+      var descricao = 'ABERTURA DE CAIXA';
+
+      await CaixaItemServidorRepository().caixaItemServidor(idUser,
+          atualDateFormatted, hourFormatted, openRegisterDouble, descricao);
+
       caixaItem = caixa_item()
         ..id_caixa = caixa.id_caixa
-        ..descricao = 'ABERTURA DE CAIXA'
+        ..descricao = descricao
         ..data = atualDate
         ..hora = hourFormatted
         ..id_tipo_recebimento = 1
         ..valor_cre = openRegisterDouble
         ..valor_deb = 0
         ..id_venda = null
-        ..enviado = 0;
+        ..enviado = responseServidorController.enviado.value;
 
       await isar.caixa_items.put(caixaItem);
     });
@@ -739,6 +750,7 @@ class IsarService {
     caixa? caixas = await isar.caixas
         .filter()
         .abertura_id_userEqualTo(aberturaIdUser)
+        .statusEqualTo(0)
         .findFirst();
     if (caixas != null) {
       return caixas.id_caixa;
@@ -754,9 +766,24 @@ class IsarService {
     caixa? caixas = await isar.caixas
         .filter()
         .abertura_id_userEqualTo(aberturaIdUser)
+        .statusEqualTo(0)
         .findFirst();
     if (caixas != null) {
       return caixas;
+    } else {
+      return null;
+    }
+  }
+
+  Future<int?> getIdCaixaServidor(int aberturaIdUser) async {
+    final isar = await db;
+    caixa? caixas = await isar.caixas
+        .filter()
+        .abertura_id_userEqualTo(aberturaIdUser)
+        .statusEqualTo(0)
+        .findFirst();
+    if (caixas != null) {
+      return caixas.id_caixa_servidor;
     } else {
       return null;
     }
@@ -1177,7 +1204,7 @@ class IsarService {
         .sortById_venda()
         .watch(fireImmediately: true);
   }
-  
+
   //deletar todos os dados da tabela cartao_item
   Future<void> deleteCartaoItem() async {
     final isar = await db;
@@ -1214,7 +1241,6 @@ class IsarService {
       logger.e("Erro ao buscar nfce: $e");
       return null;
     }
-    
   }
 
   //abre o banco de dados

@@ -14,10 +14,10 @@ class OpenRegisterServidorRepository {
   Logger logger = Logger();
   ResponseServidorController responseServidorController =
       Dependencies.responseServidorController();
+  final uri = Uri.parse('http://192.168.1.44:9001/pdvmobpost07_caixa_abrir');
 
   Future<void> openRegisterServidor(int idEmpresa, int idUsuario,
       String atualDate, String atualHour, double valorAbertura) async {
-    final uri = Uri.parse('http://192.168.1.44:9001/pdvmobpost07_caixa_abrir');
 
     var id_empresa = idEmpresa;
     var id_usuario = idUsuario;
