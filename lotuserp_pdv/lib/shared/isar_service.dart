@@ -657,100 +657,106 @@ class IsarService {
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
-
-      List<venda_item> vendaItems = [];
-
-      for (var i = 0; i < pdvController.pedidos.length; i++) {
-        venda_item vendaItem = venda_item()
-          ..id_venda = venda.id_venda
-          ..id_produto = pdvController.pedidos[i]['idProduto']
-          ..item = i + 1
-          ..vlr_vendido =
-              double.parse(pdvController.pedidos[i]['price'].toStringAsFixed(2))
-          ..qtde = pdvController.pedidos[i]['quantidade']
-          ..tot_bruto =
-              double.parse(pdvController.pedidos[i]['total'].toStringAsFixed(2))
-          ..grade = pdvController.pedidos[i]['unidade'];
-
-        vendaItems.add(vendaItem);
-      }
-
       List<caixa_item> caixaItems = [];
+      List<venda_item> vendaItems = [];
+      int idVendaServidor = 0;
 
-      int? idPayment = 0;
-      for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
-        idPayment = await search_tipoRecebimentoIdByDesc(
-            paymentController.paymentsTotal[i]['nome']);
+      if (responseServidorController.xmlNotaFiscal.value == true) {
+        for (var i = 0; i < pdvController.pedidos.length; i++) {
+          venda_item vendaItem = venda_item()
+            ..id_venda = venda.id_venda
+            ..id_produto = pdvController.pedidos[i]['idProduto']
+            ..item = i + 1
+            ..vlr_vendido = double.parse(
+                pdvController.pedidos[i]['price'].toStringAsFixed(2))
+            ..qtde = pdvController.pedidos[i]['quantidade']
+            ..tot_bruto = double.parse(
+                pdvController.pedidos[i]['total'].toStringAsFixed(2))
+            ..grade = pdvController.pedidos[i]['unidade'];
 
-        var valuePayment = double.parse(
-            paymentController.paymentsTotal[i]['valor'].replaceAll(',', '.'));
+          vendaItems.add(vendaItem);
+        }
 
-        caixa_item caixaItem = caixa_item()
+        int? idPayment = 0;
+        for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
+          idPayment = await search_tipoRecebimentoIdByDesc(
+              paymentController.paymentsTotal[i]['nome']);
+
+          var valuePayment = double.parse(
+              paymentController.paymentsTotal[i]['valor'].replaceAll(',', '.'));
+          caixa_item caixaItem = caixa_item()
+            ..id_caixa = venda.id_caixa
+            ..descricao = 'VENDA'
+            ..data = venda.data
+            ..hora = venda.hora
+            ..id_tipo_recebimento = idPayment!
+            ..valor_deb = 0
+            ..id_venda = venda.id_venda
+            ..enviado = 1;
+
+          if (paymentController.paymentsTotal[i]['nome'] == 'DINHEIRO') {
+            caixaItem.valor_cre = venda.valor_troco > 0
+                ? valuePayment - venda.valor_troco
+                : valuePayment;
+          } else {
+            caixaItem.valor_cre = valuePayment;
+          }
+          caixaItems.add(caixaItem);
+        }
+        await isar.venda_items.putAll(vendaItems);
+        await isar.caixa_items.putAll(caixaItems);
+
+        await printerController.printVendas(venda, vendaItems);
+        for (var element in paymentController.paymentTefId) {
+          String comprovante = '';
+          var comp = await getCartaoItemById(element);
+          if (comp != null) {
+            comprovante = comp.imagem_comprovante;
+
+            printerController.printTransactionCard(comprovante);
+            await updateCartaoItem(element, venda.id_venda);
+            /*print('imprimindo imagem de transação: ${comprovante}');*/
+          }
+        }
+
+        var idCaixaServidor =
+            await globalController.updateCaixaAbertaId(globalController.userId);
+
+        await VendaServidorRepository().vendaToServer(venda, caixaItems,
+            pdvController, paymentController, idCaixaServidor);
+
+        idVendaServidor = responseServidorController.idVendaServidor.value;
+
+        await PostOnServidor.postOnServidor(venda, caixaItems, pdvController,
+            paymentController, idVendaServidor);
+      } else {
+        await PostOnServidor.postOnServidor(venda, caixaItems, pdvController,
+            paymentController, idVendaServidor);
+      }
+
+      if (responseServidorController.xmlNotaFiscal.value == true) {
+        nfce_resultado nfce = nfce_resultado()
           ..id_caixa = venda.id_caixa
-          ..descricao = 'VENDA'
-          ..data = venda.data
-          ..hora = venda.hora
-          ..id_tipo_recebimento = idPayment!
-          ..valor_deb = 0
-          ..id_venda = venda.id_venda
-          ..enviado = 1;
+          ..id_venda = paymentController.idVenda
+          ..qr_code = paymentController.qrCode.value
+          ..xml = paymentController.xml.value;
 
-        if (paymentController.paymentsTotal[i]['nome'] == 'DINHEIRO') {
-          caixaItem.valor_cre = venda.valor_troco > 0
-              ? valuePayment - venda.valor_troco
-              : valuePayment;
-        } else {
-          caixaItem.valor_cre = valuePayment;
+        await isar.nfce_resultados.put(nfce);
+      }
+      if (responseServidorController.xmlNotaFiscal.value == true) {
+        var vendas = await isar.vendas.get(venda.id_venda);
+
+        if (vendas != null) {
+          vendas.id_venda_servidor =
+              responseServidorController.idVendaServidor.value;
+          vendas.enviado = responseServidorController.enviado.value;
+          isar.vendas.put(vendas);
         }
-        caixaItems.add(caixaItem);
+
+        pdvController.zerarCampos();
+        paymentController.paymentsTotal.clear();
+        paymentController.clearPaymentTef();
       }
-      await isar.venda_items.putAll(vendaItems);
-      await isar.caixa_items.putAll(caixaItems);
-
-      await printerController.printVendas(venda, vendaItems);
-      for (var element in paymentController.paymentTefId) {
-        String comprovante = '';
-        var comp = await getCartaoItemById(element);
-        if (comp != null) {
-          comprovante = comp.imagem_comprovante;
-
-          printerController.printTransactionCard(comprovante);
-          await updateCartaoItem(element, venda.id_venda);
-          /*print('imprimindo imagem de transação: ${comprovante}');*/
-        }
-      }
-
-      var idCaixaServidor =
-          await globalController.updateCaixaAbertaId(globalController.userId);
-
-      await VendaServidorRepository().vendaToServer(
-          venda, caixaItems, pdvController, paymentController, idCaixaServidor);
-
-      var idVendaServidor = responseServidorController.idVendaServidor.value;
-
-      await PostOnServidor.postOnServidor(
-          venda, caixaItems, pdvController, paymentController, idVendaServidor);
-
-      nfce_resultado nfce = nfce_resultado()
-        ..id_caixa = venda.id_caixa
-        ..id_venda = paymentController.idVenda
-        ..qr_code = paymentController.qrCode.value
-        ..xml = paymentController.xml.value;
-
-      await isar.nfce_resultados.put(nfce);
-
-      var vendas = await isar.vendas.get(venda.id_venda);
-
-      if (vendas != null) {
-        vendas.id_venda_servidor =
-            responseServidorController.idVendaServidor.value;
-        vendas.enviado = responseServidorController.enviado.value;
-        isar.vendas.put(vendas);
-      }
-
-      pdvController.zerarCampos();
-      paymentController.paymentsTotal.clear();
-      paymentController.clearPaymentTef();
     });
     return isar;
   }
@@ -1241,7 +1247,7 @@ class IsarService {
 
     if (i >= 0) {
       isar.writeTxn(() async {
-        await isar.produto_grupos.clear();
+        await isar.cartao_items.clear();
       });
     }
   }

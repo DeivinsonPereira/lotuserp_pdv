@@ -4,6 +4,7 @@ class ResponseServidorController extends GetxController {
   var openRegisterId = 0.obs;
   var enviado = 0.obs;
   var idVendaServidor = 0.obs;
+  var xmlNotaFiscal = true.obs;
 
   //atualizar openRegisterId
   void updateOpenRegisterId(int value) {
@@ -20,6 +21,12 @@ class ResponseServidorController extends GetxController {
   //atualizar idVendaServidor
   Future<void> updateIdVendaServidor(int value) async {
     idVendaServidor.value = value;
+    update();
+  }
+
+  //atualizar xmlNotaFiscal
+  void updateXmlNotaFiscal(bool value) {
+    xmlNotaFiscal.value = value;
     update();
   }
 }

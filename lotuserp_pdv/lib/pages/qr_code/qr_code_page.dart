@@ -7,6 +7,7 @@ import 'package:lotuserp_pdv/pages/common/header_popup.dart';
 import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
 
 class QrCodePage extends StatelessWidget {
@@ -18,6 +19,8 @@ class QrCodePage extends StatelessWidget {
     Dependencies.textFieldController();
     Dependencies.configcontroller();
     Dependencies.searchProductPdvController();
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
 
     return Dialog(
       child: GetBuilder<PaymentController>(builder: (_) {
@@ -54,6 +57,10 @@ class QrCodePage extends StatelessWidget {
                         : Colors.grey[300],
                     child: TextButton(
                       onPressed: () async {
+                        if (responseServidorController.xmlNotaFiscal.value ==
+                            false) {
+                          Get.back();
+                        }
                         if (_.xml.value != '' && _.xml.value.isNotEmpty) {
                           await PrintNfceXml().printNfceXml();
                           Get.back();

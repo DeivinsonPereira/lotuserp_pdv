@@ -73,7 +73,7 @@ class ProductMonitorPage extends StatelessWidget {
                             width: 5,
                           ),
                           Text(
-                            'Constulta de Produtos',
+                            'Consulta de Produtos',
                             style: TextStyle(
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold,

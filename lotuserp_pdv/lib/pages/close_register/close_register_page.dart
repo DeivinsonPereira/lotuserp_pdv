@@ -67,7 +67,8 @@ class CloseRegisterPage extends StatelessWidget {
                   var atualDateFormatted =
                       DatetimeFormatterWidget.formatDate(DateTime.now());
 
-                  await globalController.setIdCaixaServidor(globalController.userId);
+                  await globalController
+                      .setIdCaixaServidor(globalController.userId);
                   var idCaixaServidor = globalController.idCaixaServidor;
                   List<caixa_fechamento> fechamentosCaixa = [];
 
@@ -83,11 +84,9 @@ class CloseRegisterPage extends StatelessWidget {
                       ..valor_informado = values;
 
                     fechamentosCaixa.add(caixaFechamento);
-
                   }
                   await CloseRegisterServidorRepository().closeRegisterServidor(
-                    atualDateFormatted, idCaixaServidor, fechamentosCaixa
-                  );
+                      atualDateFormatted, idCaixaServidor, fechamentosCaixa);
 
                   await printerController.printCloseCaixa(fechamentosCaixa);
                   await service.insertCaixaFechamento(fechamentosCaixa);

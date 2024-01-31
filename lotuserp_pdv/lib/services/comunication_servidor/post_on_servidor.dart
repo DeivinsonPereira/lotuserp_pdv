@@ -6,6 +6,7 @@ import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/header.dart';
+import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -114,16 +115,26 @@ abstract class PostOnServidor {
         if (jsonResponse['id_venda'] != null &&
             jsonResponse['qr_code'] != null &&
             jsonResponse['xml'] != null) {
+          responseServidorController.updateXmlNotaFiscal(true);
           var idVenda = int.tryParse(jsonResponse['id_venda']);
           var qrCode = jsonResponse['qr_code'];
           var xml = jsonResponse['xml'];
           await paymentController.updateVariaveisNfce(idVenda!, qrCode!, xml!);
+        } else {
+          responseServidorController.updateXmlNotaFiscal(false);
+          const CustomSnackBar(
+                  message:
+                      'Erro ao gerar nota fiscal. Volte e tente novamente.')
+              .show();
+          logger.e("Erro ao fazer a requisição: ${response.statusCode}");
         }
       } else {
         logger.e("Erro ao fazer a requisição: ${response.statusCode}");
+        responseServidorController.updateXmlNotaFiscal(false);
       }
     } catch (e) {
       logger.e("Erro ao fazer a requisição: $e");
+      responseServidorController.updateXmlNotaFiscal(false);
     }
   }
 }
