@@ -432,16 +432,8 @@ class _PaymentPageState extends State<PaymentPage> {
       return InkWell(
         onTap: () {
           if (descricao != null) {
-            if (descricao == 'TEF DEBITO' ||
-                descricao == 'TEF CREDITO' ||
-                descricao == 'POS - CARTAO CREDITO' ||
-                descricao == 'POS - CARTAO DEBITO' ||
-                descricao == 'POS - VOUCHER') {
-              Get.dialog(DialogWidget()
-                  .keyboardNumber(pushSetState, text, isTef: true));
-            } else {
-              Get.dialog(DialogWidget().keyboardNumber(pushSetState, text));
-            }
+            Get.dialog(
+                DialogWidget().keyboardNumber(pushSetState, text, isTef: true));
           }
         },
         child: Padding(
