@@ -843,7 +843,8 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //botão para finalizar o pedido
     Widget finalizeButton() {
-      double totalValue = controller.totalcheckBox1.value;
+      double totalValue =
+          double.parse(controller.totalcheckBox1.value.toStringAsFixed(2));
       double totalPaid = paymentController.getTotalPaid();
       double remainingValue = totalValue - totalPaid;
 

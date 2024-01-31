@@ -22,7 +22,6 @@ import '../pages/payment/component/row_widget.dart';
 import '../services/datetime_formatter_widget.dart';
 import '../services/format_numbers.dart';
 import '../services/dependencies.dart';
-import '../services/print_xml.dart/print_nfce_xml.dart';
 import 'global_controller.dart';
 import 'side_bar_controller.dart';
 

@@ -1,8 +1,10 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 
 class PaymentController extends GetxController {
   TextEditingController paymentControllerText = TextEditingController();
+  Logger logger = Logger();
 
   var paymentTefId = [].obs;
 
@@ -140,8 +142,16 @@ class PaymentController extends GetxController {
     for (var payment in paymentsTotal.toList()) {
       var paymentValue = payment['valor'];
       if (paymentValue != null && paymentValue.isNotEmpty) {
-        var cleanedPaymentValue = paymentValue.replaceAll(',', '');
-        totalPaid += double.tryParse(cleanedPaymentValue)! / 100;
+        // Primeiro, remove pontos (separadores de milhar) e substitui vírgulas por pontos
+        var cleanedPaymentValue =
+            paymentValue.replaceAll('.', '').replaceAll(',', '.');
+        // Agora tenta converter para double
+        double? parsedValue = double.tryParse(cleanedPaymentValue);
+        if (parsedValue != null) {
+          totalPaid += parsedValue;
+        } else {
+          logger.e('Erro ao converter o valor de pagamento: $paymentValue');
+        }
       }
     }
     return totalPaid;
