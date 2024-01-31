@@ -36,6 +36,7 @@ import '../core/app_routes.dart';
 import '../repositories/caixa_item_servidor_repository.dart';
 import '../repositories/venda_servidor_repository.dart';
 import '../services/dependencies.dart';
+import '../services/print_xml.dart/print_nfce_xml.dart';
 
 Map<String, String> _headers = {
   'content-type': 'application/json',
@@ -632,7 +633,7 @@ class IsarService {
 
       await isar.caixa_items.put(caixaItem);
     });
-    await printerController.printOpenRegister(caixaItem);
+    /*await printerController.printOpenRegister(caixaItem);*/
     return isar;
   }
 

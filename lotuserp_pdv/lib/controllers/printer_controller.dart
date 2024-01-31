@@ -22,6 +22,7 @@ import '../pages/payment/component/row_widget.dart';
 import '../services/datetime_formatter_widget.dart';
 import '../services/format_numbers.dart';
 import '../services/dependencies.dart';
+import '../services/print_xml.dart/print_nfce_xml.dart';
 import 'global_controller.dart';
 import 'side_bar_controller.dart';
 
@@ -165,7 +166,7 @@ class PrinterController extends GetxController {
     try {
       await connectDevice();
       if (!isConnected.value) return;
-     /* String textToPrint = String.fromCharCodes(bytes);
+      /* String textToPrint = String.fromCharCodes(bytes);
       await bluetoothManager.writeText(textToPrint);*/
 
       update();
@@ -481,6 +482,7 @@ class PrinterController extends GetxController {
         tipoPagto.add(tipos!.descricao);
       }
       /*  String totalInformadoStr = totalInformado;*/
+      /*String testeImpressao = '';*/
 
       //formatação da impressão
       bytes += generator.text(nomeEmpresa,
@@ -562,6 +564,7 @@ class PrinterController extends GetxController {
           generator.text('  CONFERENTE: _______________________________\n\n');
       bytes += generator.cut();
       print('A impressão do fechamento de caixa está comentada');
+      /*PrintNfceXml().printNfceXml(bytes);*/
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {

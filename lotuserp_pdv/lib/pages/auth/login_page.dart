@@ -25,7 +25,7 @@ class LoginPage extends StatelessWidget {
       return const Padding(
         padding: EdgeInsets.only(top: 10, bottom: 20),
         child: Text(
-          'Bem vindo!',
+          'Bem vindo(a)!',
           textAlign: TextAlign.left,
           style: TextStyle(
             fontWeight: FontWeight.w600,
