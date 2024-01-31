@@ -1,9 +1,13 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+
+import '../services/dependencies.dart';
 
 class PaymentController extends GetxController {
   TextEditingController paymentControllerText = TextEditingController();
+  PdvController pdvController = Dependencies.pdvController();
   Logger logger = Logger();
 
   var paymentTefId = [].obs;
@@ -16,6 +20,10 @@ class PaymentController extends GetxController {
   //valor da forma de pagamento
   var totalPayment = '0,00'.obs;
 
+  var isButtonEnabled = false.obs;
+  var remaningValue1 = 0.0.obs;
+  var remaningValue2 = 0.0.obs;
+
   // variaveis nfce
 
   var idVenda = 0;
@@ -26,6 +34,31 @@ class PaymentController extends GetxController {
   void onInit() {
     super.onInit();
     totalPayment.value = '0,00';
+  }
+
+  void updateIsButtonEnabled() {
+    if (pdvController.checkbox1.value) {
+      remaningValue1 <= 0
+          ? isButtonEnabled.value = true
+          : isButtonEnabled.value = false;
+      Future.microtask(() => update());
+    } else if (pdvController.checkbox2.value) {
+      remaningValue2 <= 0
+          ? isButtonEnabled.value = true
+          : isButtonEnabled.value = false;
+      Future.microtask(() => update());
+    }
+    Future.microtask(() => update());
+  }
+
+  void updateRemaining1(double value) {
+    remaningValue1.value = value;
+    Future.microtask(() => update());
+  }
+
+  void updateRemaining2(double value) {
+    remaningValue2.value = value;
+    Future.microtask(() => update());
   }
 
   //update variaveis

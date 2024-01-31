@@ -843,154 +843,153 @@ class _PaymentPageState extends State<PaymentPage> {
 
     //botão para finalizar o pedido
     Widget finalizeButton() {
-      double totalValue =
-          double.parse(controller.totalcheckBox1.value.toStringAsFixed(2));
-      double totalPaid = paymentController.getTotalPaid();
-      double remainingValue = totalValue - totalPaid;
+      return GetBuilder<PaymentController>(builder: (_) {
+        double totalValue =
+            double.parse(controller.totalcheckBox1.value.toStringAsFixed(2));
+        double totalPaid = paymentController.getTotalPaid();
+        paymentController.remaningValue1.value = totalValue - totalPaid;
 
-      controller.totalSomaPedidos();
-      var formattednumber = double.parse(
-          controller.numbersDiscountcb2.value.replaceAll(',', '.'));
+        controller.totalSomaPedidos();
+        var formattednumber = double.parse(
+            controller.numbersDiscountcb2.value.replaceAll(',', '.'));
 
-      double totalValue2 = controller.totBruto.value - formattednumber;
-      double totalPaid2 = paymentController.getTotalPaid();
-      double remainingValue2 = totalValue2 - totalPaid2;
-
-      bool isButtonEnabled = controller.checkbox1.value
-          ? remainingValue <= 0
-          : false || controller.checkbox2.value
-              ? remainingValue2 <= 0
-              : false;
-
-      Color buttonColor = isButtonEnabled
-          ? const Color(0xFF3C4055)
-          : const Color.fromARGB(193, 211, 211, 211);
-
-      return Padding(
-        padding: const EdgeInsets.only(top: 20.0),
-        child: Container(
-          decoration: BoxDecoration(
-            color: buttonColor,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          width: double.infinity,
-          height: 50,
-          child: InkWell(
-            onTap: isButtonEnabled
-                ? () {
-                    paymentController.verifyOpenTransactionTEF()
-                        ? Get.snackbar('Erro', 'Existem transações pendentes',
-                            backgroundColor: Colors.red,
-                            colorText: Colors.white,
-                            snackPosition: SnackPosition.BOTTOM)
-                        :
-                        //Popup para confirmar o pedido
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Dialog(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Container(
-                                    padding:
-                                        const EdgeInsets.fromLTRB(0, 25, 0, 0),
-                                    height: MediaQuery.of(context).size.height *
-                                        0.25,
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        SizedBox(
-                                          child: Text(
-                                            'Confirmar Pedido',
-                                            style: TextStyle(
-                                                fontSize: 24,
-                                                color: CustomColors
-                                                    .customSwatchColor,
-                                                fontWeight: FontWeight.bold),
+        double totalValue2 = controller.totBruto.value - formattednumber;
+        double totalPaid2 = paymentController.getTotalPaid();
+        paymentController.remaningValue2.value = totalValue2 - totalPaid2;
+        _.updateIsButtonEnabled();
+        Color buttonColor = _.isButtonEnabled.value
+            ? const Color(0xFF3C4055)
+            : const Color.fromARGB(193, 211, 211, 211);
+        return Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: buttonColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            width: double.infinity,
+            height: 50,
+            child: InkWell(
+              onTap: _.isButtonEnabled.value
+                  ? () {
+                      paymentController.verifyOpenTransactionTEF()
+                          ? Get.snackbar('Erro', 'Existem transações pendentes',
+                              backgroundColor: Colors.red,
+                              colorText: Colors.white,
+                              snackPosition: SnackPosition.BOTTOM)
+                          :
+                          //Popup para confirmar o pedido
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return Dialog(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                    child: Container(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 25, 0, 0),
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(
+                                            child: Text(
+                                              'Confirmar Pedido',
+                                              style: TextStyle(
+                                                  fontSize: 24,
+                                                  color: CustomColors
+                                                      .customSwatchColor,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 8.0),
-                                            child: SizedBox(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  0.3,
-                                              child: const Center(
-                                                child: Text(
-                                                  'Tem certeza que deseja finalizar o pedido?',
-                                                  style: TextStyle(),
+                                          Expanded(
+                                            child: Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 8.0),
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.3,
+                                                child: const Center(
+                                                  child: Text(
+                                                    'Tem certeza que deseja finalizar o pedido?',
+                                                    style: TextStyle(),
+                                                  ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        SizedBox(
-                                          height: 45,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.3,
-                                          child: Row(
-                                              mainAxisSize: MainAxisSize.min,
-                                              children: [
-                                                Expanded(
-                                                  child: Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              bottomLeft: Radius
-                                                                  .circular(
-                                                                      10)),
-                                                      color: Colors.grey,
-                                                    ),
-                                                    child: const ConfirmButtom(
-                                                        text: 'Não'),
-                                                  ),
-                                                ),
-                                                Expanded(
-                                                  child: Container(
-                                                    decoration:
-                                                        const BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.only(
-                                                              bottomRight:
-                                                                  Radius
-                                                                      .circular(
-                                                                          10)),
-                                                      color: Color(0xFF86C337),
-                                                    ),
-                                                    child: const ConfirmButtom(
-                                                      text: 'Sim',
-                                                      isConfirmation: true,
+                                          SizedBox(
+                                            height: 45,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.3,
+                                            child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Expanded(
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomLeft: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                        color: Colors.grey,
+                                                      ),
+                                                      child:
+                                                          const ConfirmButtom(
+                                                              text: 'Não'),
                                                     ),
                                                   ),
-                                                ),
-                                              ]),
-                                        )
-                                      ],
-                                    ),
-                                  ));
-                            },
-                          );
-                  }
-                : null,
-            child: const Center(
-              child: Text(
-                'Finalizar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
+                                                  Expanded(
+                                                    child: Container(
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius.only(
+                                                                bottomRight: Radius
+                                                                    .circular(
+                                                                        10)),
+                                                        color:
+                                                            Color(0xFF86C337),
+                                                      ),
+                                                      child:
+                                                          const ConfirmButtom(
+                                                        text: 'Sim',
+                                                        isConfirmation: true,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ]),
+                                          )
+                                        ],
+                                      ),
+                                    ));
+                              },
+                            );
+                    }
+                  : null,
+              child: const Center(
+                child: Text(
+                  'Finalizar',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
                 ),
               ),
             ),
           ),
-        ),
-      );
+        );
+      });
     }
 
     //tamanho da tela

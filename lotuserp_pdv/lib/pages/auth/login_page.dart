@@ -98,6 +98,8 @@ class LoginPage extends StatelessWidget {
             child: FloatingActionButton(
               backgroundColor: CustomColors.customSwatchColor,
               onPressed: () {
+                passwordController.userController.clear();
+                passwordController.passwordController.clear();
                 Get.toNamed(PagesRoutes.configRoute);
               },
               child: Icon(
