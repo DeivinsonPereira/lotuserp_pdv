@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
+import 'package:lotuserp_pdv/controllers/search_product_pdv_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/header_popup.dart';
 import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
@@ -18,7 +19,8 @@ class QrCodePage extends StatelessWidget {
     Dependencies.paymentController();
     Dependencies.textFieldController();
     Dependencies.configcontroller();
-    Dependencies.searchProductPdvController();
+    SearchProductPdvController searchProductPdvController =
+        Dependencies.searchProductPdvController();
     ResponseServidorController responseServidorController =
         Dependencies.responseServidorController();
 
@@ -57,13 +59,10 @@ class QrCodePage extends StatelessWidget {
                         : Colors.grey[300],
                     child: TextButton(
                       onPressed: () async {
-                        if (responseServidorController.xmlNotaFiscal.value ==
-                            false) {
-                          Get.back();
-                        }
                         if (_.xml.value != '' && _.xml.value.isNotEmpty) {
                           await PrintNfceXml().printNfceXml();
                           Get.back();
+                          searchProductPdvController.clearSearch();
                         }
                       },
                       child: Text(
@@ -84,7 +83,12 @@ class QrCodePage extends StatelessWidget {
                     color: CustomColors.informationBox,
                     child: TextButton(
                       onPressed: () {
-                        Get.back();
+                        if (responseServidorController.xmlNotaFiscal.value ==
+                            false) {
+                        } else {
+                          Get.back();
+                          searchProductPdvController.clearSearch();
+                        }
                       },
                       child: const Text(
                         'FECHAR ',

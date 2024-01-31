@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class SearchProductPdvController extends GetxController {
   TextEditingController searchController = TextEditingController();
 
@@ -75,5 +74,11 @@ class SearchProductPdvController extends GetxController {
     preco.value = [];
     idProduto.value = [];
     file.value = [];
+  }
+
+  void clearSearch() {
+    searchController.clear();
+    search.value = '';
+    update();
   }
 }
