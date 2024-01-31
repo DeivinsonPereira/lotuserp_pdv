@@ -435,7 +435,8 @@ class _PaymentPageState extends State<PaymentPage> {
             if (descricao == 'TEF DEBITO' ||
                 descricao == 'TEF CREDITO' ||
                 descricao == 'POS - CARTAO CREDITO' ||
-                descricao == 'POS - CARTAO DEBITO') {
+                descricao == 'POS - CARTAO DEBITO' ||
+                descricao == 'POS - VOUCHER') {
               Get.dialog(DialogWidget()
                   .keyboardNumber(pushSetState, text, isTef: true));
             } else {
@@ -718,10 +719,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                   padding: const EdgeInsets.only(right: 8.0),
                                   child: Text(
                                     formatoBrasileiro.format(
-                                      double.parse(
-                                        payment[index]['valor']
-                                            .replaceAll(',', '.'),
-                                      ),
+                                      double.parse(payment[index]['valor']
+                                          .replaceAll('.', '')
+                                          .replaceAll(',', '.')),
                                     ),
                                     style: const TextStyle(
                                         fontSize: 22,
