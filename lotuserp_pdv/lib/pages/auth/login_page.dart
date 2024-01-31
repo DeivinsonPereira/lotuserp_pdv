@@ -10,13 +10,14 @@ import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
+import 'widget/custom_confirm_button.dart';
+
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     // Inicialização dos controladores
-    LoginController loginController = Dependencies.loginController();
     PasswordController passwordController = Dependencies.passwordController();
 
     // Texto no canto superior esquerdo da tela
@@ -65,7 +66,10 @@ class LoginPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _textTop(),
-            _formsAutentications(),
+            Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: _formsAutentications(),
+            ),
           ],
         ),
       );
@@ -78,37 +82,6 @@ class LoginPage extends StatelessWidget {
         child: SizedBox(
           width: 180,
           child: Image.asset('assets/images/Logo_Nova_Transparente.png'),
-        ),
-      );
-    }
-
-    // Botão entrar
-    Widget _buttonConfirm() {
-      return Align(
-        alignment: const Alignment(0, -0.72),
-        child: SizedBox(
-          width: 350,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF2B2F5B),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
-              ),
-            ),
-            onPressed: () async => loginController.handleLogin(),
-            child: const Padding(
-              padding: EdgeInsets.all(15.0),
-              child: Text(
-                'Entrar',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: Color(0XFFFFFFFF),
-                  fontSize: 24,
-                  letterSpacing: 1.5,
-                ),
-              ),
-            ),
-          ),
         ),
       );
     }
@@ -144,7 +117,23 @@ class LoginPage extends StatelessWidget {
         children: [
           // Logo do canto superior direito
           _logo(),
-          Expanded(child: _buttonConfirm()), // Botão entrar
+          Expanded(
+            child: Column(children: [
+              // Botão entrar
+              Padding(
+                padding: const EdgeInsets.only(top: 25.0),
+                child: CustomConfirmButton(
+                  text: 'Entrar',
+                  isConfirm: true,
+                ),
+              ),
+              // botão de sair
+              Padding(
+                padding: const EdgeInsets.only(top: 15.0),
+                child: CustomConfirmButton(text: 'Sair'),
+              )
+            ]),
+          ),
           _configPage()
         ],
       );

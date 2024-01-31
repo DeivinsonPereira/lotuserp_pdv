@@ -13,47 +13,61 @@ class LogoutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     IsarService service = IsarService();
     return Dialog(
-      child: Column(
-        children: [
-          const HeaderPopup(
-            text: 'Sair',
-            icon: Icons.exit_to_app,
-          ),
-          const Expanded(
-            child: Text("Deseja sair do aplicativo?"),
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: Container(
-                  height: 50,
-                  color: CustomColors.confirmButtonColor,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: const Text('Voltar',
-                        style: TextStyle(color: Colors.white)),
+      child: SizedBox(
+        height: 400,
+        width: 400,
+        child: Column(
+          children: [
+            const HeaderPopup(
+              text: 'Sair',
+              icon: Icons.exit_to_app,
+            ),
+            const Expanded(
+              child: Center(
+                  child: Text(
+                "Deseja sair do aplicativo?",
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+              )),
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 50,
+                    color: CustomColors.confirmButtonColor,
+                    child: TextButton(
+                      onPressed: () {
+                        Get.back();
+                      },
+                      child: const Text('Não',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26)),
+                    ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Container(
-                  color: Colors.red,
-                  height: 50,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      service.deleteLoggedUser();
-                      SystemNavigator.pop();
-                    },
-                    child: const Text('Sair',
-                        style: TextStyle(color: Colors.black)),
+                Expanded(
+                  child: Container(
+                    color: Colors.red,
+                    height: 50,
+                    child: TextButton(
+                      onPressed: () {
+                        service.deleteLoggedUser();
+                        SystemNavigator.pop();
+                      },
+                      child: const Text('Sim',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 26)),
+                    ),
                   ),
                 ),
-              ),
-            ],
-          )
-        ],
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

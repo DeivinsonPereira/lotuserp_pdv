@@ -56,9 +56,9 @@ abstract class PostOnServidor {
           "tot_bruto": pdvController.pedidos[i]['total'],
           "vlr_desc_prc": vendas.tot_desc_prc,
           "vlr_desc_vlr":
-              vendas.tot_desc_prc * pdvController.pedidos[i]['total'],
+              vendas.tot_desc_prc * pdvController.pedidos[i]['total'] / 100,
           "vlr_liquido": pdvController.pedidos[i]['total'] -
-              (vendas.tot_desc_prc * pdvController.pedidos[i]['total']),
+              ((vendas.tot_desc_prc / 100) * pdvController.pedidos[i]['total']),
           "grade": pdvController.pedidos[i]['unidade']
         });
       }
@@ -108,6 +108,9 @@ abstract class PostOnServidor {
         logger.i("Requisição enviada com sucesso");
         var jsonResponse = jsonDecode(response.body);
 
+        print('id_venda: ${jsonResponse['id_venda']}');
+        print('qr_code: ${jsonResponse['qr_code']}');
+        print('xml: ${jsonResponse['xml']}');
         if (jsonResponse['id_venda'] != null &&
             jsonResponse['qr_code'] != null &&
             jsonResponse['xml'] != null) {
