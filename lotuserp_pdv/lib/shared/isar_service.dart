@@ -659,6 +659,7 @@ class IsarService {
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
       List<caixa_item> caixaItems = [];
+      
       List<venda_item> vendaItems = [];
       int idVendaServidor = 0;
 
