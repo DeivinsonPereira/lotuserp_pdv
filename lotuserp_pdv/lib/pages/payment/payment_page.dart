@@ -60,7 +60,7 @@ class _PaymentPageState extends State<PaymentPage> {
     );
 
     // processamento do pagamento TEF
-    Future<void> processTefPayment(Map<String, dynamic> payment) async {
+    /*   Future<void> processTefPayment(Map<String, dynamic> payment) async {
       String paymentType = payment['nome'];
       String valorTransacao = payment['valor'];
       String paymentId = payment['id'];
@@ -268,7 +268,7 @@ class _PaymentPageState extends State<PaymentPage> {
           color: iconColor,
           onPressed: () {
             paymentController.paymentControllerText.text = '1';
-          // procurar os ID do TEF DEBITO, do TEF CREDITO, do PIX INTEGRADO
+            // procurar os ID do TEF DEBITO, do TEF CREDITO, do PIX INTEGRADO
             !payment['transacaoBemSucedida']
                 ? payment['nome'] == 'TEF DEBITO' ||
                         payment['nome'] == 'PIX INTEGRADO'
@@ -282,7 +282,7 @@ class _PaymentPageState extends State<PaymentPage> {
           },
         ),
       );
-    }
+    }*/
 
     //linha do cabeçalho
     Widget lineHeader(BuildContext context) {
@@ -726,13 +726,13 @@ class _PaymentPageState extends State<PaymentPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                payment[index]['nome'] == 'TEF DEBITO' ||
+                                /* payment[index]['nome'] == 'TEF DEBITO' ||
                                         payment[index]['nome'] ==
                                             'TEF CREDITO' ||
                                         payment[index]['nome'] ==
                                             'PIX INTEGRADO'
                                     ? buildPaymentButton(payment[index])
-                                    : Container(),
+                                    : Container(),*/
                               ],
                             )
                           ]),
