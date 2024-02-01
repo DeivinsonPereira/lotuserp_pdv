@@ -29,7 +29,7 @@ class NfceSecondCopyPage extends StatelessWidget {
         child: Column(
           children: [
             //HEADER
-            const HeaderPopup(
+            HeaderPopup(
               text: '2ª Via NFCe',
               icon: Icons.receipt,
             ),

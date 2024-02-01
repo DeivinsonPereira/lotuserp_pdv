@@ -31,7 +31,7 @@ class LoadDataPage extends StatelessWidget {
           body: Column(
             children: [
               //cabeçalho
-              const HeaderPopup(
+              HeaderPopup(
                   text: 'Carga de Dados', icon: FontAwesomeIcons.download),
 
               //opções de carregamento

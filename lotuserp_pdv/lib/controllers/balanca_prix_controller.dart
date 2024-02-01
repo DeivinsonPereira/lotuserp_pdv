@@ -109,24 +109,24 @@ class BalancaPrix3FitController extends GetxController {
     PdvController pdvController = Dependencies.pdvController();
     isListening = true;
     try {
-      subscription = port!.inputStream!.listen((Uint8List data) {
+      subscription = port!.inputStream!.listen((Uint8List data) async {
         String dataAsString = String.fromCharCodes(data).trim();
         logger.i("Dados brutos recebidos: $dataAsString");
         pesoLido.value = '00.000';
         if (!pesagemConcluida && dataAsString.isNotEmpty) {
           String output = dataAsString.replaceAll(RegExp(r'[^0-9]'), '');
           double peso = double.tryParse(output) ?? 0;
+          double pesoFormated = peso / 1000;
+          String pesoString = pesoFormated.toStringAsFixed(3);
+
           if (peso / 1000 > 00.010) {
             pesoLido.value = dataAsString;
-            pdvController.adicionarPedidos(
-                nomeProduto, unidade, price, idProduto,
-                isBalance: true, quantity: pesoLido.value);
+            await pdvController.setPesagem(peso / 1000, pesoString);
           } else {
             pesoLido.value = "00.000";
-            pdvController.adicionarPedidos(
-                nomeProduto, unidade, price, idProduto,
-                isBalance: true, quantity: pesoLido.value);
+            await pdvController.setPesagem(peso / 1000, pesoString);
           }
+
           pararPesagem();
         }
       }, onDone: () {
@@ -170,6 +170,12 @@ class BalancaPrix3FitController extends GetxController {
     timer?.cancel();
     isListening = false;
     limparBufferEntrada();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    detectBalanca();
   }
 
   @override

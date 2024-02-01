@@ -1,21 +1,30 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 
+import '../../controllers/pdv.controller.dart';
 import '../../core/custom_colors.dart';
 
 class HeaderPopup extends StatelessWidget {
   final String text;
   final IconData icon;
-  const HeaderPopup({
-    Key? key,
-    required this.text,
-    required this.icon,
-  }) : super(key: key);
+  bool? isCpfCnpj;
+  bool? isPesagem;
+
+  HeaderPopup(
+      {Key? key,
+      required this.text,
+      required this.icon,
+      this.isCpfCnpj,
+      this.isPesagem})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
+    PdvController pdvController = Dependencies.pdvController();
 
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -47,16 +56,19 @@ class HeaderPopup extends StatelessWidget {
               //botão de fechar
             ],
           ),
-          IconButton(
-            onPressed: () {
-              Get.back();
-            },
-            icon: const Icon(
-              Icons.close,
-              color: Colors.white,
-              size: 20,
-            ),
-          ),
+          isCpfCnpj == true
+              ? const SizedBox()
+              : IconButton(
+                  onPressed: () {
+                    Get.back();
+                    isPesagem == true ? pdvController.clearPesagem() : null;
+                  },
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
         ],
       ),
     );

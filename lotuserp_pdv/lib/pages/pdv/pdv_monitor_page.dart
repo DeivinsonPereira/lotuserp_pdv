@@ -39,7 +39,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var controller = Dependencies.pdvController();
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
-    Dependencies.balancaController();
 
     IsarService service = IsarService();
 
@@ -235,7 +234,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'Id: ${controller.pedidos[index]['idProduto']} ${controller.pedidos[index]['nomeProduto']}',
+                                                '${controller.pedidos[index]['idProduto']} - ${controller.pedidos[index]['nomeProduto']}',
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
@@ -895,6 +894,7 @@ class _SearchProduct extends StatelessWidget {
                 onTap: () async {
                   if (produtos[index]!.venda_kg == 1) {
                     isBalance = true;
+                    
                     pdvController.listenBalance(
                         controller.nome[index],
                         controller.unidade[index],

@@ -47,6 +47,14 @@ abstract class PostOnServidor {
     int idSerieNfce = int.parse(textFieldController.idSerieNfceController.text);
     int idEmpresa = int.parse(textFieldController.idEmpresaController.text);
 
+    String cpfCnpj = '';
+    if (responseServidorController.cpfCnpjController.text.isEmpty ||
+        responseServidorController.cpfCnpjController.text == '') {
+      cpfCnpj = '';
+    } else {
+      cpfCnpj = responseServidorController.cpfCnpjController.text;
+    }
+
     try {
       List<Map<String, dynamic>> itens = [];
       for (var i = 0; i < pdvController.pedidos.length; i++) {
@@ -97,8 +105,7 @@ abstract class PostOnServidor {
         "tot_desc_vlr": vendas.tot_desc_vlr,
         "tot_liquido": vendas.tot_liquido,
         "valor_troco": vendas.valor_troco,
-        "id_serie_nfce": idSerieNfce,
-        "cpf_cnpj": '',
+        "cpf_cnpj": cpfCnpj,
         "itens": itens,
         "pagamentos": pagamentos
       };
@@ -124,38 +131,39 @@ abstract class PostOnServidor {
           var xml = jsonResponse['xml'];
           await paymentController.updateVariaveisNfce(idVenda!, qrCode!, xml!);
           paymentController.clearListCaixaItems();
+          responseServidorController.limparCpfCnpj();
         } else {
           if (isSecondAttempt == false) {
-            responseServidorController.updateXmlNotaFiscal(false);
+            responseServidorController.updateXmlNotaFiscal(true);
           } else {
             responseServidorController.updateXmlNotaFiscal(true);
             paymentController.clearListCaixaItems();
           }
-          const CustomSnackBar(
-                  message:
-                      'Erro ao gerar nota fiscal. Volte e tente novamente.')
-              .show();
+          const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
           logger.e("Erro ao fazer a requisição: ${response.statusCode}");
+          responseServidorController.limparCpfCnpj();
         }
       } else {
         if (isSecondAttempt == false) {
-          responseServidorController.updateXmlNotaFiscal(false);
+          responseServidorController.updateXmlNotaFiscal(true);
         } else {
           const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
           responseServidorController.updateXmlNotaFiscal(true);
           paymentController.clearListCaixaItems();
         }
         logger.e("Erro ao fazer a requisição: ${response.statusCode}");
+        responseServidorController.limparCpfCnpj();
       }
     } catch (e) {
       logger.e("Erro ao fazer a requisição: $e");
       const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
       if (isSecondAttempt == false) {
-        responseServidorController.updateXmlNotaFiscal(false);
+        responseServidorController.updateXmlNotaFiscal(true);
       } else {
         responseServidorController.updateXmlNotaFiscal(true);
         paymentController.clearListCaixaItems();
       }
+      responseServidorController.limparCpfCnpj();
     }
   }
 }

@@ -7,8 +7,11 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
 import '../core/fixed_variables.dart';
+import '../pages/balance/balance_pop_up.dart';
 
 class PdvController extends GetxController {
+  TextEditingController pesagemController =
+      TextEditingController(text: '0.000');
   IsarService service = IsarService();
 
   RxList pedidos = [].obs;
@@ -62,7 +65,7 @@ class PdvController extends GetxController {
   var idGrupo = -1.obs;
 
   final ScrollController scrollController = ScrollController();
-  var balancaController = Dependencies.balancaController();
+
   var liquido = 0.0.obs;
 
   //status se balanca foi cadastrado
@@ -70,6 +73,20 @@ class PdvController extends GetxController {
 
   //status se tef foi cadastrado
   var statusTef = 0.obs;
+
+  var pesagem = 0.0.obs;
+
+  Future<void> setPesagem(double value, String output) async {
+    pesagemController.text = output;
+    pesagem.value = value;
+    update();
+  }
+
+  Future<void> clearPesagem() async {
+    pesagemController.text = '0.000';
+    pesagem.value = 0.0;
+    update();
+  }
 
   //total Liquido
   void totalLiquido() {
@@ -285,9 +302,9 @@ class PdvController extends GetxController {
   }
 
   //adiciona itens no pedido
-  void adicionarPedidos(
+  Future<void> adicionarPedidos(
       String nomeProduto, String unidade, String price, int idProduto,
-      {bool isBalance = false, String quantity = ''}) {
+      {bool isBalance = false, String quantity = ''}) async {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
 
@@ -426,7 +443,47 @@ class PdvController extends GetxController {
     getidCaixa();
     loadStatusBalanca();
     scrollController.addListener(() {});
-    detectBalanca();
+
+    pesagemController.addListener(_atualizarPesagem);
+  }
+
+  @override
+  void onClose() {
+    pesagemController.dispose(); // Libera o controller
+    super.onClose();
+  }
+
+  void _atualizarPesagem() {
+    // Extrai os números digitados do campo de texto, removendo pontos e vírgulas.
+    String input = pesagemController.text
+        .replaceAll('.', '')
+        .replaceAll(',', '')
+        .replaceAll(RegExp(r'[^0-9]'), '');
+
+    // Verifica se o input excede o limite de dígitos (considerando 6 dígitos após o ponto para exemplo)
+    if (input.length > 9) {
+      // Ajuste conforme a necessidade
+      input = input.substring(input.length - 9);
+    }
+
+    // Converte o input em um valor numérico de ponto flutuante
+    double valor = input.isEmpty
+        ? 0
+        : double.parse(input) / 1000; // Divide para converter em decimal
+
+    // Formata o valor para ter até três dígitos após o ponto decimal
+    String valorFormatado = valor.toStringAsFixed(3);
+
+    // Atualiza o observable e o campo de texto com o novo valor.
+    pesagem.value = valor;
+
+    // Atualiza o TextController apenas se necessário para evitar loop infinito.
+    if (pesagemController.text != valorFormatado) {
+      pesagemController.value = TextEditingValue(
+        text: valorFormatado,
+        selection: TextSelection.collapsed(offset: valorFormatado.length),
+      );
+    }
   }
 
   //busca o id do usuario logado
@@ -504,9 +561,14 @@ class PdvController extends GetxController {
     try {
       if (filteredProducts[index].venda_kg == 1 || isBalance == true) {
         if (statusBalanca.value == 1) {
-          await balancaController.iniciarEscutaDados(
-              nome!, unidade!, preco!, idProduto!,
-              isBalance: true, quantity: balancaController.pesoLido.value);
+          await Get.dialog(BalancePopUp(
+              nomeProduto: nome!,
+              unidade: unidade!,
+              price: preco!,
+              idProduto: idProduto!,
+              isBalance: true,
+              quantity: balancaController.pesoLido.value));
+
           print("peso da balança:  ${balancaController.pesoLido.value}");
 
           print(pedidos.toString());
@@ -529,7 +591,9 @@ class PdvController extends GetxController {
     }
   }
 
+  //detecta a balança
   Future<void> detectBalanca() async {
+    var balancaController = Dependencies.balancaController();
     await loadStatusTef();
     if (statusBalanca.value == FixedVariables.BALANCE_CONFIGURED) {
       balancaController.detectBalanca();

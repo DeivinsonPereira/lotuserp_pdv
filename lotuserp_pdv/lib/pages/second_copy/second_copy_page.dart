@@ -124,7 +124,7 @@ class SecondCopyPage extends StatelessWidget {
               child: Column(
                 children: [
                   // CABEÇALHO
-                  const HeaderPopup(
+                  HeaderPopup(
                     icon: Icons.print,
                     text: 'Impressão 2ª via',
                   ),

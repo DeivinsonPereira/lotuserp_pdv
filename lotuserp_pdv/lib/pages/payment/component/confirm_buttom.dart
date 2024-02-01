@@ -8,6 +8,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
 import '../../../services/dependencies.dart';
+import '../../qr_code/cpf_cnpj_page.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({
@@ -53,9 +54,6 @@ class ConfirmButtom extends StatelessWidget {
       pdvController
           .totalLiquido(); //soma o valor bruto total dos itens que estão nos pedidos
 
-      
-
-
       var vendaExecutada = venda()
         ..data = DateTime.now()
         ..hora = sideBarController.hours.value
@@ -90,7 +88,13 @@ class ConfirmButtom extends StatelessWidget {
     return TextButton(
       onPressed: () async {
         if (isConfirmation) {
+          //Chama o preenchimento do cpf/cnpj
+          await Get.dialog(barrierDismissible: false, const CpfCnpjPage());
+
+          // faz requisição para gerar NFCe
           await processCommonOperations();
+
+          // Chama o preenchimento do QrCode
           await Get.dialog(barrierDismissible: false, const QrCodePage());
 
           Get.back(); // Fecha o diálogo atual
