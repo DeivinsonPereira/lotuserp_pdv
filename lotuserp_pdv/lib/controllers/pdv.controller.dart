@@ -568,10 +568,6 @@ class PdvController extends GetxController {
               idProduto: idProduto!,
               isBalance: true,
               quantity: balancaController.pesoLido.value));
-
-          print("peso da balança:  ${balancaController.pesoLido.value}");
-
-          print(pedidos.toString());
         }
       } else {
         adicionarPedidos(nome!, unidade!, preco!, idProduto!);

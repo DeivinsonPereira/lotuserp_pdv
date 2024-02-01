@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/controllers/balanca_prix_controller.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import '../../controllers/pdv.controller.dart';
@@ -25,6 +26,8 @@ class HeaderPopup extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     PdvController pdvController = Dependencies.pdvController();
+    BalancaPrix3FitController balancaController =
+        Dependencies.balancaController();
 
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10),
@@ -60,8 +63,9 @@ class HeaderPopup extends StatelessWidget {
               ? const SizedBox()
               : IconButton(
                   onPressed: () {
-                    Get.back();
+                    isPesagem == false ? Get.back() : null;
                     isPesagem == true ? pdvController.clearPesagem() : null;
+                    isPesagem == true ? balancaController.fecharPopup() : null;
                   },
                   icon: const Icon(
                     Icons.close,

@@ -39,13 +39,14 @@ class BalancePopUp extends StatelessWidget {
     Widget _buildTextField() {
       return Container(
         padding: const EdgeInsets.only(
-          top: 20,
+          top: 50,
         ),
         child: SizedBox(
           width: 300,
           child: TextField(
             controller: pdvController.pesagemController,
             keyboardType: TextInputType.number,
+            style: TextStyle(fontSize: 26),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
@@ -63,29 +64,39 @@ class BalancePopUp extends StatelessWidget {
     //Constrói o botão de pesagem
     Widget _buildButtonWeighing() {
       return Padding(
-        padding: const EdgeInsets.only(top: 20),
+        padding: const EdgeInsets.only(top: 20, bottom: 20),
         child: SizedBox(
           height: 75,
           width: 300,
-          child: ElevatedButton(
-            onPressed: () async {
-              await balancaController.detectBalanca();
-              await Future.delayed(const Duration(milliseconds: 500));
-              await balancaController.iniciarEscutaDados(
-                  nomeProduto, unidade, price, idProduto,
-                  isBalance: true, quantity: '');
+          child: Obx(
+            () => ElevatedButton(
+              onPressed: balancaController.botaoDisponivel.value
+                  ? () async {
+                      balancaController.botaoDisponivel.value = false;
 
-              await Future.delayed(const Duration(milliseconds: 500));
-              balancaController.onClose();
-            },
-            style: ElevatedButton.styleFrom(
-                backgroundColor: CustomColors.customSwatchColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )),
-            child: const Text(
-              'Pesagem',
-              style: TextStyle(color: Colors.white, fontSize: 26),
+                      await balancaController.detectBalanca();
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      await balancaController.iniciarEscutaDados(
+                          nomeProduto, unidade, price, idProduto,
+                          isBalance: true, quantity: '');
+
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      balancaController.onClose();
+
+                      // Habilita o botão após 1 segundo
+                      await Future.delayed(const Duration(milliseconds: 500));
+                      balancaController.botaoDisponivel.value = true;
+                    }
+                  : null,
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: CustomColors.customSwatchColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )),
+              child: const Text(
+                'Pesagem',
+                style: TextStyle(color: Colors.white, fontSize: 26),
+              ),
             ),
           ),
         ),
@@ -98,14 +109,6 @@ class BalancePopUp extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 25.0),
-            child: Text(
-              'Digite a quantidade ou clique no botão de pesagem',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-          ),
           _buildTextField(),
           _buildButtonWeighing(),
         ],
@@ -120,7 +123,8 @@ class BalancePopUp extends StatelessWidget {
           color: CustomColors.informationBox,
           child: TextButton(
             onPressed: () {
-              Get.back();
+              pdvController.pesagemController.text = '0.000';
+              balancaController.fecharPopup();
             },
             child: const Text(
               'Voltar',
@@ -146,8 +150,8 @@ class BalancePopUp extends StatelessWidget {
                   nomeProduto, unidade, price, idProduto,
                   isBalance: true,
                   quantity: pdvController.pesagemController.text);
-              Get.back();
               await pdvController.clearPesagem();
+              balancaController.fecharPopup();
             },
             child: const Text(
               'Confirmar',
@@ -169,7 +173,7 @@ class BalancePopUp extends StatelessWidget {
       ),
       child: SizedBox(
         width: 400,
-        height: 450,
+        height: 425,
         child: Column(
           children: [
             HeaderPopup(

@@ -18,6 +18,7 @@ class BalancaPrix3FitController extends GetxController {
   bool pesagemConcluida = false;
   bool isListening = false;
   bool isReady = false;
+  var botaoDisponivel = true.obs;
 
   var configController = Dependencies.configcontroller();
   TextFieldController textFieldController = Dependencies.textFieldController();
@@ -185,8 +186,14 @@ class BalancaPrix3FitController extends GetxController {
   @override
   void onClose() {
     pararPesagem();
+    limparBufferEntrada();
     port?.close();
     logger.i("Encerrando conexão com a balança");
     super.onClose();
   }
+
+  void fecharPopup() {
+  Get.close(1); // Fecha o popup
+  Get.delete<BalancaPrix3FitController>(); // Remove o controller
+}
 }

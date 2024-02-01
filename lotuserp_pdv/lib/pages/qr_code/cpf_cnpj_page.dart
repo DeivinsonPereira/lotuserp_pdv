@@ -23,8 +23,8 @@ class CpfCnpjPage extends StatelessWidget {
           padding: EdgeInsets.zero,
         ),
         onPressed: () async {
-          responseServidorController.updateCpfCnpj();
-          print(responseServidorController.cpfCnpjController.text);
+          await responseServidorController.updateCpfCnpj();
+          print(responseServidorController.cpfCnpj);
           Get.back();
         },
         child: Container(

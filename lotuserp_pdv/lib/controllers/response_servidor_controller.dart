@@ -34,12 +34,13 @@ class ResponseServidorController extends GetxController {
     update();
   }
 
-  void updateCpfCnpj() {
+  Future<void> updateCpfCnpj() async {
     cpfCnpj = cpfCnpjController.text;
     update();
   }
 
   void limparCpfCnpj() {
+    cpfCnpjController.text = '';
     cpfCnpj = '';
     update();
   }

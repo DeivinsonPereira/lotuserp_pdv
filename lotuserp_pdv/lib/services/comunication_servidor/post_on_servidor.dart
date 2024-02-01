@@ -34,6 +34,7 @@ abstract class PostOnServidor {
       PdvController pdvController,
       PaymentController paymentController,
       int idServidor,
+      String cpfCnpj,
       {bool isSecondAttempt = false}) async {
     var prefix = await service.getIpEmpresaFromDatabase();
     Uri uri = Uri.parse('${prefix!.ip_empresa}nfce_emitir');
@@ -47,13 +48,7 @@ abstract class PostOnServidor {
     int idSerieNfce = int.parse(textFieldController.idSerieNfceController.text);
     int idEmpresa = int.parse(textFieldController.idEmpresaController.text);
 
-    String cpfCnpj = '';
-    if (responseServidorController.cpfCnpjController.text.isEmpty ||
-        responseServidorController.cpfCnpjController.text == '') {
-      cpfCnpj = '';
-    } else {
-      cpfCnpj = responseServidorController.cpfCnpjController.text;
-    }
+    
 
     try {
       List<Map<String, dynamic>> itens = [];
@@ -105,11 +100,13 @@ abstract class PostOnServidor {
         "tot_desc_vlr": vendas.tot_desc_vlr,
         "tot_liquido": vendas.tot_liquido,
         "valor_troco": vendas.valor_troco,
+        "id_serie_nfce": idSerieNfce,
         "cpf_cnpj": cpfCnpj,
         "itens": itens,
         "pagamentos": pagamentos
       };
 
+      print(requestBody);
       final response = await http.post(
         uri,
         headers: Header.header,

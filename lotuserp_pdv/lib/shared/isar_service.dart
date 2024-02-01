@@ -729,13 +729,20 @@ class IsarService {
 
         idVendaServidor = responseServidorController.idVendaServidor.value;
 
+        print(responseServidorController.cpfCnpj);
+        String cpfCnpj;
+        if (responseServidorController.cpfCnpj.isEmpty ||
+            responseServidorController.cpfCnpj == '') {
+          cpfCnpj = '';
+          print('cpfCnpj: $cpfCnpj');
+        } else {
+          cpfCnpj = responseServidorController.cpfCnpj;
+          print('cpfCnpj: $cpfCnpj');
+        }
+
         await PostOnServidor.postOnServidor(venda, caixaItems, pdvController,
-            paymentController, idVendaServidor);
-      } else {
-        await PostOnServidor.postOnServidor(venda, caixaItems, pdvController,
-            paymentController, idVendaServidor,
-            isSecondAttempt: true);
-      }
+            paymentController, idVendaServidor, cpfCnpj);
+      } else {}
 
       if (responseServidorController.xmlNotaFiscal.value == true) {
         nfce_resultado nfce = nfce_resultado()
