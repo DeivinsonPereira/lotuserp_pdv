@@ -127,11 +127,13 @@ class PaymentController extends GetxController {
   }
 
   //adicionar forma de pagamento e valor no paymentsTotal
-  void addPaymentsTotal(String formPayment, String value) {
+  void addPaymentsTotal(String formPayment, String value, int idPayment, int tipoForma) {
     Map<String, dynamic> newPayment = {
       'id': DateTime.now().millisecondsSinceEpoch.toString(), // ID único
       'nome': formPayment,
       'valor': value,
+      'idPagamento': idPayment,
+      'tipoForma': tipoForma,
       'transacaoBemSucedida': false
     };
     paymentsTotal.add(newPayment);

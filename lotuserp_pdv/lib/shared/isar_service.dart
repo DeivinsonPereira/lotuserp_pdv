@@ -1236,10 +1236,25 @@ class IsarService {
   //busca todos os dados da tabela nfce_resultado
   Stream<List<nfce_resultado>> listenNfceResultados() async* {
     final isar = await db;
-    yield* isar.nfce_resultados
-        .where()
-        .sortById_venda()
-        .watch(fireImmediately: true);
+    try {
+      yield* isar.nfce_resultados
+          .where()
+          .sortById_venda()
+          .watch(fireImmediately: true);
+    } catch (e) {
+      logger.e("Erro ao buscar nfce: $e");
+    }
+  }
+
+  Future<List<nfce_resultado?>> getNfceResultados() async {
+    final isar = await db;
+
+    try {
+      return await isar.nfce_resultados.where().findAll();
+    } catch (e) {
+      logger.e("Erro ao buscar nfce: $e");
+      return [];
+    }
   }
 
   //deletar todos os dados da tabela cartao_item
@@ -1277,6 +1292,18 @@ class IsarService {
     } catch (e) {
       logger.e("Erro ao buscar nfce: $e");
       return null;
+    }
+  }
+
+  Future<List<venda?>> getVendas() async {
+    final isar = await db;
+
+    var vendasDb = await isar.vendas.where().findAll();
+
+    if (vendasDb.isNotEmpty) {
+      return vendasDb;
+    } else {
+      return [];
     }
   }
 

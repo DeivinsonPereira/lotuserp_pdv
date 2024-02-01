@@ -50,7 +50,9 @@ class DialogWidget {
     );
   }
 
-  Widget keyboardNumber(Function callback, String name, {bool isTef = false}) {
+  Widget keyboardNumber(
+      Function callback, String name, int tipoPagamento, int idPagamento,
+      {bool isTef = false}) {
     double totalValue = pdvcontroller.totalcheckBox1.value;
     String numbersDiscountcb2 =
         pdvcontroller.numbersDiscountcb2.value.replaceAll(',', '.');
@@ -296,10 +298,14 @@ class DialogWidget {
                                 onPressed: () {
                                   if (controller.totalPayment.value != '0,00') {
                                     controller.addPaymentsTotal(
-                                        name, controller.totalPayment.value);
+                                        name,
+                                        controller.totalPayment.value,
+                                        idPagamento,
+                                        tipoPagamento);
                                     controller.totalPayment.value = '0,00';
                                     callback();
                                   }
+
                                   Get.back();
                                 },
                                 child: const Text(

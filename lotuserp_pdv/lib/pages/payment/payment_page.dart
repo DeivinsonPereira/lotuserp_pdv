@@ -268,6 +268,7 @@ class _PaymentPageState extends State<PaymentPage> {
           color: iconColor,
           onPressed: () {
             paymentController.paymentControllerText.text = '1';
+          // procurar os ID do TEF DEBITO, do TEF CREDITO, do PIX INTEGRADO
             !payment['transacaoBemSucedida']
                 ? payment['nome'] == 'TEF DEBITO' ||
                         payment['nome'] == 'PIX INTEGRADO'
@@ -428,14 +429,17 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //icones para escolha de forma de pagamento
-    Widget cardsPayment(IconData? icon, int tipoPagamento, String? descricao) {
+    Widget cardsPayment(
+        IconData? icon, int tipoPagamento, String? descricao, int idPagamento) {
       return InkWell(
         onTap: () {
           if (tipoPagamento != 0) {
-            Get.dialog(DialogWidget()
-                .keyboardNumber(pushSetState, descricao, isTef: true));
+            Get.dialog(DialogWidget().keyboardNumber(
+                pushSetState, descricao, tipoPagamento, idPagamento,
+                isTef: true));
           } else {
-            Get.dialog(DialogWidget().keyboardNumber(pushSetState, descricao));
+            Get.dialog(DialogWidget().keyboardNumber(
+                pushSetState, descricao, tipoPagamento, idPagamento));
           }
         },
         child: Padding(
@@ -830,7 +834,8 @@ class _PaymentPageState extends State<PaymentPage> {
                       cardsPayment(
                           tipoReceb,
                           tipoRecebimento[index].tipo_forma!,
-                          tipoRecebimento[index].descricao),
+                          tipoRecebimento[index].descricao,
+                          tipoRecebimento[index].id),
                     ],
                   );
                 });
