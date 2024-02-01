@@ -428,12 +428,14 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //icones para escolha de forma de pagamento
-    Widget cardsPayment(IconData? icon, String text, String? descricao) {
+    Widget cardsPayment(IconData? icon, int tipoPagamento, String? descricao) {
       return InkWell(
         onTap: () {
-          if (descricao != null) {
-            Get.dialog(
-                DialogWidget().keyboardNumber(pushSetState, text, isTef: true));
+          if (tipoPagamento != 0) {
+            Get.dialog(DialogWidget()
+                .keyboardNumber(pushSetState, descricao, isTef: true));
+          } else {
+            Get.dialog(DialogWidget().keyboardNumber(pushSetState, descricao));
           }
         },
         child: Padding(
@@ -453,7 +455,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     ),
                   ),
                   Text(
-                    text,
+                    descricao!,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(color: Colors.white, fontSize: 10),
@@ -825,7 +827,9 @@ class _PaymentPageState extends State<PaymentPage> {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      cardsPayment(tipoReceb, tipoRecebimento[index].descricao!,
+                      cardsPayment(
+                          tipoReceb,
+                          tipoRecebimento[index].tipo_forma!,
                           tipoRecebimento[index].descricao),
                     ],
                   );

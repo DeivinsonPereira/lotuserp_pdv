@@ -658,7 +658,7 @@ class IsarService {
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
       List<caixa_item> caixaItems = [];
-      
+
       List<venda_item> vendaItems = [];
       int idVendaServidor = 0;
 
@@ -695,8 +695,6 @@ class IsarService {
             ..id_venda = venda.id_venda
             ..enviado = 1;
 
-           
-
           if (paymentController.paymentsTotal[i]['nome'] == 'DINHEIRO') {
             caixaItem.valor_cre = venda.valor_troco > 0
                 ? valuePayment - venda.valor_troco
@@ -705,7 +703,7 @@ class IsarService {
             caixaItem.valor_cre = valuePayment;
           }
           caixaItems.add(caixaItem);
-          paymentController.caixaItems.add(caixaItem); 
+          paymentController.caixaItems.add(caixaItem);
         }
         await isar.venda_items.putAll(vendaItems);
         await isar.caixa_items.putAll(caixaItems);
@@ -735,7 +733,8 @@ class IsarService {
             paymentController, idVendaServidor);
       } else {
         await PostOnServidor.postOnServidor(venda, caixaItems, pdvController,
-            paymentController, idVendaServidor, isSecondAttempt: true);
+            paymentController, idVendaServidor,
+            isSecondAttempt: true);
       }
 
       if (responseServidorController.xmlNotaFiscal.value == true) {
