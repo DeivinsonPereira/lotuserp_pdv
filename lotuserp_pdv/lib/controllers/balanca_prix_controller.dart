@@ -79,6 +79,7 @@ class BalancaPrix3FitController extends GetxController {
           UsbPort.PARITY_NONE);
 
       logger.i("Conexão estabelecida com sucesso");
+      await Future.delayed(const Duration(milliseconds: 500));
       return true;
     } catch (e) {
       pesoLido.value = "Erro na conexão com a balança: $e";
@@ -173,9 +174,12 @@ class BalancaPrix3FitController extends GetxController {
   }
 
   @override
-  void onInit() {
-    super.onInit();
-    detectBalanca();
+  void dispose() async {
+    super.dispose();
+    pararPesagem();
+    port?.close();
+    logger.i("Encerrando conexão com a balança");
+    super.onClose();
   }
 
   @override

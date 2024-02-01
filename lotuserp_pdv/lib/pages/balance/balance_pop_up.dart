@@ -31,9 +31,9 @@ class BalancePopUp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PdvController pdvController = Dependencies.pdvController();
     BalancaPrix3FitController balancaController =
         Dependencies.balancaController();
-    PdvController pdvController = Dependencies.pdvController();
 
     // Constrói o textField
     Widget _buildTextField() {
@@ -69,9 +69,14 @@ class BalancePopUp extends StatelessWidget {
           width: 300,
           child: ElevatedButton(
             onPressed: () async {
+              await balancaController.detectBalanca();
+              await Future.delayed(const Duration(milliseconds: 500));
               await balancaController.iniciarEscutaDados(
                   nomeProduto, unidade, price, idProduto,
                   isBalance: true, quantity: '');
+
+              await Future.delayed(const Duration(milliseconds: 500));
+              balancaController.onClose();
             },
             style: ElevatedButton.styleFrom(
                 backgroundColor: CustomColors.customSwatchColor,
