@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
+import '../collections/caixa_item.dart';
 import '../services/dependencies.dart';
 
 class PaymentController extends GetxController {
@@ -30,12 +31,27 @@ class PaymentController extends GetxController {
   var qrCode = ''.obs;
   var xml = ''.obs;
 
+  List<caixa_item> caixaItems = [];
+
   @override
   void onInit() {
     super.onInit();
     totalPayment.value = '0,00';
   }
 
+  //adiciona item na lista caixaItems
+  void addListCaixaItems(caixa_item caixaItems) {
+    this.caixaItems.add(caixaItems);
+    update();
+  }
+
+  // limpa a lista caixaItems
+  void clearListCaixaItems() {
+    caixaItems.clear();
+    update();
+  }
+
+  //update isButtonEnabled
   void updateIsButtonEnabled() {
     if (pdvController.checkbox1.value) {
       remaningValue1 <= 0
@@ -51,11 +67,13 @@ class PaymentController extends GetxController {
     Future.microtask(() => update());
   }
 
+  //update Remaining1
   void updateRemaining1(double value) {
     remaningValue1.value = value;
     Future.microtask(() => update());
   }
 
+  //update Remaining2
   void updateRemaining2(double value) {
     remaningValue2.value = value;
     Future.microtask(() => update());

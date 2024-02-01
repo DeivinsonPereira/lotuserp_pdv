@@ -33,7 +33,8 @@ abstract class PostOnServidor {
       List<caixa_item> caixaItens,
       PdvController pdvController,
       PaymentController paymentController,
-      int idServidor) async {
+      int idServidor,
+      {bool isSecondAttempt = false}) async {
     var prefix = await service.getIpEmpresaFromDatabase();
     Uri uri = Uri.parse('${prefix!.ip_empresa}nfce_emitir');
 
@@ -66,7 +67,9 @@ abstract class PostOnServidor {
 
       List<Map<String, dynamic>> pagamentos = [];
       for (var i = 0; i < paymentController.paymentsTotal.length; i++) {
-        idPayment = caixaItens[i].id_tipo_recebimento;
+        idPayment = isSecondAttempt == true
+            ? paymentController.caixaItems[i].id_tipo_recebimento
+            : caixaItens[i].id_tipo_recebimento;
 
         valuePayment = double.parse(
             paymentController.paymentsTotal[i]['valor'].replaceAll(',', '.'));
@@ -120,8 +123,14 @@ abstract class PostOnServidor {
           var qrCode = jsonResponse['qr_code'];
           var xml = jsonResponse['xml'];
           await paymentController.updateVariaveisNfce(idVenda!, qrCode!, xml!);
+          paymentController.clearListCaixaItems();
         } else {
-          responseServidorController.updateXmlNotaFiscal(false);
+          if (isSecondAttempt == false) {
+            responseServidorController.updateXmlNotaFiscal(false);
+          } else {
+            responseServidorController.updateXmlNotaFiscal(true);
+            paymentController.clearListCaixaItems();
+          }
           const CustomSnackBar(
                   message:
                       'Erro ao gerar nota fiscal. Volte e tente novamente.')
@@ -129,12 +138,24 @@ abstract class PostOnServidor {
           logger.e("Erro ao fazer a requisição: ${response.statusCode}");
         }
       } else {
+        if (isSecondAttempt == false) {
+          responseServidorController.updateXmlNotaFiscal(false);
+        } else {
+          const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
+          responseServidorController.updateXmlNotaFiscal(true);
+          paymentController.clearListCaixaItems();
+        }
         logger.e("Erro ao fazer a requisição: ${response.statusCode}");
-        responseServidorController.updateXmlNotaFiscal(false);
       }
     } catch (e) {
       logger.e("Erro ao fazer a requisição: $e");
-      responseServidorController.updateXmlNotaFiscal(false);
+      const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
+      if (isSecondAttempt == false) {
+        responseServidorController.updateXmlNotaFiscal(false);
+      } else {
+        responseServidorController.updateXmlNotaFiscal(true);
+        paymentController.clearListCaixaItems();
+      }
     }
   }
 }

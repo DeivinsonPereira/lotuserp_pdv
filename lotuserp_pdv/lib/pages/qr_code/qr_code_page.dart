@@ -85,6 +85,7 @@ class QrCodePage extends StatelessWidget {
                       onPressed: () {
                         if (responseServidorController.xmlNotaFiscal.value ==
                             false) {
+                          Get.back();
                         } else {
                           Get.back();
                           searchProductPdvController.clearSearch();
