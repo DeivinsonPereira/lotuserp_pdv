@@ -896,37 +896,21 @@ class _PaymentPageState extends State<PaymentPage> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          SizedBox(
-                                            child: Text(
-                                              'Confirmar Pedido',
-                                              style: TextStyle(
-                                                  fontSize: 24,
-                                                  color: CustomColors
-                                                      .customSwatchColor,
-                                                  fontWeight: FontWeight.bold),
-                                            ),
-                                          ),
                                           Expanded(
-                                            child: Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 8.0),
-                                              child: SizedBox(
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.3,
-                                                child: const Center(
-                                                  child: Text(
-                                                    'Tem certeza que deseja finalizar o pedido?',
-                                                    style: TextStyle(),
-                                                  ),
-                                                ),
+                                            child: SizedBox(
+                                              child: Text(
+                                                'Confirmar Pedido',
+                                                style: TextStyle(
+                                                    fontSize: 24,
+                                                    color: CustomColors
+                                                        .customSwatchColor,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
                                             ),
                                           ),
                                           SizedBox(
-                                            height: 45,
+                                            height: 60,
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
@@ -936,6 +920,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                                 children: [
                                                   Expanded(
                                                     child: Container(
+                                                      height: 60,
                                                       decoration:
                                                           const BoxDecoration(
                                                         borderRadius:
@@ -947,11 +932,12 @@ class _PaymentPageState extends State<PaymentPage> {
                                                       ),
                                                       child:
                                                           const ConfirmButtom(
-                                                              text: 'Não'),
+                                                              text: 'Não',),
                                                     ),
                                                   ),
                                                   Expanded(
                                                     child: Container(
+                                                      height: 60,
                                                       decoration:
                                                           const BoxDecoration(
                                                         borderRadius:

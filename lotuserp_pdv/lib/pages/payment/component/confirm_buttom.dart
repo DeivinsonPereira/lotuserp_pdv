@@ -107,7 +107,7 @@ class ConfirmButtom extends StatelessWidget {
         text,
         style: TextStyle(
           fontWeight: FontWeight.bold,
-          fontSize: 20,
+          fontSize: 30,
           color: isConfirmation ? Colors.black : Colors.white,
         ),
       ),

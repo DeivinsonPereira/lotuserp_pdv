@@ -32,8 +32,7 @@ class QrCodePage extends StatelessWidget {
           width: 400,
           child: Column(children: [
             //header
-            HeaderPopup(
-                text: 'QR Code NFC-e', icon: FontAwesomeIcons.qrcode),
+            HeaderPopup(text: 'QR Code NFC-e', icon: FontAwesomeIcons.qrcode),
 
             //QR Code
             Expanded(
@@ -53,7 +52,7 @@ class QrCodePage extends StatelessWidget {
               children: [
                 Expanded(
                   child: Container(
-                    height: 50,
+                    height: 60,
                     color: _.xml.value != '' && _.xml.value.isNotEmpty
                         ? CustomColors.confirmButtonColor
                         : Colors.grey[300],
@@ -79,7 +78,7 @@ class QrCodePage extends StatelessWidget {
                 ),
                 Expanded(
                   child: Container(
-                    height: 50,
+                    height: 60,
                     color: CustomColors.informationBox,
                     child: TextButton(
                       onPressed: () {

@@ -26,6 +26,7 @@ class CpfCnpjPage extends StatelessWidget {
           await responseServidorController.updateCpfCnpj();
           print(responseServidorController.cpfCnpj);
           Get.back();
+          responseServidorController.limparCpfCnpj();
         },
         child: Container(
           color: CustomColors.confirmButtonColor,
