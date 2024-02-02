@@ -112,7 +112,7 @@ abstract class PostOnServidor {
       if (response.statusCode == 200) {
         logger.i("Requisição enviada com sucesso");
         var jsonResponse = jsonDecode(response.body);
-
+        
         print('id_venda: ${jsonResponse['id_venda']}');
         print('qr_code: ${jsonResponse['qr_code']}');
         print('xml: ${jsonResponse['xml']}');
