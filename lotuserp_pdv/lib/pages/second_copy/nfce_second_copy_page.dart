@@ -1,13 +1,11 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
-import 'package:lotuserp_pdv/collections/nfce_resultado.dart';
 
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../collections/venda.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
 import 'component/legend_informations_nfce.dart';

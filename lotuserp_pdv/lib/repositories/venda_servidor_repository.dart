@@ -12,6 +12,7 @@ import '../collections/venda.dart';
 import '../controllers/payment_controller.dart';
 import '../core/header.dart';
 import '../pages/common/strings_default.dart';
+import '../services/comunication_servidor/post_on_servidor.dart';
 import '../services/datetime_formatter_widget.dart';
 
 import 'package:http/http.dart' as http;
@@ -108,9 +109,27 @@ class VendaServidorRepository {
         if (jsonResponse['success'] == true) {
           if (jsonResponse['message'] != null) {
             responseServidorController.updateEnviado(StringsDefault.enviado);
-            responseServidorController.updateIdVendaServidor(
-                int.tryParse(jsonResponse['message']) ?? 0);
+            responseServidorController
+                .updateIdVendaServidor(int.parse(jsonResponse['message']));
+            Future.delayed(const Duration(milliseconds: 300));
             logger.i("Requisição enviada com sucesso ${response.body}");
+            String cpfCnpj;
+
+            if (responseServidorController.cpfCnpj.isEmpty ||
+                responseServidorController.cpfCnpj == '') {
+              cpfCnpj = '';
+            } else {
+              cpfCnpj = responseServidorController.cpfCnpj;
+            }
+
+            Future.delayed(const Duration(milliseconds: 300));
+            await PostOnServidor.postOnServidor(
+                vendas,
+                caixaItens,
+                pdvController,
+                paymentController,
+                int.parse(jsonResponse['message']),
+                cpfCnpj);
           }
         } else {
           responseServidorController.updateEnviado(StringsDefault.naoEnviado);

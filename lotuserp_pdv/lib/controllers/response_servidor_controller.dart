@@ -23,7 +23,7 @@ class ResponseServidorController extends GetxController {
   }
 
   //atualizar idVendaServidor
-  Future<void> updateIdVendaServidor(int value) async {
+  void updateIdVendaServidor(int value) async {
     idVendaServidor.value = value;
     update();
   }

@@ -18,7 +18,7 @@ class HeaderPopup extends StatelessWidget {
       required this.text,
       required this.icon,
       this.isCpfCnpj,
-      this.isPesagem})
+      this.isPesagem = false})
       : super(key: key);
 
   @override

@@ -21,7 +21,6 @@ import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/services/comunication_servidor/post_on_servidor.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
@@ -660,7 +659,6 @@ class IsarService {
       List<caixa_item> caixaItems = [];
 
       List<venda_item> vendaItems = [];
-      int idVendaServidor = 0;
 
       if (responseServidorController.xmlNotaFiscal.value == true) {
         for (var i = 0; i < pdvController.pedidos.length; i++) {
@@ -727,21 +725,23 @@ class IsarService {
         await VendaServidorRepository().vendaToServer(venda, caixaItems,
             pdvController, paymentController, idCaixaServidor);
 
-        idVendaServidor = responseServidorController.idVendaServidor.value;
-
-        print(responseServidorController.cpfCnpj);
+        /* print(responseServidorController.cpfCnpj);
         String cpfCnpj;
         if (responseServidorController.cpfCnpj.isEmpty ||
             responseServidorController.cpfCnpj == '') {
           cpfCnpj = '';
-          print('cpfCnpj: $cpfCnpj');
         } else {
           cpfCnpj = responseServidorController.cpfCnpj;
-          print('cpfCnpj: $cpfCnpj');
         }
 
-        await PostOnServidor.postOnServidor(venda, caixaItems, pdvController,
-            paymentController, idVendaServidor, cpfCnpj);
+        Future.delayed(const Duration(milliseconds: 300));
+        await PostOnServidor.postOnServidor(
+            venda,
+            caixaItems,
+            pdvController,
+            paymentController,
+            responseServidorController.idVendaServidor.value,
+            cpfCnpj);*/
       } else {}
 
       if (responseServidorController.xmlNotaFiscal.value == true) {

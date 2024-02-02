@@ -48,8 +48,6 @@ abstract class PostOnServidor {
     int idSerieNfce = int.parse(textFieldController.idSerieNfceController.text);
     int idEmpresa = int.parse(textFieldController.idEmpresaController.text);
 
-    
-
     try {
       List<Map<String, dynamic>> itens = [];
       for (var i = 0; i < pdvController.pedidos.length; i++) {
@@ -106,7 +104,6 @@ abstract class PostOnServidor {
         "pagamentos": pagamentos
       };
 
-      print(requestBody);
       final response = await http.post(
         uri,
         headers: Header.header,
