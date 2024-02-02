@@ -104,25 +104,17 @@ class NfceSecondCopyPage extends StatelessWidget {
                                                               resultado.data!;
                                                           return SizedBox(
                                                             width: 100,
-                                                            child: Padding(
-                                                              padding:
-                                                                  const EdgeInsets
-                                                                      .only(
-                                                                      right:
-                                                                          30.0),
-                                                              child: IconButton(
-                                                                onPressed: () {
-                                                                  PrintNfceXml()
-                                                                      .printNfceXml(
-                                                                          xmlArgs:
-                                                                              nfceResultados[index].xml);
-                                                                },
-                                                                icon: const Icon(
-                                                                    Icons
-                                                                        .print),
-                                                                color: Colors
-                                                                    .black,
-                                                              ),
+                                                            child: IconButton(
+                                                              onPressed: () {
+                                                                PrintNfceXml()
+                                                                    .printNfceXml(
+                                                                        xmlArgs:
+                                                                            nfceResultados[index].xml);
+                                                              },
+                                                              icon: const Icon(
+                                                                  Icons.print),
+                                                              color:
+                                                                  Colors.black,
                                                             ),
                                                           );
                                                         }
