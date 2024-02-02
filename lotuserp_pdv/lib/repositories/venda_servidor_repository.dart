@@ -30,7 +30,8 @@ class VendaServidorRepository {
       List<caixa_item> caixaItens,
       PdvController pdvController,
       PaymentController paymentController,
-      int idCaixaServidor) async {
+      int idCaixaServidor,
+      String cpfCnpj) async {
     var dateFormatted = DatetimeFormatterWidget.formatDate(vendas.data);
 
     var prefix = await service.getIpEmpresaFromDatabase();
@@ -92,7 +93,7 @@ class VendaServidorRepository {
         "tot_liquido": vendas.tot_liquido,
         "valor_troco": vendas.valor_troco,
         "id_serie_nfce": idSerieNfce,
-        "cpf_cnpj": '',
+        "cpf_cnpj": cpfCnpj,
         "itens": itens,
         "pagamentos": pagamentos
       };
@@ -113,14 +114,6 @@ class VendaServidorRepository {
                 .updateIdVendaServidor(int.parse(jsonResponse['message']));
             Future.delayed(const Duration(milliseconds: 300));
             logger.i("Requisição enviada com sucesso ${response.body}");
-            String cpfCnpj;
-
-            if (responseServidorController.cpfCnpj.isEmpty ||
-                responseServidorController.cpfCnpj == '') {
-              cpfCnpj = '';
-            } else {
-              cpfCnpj = responseServidorController.cpfCnpj;
-            }
 
             Future.delayed(const Duration(milliseconds: 300));
             await PostOnServidor.postOnServidor(

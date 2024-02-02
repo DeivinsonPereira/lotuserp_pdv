@@ -722,8 +722,17 @@ class IsarService {
         var idCaixaServidor =
             await globalController.updateCaixaAbertaId(globalController.userId);
 
+             print(responseServidorController.cpfCnpj);
+        String cpfCnpj;
+        if (responseServidorController.cpfCnpj.isEmpty ||
+            responseServidorController.cpfCnpj == '') {
+          cpfCnpj = '';
+        } else {
+          cpfCnpj = responseServidorController.cpfCnpj;
+        }
+
         await VendaServidorRepository().vendaToServer(venda, caixaItems,
-            pdvController, paymentController, idCaixaServidor);
+            pdvController, paymentController, idCaixaServidor, cpfCnpj);
 
         /* print(responseServidorController.cpfCnpj);
         String cpfCnpj;
