@@ -17,6 +17,7 @@ import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/dependencies.dart';
 import '../product/product_monitor_page.dart';
+import '../qr_code/cpf_cnpj_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {
   const PdvMonitorPage({super.key});
@@ -39,6 +40,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var controller = Dependencies.pdvController();
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
+
+    var responseServidorController = Dependencies.responseServidorController();
 
     IsarService service = IsarService();
 
@@ -78,6 +81,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                   snackPosition: SnackPosition.BOTTOM);
             } else {
               Get.toNamed(PagesRoutes.paymentRoute);
+              print(responseServidorController.cpfCnpj);
             }
           },
           child: Padding(
@@ -361,13 +365,19 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           },
                         )),
                 ButtonsPdv().iconsOptions(
-                    FontAwesomeIcons.cashRegister, 'Gaveta', () => Container()),
-                ButtonsPdv().iconsOptions(
-                    FontAwesomeIcons.weightScale, 'Balança', () => Container()),
+                    FontAwesomeIcons.addressCard,
+                    'CPF/CNPJ',
+                    () => {
+                          responseServidorController.limparCpfCnpj(),
+                          Get.dialog(
+                              barrierDismissible: false, const CpfCnpjPage())
+                        }),
+                /* ButtonsPdv().iconsOptions(
+                    FontAwesomeIcons.weightScale, 'Balança', () => Container()),*/
                 ButtonsPdv().iconsOptions(FontAwesomeIcons.solidTrashCan,
                     'Cancelar', () => _.cancelarPedido()),
-                ButtonsPdv().iconsOptions(FontAwesomeIcons.moneyBillTrendUp,
-                    'Vendas', () => Container()),
+                /* ButtonsPdv().iconsOptions(FontAwesomeIcons.moneyBillTrendUp,
+                    'Vendas', () => Container()),*/
               ],
             ),
           ),
@@ -894,7 +904,7 @@ class _SearchProduct extends StatelessWidget {
                 onTap: () async {
                   if (produtos[index]!.venda_kg == 1) {
                     isBalance = true;
-                    
+
                     pdvController.listenBalance(
                         controller.nome[index],
                         controller.unidade[index],

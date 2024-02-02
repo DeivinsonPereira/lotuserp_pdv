@@ -53,6 +53,7 @@ class DialogWidget {
   Widget keyboardNumber(
       Function callback, String name, int tipoPagamento, int idPagamento,
       {bool isTef = false}) {
+    controller.zerarCampos();
     double totalValue = pdvcontroller.totalcheckBox1.value;
     String numbersDiscountcb2 =
         pdvcontroller.numbersDiscountcb2.value.replaceAll(',', '.');

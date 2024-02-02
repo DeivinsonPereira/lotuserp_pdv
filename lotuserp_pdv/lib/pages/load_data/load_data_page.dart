@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/load_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
@@ -16,6 +17,8 @@ class LoadDataPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+
+    IsarService service = IsarService();
 
     Dependencies.loadController();
     Dependencies.textFieldController();
@@ -108,15 +111,13 @@ class LoadDataPage extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 10),
                           child: TextButton(
                             onPressed: () async {
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return const LoadingScreen();
-                                },
-                              );
-                              await _.loadData();
-                              Get.back();
-                              Get.back();
+                              await service.connectionVerify();
+                              if (service.conexaoApi) {
+                                Get.dialog(const LoadingScreen());
+                                await _.loadData();
+                                Get.back();
+                                Get.back();
+                              }
                             },
                             child: const Text('CONFIRMAR',
                                 style: TextStyle(

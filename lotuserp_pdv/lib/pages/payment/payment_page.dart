@@ -8,10 +8,12 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/response_servidor_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
+import 'package:lotuserp_pdv/pages/payment/component/confirmation_method.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/services/tef_elgin/tef_elgin_customization_service.dart';
@@ -20,6 +22,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../services/format_numbers.dart';
 import '../../services/dependencies.dart';
 import '../../services/tef_elgin/tef_elgin_service.dart';
+import 'component/no_money_paper.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -42,6 +45,8 @@ class _PaymentPageState extends State<PaymentPage> {
     IsarService service = IsarService();
     Dependencies.informationController();
     Dependencies.globalController();
+    ResponseServidorController responseServidorController =
+        Dependencies.responseServidorController();
     var paymentCount = 0.0;
 
     var remainingValue = 0.0;
@@ -432,11 +437,14 @@ class _PaymentPageState extends State<PaymentPage> {
     Widget cardsPayment(
         IconData? icon, int tipoPagamento, String? descricao, int idPagamento) {
       return InkWell(
-        onTap: () {
+        onTap: () async {
           if (tipoPagamento != 0) {
-            Get.dialog(DialogWidget().keyboardNumber(
-                pushSetState, descricao, tipoPagamento, idPagamento,
-                isTef: true));
+            NoMoneyPaper().processCommonOperations();
+            ConfirmationMethod().continueSell(
+                name: descricao,
+                tipoPagamento: tipoPagamento,
+                idPagamento: idPagamento);
+            await responseServidorController.updateCpfCnpj();
           } else {
             Get.dialog(DialogWidget().keyboardNumber(
                 pushSetState, descricao, tipoPagamento, idPagamento));
@@ -872,98 +880,21 @@ class _PaymentPageState extends State<PaymentPage> {
             height: 50,
             child: InkWell(
               onTap: _.isButtonEnabled.value
-                  ? () {
+                  ? () async {
                       paymentController.verifyOpenTransactionTEF()
                           ? Get.snackbar('Erro', 'Existem transações pendentes',
                               backgroundColor: Colors.red,
                               colorText: Colors.white,
                               snackPosition: SnackPosition.BOTTOM)
-                          :
-                          //Popup para confirmar o pedido
-                          showDialog(
-                              context: context,
-                              builder: (context) {
-                                return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Container(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 25, 0, 0),
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.25,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Expanded(
-                                            child: SizedBox(
-                                              child: Text(
-                                                'Confirmar Pedido',
-                                                style: TextStyle(
-                                                    fontSize: 24,
-                                                    color: CustomColors
-                                                        .customSwatchColor,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 60,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.3,
-                                            child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      height: 60,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                bottomLeft: Radius
-                                                                    .circular(
-                                                                        10)),
-                                                        color: Colors.grey,
-                                                      ),
-                                                      child:
-                                                          const ConfirmButtom(
-                                                              text: 'Não',),
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: Container(
-                                                      height: 60,
-                                                      decoration:
-                                                          const BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                                bottomRight: Radius
-                                                                    .circular(
-                                                                        10)),
-                                                        color:
-                                                            Color(0xFF86C337),
-                                                      ),
-                                                      child:
-                                                          const ConfirmButtom(
-                                                        text: 'Sim',
-                                                        isConfirmation: true,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ]),
-                                          )
-                                        ],
-                                      ),
-                                    ));
-                              },
-                            );
+                          : {
+                              await responseServidorController.updateCpfCnpj(),
+                              ConfirmationMethod().continueSell(),
+                              print(
+                                  "cpf: ${responseServidorController.cpfCnpj}")
+                            };
                     }
                   : null,
+              //Popup para confirmar o pedido
               child: const Center(
                 child: Text(
                   'Finalizar',

@@ -62,6 +62,7 @@ class QrCodePage extends StatelessWidget {
                           await PrintNfceXml().printNfceXml();
                           Get.back();
                           searchProductPdvController.clearSearch();
+                          responseServidorController.limparCpfCnpj();
                         }
                       },
                       child: Text(
@@ -84,9 +85,11 @@ class QrCodePage extends StatelessWidget {
                       onPressed: () {
                         if (responseServidorController.xmlNotaFiscal.value ==
                             false) {
+                          responseServidorController.limparCpfCnpj();
                           Get.back();
                         } else {
                           Get.back();
+                          responseServidorController.limparCpfCnpj();
                           searchProductPdvController.clearSearch();
                         }
                       },
