@@ -60,48 +60,67 @@ class CloseRegisterPage extends StatelessWidget {
 
           //Confirmar
           Expanded(
-            child: Container(
-              color: CustomColors.confirmButtonColor,
-              child: TextButton(
-                onPressed: () async {
-                  var atualDateFormatted =
-                      DatetimeFormatterWidget.formatDate(DateTime.now());
+            child: Obx(
+              () => Container(
+                  color: controller.isButtonEnabled.value == false
+                      ? Colors.grey[300]
+                      : CustomColors.confirmButtonColor,
+                  child: TextButton(
+                    onPressed: controller.isButtonEnabled.value == true
+                        ? () async {
+                            controller.toggleIsButtonEnabled();
+                            var atualDateFormatted =
+                                DatetimeFormatterWidget.formatDate(
+                                    DateTime.now());
 
-                  await globalController
-                      .setIdCaixaServidor(globalController.userId);
-                  var idCaixaServidor = globalController.idCaixaServidor;
-                  List<caixa_fechamento> fechamentosCaixa = [];
+                            await globalController
+                                .setIdCaixaServidor(globalController.userId);
+                            var idCaixaServidor =
+                                globalController.idCaixaServidor;
+                            List<caixa_fechamento> fechamentosCaixa = [];
 
-                  for (var i = 0; i < controller.closeRegister.length; i++) {
-                    var values = controller.closeRegister[i]['value'] =
-                        double.parse(controller.textControllers[i].text
-                            .replaceAll('.', '')
-                            .replaceAll(',', '.'));
+                            for (var i = 0;
+                                i < controller.closeRegister.length;
+                                i++) {
+                              var values = controller.closeRegister[i]
+                                      ['value'] =
+                                  double.parse(controller
+                                      .textControllers[i].text
+                                      .replaceAll('.', '')
+                                      .replaceAll(',', '.'));
 
-                    caixa_fechamento caixaFechamento = caixa_fechamento()
-                      ..id_caixa = pdvController.caixaId.value
-                      ..id_tipo_recebimento = controller.dataOfTipoPagamento![i]
-                      ..valor_informado = values;
+                              caixa_fechamento caixaFechamento =
+                                  caixa_fechamento()
+                                    ..id_caixa = pdvController.caixaId.value
+                                    ..id_tipo_recebimento =
+                                        controller.dataOfTipoPagamento![i]
+                                    ..valor_informado = values;
 
-                    fechamentosCaixa.add(caixaFechamento);
-                  }
-                  await CloseRegisterServidorRepository().closeRegisterServidor(
-                      atualDateFormatted, idCaixaServidor, fechamentosCaixa);
+                              fechamentosCaixa.add(caixaFechamento);
+                            }
+                            await CloseRegisterServidorRepository()
+                                .closeRegisterServidor(atualDateFormatted,
+                                    idCaixaServidor, fechamentosCaixa);
 
-                  await printerController.printCloseCaixa(fechamentosCaixa);
-                  await service.insertCaixaFechamento(fechamentosCaixa);
-                  await service.deleteCartaoItem();
-                  Get.back();
-                },
-                child: const Text(
-                  'CONFIRMAR',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
+                            await printerController
+                                .printCloseCaixa(fechamentosCaixa);
+                            await service
+                                .insertCaixaFechamento(fechamentosCaixa);
+                            await service.deleteCartaoItem();
+                            Get.back();
+                          }
+                        : null,
+                    child: Text(
+                      'CONFIRMAR',
+                      style: TextStyle(
+                        color: controller.isButtonEnabled.value == false
+                            ? Colors.white
+                            : Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                      ),
+                    ),
+                  )),
             ),
           ),
         ],

@@ -442,78 +442,101 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                       //Confirmar
                       Expanded(
                         flex: 1,
-                        child: TextButton(
-                          style: TextButton.styleFrom(
-                            backgroundColor: const Color(0xFF86C337),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0),
-                            ),
-                          ),
-                          onPressed: () async {
-                            double movimentRegisterDouble =
-                                movimentRegisterController
-                                    .movimentRegisterToDouble();
+                        child: Obx(() => TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: movimentRegisterController
+                                            .isButtonEnabled.value ==
+                                        false
+                                    ? Colors.grey[300]
+                                    : CustomColors.confirmButtonColor,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
+                              ),
+                              onPressed: movimentRegisterController
+                                          .isButtonEnabled.value ==
+                                      true
+                                  ? () async {
+                                      movimentRegisterController
+                                          .toggleIsButtonEnabled();
+                                      double movimentRegisterDouble =
+                                          movimentRegisterController
+                                              .movimentRegisterToDouble();
 
-                            DateTime date = DateTime.now();
-                            String dateFormatted =
-                                DatetimeFormatterWidget.formatDate(date);
+                                      DateTime date = DateTime.now();
+                                      String dateFormatted =
+                                          DatetimeFormatterWidget.formatDate(
+                                              date);
 
-                            var valorCredito = movimentRegisterController
-                                        .tipoDeMovimentoController.text ==
-                                    'CREDITO'
-                                ? movimentRegisterDouble
-                                : 0.0;
+                                      var valorCredito =
+                                          movimentRegisterController
+                                                      .tipoDeMovimentoController
+                                                      .text ==
+                                                  'CREDITO'
+                                              ? movimentRegisterDouble
+                                              : 0.0;
 
-                            double valorDebito = movimentRegisterController
-                                        .tipoDeMovimentoController.text ==
-                                    'DEBITO'
-                                ? movimentRegisterDouble
-                                : 0.0;
+                                      double valorDebito =
+                                          movimentRegisterController
+                                                      .tipoDeMovimentoController
+                                                      .text ==
+                                                  'DEBITO'
+                                              ? movimentRegisterDouble
+                                              : 0.0;
 
-                            var userId = globalController.userId;
-                            await globalController.setIdCaixaServidor(userId);
-                            var idCaixaServidor =
-                                globalController.idCaixaServidor;
+                                      var userId = globalController.userId;
+                                      await globalController
+                                          .setIdCaixaServidor(userId);
+                                      var idCaixaServidor =
+                                          globalController.idCaixaServidor;
 
-                            await CaixaItemServidorRepository()
-                                .caixaItemMovivmentCashServidor(
-                                    movimentRegisterController
-                                        .descriptionController.text,
-                                    dateFormatted,
-                                    hourFormatted,
-                                    movimentRegisterController.formaPagamentoId,
-                                    valorCredito,
-                                    valorDebito,
-                                    userId,
-                                    idCaixaServidor);
+                                      await CaixaItemServidorRepository()
+                                          .caixaItemMovivmentCashServidor(
+                                              movimentRegisterController
+                                                  .descriptionController.text,
+                                              dateFormatted,
+                                              hourFormatted,
+                                              movimentRegisterController
+                                                  .formaPagamentoId,
+                                              valorCredito,
+                                              valorDebito,
+                                              userId,
+                                              idCaixaServidor);
 
-                            caixa_item caixaItem = caixa_item()
-                              ..id_caixa = idCaixa
-                              ..descricao = movimentRegisterController
-                                  .descriptionController.text
-                              ..data = DateTime.now()
-                              ..hora = hourFormatted
-                              ..id_tipo_recebimento =
-                                  movimentRegisterController.formaPagamentoId
-                              ..valor_cre = valorCredito
-                              ..valor_deb = valorDebito
-                              ..id_venda = 0
-                              ..enviado =
-                                  responseServidorController.enviado.value;
+                                      caixa_item caixaItem = caixa_item()
+                                        ..id_caixa = idCaixa
+                                        ..descricao = movimentRegisterController
+                                            .descriptionController.text
+                                        ..data = DateTime.now()
+                                        ..hora = hourFormatted
+                                        ..id_tipo_recebimento =
+                                            movimentRegisterController
+                                                .formaPagamentoId
+                                        ..valor_cre = valorCredito
+                                        ..valor_deb = valorDebito
+                                        ..id_venda = 0
+                                        ..enviado = responseServidorController
+                                            .enviado.value;
 
-                            service.insertCaixaItem(caixaItem);
+                                      service.insertCaixaItem(caixaItem);
 
-                            movimentRegisterController.clearMovimentRegister();
-                            Get.back();
-                          },
-                          child: const Text(
-                            "CONFIRMAR",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24),
-                          ),
-                        ),
+                                      movimentRegisterController
+                                          .clearMovimentRegister();
+                                      Get.back();
+                                    }
+                                  : null,
+                              child: Text(
+                                "CONFIRMAR",
+                                style: TextStyle(
+                                    color: movimentRegisterController
+                                                .isButtonEnabled.value ==
+                                            false
+                                        ? Colors.white
+                                        : Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 24),
+                              ),
+                            )),
                       ),
                     ],
                   ),

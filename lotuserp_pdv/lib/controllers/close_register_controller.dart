@@ -16,10 +16,18 @@ class CloseRegisterController extends GetxController {
 
   List<int>? dataOfTipoPagamento = [];
 
+  var isButtonEnabled = true.obs;
+
   @override
   void onInit() {
     super.onInit();
     getidCaixa();
+    isButtonEnabled.value = true;
+  }
+
+  void toggleIsButtonEnabled() {
+    isButtonEnabled.value = !isButtonEnabled.value;
+    update();
   }
 
   //atualiza o valor do selectedTextFieldIndex
@@ -77,5 +85,11 @@ class CloseRegisterController extends GetxController {
   Future<void> getidCaixa() async {
     var caixa = await service.getCaixaIdWithIdUserAndStatus0();
     caixaId.value = caixa!;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    isButtonEnabled.value = true;
   }
 }

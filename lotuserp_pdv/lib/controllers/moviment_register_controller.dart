@@ -21,9 +21,12 @@ class MovimentRegisterController extends GetxController {
 
   RxString formaPagamento = 'DINHEIRO'.obs;
 
+  var isButtonEnabled = true.obs;
+
   @override
   void onInit() {
     super.onInit();
+    isButtonEnabled.value = true;
     openRegisterController = TextEditingController();
     openRegisterController.text = '0,00';
     movimentRegisterController.text = '0,00';
@@ -55,8 +58,14 @@ class MovimentRegisterController extends GetxController {
 
   @override
   void onClose() {
+    isButtonEnabled.value = true;
     openRegisterController.dispose();
     super.onClose();
+  }
+
+  void toggleIsButtonEnabled() {
+    isButtonEnabled.value = !isButtonEnabled.value;
+    update();
   }
 
   //crie um método para trasformar o valor guardado no openRegister que é uma string para double, transformando antes virgula em ponto
