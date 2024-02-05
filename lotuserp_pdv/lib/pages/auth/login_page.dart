@@ -19,7 +19,6 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // Inicialização dos controladores
     PasswordController passwordController = Dependencies.passwordController();
-
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
       return const Padding(

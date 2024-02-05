@@ -4,12 +4,10 @@ import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
-import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/home/component/icon_button_list.dart';
 
 import '../../../services/dependencies.dart';
-import '../../../shared/isar_service.dart';
 import '../../logout/logout_page.dart';
 import 'icon_button_side_bar.dart';
 
@@ -89,7 +87,8 @@ class DrawerWidget extends StatelessWidget {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          for (var i = 0; i < IconButtonList.iconButtonlist.length; i++) ...{
+          
+          /*for (var i = 0; i < IconButtonList.iconButtonlist.length; i++) ...{
             IconButtonSideBar(
               icon: IconButtonList.iconButtonlist[i]['icon'],
               navigationIcon: IconButtonList.iconButtonlist[i]
@@ -105,7 +104,7 @@ class DrawerWidget extends StatelessWidget {
               isNfceSegundaVia: IconButtonList.iconButtonlist[i]
                   ['isNfceSegundaVia'],
             )
-          }
+          }*/
         ],
       );
     }
@@ -119,7 +118,6 @@ class DrawerWidget extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                
                 Get.dialog(const LogoutPage());
               },
               child: const Padding(

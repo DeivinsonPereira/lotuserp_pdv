@@ -30,7 +30,9 @@ import 'package:logger/logger.dart';
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
 import '../collections/nfce_resultado.dart';
+import '../controllers/config_controller.dart';
 import '../controllers/response_servidor_controller.dart';
+import '../controllers/text_field_controller.dart';
 import '../core/app_routes.dart';
 import '../repositories/caixa_item_servidor_repository.dart';
 import '../repositories/venda_servidor_repository.dart';
@@ -53,10 +55,20 @@ class IsarService {
   }
 
   Future<void> connectionVerify() async {
-    Uri url = Uri.parse('http://192.168.1.44:9001/');
+    TextFieldController textFieldController =
+        Dependencies.textFieldController();
+    String ipEmpresa;
+
+    ipEmpresa = textFieldController.numContratoEmpresaController.text;
+    Uri uri = Uri.parse(ipEmpresa);
+    if (!ipEmpresa.isNotEmpty && !ipEmpresa.isBlank!) {
+      dado_empresa? dadosEmpresariais = await getDataEmpresa();
+      String? url = dadosEmpresariais!.ip_empresa;
+      uri = Uri.parse(url!);
+    }
 
     try {
-      final response = await http.get(url);
+      final response = await http.get(uri);
 
       if (response.statusCode == 200) {
         conexaoApi = true;
