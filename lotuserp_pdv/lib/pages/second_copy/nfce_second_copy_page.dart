@@ -1,9 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
-import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
+import 'package:lotuserp_pdv/pages/second_copy/component/checkbox_controller.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/dependencies.dart';
@@ -18,19 +19,22 @@ class NfceSecondCopyPage extends StatelessWidget {
     IsarService service = IsarService();
     InformationController informationController =
         Dependencies.informationController();
+    CheckboxController checkboxController = Dependencies.checkboxController();
 
     return Dialog(
       child: Container(
-        height: 400,
-        width: 400,
+        height: 500,
+        width: 500,
         color: Colors.white,
         child: Column(
           children: [
             //HEADER
-            HeaderPopup(
-              text: '2ª Via NFCe',
-              icon: Icons.receipt,
-            ),
+            Obx(() => HeaderPopup(
+                  text:
+                      'Vendas do caixa: ${informationController.caixaId.value.toString().padLeft(5, '0')}',
+                  icon: Icons.receipt,
+                  nfce: true,
+                )),
 
             // Legenda
             const LegendInformationsNfce(),
@@ -48,8 +52,8 @@ class NfceSecondCopyPage extends StatelessWidget {
                   if (snapshot.hasData) {
                     var data = snapshot.data!;
                     return SizedBox(
-                      height: 290,
-                      width: 400,
+                      height: 350,
+                      width: 500,
                       child: ListView.builder(
                           itemCount: data.length,
                           itemBuilder: (context, index) {
@@ -61,72 +65,32 @@ class NfceSecondCopyPage extends StatelessWidget {
                             return caixaValido
                                 ? Column(
                                     children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 8.0),
-                                        child: Row(
-                                          children: [
-                                            InformationsWidget(
-                                              data: data[index]!.hora,
-                                              width: 100,
-                                              padding: 0.0,
-                                            ),
-                                            InformationsWidget(
-                                              data: formatoBrasileiro.format(
-                                                  data[index]!.tot_liquido),
-                                              width: 100,
-                                              padding: 80.0,
-                                              isValue: true,
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 10.0),
-                                              child: SizedBox(
-                                                width: 50,
-                                                child: StreamBuilder(
-                                                    stream: service
-                                                        .listenNfceResultados(),
-                                                    builder:
-                                                        (context, resultado) {
-                                                      if (!resultado.hasData ||
-                                                          resultado.hasError) {
-                                                        return const Text('');
-                                                      }
-                                                      if (resultado.hasData) {
-                                                        if (resultado.data!
-                                                                .isNotEmpty &&
-                                                            resultado
-                                                                    .data![
-                                                                        index]
-                                                                    .xml !=
-                                                                null) {
-                                                          var nfceResultados =
-                                                              resultado.data!;
-                                                          return SizedBox(
-                                                            width: 100,
-                                                            child: IconButton(
-                                                              onPressed: () {
-                                                                PrintNfceXml()
-                                                                    .printNfceXml(
-                                                                        xmlArgs:
-                                                                            nfceResultados[index].xml);
-                                                              },
-                                                              icon: const Icon(
-                                                                  Icons.print),
-                                                              color:
-                                                                  Colors.black,
-                                                            ),
-                                                          );
-                                                        }
-                                                      } else {
-                                                        return const Text('');
-                                                      }
-                                                      return const Text('');
-                                                    }),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
+                                      Row(
+                                        children: [
+                                          Checkbox(
+                                            value: checkboxController
+                                                    .selectedItems[index] ??
+                                                false,
+                                            onChanged: (value) {
+                                              checkboxController
+                                                  .toggleItem(index);
+                                            },
+                                          ),
+                                          InformationsWidget(
+                                            data:
+                                                data[index]!.id_venda_servidor,
+                                            width: Get.width * 0.075,
+                                          ),
+                                          InformationsWidget(
+                                            data: data[index]!.hora,
+                                            width: Get.width * 0.2,
+                                          ),
+                                          InformationsWidget(
+                                            data: formatoBrasileiro.format(
+                                                data[index]!.tot_liquido),
+                                            width: Get.width * 0.03,
+                                          ),
+                                        ],
                                       ),
                                       const Padding(
                                         padding: EdgeInsets.all(8.0),
@@ -152,28 +116,21 @@ class NfceSecondCopyPage extends StatelessWidget {
 class InformationsWidget extends StatelessWidget {
   final dynamic data;
   final double width;
-  final double padding;
-  bool? isValue;
-  InformationsWidget(
-      {Key? key,
-      required this.data,
-      required this.width,
-      required this.padding,
-      this.isValue = false})
-      : super(key: key);
+  const InformationsWidget({
+    Key? key,
+    required this.data,
+    required this.width,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(left: padding),
-      child: SizedBox(
-          width: width,
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: isValue == true
-                ? Text(data.toString())
-                : Center(child: Text(data.toString())),
-          )),
+    return SizedBox(
+      width: width,
+      child: Center(
+        child: Text(
+          data.toString(),
+        ),
+      ),
     );
   }
 }

@@ -14,8 +14,10 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../controllers/open_register_controller.dart';
 import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
+import '../common/custom_snack_bar.dart';
 import '../common/header_popup.dart';
 
 class OpenRegisterPage extends StatelessWidget {
@@ -28,6 +30,8 @@ class OpenRegisterPage extends StatelessWidget {
         Dependencies.movimentRegisterController();
     InformationController informationController =
         Dependencies.informationController();
+    OpenRegisterController openRegisterController =
+        Dependencies.openRegisterController();
     IsarService service = IsarService();
 
     ResponseServidorController responseServidorController =
@@ -225,80 +229,112 @@ class OpenRegisterPage extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 1,
-                      child: TextButton(
-                        style: TextButton.styleFrom(
-                          backgroundColor: CustomColors.confirmButtonColor,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                        ),
-                        onPressed: () async {
-                          movimentRegisterController.openRegisterValue();
-                          var dadosEmpresa =
-                              await service.getIpEmpresaFromDatabase();
+                      child: Obx(() => TextButton(
+                            style: TextButton.styleFrom(
+                              backgroundColor: openRegisterController
+                                          .isButtonEnabled.value ==
+                                      false
+                                  ? Colors.grey[300]
+                                  : CustomColors.confirmButtonColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0),
+                              ),
+                            ),
+                            onPressed: openRegisterController
+                                        .isButtonEnabled.value ==
+                                    true
+                                ? () async {
+                                    openRegisterController
+                                        .toggleIsButtonEnabled();
+                                    movimentRegisterController
+                                        .openRegisterValue();
+                                    var dadosEmpresa = await service
+                                        .getIpEmpresaFromDatabase();
 
-                          var dadosUsuario = await service.getUserLogged();
+                                    var dadosUsuario =
+                                        await service.getUserLogged();
 
-                          double openRegisterDouble =
-                              movimentRegisterController.openRegisterToDouble();
+                                    double openRegisterDouble =
+                                        movimentRegisterController
+                                            .openRegisterToDouble();
 
-                          bool caixaExistente = await service
-                              .checkUserCaixa(dadosUsuario!.id_user!);
+                                    bool caixaExistente = await service
+                                        .checkUserCaixa(dadosUsuario!.id_user!);
 
-                          var atualDateFormatted =
-                              DatetimeFormatterWidget.formatDate(atualDate);
+                                    var atualDateFormatted =
+                                        DatetimeFormatterWidget.formatDate(
+                                            atualDate);
 
-                          await OpenRegisterServidorRepository()
-                              .openRegisterServidor(
-                                  dadosEmpresa!.id_empresa!,
-                                  dadosUsuario.id_user!,
-                                  atualDateFormatted,
-                                  hourFormatted,
-                                  openRegisterDouble);
+                                    await informationController.searchCaixaId();
 
-                          caixa caixas = caixa()
-                            ..id_empresa = dadosEmpresa.id_empresa!
-                            ..abertura_id_user = dadosUsuario.id_user!
-                            ..abertura_data = atualDate
-                            ..abertura_hora = hourFormatted
-                            ..abertura_valor = openRegisterDouble
-                            ..status = 0
-                            ..fechou_id_user = null
-                            ..fechou_data = null
-                            ..fechou_hora = null
-                            ..enviado = 0
-                            ..id_caixa_servidor =
-                                responseServidorController.openRegisterId.value;
-                          if (openRegisterDouble > 0.00) {
-                            await service.insertCaixaWithCaixaItem(caixas,
-                                atualDate, hourFormatted, openRegisterDouble, dadosUsuario.id_user!);
-                            movimentRegisterController.clearOpenRegister();
+                                    caixaExistente
+                                        ? const CustomSnackBar(
+                                                message:
+                                                    'Já existe um caixa aberto para o usuário logado.')
+                                            .show()
+                                        : await OpenRegisterServidorRepository()
+                                            .openRegisterServidor(
+                                                dadosEmpresa!.id_empresa!,
+                                                dadosUsuario.id_user!,
+                                                atualDateFormatted,
+                                                hourFormatted,
+                                                openRegisterDouble);
 
-                            Get.back();
-                          } else if (openRegisterDouble == 0.00 &&
-                              !caixaExistente) {
-                            service.insertCaixa(caixas);
-                            movimentRegisterController.clearOpenRegister();
-                            informationController.searchCaixaId();
-                            Get.back();
-                          } else if (caixaExistente) {
-                            Get.snackbar(
-                              'Atenção',
-                              'Ja existe um caixa aberto para este usuário.',
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
-                              snackPosition: SnackPosition.BOTTOM,
-                            );
-                          }
-                        },
-                        child: const Text(
-                          "CONFIRMAR",
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 24),
-                        ),
-                      ),
+                                    caixa caixas = caixa()
+                                      ..id_empresa = dadosEmpresa!.id_empresa!
+                                      ..abertura_id_user = dadosUsuario.id_user!
+                                      ..abertura_data = atualDate
+                                      ..abertura_hora = hourFormatted
+                                      ..abertura_valor = openRegisterDouble
+                                      ..status = 0
+                                      ..fechou_id_user = null
+                                      ..fechou_data = null
+                                      ..fechou_hora = null
+                                      ..enviado = 0
+                                      ..id_caixa_servidor =
+                                          responseServidorController
+                                              .openRegisterId.value;
+                                    if (openRegisterDouble > 0.00) {
+                                      await service.insertCaixaWithCaixaItem(
+                                          caixas,
+                                          atualDate,
+                                          hourFormatted,
+                                          openRegisterDouble,
+                                          dadosUsuario.id_user!);
+                                      movimentRegisterController
+                                          .clearOpenRegister();
+
+                                      Get.back();
+                                    } else if (openRegisterDouble == 0.00 &&
+                                        !caixaExistente) {
+                                      service.insertCaixa(caixas);
+                                      movimentRegisterController
+                                          .clearOpenRegister();
+                                      informationController.searchCaixaId();
+                                      Get.back();
+                                    } else if (caixaExistente) {
+                                      Get.snackbar(
+                                        'Atenção',
+                                        'Ja existe um caixa aberto para este usuário.',
+                                        backgroundColor: Colors.red,
+                                        colorText: Colors.white,
+                                        snackPosition: SnackPosition.BOTTOM,
+                                      );
+                                    }
+                                  }
+                                : null,
+                            child: Text(
+                              "CONFIRMAR",
+                              style: TextStyle(
+                                  color: openRegisterController
+                                              .isButtonEnabled.value ==
+                                          false
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 24),
+                            ),
+                          )),
                     ),
                   ],
                 ),

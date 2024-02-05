@@ -92,10 +92,12 @@ class IsarService {
     final ipEmpresa = await isar.dado_empresas.where().findFirst();
 
     if (ipEmpresa == null) {
+      const CustomSnackBar(message: 'Nenhum registro encontrado no servidor.');
+      logger.e('Nenhum registro encontrado na tabela "dado_empresas".');
       throw Exception("Nenhum registro encontrado na tabela 'dado_empresa'.");
+    } else {
+      return ipEmpresa;
     }
-
-    return ipEmpresa;
   }
 
   //inserindo dados na tabela empresa vindos do servidor

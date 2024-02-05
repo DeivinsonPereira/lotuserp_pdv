@@ -13,9 +13,11 @@ class LegendInformationsNfce extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          LegendWidgetNfce(data: '', size: 10),
+          LegendWidgetNfce(data: 'Id Venda', size: 100.0),
           LegendWidgetNfce(data: 'Hora Venda', size: 150.0),
           LegendWidgetNfce(data: 'Valor', size: 75.0),
-          LegendWidgetNfce(data: 'Impressão', size: 100.0),
+          /*LegendWidgetNfce(data: 'Impressão', size: 100.0),*/
         ],
       ),
     );

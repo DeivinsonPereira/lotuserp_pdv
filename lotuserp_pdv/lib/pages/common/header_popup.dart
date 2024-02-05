@@ -12,12 +12,14 @@ class HeaderPopup extends StatelessWidget {
   final IconData icon;
   bool? isCpfCnpj;
   bool? isPesagem;
+  bool? nfce;
 
   HeaderPopup(
       {Key? key,
       required this.text,
       required this.icon,
       this.isCpfCnpj,
+      this.nfce = false,
       this.isPesagem = false})
       : super(key: key);
 
@@ -50,9 +52,9 @@ class HeaderPopup extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 8.0),
                 child: Text(
                   text,
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Colors.white,
-                      fontSize: 28,
+                      fontSize: nfce == false ? 28 : 20,
                       fontWeight: FontWeight.bold),
                 ),
               ),

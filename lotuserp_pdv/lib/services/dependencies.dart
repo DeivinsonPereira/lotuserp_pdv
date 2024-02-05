@@ -17,7 +17,9 @@ import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 import '../controllers/balanca_prix_controller.dart';
+import '../controllers/open_register_controller.dart';
 import '../controllers/response_servidor_controller.dart';
+import '../pages/second_copy/component/checkbox_controller.dart';
 
 abstract class Dependencies {
   static SideBarController sidebarController() {
@@ -161,6 +163,22 @@ abstract class Dependencies {
       return Get.find<ResponseServidorController>();
     } else {
       return Get.put(ResponseServidorController());
+    }
+  }
+
+  static CheckboxController checkboxController() {
+    if (Get.isRegistered<CheckboxController>()) {
+      return Get.find<CheckboxController>();
+    } else {
+      return Get.put(CheckboxController());
+    }
+  }
+
+  static OpenRegisterController openRegisterController() {
+    if (Get.isRegistered<OpenRegisterController>()) {
+      return Get.find<OpenRegisterController>();
+    } else {
+      return Get.put(OpenRegisterController());
     }
   }
 }
