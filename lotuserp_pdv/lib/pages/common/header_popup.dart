@@ -28,8 +28,10 @@ class HeaderPopup extends StatelessWidget {
     var size = MediaQuery.of(context).size;
 
     PdvController pdvController = Dependencies.pdvController();
-    BalancaPrix3FitController balancaController =
-        Dependencies.balancaController();
+    late BalancaPrix3FitController balancaController;
+    isPesagem == true
+        ? balancaController = Dependencies.balancaController()
+        : null;
 
     return Container(
       padding: const EdgeInsets.only(left: 10, right: 10),

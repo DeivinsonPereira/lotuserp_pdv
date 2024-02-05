@@ -13,9 +13,13 @@ class InformationController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    searchUserId();
-    searchEmpresaId();
-    searchCaixaId();
+    getInformations();
+  }
+
+  Future<void> getInformations() async {
+    await searchUserId();
+    await searchCaixaId();
+    await searchEmpresaId();
   }
 
   Future<int?> searchCaixaId() async {
@@ -24,11 +28,14 @@ class InformationController extends GetxController {
 
       if (caixa != null) {
         caixaId.value = caixa;
+        update();
         return caixa;
       } else {
+        update();
         return 0;
       }
     } catch (e) {
+      update();
       return 0;
     }
   }
@@ -37,6 +44,7 @@ class InformationController extends GetxController {
     var user = await service.getUserLogged();
 
     if (user != null) {
+      update();
       return user.id_user!;
     } else {
       return 0;

@@ -17,6 +17,7 @@ import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
+import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
@@ -1368,6 +1369,21 @@ class IsarService {
     }
   }
 
+  Future<nfce_resultado?> getDadosNfceByIdVendaServidor(
+      int idVendaServidor) async {
+    final isar = await db;
+    try {
+      var nfce = await isar.nfce_resultados
+          .filter()
+          .id_vendaEqualTo(idVendaServidor)
+          .findFirst();
+      return nfce;
+    } catch (e) {
+      logger.e("Erro ao buscar nfce: $e");
+      return null;
+    }
+  }
+
   Future<List<venda?>> getVendas() async {
     final isar = await db;
 
@@ -1377,6 +1393,20 @@ class IsarService {
       return vendasDb;
     } else {
       return [];
+    }
+  }
+
+  Future<venda?> getVendaById(int id) async {
+    final isar = await db;
+
+    var vendasDb = await isar.vendas.where().id_vendaEqualTo(id).findFirst();
+
+    if (vendasDb != null) {
+      return vendasDb;
+    } else {
+      const CustomSnackBar(message: 'Nenhuma venda encontrada').show();
+      logger.e('Nenhuma venda encontrada');
+      throw Exception('Nenhuma venda encontrada');
     }
   }
 

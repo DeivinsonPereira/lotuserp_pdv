@@ -41,7 +41,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var controller = Dependencies.pdvController();
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
-
     var responseServidorController = Dependencies.responseServidorController();
 
     IsarService service = IsarService();
