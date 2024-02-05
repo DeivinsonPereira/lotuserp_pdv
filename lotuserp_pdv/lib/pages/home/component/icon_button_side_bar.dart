@@ -47,52 +47,51 @@ class IconButtonSideBar extends StatelessWidget {
     InformationController informationController =
         Dependencies.informationController();
 
-    return InkWell(
-      onTap: () async {
-        await informationController.searchCaixaId();
-        var dadosUsuario = await service.getUserLogged();
-        bool caixaExistente =
-            await service.checkUserCaixa(dadosUsuario!.id_user!);
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(45, 252, 252, 252),
+        border: Border.all(width: 1, color: Colors.white),
+      ),
+      child: InkWell(
+        onTap: () async {
+          await informationController.searchCaixaId();
+          var dadosUsuario = await service.getUserLogged();
+          bool caixaExistente =
+              await service.checkUserCaixa(dadosUsuario!.id_user!);
 
-        if (isAbrirCaixa == true) {
-          caixaExistente
-              ? const CustomSnackBar(
+          if (isAbrirCaixa == true) {
+            caixaExistente
+                ? const CustomSnackBar(
+                        message:
+                            'Já existe um caixa aberto para o usuário logado.')
+                    .show()
+                : Get.dialog(const OpenRegisterPage());
+          } else if (isMovimentarCaixa == true ||
+              isPdv == true ||
+              isFecharCaixa == true) {
+            if (!caixaExistente) {
+              const CustomSnackBar(
                       message:
-                          'Já existe um caixa aberto para o usuário logado.')
-                  .show()
-              : Get.dialog(const OpenRegisterPage());
-        } else if (isMovimentarCaixa == true ||
-            isPdv == true ||
-            isFecharCaixa == true ||
-            isSegundaVia == true ||
-            isNfceSegundaVia == true) {
-          if (!caixaExistente) {
-            const CustomSnackBar(
-                    message:
-                        'Não existe um caixa aberto para o usuário logado.')
-                .show();
-          } else {
-            if (isMovimentarCaixa == true) {
-              Get.dialog(const MovimentCashPage());
-            } else if (isPdv == true) {
-              Get.offAndToNamed(PagesRoutes.pdvMonitor);
-            } else if (isFecharCaixa == true) {
-              Get.dialog(const CloseRegisterPage());
-            } else if (isSegundaVia == true) {
-              Get.dialog(const SecondCopyPage());
-            } else if (isNfceSegundaVia == true) {
-              Get.dialog(const NfceSecondCopyPage());
+                          'Não existe um caixa aberto para o usuário logado.')
+                  .show();
+            } else {
+              if (isMovimentarCaixa == true) {
+                Get.dialog(const MovimentCashPage());
+              } else if (isPdv == true) {
+                Get.offAndToNamed(PagesRoutes.pdvMonitor);
+              } else if (isFecharCaixa == true) {
+                Get.dialog(const CloseRegisterPage());
+              }
             }
+          } else if (isLoadData == true) {
+            Get.dialog(const LoadDataPage());
+          } else {
+            Get.offAndToNamed(navigationIcon!);
           }
-        } else if (isLoadData == true) {
-          Get.dialog(const LoadDataPage());
-        } else {
-          Get.offAndToNamed(navigationIcon!);
-        }
-      },
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15.0, top: 10.0, bottom: 10.0),
-        child: Row(
+        },
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
               icon,
@@ -106,8 +105,9 @@ class IconButtonSideBar extends StatelessWidget {
               text,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 15,
+                fontSize: 13,
               ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),

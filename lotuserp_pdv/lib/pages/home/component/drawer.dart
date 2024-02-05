@@ -52,11 +52,7 @@ class DrawerWidget extends StatelessWidget {
                 Text(
                   'PDV System',
                   style: TextStyle(
-                      color: CustomColors.customContrastColor, fontSize: 30),
-                ),
-                const Text(
-                  'Versão',
-                  style: TextStyle(color: Colors.white),
+                      color: CustomColors.customContrastColor, fontSize: 26),
                 ),
                 const Text(
                   '2.0.22',
@@ -64,17 +60,30 @@ class DrawerWidget extends StatelessWidget {
                 ),
                 Text(
                   sideBarController.hours.value,
-                  style: const TextStyle(color: Colors.white, fontSize: 40.0),
+                  style: const TextStyle(
+                      color: Colors.white, fontSize: 40.0, height: 1.0),
                 ),
-                Obx(() => Text(
-                      sideBarController.dateNowFormated.value,
-                      style:
-                          const TextStyle(color: Colors.white, fontSize: 14.0),
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          sideBarController.dateNowFormated.value,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 14.0),
+                        ),
+                        const Text(
+                          ' - ',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          userName,
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 16),
+                        ),
+                      ],
                     )),
-                Text(
-                  userName,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
               ],
             ),
           ),
@@ -84,28 +93,39 @@ class DrawerWidget extends StatelessWidget {
 
     //Botoes do Drawer
     Widget buttonsDrawer() {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          
-          /*for (var i = 0; i < IconButtonList.iconButtonlist.length; i++) ...{
-            IconButtonSideBar(
-              icon: IconButtonList.iconButtonlist[i]['icon'],
-              navigationIcon: IconButtonList.iconButtonlist[i]
-                  ['navigationIcon'],
-              text: IconButtonList.iconButtonlist[i]['text'],
-              isLoadData: IconButtonList.iconButtonlist[i]['loadData'],
-              isAbrirCaixa: IconButtonList.iconButtonlist[i]['abrirCaixa'],
-              isMovimentarCaixa: IconButtonList.iconButtonlist[i]
-                  ['movimentarCaixa'],
-              isPdv: IconButtonList.iconButtonlist[i]['pdv'],
-              isFecharCaixa: IconButtonList.iconButtonlist[i]['fecharCaixa'],
-              isSegundaVia: IconButtonList.iconButtonlist[i]['isSegundaVia'],
-              isNfceSegundaVia: IconButtonList.iconButtonlist[i]
-                  ['isNfceSegundaVia'],
-            )
-          }*/
-        ],
+      return Padding(
+        padding: const EdgeInsets.only(top: 25.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: 300,
+              width: 250,
+              child: GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3),
+                itemCount: IconButtonList.iconButtonlist.length,
+                itemBuilder: (context, index) {
+                  return IconButtonSideBar(
+                    icon: IconButtonList.iconButtonlist[index]['icon'],
+                    navigationIcon: IconButtonList.iconButtonlist[index]
+                        ['navigationIcon'],
+                    text: IconButtonList.iconButtonlist[index]['text'],
+                    isLoadData: IconButtonList.iconButtonlist[index]
+                        ['loadData'],
+                    isAbrirCaixa: IconButtonList.iconButtonlist[index]
+                        ['abrirCaixa'],
+                    isMovimentarCaixa: IconButtonList.iconButtonlist[index]
+                        ['movimentarCaixa'],
+                    isPdv: IconButtonList.iconButtonlist[index]['pdv'],
+                    isFecharCaixa: IconButtonList.iconButtonlist[index]
+                        ['fecharCaixa'],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       );
     }
 
@@ -114,22 +134,37 @@ class DrawerWidget extends StatelessWidget {
       return Expanded(
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            InkWell(
-              onTap: () {
-                Get.dialog(const LogoutPage());
-              },
-              child: const Padding(
-                padding: EdgeInsets.only(left: 15.0, bottom: 15),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.logout_outlined,
-                      color: Colors.white,
-                    ),
-                    Text('Sair Sistema', style: TextStyle(color: Colors.white)),
-                  ],
+            Padding(
+              padding: const EdgeInsets.only(right: 0.1),
+              child: Container(
+                padding: const EdgeInsets.all(9),
+                height: 85,
+                width: 83.33,
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(45, 252, 252, 252),
+                  border: Border.all(width: 1, color: Colors.white),
+                ),
+                child: InkWell(
+                  onTap: () {
+                    Get.dialog(const LogoutPage());
+                  },
+                  child: const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.logout_outlined,
+                        color: Colors.white,
+                      ),
+                      Text(
+                        'Sair\nSistema',
+                        style: TextStyle(color: Colors.white),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -147,24 +182,8 @@ class DrawerWidget extends StatelessWidget {
           logoImageHeaderDrawer(),
           informationsDrawer(),
 
-          //linha divisoria
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0),
-            child: Divider(
-              color: Colors.white.withAlpha(300),
-            ),
-          ),
-
           //Botões do Drawer
           buttonsDrawer(),
-
-          //linha divisoria
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 5),
-            child: Divider(
-              color: Colors.white.withAlpha(300),
-            ),
-          ),
 
           // Sair do Sistema (Logout)
           sairSistema(),

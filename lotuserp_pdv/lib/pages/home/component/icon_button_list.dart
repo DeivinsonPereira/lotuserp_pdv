@@ -7,43 +7,33 @@ abstract class IconButtonList {
   static List<Map<String, dynamic>> iconButtonlist = [
     {
       'icon': FontAwesomeIcons.handHoldingDollar,
-      'text': 'Abrir caixa',
+      'text': 'Abrir\nCaixa',
       'abrirCaixa': true
     },
     {
       'icon': FontAwesomeIcons.moneyBillTransfer,
-      'text': 'Movimentar caixa',
+      'text': 'Movimentar\ncaixa',
       'movimentarCaixa': true
     },
     {
       'icon': FontAwesomeIcons.cashRegister,
-      'text': 'Fechar caixa',
+      'text': 'Fechar\ncaixa',
       'fecharCaixa': true
     },
     {
       'icon': FontAwesomeIcons.bottleWater,
       'navigationIcon': PagesRoutes.products,
-      'text': 'Produtos',
+      'text': 'Pesquisar\nProdutos',
     },
     {
       'icon': FontAwesomeIcons.moneyBill1Wave,
-      'text': 'PDV',
+      'text': 'Entrar\nPDV',
       'pdv': true,
     },
     {
       'icon': FontAwesomeIcons.download,
-      'text': 'Carga de dados',
+      'text': 'Carga de\ndados',
       'loadData': true
     },
-    {
-      'icon': Icons.print,
-      'text': '2ª Via Cartão',
-      'isSegundaVia': true,
-    },
-    {
-      'icon': FontAwesomeIcons.receipt,
-      'text': '2ª Via NFCe',
-      'isNfceSegundaVia': true,
-    }
   ];
 }
