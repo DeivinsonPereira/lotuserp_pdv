@@ -17,7 +17,6 @@ import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
-import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
@@ -31,7 +30,6 @@ import 'package:logger/logger.dart';
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
 import '../collections/nfce_resultado.dart';
-import '../controllers/config_controller.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../controllers/text_field_controller.dart';
 import '../core/app_routes.dart';
@@ -689,7 +687,7 @@ class IsarService {
 
       await isar.caixa_items.put(caixaItem);
     });
-    /*await printerController.printOpenRegister(caixaItem);*/
+    await printerController.printOpenRegister(caixaItem);
     return isar;
   }
 

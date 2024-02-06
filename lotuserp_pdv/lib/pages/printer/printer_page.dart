@@ -72,8 +72,10 @@ class PrinterPage extends StatelessWidget {
                               child: const Padding(
                                 padding: EdgeInsets.symmetric(
                                     vertical: 2, horizontal: 20),
-                                child:
-                                    Text("Rescan", textAlign: TextAlign.center,),
+                                child: Text(
+                                  "Rescan",
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ],
@@ -81,33 +83,36 @@ class PrinterPage extends StatelessWidget {
                       ),
                       controller.isScanning.value
                           ? const CircularProgressIndicator()
-                          : Column(
-                              children: controller.devices
-                                  .map(
-                                    (device) => SizedBox(
-                                      width: size.width * 0.3,
-                                      child: ListTile(
-                                        leading: controller.isConnected.value &&
-                                                controller.selectedPrinter
-                                                        ?.name ==
-                                                    device.name
-                                            ? const Icon(
-                                                Icons.check,
-                                                color: Colors.green,
-                                              )
-                                            : const SizedBox(
-                                                width: 0,
-                                                height: 0,
-                                              ),
-                                        title: Text(device.name),
-                                        subtitle: Text(device.address),
-                                        onTap: () {
-                                          // do something
-                                          controller.selectDevice(device);
-                                        },
-                                        trailing: OutlinedButton(
-                                          onPressed:
-                                              controller.selectedPrinter ==
+                          : Expanded(
+                              child: Column(
+                                  children: controller.devices
+                                      .map(
+                                        (device) => SizedBox(
+                                          width: size.width * 0.3,
+                                          child: ListTile(
+                                            leading:
+                                                controller.isConnected.value &&
+                                                        controller
+                                                                .selectedPrinter
+                                                                ?.name ==
+                                                            device.name
+                                                    ? const Icon(
+                                                        Icons.check,
+                                                        color: Colors.green,
+                                                      )
+                                                    : const SizedBox(
+                                                        width: 0,
+                                                        height: 0,
+                                                      ),
+                                            title: Text(device.name),
+                                            subtitle: Text(device.address),
+                                            onTap: () {
+                                              // do something
+                                              controller.selectDevice(device);
+                                            },
+                                            trailing: OutlinedButton(
+                                              onPressed: controller
+                                                              .selectedPrinter ==
                                                           null ||
                                                       device.name !=
                                                           controller
@@ -117,17 +122,28 @@ class PrinterPage extends StatelessWidget {
                                                   : () async {
                                                       controller.print2X1Test();
                                                     },
-                                          child: const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 2, horizontal: 20),
-                                            child: Text("Print test",
-                                                textAlign: TextAlign.center),
+                                              child: const Padding(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 2,
+                                                    horizontal: 20),
+                                                child: Text("Print test",
+                                                    textAlign:
+                                                        TextAlign.center),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ),
-                                  )
-                                  .toList()),
+                                      )
+                                      .toList()),
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 25.0, bottom: 75.0),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              controller.print2X1Test();
+                            },
+                            child: const Text('Teste impressora 58mm'),),
+                      )
                     ]),
                   ),
                 )),

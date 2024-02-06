@@ -1,14 +1,13 @@
 import 'package:get/get.dart';
 
 class CheckboxController extends GetxController {
-  var selectedItem = (-1).obs; // Armazena o índice do item selecionado
+  var selectedItem = (-1).obs; 
 
   void toggleItem(int index) {
     if (selectedItem.value == index) {
-      // Se o item já está selecionado, desselecione-o
       selectedItem.value = -1;
+      
     } else {
-      // Se o item não está selecionado, selecione-o
       selectedItem.value = index;
     }
     update();

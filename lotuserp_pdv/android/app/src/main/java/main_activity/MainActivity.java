@@ -8,6 +8,8 @@ import java.io.OutputStream;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.List;
+import java.util.ArrayList;
 import android.app.PendingIntent;
 import android.content.Intent;
 
@@ -59,7 +61,22 @@ public class MainActivity extends FlutterActivity {
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private DarumaMobile dmf;
+    private DarumaMobile dfmD2s;
     private String strXML;
+
+    private String centro; 
+    private String deslCentro; 
+    private String direita; 
+    private String deslDireita; 
+    private String extra; 
+    private String deslExtra; 
+    private String negrito; 
+    private String deslNegrito; 
+    private String invetImp; 
+    private String desligInvert;
+    private String corte;
+    private String desligCorte;
+    
     
 
     private static final int STORAGE_PERMISSION_CODE = 101;
@@ -78,9 +95,28 @@ public class MainActivity extends FlutterActivity {
             }
         }
     }
+
+   
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+    centro = "" + ((char) 0x1B) + ((char) 0x61) + ((char) 0x31);
+    deslCentro  = "" + ((char) 0x1B) + ((char) 0x61) + ((char) 0x30);
+    direita  = "" + ((char) 0x1B) + ((char) 0x61) + ((char) 0x32);
+    deslDireita  = "" + ((char) 0x1B) + ((char) 0x61) + ((char) 0x30);
+    extra  = "" + ((char) 0x1B) + ((char) 0x21) + ((char) 0x16);
+    deslExtra  = "" + ((char) 0x1B) + ((char) 0x21) + ((char) 0x00);
+    negrito  = "" + ((char) 0x1B) + ((char) 0x45) + ((char) 0x31);
+    deslNegrito  = "" + ((char) 0x1B) + ((char) 0x45) + ((char) 0x30);
+
+    invetImp  = ""+((char) 0x1D) + ((char) 0x42) + ((char) 0x31);
+    desligInvert = ""+ ((char) 0x1D) + ((char) 0x42) + ((char) 0x30);
+
+    corte = ""+((char) 0x1D) + ((char) 0x56) + ((char) 0x31);
+    desligCorte = ""+ ((char) 0x1D) + ((char) 0x56) + ((char) 0x30);
+
+            
         super.onCreate(savedInstanceState);
         if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
@@ -98,6 +134,7 @@ public class MainActivity extends FlutterActivity {
             copiarImagemParaArmazenamentoInterno();
 
             dmf = DarumaMobile.inicializar(MainActivity.this, "@FRAMEWORK(TRATAEXCECAO=TRUE;LOGMEMORIA=25;TIMEOUTWS=10000;);@DISPOSITIVO(NAME=D2S)");
+            dfmD2s = DarumaMobile.inicializar(MainActivity.this, "@FRAMEWORK(TRATAEXCECAO=TRUE;TIMEOUTWS=10000;);@BLUETOOTH(NAME=InnerPrinter;ATTEMPTS=10;TIMEOUT=10000)");
 
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Não tem permissões: " + e.getMessage(), Toast.LENGTH_LONG).show();
@@ -144,13 +181,138 @@ public class MainActivity extends FlutterActivity {
                                     String tamanhoImpressora = call.argument("tamanhoImpressora");
                                     imprimirNFCE(strXML, tamanhoImpressora);
                                     result.success(null);
-                                }
+                                } else if (call.method.equals("imprimirTeste")){
+                                    String texto = call.argument("texto");
+                                    imprimirTeste(texto);
+                                    result.success(null);
+                                }else if (call.method.equals("imprimirOpenRegister")){
+                                    String texto1 = call.argument("texto1");
+                                    String texto2 = call.argument("texto2");
+                                    String texto3 = call.argument("texto3");
+                                    String texto4 = call.argument("texto4");
+                                    String texto5 = call.argument("texto5");
+                                    String texto6 = call.argument("texto6");
+                                    String texto7 = call.argument("texto7");
+                                    String texto8 = call.argument("texto8");
+                                    String texto9 = call.argument("texto9");
+                                    imprimirOpenRegister(texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9);
+                                    result.success(null);
+                                }    
+                                else if (call.method.equals("imprimirMovimentRegister")){
+                                    String texto1 = call.argument("texto1");
+                                    String texto2 = call.argument("texto2");
+                                    String texto3 = call.argument("texto3");
+                                    String texto4 = call.argument("texto4");
+                                    String texto5 = call.argument("texto5");
+                                    String texto6 = call.argument("texto6");
+                                    String texto7 = call.argument("texto7");
+                                    String texto8 = call.argument("texto8");
+                                    String texto9 = call.argument("texto9");
+                                    imprimirMovimentRegister(texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9);
+                                    result.success(null);
+                                }   
+                                else if (call.method.equals("imprimirCloseRegister")){
+                                    String texto1 = call.argument("texto1");
+                                    String texto2 = call.argument("texto2");
+                                    String texto3 = call.argument("texto3");
+                                    String texto4 = call.argument("texto4");
+                                    String texto5 = call.argument("texto5");
+                                    String texto6 = call.argument("texto6");
+                                    String texto7 = call.argument("texto7");
+                                    String texto8 = call.argument("texto8");
+                                    String texto9 = call.argument("texto9");
+                                    String texto10 = call.argument("texto10");
+                                    String texto11 = call.argument("texto11");
+                                    List<String> texto12 = call.argument("texto12");
+                                    String texto14 = call.argument("texto14");
+                                    String texto15 = call.argument("texto15");
+                                    String texto17 = call.argument("texto17");
+                                    String texto18 = call.argument("texto18");
+                                    imprimirCloseRegister(texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9, texto10, texto11, texto12, texto14, texto15, texto17, texto18);
+                                    result.success(null);
+                                }   
                             } catch (Exception e) {
                                 Log.e("MethodChannel", "Erro no método: " + call.method, e);
                                 result.error("ERROR", "Erro no método: " + call.method, e.getMessage());
                             }
                         });
     }
+
+    private void imprimirTeste(String texto) {
+        try{
+            dfmD2s.enviarComando(texto);
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+    
+    private void imprimirOpenRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9) {
+        try{
+            String texto = negrito + extra + texto1 + deslNegrito + deslExtra; 
+            texto += texto2;
+            texto += negrito + extra + texto3 + deslNegrito + deslExtra;
+            texto += texto4;
+            texto += negrito + texto5 + deslNegrito;
+            texto += deslCentro + texto6;
+            texto += negrito + texto7 + deslNegrito;
+            texto += texto8;
+            texto += negrito + texto9 + deslNegrito;            
+            dfmD2s.enviarComando(texto);
+            
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void imprimirMovimentRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9) {
+        try{
+            String texto = negrito + extra + texto1 + deslNegrito + deslExtra; 
+            texto += texto2;
+            texto += negrito + extra + texto3 + deslNegrito + deslExtra;
+            texto += texto4;
+            texto += negrito + texto5 + deslNegrito;
+            texto += deslCentro + texto6;
+            texto += negrito + texto7 + deslNegrito;
+            texto += texto8;
+            texto += negrito + texto9 + deslNegrito;            
+            dfmD2s.enviarComando(texto);
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void imprimirCloseRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9, String texto10, String texto11, List<String> texto12, String texto14, String texto15, String texto17, String texto18) {
+        try{
+            String texto = centro + negrito + extra + texto1 + deslNegrito + deslExtra; 
+            texto += texto2;
+            texto += negrito + extra + texto3 + deslNegrito + deslExtra;
+            texto += texto4;
+            texto += deslCentro + negrito + texto5 + deslNegrito;
+            texto += negrito + texto6 + deslNegrito;
+            texto += texto7;
+            texto += texto8;
+            texto += negrito + texto9 + deslNegrito;
+            texto += negrito + texto10 ;
+            texto += texto11 + deslNegrito;
+            //
+            for(int i = 0; i < texto12.size(); i++){
+                texto += texto12.get(i);
+            }
+            //
+            texto += negrito + texto14 + deslNegrito;
+            texto += texto15;
+            texto += negrito + texto17 + deslNegrito;
+            texto += texto18;
+            texto += corte + desligCorte;
+
+
+            dfmD2s.enviarComando(texto);
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
 
     private void imprimirNFCE(String xml, String tamanhoImpressora ){
         try {
