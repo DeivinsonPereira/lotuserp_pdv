@@ -126,7 +126,13 @@ class NfceSecondCopyPage extends StatelessWidget {
                             data.id_venda_servidor);
 
                         if (nfce != null) {
-                          PrintNfceXml().printNfceXml(xmlArgs: nfce.xml);
+                          var configController =
+                              Dependencies.configcontroller();
+                          var tamanhoImpressora =
+                              configController.tamanhoImpressora.value;
+                          if (tamanhoImpressora != 'SEM IMPRESSORA') {
+                            PrintNfceXml().printNfceXml(xmlArgs: nfce.xml);
+                          }
                         } else {
                           logger.e('Nfce não encontrada');
                         }

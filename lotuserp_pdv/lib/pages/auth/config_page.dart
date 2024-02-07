@@ -144,7 +144,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   options: ListDropdownOption.listOptionsSizePrinter,
                   value: _.tamanhoImpressora.value != ''
                       ? _.tamanhoImpressora.value
-                      : '80mm',
+                      : 'SEM IMPRESSORA',
                   text: 'Tamanho da Impressora',
                   isSizePrinter: true,
                 ),

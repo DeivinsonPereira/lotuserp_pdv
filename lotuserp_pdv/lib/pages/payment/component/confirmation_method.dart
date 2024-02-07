@@ -8,7 +8,7 @@ import '../../../controllers/printer_controller.dart';
 import '../../../controllers/side_bar_controller.dart';
 import '../../../services/dependencies.dart';
 import '../../../shared/isar_service.dart';
-import '../../qr_code/cpf_cnpj_page.dart';
+import '../../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../../qr_code/qr_code_page.dart';
 
 class ConfirmationMethod {

@@ -141,7 +141,7 @@ class DrawerWidget extends StatelessWidget {
               child: Container(
                 padding: const EdgeInsets.all(9),
                 height: 85,
-                width: 83.33,
+                width: 249,
                 decoration: BoxDecoration(
                   color: const Color.fromARGB(45, 252, 252, 252),
                   border: Border.all(width: 1, color: Colors.white),
@@ -159,7 +159,7 @@ class DrawerWidget extends StatelessWidget {
                         color: Colors.white,
                       ),
                       Text(
-                        'Sair\nSistema',
+                        'Sair Sistema',
                         style: TextStyle(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),

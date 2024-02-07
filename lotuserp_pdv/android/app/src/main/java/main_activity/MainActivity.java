@@ -224,11 +224,13 @@ public class MainActivity extends FlutterActivity {
                                     String texto10 = call.argument("texto10");
                                     String texto11 = call.argument("texto11");
                                     List<String> texto12 = call.argument("texto12");
+                                    List<String> texto13 = call.argument("texto13");
                                     String texto14 = call.argument("texto14");
                                     String texto15 = call.argument("texto15");
+                                    String texto16 = call.argument("texto16");
                                     String texto17 = call.argument("texto17");
                                     String texto18 = call.argument("texto18");
-                                    imprimirCloseRegister(texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9, texto10, texto11, texto12, texto14, texto15, texto17, texto18);
+                                    imprimirCloseRegister(texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9, texto10, texto11, texto12, texto13, texto14, texto15, texto16, texto17, texto18);
                                     result.success(null);
                                 }   
                             } catch (Exception e) {
@@ -248,10 +250,10 @@ public class MainActivity extends FlutterActivity {
     
     private void imprimirOpenRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9) {
         try{
-            String texto = negrito + extra + texto1 + deslNegrito + deslExtra; 
+            String texto = centro + negrito + extra + texto1 + deslNegrito + deslExtra; 
             texto += texto2;
             texto += negrito + extra + texto3 + deslNegrito + deslExtra;
-            texto += texto4;
+            texto += texto4 + deslCentro;
             texto += negrito + texto5 + deslNegrito;
             texto += deslCentro + texto6;
             texto += negrito + texto7 + deslNegrito;
@@ -260,16 +262,16 @@ public class MainActivity extends FlutterActivity {
             dfmD2s.enviarComando(texto);
             
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("MethodChannel", "Erro na impressão: " + e.getMessage(), e);
         }
     }
 
     private void imprimirMovimentRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9) {
         try{
-            String texto = negrito + extra + texto1 + deslNegrito + deslExtra; 
+            String texto = centro + negrito + extra + texto1 + deslNegrito + deslExtra; 
             texto += texto2;
             texto += negrito + extra + texto3 + deslNegrito + deslExtra;
-            texto += texto4;
+            texto += texto4 + deslCentro;
             texto += negrito + texto5 + deslNegrito;
             texto += deslCentro + texto6;
             texto += negrito + texto7 + deslNegrito;
@@ -277,11 +279,11 @@ public class MainActivity extends FlutterActivity {
             texto += negrito + texto9 + deslNegrito;            
             dfmD2s.enviarComando(texto);
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("MethodChannel", "Erro na impressão: " + e.getMessage(), e);
         }
     }
 
-    private void imprimirCloseRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9, String texto10, String texto11, List<String> texto12, String texto14, String texto15, String texto17, String texto18) {
+    private void imprimirCloseRegister(String texto1, String texto2, String texto3, String texto4, String texto5, String texto6, String texto7, String texto8, String texto9, String texto10, String texto11, List<String> texto12, List<String> texto13, String texto14, String texto15, String texto16, String texto17, String texto18) {
         try{
             String texto = centro + negrito + extra + texto1 + deslNegrito + deslExtra; 
             texto += texto2;
@@ -297,10 +299,12 @@ public class MainActivity extends FlutterActivity {
             //
             for(int i = 0; i < texto12.size(); i++){
                 texto += texto12.get(i);
+                texto += direita + texto13.get(i) + deslDireita;
             }
             //
             texto += negrito + texto14 + deslNegrito;
             texto += texto15;
+            texto += direita + texto16 + deslDireita;
             texto += negrito + texto17 + deslNegrito;
             texto += texto18;
             texto += corte + desligCorte;
@@ -308,11 +312,9 @@ public class MainActivity extends FlutterActivity {
 
             dfmD2s.enviarComando(texto);
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("MethodChannel", "Erro na impressão: " + e.getMessage(), e);
         }
     }
-
-
 
     private void imprimirNFCE(String xml, String tamanhoImpressora ){
         try {
@@ -322,7 +324,6 @@ public class MainActivity extends FlutterActivity {
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void copiarImagemParaArmazenamentoInterno() {

@@ -17,7 +17,7 @@ import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/dependencies.dart';
 import '../product/product_monitor_page.dart';
-import '../qr_code/cpf_cnpj_page.dart';
+import '../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../second_copy/nfce_second_copy_page.dart';
 
 class PdvMonitorPage extends StatefulWidget {

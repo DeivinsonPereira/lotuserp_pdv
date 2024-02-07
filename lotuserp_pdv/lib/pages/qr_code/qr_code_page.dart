@@ -59,10 +59,16 @@ class QrCodePage extends StatelessWidget {
                     child: TextButton(
                       onPressed: () async {
                         if (_.xml.value != '' && _.xml.value.isNotEmpty) {
-                          await PrintNfceXml().printNfceXml();
-                          Get.back();
-                          searchProductPdvController.clearSearch();
-                          responseServidorController.limparCpfCnpj();
+                          var configController =
+                              Dependencies.configcontroller();
+                          String tamanhoImpressora =
+                              configController.tamanhoImpressora.value;
+                          if (tamanhoImpressora != 'SEM IMPRESSORA') {
+                            await PrintNfceXml().printNfceXml();
+                            Get.back();
+                            searchProductPdvController.clearSearch();
+                            responseServidorController.limparCpfCnpj();
+                          }
                         }
                       },
                       child: Text(

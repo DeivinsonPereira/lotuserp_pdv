@@ -51,7 +51,7 @@ class PrinterController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     await scan();
-    setPrinterSize();
+    printerSize = configController.tamanhoImpressora.value;
 
     subscriptionBtStatus = bluetoothManager.connectState.listen((status) {
       currentStatus = status;
@@ -693,35 +693,25 @@ class PrinterController extends GetxController {
       //
       //
       List<String> text12 = [''];
-
+      List<String> text13 = [''];
       for (var i = 0; i < fechamento.length; i++) {
-        var informado = formatoBrasileiro.format(fechamento[i].valor_informado);
-
-        int numeroCaracteres1 = 15 - tipoPagto[i].toString().length;
-        int numeroCaracteres2 = 15 - informado.length;
-        text12.add(tipoPagto[i] +
-            ''.padRight(numeroCaracteres1) +
-            ''.padLeft(numeroCaracteres2) +
-            formatoBrasileiro.format(fechamento[i].valor_informado) +
-            '\n');
+        text12.add(tipoPagto[i] + '\n');
+        text13.add(
+            '${formatoBrasileiro.format(fechamento[i].valor_informado)}\n');
       }
 
       String text14 = '\n_______________________________\n'; // negrito
 
-      int totInformado = 15 - formatoBrasileiro.format(totalInformado).length;
-
-      String text15 = totalGrupo +
-          ''.padRight(numeroCaracteresTotGrupo) +
-          ''.padLeft(totInformado) +
-          formatoBrasileiro.format(totalInformado);
+      String text15 = 'Total Informado:\n';
+      String text16 = '               ${formatoBrasileiro.format(totalInformado)}';
 
       String text17 = '\n_______________________________\n\n\n'; // negrito
       text17 += 'FECHAMENTO\n';
 
       String text18 = 'Data:\n';
       text18 += 'CONFERIDO EM: ___/___/______/\n\n\n';
-      text18 += 'CONFERENTE: _________________\n\n';
-      /*
+      text18 += 'CONFERENTE: _________________\n\n\n\n\n\n';
+
       PrintNormalStrings().imprimirCloseRegister(
           text1,
           text2,
@@ -735,15 +725,17 @@ class PrinterController extends GetxController {
           text10,
           text11,
           text12,
+          text13,
           text14,
           text15,
+          text16,
           text17,
           text18);
-    }*/
-
-      print(
-          '$text1, $text2, $text3, $text4, $text5, $text6, $text7, $text8, $text9, $text10, $text11, $text12, $text14, $text15, $text17, $text18');
     }
+
+    /*print(
+          '$text1, $text2, $text3, $text4, $text5, $text6, $text7, $text8, $text9, $text10, $text11, $text12, $text14, $text15, $text17, $text18');
+    }*/
   }
 
   //Faz a impressão (espelho) da venda

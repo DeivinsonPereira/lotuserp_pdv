@@ -93,8 +93,10 @@ class PrintNormalStrings {
       String texto10,
       String texto11,
       List<String> texto12,
+      List<String> texto13,
       String texto14,
       String texto15,
+      String texto16,
       String texto17,
       String texto18,
       ) async {
@@ -111,8 +113,10 @@ class PrintNormalStrings {
         'texto10': texto10,
         'texto11': texto11,
         'texto12': texto12,
+        'texto13': texto13,
         'texto14': texto14,
         'texto15': texto15,
+        'texto16': texto16,
         'texto17': texto17,
         'texto18': texto18});
     } on PlatformException catch (e) {

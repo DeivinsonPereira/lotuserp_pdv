@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/caixa_fechamento.dart';
 
 import 'package:lotuserp_pdv/controllers/close_register_controller.dart';
+import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
@@ -18,6 +19,7 @@ import '../../collections/tipo_recebimento.dart';
 import '../../repositories/close_register_servidor_repository.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
+import '../printer/printer_popup.dart';
 
 class CloseRegisterPage extends StatelessWidget {
   const CloseRegisterPage({super.key});
@@ -34,6 +36,8 @@ class CloseRegisterPage extends StatelessWidget {
     PdvController pdvController = Dependencies.pdvController();
 
     GlobalController globalController = Dependencies.globalController();
+
+    Configcontroller configcontroller = Dependencies.configcontroller();
 
     // botões confirmar e voltar
     Widget backAndConfirmButtons() {
@@ -102,8 +106,23 @@ class CloseRegisterPage extends StatelessWidget {
                                 .closeRegisterServidor(atualDateFormatted,
                                     idCaixaServidor, fechamentosCaixa);
 
-                            await printerController
-                                .printCloseCaixa(fechamentosCaixa);
+                            var tamanhoImpressora =
+                                configcontroller.tamanhoImpressora.value;
+
+                            if (tamanhoImpressora != 'SEM IMPRESSORA') {
+                              var printerPopupController =
+                                  Dependencies.printerPopupController();
+                              printerPopupController.isButtonEnabled.value =
+                                  true;
+                              await Get.dialog(
+                                PrinterPopup(onPrint: () async {
+                                  printerPopupController.toggleButton();
+                                  await printerController
+                                      .printCloseCaixa(fechamentosCaixa);
+                                  Get.back();
+                                }),
+                              );
+                            }
                             await service
                                 .insertCaixaFechamento(fechamentosCaixa);
                             await service.deleteCartaoItem();

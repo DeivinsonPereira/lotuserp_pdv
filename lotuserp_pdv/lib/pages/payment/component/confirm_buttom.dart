@@ -8,7 +8,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../../collections/venda.dart';
 import '../../../controllers/pdv.controller.dart';
 import '../../../services/dependencies.dart';
-import '../../qr_code/cpf_cnpj_page.dart';
+import '../../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 
 class ConfirmButtom extends StatelessWidget {
   const ConfirmButtom({

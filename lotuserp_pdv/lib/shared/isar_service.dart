@@ -16,6 +16,7 @@ import 'package:lotuserp_pdv/collections/usuario.dart';
 import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
+import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
@@ -33,6 +34,7 @@ import '../collections/nfce_resultado.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../controllers/text_field_controller.dart';
 import '../core/app_routes.dart';
+import '../pages/printer/printer_popup.dart';
 import '../repositories/caixa_item_servidor_repository.dart';
 import '../repositories/venda_servidor_repository.dart';
 import '../services/dependencies.dart';
@@ -659,9 +661,11 @@ class IsarService {
       String hourFormatted, double openRegisterDouble, int? idUser) async {
     final isar = await db;
     PrinterController printerController = Dependencies.printerController();
+    Configcontroller configcontroller = Dependencies.configcontroller();
     ResponseServidorController responseServidorController =
         Dependencies.responseServidorController();
 
+    var tamanhoImpressora = configcontroller.tamanhoImpressora.value;
     caixa_item caixaItem = caixa_item();
 
     String atualDateFormatted = DatetimeFormatterWidget.formatDate(atualDate);
@@ -687,7 +691,17 @@ class IsarService {
 
       await isar.caixa_items.put(caixaItem);
     });
-    await printerController.printOpenRegister(caixaItem);
+    if (tamanhoImpressora != 'SEM IMPRESSORA') {
+      var printerPopupController = Dependencies.printerPopupController();
+      printerPopupController.isButtonEnabled.value = true;
+      await Get.dialog(
+        PrinterPopup(onPrint: () async {
+          printerPopupController.toggleButton();
+          await printerController.printOpenRegister(caixaItem);
+          Get.back();
+        }),
+      );
+    }
     return isar;
   }
 
@@ -898,10 +912,23 @@ class IsarService {
   Future<Isar> insertCaixaItem(caixa_item caixaItem) async {
     final isar = await db;
     var printerController = Dependencies.printerController();
+    var configController = Dependencies.configcontroller();
+    var tamanhoImpressora = configController.tamanhoImpressora.value;
 
     isar.writeTxn(() async {
       await isar.caixa_items.put(caixaItem);
-      await printerController.printMovimentationCaixa(caixaItem);
+
+      if (tamanhoImpressora != 'SEM IMPRESSORA') {
+        var printerPopupController = Dependencies.printerPopupController();
+        printerPopupController.isButtonEnabled.value = true;
+        await Get.dialog(
+          PrinterPopup(onPrint: () async {
+            printerPopupController.toggleButton();
+            await printerController.printMovimentationCaixa(caixaItem);
+            Get.back();
+          }),
+        );
+      }
     });
     return isar;
   }
@@ -1398,13 +1425,17 @@ class IsarService {
     final isar = await db;
 
     var vendasDb = await isar.vendas.where().id_vendaEqualTo(id).findFirst();
-
-    if (vendasDb != null) {
-      return vendasDb;
-    } else {
-      const CustomSnackBar(message: 'Nenhuma venda encontrada').show();
-      logger.e('Nenhuma venda encontrada');
-      throw Exception('Nenhuma venda encontrada');
+    try {
+      if (vendasDb != null) {
+        return vendasDb;
+      } else {
+        const CustomSnackBar(message: 'Nenhuma venda encontrada').show();
+        logger.e('Nenhuma venda encontrada');
+        return null;
+      }
+    } catch (e) {
+      logger.e("Erro ao buscar venda: $e");
+      return null;
     }
   }
 

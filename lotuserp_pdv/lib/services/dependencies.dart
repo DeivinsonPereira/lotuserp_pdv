@@ -19,6 +19,7 @@ import '../../controllers/text_field_controller.dart';
 import '../controllers/balanca_prix_controller.dart';
 import '../controllers/open_register_controller.dart';
 import '../controllers/response_servidor_controller.dart';
+import '../pages/printer/component/printer_popup_controller.dart';
 import '../pages/second_copy/component/checkbox_controller.dart';
 
 abstract class Dependencies {
@@ -179,6 +180,14 @@ abstract class Dependencies {
       return Get.find<OpenRegisterController>();
     } else {
       return Get.put(OpenRegisterController());
+    }
+  }
+
+  static PrinterPopupController printerPopupController() {
+    if (Get.isRegistered<PrinterPopupController>()) {
+      return Get.find<PrinterPopupController>();
+    } else {
+      return Get.put(PrinterPopupController());
     }
   }
 }
