@@ -156,7 +156,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
             Padding(
               padding: const EdgeInsets.only(left: 25.0),
               child: Container(
-                height: 610,
+                height: 700,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
@@ -614,7 +614,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
               return Row(
                 children: [
                   SizedBox(
-                    width: 765,
+                    width: Get.width * 0.585, //765,
                     height: 50,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,

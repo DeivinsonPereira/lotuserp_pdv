@@ -920,11 +920,13 @@ class IsarService {
 
       if (tamanhoImpressora != 'SEM IMPRESSORA') {
         var printerPopupController = Dependencies.printerPopupController();
+        var globalController = Dependencies.globalController();
         printerPopupController.isButtonEnabled.value = true;
         await Get.dialog(
           PrinterPopup(onPrint: () async {
             printerPopupController.toggleButton();
-            await printerController.printMovimentationCaixa(caixaItem);
+            await printerController.printMovimentationCaixa(
+                caixaItem, globalController.userId);
             Get.back();
           }),
         );

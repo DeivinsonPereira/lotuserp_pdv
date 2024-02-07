@@ -42,7 +42,7 @@ class GlobalController extends GetxController {
 
   //busca o id do usuario logado
   //busca o id do colaborador logado
-  void setIdUsuario() async {
+  Future<void> setIdUsuario() async {
     usuario_logado? user = await service.getUserLogged();
 
     userId = user?.id_user ?? 0;

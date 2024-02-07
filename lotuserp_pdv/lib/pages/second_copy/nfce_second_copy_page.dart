@@ -27,7 +27,7 @@ class NfceSecondCopyPage extends StatelessWidget {
 
     return Dialog(
       child: Container(
-        height: 500,
+        height: Get.height * 0.667, // 500,
         width: 500,
         color: Colors.white,
         child: Column(
@@ -48,7 +48,7 @@ class NfceSecondCopyPage extends StatelessWidget {
             ),
             //corpo
             SizedBox(
-              height: 300,
+              height: Get.height * 0.3995,
               child: FutureBuilder(
                   future: service.getVendas(),
                   builder: (_, snapshot) {
@@ -148,7 +148,7 @@ class NfceSecondCopyPage extends StatelessWidget {
                           border: Border.all(width: 1, color: Colors.black),
                           color: CustomColors.customSwatchColor),
                       width: 100,
-                      height: 80,
+                      height: Get.height * 0.108,
                       child: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [

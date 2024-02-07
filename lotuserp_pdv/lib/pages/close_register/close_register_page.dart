@@ -32,6 +32,7 @@ class CloseRegisterPage extends StatelessWidget {
     CloseRegisterController controller = Dependencies.closeRegisterController();
 
     PrinterController printerController = Dependencies.printerController();
+    printerController.setPrinterSize();
 
     PdvController pdvController = Dependencies.pdvController();
 
@@ -529,12 +530,14 @@ class CointainersInformation extends StatelessWidget {
           ),
         ),
         isAbertura
-            ? Text(
-                controller.dataAbertura.value,
-                style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: CustomColors.customSwatchColor),
+            ? Obx(
+                () => Text(
+                  controller.dataAbertura.value,
+                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: CustomColors.customSwatchColor),
+                ),
               )
             : isUsuario
                 ? Text(

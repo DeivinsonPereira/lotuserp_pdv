@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable, no_leading_underscores_for_local_identifiers
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../controllers/config_controller.dart';
 import '../../../services/dependencies.dart';
@@ -99,7 +100,7 @@ class CustomTextFormField extends StatelessWidget {
                 ? 156
                 : isNome == true
                     ? 317
-                    : 156,
+                    : Get.width * 0.1165,
         child: _buildTextField(),
       ),
     );

@@ -340,7 +340,7 @@ class PrinterController extends GetxController {
   }
 
   //faz impressão da movimentação do caixa
-  Future<void> printMovimentationCaixa(caixaItem) async {
+  Future<void> printMovimentationCaixa(caixa_item caixaItem, int userId) async {
     SideBarController sideBarController = Dependencies.sidebarController();
     GlobalController globalController = Dependencies.globalController();
 
@@ -360,7 +360,7 @@ class PrinterController extends GetxController {
     String registro = caixaItem.id.toString();
     var datatransacao = sideBarController.dateNowFormated.value;
     String horaTransacao = caixaItem.hora;
-    String descricao = caixaItem.descricao;
+    String descricao = caixaItem.descricao!;
 
     String valorCre = FormatNumbers.formatNumbertoString(caixaItem.valor_cre);
     String valorDeb = FormatNumbers.formatNumbertoString(caixaItem.valor_deb);
@@ -387,9 +387,8 @@ class PrinterController extends GetxController {
     if (tipoPagto != null) {
       forma = tipoPagto.descricao ?? '';
     }
-    globalController.setIdUsuario();
-    caixa? dataCaixa =
-        await service.getCaixaWithIdUser(globalController.userId);
+    await globalController.setIdUsuario();
+    caixa? dataCaixa = await service.getCaixaWithIdUser(userId);
     usuario_logado? us = await service.getUserLogged();
 
     idCaixa = await service.getCaixaIdWithIdUserAndStatus0();
@@ -494,6 +493,7 @@ class PrinterController extends GetxController {
   //Faz a impressão do fechamento do caixa
   Future<void> printCloseCaixa(List<caixa_fechamento> fechamento) async {
     SideBarController sideBarController = Dependencies.sidebarController();
+    printerSize = configController.tamanhoImpressora.value;
     Dependencies.globalController();
 
     //variáveis para montagem da impressão
@@ -652,8 +652,8 @@ class PrinterController extends GetxController {
         bytes += generator.cut();
         print('A impressão do fechamento de caixa está comentada');
         /*PrintNfceXml().printNfceXml(bytes);*/
-//      String textToPrint = String.fromCharCodes(bytes);
-//      await bluetoothManager.writeText(textToPrint);
+        String textToPrint = String.fromCharCodes(bytes);
+        await bluetoothManager.writeText(textToPrint);
       } on BTException {
         return;
       }
@@ -703,7 +703,8 @@ class PrinterController extends GetxController {
       String text14 = '\n_______________________________\n'; // negrito
 
       String text15 = 'Total Informado:\n';
-      String text16 = '               ${formatoBrasileiro.format(totalInformado)}';
+      String text16 =
+          '               ${formatoBrasileiro.format(totalInformado)}';
 
       String text17 = '\n_______________________________\n\n\n'; // negrito
       text17 += 'FECHAMENTO\n';

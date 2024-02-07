@@ -921,7 +921,7 @@ class _PaymentPageState extends State<PaymentPage> {
               Expanded(
                 flex: 1,
                 child: Container(
-                    height: 670,
+                    height: Get.height * 0.9, //670,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
