@@ -1,6 +1,8 @@
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import '../collections/dado_empresa.dart';
+import '../collections/venda.dart';
 import '../shared/isar_service.dart';
 
 class InformationController extends GetxController {
@@ -9,6 +11,7 @@ class InformationController extends GetxController {
   var usuarioId = 0.obs;
   var empresaId = 0.obs;
   var caixaId = 0.obs;
+  var vendasLista = [].obs;
 
   @override
   void onInit() {
@@ -20,6 +23,20 @@ class InformationController extends GetxController {
     await searchUserId();
     await searchCaixaId();
     await searchEmpresaId();
+    await searchVendas();
+  }
+
+  Future<void> searchVendas() async {
+    InformationController informationController =
+        Dependencies.informationController();
+    List<venda?> vendasDb = await service
+        .getVendaByIdCaixaLogged(informationController.caixaId.value);
+    if (vendasDb.isNotEmpty) {
+      vendasLista.assignAll(vendasDb);
+      update();
+    } else {
+      update();
+    }
   }
 
   Future<int?> searchCaixaId() async {

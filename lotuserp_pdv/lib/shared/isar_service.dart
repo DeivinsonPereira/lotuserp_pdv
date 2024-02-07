@@ -1423,6 +1423,24 @@ class IsarService {
     }
   }
 
+  Future<List<venda?>> getVendaByIdCaixaLogged(int idUser) async {
+    final isar = await db;
+
+    var vendasDb =
+        await isar.vendas.filter().id_caixaEqualTo(idUser).findAll();
+    try {
+      if (vendasDb.isNotEmpty) {
+        return vendasDb;
+      } else {
+        logger.e('Nenhuma venda encontrada');
+        return [];
+      }
+    } catch (e) {
+      logger.e("Erro ao buscar venda: $e");
+      return [];
+    }
+  }
+
   Future<venda?> getVendaById(int id) async {
     final isar = await db;
 

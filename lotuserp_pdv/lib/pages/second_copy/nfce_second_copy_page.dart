@@ -47,67 +47,47 @@ class NfceSecondCopyPage extends StatelessWidget {
               color: Colors.black12,
             ),
             //corpo
-            SizedBox(
-              height: Get.height * 0.3995,
-              child: FutureBuilder(
-                  future: service.getVendas(),
-                  builder: (_, snapshot) {
-                    if (!snapshot.hasData || snapshot.data == null) {
-                      return const Text('');
-                    }
-                    if (snapshot.hasData) {
-                      var data = snapshot.data!;
-                      return GetBuilder<InformationController>(builder: (_) {
-                        return SizedBox(
-                          height: 300,
-                          width: 500,
-                          child: ListView.builder(
-                              itemCount: data.length,
-                              itemBuilder: (context, index) {
-                                _.getInformations();
-                                int idCaixaAberto = _.caixaId.value;
-                                bool caixaValido =
-                                    data[index]!.id_caixa == idCaixaAberto;
-
-                                return caixaValido
-                                    ? Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Obx(() => Checkbox(
-                                                    shape: const CircleBorder(),
-                                                    value: checkboxController
-                                                        .isItemSelected(index),
-                                                    onChanged: (value) {
-                                                      checkboxController
-                                                          .toggleItem(index);
-                                                    },
-                                                  )),
-                                              InformationsWidget(
-                                                data: data[index]!
-                                                    .id_venda_servidor,
-                                                width: Get.width * 0.075,
-                                              ),
-                                              InformationsWidget(
-                                                data: data[index]!.hora,
-                                                width: Get.width * 0.195,
-                                              ),
-                                              InformationsWidget(
-                                                data: formatoBrasileiro.format(
-                                                    data[index]!.tot_liquido),
-                                                width: Get.width * 0.04,
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      )
-                                    : Container();
-                              }),
-                        );
-                      });
-                    }
-                    return Container();
-                  }),
+            Expanded(
+              child: Obx(() {
+                var data = informationController.vendasLista;
+                if (data.isEmpty) {
+                  return const SizedBox.shrink();
+                }
+                return ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (context, index) {
+                      var venda = data[index];
+                      // Substitua os campos abaixo pelos campos reais do seu modelo de dados
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              Obx(() => Checkbox(
+                                    shape: const CircleBorder(),
+                                    value: checkboxController
+                                        .isItemSelected(index),
+                                    onChanged: (value) =>
+                                        checkboxController.toggleItem(index),
+                                  )),
+                              InformationsWidget(
+                                  data: venda.id_venda_servidor,
+                                  width: Get.width *
+                                      0.075), // Ajuste conforme necessário
+                              InformationsWidget(
+                                  data: venda.hora,
+                                  width: Get.width *
+                                      0.195), // Ajuste conforme necessário
+                              InformationsWidget(
+                                  data: formatoBrasileiro
+                                      .format(venda.tot_liquido),
+                                  width: Get.width *
+                                      0.04), // Ajuste conforme necessário
+                            ],
+                          ),
+                        ],
+                      );
+                    });
+              }),
             ),
             const Divider(
               height: 1,
