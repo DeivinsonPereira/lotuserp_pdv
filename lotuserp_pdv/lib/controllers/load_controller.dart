@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -49,7 +51,7 @@ class LoadController extends GetxController {
   }
 
   //carregar dados da api
-  Future<void> loadData() async {
+  Future<void> loadData(BuildContext context) async {
     const SpinKitRotatingCircle(
       color: Colors.red,
       size: 50.0,
@@ -63,13 +65,13 @@ class LoadController extends GetxController {
       if (dadosEmpresariais != null) {
         if (checkbox1.value == true) {
           await service.getEmpresa(dadosEmpresariais.id_empresa.toString(),
-              dadosEmpresariais.ip_empresa!);
+              dadosEmpresariais.ip_empresa!, context);
         }
-        if (checkbox2.value == true) await service.getTipo_recebimento();
-        if (checkbox3.value == true) await service.getUsuarios();
+        if (checkbox2.value == true) await service.getTipo_recebimento(context);
+        if (checkbox3.value == true) await service.getUsuarios(context);
         if (checkbox4.value == true) {
-          await service.getGrupo();
-          await service.getProduto();
+          await service.getGrupo(context);
+          await service.getProduto(context);
         }
         isLoading = false.obs;
         update();

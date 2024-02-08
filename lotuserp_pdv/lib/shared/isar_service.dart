@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -21,6 +21,7 @@ import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
+import 'package:lotuserp_pdv/pages/common/custom_cherry_error.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -55,7 +56,7 @@ class IsarService {
     db = openDB();
   }
 
-  Future<void> connectionVerify() async {
+  Future<void> connectionVerify(BuildContext context) async {
     TextFieldController textFieldController =
         Dependencies.textFieldController();
     String ipEmpresa;
@@ -77,13 +78,14 @@ class IsarService {
       } else {
         conexaoApi = false;
         logger.e('Falha na conexão com a API!');
-        const CustomSnackBar(message: 'Falha na conexão com o servidor!')
-            .show();
+        const CustomCherryError(message: 'Falha na conexão com o servidor!')
+            .show(context);
       }
     } catch (e) {
       conexaoApi = false;
       logger.e('Erro ao conectar com a API: $e');
-      const CustomSnackBar(message: 'Falha na conexão com o servidor!').show();
+      const CustomCherryError(message: 'Falha na conexão com o servidor!')
+          .show(context);
     }
   }
 
@@ -102,8 +104,9 @@ class IsarService {
   }
 
   //inserindo dados na tabela empresa vindos do servidor
-  Future getEmpresa(String companyId, String companyIp) async {
-    await connectionVerify();
+  Future getEmpresa(
+      String companyId, String companyIp, BuildContext context) async {
+    await connectionVerify(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -175,13 +178,10 @@ class IsarService {
         });
         return isar;
       } catch (e) {
-        Get.snackbar(
-          'Erro', // Título
-          'Não foi possível obter os dados da empresa. Tente novamente mais tarde.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        const CustomCherryError(
+          message:
+              'Não foi possível obter os dados da empresa. Tente novamente mais tarde.',
+        ).show(context);
 
         // Usando Logger para registrar a exceção
         logger.e('Erro ao obter ou processar dados da empresa: $e');
@@ -198,8 +198,8 @@ class IsarService {
   }
 
   //inserindo dados na tabela grupo vindos do servidor
-  Future getGrupo() async {
-    await connectionVerify();
+  Future getGrupo(BuildContext context) async {
+    await connectionVerify(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -223,13 +223,9 @@ class IsarService {
       dado_empresa? dadoEmpresa = await getIpEmpresaFromDatabase();
 
       if (dadoEmpresa == null) {
-        Get.snackbar(
-          'Erro',
-          'Dados da empresa não encontrados.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        CustomCherryError(
+          message: 'Dados da empresa não encontrados.',
+        ).show(context);
         return null;
       }
 
@@ -280,13 +276,10 @@ class IsarService {
         });
         return isar;
       } catch (e) {
-        Get.snackbar(
-          'Erro',
-          'Não foi possível obter os dados dos grupos. Tente novamente mais tarde.',
-          snackPosition: SnackPosition.BOTTOM,
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-        );
+        CustomCherryError(
+          message:
+              'Não foi possível obter os dados dos grupos. Tente novamente mais tarde.',
+        ).show(context);
 
         logger.e('Erro ao obter ou processar dados dos grupos: $e');
 
@@ -305,8 +298,8 @@ class IsarService {
   }
 
   //inserindo dados na tabela produtos vindos do servidor
-  Future getProduto() async {
-    await connectionVerify();
+  Future getProduto(BuildContext context) async {
+    await connectionVerify(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -460,8 +453,8 @@ class IsarService {
   }
 
   //inserindo dados na tabela usuarios vindos do servidor
-  Future getUsuarios() async {
-    await connectionVerify();
+  Future getUsuarios(BuildContext context) async {
+    await connectionVerify(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -535,8 +528,8 @@ class IsarService {
   }
 
   //busca tipo_recebimento do servidor e insere na tabela do banco de dados local
-  Future getTipo_recebimento() async {
-    await connectionVerify();
+  Future getTipo_recebimento(BuildContext context) async {
+    await connectionVerify(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -1426,8 +1419,7 @@ class IsarService {
   Future<List<venda?>> getVendaByIdCaixaLogged(int idUser) async {
     final isar = await db;
 
-    var vendasDb =
-        await isar.vendas.filter().id_caixaEqualTo(idUser).findAll();
+    var vendasDb = await isar.vendas.filter().id_caixaEqualTo(idUser).findAll();
     try {
       if (vendasDb.isNotEmpty) {
         return vendasDb;

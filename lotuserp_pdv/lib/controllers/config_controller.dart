@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
@@ -75,7 +77,7 @@ class Configcontroller extends GetxController {
   }
 
   // BUSCAR DADOS DA EMPRESA
-  Future<bool> buscarDadosEmpresa(String ipEmpresa, String idEmpresa) async {
+  Future<bool> buscarDadosEmpresa(String ipEmpresa, String idEmpresa, BuildContext context) async {
     bool campoVazio = false;
     if (textFieldController.velocidadeBalancaController.text.isBlank == false &&
         textFieldController.velocidadeBalancaController.text.isNotEmpty &&
@@ -86,7 +88,7 @@ class Configcontroller extends GetxController {
     }
 
     try {
-      var empresaObtida = await service.getEmpresa(idEmpresa, ipEmpresa);
+      var empresaObtida = await service.getEmpresa(idEmpresa, ipEmpresa, context);
       if (empresaObtida != null) {
         dado_empresa dadosEmpresa = dado_empresa()
           ..id_empresa = int.parse(textFieldController.idEmpresaController.text)
@@ -122,20 +124,20 @@ class Configcontroller extends GetxController {
   }
 
   // BUSCAR OUTROS DADOS
-  Future<void> buscarOutrosDados() async {
-    await service.getGrupo();
-    await service.getProduto();
-    await service.getUsuarios();
-    await service.getTipo_recebimento();
+  Future<void> buscarOutrosDados(BuildContext context) async {
+    await service.getGrupo(context);
+    await service.getProduto(context);
+    await service.getUsuarios(context);
+    await service.getTipo_recebimento(context);
   }
 
   // ESPERAR DADOS DA EMPRESA E CHAMAR OUTROS DADOS
-  Future<void> esperarDadosEmpresaEChamarOutrosDados(int tentativas) async {
+  Future<void> esperarDadosEmpresaEChamarOutrosDados(int tentativas, BuildContext context) async {
     while (tentativas > 0) {
       await Future.delayed(const Duration(seconds: 1));
       var empresaCount = await service.empresaCount();
       if (empresaCount > 0) {
-        await buscarOutrosDados();
+        await buscarOutrosDados(context);
         break;
       }
       tentativas--;
@@ -146,23 +148,24 @@ class Configcontroller extends GetxController {
   }
 
   // CONFIRMAR DADOS
-  Future<void> confirmarDados() async {
+  Future<void> confirmarDados(BuildContext context) async {
     var ipEmpresa = textFieldController.numContratoEmpresaController.text;
     var idEmpresa = textFieldController.idEmpresaController.text;
 
     if (ipEmpresa.isNotEmpty && !ipEmpresa.isBlank!) {
-      var sucesso = await buscarDadosEmpresa(ipEmpresa, idEmpresa);
+      var sucesso = await buscarDadosEmpresa(ipEmpresa, idEmpresa, context);
       if (sucesso) {
         Get.dialog(const LoadingScreen(), barrierDismissible: false);
-        await esperarDadosEmpresaEChamarOutrosDados(3); // Tentar 3 vezes
+        await esperarDadosEmpresaEChamarOutrosDados(3, context); // Tentar 3 vezes
         Get.back(); // Fecha a tela de loading
       } else {
         logger.e(
             "Não foi possível obter os dados da empresa. Verifique a URL/IP e tente novamente.");
       }
     } else {
-      const CustomSnackBar(
-          message: "O IP da empresa é obrigatório e deve ser válido.");
+      const CustomCherryError(
+              message: "O IP da empresa é obrigatório e deve ser válido.")
+          .show(context);
     }
   }
 

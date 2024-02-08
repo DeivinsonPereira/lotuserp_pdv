@@ -221,7 +221,7 @@ class _ConfigPageState extends State<ConfigPage> {
           onPressed: () async {
             if (configController.verificacoes(context) == true) {
             } else {
-              configController.confirmarDados();
+              configController.confirmarDados(context);
             }
           },
           style: ElevatedButton.styleFrom(
