@@ -109,7 +109,7 @@ class Configcontroller extends GetxController {
               : ''
           ..tamanho_impressora = tamanhoImpressora.value;
 
-        await service.insertDadosEmpresariais(dadosEmpresa);
+        await service.insertDadosEmpresariais(context, dadosEmpresa);
         return true; // Retorna verdadeiro se a empresa for obtida e inserida com sucesso.
       } else {
         logger.e(
@@ -117,8 +117,8 @@ class Configcontroller extends GetxController {
         return false;
       }
     } catch (e) {
-      CustomSnackBar(
-          message: "Ocorreu um erro ao buscar os dados da empresa: $e");
+      CustomCherryError(
+          message: "Ocorreu um erro ao buscar os dados da empresa: $e").show(context);
       return false;
     }
   }
@@ -205,6 +205,7 @@ class Configcontroller extends GetxController {
   // VERIFICAR SE OS CAMPO DE NUMERO DO CONTRATO FOI PREENCHIDO
   Future<void> verificationEmpty(
     TextEditingController controller,
+    BuildContext context
   ) async {
     if (controller.text.isEmpty) {
       const CustomSnackBar(
@@ -212,7 +213,7 @@ class Configcontroller extends GetxController {
       ).show();
     } else {
       textFieldController.salvarInformacoesContrato();
-      String ip = await service.getIpEmpresa(isCorrectUrl: true);
+      String ip = await service.getIpEmpresa( context, isCorrectUrl: true);
       if (ip.isNotEmpty) {
         textFieldController.updateNumeroContratoToIp(ip);
         controller.text = textFieldController.numContratoEmpresa;

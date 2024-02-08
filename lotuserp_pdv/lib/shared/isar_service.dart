@@ -959,7 +959,8 @@ class IsarService {
   }
 
   //buscar informações de acordo com a url e o numero do contrato
-  Future<String> getIpEmpresa({bool isCorrectUrl = false}) async {
+  Future<String> getIpEmpresa(BuildContext context,
+      {bool isCorrectUrl = false}) async {
     try {
       Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
       final response = await http.get(
@@ -982,17 +983,17 @@ class IsarService {
           return link;
         } else {
           !isCorrectUrl
-              ? const CustomSnackBar(
+              ? const CustomCherryError(
                   message: 'Numero de contrato inválido',
-                ).show()
+                ).show(context)
               : '';
         }
       }
     } catch (e) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message:
             'Falha ao buscar dados da empresa. Tente novamente mais tarde!',
-      ).show();
+      ).show(context);
     }
     return "";
   }
@@ -1008,7 +1009,8 @@ class IsarService {
   }
 
   //inserir dados na tabela 'Dado_empresa'
-  Future<Object> insertDadosEmpresariais(dado_empresa empresa) async {
+  Future<Object> insertDadosEmpresariais(
+      BuildContext context, dado_empresa empresa) async {
     try {
       final isar = await db;
 
@@ -1029,9 +1031,12 @@ class IsarService {
       });
       return isar;
     } catch (e) {
-      return Get.snackbar("Erro",
-          "Erro ao inserir dados da empresa. Tente novamente mais tarde!",
-          backgroundColor: Colors.red, colorText: Colors.white);
+      CustomCherryError(
+        message:
+            "Erro ao inserir dados da empresa. Tente novamente mais tarde!",
+      ).show(context);
+      logger.e('erro ao inserir dados da empresa: $e');
+      return '';
     }
   }
 
@@ -1430,24 +1435,6 @@ class IsarService {
     } catch (e) {
       logger.e("Erro ao buscar venda: $e");
       return [];
-    }
-  }
-
-  Future<venda?> getVendaById(int id) async {
-    final isar = await db;
-
-    var vendasDb = await isar.vendas.where().id_vendaEqualTo(id).findFirst();
-    try {
-      if (vendasDb != null) {
-        return vendasDb;
-      } else {
-        const CustomSnackBar(message: 'Nenhuma venda encontrada').show();
-        logger.e('Nenhuma venda encontrada');
-        return null;
-      }
-    } catch (e) {
-      logger.e("Erro ao buscar venda: $e");
-      return null;
     }
   }
 
