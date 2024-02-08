@@ -99,8 +99,8 @@ class NfceSecondCopyPage extends StatelessWidget {
                 child: InkWell(
                   onTap: () async {
                     if (checkboxController.selectedItem.value != -1) {
-                      var data = await service.getVendaById(
-                          checkboxController.selectedItem.value + 1);
+                      var data = informationController
+                          .vendasLista[checkboxController.selectedItem.value];
                       if (data != null) {
                         var nfce = await service.getDadosNfceByIdVendaServidor(
                             data.id_venda_servidor);
