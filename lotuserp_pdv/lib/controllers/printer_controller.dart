@@ -285,7 +285,7 @@ class PrinterController extends GetxController {
             styles: const PosStyles(codeTable: 'CP1252'));
         bytes += generator.text('Abertura: $abertura');
         bytes += generator.text(
-            '________________________________________________',
+            '________________________________________________\n\n\n',
             styles: const PosStyles(bold: true));
         bytes += generator.text(
             '________________________________________________',
@@ -294,8 +294,8 @@ class PrinterController extends GetxController {
         bytes += generator.text('\n\n');
 
         print('A impressão está comentada');
-        /*String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);*/
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);
       } on BTException {
         return;
       }
@@ -446,8 +446,8 @@ class PrinterController extends GetxController {
         bytes += generator.text('\n\n');
 
         print('A impressão da movimentação de caixa está comentada');
-        /*String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);*/
+        String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);
       } on BTException {
         return;
       }
@@ -651,7 +651,7 @@ class PrinterController extends GetxController {
             generator.text('  CONFERENTE: _______________________________\n\n');
         bytes += generator.cut();
         print('A impressão do fechamento de caixa está comentada');
-        /*PrintNfceXml().printNfceXml(bytes);*/
+
         String textToPrint = String.fromCharCodes(bytes);
         await bluetoothManager.writeText(textToPrint);
       } on BTException {

@@ -80,7 +80,7 @@ class ConfirmButtom extends StatelessWidget {
             pdvController.caixaId.value //id caixa aberto para o usuario logado
         ..id_venda_servidor =
             0; //id da venda no servidor (recebido após o envio Nfce)
-      await service.insertVendaWithVendaItemAndCaixaItem(vendaExecutada);
+      await service.insertVendaWithVendaItemAndCaixaItem(context, vendaExecutada);
 
       pdvController.updateIsSelectedList();
     }

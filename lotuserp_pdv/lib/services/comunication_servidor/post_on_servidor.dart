@@ -1,12 +1,14 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/header.dart';
-import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -14,6 +16,7 @@ import '../../collections/venda.dart';
 import '../../controllers/global_controller.dart';
 import '../../controllers/response_servidor_controller.dart';
 import '../../controllers/text_field_controller.dart';
+import '../../pages/common/custom_cherry_error.dart';
 import '../dependencies.dart';
 
 abstract class PostOnServidor {
@@ -29,6 +32,7 @@ abstract class PostOnServidor {
 
   // FAZ A CHAMADA DA NFC-E
   static Future<void> postOnServidor(
+    BuildContext context,
       venda vendas,
       List<caixa_item> caixaItens,
       PdvController pdvController,
@@ -133,7 +137,7 @@ abstract class PostOnServidor {
             responseServidorController.updateXmlNotaFiscal(true);
             paymentController.clearListCaixaItems();
           }
-          const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
+          const CustomCherryError(message: 'Erro ao gerar nota fiscal.').show(context);
           logger.e("Erro ao fazer a requisição: ${response.statusCode}");
           responseServidorController.limparCpfCnpj();
         }
@@ -141,7 +145,7 @@ abstract class PostOnServidor {
         if (isSecondAttempt == false) {
           responseServidorController.updateXmlNotaFiscal(true);
         } else {
-          const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
+          const CustomCherryError(message: 'Erro ao gerar nota fiscal.').show(context);
           responseServidorController.updateXmlNotaFiscal(true);
           paymentController.clearListCaixaItems();
         }
@@ -150,7 +154,7 @@ abstract class PostOnServidor {
       }
     } catch (e) {
       logger.e("Erro ao fazer a requisição: $e");
-      const CustomSnackBar(message: 'Erro ao gerar nota fiscal.').show();
+      const CustomCherryError(message: 'Erro ao gerar nota fiscal.').show(context);
       if (isSecondAttempt == false) {
         responseServidorController.updateXmlNotaFiscal(true);
       } else {

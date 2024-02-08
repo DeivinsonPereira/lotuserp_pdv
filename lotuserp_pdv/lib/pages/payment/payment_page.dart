@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously, prefer_const_constructors
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -22,6 +24,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../services/format_numbers.dart';
 import '../../services/dependencies.dart';
 import '../../services/tef_elgin/tef_elgin_service.dart';
+import '../common/custom_cherry_error.dart';
 import 'component/no_money_paper.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -441,6 +444,7 @@ class _PaymentPageState extends State<PaymentPage> {
           if (tipoPagamento != 0) {
             NoMoneyPaper().processCommonOperations();
             ConfirmationMethod().continueSell(
+                context,
                 name: descricao,
                 tipoPagamento: tipoPagamento,
                 idPagamento: idPagamento);
@@ -694,10 +698,10 @@ class _PaymentPageState extends State<PaymentPage> {
                                       if (_.paymentsTotal[index]
                                               ['transacaoBemSucedida'] ==
                                           true) {
-                                        const CustomSnackBar(
+                                        const CustomCherryError(
                                           message:
                                               'Pagamento não pode ser excluído, pois, já foi precessado.',
-                                        ).show();
+                                        ).show(context);
                                       } else {
                                         _.deletePayment(index);
                                       }
@@ -882,15 +886,11 @@ class _PaymentPageState extends State<PaymentPage> {
               onTap: _.isButtonEnabled.value
                   ? () async {
                       paymentController.verifyOpenTransactionTEF()
-                          ? Get.snackbar('Erro', 'Existem transações pendentes',
-                              backgroundColor: Colors.red,
-                              colorText: Colors.white,
-                              snackPosition: SnackPosition.BOTTOM)
+                          ? CustomCherryError(message: 'Existem transações pendentes',).show(context)
+
                           : {
                               await responseServidorController.updateCpfCnpj(),
-                              ConfirmationMethod().continueSell(),
-                              print(
-                                  "cpf: ${responseServidorController.cpfCnpj}")
+                              ConfirmationMethod().continueSell(context),
                             };
                     }
                   : null,

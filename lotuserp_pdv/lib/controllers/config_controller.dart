@@ -8,7 +8,6 @@ import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
-import '../pages/common/custom_snack_bar.dart';
 import '../pages/common/loading_screen.dart';
 import 'text_field_controller.dart';
 
@@ -143,7 +142,7 @@ class Configcontroller extends GetxController {
       tentativas--;
     }
     if (tentativas == 0) {
-      const CustomSnackBar(message: 'Erro ao esperar pelos dados da empresa.');
+      const CustomCherryError(message: 'Erro ao esperar pelos dados da empresa.').show(context);
     }
   }
 
@@ -208,9 +207,9 @@ class Configcontroller extends GetxController {
     BuildContext context
   ) async {
     if (controller.text.isEmpty) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message: 'O campo obrigatório',
-      ).show();
+      ).show(context);
     } else {
       textFieldController.salvarInformacoesContrato();
       String ip = await service.getIpEmpresa( context, isCorrectUrl: true);

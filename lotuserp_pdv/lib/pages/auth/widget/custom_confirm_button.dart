@@ -34,7 +34,7 @@ class CustomConfirmButton extends StatelessWidget {
           ),
           onPressed: () async => isConfirm == false
               ? Get.dialog(const LogoutPage())
-              : loginController.handleLogin(),
+              : loginController.handleLogin(context),
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Text(

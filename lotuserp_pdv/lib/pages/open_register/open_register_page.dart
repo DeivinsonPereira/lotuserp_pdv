@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -17,7 +19,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../../controllers/open_register_controller.dart';
 import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
-import '../common/custom_snack_bar.dart';
+import '../common/custom_cherry_error.dart';
 import '../common/header_popup.dart';
 
 class OpenRegisterPage extends StatelessWidget {
@@ -268,10 +270,10 @@ class OpenRegisterPage extends StatelessWidget {
                                     await informationController.searchCaixaId();
 
                                     caixaExistente
-                                        ? const CustomSnackBar(
+                                        ? const CustomCherryError(
                                                 message:
                                                     'Já existe um caixa aberto para o usuário logado.')
-                                            .show()
+                                            .show(context)
                                         : await OpenRegisterServidorRepository()
                                             .openRegisterServidor(
                                                 dadosEmpresa!.id_empresa!,
@@ -313,12 +315,9 @@ class OpenRegisterPage extends StatelessWidget {
                                       informationController.searchCaixaId();
                                       Get.back();
                                     } else if (caixaExistente) {
-                                      Get.snackbar(
-                                        'Atenção',
-                                        'Ja existe um caixa aberto para este usuário.',
-                                        backgroundColor: Colors.red,
-                                        colorText: Colors.white,
-                                        snackPosition: SnackPosition.BOTTOM,
+                                      const CustomCherryError(
+                                        message:
+                                            'Já existe um caixa aberto para este usuário.',
                                       );
                                     }
                                   }

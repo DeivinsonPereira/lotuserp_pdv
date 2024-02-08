@@ -708,7 +708,7 @@ class IsarService {
   }
 
   //inserir dados na tabela venda e vendaItem ****** ainda vai ter o caixaItem junto ******
-  Future<Isar> insertVendaWithVendaItemAndCaixaItem(venda venda) async {
+  Future<Isar> insertVendaWithVendaItemAndCaixaItem(BuildContext context, venda venda) async {
     final isar = await db;
     PdvController pdvController = Dependencies.pdvController();
     PaymentController paymentController = Dependencies.paymentController();
@@ -794,7 +794,7 @@ class IsarService {
           cpfCnpj = responseServidorController.cpfCnpj;
         }
 
-        await VendaServidorRepository().vendaToServer(venda, caixaItems,
+        await VendaServidorRepository().vendaToServer(context, venda, caixaItems,
             pdvController, paymentController, idCaixaServidor, cpfCnpj);
 
         /* print(responseServidorController.cpfCnpj);

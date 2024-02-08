@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/usuario_logado.dart';
 import '../core/app_routes.dart';
-import '../pages/common/custom_snack_bar.dart';
+import '../pages/common/custom_cherry_error.dart';
 import '../services/dependencies.dart';
 import 'password_controller.dart';
 
@@ -22,11 +25,11 @@ class LoginController extends GetxController {
   }
 
   //captura possíveis erros no login
-  Future<void> handleLogin() async {
+  Future<void> handleLogin(BuildContext context) async {
     //verifica se os campos estão vazios
     if (_areFieldsEmpty()) {
-      const CustomSnackBar(message: 'Por favor, preencha todos os campos.')
-          .show();
+      const CustomCherryError(message: 'Por favor, preencha todos os campos.')
+          .show(context);
       return;
     }
 
@@ -35,10 +38,10 @@ class LoginController extends GetxController {
 
     // Verifica se o login existe
     if (savedLogin == null || !(await _areloginEquals())) {
-      const CustomSnackBar(
+      const CustomCherryError(
               message:
                   'O login ou usuário digitado não existe. Por favor, tente novamente.')
-          .show();
+          .show(context);
       return;
     }
 
@@ -46,10 +49,10 @@ class LoginController extends GetxController {
     if (await _arePasswordsEquals()) {
       await _proceedToHome(savedLogin);
     } else {
-      const CustomSnackBar(
+      const CustomCherryError(
               message:
                   'A senha digitada está incorreta. Por favor, tente novamente.')
-          .show();
+          .show(context);
     }
   }
 

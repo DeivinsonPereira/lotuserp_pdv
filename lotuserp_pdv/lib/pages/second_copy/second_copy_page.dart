@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
-import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/second_copy/component/legend_informations.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/dependencies.dart';
+import '../common/custom_cherry_error.dart';
 import '../common/header_popup.dart';
 
 class SecondCopyPage extends StatelessWidget {
@@ -56,10 +56,10 @@ class SecondCopyPage extends StatelessWidget {
                   return const Text('');
                 }
                 if (snapshot.hasError) {
-                  const CustomSnackBar(
+                  const CustomCherryError(
                           message:
                               'Ocorreu um erro ao buscar os registros de transações efetuadas. Tente novamente mais tarde')
-                      .show();
+                      .show(context);
                 }
                 var data = snapshot.data!;
                 return SizedBox(

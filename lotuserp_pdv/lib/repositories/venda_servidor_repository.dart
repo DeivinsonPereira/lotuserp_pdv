@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/response_servidor_controller.dart';
@@ -26,6 +29,7 @@ class VendaServidorRepository {
       Dependencies.responseServidorController();
 
   Future<void> vendaToServer(
+    BuildContext context,
       venda vendas,
       List<caixa_item> caixaItens,
       PdvController pdvController,
@@ -117,6 +121,7 @@ class VendaServidorRepository {
 
             Future.delayed(const Duration(milliseconds: 300));
             await PostOnServidor.postOnServidor(
+              context,
                 vendas,
                 caixaItens,
                 pdvController,

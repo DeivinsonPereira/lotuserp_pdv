@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry_error.dart';
-import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 
 import '../../../core/app_routes.dart';
 import '../../../services/dependencies.dart';
@@ -13,8 +12,6 @@ import '../../close_register/close_register_page.dart';
 import '../../load_data/load_data_page.dart';
 import '../../moviment_cash/moviment_cash_page.dart';
 import '../../open_register/open_register_page.dart';
-import '../../second_copy/nfce_second_copy_page.dart';
-import '../../second_copy/second_copy_page.dart';
 
 //Botões para o side bar
 // ignore: must_be_immutable

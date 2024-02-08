@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../collections/venda.dart';
@@ -8,7 +9,6 @@ import '../../../controllers/printer_controller.dart';
 import '../../../controllers/side_bar_controller.dart';
 import '../../../services/dependencies.dart';
 import '../../../shared/isar_service.dart';
-import '../../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../../qr_code/qr_code_page.dart';
 
 class ConfirmationMethod {
@@ -23,6 +23,7 @@ class ConfirmationMethod {
     String name,
     int tipoPagamento,
     int idPagamento,
+    BuildContext context,
   ) async {
     //soma o valor bruto total dos itens que estão nos pedidos
     pdvController.totalSomaPedidos();
@@ -75,15 +76,15 @@ class ConfirmationMethod {
           pdvController.caixaId.value //id caixa aberto para o usuario logado
       ..id_venda_servidor =
           0; //id da venda no servidor (recebido após o envio Nfce)
-    await service.insertVendaWithVendaItemAndCaixaItem(vendaExecutada);
+    await service.insertVendaWithVendaItemAndCaixaItem(context, vendaExecutada);
 
     pdvController.updateIsSelectedList();
   }
 
-  Future continueSell(
+  Future continueSell(BuildContext context,
       {String name = '', int tipoPagamento = 0, int idPagamento = 0}) async {
     // faz requisição para gerar NFCe
-    await processCommonOperations(name, tipoPagamento, idPagamento);
+    await processCommonOperations(name, tipoPagamento, idPagamento, context);
 
     // Chama o preenchimento do QrCode
     await Get.dialog(barrierDismissible: false, const QrCodePage());

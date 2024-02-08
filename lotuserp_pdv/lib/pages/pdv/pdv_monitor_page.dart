@@ -16,6 +16,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/dependencies.dart';
+import '../common/custom_cherry_error.dart';
 import '../product/product_monitor_page.dart';
 import '../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../second_copy/nfce_second_copy_page.dart';
@@ -75,13 +76,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
         child: InkWell(
           onTap: () {
             if (_.pedidos.isEmpty) {
-              Get.snackbar('Atenção', 'Nenhum item adicionado',
-                  backgroundColor: Colors.red,
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.BOTTOM);
+              const CustomCherryError(message: 'Nenhum item adicionado')
+                  .show(context);
             } else {
               Get.toNamed(PagesRoutes.paymentRoute);
-              print(responseServidorController.cpfCnpj);
             }
           },
           child: Padding(
@@ -695,13 +693,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
               bool tefPaymentOpen = paymentController.paymentsTotal.any(
                   (pagamento) => pagamento['transacaoBemSucedida'] == true);
               if (tefPaymentOpen == true) {
-                Get.snackbar(
-                  'Error',
-                  'Existem pagamentos em aberto, por favor finalize para voltar.',
-                  backgroundColor: Colors.red,
-                  colorText: Colors.white,
-                  snackPosition: SnackPosition.BOTTOM,
-                );
+                const CustomCherryError(
+                  message:
+                      'Existem pagamentos em aberto, por favor finalize para voltar.',
+                ).show(context);
               } else {
                 controller.pedidos.clear();
                 Get.offNamed(PagesRoutes.homePageRoute);
@@ -865,13 +860,9 @@ class _SearchProduct extends StatelessWidget {
           );
         }
         if (snapshot.hasError) {
-          Get.snackbar(
-            'Atenção',
-            'Nenhum resultado encontrado',
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-            snackPosition: SnackPosition.BOTTOM,
-          );
+          const CustomCherryError(
+            message: 'Nenhum resultado encontrado.',
+          ).show(context);
         }
         if (snapshot.hasData) {
           List<produto?> produtos = snapshot.data!;
