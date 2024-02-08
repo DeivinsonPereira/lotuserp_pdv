@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
+import 'package:lotuserp_pdv/pages/common/custom_cherry_error.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 
 import '../../../core/app_routes.dart';
@@ -61,19 +64,19 @@ class IconButtonSideBar extends StatelessWidget {
 
           if (isAbrirCaixa == true) {
             caixaExistente
-                ? const CustomSnackBar(
+                ? const CustomCherryError(
                         message:
                             'Já existe um caixa aberto para o usuário logado.')
-                    .show()
+                    .show(context)
                 : Get.dialog(const OpenRegisterPage());
           } else if (isMovimentarCaixa == true ||
               isPdv == true ||
               isFecharCaixa == true) {
             if (!caixaExistente) {
-              const CustomSnackBar(
+              const CustomCherryError(
                       message:
                           'Não existe um caixa aberto para o usuário logado.')
-                  .show();
+                  .show(context);
             } else {
               if (isMovimentarCaixa == true) {
                 Get.dialog(const MovimentCashPage());

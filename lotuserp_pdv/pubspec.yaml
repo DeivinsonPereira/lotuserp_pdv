@@ -38,6 +38,7 @@ dependencies:
   logger: ^2.0.2+1
   usb_serial: ^0.5.1
   qr_flutter: ^4.1.0
+  cherry_toast: ^1.8.0
 
   
 dev_dependencies:
