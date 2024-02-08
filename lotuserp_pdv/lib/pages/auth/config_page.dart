@@ -219,7 +219,7 @@ class _ConfigPageState extends State<ConfigPage> {
         padding: const EdgeInsets.only(left: 15.0),
         child: ElevatedButton(
           onPressed: () async {
-            if (configController.verificacoes() == true) {
+            if (configController.verificacoes(context) == true) {
             } else {
               configController.confirmarDados();
             }

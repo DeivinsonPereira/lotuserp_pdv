@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/pages/common/custom_cherry_error.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -166,31 +167,31 @@ class Configcontroller extends GetxController {
   }
 
   // VERIFICAR SE OS CAMPOS FORAM PREENCHIDOS
-  bool verificacoes() {
+  bool verificacoes(BuildContext context) {
     if (textFieldController.numContratoEmpresaController.text.isEmpty) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message: 'IP obrigatório',
-      ).show();
+      ).show(context);
       return true;
     } else if (textFieldController.idEmpresaController.text.isEmpty) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message: 'ID da empresa obrigatório',
-      ).show();
+      ).show(context);
       return true;
     } else if (textFieldController.idSerieNfceController.text.isEmpty) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message: 'ID da serie NFCe obrigatório',
-      ).show();
+      ).show(context);
       return true;
     } else if (textFieldController.numCaixaController.text.isEmpty) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message: 'Numero do caixa obrigatorio',
-      ).show();
+      ).show(context);
       return true;
     } else if (textFieldController.intervaloEnvioController.text.isEmpty) {
-      const CustomSnackBar(
+      const CustomCherryError(
         message: 'intervalo de envio obrigatorio',
-      ).show();
+      ).show(context);
       return true;
     } else {
       Get.back();
