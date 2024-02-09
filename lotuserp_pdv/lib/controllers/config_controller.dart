@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
 import '../pages/common/loading_screen.dart';
+import '../repositories/download_persist_images_repository.dart';
 import 'text_field_controller.dart';
 
 class Configcontroller extends GetxController {
@@ -76,7 +77,8 @@ class Configcontroller extends GetxController {
   }
 
   // BUSCAR DADOS DA EMPRESA
-  Future<bool> buscarDadosEmpresa(String ipEmpresa, String idEmpresa, BuildContext context) async {
+  Future<bool> buscarDadosEmpresa(
+      String ipEmpresa, String idEmpresa, BuildContext context) async {
     bool campoVazio = false;
     if (textFieldController.velocidadeBalancaController.text.isBlank == false &&
         textFieldController.velocidadeBalancaController.text.isNotEmpty &&
@@ -87,7 +89,8 @@ class Configcontroller extends GetxController {
     }
 
     try {
-      var empresaObtida = await service.getEmpresa(idEmpresa, ipEmpresa, context);
+      var empresaObtida =
+          await service.getEmpresa(idEmpresa, ipEmpresa, context);
       if (empresaObtida != null) {
         dado_empresa dadosEmpresa = dado_empresa()
           ..id_empresa = int.parse(textFieldController.idEmpresaController.text)
@@ -117,7 +120,8 @@ class Configcontroller extends GetxController {
       }
     } catch (e) {
       CustomCherryError(
-          message: "Ocorreu um erro ao buscar os dados da empresa: $e").show(context);
+              message: "Ocorreu um erro ao buscar os dados da empresa: $e")
+          .show(context);
       return false;
     }
   }
@@ -128,10 +132,15 @@ class Configcontroller extends GetxController {
     await service.getProduto(context);
     await service.getUsuarios(context);
     await service.getTipo_recebimento(context);
+    await downloadImageGroup();
+    await persistImagesInformation();
+    await checkFileExists();
+    await listDirectiories();
   }
 
   // ESPERAR DADOS DA EMPRESA E CHAMAR OUTROS DADOS
-  Future<void> esperarDadosEmpresaEChamarOutrosDados(int tentativas, BuildContext context) async {
+  Future<void> esperarDadosEmpresaEChamarOutrosDados(
+      int tentativas, BuildContext context) async {
     while (tentativas > 0) {
       await Future.delayed(const Duration(seconds: 1));
       var empresaCount = await service.empresaCount();
@@ -142,7 +151,9 @@ class Configcontroller extends GetxController {
       tentativas--;
     }
     if (tentativas == 0) {
-      const CustomCherryError(message: 'Erro ao esperar pelos dados da empresa.').show(context);
+      const CustomCherryError(
+              message: 'Erro ao esperar pelos dados da empresa.')
+          .show(context);
     }
   }
 
@@ -155,7 +166,8 @@ class Configcontroller extends GetxController {
       var sucesso = await buscarDadosEmpresa(ipEmpresa, idEmpresa, context);
       if (sucesso) {
         Get.dialog(const LoadingScreen(), barrierDismissible: false);
-        await esperarDadosEmpresaEChamarOutrosDados(3, context); // Tentar 3 vezes
+        await esperarDadosEmpresaEChamarOutrosDados(
+            3, context); // Tentar 3 vezes
         Get.back(); // Fecha a tela de loading
       } else {
         logger.e(
@@ -203,16 +215,14 @@ class Configcontroller extends GetxController {
 
   // VERIFICAR SE OS CAMPO DE NUMERO DO CONTRATO FOI PREENCHIDO
   Future<void> verificationEmpty(
-    TextEditingController controller,
-    BuildContext context
-  ) async {
+      TextEditingController controller, BuildContext context) async {
     if (controller.text.isEmpty) {
       const CustomCherryError(
         message: 'O campo obrigatório',
       ).show(context);
     } else {
       textFieldController.salvarInformacoesContrato();
-      String ip = await service.getIpEmpresa( context, isCorrectUrl: true);
+      String ip = await service.getIpEmpresa(context, isCorrectUrl: true);
       if (ip.isNotEmpty) {
         textFieldController.updateNumeroContratoToIp(ip);
         controller.text = textFieldController.numContratoEmpresa;

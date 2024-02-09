@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/save_image_path_controller.dart';
 
 import '../../controllers/close_register_controller.dart';
 import '../../controllers/global_controller.dart';
@@ -188,6 +189,14 @@ abstract class Dependencies {
       return Get.find<PrinterPopupController>();
     } else {
       return Get.put(PrinterPopupController());
+    }
+  }
+
+  static SaveImagePathController saveImagePathController() {
+    if (Get.isRegistered<SaveImagePathController>()) {
+      return Get.find<SaveImagePathController>();
+    } else {
+      return Get.put(SaveImagePathController());
     }
   }
 }

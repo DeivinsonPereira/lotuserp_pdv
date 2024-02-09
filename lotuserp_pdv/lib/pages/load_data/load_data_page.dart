@@ -114,6 +114,7 @@ class LoadDataPage extends StatelessWidget {
                               await service.connectionVerify(context);
                               if (service.conexaoApi) {
                                 Get.dialog(const LoadingScreen());
+                                // ignore: use_build_context_synchronously
                                 await _.loadData(context);
                                 Get.back();
                                 Get.back();

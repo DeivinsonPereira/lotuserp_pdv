@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../pages/common/custom_cherry_error.dart';
+import '../repositories/download_persist_images_repository.dart';
 
 class LoadController extends GetxController {
   //conexão com api
@@ -73,6 +74,10 @@ class LoadController extends GetxController {
         if (checkbox4.value == true) {
           await service.getGrupo(context);
           await service.getProduto(context);
+          await downloadImageGroup();
+          await persistImagesInformation();
+          await checkFileExists();
+          await listDirectiories();
         }
         isLoading = false.obs;
         update();

@@ -29,6 +29,7 @@ class _ConfigPageState extends State<ConfigPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     // Campos de configuração da empresa
     Widget _textFormFieldsCompany() {
       return Form(

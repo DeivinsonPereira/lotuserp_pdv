@@ -47,118 +47,123 @@ const ProdutoSchema = CollectionSchema(
       name: r'descricao',
       type: IsarType.string,
     ),
-    r'file_imagem': PropertySchema(
+    r'favorito': PropertySchema(
       id: 6,
+      name: r'favorito',
+      type: IsarType.long,
+    ),
+    r'file_imagem': PropertySchema(
+      id: 7,
       name: r'file_imagem',
       type: IsarType.string,
     ),
     r'grade': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'grade',
       type: IsarType.string,
     ),
     r'gtin': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'gtin',
       type: IsarType.string,
     ),
     r'gtin_grade': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'gtin_grade',
       type: IsarType.string,
     ),
     r'id_empresa': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'id_empresa',
       type: IsarType.long,
     ),
     r'id_grupo': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'id_grupo',
       type: IsarType.long,
     ),
     r'nao_rec_desconto': PropertySchema(
-      id: 12,
+      id: 13,
       name: r'nao_rec_desconto',
       type: IsarType.long,
     ),
     r'promocao_apartir': PropertySchema(
-      id: 13,
+      id: 14,
       name: r'promocao_apartir',
       type: IsarType.long,
     ),
     r'promocao_apartir_perc': PropertySchema(
-      id: 14,
+      id: 15,
       name: r'promocao_apartir_perc',
       type: IsarType.double,
     ),
     r'promocao_ativar': PropertySchema(
-      id: 15,
+      id: 16,
       name: r'promocao_ativar',
       type: IsarType.long,
     ),
     r'promocao_compre': PropertySchema(
-      id: 16,
+      id: 17,
       name: r'promocao_compre',
       type: IsarType.long,
     ),
     r'promocao_data_inicio': PropertySchema(
-      id: 17,
+      id: 18,
       name: r'promocao_data_inicio',
       type: IsarType.dateTime,
     ),
     r'promocao_data_limite': PropertySchema(
-      id: 18,
+      id: 19,
       name: r'promocao_data_limite',
       type: IsarType.dateTime,
     ),
     r'promocao_hora_final': PropertySchema(
-      id: 19,
+      id: 20,
       name: r'promocao_hora_final',
       type: IsarType.string,
     ),
     r'promocao_hora_inicial': PropertySchema(
-      id: 20,
+      id: 21,
       name: r'promocao_hora_inicial',
       type: IsarType.string,
     ),
     r'promocao_leve': PropertySchema(
-      id: 21,
+      id: 22,
       name: r'promocao_leve',
       type: IsarType.long,
     ),
     r'promocao_preco': PropertySchema(
-      id: 22,
+      id: 23,
       name: r'promocao_preco',
       type: IsarType.double,
     ),
     r'promocao_tipo_desc': PropertySchema(
-      id: 23,
+      id: 24,
       name: r'promocao_tipo_desc',
       type: IsarType.long,
     ),
     r'pvenda': PropertySchema(
-      id: 24,
+      id: 25,
       name: r'pvenda',
       type: IsarType.double,
     ),
     r'saldo_produto': PropertySchema(
-      id: 25,
+      id: 26,
       name: r'saldo_produto',
       type: IsarType.double,
     ),
     r'status': PropertySchema(
-      id: 26,
+      id: 27,
       name: r'status',
       type: IsarType.long,
     ),
     r'unidade': PropertySchema(
-      id: 27,
+      id: 28,
       name: r'unidade',
       type: IsarType.string,
     ),
     r'venda_kg': PropertySchema(
-      id: 28,
+      id: 29,
       name: r'venda_kg',
       type: IsarType.long,
     )
@@ -241,29 +246,30 @@ void _produtoSerialize(
   writer.writeLong(offsets[3], object.balanca_tipo_pesagem);
   writer.writeLong(offsets[4], object.composto);
   writer.writeString(offsets[5], object.descricao);
-  writer.writeString(offsets[6], object.file_imagem);
-  writer.writeString(offsets[7], object.grade);
-  writer.writeString(offsets[8], object.gtin);
-  writer.writeString(offsets[9], object.gtin_grade);
-  writer.writeLong(offsets[10], object.id_empresa);
-  writer.writeLong(offsets[11], object.id_grupo);
-  writer.writeLong(offsets[12], object.nao_rec_desconto);
-  writer.writeLong(offsets[13], object.promocao_apartir);
-  writer.writeDouble(offsets[14], object.promocao_apartir_perc);
-  writer.writeLong(offsets[15], object.promocao_ativar);
-  writer.writeLong(offsets[16], object.promocao_compre);
-  writer.writeDateTime(offsets[17], object.promocao_data_inicio);
-  writer.writeDateTime(offsets[18], object.promocao_data_limite);
-  writer.writeString(offsets[19], object.promocao_hora_final);
-  writer.writeString(offsets[20], object.promocao_hora_inicial);
-  writer.writeLong(offsets[21], object.promocao_leve);
-  writer.writeDouble(offsets[22], object.promocao_preco);
-  writer.writeLong(offsets[23], object.promocao_tipo_desc);
-  writer.writeDouble(offsets[24], object.pvenda);
-  writer.writeDouble(offsets[25], object.saldo_produto);
-  writer.writeLong(offsets[26], object.status);
-  writer.writeString(offsets[27], object.unidade);
-  writer.writeLong(offsets[28], object.venda_kg);
+  writer.writeLong(offsets[6], object.favorito);
+  writer.writeString(offsets[7], object.file_imagem);
+  writer.writeString(offsets[8], object.grade);
+  writer.writeString(offsets[9], object.gtin);
+  writer.writeString(offsets[10], object.gtin_grade);
+  writer.writeLong(offsets[11], object.id_empresa);
+  writer.writeLong(offsets[12], object.id_grupo);
+  writer.writeLong(offsets[13], object.nao_rec_desconto);
+  writer.writeLong(offsets[14], object.promocao_apartir);
+  writer.writeDouble(offsets[15], object.promocao_apartir_perc);
+  writer.writeLong(offsets[16], object.promocao_ativar);
+  writer.writeLong(offsets[17], object.promocao_compre);
+  writer.writeDateTime(offsets[18], object.promocao_data_inicio);
+  writer.writeDateTime(offsets[19], object.promocao_data_limite);
+  writer.writeString(offsets[20], object.promocao_hora_final);
+  writer.writeString(offsets[21], object.promocao_hora_inicial);
+  writer.writeLong(offsets[22], object.promocao_leve);
+  writer.writeDouble(offsets[23], object.promocao_preco);
+  writer.writeLong(offsets[24], object.promocao_tipo_desc);
+  writer.writeDouble(offsets[25], object.pvenda);
+  writer.writeDouble(offsets[26], object.saldo_produto);
+  writer.writeLong(offsets[27], object.status);
+  writer.writeString(offsets[28], object.unidade);
+  writer.writeLong(offsets[29], object.venda_kg);
 }
 
 produto _produtoDeserialize(
@@ -273,36 +279,37 @@ produto _produtoDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = produto(
-    reader.readLong(offsets[10]),
+    reader.readLong(offsets[11]),
     id,
-    reader.readString(offsets[7]),
-    reader.readLongOrNull(offsets[11]),
-    reader.readStringOrNull(offsets[5]),
-    reader.readStringOrNull(offsets[27]),
-    reader.readStringOrNull(offsets[8]),
-    reader.readLongOrNull(offsets[4]),
-    reader.readLongOrNull(offsets[28]),
+    reader.readString(offsets[8]),
     reader.readLongOrNull(offsets[12]),
-    reader.readLongOrNull(offsets[26]),
+    reader.readStringOrNull(offsets[5]),
+    reader.readStringOrNull(offsets[28]),
+    reader.readStringOrNull(offsets[9]),
+    reader.readLongOrNull(offsets[4]),
+    reader.readLongOrNull(offsets[29]),
+    reader.readLongOrNull(offsets[13]),
+    reader.readLongOrNull(offsets[27]),
+    reader.readDouble(offsets[26]),
     reader.readDouble(offsets[25]),
-    reader.readDouble(offsets[24]),
     reader.readLongOrNull(offsets[0]),
     reader.readLongOrNull(offsets[1]),
     reader.readLongOrNull(offsets[3]),
     reader.readLongOrNull(offsets[2]),
-    reader.readStringOrNull(offsets[9]),
-    reader.readLongOrNull(offsets[15]),
-    reader.readDoubleOrNull(offsets[22]),
-    reader.readDateTimeOrNull(offsets[17]),
-    reader.readDateTimeOrNull(offsets[18]),
-    reader.readStringOrNull(offsets[20]),
-    reader.readStringOrNull(offsets[19]),
-    reader.readLongOrNull(offsets[23]),
+    reader.readStringOrNull(offsets[10]),
     reader.readLongOrNull(offsets[16]),
-    reader.readLongOrNull(offsets[21]),
-    reader.readLongOrNull(offsets[13]),
-    reader.readDoubleOrNull(offsets[14]),
-    reader.readStringOrNull(offsets[6]),
+    reader.readDoubleOrNull(offsets[23]),
+    reader.readDateTimeOrNull(offsets[18]),
+    reader.readDateTimeOrNull(offsets[19]),
+    reader.readStringOrNull(offsets[21]),
+    reader.readStringOrNull(offsets[20]),
+    reader.readLongOrNull(offsets[24]),
+    reader.readLongOrNull(offsets[17]),
+    reader.readLongOrNull(offsets[22]),
+    reader.readLongOrNull(offsets[14]),
+    reader.readDoubleOrNull(offsets[15]),
+    reader.readStringOrNull(offsets[7]),
+    reader.readLongOrNull(offsets[6]),
   );
   return object;
 }
@@ -327,50 +334,52 @@ P _produtoDeserializeProp<P>(
     case 5:
       return (reader.readStringOrNull(offset)) as P;
     case 6:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 7:
-      return (reader.readString(offset)) as P;
-    case 8:
       return (reader.readStringOrNull(offset)) as P;
+    case 8:
+      return (reader.readString(offset)) as P;
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
-      return (reader.readLong(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 12:
       return (reader.readLongOrNull(offset)) as P;
     case 13:
       return (reader.readLongOrNull(offset)) as P;
     case 14:
-      return (reader.readDoubleOrNull(offset)) as P;
-    case 15:
       return (reader.readLongOrNull(offset)) as P;
+    case 15:
+      return (reader.readDoubleOrNull(offset)) as P;
     case 16:
       return (reader.readLongOrNull(offset)) as P;
     case 17:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 18:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 19:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 20:
       return (reader.readStringOrNull(offset)) as P;
     case 21:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 22:
-      return (reader.readDoubleOrNull(offset)) as P;
-    case 23:
       return (reader.readLongOrNull(offset)) as P;
+    case 23:
+      return (reader.readDoubleOrNull(offset)) as P;
     case 24:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 25:
       return (reader.readDouble(offset)) as P;
     case 26:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readDouble(offset)) as P;
     case 27:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 28:
+      return (reader.readStringOrNull(offset)) as P;
+    case 29:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -975,6 +984,75 @@ extension produtoQueryFilter
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'descricao',
         value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> favoritoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'favorito',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> favoritoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'favorito',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> favoritoEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'favorito',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> favoritoGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'favorito',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> favoritoLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'favorito',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> favoritoBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'favorito',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
       ));
     });
   }
@@ -3270,6 +3348,18 @@ extension produtoQuerySortBy on QueryBuilder<produto, produto, QSortBy> {
     });
   }
 
+  QueryBuilder<produto, produto, QAfterSortBy> sortByFavorito() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'favorito', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> sortByFavoritoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'favorito', Sort.desc);
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterSortBy> sortByFile_imagem() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'file_imagem', Sort.asc);
@@ -3627,6 +3717,18 @@ extension produtoQuerySortThenBy
     });
   }
 
+  QueryBuilder<produto, produto, QAfterSortBy> thenByFavorito() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'favorito', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> thenByFavoritoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'favorito', Sort.desc);
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterSortBy> thenByFile_imagem() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'file_imagem', Sort.asc);
@@ -3959,6 +4061,12 @@ extension produtoQueryWhereDistinct
     });
   }
 
+  QueryBuilder<produto, produto, QDistinct> distinctByFavorito() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'favorito');
+    });
+  }
+
   QueryBuilder<produto, produto, QDistinct> distinctByFile_imagem(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -4148,6 +4256,12 @@ extension produtoQueryProperty
   QueryBuilder<produto, String?, QQueryOperations> descricaoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'descricao');
+    });
+  }
+
+  QueryBuilder<produto, int?, QQueryOperations> favoritoProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'favorito');
     });
   }
 

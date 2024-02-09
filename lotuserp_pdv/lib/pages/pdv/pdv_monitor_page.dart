@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -9,9 +12,11 @@ import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/core/header.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:path_provider/path_provider.dart';
 
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
@@ -43,7 +48,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
     var responseServidorController = Dependencies.responseServidorController();
-
+    var configController = Dependencies.configcontroller();
+    var textFieldController = Dependencies.textFieldController();
+    var saveImagePathController = Dependencies.saveImagePathController();
     IsarService service = IsarService();
 
     var userName = passwordController.userController.text;
@@ -57,7 +64,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
       symbol: '',
     );
 
-    List<String> listaGrupos = ['TODOS'];
+    List<String> listaGrupos = ['FAVORITOS'];
 
     List<produto> getProdutoById(List<produto> product) {
       return product.where((product) => product.id_grupo == idGrupo).toList();
@@ -426,7 +433,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           dynamic filteredProducts;
                           if (controller.isSelectedList.value >= 0) {
                             if (listaGrupos[controller.isSelectedList.value] !=
-                                'TODOS') {
+                                'FAVORITOS') {
                               filteredProducts = getProdutoById(produto);
                             } else {
                               filteredProducts = produto;
@@ -601,84 +608,125 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
           //linha de grupos de produtos
           Expanded(
         flex: 1,
-        child: StreamBuilder(
-          stream: service.listenGrupo(),
-          builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Text('Grupo não encontrado');
-            }
-            if (snapshot.hasData) {
-              var grupo = snapshot.data!;
-              return Row(
-                children: [
-                  SizedBox(
-                    width: Get.width * 0.585, //765,
-                    height: 50,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: grupo.length,
-                      itemBuilder: (context, index) {
-                        if (listaGrupos.length > 1) {
-                          listaGrupos.clear();
-                        }
-                        listaGrupos.add(
-                          'TODOS',
-                        );
-                        for (var element in grupo) {
-                          if (element.grupo_descricao != null) {
-                            listaGrupos.add(element.grupo_descricao!);
-                          }
-                        }
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: StreamBuilder(
+              stream: service.listenGrupo(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return const Text('Grupo não encontrado');
+                }
+                if (snapshot.hasData) {
+                  var grupo = snapshot.data!;
+                  return Row(
+                    children: [
+                      SizedBox(
+                        width: Get.width * 0.585, //765,
+                        height: 100,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: grupo.isEmpty ? 1 : grupo.length + 1,
+                          itemBuilder: (context, index) {
+                            var fileImage =
+                                saveImagePathController.pathImagesGroup;
 
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              controller.isSelectedList.value = index;
-                              if (index != 0) {
-                                idGrupo = grupo[index - 1].id_grupo;
+                            if (listaGrupos.length > 1) {
+                              listaGrupos.clear();
+                            }
+                            listaGrupos.add(
+                              'FAVORITOS',
+                            );
+                            for (var element in grupo) {
+                              if (element.grupo_descricao != null) {
+                                listaGrupos.add(element.grupo_descricao!);
                               }
-                            });
-                          },
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 10.0, left: 20),
-                            child: Container(
-                              padding: const EdgeInsets.all(5),
-                              decoration: BoxDecoration(
-                                  color:
-                                      controller.isSelectedList.value == index
-                                          ? const Color.fromRGBO(43, 48, 91, 1)
-                                          : Colors.transparent,
-                                  borderRadius: BorderRadius.circular(20)),
-                              child: Row(
-                                children: [
-                                  Text(
-                                    listaGrupos[index],
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: controller.isSelectedList.value ==
-                                              index
-                                          ? Colors.white
-                                          : CustomColors.customSwatchColor,
-                                      fontSize:
-                                          controller.isSelectedList.value ==
-                                                  index
-                                              ? 18
-                                              : 16,
+                            }
+
+                            return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    controller.isSelectedList.value = index;
+                                    if (index != 0) {
+                                      idGrupo = grupo[index - 1].id_grupo;
+                                    }
+                                  });
+                                },
+                                child: Row(children: [
+                                  SizedBox(
+                                    width: 90,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+                                          child:
+                                              listaGrupos[index] != 'FAVORITOS'
+                                                  ? Image.file(
+                                                      File(
+                                                        fileImage[index - 1],
+                                                      ),
+                                                      width: 65,
+                                                    )
+                                                  : Image.asset(
+                                                      'assets/images/semimagem.png',
+                                                      width: 65,
+                                                    ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 2.0),
+                                          child: Container(
+                                            height: 40,
+                                            decoration: BoxDecoration(
+                                                color: controller.isSelectedList
+                                                            .value ==
+                                                        index
+                                                    ? CustomColors
+                                                        .customSwatchColor
+                                                    : Colors.transparent,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            padding: const EdgeInsets.all(3),
+                                            child: Text(
+                                              listaGrupos[index],
+                                              style: TextStyle(
+                                                color: controller.isSelectedList
+                                                            .value ==
+                                                        index
+                                                    ? Colors.white
+                                                    : Colors.black,
+                                                fontSize: controller
+                                                            .isSelectedList
+                                                            .value ==
+                                                        index
+                                                    ? 12
+                                                    : 12,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
+                                ]));
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                }
+                return const Center(child: CircularProgressIndicator());
+              },
+            ),
+          ),
         ),
       );
     }

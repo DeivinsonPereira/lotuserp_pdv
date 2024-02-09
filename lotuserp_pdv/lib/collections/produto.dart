@@ -35,7 +35,8 @@ class produto {
   late int? promocao_apartir;
   late double? promocao_apartir_perc;
   late String? file_imagem;
-  
+  late int? favorito;
+
   produto(
     this.id_empresa,
     this.id_produto,
@@ -67,9 +68,6 @@ class produto {
     this.promocao_apartir,
     this.promocao_apartir_perc,
     this.file_imagem,
+    this.favorito,
   );
-  
- 
-
-  
 }

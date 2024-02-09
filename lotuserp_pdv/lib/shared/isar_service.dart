@@ -1,6 +1,7 @@
 // ignore_for_file: non_constant_identifier_names, use_build_context_synchronously, prefer_const_constructors
 
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
@@ -9,6 +10,7 @@ import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
+import 'package:lotuserp_pdv/collections/image_path.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -297,6 +299,75 @@ class IsarService {
         .watch(fireImmediately: true);
   }
 
+  //busca todos os dados da tabela grupo no banco de dados local
+  Future<List<produto_grupo>> searchGrupos() async {
+    final isar = await db;
+    var grupos =
+        await isar.produto_grupos.where().sortByGrupo_descricao().findAll();
+    if (grupos.isNotEmpty) {
+      return grupos;
+    } else {
+      return [];
+    }
+  }
+
+  //Salvar imagens dos grupos
+  Future<Isar> saveImagemGrupos() async {
+    final isar = await db;
+
+    int i = await isar.image_paths.count();
+
+    if (i >= 0) {
+      isar.writeTxn(
+        () async {
+          await isar.image_paths.clear();
+        },
+      );
+    }
+    try {
+      isar.writeTxn(() async {
+        var saveImagePathController = Dependencies.saveImagePathController();
+
+        // OBTER OS GRUPOS
+        List<produto_grupo> grupos = saveImagePathController.grupos;
+
+        List<image_path> images = [];
+        for (var grupo in grupos) {
+          // BAIXAR A IMAGEM
+          String? fileImage = grupo.file_imagem;
+          Directory dir = await getApplicationDocumentsDirectory();
+          String pathName = '${dir.path}/assets/grupos/$fileImage';
+
+          image_path image = image_path()
+            ..file_image = grupo.file_imagem
+            ..nome_grupo = grupo.grupo_descricao
+            ..path_image = pathName;
+
+          images.add(image);
+          saveImagePathController.addImagePathSimple(pathName);
+        }
+        await isar.image_paths.putAll(images);
+      });
+    } catch (e) {
+      logger.e('Erro ao salvar imagem dos grupos: $e');
+    }
+    return isar;
+  }
+
+  //Busca o path das imagens salvas no diretório
+  Future<List<String?>> searchImagePathGroup() async {
+    final isar = await db;
+
+    var grupos = await isar.image_paths.where().sortByNome_grupo().findAll();
+    var gruposPath = grupos.map((gru) => gru.path_image).toList();
+
+    if (grupos.isNotEmpty) {
+      return gruposPath;
+    } else {
+      return [];
+    }
+  }
+
   //inserindo dados na tabela produtos vindos do servidor
   Future getProduto(BuildContext context) async {
     await connectionVerify(context);
@@ -385,6 +456,7 @@ class IsarService {
               produtos['itens'][i]['promocao_apartir'],
               produtos['itens'][i]['promocao_apartir_perc'].toDouble(),
               produtos['itens'][i]['file_imagem'],
+              produtos['itens'][i]['favorito'],
             );
 
             listaProduto.add(pro);
@@ -398,6 +470,16 @@ class IsarService {
       } catch (e) {
         return Container();
       }
+    }
+  }
+
+  Future<List<produto>> searchProdutos() async {
+    final isar = await db;
+    var produtos = await isar.produtos.where().findAll();
+    if (produtos.isNotEmpty) {
+      return produtos;
+    } else {
+      return [];
     }
   }
 
@@ -619,6 +701,7 @@ class IsarService {
     return tipo;
   }
 
+  //busca o tipo de recebimento de acordo com a descrição
   Future<int?> search_tipoRecebimentoIdByDesc(String desc) async {
     final isar = await db;
 
@@ -708,7 +791,8 @@ class IsarService {
   }
 
   //inserir dados na tabela venda e vendaItem ****** ainda vai ter o caixaItem junto ******
-  Future<Isar> insertVendaWithVendaItemAndCaixaItem(BuildContext context, venda venda) async {
+  Future<Isar> insertVendaWithVendaItemAndCaixaItem(
+      BuildContext context, venda venda) async {
     final isar = await db;
     PdvController pdvController = Dependencies.pdvController();
     PaymentController paymentController = Dependencies.paymentController();
@@ -794,8 +878,14 @@ class IsarService {
           cpfCnpj = responseServidorController.cpfCnpj;
         }
 
-        await VendaServidorRepository().vendaToServer(context, venda, caixaItems,
-            pdvController, paymentController, idCaixaServidor, cpfCnpj);
+        await VendaServidorRepository().vendaToServer(
+            context,
+            venda,
+            caixaItems,
+            pdvController,
+            paymentController,
+            idCaixaServidor,
+            cpfCnpj);
 
         /* print(responseServidorController.cpfCnpj);
         String cpfCnpj;
@@ -1459,7 +1549,8 @@ class IsarService {
           VendaSchema,
           Caixa_fechamentoSchema,
           Cartao_itemSchema,
-          Nfce_resultadoSchema
+          Nfce_resultadoSchema,
+          Image_pathSchema
         ],
         directory: dir.path,
       );

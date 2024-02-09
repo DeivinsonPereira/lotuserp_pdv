@@ -17,6 +17,7 @@ import 'package:path_provider/path_provider.dart';
 import 'collections/caixa_fechamento.dart';
 import 'collections/cartao_item.dart';
 import 'collections/default_printer.dart';
+import 'collections/image_path.dart';
 import 'collections/nfce_resultado.dart';
 
 void main() async {
@@ -40,7 +41,8 @@ void main() async {
       VendaSchema,
       Caixa_fechamentoSchema,
       Cartao_itemSchema,
-      Nfce_resultadoSchema
+      Nfce_resultadoSchema,
+      Image_pathSchema
     ],
     directory: dir.path,
     inspector: true,
