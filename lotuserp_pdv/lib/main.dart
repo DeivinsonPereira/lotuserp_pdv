@@ -4,6 +4,7 @@ import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
+import 'package:lotuserp_pdv/collections/image_path_product.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -17,7 +18,7 @@ import 'package:path_provider/path_provider.dart';
 import 'collections/caixa_fechamento.dart';
 import 'collections/cartao_item.dart';
 import 'collections/default_printer.dart';
-import 'collections/image_path.dart';
+import 'collections/image_path_group.dart';
 import 'collections/nfce_resultado.dart';
 
 void main() async {
@@ -42,7 +43,8 @@ void main() async {
       Caixa_fechamentoSchema,
       Cartao_itemSchema,
       Nfce_resultadoSchema,
-      Image_pathSchema
+      Image_path_groupSchema,
+      Image_path_productSchema
     ],
     directory: dir.path,
     inspector: true,

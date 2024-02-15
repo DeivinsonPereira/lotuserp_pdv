@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'image_path.dart';
+part of 'image_path_group.dart';
 
 // **************************************************************************
 // IsarCollectionGenerator
@@ -9,13 +9,13 @@ part of 'image_path.dart';
 // coverage:ignore-file
 // ignore_for_file: duplicate_ignore, non_constant_identifier_names, constant_identifier_names, invalid_use_of_protected_member, unnecessary_cast, prefer_const_constructors, lines_longer_than_80_chars, require_trailing_commas, inference_failure_on_function_invocation, unnecessary_parenthesis, unnecessary_raw_strings, unnecessary_null_checks, join_return_with_assignment, prefer_final_locals, avoid_js_rounded_ints, avoid_positional_boolean_parameters, always_specify_types
 
-extension Getimage_pathCollection on Isar {
-  IsarCollection<image_path> get image_paths => this.collection();
+extension Getimage_path_groupCollection on Isar {
+  IsarCollection<image_path_group> get image_path_groups => this.collection();
 }
 
-const Image_pathSchema = CollectionSchema(
-  name: r'image_path',
-  id: -62448443992049869,
+const Image_path_groupSchema = CollectionSchema(
+  name: r'image_path_group',
+  id: -5064271130108288923,
   properties: {
     r'file_image': PropertySchema(
       id: 0,
@@ -33,22 +33,22 @@ const Image_pathSchema = CollectionSchema(
       type: IsarType.string,
     )
   },
-  estimateSize: _image_pathEstimateSize,
-  serialize: _image_pathSerialize,
-  deserialize: _image_pathDeserialize,
-  deserializeProp: _image_pathDeserializeProp,
+  estimateSize: _image_path_groupEstimateSize,
+  serialize: _image_path_groupSerialize,
+  deserialize: _image_path_groupDeserialize,
+  deserializeProp: _image_path_groupDeserializeProp,
   idName: r'id',
   indexes: {},
   links: {},
   embeddedSchemas: {},
-  getId: _image_pathGetId,
-  getLinks: _image_pathGetLinks,
-  attach: _image_pathAttach,
+  getId: _image_path_groupGetId,
+  getLinks: _image_path_groupGetLinks,
+  attach: _image_path_groupAttach,
   version: '3.1.0+1',
 );
 
-int _image_pathEstimateSize(
-  image_path object,
+int _image_path_groupEstimateSize(
+  image_path_group object,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
@@ -74,8 +74,8 @@ int _image_pathEstimateSize(
   return bytesCount;
 }
 
-void _image_pathSerialize(
-  image_path object,
+void _image_path_groupSerialize(
+  image_path_group object,
   IsarWriter writer,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
@@ -85,13 +85,13 @@ void _image_pathSerialize(
   writer.writeString(offsets[2], object.path_image);
 }
 
-image_path _image_pathDeserialize(
+image_path_group _image_path_groupDeserialize(
   Id id,
   IsarReader reader,
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = image_path();
+  final object = image_path_group();
   object.file_image = reader.readStringOrNull(offsets[0]);
   object.id = id;
   object.nome_grupo = reader.readStringOrNull(offsets[1]);
@@ -99,7 +99,7 @@ image_path _image_pathDeserialize(
   return object;
 }
 
-P _image_pathDeserializeProp<P>(
+P _image_path_groupDeserializeProp<P>(
   IsarReader reader,
   int propertyId,
   int offset,
@@ -117,30 +117,32 @@ P _image_pathDeserializeProp<P>(
   }
 }
 
-Id _image_pathGetId(image_path object) {
+Id _image_path_groupGetId(image_path_group object) {
   return object.id;
 }
 
-List<IsarLinkBase<dynamic>> _image_pathGetLinks(image_path object) {
+List<IsarLinkBase<dynamic>> _image_path_groupGetLinks(image_path_group object) {
   return [];
 }
 
-void _image_pathAttach(IsarCollection<dynamic> col, Id id, image_path object) {
+void _image_path_groupAttach(
+    IsarCollection<dynamic> col, Id id, image_path_group object) {
   object.id = id;
 }
 
-extension image_pathQueryWhereSort
-    on QueryBuilder<image_path, image_path, QWhere> {
-  QueryBuilder<image_path, image_path, QAfterWhere> anyId() {
+extension image_path_groupQueryWhereSort
+    on QueryBuilder<image_path_group, image_path_group, QWhere> {
+  QueryBuilder<image_path_group, image_path_group, QAfterWhere> anyId() {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(const IdWhereClause.any());
     });
   }
 }
 
-extension image_pathQueryWhere
-    on QueryBuilder<image_path, image_path, QWhereClause> {
-  QueryBuilder<image_path, image_path, QAfterWhereClause> idEqualTo(Id id) {
+extension image_path_groupQueryWhere
+    on QueryBuilder<image_path_group, image_path_group, QWhereClause> {
+  QueryBuilder<image_path_group, image_path_group, QAfterWhereClause> idEqualTo(
+      Id id) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(IdWhereClause.between(
         lower: id,
@@ -149,7 +151,8 @@ extension image_pathQueryWhere
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterWhereClause> idNotEqualTo(Id id) {
+  QueryBuilder<image_path_group, image_path_group, QAfterWhereClause>
+      idNotEqualTo(Id id) {
     return QueryBuilder.apply(this, (query) {
       if (query.whereSort == Sort.asc) {
         return query
@@ -171,8 +174,8 @@ extension image_pathQueryWhere
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterWhereClause> idGreaterThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<image_path_group, image_path_group, QAfterWhereClause>
+      idGreaterThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.greaterThan(lower: id, includeLower: include),
@@ -180,8 +183,8 @@ extension image_pathQueryWhere
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterWhereClause> idLessThan(Id id,
-      {bool include = false}) {
+  QueryBuilder<image_path_group, image_path_group, QAfterWhereClause>
+      idLessThan(Id id, {bool include = false}) {
     return QueryBuilder.apply(this, (query) {
       return query.addWhereClause(
         IdWhereClause.lessThan(upper: id, includeUpper: include),
@@ -189,7 +192,7 @@ extension image_pathQueryWhere
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterWhereClause> idBetween(
+  QueryBuilder<image_path_group, image_path_group, QAfterWhereClause> idBetween(
     Id lowerId,
     Id upperId, {
     bool includeLower = true,
@@ -206,9 +209,9 @@ extension image_pathQueryWhere
   }
 }
 
-extension image_pathQueryFilter
-    on QueryBuilder<image_path, image_path, QFilterCondition> {
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+extension image_path_groupQueryFilter
+    on QueryBuilder<image_path_group, image_path_group, QFilterCondition> {
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -217,7 +220,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -226,7 +229,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> file_imageEqualTo(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      file_imageEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -239,7 +243,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageGreaterThan(
     String? value, {
     bool include = false,
@@ -255,7 +259,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageLessThan(
     String? value, {
     bool include = false,
@@ -271,7 +275,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> file_imageBetween(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      file_imageBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -290,7 +295,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -304,7 +309,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageEndsWith(
     String value, {
     bool caseSensitive = true,
@@ -318,7 +323,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -329,9 +334,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> file_imageMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      file_imageMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'file_image',
@@ -341,7 +345,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -351,7 +355,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       file_imageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -361,8 +365,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> idEqualTo(
-      Id value) {
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id',
@@ -371,7 +375,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> idGreaterThan(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      idGreaterThan(
     Id value, {
     bool include = false,
   }) {
@@ -384,7 +389,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> idLessThan(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      idLessThan(
     Id value, {
     bool include = false,
   }) {
@@ -397,7 +403,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> idBetween(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      idBetween(
     Id lower,
     Id upper, {
     bool includeLower = true,
@@ -414,7 +421,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -423,7 +430,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -432,7 +439,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> nome_grupoEqualTo(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      nome_grupoEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -445,7 +453,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoGreaterThan(
     String? value, {
     bool include = false,
@@ -461,7 +469,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoLessThan(
     String? value, {
     bool include = false,
@@ -477,7 +485,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> nome_grupoBetween(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      nome_grupoBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -496,7 +505,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -510,7 +519,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoEndsWith(
     String value, {
     bool caseSensitive = true,
@@ -524,7 +533,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -535,9 +544,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> nome_grupoMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      nome_grupoMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'nome_grupo',
@@ -547,7 +555,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -557,7 +565,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       nome_grupoIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -567,7 +575,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -576,7 +584,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
@@ -585,7 +593,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> path_imageEqualTo(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      path_imageEqualTo(
     String? value, {
     bool caseSensitive = true,
   }) {
@@ -598,7 +607,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageGreaterThan(
     String? value, {
     bool include = false,
@@ -614,7 +623,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageLessThan(
     String? value, {
     bool include = false,
@@ -630,7 +639,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> path_imageBetween(
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      path_imageBetween(
     String? lower,
     String? upper, {
     bool includeLower = true,
@@ -649,7 +659,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageStartsWith(
     String value, {
     bool caseSensitive = true,
@@ -663,7 +673,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageEndsWith(
     String value, {
     bool caseSensitive = true,
@@ -677,7 +687,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageContains(String value, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.contains(
@@ -688,9 +698,8 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition> path_imageMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
+      path_imageMatches(String pattern, {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.matches(
         property: r'path_image',
@@ -700,7 +709,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageIsEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -710,7 +719,7 @@ extension image_pathQueryFilter
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterFilterCondition>
+  QueryBuilder<image_path_group, image_path_group, QAfterFilterCondition>
       path_imageIsNotEmpty() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
@@ -721,147 +730,163 @@ extension image_pathQueryFilter
   }
 }
 
-extension image_pathQueryObject
-    on QueryBuilder<image_path, image_path, QFilterCondition> {}
+extension image_path_groupQueryObject
+    on QueryBuilder<image_path_group, image_path_group, QFilterCondition> {}
 
-extension image_pathQueryLinks
-    on QueryBuilder<image_path, image_path, QFilterCondition> {}
+extension image_path_groupQueryLinks
+    on QueryBuilder<image_path_group, image_path_group, QFilterCondition> {}
 
-extension image_pathQuerySortBy
-    on QueryBuilder<image_path, image_path, QSortBy> {
-  QueryBuilder<image_path, image_path, QAfterSortBy> sortByFile_image() {
+extension image_path_groupQuerySortBy
+    on QueryBuilder<image_path_group, image_path_group, QSortBy> {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      sortByFile_image() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'file_image', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> sortByFile_imageDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      sortByFile_imageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'file_image', Sort.desc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> sortByNome_grupo() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      sortByNome_grupo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nome_grupo', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> sortByNome_grupoDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      sortByNome_grupoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nome_grupo', Sort.desc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> sortByPath_image() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      sortByPath_image() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path_image', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> sortByPath_imageDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      sortByPath_imageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path_image', Sort.desc);
     });
   }
 }
 
-extension image_pathQuerySortThenBy
-    on QueryBuilder<image_path, image_path, QSortThenBy> {
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByFile_image() {
+extension image_path_groupQuerySortThenBy
+    on QueryBuilder<image_path_group, image_path_group, QSortThenBy> {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByFile_image() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'file_image', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByFile_imageDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByFile_imageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'file_image', Sort.desc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenById() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByIdDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByIdDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.desc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByNome_grupo() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByNome_grupo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nome_grupo', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByNome_grupoDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByNome_grupoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nome_grupo', Sort.desc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByPath_image() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByPath_image() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path_image', Sort.asc);
     });
   }
 
-  QueryBuilder<image_path, image_path, QAfterSortBy> thenByPath_imageDesc() {
+  QueryBuilder<image_path_group, image_path_group, QAfterSortBy>
+      thenByPath_imageDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'path_image', Sort.desc);
     });
   }
 }
 
-extension image_pathQueryWhereDistinct
-    on QueryBuilder<image_path, image_path, QDistinct> {
-  QueryBuilder<image_path, image_path, QDistinct> distinctByFile_image(
-      {bool caseSensitive = true}) {
+extension image_path_groupQueryWhereDistinct
+    on QueryBuilder<image_path_group, image_path_group, QDistinct> {
+  QueryBuilder<image_path_group, image_path_group, QDistinct>
+      distinctByFile_image({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'file_image', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<image_path, image_path, QDistinct> distinctByNome_grupo(
-      {bool caseSensitive = true}) {
+  QueryBuilder<image_path_group, image_path_group, QDistinct>
+      distinctByNome_grupo({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'nome_grupo', caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<image_path, image_path, QDistinct> distinctByPath_image(
-      {bool caseSensitive = true}) {
+  QueryBuilder<image_path_group, image_path_group, QDistinct>
+      distinctByPath_image({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'path_image', caseSensitive: caseSensitive);
     });
   }
 }
 
-extension image_pathQueryProperty
-    on QueryBuilder<image_path, image_path, QQueryProperty> {
-  QueryBuilder<image_path, int, QQueryOperations> idProperty() {
+extension image_path_groupQueryProperty
+    on QueryBuilder<image_path_group, image_path_group, QQueryProperty> {
+  QueryBuilder<image_path_group, int, QQueryOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id');
     });
   }
 
-  QueryBuilder<image_path, String?, QQueryOperations> file_imageProperty() {
+  QueryBuilder<image_path_group, String?, QQueryOperations>
+      file_imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'file_image');
     });
   }
 
-  QueryBuilder<image_path, String?, QQueryOperations> nome_grupoProperty() {
+  QueryBuilder<image_path_group, String?, QQueryOperations>
+      nome_grupoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'nome_grupo');
     });
   }
 
-  QueryBuilder<image_path, String?, QQueryOperations> path_imageProperty() {
+  QueryBuilder<image_path_group, String?, QQueryOperations>
+      path_imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'path_image');
     });

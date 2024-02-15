@@ -25,6 +25,7 @@ import '../common/custom_cherry_error.dart';
 import '../product/product_monitor_page.dart';
 import '../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../second_copy/nfce_second_copy_page.dart';
+import 'widgets/get_images.dart';
 
 class PdvMonitorPage extends StatefulWidget {
   const PdvMonitorPage({super.key});
@@ -67,7 +68,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     List<String> listaGrupos = ['FAVORITOS'];
 
     List<produto> getProdutoById(List<produto> product) {
-      return product.where((product) => product.id_grupo == idGrupo).toList();
+      var produtos =
+          product.where((product) => product.id_grupo == idGrupo).toList();
+      if (produtos.isNotEmpty) {
+        saveImagePathController.addImagePathProduct(produtos[0].id_grupo!);
+      }
+      return produtos;
     }
 
     var size = MediaQuery.of(context).size;
@@ -75,6 +81,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     globalController.setIdUsuario();
     globalController.setCaixaAbertaId(globalController.userId);
     controller.fetchDataFromDatabase();
+    saveImagePathController.clearProductImages();
+    saveImagePathController.addImagePathFavorite();
 
     // Pagamento e total
     Widget paymentAndTotal(PdvController _) {
@@ -422,7 +430,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           scrollController: scrollController,
                         ))
                   : StreamBuilder(
-                      stream: service.listenProdutos(),
+                      stream: service.listenProdutosFavorite(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return const Text('Produto não encontrado');
@@ -447,7 +455,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 5,
                               crossAxisSpacing: 5,
-                              mainAxisSpacing: 5,
+                              mainAxisSpacing: 30,
                             ),
                             itemCount: filteredProducts.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -456,6 +464,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               String? file;
                               String preco = '';
                               int? idProduto;
+
+                              List<String> fileImageProduct;
+                              List<String> fileImageFavorite;
 
                               if (controller.isSelectedList.value >= 0) {
                                 if (listaGrupos[
@@ -487,6 +498,12 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 }
 
                                 if (file != null && idProduto != null) {
+                                  fileImageProduct =
+                                      saveImagePathController.pathImagesProduct;
+
+                                  fileImageFavorite = saveImagePathController
+                                      .pathImagesFavorites;
+
                                   return InkWell(
                                     onTap: () async {
                                       await controller.listenBalance(
@@ -504,15 +521,33 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           flex: 3,
                                           child: Stack(
                                             children: [
-                                              // CachedNetworkImage que exibe a imagem
-                                              Image.asset(
-                                                'assets/images/semimagem.png',
-                                                scale: 1.0,
-                                              ),
-
-                                              /*ImageViewPdv().getImage(
-                                                  controller.ip.value, file),*/
-
+                                              saveImagePathController
+                                                      .pathImagesProduct.isEmpty
+                                                  ? saveImagePathController
+                                                          .pathImagesFavorites
+                                                          .isNotEmpty
+                                                      ? ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      100),
+                                                          child: GetImages()
+                                                              .getImage(
+                                                                  fileImageFavorite[
+                                                                      index]))
+                                                      : const Center(
+                                                          child:
+                                                              CircularProgressIndicator(),
+                                                        )
+                                                  : ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              100),
+                                                      child: GetImages()
+                                                          .getImage(
+                                                              fileImageProduct[
+                                                                  index]),
+                                                    ),
                                               if (controller
                                                       .getQuantidade(nome!) >
                                                   0) // Verifica se a quantidade é maior que 0
@@ -665,19 +700,19 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                       children: [
                                         ClipRRect(
                                           borderRadius:
-                                              BorderRadius.circular(50),
-                                          child:
-                                              listaGrupos[index] != 'FAVORITOS'
-                                                  ? Image.file(
-                                                      File(
-                                                        fileImage[index - 1],
-                                                      ),
-                                                      width: 65,
-                                                    )
+                                              BorderRadius.circular(100),
+                                          child: listaGrupos[index] !=
+                                                  'FAVORITOS'
+                                              ? index == 0
+                                                  ? GetImages().getImage(
+                                                      fileImage[index - 1])
                                                   : Image.asset(
                                                       'assets/images/semimagem.png',
-                                                      width: 65,
-                                                    ),
+                                                      width: 65)
+                                              : Image.asset(
+                                                  'assets/images/favorito.png',
+                                                  width: 55,
+                                                ),
                                         ),
                                         Padding(
                                           padding:

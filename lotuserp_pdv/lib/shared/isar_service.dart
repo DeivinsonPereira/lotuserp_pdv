@@ -10,7 +10,8 @@ import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
-import 'package:lotuserp_pdv/collections/image_path.dart';
+import 'package:lotuserp_pdv/collections/image_path_group.dart';
+import 'package:lotuserp_pdv/collections/image_path_product.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -315,12 +316,12 @@ class IsarService {
   Future<Isar> saveImagemGrupos() async {
     final isar = await db;
 
-    int i = await isar.image_paths.count();
+    int i = await isar.image_path_groups.count();
 
     if (i >= 0) {
       isar.writeTxn(
         () async {
-          await isar.image_paths.clear();
+          await isar.image_path_groups.clear();
         },
       );
     }
@@ -331,22 +332,22 @@ class IsarService {
         // OBTER OS GRUPOS
         List<produto_grupo> grupos = saveImagePathController.grupos;
 
-        List<image_path> images = [];
+        List<image_path_group> images = [];
         for (var grupo in grupos) {
           // BAIXAR A IMAGEM
           String? fileImage = grupo.file_imagem;
           Directory dir = await getApplicationDocumentsDirectory();
           String pathName = '${dir.path}/assets/grupos/$fileImage';
 
-          image_path image = image_path()
+          image_path_group image = image_path_group()
             ..file_image = grupo.file_imagem
             ..nome_grupo = grupo.grupo_descricao
             ..path_image = pathName;
 
           images.add(image);
-          saveImagePathController.addImagePathSimple(pathName);
+          // saveImagePathController.addImagePathSimple(pathName);
         }
-        await isar.image_paths.putAll(images);
+        await isar.image_path_groups.putAll(images);
       });
     } catch (e) {
       logger.e('Erro ao salvar imagem dos grupos: $e');
@@ -358,7 +359,8 @@ class IsarService {
   Future<List<String?>> searchImagePathGroup() async {
     final isar = await db;
 
-    var grupos = await isar.image_paths.where().sortByNome_grupo().findAll();
+    var grupos =
+        await isar.image_path_groups.where().sortByNome_grupo().findAll();
     var gruposPath = grupos.map((gru) => gru.path_image).toList();
 
     if (grupos.isNotEmpty) {
@@ -366,6 +368,52 @@ class IsarService {
     } else {
       return [];
     }
+  }
+
+  Future<Isar> saveImagemProdutos() async {
+    final isar = await db;
+
+    int i = await isar.image_path_products.count();
+
+    if (i >= 0) {
+      isar.writeTxn(
+        () async {
+          await isar.image_path_products.clear();
+        },
+      );
+    }
+    try {
+      isar.writeTxn(() async {
+        var saveImagePathController = Dependencies.saveImagePathController();
+
+        // OBTER OS GRUPOS
+        List<produto> produtos = saveImagePathController.produtos;
+        
+
+        List<image_path_product> images = [];
+        for (var produto in produtos) {
+          // BAIXAR A IMAGEM
+          String? fileImage = produto.file_imagem;
+          Directory dir = await getApplicationDocumentsDirectory();
+          String pathName = '${dir.path}/assets/produtos/$fileImage';
+
+          image_path_product image = image_path_product()
+            ..id_grupo = produto.id_grupo
+            ..id_produto = produto.id_produto
+            ..favorite = produto.favorito
+            ..descricao = produto.descricao
+            ..file_image = produto.file_imagem
+            ..path_image = pathName;
+
+          images.add(image);
+          // saveImagePathController.addImagePathSimple(pathName);
+        }
+        await isar.image_path_products.putAll(images);
+      });
+    } catch (e) {
+      logger.e('Erro ao salvar imagem dos grupos: $e');
+    }
+    return isar;
   }
 
   //inserindo dados na tabela produtos vindos do servidor
@@ -473,6 +521,37 @@ class IsarService {
     }
   }
 
+  //Busca o path das imagens salvas no diretório
+  Future<List<String?>> searchImagePathProduct(int idGrupo) async {
+    final isar = await db;
+
+    var produtos = await isar.image_path_products
+        .filter()
+        .id_grupoEqualTo(idGrupo)
+        .findAll();
+    var produtosPath = produtos.map((pro) => pro.path_image).toList();
+
+    if (produtos.isNotEmpty) {
+      return produtosPath;
+    } else {
+      return [];
+    }
+  }
+
+  Future<List<String?>> searchImagePathFavorite() async {
+    final isar = await db;
+
+    var produtos =
+        await isar.image_path_products.filter().favoriteEqualTo(1).findAll();
+    var produtosPath = produtos.map((pro) => pro.path_image).toList();
+
+    if (produtos.isNotEmpty) {
+      return produtosPath;
+    } else {
+      return [];
+    }
+  }
+
   Future<List<produto>> searchProdutos() async {
     final isar = await db;
     var produtos = await isar.produtos.where().findAll();
@@ -487,6 +566,16 @@ class IsarService {
   Stream<List<produto>> listenProdutos() async* {
     final isar = await db;
     yield* isar.produtos.where().sortById_grupo().watch(fireImmediately: true);
+  }
+
+  //traz os grupos que tem favoritos marcados como 1
+  Stream<List<produto>> listenProdutosFavorite() async* {
+    final isar = await db;
+
+    yield* isar.produtos
+        .filter()
+        .favoritoEqualTo(1)
+        .watch(fireImmediately: true);
   }
 
   //busca o objeto produto de acordo com o id
@@ -1550,7 +1639,8 @@ class IsarService {
           Caixa_fechamentoSchema,
           Cartao_itemSchema,
           Nfce_resultadoSchema,
-          Image_pathSchema
+          Image_path_groupSchema,
+          Image_path_productSchema
         ],
         directory: dir.path,
       );

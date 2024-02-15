@@ -133,8 +133,9 @@ class Configcontroller extends GetxController {
     await service.getUsuarios(context);
     await service.getTipo_recebimento(context);
     await downloadImageGroup();
+    await downloadImageProduct();
     await persistImagesInformation();
-    await checkFileExists();
+    /*await checkFileExists();*/
     await listDirectiories();
   }
 

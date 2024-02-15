@@ -75,8 +75,9 @@ class LoadController extends GetxController {
           await service.getGrupo(context);
           await service.getProduto(context);
           await downloadImageGroup();
+          await downloadImageProduct();
           await persistImagesInformation();
-          await checkFileExists();
+         /* await checkFileExists();*/
           await listDirectiories();
         }
         isLoading = false.obs;
