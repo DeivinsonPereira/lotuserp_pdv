@@ -385,29 +385,48 @@ class IsarService {
     try {
       isar.writeTxn(() async {
         var saveImagePathController = Dependencies.saveImagePathController();
-
+        await saveImagePathController.getProdutos();
         // OBTER OS GRUPOS
         List<produto> produtos = saveImagePathController.produtos;
-        
+
+        Directory dir = await getApplicationDocumentsDirectory();
+        String pathNameProducts = '${dir.path}/assets/produtos/';
+        Directory directoryProducts = Directory(pathNameProducts);
+        List<String> files = [];
+        List<FileSystemEntity> filesPath = [];
+
+        if (await directoryProducts.exists()) {
+          filesPath = directoryProducts.listSync();
+          for (var i = 0; i < filesPath.length; i++) {
+            files.add(filesPath[i].path.split('/').last);
+          }
+        }
 
         List<image_path_product> images = [];
-        for (var produto in produtos) {
-          // BAIXAR A IMAGEM
-          String? fileImage = produto.file_imagem;
-          Directory dir = await getApplicationDocumentsDirectory();
-          String pathName = '${dir.path}/assets/produtos/$fileImage';
 
+        List<produto> produtosSelected = produtos
+            .where((element) => files.contains(element.file_imagem))
+            .toList();
+
+        List<String> saveFile = [];
+
+        for (var i = 0; i < produtosSelected.length; i++) {
+          saveFile.add(produtosSelected[i].file_imagem!);
+        }
+
+        for (var i = 0; i < saveFile.length; i++) {
+          // BAIXAR A IMAGEM
           image_path_product image = image_path_product()
-            ..id_grupo = produto.id_grupo
-            ..id_produto = produto.id_produto
-            ..favorite = produto.favorito
-            ..descricao = produto.descricao
-            ..file_image = produto.file_imagem
-            ..path_image = pathName;
+            ..id_grupo = produtosSelected[i].id_grupo
+            ..id_produto = produtosSelected[i].id_produto
+            ..favorite = produtosSelected[i].favorito
+            ..descricao = produtosSelected[i].descricao
+            ..file_image = produtosSelected[i].file_imagem
+            ..path_image = filesPath[i].path;
 
           images.add(image);
-          // saveImagePathController.addImagePathSimple(pathName);
         }
+        // saveImagePathController.addImagePathSimple(pathName);
         await isar.image_path_products.putAll(images);
       });
     } catch (e) {

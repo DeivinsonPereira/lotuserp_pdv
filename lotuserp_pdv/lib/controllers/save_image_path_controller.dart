@@ -22,6 +22,7 @@ class SaveImagePathController extends GetxController {
   // Busca os dados dos grupos do banco de dados local
   Future<void> getGrupos() async {
     IsarService service = IsarService();
+    clearGrupos();
     grupos.assignAll(await service.searchGrupos());
     update();
   }
@@ -75,6 +76,7 @@ class SaveImagePathController extends GetxController {
 
   Future<void> getProdutos() async {
     IsarService service = IsarService();
+    clearProducts();
     produtos.assignAll(await service.searchProdutos());
     update();
   }

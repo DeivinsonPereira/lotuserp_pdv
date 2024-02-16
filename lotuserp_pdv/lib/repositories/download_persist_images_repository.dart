@@ -69,7 +69,7 @@ Future<void> downloadImageProduct() async {
     List<produto> produtos = saveImagePathController.produtos;
     Directory dir = await getApplicationDocumentsDirectory();
     await deleteExistingFiles('${dir.path}/assets/produtos/');
-    
+
     for (var produto in produtos) {
       // BAIXAR A IMAGEM
       String? fileImage = produto.file_imagem;
@@ -88,7 +88,7 @@ Future<void> downloadImageProduct() async {
             var jsonResponse = jsonDecode(response.body);
             Directory dir = await getApplicationDocumentsDirectory();
 
-            // 
+            //
 
             if (jsonResponse['success'] == false ||
                 jsonResponse['success'] == null) {

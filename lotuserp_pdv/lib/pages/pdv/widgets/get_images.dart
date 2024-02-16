@@ -7,13 +7,21 @@ class GetImages {
     String fileImage,
   ) {
     try {
-      return Image.file(
-        File(
-          fileImage,
-        ),
-        width: 75,
-        scale: 1.0,
-      );
+      if (!fileImage.startsWith('assets/images/')) {
+        return Image.file(
+          File(
+            fileImage,
+          ),
+          width: 75,
+          scale: 1.0,
+        );
+      } else {
+        return Image.asset(
+          'assets/images/semimagem.png',
+          width: 75,
+          scale: 1.0,
+        );
+      }
     } catch (e) {
       return Image.asset(
         'assets/images/semimagem.png',

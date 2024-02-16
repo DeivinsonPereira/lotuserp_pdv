@@ -161,7 +161,7 @@ class _CheckBoxLoadData extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.find<LoadController>();
+    Dependencies.loadController();
 
     //logica para marcar e desmarcar os checkbox
     void logic(LoadController _) {

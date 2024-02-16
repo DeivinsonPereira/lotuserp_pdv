@@ -72,14 +72,15 @@ class LoadController extends GetxController {
         if (checkbox2.value == true) await service.getTipo_recebimento(context);
         if (checkbox3.value == true) await service.getUsuarios(context);
         if (checkbox4.value == true) {
-          await service.getGrupo(context);
+          /*  await service.getGrupo(context);
           await service.getProduto(context);
           await downloadImageGroup();
           await downloadImageProduct();
           await persistImagesInformation();
          /* await checkFileExists();*/
-          await listDirectiories();
+          await listDirectiories();*/
         }
+        service.saveImagemProdutos();
         isLoading = false.obs;
         update();
       }

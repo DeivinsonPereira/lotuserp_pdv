@@ -437,7 +437,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                         }
                         if (snapshot.hasData) {
                           var produto = snapshot.data!;
-
+                          List<String> imagesFavorite = [];
                           dynamic filteredProducts;
                           if (controller.isSelectedList.value >= 0) {
                             if (listaGrupos[controller.isSelectedList.value] !=
@@ -504,6 +504,22 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                   fileImageFavorite = saveImagePathController
                                       .pathImagesFavorites;
 
+                                  if (fileImageFavorite
+                                      .map((e) => e.split('/').last)
+                                      .contains(filteredProducts[index]
+                                          .file_imagem)) {
+                                    String filePath = fileImageFavorite
+                                        .firstWhere((element) =>
+                                            element.split('/').last ==
+                                            filteredProducts[index]
+                                                .file_imagem);
+
+                                    imagesFavorite.add(filePath);
+                                  } else {
+                                    imagesFavorite
+                                        .add('assets/images/semimagem.png');
+                                  }
+
                                   return InkWell(
                                     onTap: () async {
                                       await controller.listenBalance(
@@ -533,7 +549,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                                       100),
                                                           child: GetImages()
                                                               .getImage(
-                                                                  fileImageFavorite[
+                                                                  imagesFavorite[
                                                                       index]))
                                                       : const Center(
                                                           child:
