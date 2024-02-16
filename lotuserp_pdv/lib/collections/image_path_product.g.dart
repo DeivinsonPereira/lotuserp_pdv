@@ -33,18 +33,23 @@ const Image_path_productSchema = CollectionSchema(
       name: r'file_image',
       type: IsarType.string,
     ),
-    r'id_grupo': PropertySchema(
+    r'gtin': PropertySchema(
       id: 3,
+      name: r'gtin',
+      type: IsarType.string,
+    ),
+    r'id_grupo': PropertySchema(
+      id: 4,
       name: r'id_grupo',
       type: IsarType.long,
     ),
     r'id_produto': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'id_produto',
       type: IsarType.long,
     ),
     r'path_image': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'path_image',
       type: IsarType.string,
     )
@@ -82,6 +87,12 @@ int _image_path_productEstimateSize(
     }
   }
   {
+    final value = object.gtin;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
     final value = object.path_image;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -99,9 +110,10 @@ void _image_path_productSerialize(
   writer.writeString(offsets[0], object.descricao);
   writer.writeLong(offsets[1], object.favorite);
   writer.writeString(offsets[2], object.file_image);
-  writer.writeLong(offsets[3], object.id_grupo);
-  writer.writeLong(offsets[4], object.id_produto);
-  writer.writeString(offsets[5], object.path_image);
+  writer.writeString(offsets[3], object.gtin);
+  writer.writeLong(offsets[4], object.id_grupo);
+  writer.writeLong(offsets[5], object.id_produto);
+  writer.writeString(offsets[6], object.path_image);
 }
 
 image_path_product _image_path_productDeserialize(
@@ -114,10 +126,11 @@ image_path_product _image_path_productDeserialize(
   object.descricao = reader.readStringOrNull(offsets[0]);
   object.favorite = reader.readLongOrNull(offsets[1]);
   object.file_image = reader.readStringOrNull(offsets[2]);
+  object.gtin = reader.readStringOrNull(offsets[3]);
   object.id = id;
-  object.id_grupo = reader.readLongOrNull(offsets[3]);
-  object.id_produto = reader.readLongOrNull(offsets[4]);
-  object.path_image = reader.readStringOrNull(offsets[5]);
+  object.id_grupo = reader.readLongOrNull(offsets[4]);
+  object.id_produto = reader.readLongOrNull(offsets[5]);
+  object.path_image = reader.readStringOrNull(offsets[6]);
   return object;
 }
 
@@ -135,10 +148,12 @@ P _image_path_productDeserializeProp<P>(
     case 2:
       return (reader.readStringOrNull(offset)) as P;
     case 3:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 4:
       return (reader.readLongOrNull(offset)) as P;
     case 5:
+      return (reader.readLongOrNull(offset)) as P;
+    case 6:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -624,6 +639,160 @@ extension image_path_productQueryFilter
   }
 
   QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'gtin',
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'gtin',
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'gtin',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'gtin',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'gtin',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'gtin',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'gtin',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'gtin',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'gtin',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'gtin',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'gtin',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
+      gtinIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'gtin',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterFilterCondition>
       idEqualTo(Id value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
@@ -1033,6 +1202,20 @@ extension image_path_productQuerySortBy
   }
 
   QueryBuilder<image_path_product, image_path_product, QAfterSortBy>
+      sortByGtin() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'gtin', Sort.asc);
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterSortBy>
+      sortByGtinDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'gtin', Sort.desc);
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterSortBy>
       sortById_grupo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_grupo', Sort.asc);
@@ -1120,6 +1303,20 @@ extension image_path_productQuerySortThenBy
   }
 
   QueryBuilder<image_path_product, image_path_product, QAfterSortBy>
+      thenByGtin() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'gtin', Sort.asc);
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterSortBy>
+      thenByGtinDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'gtin', Sort.desc);
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QAfterSortBy>
       thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id', Sort.asc);
@@ -1200,6 +1397,13 @@ extension image_path_productQueryWhereDistinct
   }
 
   QueryBuilder<image_path_product, image_path_product, QDistinct>
+      distinctByGtin({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'gtin', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<image_path_product, image_path_product, QDistinct>
       distinctById_grupo() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id_grupo');
@@ -1246,6 +1450,12 @@ extension image_path_productQueryProperty
       file_imageProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'file_image');
+    });
+  }
+
+  QueryBuilder<image_path_product, String?, QQueryOperations> gtinProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'gtin');
     });
   }
 

@@ -9,11 +9,21 @@ import '../collections/produto.dart';
 class SaveImagePathController extends GetxController {
   final List<produto_grupo> grupos = [];
   final List<produto> produtos = [];
+  List<produto> favoritesProducts = [];
 
   final List<String> pathImagesGroup = [];
   final List<String> pathImagesProduct = [];
   final List<String> pathImagesFavorites = [];
+  List<String> pathImagesDesc = [];
+  List<String> pathImagesBarcode = [];
+
   var imageFiles = <File>[].obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    addImagePathGroup();
+  }
 
   /////////////////////
   /// IMAGENS GRUPO ///
@@ -35,9 +45,6 @@ class SaveImagePathController extends GetxController {
 
   // adiciona o path da imagem na variavel de forma mais completa
   Future<void> addImagePathGroup() async {
-    if (pathImagesGroup.isNotEmpty) {
-      pathImagesGroup.clear();
-    }
     IsarService service = IsarService();
     List<String?> path = await service.searchImagePathGroup();
     if (path.isNotEmpty) {
@@ -83,6 +90,9 @@ class SaveImagePathController extends GetxController {
 
   // adiciona o path da imagem na variavel de forma simples (faz essa adição, junto com a inserção no banco de dados)
   void addImagePathProductSimple(String path) async {
+    if (path.isNotEmpty) {
+      clearProducts();
+    }
     pathImagesProduct.add(path);
     update();
   }
@@ -106,6 +116,57 @@ class SaveImagePathController extends GetxController {
         pathImagesFavorites.add(paths!);
       }
     }
+  }
+
+  Future<void> addImagePathFavorites() async {
+    await getProdutos();
+
+    if (favoritesProducts.isNotEmpty) {
+      clearFavoritesProducts();
+    }
+    favoritesProducts =
+        produtos.where((element) => element.favorito == 1).toList();
+  }
+
+  Future<void> addImagePathDesc(String value) async {
+    IsarService service = IsarService();
+    List<String?> path = await service.searchImagePathDesc(value);
+    if (pathImagesBarcode.isNotEmpty) {
+      clearPathImagesDesc();
+    }
+    if (path.isNotEmpty) {
+      for (var paths in path) {
+        pathImagesDesc.add(paths!);
+      }
+    }
+  }
+
+  Future<void> addImagePathBarcode(String value) async {
+    IsarService service = IsarService();
+    List<String?> path = await service.searchImagePathBarcode(value);
+    if (pathImagesBarcode.isNotEmpty) {
+      clearPathImagesBarcode();
+    }
+    if (path.isNotEmpty) {
+      for (var paths in path) {
+        pathImagesBarcode.add(paths!);
+      }
+    }
+  }
+
+  void clearPathImagesBarcode() {
+    pathImagesBarcode.clear();
+    update();
+  }
+
+  void clearPathImagesDesc() {
+    pathImagesDesc.clear();
+    update();
+  }
+
+  void clearFavoritesProducts() {
+    favoritesProducts.clear();
+    update();
   }
 
   void clearProductImages() {

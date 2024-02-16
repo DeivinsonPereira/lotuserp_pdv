@@ -328,21 +328,41 @@ class IsarService {
     try {
       isar.writeTxn(() async {
         var saveImagePathController = Dependencies.saveImagePathController();
-
+        await saveImagePathController.getGrupos();
         // OBTER OS GRUPOS
         List<produto_grupo> grupos = saveImagePathController.grupos;
 
-        List<image_path_group> images = [];
-        for (var grupo in grupos) {
-          // BAIXAR A IMAGEM
-          String? fileImage = grupo.file_imagem;
-          Directory dir = await getApplicationDocumentsDirectory();
-          String pathName = '${dir.path}/assets/grupos/$fileImage';
+        Directory dir = await getApplicationDocumentsDirectory();
+        String pathNameGrupos = '${dir.path}/assets/grupos/';
+        Directory directoryGrupos = Directory(pathNameGrupos);
+        List<String> files = [];
+        List<FileSystemEntity> filesPath = [];
 
+        if (await directoryGrupos.exists()) {
+          filesPath = directoryGrupos.listSync();
+          for (var i = 0; i < filesPath.length; i++) {
+            files.add(filesPath[i].path.split('/').last);
+          }
+        }
+
+        List<image_path_group> images = [];
+
+        List<produto_grupo> gruposSelected = grupos
+            .where((element) => files.contains(element.file_imagem))
+            .toList();
+
+        List<String> saveFile = [];
+
+        for (var i = 0; i < gruposSelected.length; i++) {
+          saveFile.add(gruposSelected[i].file_imagem!);
+        }
+
+        //SALVA IMAGENS NO BANCO DE DADOS
+        for (var i = 0; i < saveFile.length; i++) {
           image_path_group image = image_path_group()
-            ..file_image = grupo.file_imagem
-            ..nome_grupo = grupo.grupo_descricao
-            ..path_image = pathName;
+            ..file_image = gruposSelected[i].file_imagem
+            ..nome_grupo = gruposSelected[i].grupo_descricao
+            ..path_image = filesPath[i].path;
 
           images.add(image);
           // saveImagePathController.addImagePathSimple(pathName);
@@ -386,7 +406,7 @@ class IsarService {
       isar.writeTxn(() async {
         var saveImagePathController = Dependencies.saveImagePathController();
         await saveImagePathController.getProdutos();
-        // OBTER OS GRUPOS
+        // OBTER OS PRODUTOS
         List<produto> produtos = saveImagePathController.produtos;
 
         Directory dir = await getApplicationDocumentsDirectory();
@@ -421,6 +441,7 @@ class IsarService {
             ..id_produto = produtosSelected[i].id_produto
             ..favorite = produtosSelected[i].favorito
             ..descricao = produtosSelected[i].descricao
+            ..gtin = produtosSelected[i].gtin
             ..file_image = produtosSelected[i].file_imagem
             ..path_image = filesPath[i].path;
 
@@ -562,6 +583,38 @@ class IsarService {
 
     var produtos =
         await isar.image_path_products.filter().favoriteEqualTo(1).findAll();
+    var produtosPath = produtos.map((pro) => pro.path_image).toList();
+
+    if (produtos.isNotEmpty) {
+      return produtosPath;
+    } else {
+      return [];
+    }
+  }
+
+  //busca os paths das imagens de acordo com a descrição no campo de busca
+  Future<List<String?>> searchImagePathDesc(value) async {
+    final isar = await db;
+
+    var produtos = await isar.image_path_products
+        .filter()
+        .descricaoStartsWith(value)
+        .findAll();
+    var produtosPath = produtos.map((pro) => pro.path_image).toList();
+
+    if (produtos.isNotEmpty) {
+      return produtosPath;
+    } else {
+      return [];
+    }
+  }
+
+  //busca os paths das imagens de acordo com o codigo de barras (gtin) no campo de busca
+  Future<List<String?>> searchImagePathBarcode(value) async {
+    final isar = await db;
+
+    var produtos = await isar.image_path_products.filter().gtinEqualTo(value).findAll();
+
     var produtosPath = produtos.map((pro) => pro.path_image).toList();
 
     if (produtos.isNotEmpty) {

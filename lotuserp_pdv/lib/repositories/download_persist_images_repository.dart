@@ -22,6 +22,8 @@ Future<void> downloadImageGroup() async {
   try {
     // OBTER OS GRUPOS
     List<produto_grupo> grupos = saveImagePathController.grupos;
+    Directory dir = await getApplicationDocumentsDirectory();
+    await deleteExistingFiles('${dir.path}/assets/grupos/');
 
     for (var grupo in grupos) {
       // BAIXAR A IMAGEM
@@ -37,14 +39,23 @@ Future<void> downloadImageGroup() async {
             headers: Header.header);
 
         if (response.statusCode == 200) {
-          Directory dir = await getApplicationDocumentsDirectory();
-          String pathName = '${dir.path}/assets/grupos/$fileName&result=JSO';
+          try {
+            var jsonResponse = jsonDecode(response.body);
 
-          await Directory('${dir.path}/assets/grupos').create(recursive: true);
-          File file = File(pathName);
-          var result = await file.writeAsBytes(response.bodyBytes);
+            if (jsonResponse['success'] == false ||
+                jsonResponse['success'] == null) {
+              continue;
+            }
+          } catch (e) {
+            String pathName = '${dir.path}/assets/grupos/$fileName';
 
-          logger.d('Imagem baixada com sucesso $result');
+            await Directory('${dir.path}/assets/grupos')
+                .create(recursive: true);
+            File file = File(pathName);
+            var result = await file.writeAsBytes(response.bodyBytes);
+
+            logger.d('Imagem baixada com sucesso $result');
+          }
         } else {
           logger.e('Erro ao baixar imagem');
         }
@@ -86,9 +97,6 @@ Future<void> downloadImageProduct() async {
         if (response.statusCode == 200) {
           try {
             var jsonResponse = jsonDecode(response.body);
-            Directory dir = await getApplicationDocumentsDirectory();
-
-            //
 
             if (jsonResponse['success'] == false ||
                 jsonResponse['success'] == null) {
@@ -138,38 +146,15 @@ Future<void> deleteExistingFiles(String folderPath) async {
 }
 
 // PERSISTIR AS IMAGENS
-Future<void> persistImagesInformation() async {
+Future<void> persistImagesInformationGroup() async {
   IsarService service = IsarService();
   await service.saveImagemGrupos();
-  await service.saveImagemProdutos();
 }
 
-/*// VERIFICAR SE AS IMAGENS EXISTEM
-Future<void> checkFileExists() async {
-  Logger logger = Logger();
-  var saveImagePathController = Dependencies.saveImagePathController();
-
-  // OBTER OS GRUPOS
-  List<produto_grupo> grupos = saveImagePathController.grupos;
-
-  for (var grupo in grupos) {
-    // VERIFICAR A IMAGEM
-    String? fileImage = grupo.file_imagem;
-    if (fileImage != null || fileImage != '') {
-      Directory dir = await getApplicationDocumentsDirectory();
-      String pathName = '${dir.path}/assets/grupos/$fileImage';
-
-      File file = File(pathName);
-      bool fileExists = await file.exists();
-
-      if (fileExists) {
-        logger.d('Arquivo $pathName existe');
-      } else {
-        logger.e('Arquivo $pathName não existe');
-      }
-    }
-  }
-}*/
+Future<void> persistImagesInformationProduct() async {
+  IsarService service = IsarService();
+  await service.saveImagemProdutos();
+}
 
 // LISTAR OS ARQUIVOS QUE TEM DENTRO DE DETERMINADO DIRETORIO
 Future<void> listDirectiories() async {

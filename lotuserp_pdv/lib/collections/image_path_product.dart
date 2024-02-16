@@ -10,6 +10,7 @@ class image_path_product {
   late int? id_grupo;
   late int? favorite;
   late String? descricao;
+  late String? gtin;
   late String? path_image;
   late String? file_image;
 }

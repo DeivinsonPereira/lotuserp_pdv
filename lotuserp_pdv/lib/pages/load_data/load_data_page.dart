@@ -45,29 +45,50 @@ class LoadDataPage extends StatelessWidget {
                       child: GetBuilder<LoadController>(
                         builder: (_) {
                           return Padding(
-                            padding: const EdgeInsets.only(left: 110.0),
-                            child: Column(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Row(
                               children: [
-                                _CheckBoxLoadData(
-                                  text: 'Dados da Empresa',
-                                  checkBoxValue: _.checkbox1.value,
-                                  ischeckbox1: true,
+                                Expanded(
+                                  child: Column(
+                                    children: [
+                                      _CheckBoxLoadData(
+                                        text: 'Dados da Empresa',
+                                        checkBoxValue: _.checkbox1.value,
+                                        ischeckbox1: true,
+                                      ),
+                                      _CheckBoxLoadData(
+                                        text: 'Tipos Recebimento',
+                                        checkBoxValue: _.checkbox2.value,
+                                        ischeckbox2: true,
+                                      ),
+                                      _CheckBoxLoadData(
+                                        text: 'Usuários',
+                                        checkBoxValue: _.checkbox3.value,
+                                        ischeckbox3: true,
+                                      ),
+                                      _CheckBoxLoadData(
+                                        text: 'CARGA GERAL DE PRODUTOS',
+                                        checkBoxValue: _.checkbox4.value,
+                                        ischeckbox4: true,
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                                _CheckBoxLoadData(
-                                  text: 'Tipos Recebimento',
-                                  checkBoxValue: _.checkbox2.value,
-                                  ischeckbox2: true,
-                                ),
-                                _CheckBoxLoadData(
-                                  text: 'Usuários',
-                                  checkBoxValue: _.checkbox3.value,
-                                  ischeckbox3: true,
-                                ),
-                                _CheckBoxLoadData(
-                                  text: 'CARGA GERAL DE PRODUTOS',
-                                  checkBoxValue: _.checkbox4.value,
-                                  ischeckbox4: true,
-                                ),
+                                Expanded(
+                                  child: Column(children: [
+                                    _CheckBoxLoadData(
+                                      text: 'Imagens Grupos',
+                                      checkBoxValue: _.checkbox5.value,
+                                      ischeckbox5: true,
+                                    ),
+                                    _CheckBoxLoadData(
+                                      text: 'Imagens Produtos',
+                                      checkBoxValue: _.checkbox6.value,
+                                      ischeckbox6: true,
+                                    ),
+                                  ]),
+                                )
                               ],
                             ),
                           );
@@ -148,6 +169,8 @@ class _CheckBoxLoadData extends StatelessWidget {
   final bool ischeckbox2;
   final bool ischeckbox3;
   final bool ischeckbox4;
+  final bool ischeckbox5;
+  final bool ischeckbox6;
 
   const _CheckBoxLoadData({
     Key? key,
@@ -157,6 +180,8 @@ class _CheckBoxLoadData extends StatelessWidget {
     this.ischeckbox2 = false,
     this.ischeckbox3 = false,
     this.ischeckbox4 = false,
+    this.ischeckbox5 = false,
+    this.ischeckbox6 = false,
   }) : super(key: key);
 
   @override
@@ -179,6 +204,14 @@ class _CheckBoxLoadData extends StatelessWidget {
 
       if (ischeckbox4 == true) {
         _.updateCheckBox(ischeckbox4: true);
+      }
+
+      if (ischeckbox5 == true) {
+        _.updateCheckBox(ischeckbox5: true);
+      }
+
+      if (ischeckbox6 == true) {
+        _.updateCheckBox(ischeckbox6: true);
       }
     }
 

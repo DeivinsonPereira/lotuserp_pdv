@@ -20,6 +20,8 @@ class LoadController extends GetxController {
   var checkbox2 = false.obs;
   var checkbox3 = false.obs;
   var checkbox4 = false.obs;
+  var checkbox5 = false.obs;
+  var checkbox6 = false.obs;
 
   var isLoading = true.obs;
 
@@ -49,6 +51,14 @@ class LoadController extends GetxController {
       checkbox4.value = !checkbox4.value;
     }
 
+    if (ischeckbox5 == true) {
+      checkbox5.value = !checkbox5.value;
+    }
+
+    if (ischeckbox6 == true) {
+      checkbox6.value = !checkbox6.value;
+    }
+
     update();
   }
 
@@ -72,15 +82,18 @@ class LoadController extends GetxController {
         if (checkbox2.value == true) await service.getTipo_recebimento(context);
         if (checkbox3.value == true) await service.getUsuarios(context);
         if (checkbox4.value == true) {
-          /*  await service.getGrupo(context);
+          await service.getGrupo(context);
           await service.getProduto(context);
-          await downloadImageGroup();
-          await downloadImageProduct();
-          await persistImagesInformation();
-         /* await checkFileExists();*/
-          await listDirectiories();*/
+          await listDirectiories();
         }
-        service.saveImagemProdutos();
+        if (checkbox5.value == true) {
+          await downloadImageGroup();
+          await persistImagesInformationGroup();
+        }
+        if (checkbox6.value == true) {
+          await downloadImageProduct();
+          persistImagesInformationProduct();
+        }
         isLoading = false.obs;
         update();
       }

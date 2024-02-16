@@ -1,22 +1,19 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/collections/image_path_product.dart';
 
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
+import 'package:lotuserp_pdv/controllers/save_image_path_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/core/header.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/pdv_colors.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
-import 'package:path_provider/path_provider.dart';
 
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
@@ -49,8 +46,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     var paymentController = Dependencies.paymentController();
     var searchProductPdvController = Dependencies.searchProductPdvController();
     var responseServidorController = Dependencies.responseServidorController();
-    var configController = Dependencies.configcontroller();
-    var textFieldController = Dependencies.textFieldController();
+    Dependencies.configcontroller();
+    Dependencies.textFieldController();
     var saveImagePathController = Dependencies.saveImagePathController();
     IsarService service = IsarService();
 
@@ -71,9 +68,16 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
       var produtos =
           product.where((product) => product.id_grupo == idGrupo).toList();
       if (produtos.isNotEmpty) {
-        saveImagePathController.addImagePathProduct(produtos[0].id_grupo!);
+        if (saveImagePathController.pathImagesProduct.isEmpty) {
+          saveImagePathController.addImagePathProduct(produtos[0].id_grupo!);
+        }
       }
       return produtos;
+    }
+
+    void getImagesGroupMethod() async {
+      saveImagePathController.clearGrupos();
+      await saveImagePathController.addImagePathGroup();
     }
 
     var size = MediaQuery.of(context).size;
@@ -83,6 +87,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
     controller.fetchDataFromDatabase();
     saveImagePathController.clearProductImages();
     saveImagePathController.addImagePathFavorite();
+    saveImagePathController.addImagePathFavorites();
 
     // Pagamento e total
     Widget paymentAndTotal(PdvController _) {
@@ -430,95 +435,137 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           scrollController: scrollController,
                         ))
                   : StreamBuilder(
-                      stream: service.listenProdutosFavorite(),
+                      stream: service
+                          .listenProdutos(), //service.listenProdutosFavorite(),
                       builder: (context, snapshot) {
                         if (snapshot.hasError) {
                           return const Text('Produto não encontrado');
                         }
                         if (snapshot.hasData) {
-                          var produto = snapshot.data!;
+                          var produtos = snapshot.data!;
                           List<String> imagesFavorite = [];
+                          List<String> imagesProductsCorrect = [];
+                          List<produto> favoriteItems = [];
+                          getImagesGroupMethod();
                           dynamic filteredProducts;
                           if (controller.isSelectedList.value >= 0) {
                             if (listaGrupos[controller.isSelectedList.value] !=
                                 'FAVORITOS') {
-                              filteredProducts = getProdutoById(produto);
+                              filteredProducts = getProdutoById(produtos);
                             } else {
-                              filteredProducts = produto;
+                              filteredProducts = produtos;
                             }
                           } else {
                             filteredProducts = [];
                           }
 
                           return GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 5,
-                              crossAxisSpacing: 5,
-                              mainAxisSpacing: 30,
-                            ),
-                            itemCount: filteredProducts.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              String? nome;
-                              String? unidade;
-                              String? file;
-                              String preco = '';
-                              int? idProduto;
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 5,
+                                crossAxisSpacing: 5,
+                                mainAxisSpacing: 30,
+                              ),
+                              itemCount: listaGrupos[
+                                          controller.isSelectedList.value] ==
+                                      'FAVORITOS'
+                                  ? saveImagePathController
+                                      .favoritesProducts.length
+                                  : filteredProducts.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                String? nome;
+                                String? unidade;
+                                String? file;
+                                String preco = '';
+                                int? idProduto;
 
-                              List<String> fileImageProduct;
-                              List<String> fileImageFavorite;
+                                List<String> fileImageProduct;
+                                List<String> fileImageFavorite;
 
-                              if (controller.isSelectedList.value >= 0) {
-                                if (listaGrupos[
-                                            controller.isSelectedList.value] ==
-                                        '0' &&
-                                    produto[index].file_imagem != null) {
-                                  produto.isNotEmpty
-                                      ? file = produto[index].file_imagem!
-                                      : file = null;
-                                  nome = produto[index].descricao;
-                                  preco = formatoBrasileiro
-                                      .format(produto[index].pvenda);
-                                  if (precos.isNotEmpty) {}
-                                  precos.add(preco);
-                                  unidade = produto[index].unidade;
-                                } else {
-                                  file = filteredProducts[index].file_imagem ??
-                                      "Valor Padrão";
-                                  nome = filteredProducts[index].descricao ??
-                                      "null";
+                                if (controller.isSelectedList.value >= 0) {
+                                  if (listaGrupos[controller
+                                              .isSelectedList.value] ==
+                                          'FAVORITOS' ||
+                                      listaGrupos[controller
+                                              .isSelectedList.value] ==
+                                          '0') {
+                                    List<produto> favorite =
+                                        saveImagePathController
+                                            .favoritesProducts;
 
-                                  preco = formatoBrasileiro
-                                      .format(filteredProducts[index].pvenda);
+                                    produtos.isNotEmpty
+                                        ? file = produtos[index].file_imagem!
+                                        : file = null;
+                                    nome = favorite[index].descricao;
+                                    preco = formatoBrasileiro
+                                        .format(favorite[index].pvenda);
+                                    if (precos.isNotEmpty) {}
+                                    precos.add(preco);
+                                    unidade = favorite[index].unidade;
+                                    idProduto = favorite[index].id_produto;
+                                  } else {
+                                    file = saveImagePathController
+                                            .favoritesProducts[index]
+                                            .file_imagem ??
+                                        "Valor Padrão";
+                                    nome = filteredProducts[index].descricao ??
+                                        "null";
 
-                                  unidade =
-                                      filteredProducts[index].unidade ?? "";
-                                  idProduto =
-                                      filteredProducts[index].id_produto;
-                                }
+                                    preco = formatoBrasileiro
+                                        .format(filteredProducts[index].pvenda);
 
-                                if (file != null && idProduto != null) {
+                                    unidade =
+                                        filteredProducts[index].unidade ?? "";
+                                    idProduto =
+                                        filteredProducts[index].id_produto;
+                                  }
+
                                   fileImageProduct =
                                       saveImagePathController.pathImagesProduct;
 
                                   fileImageFavorite = saveImagePathController
                                       .pathImagesFavorites;
 
-                                  if (fileImageFavorite
-                                      .map((e) => e.split('/').last)
-                                      .contains(filteredProducts[index]
-                                          .file_imagem)) {
-                                    String filePath = fileImageFavorite
-                                        .firstWhere((element) =>
-                                            element.split('/').last ==
-                                            filteredProducts[index]
-                                                .file_imagem);
+                                  try {
+                                    if (fileImageProduct
+                                        .map((e) => e.split('/').last)
+                                        .contains(filteredProducts[index]
+                                            .file_imagem)) {
+                                      String filePath = fileImageFavorite
+                                          .firstWhere((element) =>
+                                              element.split('/').last ==
+                                              filteredProducts[index]
+                                                  .file_imagem);
 
-                                    imagesFavorite.add(filePath);
-                                  } else {
-                                    imagesFavorite
-                                        .add('assets/images/semimagem.png');
-                                  }
+                                      imagesProductsCorrect.add(filePath);
+                                    } else {
+                                      imagesProductsCorrect
+                                          .add('assets/images/semimagem.png');
+                                    }
+                                    // ignore: empty_catches
+                                  } catch (e) {}
+
+                                  try {
+                                    if (fileImageFavorite
+                                        .map((e) => e.split('/').last)
+                                        .contains(saveImagePathController
+                                            .favoritesProducts[index]
+                                            .file_imagem)) {
+                                      String filePath = fileImageFavorite
+                                          .firstWhere((element) =>
+                                              element.split('/').last ==
+                                              saveImagePathController
+                                                  .favoritesProducts[index]
+                                                  .file_imagem);
+
+                                      imagesFavorite.add(filePath);
+                                    } else {
+                                      imagesFavorite
+                                          .add('assets/images/semimagem.png');
+                                      // ignore: empty_catches
+                                    }
+                                    // ignore: empty_catches
+                                  } catch (e) {}
 
                                   return InkWell(
                                     onTap: () async {
@@ -537,8 +584,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           flex: 3,
                                           child: Stack(
                                             children: [
-                                              saveImagePathController
-                                                      .pathImagesProduct.isEmpty
+                                              listaGrupos[controller
+                                                          .isSelectedList
+                                                          .value] ==
+                                                      'FAVORITOS'
                                                   ? saveImagePathController
                                                           .pathImagesFavorites
                                                           .isNotEmpty
@@ -547,10 +596,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                               BorderRadius
                                                                   .circular(
                                                                       100),
-                                                          child: GetImages()
-                                                              .getImage(
-                                                                  imagesFavorite[
-                                                                      index]))
+                                                          child: getImage(
+                                                              imagesFavorite[
+                                                                  index]))
                                                       : const Center(
                                                           child:
                                                               CircularProgressIndicator(),
@@ -559,10 +607,15 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                       borderRadius:
                                                           BorderRadius.circular(
                                                               100),
-                                                      child: GetImages()
-                                                          .getImage(
-                                                              fileImageProduct[
-                                                                  index]),
+                                                      child: index <
+                                                              imagesProductsCorrect
+                                                                  .length
+                                                          ? getImage(
+                                                              imagesProductsCorrect[
+                                                                  index])
+                                                          : Image.asset(
+                                                              'assets/images/semimagem.png',
+                                                            ),
                                                     ),
                                               if (controller
                                                       .getQuantidade(nome!) >
@@ -635,12 +688,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 } else {
                                   return const CircularProgressIndicator();
                                 }
-                              }
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
-                          );
+                              });
                         }
                         return const Center(
                           child: CircularProgressIndicator(),
@@ -674,6 +722,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 }
                 if (snapshot.hasData) {
                   var grupo = snapshot.data!;
+                  List<String> imagesGroup = [];
                   return Row(
                     children: [
                       SizedBox(
@@ -683,7 +732,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           scrollDirection: Axis.horizontal,
                           itemCount: grupo.isEmpty ? 1 : grupo.length + 1,
                           itemBuilder: (context, index) {
-                            var fileImage =
+                            List<String> fileImageGroup =
                                 saveImagePathController.pathImagesGroup;
 
                             if (listaGrupos.length > 1) {
@@ -695,6 +744,22 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                             for (var element in grupo) {
                               if (element.grupo_descricao != null) {
                                 listaGrupos.add(element.grupo_descricao!);
+                              }
+                            }
+                            if (index != 0) {
+                              if (fileImageGroup
+                                  .map((e) => e.split('/').last)
+                                  .contains(index <= grupo.length
+                                      ? grupo[index - 1].file_imagem
+                                      : '')) {
+                                String filePath = fileImageGroup.firstWhere(
+                                    (element) =>
+                                        element.split('/').last ==
+                                        grupo[index - 1].file_imagem);
+
+                                imagesGroup.add(filePath);
+                              } else {
+                                imagesGroup.add('assets/images/semimagem.png');
                               }
                             }
 
@@ -715,21 +780,15 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           MainAxisAlignment.center,
                                       children: [
                                         ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                          child: listaGrupos[index] !=
-                                                  'FAVORITOS'
-                                              ? index == 0
-                                                  ? GetImages().getImage(
-                                                      fileImage[index - 1])
-                                                  : Image.asset(
-                                                      'assets/images/semimagem.png',
-                                                      width: 65)
-                                              : Image.asset(
-                                                  'assets/images/favorito.png',
-                                                  width: 55,
-                                                ),
-                                        ),
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                            child: listaGrupos[index] !=
+                                                    'FAVORITOS'
+                                                ? getImage(
+                                                    imagesGroup[index - 1])
+                                                : Image.asset(
+                                                    'assets/images/favorito.png',
+                                                    width: 55)),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(top: 2.0),
@@ -933,6 +992,7 @@ class _SearchProduct extends StatelessWidget {
   final SearchProductPdvController controller;
   final PdvController pdvController;
   final ScrollController scrollController;
+
   bool isBarCode;
   _SearchProduct({
     Key? key,
@@ -948,6 +1008,11 @@ class _SearchProduct extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isBalance = false;
+    SaveImagePathController saveImagePathController =
+        Dependencies.saveImagePathController();
+    isBarCode
+        ? saveImagePathController.addImagePathBarcode(controller.search.value)
+        : saveImagePathController.addImagePathDesc(controller.search.value);
     return FutureBuilder(
       future: !isBarCode
           ? service.searchProdutoByDesc(controller.search.value)
@@ -965,6 +1030,12 @@ class _SearchProduct extends StatelessWidget {
         }
         if (snapshot.hasData) {
           List<produto?> produtos = snapshot.data!;
+          List<String> produtosDescPathImage =
+              saveImagePathController.pathImagesDesc;
+          List<String> produtoBarcodePathImage =
+              saveImagePathController.pathImagesBarcode;
+          List<String> imagesPath = [];
+
           controller.clearAll();
           for (var produto in produtos) {
             if (produto!.venda_kg == 1) {
@@ -990,6 +1061,46 @@ class _SearchProduct extends StatelessWidget {
               mainAxisSpacing: 5,
             ),
             itemBuilder: (context, index) {
+              if (!isBarCode) {
+                try {
+                  if (produtosDescPathImage
+                      .map((e) => e.split('/').last)
+                      .contains(produtos[index]!.file_imagem)) {
+                    String filePath = produtosDescPathImage.firstWhere(
+                        (element) =>
+                            element.split('/').last ==
+                            produtos[index]!.file_imagem);
+
+                    String path = filePath;
+
+                    imagesPath.add(path);
+                  } else {
+                    imagesPath.add('assets/images/semimagem.png');
+                  }
+                  // ignore: empty_catches
+                } catch (e) {}
+              }
+
+              if (isBarCode) {
+                try {
+                  if (produtoBarcodePathImage
+                      .map((e) => e.split('/').last)
+                      .contains(produtos[index]!.file_imagem)) {
+                    String filePath = produtoBarcodePathImage.firstWhere(
+                        (element) =>
+                            element.split('/').last ==
+                            produtos[index]!.file_imagem);
+
+                    String path = filePath;
+
+                    imagesPath.add(path);
+                  } else {
+                    imagesPath.add('assets/images/semimagem.png');
+                  }
+                  // ignore: empty_catches
+                } catch (e) {}
+              }
+
               return InkWell(
                 onTap: () async {
                   if (produtos[index]!.venda_kg == 1) {
@@ -1026,16 +1137,12 @@ class _SearchProduct extends StatelessWidget {
                       child: Stack(
                         children: [
                           // CachedNetworkImage que exibe a imagem
-                          Image.asset(
-                            'assets/images/semimagem.png',
-                            scale: 1.0,
-                          ),
-
-                          /*CachedNetworkImage(
-                            alignment: const Alignment(0, 0),
-                            imageUrl:
-                                '${pdvController.ip.value}/getimagem?categoria=PRO&file=${controller.file[index][0]}&result=URL',
-                          ),*/
+                          imagesPath.isNotEmpty
+                              ? getImage(imagesPath[index])
+                              : Image.asset(
+                                  'assets/images/semimagem.png',
+                                  scale: 1.0,
+                                ),
 
                           if (pdvController
                                   .getQuantidade(controller.nome[index]) >
