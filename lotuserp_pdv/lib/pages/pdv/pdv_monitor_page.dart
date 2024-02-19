@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:lotuserp_pdv/collections/image_path_product.dart';
 
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
@@ -18,7 +17,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../services/format_txt.dart';
 import '../../services/dependencies.dart';
-import '../common/custom_cherry_error.dart';
+import '../common/custom_cherry.dart';
 import '../product/product_monitor_page.dart';
 import '../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../second_copy/nfce_second_copy_page.dart';
@@ -445,7 +444,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           var produtos = snapshot.data!;
                           List<String> imagesFavorite = [];
                           List<String> imagesProductsCorrect = [];
-                          List<produto> favoriteItems = [];
                           getImagesGroupMethod();
                           dynamic filteredProducts;
                           if (controller.isSelectedList.value >= 0) {
@@ -475,7 +473,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                               itemBuilder: (BuildContext context, int index) {
                                 String? nome;
                                 String? unidade;
-                                String? file;
                                 String preco = '';
                                 int? idProduto;
 
@@ -493,9 +490,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         saveImagePathController
                                             .favoritesProducts;
 
-                                    produtos.isNotEmpty
-                                        ? file = produtos[index].file_imagem!
-                                        : file = null;
                                     nome = favorite[index].descricao;
                                     preco = formatoBrasileiro
                                         .format(favorite[index].pvenda);
@@ -504,10 +498,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                     unidade = favorite[index].unidade;
                                     idProduto = favorite[index].id_produto;
                                   } else {
-                                    file = saveImagePathController
-                                            .favoritesProducts[index]
-                                            .file_imagem ??
-                                        "Valor Padrão";
                                     nome = filteredProducts[index].descricao ??
                                         "null";
 
@@ -784,7 +774,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                 BorderRadius.circular(100),
                                             child: listaGrupos[index] !=
                                                     'FAVORITOS'
-                                                ? getImage(
+                                                ? getImageGroup(
                                                     imagesGroup[index - 1])
                                                 : Image.asset(
                                                     'assets/images/favorito.png',

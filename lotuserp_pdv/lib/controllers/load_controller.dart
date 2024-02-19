@@ -8,7 +8,7 @@ import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:http/http.dart' as http;
 
-import '../pages/common/custom_cherry_error.dart';
+import '../pages/common/custom_cherry.dart';
 import '../repositories/download_persist_images_repository.dart';
 
 class LoadController extends GetxController {

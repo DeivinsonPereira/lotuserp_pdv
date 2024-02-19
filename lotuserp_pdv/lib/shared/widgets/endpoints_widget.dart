@@ -11,4 +11,8 @@ class Endpoints {
     var numContrato = textFieldController.numContratoEmpresa;
     return 'http://siage.vistatecnologia.com.br/cgi-bin/siagenet/contrato_link_externo?pnocontrato=$numContrato&ptipo=0';
   }
+
+  String prefixo() {
+    return 'http://siage.vistatecnologia.com.br/cgi-bin/siagenet/';
+  }
 }

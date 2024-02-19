@@ -24,7 +24,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import '../../services/format_numbers.dart';
 import '../../services/dependencies.dart';
 import '../../services/tef_elgin/tef_elgin_service.dart';
-import '../common/custom_cherry_error.dart';
+import '../common/custom_cherry.dart';
 import 'component/no_money_paper.dart';
 
 class PaymentPage extends StatefulWidget {

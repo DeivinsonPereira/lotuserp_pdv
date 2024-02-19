@@ -8,7 +8,7 @@ import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/dependencies.dart';
-import '../common/custom_cherry_error.dart';
+import '../common/custom_cherry.dart';
 import '../common/header_popup.dart';
 
 class SecondCopyPage extends StatelessWidget {

@@ -172,6 +172,7 @@ class PrinterController extends GetxController {
 
         update();
       } on BTException catch (e) {
+        logger.e('Erro ao conectar o dispositivo: $e');
         return;
       }
     } else if (printerSize == '58mm') {
@@ -294,8 +295,8 @@ class PrinterController extends GetxController {
         bytes += generator.text('\n\n');
 
         print('A impressão está comentada');
-      String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+        String textToPrint = String.fromCharCodes(bytes);
+        await bluetoothManager.writeText(textToPrint);
       } on BTException {
         return;
       }
@@ -447,7 +448,7 @@ class PrinterController extends GetxController {
 
         print('A impressão da movimentação de caixa está comentada');
         String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+        await bluetoothManager.writeText(textToPrint);
       } on BTException {
         return;
       }

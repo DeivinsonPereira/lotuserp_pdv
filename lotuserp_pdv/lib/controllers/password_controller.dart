@@ -10,7 +10,7 @@ class PasswordController extends GetxController {
   
   var hashedPassword = ''.obs;
   var user = ''.obs;
-
+  
   String createHashedPassword() {
     var bytes = utf8.encode(passwordController.text);
     var hashedPassword = md5.convert(bytes);

@@ -4,6 +4,7 @@ import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
+import 'package:lotuserp_pdv/collections/empresa_valida.dart';
 import 'package:lotuserp_pdv/collections/image_path_product.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
@@ -44,7 +45,8 @@ void main() async {
       Cartao_itemSchema,
       Nfce_resultadoSchema,
       Image_path_groupSchema,
-      Image_path_productSchema
+      Image_path_productSchema,
+      Empresa_validaSchema
     ],
     directory: dir.path,
     inspector: true,

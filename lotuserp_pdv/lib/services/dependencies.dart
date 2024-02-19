@@ -18,6 +18,7 @@ import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 import '../controllers/balanca_prix_controller.dart';
+import '../controllers/empresa_valida_controller.dart';
 import '../controllers/open_register_controller.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../pages/printer/component/printer_popup_controller.dart';
@@ -197,6 +198,14 @@ abstract class Dependencies {
       return Get.find<SaveImagePathController>();
     } else {
       return Get.put(SaveImagePathController());
+    }
+  }
+
+  static EmpresaValidaController empresaValidaController() {
+    if(Get.isRegistered<EmpresaValidaController>()){
+      return Get.find<EmpresaValidaController>();
+    } else {
+      return Get.put(EmpresaValidaController());
     }
   }
 }

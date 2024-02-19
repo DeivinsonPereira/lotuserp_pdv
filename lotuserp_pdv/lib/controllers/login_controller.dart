@@ -6,7 +6,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/usuario_logado.dart';
 import '../core/app_routes.dart';
-import '../pages/common/custom_cherry_error.dart';
+import '../pages/common/custom_cherry.dart';
 import '../services/dependencies.dart';
 import 'password_controller.dart';
 

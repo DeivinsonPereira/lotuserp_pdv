@@ -16,7 +16,7 @@ import '../../collections/venda.dart';
 import '../../controllers/global_controller.dart';
 import '../../controllers/response_servidor_controller.dart';
 import '../../controllers/text_field_controller.dart';
-import '../../pages/common/custom_cherry_error.dart';
+import '../../pages/common/custom_cherry.dart';
 import '../dependencies.dart';
 
 abstract class PostOnServidor {

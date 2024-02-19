@@ -19,7 +19,7 @@ import 'package:timezone/timezone.dart' as tz;
 import '../../controllers/open_register_controller.dart';
 import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
-import '../common/custom_cherry_error.dart';
+import '../common/custom_cherry.dart';
 import '../common/header_popup.dart';
 
 class OpenRegisterPage extends StatelessWidget {

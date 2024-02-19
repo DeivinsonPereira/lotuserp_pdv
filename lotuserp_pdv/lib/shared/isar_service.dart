@@ -24,7 +24,7 @@ import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
-import 'package:lotuserp_pdv/pages/common/custom_cherry_error.dart';
+import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
@@ -34,6 +34,7 @@ import 'package:logger/logger.dart';
 
 import '../collections/caixa_fechamento.dart';
 import '../collections/cartao_item.dart';
+import '../collections/empresa_valida.dart';
 import '../collections/nfce_resultado.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../controllers/text_field_controller.dart';
@@ -51,6 +52,7 @@ Map<String, String> _headers = {
 class IsarService {
   late Future<Isar> db;
   bool conexaoApi = false;
+  bool conexaoSiage = false;
 
   var logger = Logger();
 
@@ -59,7 +61,29 @@ class IsarService {
     db = openDB();
   }
 
-  Future<void> connectionVerify(BuildContext context) async {
+  //verifica se a api Siage esta conectada
+  Future<void> connectionVerifySiage() async {
+    Uri uri = Uri.parse(Endpoints().prefixo());
+    try {
+      conexaoSiage = false;
+      final response = await http.get(uri);
+
+      if (response.statusCode == 200) {
+        conexaoSiage = true;
+        return;
+      } else {
+        conexaoSiage = false;
+        return;
+      }
+    } catch (e) {
+      logger.e('Erro ao conectar com a API Siage: $e');
+      conexaoSiage = false;
+      return;
+    }
+  }
+
+  //verifica se a api esta conectada
+  Future<void> connectionVerifyApi(BuildContext context) async {
     TextFieldController textFieldController =
         Dependencies.textFieldController();
     String ipEmpresa;
@@ -109,7 +133,7 @@ class IsarService {
   //inserindo dados na tabela empresa vindos do servidor
   Future getEmpresa(
       String companyId, String companyIp, BuildContext context) async {
-    await connectionVerify(context);
+    await connectionVerifyApi(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -202,7 +226,7 @@ class IsarService {
 
   //inserindo dados na tabela grupo vindos do servidor
   Future getGrupo(BuildContext context) async {
-    await connectionVerify(context);
+    await connectionVerifyApi(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -390,6 +414,7 @@ class IsarService {
     }
   }
 
+  //salva as imagens dos produtos no diretório do aplicativo
   Future<Isar> saveImagemProdutos() async {
     final isar = await db;
 
@@ -458,7 +483,7 @@ class IsarService {
 
   //inserindo dados na tabela produtos vindos do servidor
   Future getProduto(BuildContext context) async {
-    await connectionVerify(context);
+    await connectionVerifyApi(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -578,6 +603,7 @@ class IsarService {
     }
   }
 
+  // Busca o path das imagens salvas no diretório
   Future<List<String?>> searchImagePathFavorite() async {
     final isar = await db;
 
@@ -613,7 +639,8 @@ class IsarService {
   Future<List<String?>> searchImagePathBarcode(value) async {
     final isar = await db;
 
-    var produtos = await isar.image_path_products.filter().gtinEqualTo(value).findAll();
+    var produtos =
+        await isar.image_path_products.filter().gtinEqualTo(value).findAll();
 
     var produtosPath = produtos.map((pro) => pro.path_image).toList();
 
@@ -624,6 +651,7 @@ class IsarService {
     }
   }
 
+  //busca o objeto produtos
   Future<List<produto>> searchProdutos() async {
     final isar = await db;
     var produtos = await isar.produtos.where().findAll();
@@ -697,7 +725,7 @@ class IsarService {
 
   //inserindo dados na tabela usuarios vindos do servidor
   Future getUsuarios(BuildContext context) async {
-    await connectionVerify(context);
+    await connectionVerifyApi(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -772,7 +800,7 @@ class IsarService {
 
   //busca tipo_recebimento do servidor e insere na tabela do banco de dados local
   Future getTipo_recebimento(BuildContext context) async {
-    await connectionVerify(context);
+    await connectionVerifyApi(context);
 
     if (conexaoApi) {
       final isar = await db;
@@ -1138,6 +1166,7 @@ class IsarService {
     }
   }
 
+  //encontrar o id_caixa_servidor
   Future<int?> getIdCaixaServidor(int aberturaIdUser) async {
     final isar = await db;
     caixa? caixas = await isar.caixas
@@ -1596,6 +1625,7 @@ class IsarService {
     }
   }
 
+  //busca todos os dados da tabela nfce_resultado
   Future<List<nfce_resultado?>> getNfceResultados() async {
     final isar = await db;
 
@@ -1645,6 +1675,7 @@ class IsarService {
     }
   }
 
+  // busca os dados da tabela nfce pelo id da venda gerada pelo servidor
   Future<nfce_resultado?> getDadosNfceByIdVendaServidor(
       int idVendaServidor) async {
     final isar = await db;
@@ -1660,6 +1691,7 @@ class IsarService {
     }
   }
 
+  // busca os dados da tabela vendas
   Future<List<venda?>> getVendas() async {
     final isar = await db;
 
@@ -1672,6 +1704,7 @@ class IsarService {
     }
   }
 
+  // busca os dados da tabela vendas pelo id do caixa logado
   Future<List<venda?>> getVendaByIdCaixaLogged(int idUser) async {
     final isar = await db;
 
@@ -1686,6 +1719,68 @@ class IsarService {
     } catch (e) {
       logger.e("Erro ao buscar venda: $e");
       return [];
+    }
+  }
+
+  // insere os dados o contrato e data limite na tabela
+  Future<Isar> insertEmpresaValida(
+      dynamic response, BuildContext context) async {
+    final isar = await db;
+
+    //verifica se o registro ja existe
+    var i = await isar.empresa_validas.count();
+
+    if (i >= 0) {
+      isar.writeTxn(
+        () async {
+          await isar.empresa_validas.clear();
+        },
+      );
+    }
+
+    try {
+      empresa_valida dadosEmpresa = empresa_valida()
+        ..nocontrato = response['itens'][0]['nucontrato']
+        ..data_limite = DateTime.parse(response['itens'][0]['data_limite']);
+
+      await isar.writeTxn(() async {
+        await isar.empresa_validas.put(dadosEmpresa);
+      });
+      Get.back();
+      return isar;
+    } catch (e) {
+      logger.e("Erro ao inserir dados do contrato: $e");
+      return isar;
+    }
+  }
+
+  // deleta a data da tabela empresa_valida
+  Future<Isar> updateDadoTabelaContrato() async {
+    final isar = await db;
+
+    try {
+      var empresa = await isar.empresa_validas.where().findFirst();
+      if (empresa != null) {
+        empresa.data_limite = null;
+        await isar.empresa_validas.put(empresa);
+      }
+      return isar;
+    } catch (e) {
+      logger.e("Erro ao alterar dados do contrato: $e");
+      return isar;
+    }
+  }
+
+  //busca os dados da tabela empresa_valida
+  Future<empresa_valida?> getDadoTabelaEmpresaValida() async {
+    final isar = await db;
+
+    try {
+      var empresa = await isar.empresa_validas.where().findFirst();
+      return empresa;
+    } catch (e) {
+      logger.e("Erro ao buscar empresa: $e");
+      return null;
     }
   }
 
@@ -1712,7 +1807,8 @@ class IsarService {
           Cartao_itemSchema,
           Nfce_resultadoSchema,
           Image_path_groupSchema,
-          Image_path_productSchema
+          Image_path_productSchema,
+          Empresa_validaSchema
         ],
         directory: dir.path,
       );

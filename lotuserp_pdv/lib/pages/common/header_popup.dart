@@ -13,6 +13,7 @@ class HeaderPopup extends StatelessWidget {
   bool? isCpfCnpj;
   bool? isPesagem;
   bool? nfce;
+  bool? isEmpresaValida;
 
   HeaderPopup(
       {Key? key,
@@ -20,14 +21,19 @@ class HeaderPopup extends StatelessWidget {
       required this.icon,
       this.isCpfCnpj,
       this.nfce = false,
-      this.isPesagem = false})
+      this.isPesagem = false,
+      this.isEmpresaValida = false})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
 
-    PdvController pdvController = Dependencies.pdvController();
+    PdvController? pdvController;
+    if (isEmpresaValida! == false) {
+      pdvController = Dependencies.pdvController();
+    }
+
     late BalancaPrix3FitController balancaController;
     isPesagem == true
         ? balancaController = Dependencies.balancaController()
@@ -68,7 +74,7 @@ class HeaderPopup extends StatelessWidget {
               : IconButton(
                   onPressed: () {
                     isPesagem == false ? Get.back() : null;
-                    isPesagem == true ? pdvController.clearPesagem() : null;
+                    isPesagem == true ? pdvController!.clearPesagem() : null;
                     isPesagem == true ? balancaController.fecharPopup() : null;
                   },
                   icon: const Icon(

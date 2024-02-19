@@ -132,7 +132,7 @@ class LoadDataPage extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 10),
                           child: TextButton(
                             onPressed: () async {
-                              await service.connectionVerify(context);
+                              await service.connectionVerifyApi(context);
                               if (service.conexaoApi) {
                                 Get.dialog(const LoadingScreen());
                                 // ignore: use_build_context_synchronously
