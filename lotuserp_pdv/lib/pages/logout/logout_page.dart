@@ -18,7 +18,7 @@ class LogoutPage extends StatelessWidget {
         width: 400,
         child: Column(
           children: [
-            HeaderPopup(
+            HeaderPopupMonitor(
               text: 'Sair',
               icon: Icons.exit_to_app,
             ),

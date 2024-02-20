@@ -2,13 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lotuserp_pdv/pages/common/custom_text_style.dart';
-import 'package:lotuserp_pdv/pages/common/header_popup.dart';
+import 'package:get/get.dart';
 
-import '../../core/custom_colors.dart';
+import '../../../core/custom_colors.dart';
+import '../../common/custom_text_style.dart';
+import '../../common/header_popup.dart';
 
-class BlockVerifyPopup extends StatelessWidget {
-  const BlockVerifyPopup({super.key});
+class BlockVerifyPopupMobile extends StatelessWidget {
+  const BlockVerifyPopupMobile({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,11 +36,12 @@ class BlockVerifyPopup extends StatelessWidget {
         borderRadius: BorderRadius.circular(0),
       ),
       child: SizedBox(
-        height: 400,
-        width: 400,
+        height: Get.height * 5,
+        width: Get.width * 8,
         child: Column(
           children: [
-            HeaderPopup(text: 'Mensagem', icon: Icons.lock_person_rounded),
+            HeaderPopupMonitor(
+                text: 'Mensagem', icon: Icons.lock_person_rounded),
             const Expanded(
                 child: Center(
               child: Text(

@@ -61,7 +61,7 @@ class OpenRegisterPage extends StatelessWidget {
             body: Column(
               children: [
                 //Cabeçalho
-                HeaderPopup(
+                HeaderPopupMonitor(
                     text: 'Abrir caixa', icon: FontAwesomeIcons.cashRegister),
 
                 //Corpo do dialog

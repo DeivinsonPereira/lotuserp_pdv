@@ -1,18 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
-import '../../services/dependencies.dart';
-import 'component/drawer.dart';
+import '../../../services/dependencies.dart';
+import 'component/drawer_widget_monitor.dart';
 
 //principal class
-class HomeMonitorPage extends StatefulWidget {
-  const HomeMonitorPage({super.key});
+class HomePageMonitor extends StatefulWidget {
+  const HomePageMonitor({super.key});
 
   @override
-  State<HomeMonitorPage> createState() => _HomeMonitorPageState();
+  State<HomePageMonitor> createState() => _HomePageMonitorState();
 }
 
-class _HomeMonitorPageState extends State<HomeMonitorPage> {
+class _HomePageMonitorState extends State<HomePageMonitor> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
@@ -30,7 +30,7 @@ class _HomeMonitorPageState extends State<HomeMonitorPage> {
           height: size.height,
           child: Row(
             children: [
-              const DrawerWidget(),
+              const DrawerWidgetMonitor(),
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(

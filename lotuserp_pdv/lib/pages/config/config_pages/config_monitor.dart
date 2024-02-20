@@ -7,29 +7,26 @@ import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/auth/widget/text_field_list.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:lotuserp_pdv/pages/config/config_pages/widget/text_field_list.dart';
 
-import '../../services/dependencies.dart';
+import '../../../services/dependencies.dart';
 import 'widget/custom_field_dropdown.dart';
 import 'widget/custom_text_form_field.dart';
 import 'widget/list_dropdown_option.dart';
 
-class ConfigPage extends StatefulWidget {
-  const ConfigPage({super.key});
+class ConfigMonitor extends StatefulWidget {
+  const ConfigMonitor({super.key});
 
   @override
-  State<ConfigPage> createState() => _ConfigPageState();
+  State<ConfigMonitor> createState() => _ConfigMonitorState();
 }
 
-class _ConfigPageState extends State<ConfigPage> {
+class _ConfigMonitorState extends State<ConfigMonitor> {
   TextFieldController textFieldController = Dependencies.textFieldController();
   Configcontroller configController = Dependencies.configcontroller();
-  IsarService service = IsarService();
 
   @override
   Widget build(BuildContext context) {
-    
     // Campos de configuração da empresa
     Widget _textFormFieldsCompany() {
       return Form(
@@ -37,7 +34,7 @@ class _ConfigPageState extends State<ConfigPage> {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
-              child: CustomTextFormField(
+              child: CustomTextFormFieldMonitor(
                   icon: TextFieldList.textFieldUrl['icon'],
                   controller: TextFieldList.textFieldUrl['controller'],
                   variableName: TextFieldList.textFieldUrl['label'],
@@ -52,7 +49,7 @@ class _ConfigPageState extends State<ConfigPage> {
                     i < TextFieldList.textFieldListRow.length;
                     i++) ...{
                   //Campos de texto de configuração do PDV
-                  CustomTextFormField(
+                  CustomTextFormFieldMonitor(
                     icon: TextFieldList.textFieldListRow[i]['icon'],
                     controller: TextFieldList.textFieldListRow[i]['controller'],
                     variableName: TextFieldList.textFieldListRow[i]['label'],
@@ -84,7 +81,7 @@ class _ConfigPageState extends State<ConfigPage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 5.0),
-                      child: CustomFieldDropdown(
+                      child: CustomFieldDropdownMonitor(
                           options: ListDropdownOption.listOptionsBalance,
                           text: 'Balança',
                           icon: FontAwesomeIcons.scaleBalanced,
@@ -93,7 +90,7 @@ class _ConfigPageState extends State<ConfigPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 5.0, left: 2),
-                      child: CustomTextFormField(
+                      child: CustomTextFormFieldMonitor(
                         icon: FontAwesomeIcons.gaugeHigh,
                         controller:
                             textFieldController.velocidadeBalancaController,
@@ -105,7 +102,7 @@ class _ConfigPageState extends State<ConfigPage> {
                     Expanded(
                       child: Padding(
                         padding: const EdgeInsets.only(left: 7.0),
-                        child: CustomFieldDropdown(
+                        child: CustomFieldDropdownMonitor(
                             options: ListDropdownOption.listOptionsTef,
                             text: 'TEF',
                             icon: FontAwesomeIcons.solidCreditCard,
@@ -131,7 +128,7 @@ class _ConfigPageState extends State<ConfigPage> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(top: 5.0, left: 2, right: 7),
-                child: CustomTextFormField(
+                child: CustomTextFormFieldMonitor(
                   icon: FontAwesomeIcons.usb,
                   controller: textFieldController.nomeBalancaController,
                   variableName: 'Nome Balança',
@@ -140,7 +137,7 @@ class _ConfigPageState extends State<ConfigPage> {
                 ),
               ),
               Expanded(
-                child: CustomFieldDropdown(
+                child: CustomFieldDropdownMonitor(
                   icon: FontAwesomeIcons.print,
                   options: ListDropdownOption.listOptionsSizePrinter,
                   value: _.tamanhoImpressora.value != ''

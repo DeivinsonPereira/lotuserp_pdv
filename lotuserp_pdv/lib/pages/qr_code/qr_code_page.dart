@@ -32,7 +32,8 @@ class QrCodePage extends StatelessWidget {
           width: 400,
           child: Column(children: [
             //header
-            HeaderPopup(text: 'QR Code NFC-e', icon: FontAwesomeIcons.qrcode),
+            HeaderPopupMonitor(
+                text: 'QR Code NFC-e', icon: FontAwesomeIcons.qrcode),
 
             //QR Code
             Expanded(

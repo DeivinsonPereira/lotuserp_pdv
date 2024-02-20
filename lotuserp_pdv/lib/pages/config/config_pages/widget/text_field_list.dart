@@ -1,7 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../controllers/text_field_controller.dart';
-import '../../../services/dependencies.dart';
+import '../../../../controllers/text_field_controller.dart';
+import '../../../../services/dependencies.dart';
 
 abstract class TextFieldList {
   static TextFieldController textFieldController =

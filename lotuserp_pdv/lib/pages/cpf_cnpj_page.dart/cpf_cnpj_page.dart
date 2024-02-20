@@ -86,7 +86,7 @@ class CpfCnpjPage extends StatelessWidget {
         height: 300,
         child: Column(
           children: [
-            HeaderPopup(
+            HeaderPopupMonitor(
                 text: 'CPF/CNPJ',
                 icon: FontAwesome.address_card,
                 isCpfCnpj: true),

@@ -12,7 +12,6 @@ import '../common/custom_cherry.dart';
 import '../common/header_popup.dart';
 
 class SecondCopyPage extends StatelessWidget {
-
   const SecondCopyPage({
     Key? key,
   }) : super(key: key);
@@ -124,7 +123,7 @@ class SecondCopyPage extends StatelessWidget {
               child: Column(
                 children: [
                   // CABEÇALHO
-                  HeaderPopup(
+                  HeaderPopupMonitor(
                     icon: Icons.print,
                     text: 'Impressão 2ª via',
                   ),

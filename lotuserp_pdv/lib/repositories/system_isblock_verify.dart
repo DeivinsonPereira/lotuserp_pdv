@@ -7,7 +7,7 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:http/http.dart' as http;
 
 import '../collections/empresa_valida.dart';
-import '../pages/empresa_block/block_verify_popup.dart';
+import '../pages/empresa_block/empresa_block_pages/block_verify_popup_monitor.dart';
 
 class SystemIsblockVerify {
   Logger logger = Logger();
@@ -34,7 +34,8 @@ class SystemIsblockVerify {
               logger.e(
                   'Contrato bloquado: ${jsonResponse['itens'][0]['bloqueado']}');
               await service.updateDadoTabelaContrato();
-              Get.dialog(barrierDismissible: false, const BlockVerifyPopup());
+              Get.dialog(
+                  barrierDismissible: false, const BlockVerifyPopupMonitor());
             }
           } else {
             logger.e(

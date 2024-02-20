@@ -176,7 +176,7 @@ class BalancePopUp extends StatelessWidget {
         height: 425,
         child: Column(
           children: [
-            HeaderPopup(
+            HeaderPopupMonitor(
               text: 'Pesagem',
               icon: Icons.balance,
               isPesagem: true,

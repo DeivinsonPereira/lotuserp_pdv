@@ -1,6 +1,4 @@
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/pages/auth/config_page.dart';
-import 'package:lotuserp_pdv/pages/auth/login_page.dart';
 import 'package:lotuserp_pdv/pages/close_register/close_register_page.dart';
 import 'package:lotuserp_pdv/pages/home/home_page.dart';
 import 'package:lotuserp_pdv/pages/load_data/load_data_page.dart';
@@ -11,7 +9,9 @@ import 'package:lotuserp_pdv/pages/pdv/pdv_monitor_page.dart';
 import 'package:lotuserp_pdv/pages/product/product_page.dart';
 import 'package:lotuserp_pdv/pages/splash/splash_page.dart';
 
-import '../pages/home/Home_Monitor_page.dart';
+import '../pages/auth/login_page.dart';
+import '../pages/config/config_page.dart';
+import '../pages/home/home_pages/component/drawer_widget_monitor.dart';
 import '../pages/printer/printer_page.dart';
 
 // CONFIGURA AS ROTAS
@@ -43,7 +43,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: PagesRoutes.drawerPage,
-      page: () => const HomeMonitorPage(),
+      page: () => const DrawerWidgetMonitor(),
     ),
     GetPage(
       name: PagesRoutes.openRegister,

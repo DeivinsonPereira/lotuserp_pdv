@@ -127,7 +127,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
             body: Column(
               children: [
                 // cabeçalho
-                HeaderPopup(
+                HeaderPopupMonitor(
                     text: 'Sangria / Suprimento de Caixa',
                     icon: FontAwesomeIcons.moneyBillTransfer),
 

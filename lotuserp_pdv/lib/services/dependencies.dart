@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/caixa_controller.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
+import 'package:lotuserp_pdv/controllers/initial_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/save_image_path_controller.dart';
 
@@ -208,4 +209,14 @@ abstract class Dependencies {
       return Get.put(EmpresaValidaController());
     }
   }
+
+  static InitialController initialController() {
+    if (Get.isRegistered<InitialController>()) {
+      return Get.find<InitialController>();
+    } else {
+      return Get.put(InitialController());
+    }
+  }
+
+
 }

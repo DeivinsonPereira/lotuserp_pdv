@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/controllers/empresa_valida_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/custom_text_style.dart';
@@ -12,12 +11,12 @@ import 'package:lotuserp_pdv/pages/empresa_valida/component/text_field_contract.
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../repositories/obter_liberacao_servidor_repository.dart';
-import '../common/header_popup.dart';
+import '../../../repositories/obter_liberacao_servidor_repository.dart';
+import '../../common/header_popup.dart';
 
 //Popup para informar o contrato da empresa caso o mesmo esteja vazio no banco de dados
-class EmpresaValidaPopup extends StatelessWidget {
-  const EmpresaValidaPopup({super.key});
+class EmpresaValidaPopupMonitor extends StatelessWidget {
+  const EmpresaValidaPopupMonitor({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +91,7 @@ class EmpresaValidaPopup extends StatelessWidget {
         child: Column(
           children: [
             // cabeçalho
-            HeaderPopup(
+            HeaderPopupMonitor(
               text: 'Contrato da empresa',
               icon: FontAwesome.address_card,
               isEmpresaValida: true,

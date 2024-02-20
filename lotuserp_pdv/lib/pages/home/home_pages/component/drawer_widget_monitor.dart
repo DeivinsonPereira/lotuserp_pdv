@@ -5,15 +5,15 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/pages/home/component/icon_button_list.dart';
+import 'package:lotuserp_pdv/pages/home/home_pages/component/icon_button_list.dart';
 
-import '../../../services/dependencies.dart';
-import '../../logout/logout_page.dart';
+import '../../../../services/dependencies.dart';
+import '../../../logout/logout_page.dart';
 import 'icon_button_side_bar.dart';
 
 // Side bar (Drawer)
-class DrawerWidget extends StatelessWidget {
-  const DrawerWidget({super.key});
+class DrawerWidgetMonitor extends StatelessWidget {
+  const DrawerWidgetMonitor({super.key});
 
   @override
   Widget build(BuildContext context) {

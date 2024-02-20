@@ -407,7 +407,7 @@ class CloseRegisterPage extends StatelessWidget {
           child: Column(
             children: [
               // cabeçalho
-              HeaderPopup(
+              HeaderPopupMonitor(
                   text: 'Fechar Caixa', icon: FontAwesomeIcons.cashRegister),
 
               // corpo

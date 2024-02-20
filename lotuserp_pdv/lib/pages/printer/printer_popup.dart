@@ -20,7 +20,7 @@ class PrinterPopup extends StatelessWidget {
 
     // Construção do cabeçalho do popup
     Widget _buildHeader() {
-      return HeaderPopup(text: 'Imprimir', icon: Icons.print);
+      return HeaderPopupMonitor(text: 'Imprimir', icon: Icons.print);
     }
 
     //Construção do corpo do popup

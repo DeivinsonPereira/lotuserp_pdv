@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
+import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
 
-import '../../../core/app_routes.dart';
-import '../../../services/dependencies.dart';
-import '../../../shared/isar_service.dart';
-import '../../close_register/close_register_page.dart';
-import '../../load_data/load_data_page.dart';
-import '../../moviment_cash/moviment_cash_page.dart';
-import '../../open_register/open_register_page.dart';
+import '../../../../core/app_routes.dart';
+import '../../../../services/dependencies.dart';
+import '../../../../shared/isar_service.dart';
+import '../../../close_register/close_register_page.dart';
+import '../../../load_data/load_data_page.dart';
+import '../../../moviment_cash/moviment_cash_page.dart';
 
 //Botões para o side bar
 // ignore: must_be_immutable

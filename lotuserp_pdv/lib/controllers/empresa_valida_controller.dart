@@ -8,7 +8,7 @@ import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/empresa_valida.dart';
-import '../pages/empresa_valida/empresa_valida_popup.dart';
+import '../pages/empresa_valida/empresa_valida_popup_page.dart';
 import '../repositories/system_isblock_verify.dart';
 import '../services/contract_validate.dart';
 
@@ -40,7 +40,7 @@ class EmpresaValidaController extends GetxController {
       ContractValidate().valid(dadosContrato, context);
       update();
     } else {
-      Get.dialog(barrierDismissible: false, const EmpresaValidaPopup());
+      Get.dialog(barrierDismissible: false, const EmpresaValidaPopupPage());
     }
   }
 
@@ -48,9 +48,10 @@ class EmpresaValidaController extends GetxController {
   Future<void> updateContractConfig() async {
     TextFieldController textFieldController =
         Dependencies.textFieldController();
-    
+
     var dadosContrato = await service.getDadoTabelaEmpresaValida();
-    if (dadosContrato != null && textFieldController.numContratoEmpresaController.text == '') {
+    if (dadosContrato != null &&
+        textFieldController.numContratoEmpresaController.text == '') {
       textFieldController.numContratoEmpresaController.text =
           dadosContrato.nocontrato;
     } else {

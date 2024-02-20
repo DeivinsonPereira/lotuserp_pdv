@@ -33,7 +33,7 @@ class NfceSecondCopyPage extends StatelessWidget {
         child: Column(
           children: [
             //HEADER
-            Obx(() => HeaderPopup(
+            Obx(() => HeaderPopupMonitor(
                   text:
                       'Vendas do caixa: ${informationController.caixaId.value.toString().padLeft(5, '0')}',
                   icon: Icons.receipt,

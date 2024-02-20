@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/logout/logout_page.dart';
 
-import '../../../controllers/login_controller.dart';
-import '../../../services/dependencies.dart';
+import '../../../../controllers/login_controller.dart';
+import '../../../../services/dependencies.dart';
 
 class CustomConfirmButton extends StatelessWidget {
   final String text;
