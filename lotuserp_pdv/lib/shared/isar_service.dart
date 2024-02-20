@@ -120,13 +120,17 @@ class IsarService {
   Future<dado_empresa?> getIpEmpresaFromDatabase() async {
     final isar = await db;
     final ipEmpresa = await isar.dado_empresas.where().findFirst();
-
-    if (ipEmpresa == null) {
-      const CustomSnackBar(message: 'Nenhum registro encontrado no servidor.');
-      logger.e('Nenhum registro encontrado na tabela "dado_empresas".');
-      throw Exception("Nenhum registro encontrado na tabela 'dado_empresa'.");
-    } else {
-      return ipEmpresa;
+    try {
+      if (ipEmpresa == null) {
+        const CustomSnackBar(
+            message: 'Nenhum registro encontrado no servidor.');
+        logger.e('Nenhum registro encontrado na tabela "dado_empresas".');
+        return null;
+      } else {
+        return ipEmpresa;
+      }
+    } catch (e) {
+      logger.e('Erro ao buscar dados da empresa: $e');
     }
   }
 
@@ -1058,7 +1062,6 @@ class IsarService {
         var idCaixaServidor =
             await globalController.updateCaixaAbertaId(globalController.userId);
 
-        print(responseServidorController.cpfCnpj);
         String cpfCnpj;
         if (responseServidorController.cpfCnpj.isEmpty ||
             responseServidorController.cpfCnpj == '') {
@@ -1422,6 +1425,7 @@ class IsarService {
   //busca o id do caixa de acordo com o idUser e status 0
   Future<int?> getCaixaIdWithIdUserAndStatus0() async {
     final isar = await db;
+    try{
     usuario_logado? usuariologado =
         await isar.usuario_logados.filter().idEqualTo(1).findFirst();
 
@@ -1433,6 +1437,10 @@ class IsarService {
 
     if (caixas != null) {
       return caixas.id_caixa;
+    }}
+    catch(e){
+      logger.e('erro ao buscar caixa: $e');
+      return 0;
     }
 
     return 0;
@@ -1759,11 +1767,14 @@ class IsarService {
     final isar = await db;
 
     try {
-      var empresa = await isar.empresa_validas.where().findFirst();
-      if (empresa != null) {
-        empresa.data_limite = null;
-        await isar.empresa_validas.put(empresa);
-      }
+      isar.writeTxn(() async {
+        var empresa = await isar.empresa_validas.where().findFirst();
+        if (empresa != null) {
+          empresa.data_limite = null;
+          await isar.empresa_validas.put(empresa);
+        }
+      });
+
       return isar;
     } catch (e) {
       logger.e("Erro ao alterar dados do contrato: $e");

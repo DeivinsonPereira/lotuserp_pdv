@@ -69,7 +69,7 @@ empresa_valida _empresa_validaDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = empresa_valida();
-  object.data_limite = reader.readDateTime(offsets[0]);
+  object.data_limite = reader.readDateTimeOrNull(offsets[0]);
   object.id = id;
   object.nocontrato = reader.readString(offsets[1]);
   return object;
@@ -83,7 +83,7 @@ P _empresa_validaDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readDateTime(offset)) as P;
+      return (reader.readDateTimeOrNull(offset)) as P;
     case 1:
       return (reader.readString(offset)) as P;
     default:
@@ -188,7 +188,25 @@ extension empresa_validaQueryWhere
 extension empresa_validaQueryFilter
     on QueryBuilder<empresa_valida, empresa_valida, QFilterCondition> {
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
-      data_limiteEqualTo(DateTime value) {
+      data_limiteIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'data_limite',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      data_limiteIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'data_limite',
+      ));
+    });
+  }
+
+  QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
+      data_limiteEqualTo(DateTime? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'data_limite',
@@ -199,7 +217,7 @@ extension empresa_validaQueryFilter
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
       data_limiteGreaterThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -213,7 +231,7 @@ extension empresa_validaQueryFilter
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
       data_limiteLessThan(
-    DateTime value, {
+    DateTime? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -227,8 +245,8 @@ extension empresa_validaQueryFilter
 
   QueryBuilder<empresa_valida, empresa_valida, QAfterFilterCondition>
       data_limiteBetween(
-    DateTime lower,
-    DateTime upper, {
+    DateTime? lower,
+    DateTime? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -540,7 +558,7 @@ extension empresa_validaQueryProperty
     });
   }
 
-  QueryBuilder<empresa_valida, DateTime, QQueryOperations>
+  QueryBuilder<empresa_valida, DateTime?, QQueryOperations>
       data_limiteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'data_limite');

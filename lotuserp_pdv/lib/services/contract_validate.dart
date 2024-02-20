@@ -4,7 +4,7 @@ import 'package:lotuserp_pdv/collections/empresa_valida.dart';
 import 'package:lotuserp_pdv/controllers/empresa_valida_controller.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
-import '../pages/common/custom_cherry_error.dart';
+import '../pages/common/custom_cherry.dart';
 import '../pages/empresa_valida/empresa_valida_popup.dart';
 
 class ContractValidate {

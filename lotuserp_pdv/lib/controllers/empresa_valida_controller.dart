@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/controllers/text_field_controller.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/empresa_valida.dart';
@@ -12,6 +15,7 @@ import '../services/contract_validate.dart';
 class EmpresaValidaController extends GetxController {
   TextEditingController empresaContratoController = TextEditingController();
   IsarService service = IsarService();
+  Logger logger = Logger();
 
   var empresaContrato = ''.obs;
   var empresaDataLimite = ''.obs;
@@ -26,6 +30,7 @@ class EmpresaValidaController extends GetxController {
     SystemIsblockVerify().checkIfTheSystemIsLocked();
   }
 
+  // CARREGAR CONTRATO
   Future<void> loadContrato(BuildContext context) async {
     empresa_valida? dadosContrato = await service.getDadoTabelaEmpresaValida();
     if (dadosContrato != null) {
@@ -36,6 +41,20 @@ class EmpresaValidaController extends GetxController {
       update();
     } else {
       Get.dialog(barrierDismissible: false, const EmpresaValidaPopup());
+    }
+  }
+
+  // ATUALIZAR CAMPO DE TEXTO DO CONTRATO NAS CONFIGURAÇÕES
+  Future<void> updateContractConfig() async {
+    TextFieldController textFieldController =
+        Dependencies.textFieldController();
+    
+    var dadosContrato = await service.getDadoTabelaEmpresaValida();
+    if (dadosContrato != null && textFieldController.numContratoEmpresaController.text == '') {
+      textFieldController.numContratoEmpresaController.text =
+          dadosContrato.nocontrato;
+    } else {
+      logger.e('Erro ao buscar os dados da tabela empresa_valida');
     }
   }
 

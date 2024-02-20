@@ -2,8 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+
+import '../services/dependencies.dart';
+import 'empresa_valida_controller.dart';
 
 class TextFieldController extends GetxController {
   IsarService service = IsarService();
@@ -20,6 +24,11 @@ class TextFieldController extends GetxController {
 
   TextEditingController numContratoEmpresaController = TextEditingController();
 
+  Logger logger = Logger();
+
+  EmpresaValidaController empresaValidaController =
+      Dependencies.empresaValidaController();
+
   // variáveis que serão usadas para o cadastro de informações de configuração.
   late String numContratoEmpresa = '';
   late String ip = '';
@@ -30,20 +39,26 @@ class TextFieldController extends GetxController {
 
   // salvar informações nas variaveis.
   Future<void> salvarInformacoes(BuildContext context) async {
-    ip = numContratoEmpresaController.text;
-    final dado_empresa? dadoEmpresa = await service.getIpEmpresaFromDatabase();
-    if (dadoEmpresa != null && !numContratoEmpresaController.text.isNotEmpty) {
-      ip = dadoEmpresa.ip_empresa!.toString();
+    try {
+      ip = numContratoEmpresaController.text;
+      final dado_empresa? dadoEmpresa =
+          await service.getIpEmpresaFromDatabase();
+      if (dadoEmpresa != null &&
+          !numContratoEmpresaController.text.isNotEmpty) {
+        ip = dadoEmpresa.ip_empresa!.toString();
+      }
+      idEmpresa = idEmpresaController.text;
+      idSerieNfce = idSerieNfceController.text;
+      numCaixa = numCaixaController.text;
+      intervaloEnvio = intervaloEnvioController.text;
+    } catch (e) {
+      logger.e('Erro ao salvar as informações: $e');
     }
-    idEmpresa = idEmpresaController.text;
-    idSerieNfce = idSerieNfceController.text;
-    numCaixa = numCaixaController.text;
-    intervaloEnvio = intervaloEnvioController.text;
   }
 
   // salvar dados de contrato
   void salvarInformacoesContrato() {
-    numContratoEmpresa = numContratoEmpresaController.text;
+    numContratoEmpresa = empresaValidaController.empresaContratoController.text;
   }
 
   // atualizar dados de contrato

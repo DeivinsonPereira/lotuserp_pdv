@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'dart:math';
 
@@ -13,6 +14,7 @@ class PdvController extends GetxController {
   TextEditingController pesagemController =
       TextEditingController(text: '0.000');
   IsarService service = IsarService();
+  Logger logger = Logger();
 
   RxList pedidos = [].obs;
 
@@ -321,7 +323,6 @@ class PdvController extends GetxController {
     try {
       if (quantity != '' && quantity.isNotEmpty && quantity.isBlank == false) {
         String cleanedQuantity = quantity.replaceAll(RegExp(r'[^0-9.]'), '');
-        print('quantidade: $cleanedQuantity');
 
         quantidade = double.parse(cleanedQuantity);
       } else {
@@ -377,7 +378,7 @@ class PdvController extends GetxController {
       scrollController.addListener(() {});
       update();
     } catch (e) {
-      print('informativo: $e');
+      logger.e('Erro ao adicionar pedido: $e');
     }
   }
 
@@ -583,7 +584,7 @@ class PdvController extends GetxController {
         }
       }
     } catch (e) {
-      print("erro ao iniciar o controller pdv: $e");
+      logger.e('Erro ao iniciar o controller pdv: $e');
     }
   }
 

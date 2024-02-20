@@ -15,31 +15,38 @@ class BlockVerifyPopup extends StatelessWidget {
     // botão para sair do aplicativo
     Widget _exitButton() {
       return Container(
-          height: 60,
-          color: CustomColors.informationBox,
-          child: TextButton(
-            onPressed: () {
-              SystemNavigator.pop();
-            },
-            child: Text(
-              'OK',
-              style: customTextStyleBack(),
-            ),
-          ),);
+        height: 80,
+        width: 400,
+        color: CustomColors.informationBox,
+        child: TextButton(
+          onPressed: () {
+            SystemNavigator.pop();
+          },
+          child: Text(
+            'OK',
+            style: customTextStyleBack(),
+          ),
+        ),
+      );
     }
 
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(0),
+      ),
       child: SizedBox(
         height: 400,
         width: 400,
         child: Column(
           children: [
-            HeaderPopup(
-                text: 'Contrato bloqueado', icon: Icons.lock_person_rounded),
+            HeaderPopup(text: 'Mensagem', icon: Icons.lock_person_rounded),
             const Expanded(
-                child: Text(
-              'Contrato bloqueado, entre em contato com a administradora.',
-              style: TextStyle(fontSize: 18),
+                child: Center(
+              child: Text(
+                'Contrato bloqueado, entre em contato com o suporte.',
+                style: TextStyle(fontSize: 24),
+                textAlign: TextAlign.center,
+              ),
             )),
             Row(children: [
               _exitButton(),

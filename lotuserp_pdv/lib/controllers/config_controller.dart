@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/controllers/empresa_valida_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
@@ -16,6 +17,7 @@ class Configcontroller extends GetxController {
   IsarService service = IsarService();
   var logger = Logger();
   TextFieldController textFieldController = Dependencies.textFieldController();
+  
 
   var balanca = 'NENHUMA'.obs;
   var velocidadeBalanca = ''.obs;
@@ -46,9 +48,13 @@ class Configcontroller extends GetxController {
 
   // BUSCAR OS DADOS DO BANCO E PREENCHER OS CAMPOS
   Future<void> fetchDataFromDatabase(String variableName) async {
+    EmpresaValidaController empresaValidaController =
+      Dependencies.empresaValidaController();
     try {
+      await empresaValidaController.updateContractConfig();
       final dado_empresa? dadoEmpresa =
           await service.getIpEmpresaFromDatabase();
+
       if (dadoEmpresa == null || dadoEmpresa.ip_empresa == null) {
         service.deleteDadosEmpresariais();
         return;
