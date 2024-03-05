@@ -17,7 +17,6 @@ class Configcontroller extends GetxController {
   IsarService service = IsarService();
   var logger = Logger();
   TextFieldController textFieldController = Dependencies.textFieldController();
-  
 
   var balanca = 'NENHUMA'.obs;
   var velocidadeBalanca = ''.obs;
@@ -49,7 +48,7 @@ class Configcontroller extends GetxController {
   // BUSCAR OS DADOS DO BANCO E PREENCHER OS CAMPOS
   Future<void> fetchDataFromDatabase(String variableName) async {
     EmpresaValidaController empresaValidaController =
-      Dependencies.empresaValidaController();
+        Dependencies.empresaValidaController();
     try {
       await empresaValidaController.updateContractConfig();
       final dado_empresa? dadoEmpresa =

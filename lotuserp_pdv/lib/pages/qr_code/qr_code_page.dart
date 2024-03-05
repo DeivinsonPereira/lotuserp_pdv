@@ -16,13 +16,14 @@ class QrCodePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Dependencies.paymentController();
+    var paymentController = Dependencies.paymentController();
     Dependencies.textFieldController();
     Dependencies.configcontroller();
     SearchProductPdvController searchProductPdvController =
         Dependencies.searchProductPdvController();
     ResponseServidorController responseServidorController =
         Dependencies.responseServidorController();
+    var printerController = Dependencies.printerController();
 
     return Dialog(
       child: GetBuilder<PaymentController>(builder: (_) {
@@ -66,6 +67,12 @@ class QrCodePage extends StatelessWidget {
                               configController.tamanhoImpressora.value;
                           if (tamanhoImpressora != 'SEM IMPRESSORA') {
                             await PrintNfceXml().printNfceXml();
+                            for (var i = 0;
+                                i < paymentController.comprovanteTef.length;
+                                i++) {
+                              await printerController.printTransactionCard(
+                                  paymentController.comprovanteTef[i]);
+                            }
                             Get.back();
                             searchProductPdvController.clearSearch();
                             responseServidorController.limparCpfCnpj();

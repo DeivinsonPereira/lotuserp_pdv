@@ -444,8 +444,8 @@ class _PaymentPageState extends State<PaymentPage> {
         onTap: () async {
           if (tipoPagamento.tipo_forma != 0) {
             Get.dialog(
-              DialogWidget().keyboardNumber(pushSetState, descricao,
-                  tipoPagamento.tipo_forma, idPagamento,
+              DialogWidget().keyboardNumber(
+                  pushSetState, descricao, tipoPagamento, idPagamento,
                   isTef: true),
             );
 
@@ -465,7 +465,7 @@ class _PaymentPageState extends State<PaymentPage> {
                 // para usar o tef, esse comando deve estar disponivel dentro do if com o "isTef = true"
                 pushSetState,
                 descricao,
-                tipoPagamento.tipo_forma,
+                tipoPagamento,
                 idPagamento));
           }
         },

@@ -23,6 +23,7 @@ class ConfirmationMethod {
     String name,
     int tipoPagamento,
     int idPagamento,
+    int tef,
     BuildContext context,
   ) async {
     //soma o valor bruto total dos itens que estão nos pedidos
@@ -45,7 +46,7 @@ class ConfirmationMethod {
 
     if (tipoPagamento != 0) {
       paymentController.addPaymentsTotal(name,
-          paymentController.totalPayment.value, idPagamento, tipoPagamento);
+          paymentController.totalPayment.value, idPagamento, tipoPagamento, tef);
     }
     pdvController
         .totalLiquido(); //soma o valor bruto total dos itens que estão nos pedidos
@@ -82,9 +83,9 @@ class ConfirmationMethod {
   }
 
   Future continueSell(BuildContext context,
-      {String name = '', int tipoPagamento = 0, int idPagamento = 0}) async {
+      {String name = '', int tipoPagamento = 0, int idPagamento = 0, int tef = 0}) async {
     // faz requisição para gerar NFCe
-    await processCommonOperations(name, tipoPagamento, idPagamento, context);
+    await processCommonOperations(name, tipoPagamento, idPagamento, tef, context);
 
     // Chama o preenchimento do QrCode
     await Get.dialog(barrierDismissible: false, const QrCodePage());

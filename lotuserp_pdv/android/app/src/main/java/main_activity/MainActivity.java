@@ -57,6 +57,7 @@ public class MainActivity extends FlutterActivity {
     private static final int YOUR_REQUEST_CODE = 1;
     File downloadsPath = new File(Environment.getExternalStorageDirectory(), "Download");
     private File storagePath;
+    private static final String LOGO_PATH = "logo.png";
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
@@ -77,8 +78,6 @@ public class MainActivity extends FlutterActivity {
     private String corte;
     private String desligCorte;
     
-    
-
     private static final int STORAGE_PERMISSION_CODE = 101;
 
     @Override
@@ -330,7 +329,9 @@ public class MainActivity extends FlutterActivity {
         File storagePath;
 
         // Verifique se a pasta Pictures existe
-        File picturesPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        //File picturesPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        String sto = "/sdcard/Pictures/logo.png";
+        File picturesPath = new File(sto);
         if (picturesPath.exists()) {
             storagePath = picturesPath;
         } else {
@@ -345,12 +346,12 @@ public class MainActivity extends FlutterActivity {
             }
         }
 
-        File newFile = new File(storagePath, "logo.png");
+        File newFile = new File(storagePath, LOGO_PATH);
         Log.d("TEF", "Caminho do logotipo: " + newFile.getAbsolutePath());
 
         if (!newFile.exists()) {
             try {
-                InputStream is = getAssets().open("Logo Nova Branco.png");
+                InputStream is = getAssets().open(LOGO_PATH);
                 OutputStream os = new FileOutputStream(newFile);
                 byte[] buffer = new byte[1024];
                 int bytesRead;
@@ -367,10 +368,14 @@ public class MainActivity extends FlutterActivity {
     }
 
     private void customizarAplicacao() {
-        File imagePath = new File(storagePath, "logo.png");
+        String sto = "/sdcard/Pictures/logo.png";
+        File storagePath = new File(sto);
+
+        File imagePath = new File(storagePath, LOGO_PATH);
+        Log.d("TEF", "Caminho do logotipo na customização: " + imagePath.getAbsolutePath());
         Intent intent = new Intent("com.elgin.e1.digitalhub.CUSTOM");
         intent.putExtra("grupo", "application");
-        intent.putExtra("logotipo", imagePath);
+        intent.putExtra("logotipo", storagePath/*imagePath*/);
         intent.putExtra("background", "#2B305B");
         startActivityForResult(intent, REQUEST_CODE_CUSTOMIZACAO);
     }

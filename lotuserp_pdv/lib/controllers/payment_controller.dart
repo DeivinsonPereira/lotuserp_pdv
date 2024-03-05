@@ -33,10 +33,20 @@ class PaymentController extends GetxController {
 
   List<caixa_item> caixaItems = [];
 
+  List<String> comprovanteTef = [];
+
   @override
   void onInit() {
     super.onInit();
     totalPayment.value = '0,00';
+  }
+
+  void updateComprovanteTef(String value) {
+    comprovanteTef.add(value);
+  }
+
+  void clearComprovanteTef() {
+    comprovanteTef.clear();
   }
 
   //adiciona item na lista caixaItems
@@ -127,13 +137,15 @@ class PaymentController extends GetxController {
   }
 
   //adicionar forma de pagamento e valor no paymentsTotal
-  void addPaymentsTotal(String formPayment, String value, int idPayment, int? tipoForma) {
+  void addPaymentsTotal(String formPayment, String value, int idPayment,
+      int? tipoForma, int? tef) {
     Map<String, dynamic> newPayment = {
       'id': DateTime.now().millisecondsSinceEpoch.toString(), // ID único
       'nome': formPayment,
       'valor': value,
       'idPagamento': idPayment,
       'tipoForma': tipoForma,
+      'tef': tef,
       'transacaoBemSucedida': false
     };
     paymentsTotal.add(newPayment);

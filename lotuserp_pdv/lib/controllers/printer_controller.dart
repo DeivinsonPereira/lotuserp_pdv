@@ -921,11 +921,11 @@ class PrinterController extends GetxController {
       bytes += generator.cut();
 
       print('A impressão da transação está comentada');
-//      String textToPrint = String.fromCharCodes(bytes);
-//      await bluetoothManager.writeText(textToPrint);
+      String textToPrint = String.fromCharCodes(bytes);
+      await bluetoothManager.writeText(textToPrint);
 
       //formatação da impressão
-      //bytes += generator.text(result); //FIX: TALVEZ NÂO PRECISA - VERIFICAR
+      bytes += generator.text(result); //FIX: TALVEZ NÂO PRECISA - VERIFICAR
     } on BTException {
       return;
     }

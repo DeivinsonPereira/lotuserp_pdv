@@ -1053,7 +1053,8 @@ class IsarService {
           if (comp != null) {
             comprovante = comp.imagem_comprovante;
 
-            printerController.printTransactionCard(comprovante);
+            paymentController.updateComprovanteTef(comprovante);
+            // printerController.printTransactionCard(comprovante);
             await updateCartaoItem(element, venda.id_venda);
             /*print('imprimindo imagem de transação: ${comprovante}');*/
           }
@@ -1425,20 +1426,20 @@ class IsarService {
   //busca o id do caixa de acordo com o idUser e status 0
   Future<int?> getCaixaIdWithIdUserAndStatus0() async {
     final isar = await db;
-    try{
-    usuario_logado? usuariologado =
-        await isar.usuario_logados.filter().idEqualTo(1).findFirst();
+    try {
+      usuario_logado? usuariologado =
+          await isar.usuario_logados.filter().idEqualTo(1).findFirst();
 
-    caixa? caixas = await isar.caixas
-        .filter()
-        .abertura_id_userEqualTo(usuariologado!.id_user!)
-        .statusEqualTo(0)
-        .findFirst();
+      caixa? caixas = await isar.caixas
+          .filter()
+          .abertura_id_userEqualTo(usuariologado!.id_user!)
+          .statusEqualTo(0)
+          .findFirst();
 
-    if (caixas != null) {
-      return caixas.id_caixa;
-    }}
-    catch(e){
+      if (caixas != null) {
+        return caixas.id_caixa;
+      }
+    } catch (e) {
       logger.e('erro ao buscar caixa: $e');
       return 0;
     }

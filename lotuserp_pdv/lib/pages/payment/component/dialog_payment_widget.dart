@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -16,6 +17,7 @@ class DialogWidget {
     symbol: '',
   );
 
+  // Constrói os botoes do teclado numérico
   Widget buildNumberButton(String number, Function callback, String name) {
     return InkWell(
       onTap: () {
@@ -34,6 +36,7 @@ class DialogWidget {
     );
   }
 
+  // Constrói o Icon backspace (apaga numeros digitados)
   Widget iconBackspace() {
     return SizedBox(
       width: 150,
@@ -50,8 +53,9 @@ class DialogWidget {
     );
   }
 
-  Widget keyboardNumber(
-      Function callback, String name, int? tipoPagamento, int idPagamento,
+  // Constrói o teclado numérico
+  Widget keyboardNumber(Function callback, String name,
+      tipo_recebimento tipoPagamento, int idPagamento,
       {bool isTef = false}) {
     //controller.zerarCampos(); // comentado para teste do tef
     double totalValue = pdvcontroller.totalcheckBox1.value;
@@ -298,11 +302,15 @@ class DialogWidget {
                               child: TextButton(
                                 onPressed: () {
                                   if (controller.totalPayment.value != '0,00') {
+                                    String stringFormatada =
+                                        controller.totalPayment.value.trim();
                                     controller.addPaymentsTotal(
-                                        name,
-                                        controller.totalPayment.value,
-                                        idPagamento,
-                                        tipoPagamento);
+                                      name,
+                                      stringFormatada,
+                                      idPagamento,
+                                      tipoPagamento.tipo_forma,
+                                      tipoPagamento.tef,
+                                    );
                                     controller.totalPayment.value = '0,00';
                                     callback();
                                   }

@@ -98,6 +98,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
               const CustomCherryError(message: 'Nenhum item adicionado')
                   .show(context);
             } else {
+              paymentController.clearComprovanteTef();
               Get.toNamed(PagesRoutes.paymentRoute);
             }
           },

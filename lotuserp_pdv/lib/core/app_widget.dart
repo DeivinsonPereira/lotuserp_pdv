@@ -11,7 +11,6 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     Dependencies.initialController();
 
     return GetMaterialApp(
