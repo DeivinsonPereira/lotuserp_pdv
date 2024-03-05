@@ -51,9 +51,9 @@ class DialogWidget {
   }
 
   Widget keyboardNumber(
-      Function callback, String name, int tipoPagamento, int idPagamento,
+      Function callback, String name, int? tipoPagamento, int idPagamento,
       {bool isTef = false}) {
-    controller.zerarCampos();
+    //controller.zerarCampos(); // comentado para teste do tef
     double totalValue = pdvcontroller.totalcheckBox1.value;
     String numbersDiscountcb2 =
         pdvcontroller.numbersDiscountcb2.value.replaceAll(',', '.');

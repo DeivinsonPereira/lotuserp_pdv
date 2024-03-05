@@ -29,7 +29,7 @@ class VendaServidorRepository {
       Dependencies.responseServidorController();
 
   Future<void> vendaToServer(
-    BuildContext context,
+      BuildContext context,
       venda vendas,
       List<caixa_item> caixaItens,
       PdvController pdvController,
@@ -121,7 +121,7 @@ class VendaServidorRepository {
 
             Future.delayed(const Duration(milliseconds: 300));
             await PostOnServidor.postOnServidor(
-              context,
+                context,
                 vendas,
                 caixaItens,
                 pdvController,

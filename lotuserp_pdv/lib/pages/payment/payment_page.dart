@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/response_servidor_controller.dart';
@@ -68,7 +69,7 @@ class _PaymentPageState extends State<PaymentPage> {
     );
 
     // processamento do pagamento TEF
-    /*   Future<void> processTefPayment(Map<String, dynamic> payment) async {
+    Future<void> processTefPayment(Map<String, dynamic> payment) async {
       String paymentType = payment['nome'];
       String valorTransacao = payment['valor'];
       String paymentId = payment['id'];
@@ -290,7 +291,7 @@ class _PaymentPageState extends State<PaymentPage> {
           },
         ),
       );
-    }*/
+    }
 
     //linha do cabeçalho
     Widget lineHeader(BuildContext context) {
@@ -437,21 +438,35 @@ class _PaymentPageState extends State<PaymentPage> {
     }
 
     //icones para escolha de forma de pagamento
-    Widget cardsPayment(
-        IconData? icon, int tipoPagamento, String? descricao, int idPagamento) {
+    Widget cardsPayment(IconData? icon, tipo_recebimento tipoPagamento,
+        String? descricao, int idPagamento) {
       return InkWell(
         onTap: () async {
-          if (tipoPagamento != 0) {
-            NoMoneyPaper().processCommonOperations();
+          if (tipoPagamento.tipo_forma != 0) {
+            Get.dialog(
+              DialogWidget().keyboardNumber(pushSetState, descricao,
+                  tipoPagamento.tipo_forma, idPagamento,
+                  isTef: true),
+            );
+
+            // aqui é somente 0 para o TEF
+
+            /* NoMoneyPaper()
+                .processCommonOperations(); // comentar para testar o pagamento TEF
+
             ConfirmationMethod().continueSell(
-                context,
+                context, // // comentar para testar o pagamento TEF
                 name: descricao,
                 tipoPagamento: tipoPagamento,
                 idPagamento: idPagamento);
-            await responseServidorController.updateCpfCnpj();
+            await responseServidorController.updateCpfCnpj();*/
           } else {
             Get.dialog(DialogWidget().keyboardNumber(
-                pushSetState, descricao, tipoPagamento, idPagamento));
+                // para usar o tef, esse comando deve estar disponivel dentro do if com o "isTef = true"
+                pushSetState,
+                descricao,
+                tipoPagamento.tipo_forma,
+                idPagamento));
           }
         },
         child: Padding(
@@ -738,13 +753,14 @@ class _PaymentPageState extends State<PaymentPage> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 ),
-                                /* payment[index]['nome'] == 'TEF DEBITO' ||
+                                payment[index]['nome'] ==
+                                            'TEF DEBITO' || // comentar
                                         payment[index]['nome'] ==
                                             'TEF CREDITO' ||
                                         payment[index]['nome'] ==
                                             'PIX INTEGRADO'
                                     ? buildPaymentButton(payment[index])
-                                    : Container(),*/
+                                    : Container(),
                               ],
                             )
                           ]),
@@ -845,7 +861,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     children: [
                       cardsPayment(
                           tipoReceb,
-                          tipoRecebimento[index].tipo_forma!,
+                          tipoRecebimento[index],
                           tipoRecebimento[index].descricao,
                           tipoRecebimento[index].id),
                     ],
@@ -886,8 +902,9 @@ class _PaymentPageState extends State<PaymentPage> {
               onTap: _.isButtonEnabled.value
                   ? () async {
                       paymentController.verifyOpenTransactionTEF()
-                          ? CustomCherryError(message: 'Existem transações pendentes',).show(context)
-
+                          ? CustomCherryError(
+                              message: 'Existem transações pendentes',
+                            ).show(context)
                           : {
                               await responseServidorController.updateCpfCnpj(),
                               ConfirmationMethod().continueSell(context),
