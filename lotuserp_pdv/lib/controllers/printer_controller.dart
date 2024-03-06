@@ -8,6 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
+import 'package:lotuserp_pdv/pages/common/custom_dialog_highlight_paper.dart';
 import 'package:lotuserp_pdv/services/tef_elgin/tef_elgin_print_service.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -936,9 +937,15 @@ class PrinterController extends GetxController {
     }
     if (printerSize == '58mm') {
       try {
-        String cliente = viaCliente;
-        String estabelecimento = '$viaEstabelecimento\n\n\n\n\n\n ';
-        TefElginPrintService.imprimirPagamentoTEF(cliente, estabelecimento);
+        String cliente = '$viaCliente\n\n\n\n';
+        String estabelecimento = '$viaEstabelecimento\n\n\n\n';
+        await TefElginPrintService.imprimirPagamentoTEF(cliente);
+        await Get.dialog(barrierDismissible: false,
+            CustomDialogHighlightPaper(function: () async {
+          Get.back();
+          await Future.delayed(const Duration(seconds: 1));
+          await TefElginPrintService.imprimirPagamentoTEF(estabelecimento);
+        }));
       } catch (e) {
         logger.e("Erro ao chamar o método da plataforma: '$e'.");
         return;

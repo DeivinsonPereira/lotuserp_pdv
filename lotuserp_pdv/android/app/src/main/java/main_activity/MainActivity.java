@@ -231,10 +231,9 @@ public class MainActivity extends FlutterActivity {
                                     result.success(null);
                                 }else if(call.method.equals("imprimirTefElgin")){
                                     Log.d("TEF", "Iniciando TEF com função: imprimirTefElgin");
-                                    String viaCliente = call.argument("viaCliente");
-                                    String viaEstabelecimento = call.argument("viaEstabelecimento");
-                                    Log.d("TEF", "viaCliente: " + viaCliente + ", viaEstabelecimento: " + viaEstabelecimento);
-                                    imprimirTefElgin(viaCliente, viaEstabelecimento);
+                                    String texto = call.argument("texto");
+                                    Log.d("TEF", "texto: " + texto);
+                                    imprimirTefElgin(texto);
                                     result.success(null);
                                 }   
                             } catch (Exception e) {
@@ -252,16 +251,12 @@ public class MainActivity extends FlutterActivity {
         }
     }
 
-    private void imprimirTefElgin(String viaCliente, String viaEstabelecimento) {
+    private void imprimirTefElgin(String viaImpressao) {
         try{
-            Log.d("TEF", "Impressão via TEF: " + viaCliente + ", via Estabelecimento: " + viaEstabelecimento);
-            String texto = viaCliente;
+            String texto = viaImpressao;
             texto += corte;
             texto += desligCorte;
-            texto += viaEstabelecimento;
-            texto += corte;
-            texto += desligCorte;
-            Log.d("TEF", "Impressão via TEF: " + viaCliente + ", via Estabelecimento: " + viaEstabelecimento);
+
             dfmD2s.enviarComando(texto);
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();

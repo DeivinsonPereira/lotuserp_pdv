@@ -1,16 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/search_product_pdv_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/custom_dialog_highlight_paper.dart';
 import 'package:lotuserp_pdv/pages/common/header_popup.dart';
 import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
-import '../../services/tef_elgin/tef_elgin_print_service.dart';
 
 class QrCodePage extends StatelessWidget {
   const QrCodePage({super.key});
@@ -67,7 +69,7 @@ class QrCodePage extends StatelessWidget {
                           String tamanhoImpressora =
                               configController.tamanhoImpressora.value;
                           if (tamanhoImpressora != 'SEM IMPRESSORA') {
-                            // await PrintNfceXml().printNfceXml();
+                            await PrintNfceXml().printNfceXml();
                             if (tamanhoImpressora == '80mm') {
                               for (var i = 0;
                                   i < paymentController.comprovanteTef.length;
@@ -76,11 +78,46 @@ class QrCodePage extends StatelessWidget {
                                     paymentController.comprovanteTef[i]);
                               }
                             } else if (tamanhoImpressora == '58mm') {
-                              for (var i = 0;
-                                  i < paymentController.comprovanteTef.length;
-                                  i++) {
-                                await printerController.printTransactionCard(
-                                    paymentController.comprovanteTef[i]);
+                              if (paymentController.comprovanteTef.isNotEmpty) {
+                                Completer completer1 = Completer();
+                                Get.dialog(
+                                  barrierDismissible: false,
+                                  CustomDialogHighlightPaper(
+                                    function: () async {
+                                      Get.back();
+                                      await Future.delayed(
+                                          const Duration(seconds: 1));
+                                      completer1.complete();
+                                    },
+                                  ),
+                                );
+
+                                await completer1.future;
+                                for (var i = 0;
+                                    i < paymentController.comprovanteTef.length;
+                                    i++) {
+                                  await printerController.printTransactionCard(
+                                      paymentController.comprovanteTef[i]);
+                                  if (i ==
+                                      paymentController.comprovanteTef.length -
+                                          2) {
+                                    Completer completer2 = Completer();
+
+                                    Get.dialog(
+                                      barrierDismissible: false,
+                                      CustomDialogHighlightPaper(
+                                        function: () async {
+                                          Get.back();
+                                          await Future.delayed(
+                                              const Duration(seconds: 1));
+                                          completer2.complete();
+                                        },
+                                      ),
+                                    );
+
+                                    await completer2.future;
+                                  }
+                                }
                               }
                             }
                             Get.back();

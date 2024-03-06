@@ -6,10 +6,9 @@ abstract class TefElginPrintService {
 
   static Logger logger = Logger();
 
-  static Future<void> imprimirPagamentoTEF(String texto, String viaEstabelecimento ) async {
+  static Future<void> imprimirPagamentoTEF(String texto) async {
     try {
-      logger.d("Iniciando chamada do método imprimirTefElgin com parâmetros: Via do Cliente: $viaCliente, Via do Estabelecimento: $viaEstabelecimento");
-      await platform.invokeMethod('imprimirTefElgin', {'viaCliente': viaCliente, 'viaEstabelecimento': viaEstabelecimento});
+      await platform.invokeMethod('imprimirTefElgin', {'texto': texto});
     } on PlatformException catch (e) {
       logger.e("Erro ao chamar o método da plataforma: '${e.message}'.");
     }
