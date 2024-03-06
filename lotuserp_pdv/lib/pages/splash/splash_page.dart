@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 
+import '../../services/tef_elgin/tef_elgin_customization_service.dart';
+
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
 
@@ -24,7 +26,8 @@ class _SplashPageState extends State<SplashPage> {
         _scale = 2;
       });
     });
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 3), () async {
+      await TefElginCustomizationService.customizarAplicacao();
       Get.toNamed(PagesRoutes.loginRoute);
     });
     super.initState();

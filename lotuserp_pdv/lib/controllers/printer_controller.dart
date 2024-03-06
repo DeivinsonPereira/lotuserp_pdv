@@ -8,6 +8,7 @@ import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
+import 'package:lotuserp_pdv/services/tef_elgin/tef_elgin_print_service.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/caixa.dart';
@@ -903,31 +904,45 @@ class PrinterController extends GetxController {
     );
 
     List<int> bytes = [];
+    String viaCliente = '';
+    String viaEstabelecimento = '';
 
-    if (selectedPrinter == null) return;
-
-    try {
-      await connectDevice();
-      if (!isConnected.value) return;
-
+    if (result.isNotEmpty) {
       Map<String, dynamic> data = jsonDecode(result);
 
-      String viaCliente = data['VIA_CLIENTE'];
-      String viaEstabelecimento = data['VIA_ESTABELECIMENTO'];
+      viaCliente = data['VIA_CLIENTE'];
+      viaEstabelecimento = data['VIA_ESTABELECIMENTO'];
+    }
 
-      bytes += generator.text("Via do Cliente:\n$viaCliente");
-      bytes += generator.cut();
-      bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
-      bytes += generator.cut();
+    if (printerSize == '80mm') {
+      try {
+        await connectDevice();
+        if (!isConnected.value) return;
 
-      print('A impressão da transação está comentada');
-      String textToPrint = String.fromCharCodes(bytes);
-      await bluetoothManager.writeText(textToPrint);
+        bytes += generator.text("Via do Cliente:\n$viaCliente");
+        bytes += generator.cut();
+        bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
+        bytes += generator.cut();
 
-      //formatação da impressão
-      bytes += generator.text(result); //FIX: TALVEZ NÂO PRECISA - VERIFICAR
-    } on BTException {
-      return;
+        //print('A impressão da transação está comentada');
+        String textToPrint = String.fromCharCodes(bytes);
+        await bluetoothManager.writeText(textToPrint);
+
+        //formatação da impressão
+        bytes += generator.text(result); //FIX: TALVEZ NÂO PRECISA - VERIFICAR
+      } on BTException {
+        return;
+      }
+    }
+    if (printerSize == '58mm') {
+      try {
+        String cliente = viaCliente;
+        String estabelecimento = '$viaEstabelecimento\n\n\n\n\n\n ';
+        TefElginPrintService.imprimirPagamentoTEF(cliente, estabelecimento);
+      } catch (e) {
+        logger.e("Erro ao chamar o método da plataforma: '$e'.");
+        return;
+      }
     }
   }
 

@@ -10,6 +10,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../controllers/response_servidor_controller.dart';
 import '../../services/dependencies.dart';
+import '../../services/tef_elgin/tef_elgin_print_service.dart';
 
 class QrCodePage extends StatelessWidget {
   const QrCodePage({super.key});
@@ -66,12 +67,21 @@ class QrCodePage extends StatelessWidget {
                           String tamanhoImpressora =
                               configController.tamanhoImpressora.value;
                           if (tamanhoImpressora != 'SEM IMPRESSORA') {
-                            await PrintNfceXml().printNfceXml();
-                            for (var i = 0;
-                                i < paymentController.comprovanteTef.length;
-                                i++) {
-                              await printerController.printTransactionCard(
-                                  paymentController.comprovanteTef[i]);
+                            // await PrintNfceXml().printNfceXml();
+                            if (tamanhoImpressora == '80mm') {
+                              for (var i = 0;
+                                  i < paymentController.comprovanteTef.length;
+                                  i++) {
+                                await printerController.printTransactionCard(
+                                    paymentController.comprovanteTef[i]);
+                              }
+                            } else if (tamanhoImpressora == '58mm') {
+                              for (var i = 0;
+                                  i < paymentController.comprovanteTef.length;
+                                  i++) {
+                                await printerController.printTransactionCard(
+                                    paymentController.comprovanteTef[i]);
+                              }
                             }
                             Get.back();
                             searchProductPdvController.clearSearch();

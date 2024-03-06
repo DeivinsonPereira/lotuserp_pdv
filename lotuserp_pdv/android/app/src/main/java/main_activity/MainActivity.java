@@ -95,8 +95,6 @@ public class MainActivity extends FlutterActivity {
         }
     }
 
-   
-    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -231,6 +229,13 @@ public class MainActivity extends FlutterActivity {
                                     String texto18 = call.argument("texto18");
                                     imprimirCloseRegister(texto1, texto2, texto3, texto4, texto5, texto6, texto7, texto8, texto9, texto10, texto11, texto12, texto13, texto14, texto15, texto16, texto17, texto18);
                                     result.success(null);
+                                }else if(call.method.equals("imprimirTefElgin")){
+                                    Log.d("TEF", "Iniciando TEF com função: imprimirTefElgin");
+                                    String viaCliente = call.argument("viaCliente");
+                                    String viaEstabelecimento = call.argument("viaEstabelecimento");
+                                    Log.d("TEF", "viaCliente: " + viaCliente + ", viaEstabelecimento: " + viaEstabelecimento);
+                                    imprimirTefElgin(viaCliente, viaEstabelecimento);
+                                    result.success(null);
                                 }   
                             } catch (Exception e) {
                                 Log.e("MethodChannel", "Erro no método: " + call.method, e);
@@ -241,6 +246,22 @@ public class MainActivity extends FlutterActivity {
 
     private void imprimirTeste(String texto) {
         try{
+            dfmD2s.enviarComando(texto);
+        } catch (Exception e) {
+            Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void imprimirTefElgin(String viaCliente, String viaEstabelecimento) {
+        try{
+            Log.d("TEF", "Impressão via TEF: " + viaCliente + ", via Estabelecimento: " + viaEstabelecimento);
+            String texto = viaCliente;
+            texto += corte;
+            texto += desligCorte;
+            texto += viaEstabelecimento;
+            texto += corte;
+            texto += desligCorte;
+            Log.d("TEF", "Impressão via TEF: " + viaCliente + ", via Estabelecimento: " + viaEstabelecimento);
             dfmD2s.enviarComando(texto);
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -330,7 +351,7 @@ public class MainActivity extends FlutterActivity {
 
         // Verifique se a pasta Pictures existe
         //File picturesPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-        String sto = "/sdcard/Pictures/logo.png";
+        String sto = "/sdcard/Pictures/";
         File picturesPath = new File(sto);
         if (picturesPath.exists()) {
             storagePath = picturesPath;
@@ -368,14 +389,14 @@ public class MainActivity extends FlutterActivity {
     }
 
     private void customizarAplicacao() {
-        String sto = "/sdcard/Pictures/logo.png";
+        String sto = "/sdcard/Pictures/";
         File storagePath = new File(sto);
 
         File imagePath = new File(storagePath, LOGO_PATH);
         Log.d("TEF", "Caminho do logotipo na customização: " + imagePath.getAbsolutePath());
         Intent intent = new Intent("com.elgin.e1.digitalhub.CUSTOM");
         intent.putExtra("grupo", "application");
-        intent.putExtra("logotipo", storagePath/*imagePath*/);
+        intent.putExtra("logotipo", "/sdcard/Pictures/logo.png"/*imagePath*/);
         intent.putExtra("background", "#2B305B");
         startActivityForResult(intent, REQUEST_CODE_CUSTOMIZACAO);
     }
