@@ -78,6 +78,15 @@ class PdvController extends GetxController {
 
   var pesagem = 0.0.obs;
 
+  var grupos = [].obs;
+
+  Future<void> setGrupos() async {
+    grupos.clear();
+    var grupo = await service.searchGrupos();
+    grupos.assignAll(grupo);
+    update();
+  }
+
   Future<void> setPesagem(double value, String output) async {
     pesagemController.text = output;
     pesagem.value = value;

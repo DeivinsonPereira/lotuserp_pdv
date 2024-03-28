@@ -21,18 +21,16 @@ Future<void> downloadImageGroup() async {
   String ip =
       Dependencies.textFieldController().numContratoEmpresaController.text;
   try {
-
     // OBTER OS GRUPOS
     List<produto_grupo> grupos = saveImagePathController.grupos;
     Directory dir = await getApplicationDocumentsDirectory();
     await deleteExistingFiles('${dir.path}/assets/grupos/');
 
     for (var grupo in grupos) {
-
       // BAIXAR A IMAGEM
       String? fileImage = grupo.file_imagem;
       if (fileImage != null || fileImage != '') {
-        var url = '${ip}getimagem?categoria=GRU&file=${fileImage}result=JSO';
+        var url = '${ip}getimagem?categoria=GRU&file=$fileImage&result=JSO';
         var fileName = grupo.file_imagem;
 
         var response = await http.get(
@@ -80,14 +78,12 @@ Future<void> downloadImageProduct() async {
   String ip =
       Dependencies.textFieldController().numContratoEmpresaController.text;
   try {
-
     // OBTER OS PRODUTOS
     List<produto> produtos = saveImagePathController.produtos;
     Directory dir = await getApplicationDocumentsDirectory();
     await deleteExistingFiles('${dir.path}/assets/produtos/');
 
     for (var produto in produtos) {
-
       // BAIXAR A IMAGEM
       String? fileImage = produto.file_imagem;
       if (fileImage != null || fileImage != '') {
@@ -133,18 +129,15 @@ Future<void> downloadImageProduct() async {
 Future<void> deleteExistingFiles(String folderPath) async {
   final directory = Directory(folderPath);
   if (await directory.exists()) {
-
     // List all files and subdirectories in the directory
     final entities = directory.listSync();
 
     for (final entity in entities) {
       if (entity is File) {
-
         // Delete the file
         await entity.delete();
         print('Arquivo excluído: ${entity.path}');
       } else if (entity is Directory) {
-        
         // Recursively delete subdirectories
         await deleteExistingFiles(entity.path);
       }

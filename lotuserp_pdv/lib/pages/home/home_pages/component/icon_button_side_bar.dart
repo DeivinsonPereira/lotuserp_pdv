@@ -46,7 +46,7 @@ class IconButtonSideBar extends StatelessWidget {
     IsarService service = IsarService();
     InformationController informationController =
         Dependencies.informationController();
-
+    var pdvController = Dependencies.pdvController();
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(45, 252, 252, 252),
@@ -78,6 +78,7 @@ class IconButtonSideBar extends StatelessWidget {
               if (isMovimentarCaixa == true) {
                 Get.dialog(const MovimentCashPage());
               } else if (isPdv == true) {
+                pdvController.setGrupos();
                 Get.offAndToNamed(PagesRoutes.pdvMonitor);
               } else if (isFecharCaixa == true) {
                 Get.dialog(const CloseRegisterPage());

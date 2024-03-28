@@ -694,9 +694,9 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
     // linha de grupo de produtos
     Widget lineGroupProduct(PdvController controller) {
-      return
+      
           //linha de grupos de produtos
-          Expanded(
+        return Expanded(
         flex: 1,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),

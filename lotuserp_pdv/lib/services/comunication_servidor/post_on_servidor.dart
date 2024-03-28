@@ -32,7 +32,7 @@ abstract class PostOnServidor {
 
   // FAZ A CHAMADA DA NFC-E
   static Future<void> postOnServidor(
-    BuildContext context,
+      BuildContext context,
       venda vendas,
       List<caixa_item> caixaItens,
       PdvController pdvController,
@@ -137,7 +137,8 @@ abstract class PostOnServidor {
             responseServidorController.updateXmlNotaFiscal(true);
             paymentController.clearListCaixaItems();
           }
-          const CustomCherryError(message: 'Erro ao gerar nota fiscal.').show(context);
+          const CustomCherryError(message: 'Erro ao gerar nota fiscal.')
+              .show(context);
           logger.e("Erro ao fazer a requisição: ${response.statusCode}");
           responseServidorController.limparCpfCnpj();
         }
@@ -145,7 +146,8 @@ abstract class PostOnServidor {
         if (isSecondAttempt == false) {
           responseServidorController.updateXmlNotaFiscal(true);
         } else {
-          const CustomCherryError(message: 'Erro ao gerar nota fiscal.').show(context);
+          const CustomCherryError(message: 'Erro ao gerar nota fiscal.')
+              .show(context);
           responseServidorController.updateXmlNotaFiscal(true);
           paymentController.clearListCaixaItems();
         }
@@ -154,7 +156,8 @@ abstract class PostOnServidor {
       }
     } catch (e) {
       logger.e("Erro ao fazer a requisição: $e");
-      const CustomCherryError(message: 'Erro ao gerar nota fiscal.').show(context);
+      const CustomCherryError(message: 'Erro ao gerar nota fiscal.')
+          .show(context);
       if (isSecondAttempt == false) {
         responseServidorController.updateXmlNotaFiscal(true);
       } else {
