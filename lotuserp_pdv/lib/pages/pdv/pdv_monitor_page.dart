@@ -22,6 +22,7 @@ import '../product/product_monitor_page.dart';
 import '../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../second_copy/nfce_second_copy_page.dart';
 import 'widgets/get_images.dart';
+import 'widgets/search_products.dart';
 
 class PdvMonitorPage extends StatefulWidget {
   const PdvMonitorPage({super.key});
@@ -417,7 +418,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
               padding: const EdgeInsets.all(8.0),
               child: _.isSearch
                   ? (!_.isBarCode
-                      ? _SearchProduct(
+                      ? SearchProduct(
                           ip: controller.ip.value,
                           formatoBrasileiro: formatoBrasileiro,
                           service: service,
@@ -425,7 +426,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           pdvController: controller,
                           scrollController: scrollController,
                         )
-                      : _SearchProduct(
+                      : SearchProduct(
                           ip: controller.ip.value,
                           formatoBrasileiro: formatoBrasileiro,
                           service: service,
@@ -694,9 +695,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
 
     // linha de grupo de produtos
     Widget lineGroupProduct(PdvController controller) {
-      
-          //linha de grupos de produtos
-        return Expanded(
+      //linha de grupos de produtos
+      return Expanded(
         flex: 1,
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -969,233 +969,6 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
         return Scaffold(
           body: conteudo(controller),
         );
-      },
-    );
-  }
-}
-
-// busca produtos pela descrição no campo de pesquisa
-// ignore: must_be_immutable
-class _SearchProduct extends StatelessWidget {
-  final String ip;
-  final NumberFormat formatoBrasileiro;
-  final IsarService service;
-  final SearchProductPdvController controller;
-  final PdvController pdvController;
-  final ScrollController scrollController;
-
-  bool isBarCode;
-  _SearchProduct({
-    Key? key,
-    required this.ip,
-    required this.formatoBrasileiro,
-    required this.service,
-    required this.controller,
-    required this.pdvController,
-    required this.scrollController,
-    this.isBarCode = false,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    bool isBalance = false;
-    SaveImagePathController saveImagePathController =
-        Dependencies.saveImagePathController();
-    isBarCode
-        ? saveImagePathController.addImagePathBarcode(controller.search.value)
-        : saveImagePathController.addImagePathDesc(controller.search.value);
-    return FutureBuilder(
-      future: !isBarCode
-          ? service.searchProdutoByDesc(controller.search.value)
-          : service.searchProdutoByBarcode(controller.search.value),
-      builder: (context, snapshot) {
-        if (!snapshot.hasData) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-        if (snapshot.hasError) {
-          const CustomCherryError(
-            message: 'Nenhum resultado encontrado.',
-          ).show(context);
-        }
-        if (snapshot.hasData) {
-          List<produto?> produtos = snapshot.data!;
-          List<String> produtosDescPathImage =
-              saveImagePathController.pathImagesDesc;
-          List<String> produtoBarcodePathImage =
-              saveImagePathController.pathImagesBarcode;
-          List<String> imagesPath = [];
-
-          controller.clearAll();
-          for (var produto in produtos) {
-            if (produto!.venda_kg == 1) {
-              controller.updateFile(produto.file_imagem ?? '');
-              controller.updateNome(produto.descricao ?? '');
-              controller.updatePreco(formatoBrasileiro.format(produto.pvenda));
-              controller.updateUnidade(produto.unidade ?? '');
-              controller.updateIdProduto(produto.id_produto);
-            } else if (produto.venda_kg == 0) {
-              controller.updateFile(produto.file_imagem ?? '');
-              controller.updateNome(produto.descricao ?? '');
-              controller.updatePreco(formatoBrasileiro.format(produto.pvenda));
-              controller.updateUnidade(produto.unidade ?? '');
-              controller.updateIdProduto(produto.id_produto);
-            }
-          }
-
-          return GridView.builder(
-            itemCount: produtos.length == 1 ? 1 : produtos.length,
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-            ),
-            itemBuilder: (context, index) {
-              if (!isBarCode) {
-                try {
-                  if (produtosDescPathImage
-                      .map((e) => e.split('/').last)
-                      .contains(produtos[index]!.file_imagem)) {
-                    String filePath = produtosDescPathImage.firstWhere(
-                        (element) =>
-                            element.split('/').last ==
-                            produtos[index]!.file_imagem);
-
-                    String path = filePath;
-
-                    imagesPath.add(path);
-                  } else {
-                    imagesPath.add('assets/images/semimagem.png');
-                  }
-                  // ignore: empty_catches
-                } catch (e) {}
-              }
-
-              if (isBarCode) {
-                try {
-                  if (produtoBarcodePathImage
-                      .map((e) => e.split('/').last)
-                      .contains(produtos[index]!.file_imagem)) {
-                    String filePath = produtoBarcodePathImage.firstWhere(
-                        (element) =>
-                            element.split('/').last ==
-                            produtos[index]!.file_imagem);
-
-                    String path = filePath;
-
-                    imagesPath.add(path);
-                  } else {
-                    imagesPath.add('assets/images/semimagem.png');
-                  }
-                  // ignore: empty_catches
-                } catch (e) {}
-              }
-
-              return InkWell(
-                onTap: () async {
-                  if (produtos[index]!.venda_kg == 1) {
-                    isBalance = true;
-
-                    pdvController.listenBalance(
-                        controller.nome[index],
-                        controller.unidade[index],
-                        controller.preco[index],
-                        controller.idProduto[index],
-                        filteredProducts: produtos,
-                        isBalance: isBalance);
-                  } else {
-                    isBalance = false;
-                    pdvController.adicionarPedidos(
-                        controller.nome[index],
-                        controller.unidade[index],
-                        controller.preco[index],
-                        controller.idProduto[index]);
-                  }
-
-                  pdvController.totalSoma();
-                  if (!pdvController.pedidos.contains(controller.nome[index])) {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      scrollController
-                          .jumpTo(scrollController.position.maxScrollExtent);
-                    });
-                  }
-                },
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: Stack(
-                        children: [
-                          // CachedNetworkImage que exibe a imagem
-                          imagesPath.isNotEmpty
-                              ? getImage(imagesPath[index])
-                              : Image.asset(
-                                  'assets/images/semimagem.png',
-                                  scale: 1.0,
-                                ),
-
-                          if (pdvController
-                                  .getQuantidade(controller.nome[index]) >
-                              0) // Verifica se a quantidade é maior que 0
-
-                            Positioned(
-                              top: 5,
-                              right: 5,
-                              child: pdvController.getQuantidade(
-                                          controller.nome[index]) >
-                                      0
-                                  ? Container(
-                                      padding: const EdgeInsets.all(5),
-                                      decoration: BoxDecoration(
-                                        color: CustomColors.customSwatchColor,
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                      child: Obx(() => Text(
-                                            produtos[index]!.venda_kg == 1
-                                                ? '${pdvController.findWeightByName(controller.nome[index])}'
-                                                : '${pdvController.getQuantidade(controller.nome[index])}',
-                                            style: const TextStyle(
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          )),
-                                    )
-                                  : Container(),
-                            ),
-                        ],
-                      ),
-                    ),
-                    Text(
-                      controller.nome[index],
-                      textAlign: TextAlign.center,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16,
-                          color: TextColors.titleColor),
-                    ),
-                    Text(
-                      controller.unidade[index],
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: TextColors.subtitleColor),
-                    ),
-                    Text(
-                      'R\$ ${controller.preco[index]} ',
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: TextColors.titleColor),
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        }
-        return const Center(child: CircularProgressIndicator());
       },
     );
   }
