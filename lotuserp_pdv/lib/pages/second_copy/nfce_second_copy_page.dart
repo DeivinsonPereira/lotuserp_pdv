@@ -24,6 +24,7 @@ class NfceSecondCopyPage extends StatelessWidget {
         Dependencies.informationController();
     CheckboxController checkboxController = Dependencies.checkboxController();
     Logger logger = Logger();
+    informationController.searchVendas();
 
     return Dialog(
       child: Container(

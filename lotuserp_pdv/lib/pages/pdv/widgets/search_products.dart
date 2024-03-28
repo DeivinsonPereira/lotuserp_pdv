@@ -61,11 +61,13 @@ class SearchProduct extends StatelessWidget {
         }
         if (snapshot.hasData) {
           List<produto?> produtos = snapshot.data!;
-          List<String> produtosDescPathImage =
-              saveImagePathController.pathImagesDesc;
+          /*  List<String> produtosDescPathImage =
+              saveImagePathController.pathImagesDesc;*/
           List<String> produtoBarcodePathImage =
               saveImagePathController.pathImagesBarcode;
           List<String> imagesPath = [];
+
+          pdvController.setProdutosSearchDesc(produtos);
 
           controller.clearAll();
           for (var produto in produtos) {
@@ -85,7 +87,13 @@ class SearchProduct extends StatelessWidget {
           }
 
           return GridView.builder(
-            itemCount: produtos.length == 1 ? 1 : produtos.length,
+            itemCount: !isBarCode!
+                ? produtos.length == 1
+                    ? 1
+                    : produtos.length
+                : pdvController.produtosSearchDesc.length == 1
+                    ? 1
+                    : produtos.length,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 5,
               crossAxisSpacing: 5,
@@ -94,11 +102,11 @@ class SearchProduct extends StatelessWidget {
             itemBuilder: (context, index) {
               if (!isBarCode!) {
                 try {
-                  if (produtosDescPathImage
+                  if (pdvController.produtosSearchDesc
                       .map((e) => e.split('/').last)
                       .contains(produtos[index]!.file_imagem)) {
-                    String filePath = produtosDescPathImage.firstWhere(
-                        (element) =>
+                    String filePath = pdvController.produtosSearchDesc
+                        .firstWhere((element) =>
                             element.split('/').last ==
                             produtos[index]!.file_imagem);
 
@@ -168,8 +176,12 @@ class SearchProduct extends StatelessWidget {
                       child: Stack(
                         children: [
                           // CachedNetworkImage que exibe a imagem
-                          imagesPath.isNotEmpty
-                              ? getImage(imagesPath[index])
+                          pdvController.produtosSearchDesc.isNotEmpty
+                              ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(100),
+                                  child: getImage(
+                                      pdvController.produtosSearchDesc[index]),
+                                )
                               : Image.asset(
                                   'assets/images/semimagem.png',
                                   scale: 1.0,

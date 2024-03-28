@@ -19,7 +19,7 @@ class DrawerWidgetMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     SideBarController sideBarController = Dependencies.sidebarController();
     PasswordController passwordController = Dependencies.passwordController();
-
+    Dependencies.pdvController();
     var userName = passwordController.userController.text;
 
     //Logo no cabeçalho do Drawer

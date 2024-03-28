@@ -47,6 +47,7 @@ class IconButtonSideBar extends StatelessWidget {
     InformationController informationController =
         Dependencies.informationController();
     var pdvController = Dependencies.pdvController();
+    var saveImagePathController = Dependencies.saveImagePathController();
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(45, 252, 252, 252),
@@ -78,8 +79,13 @@ class IconButtonSideBar extends StatelessWidget {
               if (isMovimentarCaixa == true) {
                 Get.dialog(const MovimentCashPage());
               } else if (isPdv == true) {
-                pdvController.setGrupos();
-                Get.offAndToNamed(PagesRoutes.pdvMonitor);
+                await pdvController.setGrupos();
+                await pdvController.setGruposDescription();
+                pdvController.setImagensGrupos();
+                await saveImagePathController.addImagePathGroup();
+                Future.delayed(const Duration(seconds: 1), () {
+                  Get.toNamed(PagesRoutes.pdvMonitor);
+                });
               } else if (isFecharCaixa == true) {
                 Get.dialog(const CloseRegisterPage());
               }

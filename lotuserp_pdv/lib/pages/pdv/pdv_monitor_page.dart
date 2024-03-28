@@ -62,7 +62,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
       symbol: '',
     );
 
-    List<String> listaGrupos = ['FAVORITOS'];
+    //  List<String> listaGrupos = ['FAVORITOS'];
 
     List<produto> getProdutoById(List<produto> product) {
       var produtos =
@@ -449,7 +449,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                           getImagesGroupMethod();
                           dynamic filteredProducts;
                           if (controller.isSelectedList.value >= 0) {
-                            if (listaGrupos[controller.isSelectedList.value] !=
+                            if (controller.gruposDescription[
+                                    controller.isSelectedList.value] !=
                                 'FAVORITOS') {
                               filteredProducts = getProdutoById(produtos);
                             } else {
@@ -466,7 +467,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 crossAxisSpacing: 5,
                                 mainAxisSpacing: 30,
                               ),
-                              itemCount: listaGrupos[
+                              itemCount: controller.gruposDescription[
                                           controller.isSelectedList.value] ==
                                       'FAVORITOS'
                                   ? saveImagePathController
@@ -482,10 +483,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 List<String> fileImageFavorite;
 
                                 if (controller.isSelectedList.value >= 0) {
-                                  if (listaGrupos[controller
+                                  if (controller.gruposDescription[controller
                                               .isSelectedList.value] ==
                                           'FAVORITOS' ||
-                                      listaGrupos[controller
+                                      controller.gruposDescription[controller
                                               .isSelectedList.value] ==
                                           '0') {
                                     List<produto> favorite =
@@ -576,9 +577,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                           flex: 3,
                                           child: Stack(
                                             children: [
-                                              listaGrupos[controller
-                                                          .isSelectedList
-                                                          .value] ==
+                                              controller.gruposDescription[
+                                                          controller
+                                                              .isSelectedList
+                                                              .value] ==
                                                       'FAVORITOS'
                                                   ? saveImagePathController
                                                           .pathImagesFavorites
@@ -713,7 +715,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 }
                 if (snapshot.hasData) {
                   var grupo = snapshot.data!;
-                  List<String> imagesGroup = [];
+                  //  List<String> imagesGroup = [];
                   return Row(
                     children: [
                       SizedBox(
@@ -721,11 +723,11 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                         height: 100,
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
-                          itemCount: grupo.isEmpty ? 1 : grupo.length + 1,
+                          itemCount: controller.gruposDescription.length,
                           itemBuilder: (context, index) {
+/*
                             List<String> fileImageGroup =
                                 saveImagePathController.pathImagesGroup;
-
                             if (listaGrupos.length > 1) {
                               listaGrupos.clear();
                             }
@@ -753,7 +755,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                 imagesGroup.add('assets/images/semimagem.png');
                               }
                             }
-
+  */
                             return GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -773,13 +775,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(100),
-                                            child: listaGrupos[index] !=
-                                                    'FAVORITOS'
-                                                ? getImageGroup(
-                                                    imagesGroup[index - 1])
-                                                : Image.asset(
-                                                    'assets/images/favorito.png',
-                                                    width: 55)),
+                                            child: getImageGroup(
+                                                controller.imagesGroup[index])),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(top: 2.0),
@@ -796,7 +793,8 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                                     BorderRadius.circular(10)),
                                             padding: const EdgeInsets.all(3),
                                             child: Text(
-                                              listaGrupos[index],
+                                              controller
+                                                  .gruposDescription[index],
                                               style: TextStyle(
                                                 color: controller.isSelectedList
                                                             .value ==

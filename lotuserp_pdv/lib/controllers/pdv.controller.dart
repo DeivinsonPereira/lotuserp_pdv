@@ -7,6 +7,7 @@ import 'dart:math';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../collections/dado_empresa.dart';
+import '../collections/produto.dart';
 import '../core/fixed_variables.dart';
 import '../pages/balance/balance_pop_up.dart';
 
@@ -78,12 +79,76 @@ class PdvController extends GetxController {
 
   var pesagem = 0.0.obs;
 
-  var grupos = [].obs;
+  var gruposObject = [].obs;
+  var gruposDescription = [].obs;
+  var imagesGroup = [].obs;
 
+  var produtosSearchDesc = [].obs;
+
+  // seta a lista de produtos procurados pelo nome
+  Future<void> setProdutosSearchDesc(List<produto?> produtos) async {
+    var saveImagePathController = Dependencies.saveImagePathController();
+    produtosSearchDesc.clear();
+    for (var i = 0; i < produtos.length; i++) {
+      if (saveImagePathController.pathImagesDesc
+          .map((e) => e.split('/').last)
+          .contains(produtos[i]!.file_imagem)) {
+        String filePath = saveImagePathController.pathImagesDesc.firstWhere(
+            (element) => element.split('/').last == produtos[i]!.file_imagem);
+        String path = filePath;
+        produtosSearchDesc.add(path);
+      } else {
+        produtosSearchDesc.add('assets/images/semimagem.png');
+      }
+    }
+    /*
+    if (saveImagePathController.pathImagesDesc.isNotEmpty) {
+      for (var i = 0; i < saveImagePathController.pathImagesDesc.length; i++) {
+        var prodPath =
+            saveImagePathController.pathImagesDesc[i].split('/').last;
+        produtosSearchDesc.add(prodPath);
+      }
+    }*/
+  }
+
+  // seta lista de grupos com os objetos do grupo
   Future<void> setGrupos() async {
-    grupos.clear();
+    gruposObject.clear();
     var grupo = await service.searchGrupos();
-    grupos.assignAll(grupo);
+    gruposObject.assignAll(grupo);
+    update();
+  }
+
+  // setar descricão dos grupos na lista
+  Future<void> setGruposDescription() async {
+    gruposDescription.clear();
+    gruposDescription.add('FAVORITOS');
+
+    for (var i = 0; i < gruposObject.length; i++) {
+      gruposDescription.add(gruposObject[i].grupo_descricao);
+    }
+
+    update();
+  }
+
+  void setImagensGrupos() {
+    List<String> fileImageGroup = [];
+    var saveImagePathController = Dependencies.saveImagePathController();
+    saveImagePathController.addImagePathFavorite();
+    saveImagePathController.addImagePathFavorites();
+    fileImageGroup = saveImagePathController.pathImagesGroup;
+
+    imagesGroup.add('assets/images/favorito.png');
+
+    for (var i = 0; i < gruposObject.length; i++) {
+      if (fileImageGroup.map((e) => e.split('/').last).contains(
+          i <= gruposObject.length ? gruposObject[i].file_imagem : '')) {
+        String filePath = fileImageGroup.firstWhere((element) =>
+            element.split('/').last == gruposObject[i].file_imagem);
+
+        imagesGroup.add(filePath);
+      }
+    }
     update();
   }
 

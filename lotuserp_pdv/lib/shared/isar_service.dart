@@ -132,6 +132,7 @@ class IsarService {
     } catch (e) {
       logger.e('Erro ao buscar dados da empresa: $e');
     }
+    return null;
   }
 
   //inserindo dados na tabela empresa vindos do servidor

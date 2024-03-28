@@ -198,12 +198,12 @@ abstract class Dependencies {
     if (Get.isRegistered<SaveImagePathController>()) {
       return Get.find<SaveImagePathController>();
     } else {
-      return Get.put(SaveImagePathController());
+      return Get.put(SaveImagePathController(), permanent: true);
     }
   }
 
   static EmpresaValidaController empresaValidaController() {
-    if(Get.isRegistered<EmpresaValidaController>()){
+    if (Get.isRegistered<EmpresaValidaController>()) {
       return Get.find<EmpresaValidaController>();
     } else {
       return Get.put(EmpresaValidaController());
@@ -217,6 +217,4 @@ abstract class Dependencies {
       return Get.put(InitialController());
     }
   }
-
-
 }
