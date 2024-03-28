@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable, no_leading_underscores_for_local_identifiers
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -6,9 +7,8 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/second_copy/services/logic_print.dart';
 
-import '../../services/dependencies.dart';
-import '../common/header_popup.dart';
-import 'components/legend_informations_nfce.dart';
+import '../../../services/dependencies.dart';
+import 'legend_informations_nfce.dart';
 
 class NfceSecondCopyPage extends StatelessWidget {
   const NfceSecondCopyPage({super.key});
@@ -118,25 +118,11 @@ class NfceSecondCopyPage extends StatelessWidget {
       );
     }
 
-    // Constrói o Header
-    Widget _buildHeader() {
-      return //HEADER
-          Obx(
-        () => HeaderPopupMonitor(
-          text:
-              'Vendas do caixa: ${informationController.caixaId.value.toString().padLeft(5, '0')}',
-          icon: Icons.receipt,
-          nfce: true,
-        ),
-      );
-    }
-    
     // Constrói o corpo do popUp
-    Widget _buildBody() {
-      return Column(
+    return SizedBox(
+      height: Get.height * 0.765,
+      child: Column(
         children: [
-          _buildHeader(),
-          
           // Legenda
           const LegendInformationsNfce(),
           const Divider(color: Colors.black12),
@@ -145,16 +131,7 @@ class NfceSecondCopyPage extends StatelessWidget {
           const Divider(height: 1, color: Colors.black),
           _buildLineButtonPrint(),
         ],
-      );
-    }
-
-    // Constrói o popUp
-    return Dialog(
-      child: Container(
-          height: Get.height * 0.9, // 500,
-          width: 500,
-          color: Colors.white,
-          child: _buildBody()),
+      ),
     );
   }
 }

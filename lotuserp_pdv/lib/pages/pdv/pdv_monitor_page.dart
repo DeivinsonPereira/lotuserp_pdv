@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
-import 'package:lotuserp_pdv/controllers/save_image_path_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/pdv/widgets/buttons_widget.dart';
@@ -20,7 +19,7 @@ import '../../services/dependencies.dart';
 import '../common/custom_cherry.dart';
 import '../product/product_monitor_page.dart';
 import '../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
-import '../second_copy/nfce_second_copy_page.dart';
+import '../second_copy/second_copy_page.dart';
 import 'widgets/get_images.dart';
 import 'widgets/search_products.dart';
 
@@ -396,7 +395,7 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                 ButtonsPdv().iconsOptions(FontAwesomeIcons.solidTrashCan,
                     'Cancelar', () => _.cancelarPedido()),
                 ButtonsPdv().iconsOptions(FontAwesomeIcons.moneyBillTrendUp,
-                    'Vendas', () => Get.dialog(const NfceSecondCopyPage())),
+                    'Vendas', () => Get.dialog(const SecondCopyPage())),
               ],
             ),
           ),

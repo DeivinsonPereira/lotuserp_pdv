@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/services/dependencies.dart';
+import 'package:lotuserp_pdv/collections/cartao_item.dart';
 
 import '../collections/dado_empresa.dart';
 import '../collections/venda.dart';
@@ -12,6 +12,7 @@ class InformationController extends GetxController {
   var empresaId = 0.obs;
   var caixaId = 0.obs;
   var vendasLista = [].obs;
+  var vendasTef = [].obs;
 
   @override
   void onInit() {
@@ -24,15 +25,25 @@ class InformationController extends GetxController {
     await searchCaixaId();
     await searchEmpresaId();
     await searchVendas();
+    await searchProofTEF();
   }
 
   Future<void> searchVendas() async {
-    InformationController informationController =
-        Dependencies.informationController();
-    List<venda?> vendasDb = await service
-        .getVendaByIdCaixaLogged(informationController.caixaId.value);
+    List<venda?> vendasDb =
+        await service.getVendaByIdCaixaLogged(caixaId.value);
     if (vendasDb.isNotEmpty) {
       vendasLista.assignAll(vendasDb);
+      update();
+    } else {
+      update();
+    }
+  }
+
+  Future<void> searchProofTEF() async {
+    List<cartao_item?> vendasTEFDb =
+        await service.getCartaoItemByIdCaixaLogged(caixaId.value);
+    if (vendasTEFDb.isNotEmpty) {
+      vendasTef.assignAll(vendasTEFDb);
       update();
     } else {
       update();

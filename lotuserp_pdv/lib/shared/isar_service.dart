@@ -131,8 +131,27 @@ class IsarService {
       }
     } catch (e) {
       logger.e('Erro ao buscar dados da empresa: $e');
+      return null;
     }
-    return null;
+  }
+
+  //buscar o cartaoItem pelo id
+  Future<List<cartao_item?>> getCartaoItemByIdCaixaLogged(int idCaixa) async {
+    final isar = await db;
+
+    try {
+    List<cartao_item?> tefDb = await isar.cartao_items.filter().id_caixaEqualTo(idCaixa).findAll();
+    if(tefDb.isNotEmpty){
+      return tefDb;
+    }else {
+      logger.e('Nenhum item encontrado na tabela "cartao_items');
+      return [];
+    }
+    } catch (e) {
+      // Lida com qualquer exceção que possa ocorrer
+      logger.e("Erro ao buscar item: $e");
+      return [];
+    }
   }
 
   //inserindo dados na tabela empresa vindos do servidor
