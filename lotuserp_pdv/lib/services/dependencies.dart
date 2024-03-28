@@ -23,7 +23,7 @@ import '../controllers/empresa_valida_controller.dart';
 import '../controllers/open_register_controller.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../pages/printer/component/printer_popup_controller.dart';
-import '../pages/second_copy/component/checkbox_controller.dart';
+import '../pages/second_copy/components/checkbox_controller.dart';
 
 abstract class Dependencies {
   static SideBarController sidebarController() {
