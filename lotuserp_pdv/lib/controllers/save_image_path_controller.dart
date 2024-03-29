@@ -47,6 +47,7 @@ class SaveImagePathController extends GetxController {
   Future<void> addImagePathGroup() async {
     IsarService service = IsarService();
     List<String?> path = await service.searchImagePathGroup();
+    pathImagesGroup.clear();
     if (path.isNotEmpty) {
       for (var file in path) {
         pathImagesGroup.add(file!);

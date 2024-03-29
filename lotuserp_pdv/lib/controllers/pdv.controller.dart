@@ -133,13 +133,14 @@ class PdvController extends GetxController {
 
   void setImagensGrupos() {
     List<String> fileImageGroup = [];
+
+    fileImageGroup.clear();
     var saveImagePathController = Dependencies.saveImagePathController();
     saveImagePathController.addImagePathFavorite();
     saveImagePathController.addImagePathFavorites();
     fileImageGroup = saveImagePathController.pathImagesGroup;
-
+    imagesGroup.clear();
     imagesGroup.add('assets/images/favorito.png');
-
     for (var i = 0; i < gruposObject.length; i++) {
       if (fileImageGroup.map((e) => e.split('/').last).contains(
           i <= gruposObject.length ? gruposObject[i].file_imagem : '')) {
@@ -147,6 +148,8 @@ class PdvController extends GetxController {
             element.split('/').last == gruposObject[i].file_imagem);
 
         imagesGroup.add(filePath);
+      } else {
+        imagesGroup.add("assets/images/semimagem.png");
       }
     }
     update();

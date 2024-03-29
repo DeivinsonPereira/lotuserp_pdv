@@ -774,8 +774,10 @@ class _PdvMonitorPageState extends State<PdvMonitorPage> {
                                         ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(100),
-                                            child: getImageGroup(
-                                                controller.imagesGroup[index])),
+                                            child: 
+                                                getImageGroup(controller
+                                                    .imagesGroup[index])
+                                                ),
                                         Padding(
                                           padding:
                                               const EdgeInsets.only(top: 2.0),

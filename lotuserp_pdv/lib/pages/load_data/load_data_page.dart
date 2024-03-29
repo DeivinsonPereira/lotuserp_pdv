@@ -68,7 +68,7 @@ class LoadDataPage extends StatelessWidget {
                                         ischeckbox3: true,
                                       ),
                                       _CheckBoxLoadData(
-                                        text: 'CARGA GERAL DE PRODUTOS',
+                                        text: 'CARGA GERAL PRODUTOS',
                                         checkBoxValue: _.checkbox4.value,
                                         ischeckbox4: true,
                                       ),
