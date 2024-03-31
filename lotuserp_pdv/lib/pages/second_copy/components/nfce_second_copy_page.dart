@@ -19,6 +19,7 @@ class NfceSecondCopyPage extends StatelessWidget {
     var checkboxController = Dependencies.checkboxController();
     informationController.searchVendas();
 
+    // Constrói o botão de imprimir nfce
     Widget _buildButtonPrintNfce() {
       return Padding(
         padding: const EdgeInsets.all(6.5),

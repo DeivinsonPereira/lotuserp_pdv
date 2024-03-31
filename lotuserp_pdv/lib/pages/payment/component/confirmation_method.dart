@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 
 import '../../../collections/venda.dart';
 import '../../../controllers/global_controller.dart';
@@ -45,8 +46,12 @@ class ConfirmationMethod {
     double numbersDiscountFormated = double.parse(numbersDiscount);
 
     if (tipoPagamento != 0) {
-      paymentController.addPaymentsTotal(name,
-          paymentController.totalPayment.value, idPagamento, tipoPagamento, tef);
+      paymentController.addPaymentsTotal(
+          name,
+          paymentController.totalPayment.value,
+          idPagamento,
+          tipoPagamento,
+          tef);
     }
     pdvController
         .totalLiquido(); //soma o valor bruto total dos itens que estão nos pedidos
@@ -83,9 +88,18 @@ class ConfirmationMethod {
   }
 
   Future continueSell(BuildContext context,
-      {String name = '', int tipoPagamento = 0, int idPagamento = 0, int tef = 0}) async {
+      {String name = '',
+      int tipoPagamento = 0,
+      int idPagamento = 0,
+      int tef = 0}) async {
     // faz requisição para gerar NFCe
-    await processCommonOperations(name, tipoPagamento, idPagamento, tef, context);
+    if (pdvController.pedidos.isEmpty) {
+      Get.back();
+      return const CustomCherryError(message: 'Nenhum item selecionado.')
+          .show(context);
+    }
+    await processCommonOperations(
+        name, tipoPagamento, idPagamento, tef, context);
 
     // Chama o preenchimento do QrCode
     await Get.dialog(barrierDismissible: false, const QrCodePage());

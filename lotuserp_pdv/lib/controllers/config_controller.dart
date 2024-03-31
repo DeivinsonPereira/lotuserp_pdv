@@ -315,7 +315,6 @@ class Configcontroller extends GetxController {
     if (tamanhoImpressoraDb != null &&
         tamanhoImpressoraDb.tamanho_impressora != null) {
       tamanhoImpressora.value = tamanhoImpressoraDb.tamanho_impressora!;
-      print(tamanhoImpressora.value);
       update();
     } else {
       tamanhoImpressora.value = '';

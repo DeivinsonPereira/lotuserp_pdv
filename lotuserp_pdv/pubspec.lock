@@ -326,6 +326,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.1"
+  flutter_clisitef:
+    dependency: "direct main"
+    description:
+      path: "packages/flutter_clisitef"
+      relative: true
+    source: path
+    version: "0.0.1"
   flutter_lints:
     dependency: "direct dev"
     description:

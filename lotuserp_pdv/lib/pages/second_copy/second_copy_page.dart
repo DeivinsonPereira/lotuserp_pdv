@@ -23,9 +23,12 @@ class SecondCopyPage extends StatelessWidget {
         height: Get.size.height * 0.065,
         child: CustomElevatedButtonSecondCopy(
           text: 'NFCE',
-          function: () => checkboxController.setSelectOption(
-            IdentifyButton.NFCE.index,
-          ),
+          function: () {
+            checkboxController.setSelectOption(
+              IdentifyButton.NFCE.index,
+            );
+            checkboxController.selectedItem.value = -1;
+          },
           isNFCE: true,
         ),
       );
@@ -37,9 +40,10 @@ class SecondCopyPage extends StatelessWidget {
         height: Get.size.height * 0.065,
         child: CustomElevatedButtonSecondCopy(
           text: 'TEF',
-          function: () => checkboxController.setSelectOption(
-            IdentifyButton.TEF.index,
-          ),
+          function: () {
+            checkboxController.setSelectOption(IdentifyButton.TEF.index);
+            checkboxController.selectedItem.value = -1;
+          },
           isNFCE: false,
         ),
       );

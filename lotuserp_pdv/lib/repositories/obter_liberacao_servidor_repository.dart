@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -28,13 +30,11 @@ class ObterLiberacaoServidorRepository {
           var data = jsonDecode(response.body);
           if (data['success'] == true) {
             logger.i('Liberação obtida com sucesso: ${response.body}');
-            // ignore: use_build_context_synchronously
             const CustomCherrySuccess(message: 'Contrato validado!')
                 .show(context);
             return data;
           } else {
             logger.e('Erro ao obter liberação: ${data['message']}');
-            // ignore: use_build_context_synchronously
             const CustomCherryError(
                     message:
                         'Nenhum registro localizado. Verifique o contrato.')

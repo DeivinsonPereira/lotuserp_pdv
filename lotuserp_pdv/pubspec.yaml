@@ -13,6 +13,9 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_clisitef:
+    path: packages/flutter_clisitef  
+
   flutter_localizations:
     sdk: flutter  
 

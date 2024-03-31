@@ -24,7 +24,6 @@ class CpfCnpjPage extends StatelessWidget {
         ),
         onPressed: () async {
           await responseServidorController.updateCpfCnpj();
-          print(responseServidorController.cpfCnpj);
           Get.back();
         },
         child: Container(

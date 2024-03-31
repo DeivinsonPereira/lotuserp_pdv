@@ -2,10 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 
 import '../../../core/custom_colors.dart';
 import '../../../services/dependencies.dart';
 import '../../payment/component/row_widget.dart';
+import '../services/logic_print.dart';
 import 'legend_informations_nfce.dart';
 
 class TefSecondCopyPage extends StatelessWidget {
@@ -13,15 +15,16 @@ class TefSecondCopyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     var informationController = Dependencies.informationController();
+    var informationController = Dependencies.informationController();
     var checkboxController = Dependencies.checkboxController();
-    informationController.searchVendas();
+    informationController.searchProofTEF();
 
+    // Constrói o botão de impressão do TEF
     Widget _buildButtonPrintNfce() {
       return Padding(
         padding: const EdgeInsets.all(6.5),
         child: InkWell(
-          onTap: () {},
+          onTap: () => LogicSecondPrint().printTef(),
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.black),
@@ -57,21 +60,23 @@ class TefSecondCopyPage extends StatelessWidget {
     }
 
     // Constrói o valor total Liquido
-    Widget _buildTotLiquid(dynamic venda) {
+    Widget _buildTotLiquid(dynamic dataSelected) {
       return InformationsWidget(
-          data: formatoBrasileiro.format(venda.tot_liquido),
+          data: formatoBrasileiro.format(dataSelected.valor_doc),
           width: Get.width * 0.04);
     }
 
     // Constrói a hora da venda
-    Widget _buildHour(dynamic venda) {
-      return InformationsWidget(data: venda.hora, width: Get.width * 0.195);
+    Widget _buildHour(dynamic dataSelected) {
+      return InformationsWidget(
+          data: DatetimeFormatterWidget.formatHour(dataSelected.data_lanca),
+          width: Get.width * 0.195);
     }
 
-    // COnstrói o id da venda do Servidor
-    Widget _buildIdVendaServer(dynamic venda) {
+    // COnstrói o id da venda do tef
+    Widget _buildIddataSelectedServer(dynamic dataSelected) {
       return InformationsWidget(
-          data: venda.id_venda_servidor, width: Get.width * 0.075);
+          data: dataSelected.id_venda, width: Get.width * 0.075);
     }
 
     // Constrói o Checkbox
@@ -89,23 +94,23 @@ class TefSecondCopyPage extends StatelessWidget {
     Widget _buildLinesData() {
       return Obx(
         () {
-          var data = informationController.vendasLista;
+          var data = informationController.vendasTef;
           if (data.isEmpty) {
             return const SizedBox.shrink();
           }
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              var venda = data[index];
+              var dataSelected = data[index];
               // Substitua os campos abaixo pelos campos reais do seu modelo de dados
               return Column(
                 children: [
                   Row(
                     children: [
                       _buildCheckBox(index),
-                      _buildIdVendaServer(venda),
-                      _buildHour(venda),
-                      _buildTotLiquid(venda),
+                      _buildIddataSelectedServer(dataSelected),
+                      _buildHour(dataSelected),
+                      _buildTotLiquid(dataSelected),
                     ],
                   ),
                 ],

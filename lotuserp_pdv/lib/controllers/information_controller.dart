@@ -39,6 +39,7 @@ class InformationController extends GetxController {
     }
   }
 
+  // Busca os dados do TEF do banmco de dados local
   Future<void> searchProofTEF() async {
     List<cartao_item?> vendasTEFDb =
         await service.getCartaoItemByIdCaixaLogged(caixaId.value);

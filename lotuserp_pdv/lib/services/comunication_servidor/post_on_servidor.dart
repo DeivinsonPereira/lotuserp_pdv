@@ -2,6 +2,7 @@
 
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
@@ -117,9 +118,11 @@ abstract class PostOnServidor {
         logger.i("Requisição enviada com sucesso");
         var jsonResponse = jsonDecode(response.body);
         responseServidorController.limparCpfCnpj();
-        print('id_venda: ${jsonResponse['id_venda']}');
-        print('qr_code: ${jsonResponse['qr_code']}');
-        print('xml: ${jsonResponse['xml']}');
+        if (kDebugMode) {
+          print('id_venda: ${jsonResponse['id_venda']}');
+          print('qr_code: ${jsonResponse['qr_code']}');
+          print('xml: ${jsonResponse['xml']}');
+        }
         if (jsonResponse['id_venda'] != null &&
             jsonResponse['qr_code'] != null &&
             jsonResponse['xml'] != null) {

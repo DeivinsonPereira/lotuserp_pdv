@@ -46,7 +46,7 @@ class BalancePopUp extends StatelessWidget {
           child: TextField(
             controller: pdvController.pesagemController,
             keyboardType: TextInputType.number,
-            style: TextStyle(fontSize: 26),
+            style: const TextStyle(fontSize: 26),
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(
@@ -167,30 +167,32 @@ class BalancePopUp extends StatelessWidget {
 
     //inicio da página
 
-    return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(0),
-      ),
-      child: SizedBox(
-        width: 400,
-        height: 425,
-        child: Column(
-          children: [
-            HeaderPopupMonitor(
-              text: 'Pesagem',
-              icon: Icons.balance,
-              isPesagem: true,
-            ),
-            Expanded(
-              child: _buildBody(),
-            ),
-            Row(
-              children: [
-                _buildButtonBack(),
-                _buildButtonConfirm(),
-              ],
-            )
-          ],
+    return SingleChildScrollView(
+      child: Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+        ),
+        child: SizedBox(
+          width: 400,
+          height: 425,
+          child: Column(
+            children: [
+              HeaderPopupMonitor(
+                text: 'Pesagem',
+                icon: Icons.balance,
+                isPesagem: true,
+              ),
+              Expanded(
+                child: _buildBody(),
+              ),
+              Row(
+                children: [
+                  _buildButtonBack(),
+                  _buildButtonConfirm(),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

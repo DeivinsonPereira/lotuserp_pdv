@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'dart:math';
 
@@ -65,7 +66,6 @@ class PdvController extends GetxController {
 
   var caixaId = 0.obs;
   var ip = ''.obs;
-  var idGrupo = -1.obs;
 
   final ScrollController scrollController = ScrollController();
 
@@ -79,11 +79,21 @@ class PdvController extends GetxController {
 
   var pesagem = 0.0.obs;
 
+  var indexGrupo = 0.obs;
   var gruposObject = [].obs;
   var gruposDescription = [].obs;
   var imagesGroup = [].obs;
 
   var produtosSearchDesc = [].obs;
+  var listAllProducts = [].obs;
+  var productFiltered = [].obs;
+  var imagesProducts = [].obs;
+
+  // seta o id do grupo selecionado
+  void setGroupId(int id) {
+    indexGrupo.value = id;
+    update();
+  }
 
   // seta a lista de produtos procurados pelo nome
   Future<void> setProdutosSearchDesc(List<produto?> produtos) async {
@@ -101,14 +111,6 @@ class PdvController extends GetxController {
         produtosSearchDesc.add('assets/images/semimagem.png');
       }
     }
-    /*
-    if (saveImagePathController.pathImagesDesc.isNotEmpty) {
-      for (var i = 0; i < saveImagePathController.pathImagesDesc.length; i++) {
-        var prodPath =
-            saveImagePathController.pathImagesDesc[i].split('/').last;
-        produtosSearchDesc.add(prodPath);
-      }
-    }*/
   }
 
   // seta lista de grupos com os objetos do grupo
@@ -117,6 +119,45 @@ class PdvController extends GetxController {
     var grupo = await service.searchGrupos();
     gruposObject.assignAll(grupo);
     update();
+  }
+
+  // Busca todos os grupo e adiciona na variavel listAllProducts
+  Future<void> setListAllProducts() async {
+    listAllProducts.clear();
+    var products = await service.searchProdutos();
+    if (products.isNotEmpty) {
+      listAllProducts.assignAll(products);
+    }
+  }
+
+  // filtra o grupo pelo indexGrupo selecionado
+  produto_grupo filterGruposObject() {
+    if (indexGrupo.value != 0) {
+      var groupSelected = gruposDescription[indexGrupo.value];
+      var groupFiltered = gruposObject
+          .firstWhere((item) => item.grupo_descricao == groupSelected);
+      return groupFiltered;
+    } else {
+      return gruposObject[0];
+    }
+  }
+
+  // busca os produtos de acordo com o id do grupo
+  Future<void> setProductsByIdGroup() async {
+    productFiltered.clear();
+    if (indexGrupo.value != 0) {
+      produto_grupo groupFiltered = filterGruposObject();
+
+      List produtos = listAllProducts
+          .where((item) => item.id_grupo == groupFiltered.id_grupo)
+          .toList();
+
+      productFiltered.addAll(produtos);
+    } else {
+      List produtos =
+          listAllProducts.where((item) => item.favorito == 1).toList();
+      productFiltered.addAll(produtos);
+    }
   }
 
   // setar descricão dos grupos na lista
@@ -131,6 +172,7 @@ class PdvController extends GetxController {
     update();
   }
 
+  // adiciona o path das imagens dos grupos na lista
   void setImagensGrupos() {
     List<String> fileImageGroup = [];
 
@@ -155,12 +197,48 @@ class PdvController extends GetxController {
     update();
   }
 
+  // adiciona o path das imagens dos produtos na lista
+  Future<void> setImagensProducts() async {
+    List<String> fileImageProducts = [];
+
+    fileImageProducts.clear();
+    var saveImagePathController = Dependencies.saveImagePathController();
+    var fileImageProduct = filterGruposObject();
+    await saveImagePathController
+        .addImagePathProduct(fileImageProduct.id_grupo);
+    await saveImagePathController.addImagePathFavorite();
+    imagesProducts.clear();
+
+    List<String> productsFile;
+    if (indexGrupo.value != 0) {
+      productsFile = saveImagePathController.pathImagesProduct;
+    } else {
+      productsFile = saveImagePathController.pathImagesFavorites;
+    }
+    if (productsFile.isEmpty) {
+      imagesProducts.add('assets/images/semimagem.png');
+    }
+    for (var i = 0; i < productFiltered.length; i++) {
+      if (productsFile.map((e) => e.split('/').last).contains(
+          i <= productFiltered.length ? productFiltered[i].file_imagem : '')) {
+        String filePath = productsFile.firstWhere((element) =>
+            element.split('/').last == productFiltered[i].file_imagem);
+        imagesProducts.add(filePath);
+      } else {
+        imagesProducts.add("assets/images/semimagem.png");
+      }
+    }
+    update();
+  }
+
+  //pesagem
   Future<void> setPesagem(double value, String output) async {
     pesagemController.text = output;
     pesagem.value = value;
     update();
   }
 
+  //limpar a pesagem
   Future<void> clearPesagem() async {
     pesagemController.text = '0.000';
     pesagem.value = 0.0;
@@ -218,7 +296,7 @@ class PdvController extends GetxController {
   double getQuantidade(String nomeProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
-
+  
     return index != -1.0 ? pedidos[index]['quantidade'] : 0.0;
   }
 
@@ -637,7 +715,7 @@ class PdvController extends GetxController {
 
     var balancaController = Dependencies.balancaController();
     try {
-      if (filteredProducts[index].venda_kg == 1 || isBalance == true) {
+      if (filteredProducts.venda_kg == 1 || isBalance == true) {
         if (statusBalanca.value == 1) {
           await Get.dialog(BalancePopUp(
               nomeProduto: nome!,

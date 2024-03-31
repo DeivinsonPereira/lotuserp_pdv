@@ -101,6 +101,7 @@ class SaveImagePathController extends GetxController {
   // adiciona o path da imagem dos produtos na variavel de forma mais completa
   Future<void> addImagePathProduct(int idGrupo) async {
     IsarService service = IsarService();
+    pathImagesProduct.clear();
     List<String?> path = await service.searchImagePathProduct(idGrupo);
     if (path.isNotEmpty) {
       for (var paths in path) {
@@ -111,6 +112,7 @@ class SaveImagePathController extends GetxController {
 
   Future<void> addImagePathFavorite() async {
     IsarService service = IsarService();
+    pathImagesFavorites.clear();
     List<String?> path = await service.searchImagePathFavorite();
     if (path.isNotEmpty) {
       for (var paths in path) {

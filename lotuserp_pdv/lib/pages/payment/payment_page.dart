@@ -1,33 +1,24 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
-import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/response_servidor_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
-import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
-import 'package:lotuserp_pdv/pages/payment/component/confirm_buttom.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirmation_method.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/tef_elgin_payments.dart';
-import 'package:lotuserp_pdv/services/tef_elgin/tef_elgin_customization_service.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
-import '../../services/format_numbers.dart';
 import '../../services/dependencies.dart';
-import '../../services/tef_elgin/tef_elgin_service.dart';
 import '../common/custom_cherry.dart';
-import 'component/no_money_paper.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -59,8 +50,6 @@ class _PaymentPageState extends State<PaymentPage> {
     var ramainingValueCb2 = 0.0;
 
     var size = MediaQuery.of(context).size;
-
-    Logger logger = Logger();
 
     paymentController.clearXmlAndQrCodeAndIdVenda();
 

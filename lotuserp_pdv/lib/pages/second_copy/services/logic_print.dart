@@ -9,7 +9,8 @@ class LogicSecondPrint {
   var informationController = Dependencies.informationController();
   Logger logger = Logger();
   IsarService service = IsarService();
-
+  
+  // Faz a impressão de nfce
   Future<void> printNfce() async {
     if (checkboxController.selectedItem.value != -1) {
       var data = informationController
@@ -29,6 +30,31 @@ class LogicSecondPrint {
         }
       } else {
         logger.e('Venda não encontrada');
+      }
+    } else {
+      logger.e('Selecione uma venda');
+    }
+  }
+
+  // Faz a impressão do TEF
+  Future<void> printTef() async {
+    if (checkboxController.selectedItem.value != -1) {
+      var data = informationController
+          .vendasTef[checkboxController.selectedItem.value];
+      if (data != null) {
+        var tef = await service.getDadosTefByIdVenda(data.id_venda);
+
+        if (tef != null) {
+          var configController = Dependencies.configcontroller();
+          var tamanhoImpressora = configController.tamanhoImpressora.value;
+          if (tamanhoImpressora != 'SEM IMPRESSORA') {
+            PrintNfceXml().printNfceXml(xmlArgs: tef.imagem_comprovante);
+          }
+        } else {
+          logger.e('Comprovante TEF não encontrado');
+        }
+      } else {
+        logger.e('Comprovante não encontrada');
       }
     } else {
       logger.e('Selecione uma venda');

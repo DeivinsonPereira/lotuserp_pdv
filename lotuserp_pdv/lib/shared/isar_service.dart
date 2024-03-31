@@ -1720,6 +1720,19 @@ class IsarService {
     }
   }
 
+  // busca os dados da tabela cartao_item pelo id da venda
+  Future<cartao_item?> getDadosTefByIdVenda(int idVenda) async {
+    final isar = await db;
+
+    try{
+      var tef = await isar.cartao_items.filter().id_vendaEqualTo(idVenda).findFirst();
+      return tef;
+    }catch (e){
+      logger.e("Erro ao buscar tef: $e");
+      return null;
+    }
+  }
+
   // busca os dados da tabela vendas
   Future<List<venda?>> getVendas() async {
     final isar = await db;

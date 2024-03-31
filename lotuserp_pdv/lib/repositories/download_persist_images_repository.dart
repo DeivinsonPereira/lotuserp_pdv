@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
@@ -136,14 +137,18 @@ Future<void> deleteExistingFiles(String folderPath) async {
       if (entity is File) {
         // Delete the file
         await entity.delete();
-        print('Arquivo excluído: ${entity.path}');
+        if (kDebugMode) {
+          print('Arquivo excluído: ${entity.path}');
+        }
       } else if (entity is Directory) {
         // Recursively delete subdirectories
         await deleteExistingFiles(entity.path);
       }
     }
   } else {
-    print('A pasta não existe: $folderPath');
+    if (kDebugMode) {
+      print('A pasta não existe: $folderPath');
+    }
   }
 }
 
