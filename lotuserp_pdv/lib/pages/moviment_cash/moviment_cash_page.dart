@@ -3,9 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
-import 'package:lotuserp_pdv/controllers/global_controller.dart';
-import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
-import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/component/custom_text_tipo.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
@@ -14,7 +11,6 @@ import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
-import '../../controllers/response_servidor_controller.dart';
 import '../../repositories/caixa_item_servidor_repository.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
@@ -97,16 +93,11 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
 
   @override
   Widget build(BuildContext context) {
-    PasswordController passwordController = Dependencies.passwordController();
-
-    MovimentRegisterController movimentRegisterController =
-        Dependencies.movimentRegisterController();
-
-    ResponseServidorController responseServidorController =
-        Dependencies.responseServidorController();
-
+    var passwordController = Dependencies.passwordController();
+    var movimentRegisterController = Dependencies.movimentRegisterController();
+    var responseServidorController = Dependencies.responseServidorController();
+    var globalController = Dependencies.globalController();
     Dependencies.caixaController();
-    GlobalController globalController = Dependencies.globalController();
 
     var userName = passwordController.userController.text;
     tz.initializeTimeZones();

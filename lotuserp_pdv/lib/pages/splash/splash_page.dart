@@ -1,8 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
+import 'package:lotuserp_pdv/pages/common/custom_logo.dart';
 
+import '../../collections/dado_empresa.dart';
+import '../../services/dependencies.dart';
 import '../../services/tef_elgin/tef_elgin_customization_service.dart';
 
 class SplashPage extends StatefulWidget {
@@ -13,6 +17,9 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
+  var configController = Dependencies.configcontroller();
+  var logoController = Dependencies.logoController();
+
   var _scale = 5.0;
   var _animationOpacityLogo = 0.0;
 
@@ -20,6 +27,8 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   void initState() {
+    Dependencies.textFieldController();
+    Dependencies.configcontroller();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       setState(() {
         _animationOpacityLogo = 1.0;
@@ -30,16 +39,24 @@ class _SplashPageState extends State<SplashPage> {
       await TefElginCustomizationService.customizarAplicacao();
       Get.toNamed(PagesRoutes.loginRoute);
     });
+    getDataDb();
     super.initState();
+  }
+
+  Future<void> getDataDb() async {
+    dado_empresa? data = await configController.getDataDb();
+    if (data != null && data.cor_fundo.isNotEmpty) {
+      configController.updateColorBackground(data.cor_fundo);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.customSwatchColor,
+      //CustomColors.customSwatchColor,
       body: DecoratedBox(
         decoration: BoxDecoration(
-          color: CustomColors.customSwatchColor,
+          color: configController.colorBackground['color'] as Color,
         ),
         child: Center(
           child: AnimatedOpacity(
@@ -50,14 +67,7 @@ class _SplashPageState extends State<SplashPage> {
               width: _logoAnimationWidth,
               duration: const Duration(seconds: 3),
               curve: Curves.linearToEaseOut,
-              color: CustomColors.customSwatchColor,
-              child: SizedBox(
-                height: 500,
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  fit: BoxFit.fitWidth,
-                ),
-              ),
+              child: SizedBox(height: 500, child: CustomLogo().getLogoBranca()),
             ),
           ),
         ),

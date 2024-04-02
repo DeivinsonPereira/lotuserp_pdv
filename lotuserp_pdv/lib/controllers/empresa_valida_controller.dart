@@ -23,21 +23,21 @@ class EmpresaValidaController extends GetxController {
   var isButtonEnabled = false.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    loadContrato(Get.context!);
+    await loadContrato();
     updateIsButtonEnabled(true);
     SystemIsblockVerify().checkIfTheSystemIsLocked();
   }
 
   // CARREGAR CONTRATO
-  Future<void> loadContrato(BuildContext context) async {
+  Future<void> loadContrato() async {
     empresa_valida? dadosContrato = await service.getDadoTabelaEmpresaValida();
     if (dadosContrato != null) {
       empresaContratoController.text = dadosContrato.nocontrato;
       empresaContrato.value = dadosContrato.nocontrato;
 
-      ContractValidate().valid(dadosContrato, context);
+      ContractValidate().valid(dadosContrato);
       update();
     } else {
       Get.dialog(barrierDismissible: false, const EmpresaValidaPopupPage());

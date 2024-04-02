@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
@@ -9,6 +10,7 @@ import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
+import '../../common/custom_logo.dart';
 import '../../config/config_pages/widget/custom_confirm_button.dart';
 
 class LoginPageMonitor extends StatelessWidget {
@@ -18,7 +20,9 @@ class LoginPageMonitor extends StatelessWidget {
   Widget build(BuildContext context) {
     // Inicialização dos controladores
     PasswordController passwordController = Dependencies.passwordController();
-    Dependencies.empresaValidaController();
+    Dependencies.configcontroller();
+    Dependencies.saveImagePathController();
+      Dependencies.empresaValidaController();
 
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
@@ -80,9 +84,7 @@ class LoginPageMonitor extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(top: 40),
         child: SizedBox(
-          width: 180,
-          child: Image.asset('assets/images/Logo_Nova_Transparente.png'),
-        ),
+            width: 180, height: 60, child: CustomLogo().getLogoPadrao()),
       );
     }
 
@@ -175,9 +177,13 @@ class LoginPageMonitor extends StatelessWidget {
           ));
     }
 
-    return Scaffold(
-      backgroundColor: CustomColors.customSwatchColor,
-      body: _buildBody(),
+    return GetBuilder<Configcontroller>(
+      builder: (_) {
+        return Scaffold(
+          backgroundColor: _.colorBackground['color'] as Color,
+          body: _buildBody(),
+        );
+      },
     );
   }
 }

@@ -97,7 +97,7 @@ class ConfigMobile extends StatelessWidget {
               Expanded(
                 child: CustomFieldDropdownMobile(
                   icon: FontAwesomeIcons.print,
-                  options: ListDropdownOption.listOptionsSizePrinter,
+                  options: ListDropdownOption().listOptionsSizePrinter,
                   value: _.tamanhoImpressora.value != ''
                       ? _.tamanhoImpressora.value
                       : 'SEM IMPRESSORA',

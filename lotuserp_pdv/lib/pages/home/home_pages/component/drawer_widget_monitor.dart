@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
+import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/custom_logo.dart';
 import 'package:lotuserp_pdv/pages/home/home_pages/component/icon_button_list.dart';
 
 import '../../../../services/dependencies.dart';
@@ -19,8 +21,9 @@ class DrawerWidgetMonitor extends StatelessWidget {
   Widget build(BuildContext context) {
     SideBarController sideBarController = Dependencies.sidebarController();
     PasswordController passwordController = Dependencies.passwordController();
-
+    var configController = Dependencies.configcontroller();
     var userName = passwordController.userController.text;
+    Dependencies.pdvController();
 
     //Logo no cabeçalho do Drawer
     Widget logoImageHeaderDrawer() {
@@ -28,12 +31,9 @@ class DrawerWidgetMonitor extends StatelessWidget {
         alignment: Alignment.topRight,
         child: Padding(
           padding: const EdgeInsets.only(top: 10.0, right: 15),
-          child: RotatedBox(
-            quarterTurns: 1,
-            child: Image.asset(
-              'assets/images/Logo Nova Branco Vertical.png',
-              width: 75,
-            ),
+          child: CustomLogo().getLogoBranca(
+            width: 200,
+            height: 75,
           ),
         ),
       );
@@ -175,7 +175,7 @@ class DrawerWidgetMonitor extends StatelessWidget {
 
     return Drawer(
       width: 250,
-      backgroundColor: CustomColors.customSwatchColor,
+      backgroundColor: configController.colorBackground['color'] as Color,
       shape: const Border(right: BorderSide.none),
       child: Column(
         children: [

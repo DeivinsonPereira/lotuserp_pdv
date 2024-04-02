@@ -4,11 +4,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/pages/common/custom_logo.dart';
 
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import '../../../controllers/pdv.controller.dart';
-import '../../../core/custom_colors.dart';
 import '../../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
 import '../../product/product_monitor_page.dart';
 import '../../second_copy/second_copy_page.dart';
@@ -26,6 +26,7 @@ class InformationButtonsWidget extends StatelessWidget {
     var sidebarController = Dependencies.sidebarController();
     var passwordController = Dependencies.passwordController();
     var responseServidorController = Dependencies.responseServidorController();
+    var configController = Dependencies.configcontroller();
 
     // Constrói o conteiner da logo
     Widget _buildContainerLogo() {
@@ -33,17 +34,11 @@ class InformationButtonsWidget extends StatelessWidget {
         width: 150,
         height: 90,
         decoration: BoxDecoration(
-            color: CustomColors.customSwatchColor,
+            color: configController.colorBackground['color'] as Color,
             borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-          child: RotatedBox(
-            quarterTurns: 1,
-            child: Image.asset(
-              'assets/images/Logo Nova Branco Vertical.png',
-              fit: BoxFit.contain,
-            ),
-          ),
+          child: CustomLogo().getLogoBranca(),
         ),
       );
     }
@@ -141,7 +136,7 @@ class InformationButtonsWidget extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: Container(
             decoration: BoxDecoration(
-              color: CustomColors.customSwatchColor,
+              color: configController.colorBackground['color'] as Color,
               borderRadius: BorderRadius.circular(10),
             ),
             width: 170,

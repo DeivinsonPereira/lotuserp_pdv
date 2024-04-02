@@ -23,6 +23,7 @@ class SaveImagePathController extends GetxController {
   void onInit() {
     super.onInit();
     addImagePathGroup();
+    getGrupos();
   }
 
   /////////////////////
@@ -32,7 +33,6 @@ class SaveImagePathController extends GetxController {
   // Busca os dados dos grupos do banco de dados local
   Future<void> getGrupos() async {
     IsarService service = IsarService();
-    clearGrupos();
     grupos.assignAll(await service.searchGrupos());
     update();
   }

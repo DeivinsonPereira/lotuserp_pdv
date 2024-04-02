@@ -5,7 +5,6 @@ import 'package:lotuserp_pdv/controllers/balanca_prix_controller.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import '../../controllers/pdv.controller.dart';
-import '../../core/custom_colors.dart';
 
 class HeaderPopupMonitor extends StatelessWidget {
   final String text;
@@ -28,6 +27,7 @@ class HeaderPopupMonitor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var configController = Dependencies.configcontroller();
 
     PdvController? pdvController;
     if (isEmpresaValida! == false) {
@@ -44,7 +44,7 @@ class HeaderPopupMonitor extends StatelessWidget {
       width: size.width,
       height: size.height * 0.07,
       decoration: BoxDecoration(
-        color: CustomColors.customSwatchColor,
+        color: configController.colorBackground['color'] as Color,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,6 +110,7 @@ class HeaderPopupMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var configController = Dependencies.configcontroller();
 
     PdvController? pdvController;
     if (isEmpresaValida! == false) {
@@ -126,7 +127,7 @@ class HeaderPopupMobile extends StatelessWidget {
       width: size.width,
       height: size.height * 0.07,
       decoration: BoxDecoration(
-        color: CustomColors.customSwatchColor,
+        color: configController.colorBackground['color'] as Color,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

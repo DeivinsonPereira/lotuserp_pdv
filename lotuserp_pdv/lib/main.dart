@@ -20,12 +20,16 @@ import 'collections/caixa_fechamento.dart';
 import 'collections/cartao_item.dart';
 import 'collections/default_printer.dart';
 import 'collections/image_path_group.dart';
+import 'collections/image_path_logo.dart';
 import 'collections/nfce_resultado.dart';
+import 'repositories/download_persist_images_repository.dart';
+import 'services/dependencies.dart';
 
 void main() async {
   WidgetsFlutterBinding
       .ensureInitialized(); // só deixa inicializar o run depois dos comandos async abaixo estiverem rodando.
   final dir = await getApplicationSupportDirectory();
+
   //abre o banco de dados e as tabelas
   await Isar.open(
     [
@@ -46,10 +50,20 @@ void main() async {
       Nfce_resultadoSchema,
       Image_path_groupSchema,
       Image_path_productSchema,
+      Image_path_logoSchema,
       Empresa_validaSchema
     ],
     directory: dir.path,
     inspector: true,
   );
-  runApp(const AppWidget());
+
+  var logoController = Dependencies.logoController();
+  await downloadImageLogo();
+  await persistImagesLogo();
+  Future.delayed(const Duration(seconds: 2), () async {
+    await logoController.setImages();
+    await logoController.getImagePath();
+
+    runApp(const AppWidget());
+  });
 }

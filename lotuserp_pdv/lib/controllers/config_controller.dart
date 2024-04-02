@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:lotuserp_pdv/controllers/empresa_valida_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
+import 'package:lotuserp_pdv/pages/config/config_pages/widget/list_dropdown_option.dart';
+import 'package:lotuserp_pdv/pages/payment/component/enums/tipo_tef.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
@@ -22,7 +23,10 @@ class Configcontroller extends GetxController {
   var velocidadeBalanca = ''.obs;
   var nomeBalanca = ''.obs;
   var tef = 'NENHUMA'.obs;
+  var tefSelected = 0.obs;
   var tamanhoImpressora = '80mm'.obs;
+  var colorBackground =
+      {'name': 'AZUL ESCURO', 'color': const Color(0xFF2B305B)}.obs;
 
   @override
   void onInit() {
@@ -45,12 +49,29 @@ class Configcontroller extends GetxController {
     update();
   }
 
+  //ESCOLHE UMA COR PARA O BACKGROUND
+  Future<void> updateColorBackground(String? name) async {
+    if (name == null) {
+      colorBackground['name'] = 'AZUL ESCURO';
+      colorBackground['color'] = const Color(0xFF2B305B);
+    } else {
+      var colorSelectedByName = ListDropdownOption().listColors.firstWhere(
+            (element) => element['name'] == name,
+          );
+      colorBackground['name'] = colorSelectedByName['name'];
+      colorBackground['color'] = colorSelectedByName['color'];
+    }
+    update();
+  }
+
+  // carrega os dados da empresa do banco de dados
+  Future<dado_empresa?> getDataDb() {
+    return service.getDataEmpresa();
+  }
+
   // BUSCAR OS DADOS DO BANCO E PREENCHER OS CAMPOS
   Future<void> fetchDataFromDatabase(String variableName) async {
-    EmpresaValidaController empresaValidaController =
-        Dependencies.empresaValidaController();
     try {
-      await empresaValidaController.updateContractConfig();
       final dado_empresa? dadoEmpresa =
           await service.getIpEmpresaFromDatabase();
 
@@ -114,7 +135,8 @@ class Configcontroller extends GetxController {
           ..nome_balanca = textFieldController.nomeBalancaController.text != ''
               ? textFieldController.nomeBalancaController.text
               : ''
-          ..tamanho_impressora = tamanhoImpressora.value;
+          ..tamanho_impressora = tamanhoImpressora.value
+          ..cor_fundo = colorBackground['name'] as String;
 
         await service.insertDadosEmpresariais(context, dadosEmpresa);
         return true; // Retorna verdadeiro se a empresa for obtida e inserida com sucesso.
@@ -137,12 +159,12 @@ class Configcontroller extends GetxController {
     await service.getProduto(context);
     await service.getUsuarios(context);
     await service.getTipo_recebimento(context);
-    await downloadImageGroup();
-    await downloadImageProduct();
-    await persistImagesInformationGroup();
-    await persistImagesInformationProduct();
-    /*await checkFileExists();*/
-    await listDirectiories();
+      await downloadImageGroup();
+      await downloadImageProduct();
+      await persistImagesInformationGroup();
+      await persistImagesInformationProduct();
+      /*await checkFileExists();*/
+      await listDirectiories();
   }
 
   // ESPERAR DADOS DA EMPRESA E CHAMAR OUTROS DADOS
@@ -252,6 +274,15 @@ class Configcontroller extends GetxController {
   // ATUALIZAR VARIAVEL TEF
   void updateTef(String value) {
     tef.value = value;
+    if (tef.value == ListDropdownOption().listOptionsTef[0]) {
+      tefSelected.value = TipoTef.NENHUMA.index;
+    } else if (tef.value == ListDropdownOption().listOptionsTef[1]) {
+      tefSelected.value = TipoTef.TEF_ElGIN.index;
+    } else if (tef.value == ListDropdownOption().listOptionsTef[2]) {
+      tefSelected.value = TipoTef.TEF_SITEF.index;
+    } else if (tef.value == ListDropdownOption().listOptionsTef[3]) {
+      tefSelected.value = TipoTef.TEF_MERCADO_PAGO.index;
+    }
     update();
   }
 

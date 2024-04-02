@@ -55,6 +55,7 @@ class ConfirmationMethod {
     }
     pdvController
         .totalLiquido(); //soma o valor bruto total dos itens que estão nos pedidos
+    pdvController.getidCaixa();
 
     var vendaExecutada = venda()
       ..data = DateTime.now()

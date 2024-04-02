@@ -24,58 +24,63 @@ const Dado_empresaSchema = CollectionSchema(
       name: r'balanca',
       type: IsarType.string,
     ),
-    r'id_empresa': PropertySchema(
+    r'cor_fundo': PropertySchema(
       id: 1,
+      name: r'cor_fundo',
+      type: IsarType.string,
+    ),
+    r'id_empresa': PropertySchema(
+      id: 2,
       name: r'id_empresa',
       type: IsarType.long,
     ),
     r'id_nfce': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'id_nfce',
       type: IsarType.long,
     ),
     r'intervalo_envio': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'intervalo_envio',
       type: IsarType.long,
     ),
     r'ip_empresa': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'ip_empresa',
       type: IsarType.string,
     ),
     r'nome_balanca': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'nome_balanca',
       type: IsarType.string,
     ),
     r'num_caixa': PropertySchema(
-      id: 6,
+      id: 7,
       name: r'num_caixa',
       type: IsarType.long,
     ),
     r'status_balanca': PropertySchema(
-      id: 7,
+      id: 8,
       name: r'status_balanca',
       type: IsarType.long,
     ),
     r'status_tef': PropertySchema(
-      id: 8,
+      id: 9,
       name: r'status_tef',
       type: IsarType.long,
     ),
     r'tamanho_impressora': PropertySchema(
-      id: 9,
+      id: 10,
       name: r'tamanho_impressora',
       type: IsarType.string,
     ),
     r'tef': PropertySchema(
-      id: 10,
+      id: 11,
       name: r'tef',
       type: IsarType.string,
     ),
     r'velocidade_balanca': PropertySchema(
-      id: 11,
+      id: 12,
       name: r'velocidade_balanca',
       type: IsarType.long,
     )
@@ -106,6 +111,7 @@ int _dado_empresaEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
+  bytesCount += 3 + object.cor_fundo.length * 3;
   {
     final value = object.ip_empresa;
     if (value != null) {
@@ -140,17 +146,18 @@ void _dado_empresaSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.balanca);
-  writer.writeLong(offsets[1], object.id_empresa);
-  writer.writeLong(offsets[2], object.id_nfce);
-  writer.writeLong(offsets[3], object.intervalo_envio);
-  writer.writeString(offsets[4], object.ip_empresa);
-  writer.writeString(offsets[5], object.nome_balanca);
-  writer.writeLong(offsets[6], object.num_caixa);
-  writer.writeLong(offsets[7], object.status_balanca);
-  writer.writeLong(offsets[8], object.status_tef);
-  writer.writeString(offsets[9], object.tamanho_impressora);
-  writer.writeString(offsets[10], object.tef);
-  writer.writeLong(offsets[11], object.velocidade_balanca);
+  writer.writeString(offsets[1], object.cor_fundo);
+  writer.writeLong(offsets[2], object.id_empresa);
+  writer.writeLong(offsets[3], object.id_nfce);
+  writer.writeLong(offsets[4], object.intervalo_envio);
+  writer.writeString(offsets[5], object.ip_empresa);
+  writer.writeString(offsets[6], object.nome_balanca);
+  writer.writeLong(offsets[7], object.num_caixa);
+  writer.writeLong(offsets[8], object.status_balanca);
+  writer.writeLong(offsets[9], object.status_tef);
+  writer.writeString(offsets[10], object.tamanho_impressora);
+  writer.writeString(offsets[11], object.tef);
+  writer.writeLong(offsets[12], object.velocidade_balanca);
 }
 
 dado_empresa _dado_empresaDeserialize(
@@ -161,18 +168,19 @@ dado_empresa _dado_empresaDeserialize(
 ) {
   final object = dado_empresa();
   object.balanca = reader.readStringOrNull(offsets[0]);
+  object.cor_fundo = reader.readString(offsets[1]);
   object.id = id;
-  object.id_empresa = reader.readLongOrNull(offsets[1]);
-  object.id_nfce = reader.readLongOrNull(offsets[2]);
-  object.intervalo_envio = reader.readLongOrNull(offsets[3]);
-  object.ip_empresa = reader.readStringOrNull(offsets[4]);
-  object.nome_balanca = reader.readStringOrNull(offsets[5]);
-  object.num_caixa = reader.readLongOrNull(offsets[6]);
-  object.status_balanca = reader.readLongOrNull(offsets[7]);
-  object.status_tef = reader.readLongOrNull(offsets[8]);
-  object.tamanho_impressora = reader.readStringOrNull(offsets[9]);
-  object.tef = reader.readStringOrNull(offsets[10]);
-  object.velocidade_balanca = reader.readLongOrNull(offsets[11]);
+  object.id_empresa = reader.readLongOrNull(offsets[2]);
+  object.id_nfce = reader.readLongOrNull(offsets[3]);
+  object.intervalo_envio = reader.readLongOrNull(offsets[4]);
+  object.ip_empresa = reader.readStringOrNull(offsets[5]);
+  object.nome_balanca = reader.readStringOrNull(offsets[6]);
+  object.num_caixa = reader.readLongOrNull(offsets[7]);
+  object.status_balanca = reader.readLongOrNull(offsets[8]);
+  object.status_tef = reader.readLongOrNull(offsets[9]);
+  object.tamanho_impressora = reader.readStringOrNull(offsets[10]);
+  object.tef = reader.readStringOrNull(offsets[11]);
+  object.velocidade_balanca = reader.readLongOrNull(offsets[12]);
   return object;
 }
 
@@ -186,26 +194,28 @@ P _dado_empresaDeserializeProp<P>(
     case 0:
       return (reader.readStringOrNull(offset)) as P;
     case 1:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 2:
       return (reader.readLongOrNull(offset)) as P;
     case 3:
       return (reader.readLongOrNull(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 5:
       return (reader.readStringOrNull(offset)) as P;
     case 6:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 7:
       return (reader.readLongOrNull(offset)) as P;
     case 8:
       return (reader.readLongOrNull(offset)) as P;
     case 9:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 10:
       return (reader.readStringOrNull(offset)) as P;
     case 11:
+      return (reader.readStringOrNull(offset)) as P;
+    case 12:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -455,6 +465,142 @@ extension dado_empresaQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'balanca',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'cor_fundo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'cor_fundo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'cor_fundo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'cor_fundo',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'cor_fundo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'cor_fundo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'cor_fundo',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'cor_fundo',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'cor_fundo',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterFilterCondition>
+      cor_fundoIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'cor_fundo',
         value: '',
       ));
     });
@@ -1663,6 +1809,18 @@ extension dado_empresaQuerySortBy
     });
   }
 
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByCor_fundo() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cor_fundo', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortByCor_fundoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cor_fundo', Sort.desc);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> sortById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_empresa', Sort.asc);
@@ -1819,6 +1977,18 @@ extension dado_empresaQuerySortThenBy
   QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByBalancaDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'balanca', Sort.desc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByCor_fundo() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cor_fundo', Sort.asc);
+    });
+  }
+
+  QueryBuilder<dado_empresa, dado_empresa, QAfterSortBy> thenByCor_fundoDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'cor_fundo', Sort.desc);
     });
   }
 
@@ -1988,6 +2158,13 @@ extension dado_empresaQueryWhereDistinct
     });
   }
 
+  QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctByCor_fundo(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'cor_fundo', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<dado_empresa, dado_empresa, QDistinct> distinctById_empresa() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'id_empresa');
@@ -2074,6 +2251,12 @@ extension dado_empresaQueryProperty
   QueryBuilder<dado_empresa, String?, QQueryOperations> balancaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'balanca');
+    });
+  }
+
+  QueryBuilder<dado_empresa, String, QQueryOperations> cor_fundoProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'cor_fundo');
     });
   }
 

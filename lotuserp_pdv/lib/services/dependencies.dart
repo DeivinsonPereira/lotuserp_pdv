@@ -20,6 +20,7 @@ import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
 import '../controllers/balanca_prix_controller.dart';
 import '../controllers/empresa_valida_controller.dart';
+import '../controllers/logo_controller.dart';
 import '../controllers/open_register_controller.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../pages/printer/component/printer_popup_controller.dart';
@@ -215,6 +216,14 @@ abstract class Dependencies {
       return Get.find<InitialController>();
     } else {
       return Get.put(InitialController());
+    }
+  }
+
+  static LogoController logoController() {
+    if (Get.isRegistered<LogoController>()) {
+      return Get.find<LogoController>();
+    }else {
+      return Get.put(LogoController(), permanent: true);
     }
   }
 }

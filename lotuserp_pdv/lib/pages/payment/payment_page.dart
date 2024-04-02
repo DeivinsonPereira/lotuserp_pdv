@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, prefer_const_constructors
 
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -8,17 +7,18 @@ import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
-import 'package:lotuserp_pdv/controllers/response_servidor_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/global_widget/buttons.dart';
 import 'package:lotuserp_pdv/pages/payment/component/confirmation_method.dart';
 import 'package:lotuserp_pdv/pages/payment/component/dialog_payment_widget.dart';
+import 'package:lotuserp_pdv/pages/payment/component/enums/tipo_tef.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/payment/component/tef_elgin_payments.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../services/dependencies.dart';
 import '../common/custom_cherry.dart';
+import 'component/no_money_paper.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({super.key});
@@ -36,13 +36,13 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
-    PdvController controller = Dependencies.pdvController();
-    PaymentController paymentController = Dependencies.paymentController();
+    var controller = Dependencies.pdvController();
+    var paymentController = Dependencies.paymentController();
     IsarService service = IsarService();
     Dependencies.informationController();
     Dependencies.globalController();
-    ResponseServidorController responseServidorController =
-        Dependencies.responseServidorController();
+    var responseServidorController = Dependencies.responseServidorController();
+    var configController = Dependencies.configcontroller();
     var paymentCount = 0.0;
 
     var remainingValue = 0.0;
@@ -208,23 +208,21 @@ class _PaymentPageState extends State<PaymentPage> {
       return InkWell(
         onTap: () async {
           if (tipoPagamento.tipo_forma != 0) {
-            Get.dialog(
-              DialogWidget().keyboardNumber(
-                  pushSetState, descricao, tipoPagamento, idPagamento,
-                  isTef: true),
-            );
+            if (configController.tefSelected.value == TipoTef.NENHUMA.index) {
+              NoMoneyPaper().processCommonOperations();
 
-            // aqui é somente 0 para o TEF
-
-            /* NoMoneyPaper()
-                .processCommonOperations(); // comentar para testar o pagamento TEF
-
-            ConfirmationMethod().continueSell(
-                context, // // comentar para testar o pagamento TEF
-                name: descricao,
-                tipoPagamento: tipoPagamento,
-                idPagamento: idPagamento);
-            await responseServidorController.updateCpfCnpj();*/
+              ConfirmationMethod().continueSell(context,
+                  name: descricao,
+                  tipoPagamento: tipoPagamento.tipo_forma!,
+                  idPagamento: idPagamento);
+              await responseServidorController.updateCpfCnpj();
+            } else {
+              Get.dialog(
+                DialogWidget().keyboardNumber(
+                    pushSetState, descricao, tipoPagamento, idPagamento,
+                    isTef: true),
+              );
+            }
           } else {
             Get.dialog(DialogWidget().keyboardNumber(
                 // para usar o tef, esse comando deve estar disponivel dentro do if com o "isTef = true"
@@ -240,7 +238,7 @@ class _PaymentPageState extends State<PaymentPage> {
             width: 125,
             height: 65,
             child: Card(
-              color: CustomColors.customSwatchColor,
+              color: configController.colorBackground['color'] as Color,
               child: Column(
                 children: [
                   Padding(

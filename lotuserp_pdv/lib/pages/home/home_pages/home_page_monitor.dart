@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
+import 'package:lotuserp_pdv/pages/common/custom_logo.dart';
 import '../../../services/dependencies.dart';
 import 'component/drawer_widget_monitor.dart';
 
@@ -40,10 +41,7 @@ class _HomePageMonitorState extends State<HomePageMonitor> {
                   width: size.width,
                   child: Center(
                     child: SizedBox(
-                      child: Image.asset(
-                        'assets/images/Logo_Nova_Transparente.png',
-                        width: 500,
-                      ),
+                      child: CustomLogo().getLogoPadrao(width: 500),
                     ),
                   ),
                 ),

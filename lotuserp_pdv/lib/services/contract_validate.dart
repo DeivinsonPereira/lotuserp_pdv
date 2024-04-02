@@ -1,14 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/empresa_valida.dart';
 import 'package:lotuserp_pdv/controllers/empresa_valida_controller.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
-import '../pages/common/custom_cherry.dart';
 import '../pages/empresa_valida/empresa_valida_popup_page.dart';
 
 class ContractValidate {
-  void valid(empresa_valida dadosContrato, BuildContext context) {
+  void valid(empresa_valida dadosContrato) {
     EmpresaValidaController empresaValidaController =
         Dependencies.empresaValidaController();
 
@@ -22,7 +20,7 @@ class ContractValidate {
         empresaValidaController.isContratoValido = false;
         Get.dialog(
             barrierDismissible: false, const EmpresaValidaPopupPage());
-        const CustomCherryError(message: 'Contrato vencido.').show(context);
+        //const CustomCherryError(message: 'Contrato vencido.').show(context);
       }
     }
   }

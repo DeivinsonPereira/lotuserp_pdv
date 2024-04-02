@@ -136,9 +136,14 @@ class LoadDataPage extends StatelessWidget {
                               if (service.conexaoApi) {
                                 Get.dialog(const LoadingScreen());
                                 // ignore: use_build_context_synchronously
-                                await _.loadData(context);
-                                Get.back();
-                                Get.back();
+                                List<Future> task = [];
+                                // ignore: use_build_context_synchronously
+                                task.add(_.loadData(context));
+
+                                await Future.wait(task).then((value) {
+                                  Get.back();
+                                  Get.back();
+                                });
                               }
                             },
                             child: const Text('CONFIRMAR',

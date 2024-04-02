@@ -18,4 +18,5 @@ class dado_empresa {
   late int? velocidade_balanca;
   late String? nome_balanca;
   late String? tamanho_impressora;
+  late String cor_fundo;
 }

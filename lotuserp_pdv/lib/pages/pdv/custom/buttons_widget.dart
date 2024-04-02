@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 
 class ButtonsPdv {
   Widget iconsOptions(IconData icon, String text, Function() action) {
+    var configController = Dependencies.configcontroller();
+
     return Expanded(
       child: SizedBox(
         width: 100,
@@ -10,7 +12,7 @@ class ButtonsPdv {
         child: GestureDetector(
           onTap: action,
           child: Card(
-            color: CustomColors.customSwatchColor,
+            color: configController.colorBackground['color'] as Color,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

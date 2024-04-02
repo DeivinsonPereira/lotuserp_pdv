@@ -81,8 +81,8 @@ class IconButtonSideBar extends StatelessWidget {
               } else if (isPdv == true) {
                 await pdvController.setGrupos();
                 await pdvController.setGruposDescription();
-                pdvController.setImagensGrupos();
                 await saveImagePathController.addImagePathGroup();
+                pdvController.setImagensGrupos();
                 await pdvController.setListAllProducts();
                 pdvController.setGroupId(0);
                 await pdvController.setProductsByIdGroup();

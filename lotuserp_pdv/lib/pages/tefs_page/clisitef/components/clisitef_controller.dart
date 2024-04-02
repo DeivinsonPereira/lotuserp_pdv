@@ -1,4 +1,4 @@
-import 'package:flutter_clisitef/clisitef.dart';
+/*import 'package:flutter_clisitef/clisitef.dart';
 import 'package:flutter_clisitef/model/transaction_events.dart';
 import 'package:flutter_clisitef/pdv/clisitef_pdv.dart';
 
@@ -19,4 +19,4 @@ class MainController {
 
   bool showAbortButton = false;
   bool abortTransaction = false;
-}
+}*/

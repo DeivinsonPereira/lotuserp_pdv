@@ -100,6 +100,7 @@ class PaymentTotalWidget extends StatelessWidget {
         } else {
           paymentController.clearComprovanteTef();
           Get.toNamed(PagesRoutes.paymentRoute);
+          paymentController.totalPayment.value = '0,00';
         }
       },
       child: Padding(

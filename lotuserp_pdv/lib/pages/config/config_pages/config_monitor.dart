@@ -10,7 +10,9 @@ import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/config/config_pages/widget/text_field_list.dart';
 
 import '../../../services/dependencies.dart';
+import '../../common/custom_logo.dart';
 import 'widget/custom_field_dropdown.dart';
+import 'widget/custom_field_dropdown_color.dart';
 import 'widget/custom_text_form_field.dart';
 import 'widget/list_dropdown_option.dart';
 
@@ -24,6 +26,7 @@ class ConfigMonitor extends StatefulWidget {
 class _ConfigMonitorState extends State<ConfigMonitor> {
   TextFieldController textFieldController = Dependencies.textFieldController();
   Configcontroller configController = Dependencies.configcontroller();
+  var logoController = Dependencies.logoController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,7 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
                     Padding(
                       padding: const EdgeInsets.only(left: 5.0),
                       child: CustomFieldDropdownMonitor(
-                          options: ListDropdownOption.listOptionsBalance,
+                          options: ListDropdownOption().listOptionsBalance,
                           text: 'Balança',
                           icon: FontAwesomeIcons.scaleBalanced,
                           value: _.balanca.value,
@@ -103,7 +106,7 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 7.0),
                         child: CustomFieldDropdownMonitor(
-                            options: ListDropdownOption.listOptionsTef,
+                            options: ListDropdownOption().listOptionsTef,
                             text: 'TEF',
                             icon: FontAwesomeIcons.solidCreditCard,
                             value: _.tef.value,
@@ -119,8 +122,8 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
       );
     }
 
-    //nome da balança e tamanho da impressora
-    Widget _nameScaleAndSizePrinter() {
+    //nome da balança e tamanho da impressora e cor do background
+    Widget _nameScaleAndSizePrinterAndColor() {
       return GetBuilder<Configcontroller>(builder: (_) {
         return Padding(
           padding: const EdgeInsets.only(left: 20.0),
@@ -139,12 +142,24 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
               Expanded(
                 child: CustomFieldDropdownMonitor(
                   icon: FontAwesomeIcons.print,
-                  options: ListDropdownOption.listOptionsSizePrinter,
+                  options: ListDropdownOption().listOptionsSizePrinter,
                   value: _.tamanhoImpressora.value != ''
                       ? _.tamanhoImpressora.value
                       : 'SEM IMPRESSORA',
-                  text: 'Tamanho da Impressora',
+                  text: 'Tamanho da Impres...',
                   isSizePrinter: true,
+                ),
+              ),
+              const SizedBox(
+                width: 5,
+              ),
+              Expanded(
+                child: CustomFieldDropdownColor(
+                  text: 'Cor do Fundo',
+                  value: _.colorBackground['name'] as String,
+                  options: List<String>.from(ListDropdownOption()
+                      .listColors
+                      .map((color) => color['name'] as String)),
                 ),
               )
             ],
@@ -163,7 +178,7 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
             child: _textFormFieldsCompany(),
           ),
           _dropdownBalanceAndTef(),
-          _nameScaleAndSizePrinter(),
+          _nameScaleAndSizePrinterAndColor(),
         ],
       );
     }
@@ -253,10 +268,7 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Image.asset(
-                  'assets/images/Logo_Nova_Transparente.png',
-                  width: 250,
-                ),
+                child: CustomLogo().getLogoPadrao(width: 250, height: 87),
               ),
               const SizedBox(
                 height: 75,
@@ -294,19 +306,23 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
     }
 
     //Scaffold do conteúdo
-    return Scaffold(
-      backgroundColor: CustomColors.customSwatchColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            _backButton(PagesRoutes.loginRoute),
-            const SizedBox(
-              height: 75,
+    return GetBuilder<Configcontroller>(
+      builder: (_) {
+        return Scaffold(
+          backgroundColor: _.colorBackground['color'] as Color,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                _backButton(PagesRoutes.loginRoute),
+                const SizedBox(
+                  height: 75,
+                ),
+                _centerContainer(),
+              ],
             ),
-            _centerContainer(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

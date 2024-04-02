@@ -1,28 +1,32 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/core/header.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
 
 import '../collections/produto.dart';
 import '../services/dependencies.dart';
 
 // FAZ O DOWNLOAD DAS IMAGENS E SALVA NO APLICATIVO
-Future<void> downloadImageGroup() async {
+Future downloadImageGroup() async {
   Logger logger = Logger();
   var saveImagePathController = Dependencies.saveImagePathController();
-  await saveImagePathController.getGrupos();
 
   // OBTER O IP DA EMPRESA
   String ip =
       Dependencies.textFieldController().numContratoEmpresaController.text;
   try {
     // OBTER OS GRUPOS
+    await saveImagePathController.getGrupos();
     List<produto_grupo> grupos = saveImagePathController.grupos;
     Directory dir = await getApplicationDocumentsDirectory();
     await deleteExistingFiles('${dir.path}/assets/grupos/');
@@ -70,7 +74,7 @@ Future<void> downloadImageGroup() async {
   }
 }
 
-Future<void> downloadImageProduct() async {
+Future downloadImageProduct() async {
   Logger logger = Logger();
   var saveImagePathController = Dependencies.saveImagePathController();
   await saveImagePathController.getProdutos();
@@ -80,10 +84,13 @@ Future<void> downloadImageProduct() async {
       Dependencies.textFieldController().numContratoEmpresaController.text;
   try {
     // OBTER OS PRODUTOS
-    List<produto> produtos = saveImagePathController.produtos;
+    List<produto> produtos = [];
+    produtos.assignAll(saveImagePathController.produtos);
     Directory dir = await getApplicationDocumentsDirectory();
     await deleteExistingFiles('${dir.path}/assets/produtos/');
-
+    if (produtos.isEmpty) {
+      return;
+    }
     for (var produto in produtos) {
       // BAIXAR A IMAGEM
       String? fileImage = produto.file_imagem;
@@ -127,6 +134,79 @@ Future<void> downloadImageProduct() async {
   }
 }
 
+Future<void> downloadImageLogo() async {
+  Logger logger = Logger();
+
+  try {
+    Directory dir = await getApplicationDocumentsDirectory();
+    await deleteExistingFiles('${dir.path}/assets/logos/');
+
+    String urlLogoPadrao =
+        await Endpoints().endpointSearchImageDIV('PDV_Logo_Padrao.png');
+    try {
+      var response = await http.get(
+          Uri.parse(
+            urlLogoPadrao,
+          ),
+          headers: Header.header);
+      if (response.statusCode == 200) {
+        try {
+          var jsonResponse = jsonDecode(response.body);
+
+          if (jsonResponse['success'] == false ||
+              jsonResponse['success'] == null) {}
+        } catch (e) {
+          String pathName =
+              '${dir.path}/assets/logos/${('PDV_Logo_Padrao.png')}';
+
+          await Directory('${dir.path}/assets/logos').create(recursive: true);
+          File file = File(pathName);
+          var result = await file.writeAsBytes(response.bodyBytes);
+
+          logger.d('Imagem baixada com sucesso $result');
+        }
+      } else {
+        logger.e('Erro ao baixar imagem');
+      }
+    } catch (e) {
+      logger.e('Erro ao baixar imagem: $e');
+    }
+
+    String urlLogoBranca =
+        await Endpoints().endpointSearchImageDIV('PDV_Logo_Branca.png');
+    try {
+      var response = await http.get(
+          Uri.parse(
+            urlLogoBranca,
+          ),
+          headers: Header.header);
+      if (response.statusCode == 200) {
+        try {
+          var jsonResponse = jsonDecode(response.body);
+
+          if (jsonResponse['success'] == false ||
+              jsonResponse['success'] == null) {}
+        } catch (e) {
+          String pathName =
+              '${dir.path}/assets/logos/${('PDV_Logo_Branca.png')}';
+
+          await Directory('${dir.path}/assets/logos').create(recursive: true);
+          File file = File(pathName);
+          var result = await file.writeAsBytes(response.bodyBytes);
+
+          logger.d('Imagem baixada com sucesso $result');
+        }
+      } else {
+        logger.e('Erro ao baixar imagem');
+      }
+    } catch (e) {
+      logger.e('Erro ao baixar imagem da Logo: $e');
+    }
+  } catch (e) {
+    logger.e('Erro ao baixar imagem da Logo: $e');
+  }
+}
+
 Future<void> deleteExistingFiles(String folderPath) async {
   final directory = Directory(folderPath);
   if (await directory.exists()) {
@@ -153,7 +233,7 @@ Future<void> deleteExistingFiles(String folderPath) async {
 }
 
 // PERSISTIR AS IMAGENS
-Future<void> persistImagesInformationGroup() async {
+Future persistImagesInformationGroup() async {
   IsarService service = IsarService();
   await service.saveImagemGrupos();
 }
@@ -163,8 +243,13 @@ Future<void> persistImagesInformationProduct() async {
   await service.saveImagemProdutos();
 }
 
+Future<void> persistImagesLogo() async {
+  IsarService service = IsarService();
+  await service.saveImagemLogo();
+}
+
 // LISTAR OS ARQUIVOS QUE TEM DENTRO DE DETERMINADO DIRETORIO
-Future<void> listDirectiories() async {
+Future listDirectiories() async {
   Logger logger = Logger();
   Directory dir = await getApplicationDocumentsDirectory();
   String pathNameGroup = '${dir.path}/assets/grupos/';

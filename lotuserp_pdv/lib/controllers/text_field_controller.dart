@@ -26,9 +26,6 @@ class TextFieldController extends GetxController {
 
   Logger logger = Logger();
 
-  EmpresaValidaController empresaValidaController =
-      Dependencies.empresaValidaController();
-
   // variáveis que serão usadas para o cadastro de informações de configuração.
   late String numContratoEmpresa = '';
   late String ip = '';
@@ -58,6 +55,8 @@ class TextFieldController extends GetxController {
 
   // salvar dados de contrato
   void salvarInformacoesContrato() {
+    EmpresaValidaController empresaValidaController =
+        Dependencies.empresaValidaController();
     numContratoEmpresa = empresaValidaController.empresaContratoController.text;
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
-import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/services/dependencies.dart';
 
 class PrinterPage extends StatelessWidget {
   const PrinterPage({super.key});
@@ -9,13 +9,14 @@ class PrinterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
+    var configController = Dependencies.configcontroller();
 
     return GetBuilder<PrinterController>(
       init: PrinterController(),
       initState: (_) {},
       builder: (controller) {
         return Scaffold(
-          backgroundColor: CustomColors.customSwatchColor,
+          backgroundColor: configController.colorBackground['color'] as Color,
           body: SizedBox(
             height: size.height,
             width: size.width,

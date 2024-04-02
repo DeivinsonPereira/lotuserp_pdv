@@ -11,6 +11,7 @@ import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/default_printer.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/image_path_group.dart';
+import 'package:lotuserp_pdv/collections/image_path_logo.dart';
 import 'package:lotuserp_pdv/collections/image_path_product.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
@@ -140,13 +141,14 @@ class IsarService {
     final isar = await db;
 
     try {
-    List<cartao_item?> tefDb = await isar.cartao_items.filter().id_caixaEqualTo(idCaixa).findAll();
-    if(tefDb.isNotEmpty){
-      return tefDb;
-    }else {
-      logger.e('Nenhum item encontrado na tabela "cartao_items');
-      return [];
-    }
+      List<cartao_item?> tefDb =
+          await isar.cartao_items.filter().id_caixaEqualTo(idCaixa).findAll();
+      if (tefDb.isNotEmpty) {
+        return tefDb;
+      } else {
+        logger.e('Nenhum item encontrado na tabela "cartao_items');
+        return [];
+      }
     } catch (e) {
       // Lida com qualquer exceção que possa ocorrer
       logger.e("Erro ao buscar item: $e");
@@ -249,7 +251,7 @@ class IsarService {
   }
 
   //inserindo dados na tabela grupo vindos do servidor
-  Future getGrupo(BuildContext context) async {
+  Future<dynamic> getGrupo(BuildContext context) async {
     await connectionVerifyApi(context);
 
     if (conexaoApi) {
@@ -498,6 +500,59 @@ class IsarService {
         }
         // saveImagePathController.addImagePathSimple(pathName);
         await isar.image_path_products.putAll(images);
+      });
+    } catch (e) {
+      logger.e('Erro ao salvar imagem dos grupos: $e');
+    }
+    return isar;
+  }
+
+  // salva as imagens das logos
+  Future<Isar> saveImagemLogo() async {
+    final isar = await db;
+
+    int i = await isar.image_path_logos.count();
+
+    if (i >= 0) {
+      isar.writeTxn(
+        () async {
+          await isar.image_path_logos.clear();
+        },
+      );
+    }
+    try {
+      isar.writeTxn(() async {
+        Directory dir = await getApplicationDocumentsDirectory();
+        String pathName = '${dir.path}/assets/logos/';
+        Directory directory = Directory(pathName);
+        List<String> files = [];
+        List<FileSystemEntity> filesPath = [];
+
+        if (await directory.exists()) {
+          filesPath = directory.listSync();
+          for (var i = 0; i < filesPath.length; i++) {
+            files.add(filesPath[i].path.split('/').last);
+          }
+        }
+
+        List<image_path_logo> images = [];
+
+        List<String> saveFile = [
+          'PDV_Logo_Padrao.png',
+          'PDV_Logo_Branca.png',
+        ];
+
+        //SALVA IMAGENS NO BANCO DE DADOS
+        for (var i = 0; i < saveFile.length; i++) {
+          if (filesPath.isNotEmpty) {
+            image_path_logo image = image_path_logo('', '')
+              ..file_image = saveFile[i]
+              ..path_image = filesPath[i].path;
+
+            images.add(image);
+          } else {}
+        }
+        await isar.image_path_logos.putAll(images);
       });
     } catch (e) {
       logger.e('Erro ao salvar imagem dos grupos: $e');
@@ -823,7 +878,7 @@ class IsarService {
   }
 
   //busca tipo_recebimento do servidor e insere na tabela do banco de dados local
-  Future getTipo_recebimento(BuildContext context) async {
+  Future<dynamic> getTipo_recebimento(BuildContext context) async {
     await connectionVerifyApi(context);
 
     if (conexaoApi) {
@@ -1312,6 +1367,22 @@ class IsarService {
     }
   }
 
+  // Busca os dados da logo no banco de dados local
+  Future<image_path_logo> getImageLogoPath(String text) async {
+    final isar = await db;
+
+    image_path_logo? data = await isar.image_path_logos
+        .filter()
+        .file_imageContains(text)
+        .findFirst();
+
+    if (data != null) {
+      return data;
+    } else {
+      return image_path_logo('', '');
+    }
+  }
+
   //inserir dados na tabela 'Dado_empresa'
   Future<Object> insertDadosEmpresariais(
       BuildContext context, dado_empresa empresa) async {
@@ -1724,10 +1795,11 @@ class IsarService {
   Future<cartao_item?> getDadosTefByIdVenda(int idVenda) async {
     final isar = await db;
 
-    try{
-      var tef = await isar.cartao_items.filter().id_vendaEqualTo(idVenda).findFirst();
+    try {
+      var tef =
+          await isar.cartao_items.filter().id_vendaEqualTo(idVenda).findFirst();
       return tef;
-    }catch (e){
+    } catch (e) {
       logger.e("Erro ao buscar tef: $e");
       return null;
     }
@@ -1853,6 +1925,7 @@ class IsarService {
           Nfce_resultadoSchema,
           Image_path_groupSchema,
           Image_path_productSchema,
+          Image_path_logoSchema,
           Empresa_validaSchema
         ],
         directory: dir.path,

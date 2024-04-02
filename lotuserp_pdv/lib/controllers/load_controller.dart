@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, curly_braces_in_flow_control_structures
 
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +63,7 @@ class LoadController extends GetxController {
   }
 
   //carregar dados da api
-  Future<void> loadData(BuildContext context) async {
+  Future<bool> loadData(BuildContext context) async {
     const SpinKitRotatingCircle(
       color: Colors.red,
       size: 50.0,
@@ -75,16 +75,18 @@ class LoadController extends GetxController {
     if (connectedApi.value == true) {
       var dadosEmpresariais = await service.getDataEmpresa();
       if (dadosEmpresariais != null) {
+        List<Future> tasks = [];
         if (checkbox1.value == true) {
-          await service.getEmpresa(dadosEmpresariais.id_empresa.toString(),
-              dadosEmpresariais.ip_empresa!, context);
+          tasks.add(service.getEmpresa(dadosEmpresariais.id_empresa.toString(),
+              dadosEmpresariais.ip_empresa!, context));
         }
-        if (checkbox2.value == true) await service.getTipo_recebimento(context);
-        if (checkbox3.value == true) await service.getUsuarios(context);
+        if (checkbox2.value == true)
+          tasks.add(service.getTipo_recebimento(context));
+        if (checkbox3.value == true) tasks.add(service.getUsuarios(context));
         if (checkbox4.value == true) {
-          await service.getGrupo(context);
-          await service.getProduto(context);
-          await listDirectiories();
+          tasks.add(service.getGrupo(context));
+          tasks.add(service.getProduto(context));
+          tasks.add(listDirectiories());
         }
         if (checkbox5.value == true) {
           await downloadImageGroup();
@@ -92,10 +94,16 @@ class LoadController extends GetxController {
         }
         if (checkbox6.value == true) {
           await downloadImageProduct();
-          persistImagesInformationProduct();
+          await persistImagesInformationProduct();
         }
+
+        await Future.wait(tasks);
+
         isLoading = false.obs;
         update();
+        return true;
+      } else {
+        return false;
       }
     } else {
       const CustomCherryError(
@@ -103,6 +111,7 @@ class LoadController extends GetxController {
       ).show(context);
       isLoading = false.obs;
       update();
+      return false;
     }
   }
 

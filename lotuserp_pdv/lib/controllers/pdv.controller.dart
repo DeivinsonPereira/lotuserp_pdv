@@ -180,6 +180,7 @@ class PdvController extends GetxController {
     var saveImagePathController = Dependencies.saveImagePathController();
     saveImagePathController.addImagePathFavorite();
     saveImagePathController.addImagePathFavorites();
+
     fileImageGroup = saveImagePathController.pathImagesGroup;
     imagesGroup.clear();
     imagesGroup.add('assets/images/favorito.png');
@@ -296,7 +297,7 @@ class PdvController extends GetxController {
   double getQuantidade(String nomeProduto) {
     int index =
         pedidos.indexWhere((pedido) => pedido['nomeProduto'] == nomeProduto);
-  
+
     return index != -1.0 ? pedidos[index]['quantidade'] : 0.0;
   }
 

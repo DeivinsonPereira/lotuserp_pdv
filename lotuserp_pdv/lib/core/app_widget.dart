@@ -12,10 +12,11 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Dependencies.initialController();
+    Dependencies.logoController();
 
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'lotuserp_pdv',
+      title: 'Lotus ERP PDV',
       navigatorObservers: [ImmersiveModeObserver()],
       theme: ThemeData(
         iconTheme: const IconThemeData(

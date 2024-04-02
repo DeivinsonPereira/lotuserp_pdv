@@ -35,6 +35,7 @@ class InformationController extends GetxController {
       vendasLista.assignAll(vendasDb);
       update();
     } else {
+      vendasLista.assignAll(vendasDb);
       update();
     }
   }

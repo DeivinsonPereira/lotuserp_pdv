@@ -13,7 +13,7 @@ class LineGroup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var pdvController = Dependencies.pdvController();
-
+    Dependencies.searchProductPdvController();
     // Contrói a imagem do grupo
     Widget _buildImageGroup(int index) {
       return ClipRRect(

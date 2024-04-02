@@ -39,6 +39,7 @@ class PaymentController extends GetxController {
   void onInit() {
     super.onInit();
     totalPayment.value = '0,00';
+    pdvController.getidCaixa();
   }
 
   void updateComprovanteTef(String value) {
