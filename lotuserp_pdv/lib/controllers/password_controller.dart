@@ -7,11 +7,14 @@ import 'package:get/get.dart';
 class PasswordController extends GetxController {
   final passwordController = TextEditingController();
   final userController = TextEditingController();
-  
+
   var hashedPassword = ''.obs;
   var user = ''.obs;
-  
+
   String createHashedPassword() {
+    if (passwordController.text.isEmpty) {
+      return '';
+    }
     var bytes = utf8.encode(passwordController.text);
     var hashedPassword = md5.convert(bytes);
 
@@ -19,6 +22,7 @@ class PasswordController extends GetxController {
         this.hashedPassword.value = hashedPassword.toString().toUpperCase();
     return passwordteste;
   }
+  
 
   void clear() {
     passwordController.clear();

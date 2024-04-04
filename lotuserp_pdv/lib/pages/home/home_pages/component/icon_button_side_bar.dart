@@ -116,7 +116,7 @@ class IconButtonSideBar extends StatelessWidget {
               text,
               style: const TextStyle(
                 color: Colors.white,
-                fontSize: 13,
+                fontSize: 12,
               ),
               textAlign: TextAlign.center,
             ),

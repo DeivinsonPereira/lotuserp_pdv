@@ -54,7 +54,7 @@ class CustomFieldDropdownMonitor extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 8.0),
                           child: Container(
                             width: 52,
-                            height: 46,
+                            height: 50,
                             decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(10),

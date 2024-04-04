@@ -31,9 +31,9 @@ class CustomDropdownButtonMonitor extends StatelessWidget {
       return DropdownButtonHideUnderline(
         child: SizedBox(
           width: isTef!
-              ? Get.width * 0.185
+              ? Get.width * 0.175
               : isSizePrinter!
-                  ? Get.width * 0.065
+                  ? Get.width * 0.06
                   : 95,
           child: DropdownButton<String>(
             isExpanded: true,

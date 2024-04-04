@@ -53,7 +53,7 @@ class CustomFieldDropdownColor extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.only(top: 6.0),
         child: Container(
-          height: 46,
+          height: 50,
           decoration: BoxDecoration(
             border: Border.all(
               color: Colors.black,
