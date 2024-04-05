@@ -46,7 +46,9 @@ class BalancaPrix3FitController extends GetxController {
       if (devices.isNotEmpty) {
         for (UsbDevice device in devices) {
           if (device.productName ==
-              textFieldController.nomeBalancaController.text) {
+                  textFieldController.nomeBalancaController.text ||
+              device.manufacturerName ==
+                  textFieldController.nomeBalancaController.text) {
             logger.i("Tentando conectar ao dispositivo: ${device.productName}");
             await _connectToBalanca(device);
           }
@@ -193,7 +195,7 @@ class BalancaPrix3FitController extends GetxController {
   }
 
   void fecharPopup() {
-  Get.close(1); // Fecha o popup
-  Get.delete<BalancaPrix3FitController>(); // Remove o controller
-}
+    Get.close(1); // Fecha o popup
+    Get.delete<BalancaPrix3FitController>(); // Remove o controller
+  }
 }
