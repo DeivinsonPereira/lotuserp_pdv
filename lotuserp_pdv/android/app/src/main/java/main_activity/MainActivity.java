@@ -45,6 +45,13 @@ import android.os.Looper;
 import android.widget.Button;
 
 import br.com.daruma.framework.mobile.DarumaMobile;
+import br.com.itfast.tectoy.Dispositivo;
+import br.com.itfast.tectoy.StatusImpressora;
+import br.com.itfast.tectoy.TecToy;
+import br.com.itfast.tectoy.TecToyCameraProfundidadeCallback;
+import br.com.itfast.tectoy.TecToyNfcCallback;
+import br.com.itfast.tectoy.TecToyScannerCallback;
+import br.com.itfast.tectoy.TectoyBalancaCallback;
 
 public class MainActivity extends FlutterActivity {
     private static final String CHANNEL = "com.lotuserp_pdv/tef";
@@ -58,12 +65,15 @@ public class MainActivity extends FlutterActivity {
     File downloadsPath = new File(Environment.getExternalStorageDirectory(), "Download");
     private File storagePath;
     private static final String LOGO_PATH = "logo.png";
+    
 
     private Handler handler = new Handler(Looper.getMainLooper());
 
     private DarumaMobile dmf;
     private DarumaMobile dfmD2s;
     private String strXML;
+    private Button btnAbrirGaveta;
+    public static TecToy tectoy;
 
     private String centro; 
     private String deslCentro; 
@@ -132,7 +142,8 @@ public class MainActivity extends FlutterActivity {
 
             dmf = DarumaMobile.inicializar(MainActivity.this, "@FRAMEWORK(TRATAEXCECAO=TRUE;LOGMEMORIA=25;TIMEOUTWS=10000;);@DISPOSITIVO(NAME=D2S)");
             dfmD2s = DarumaMobile.inicializar(MainActivity.this, "@FRAMEWORK(TRATAEXCECAO=TRUE;TIMEOUTWS=10000;);@BLUETOOTH(NAME=InnerPrinter;ATTEMPTS=10;TIMEOUT=10000)");
-
+            tectoy = new TecToy(Dispositivo.T2_MINI, getApplicationContext());
+            
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Não tem permissões: " + e.getMessage(), Toast.LENGTH_LONG).show();
             Log.e("Erro:", e.getMessage());
@@ -235,12 +246,29 @@ public class MainActivity extends FlutterActivity {
                                     Log.d("TEF", "texto: " + texto);
                                     imprimirTefElgin(texto);
                                     result.success(null);
-                                }   
+                                }else if(call.method.equals("abrirGaveta")){
+                                    Log.d("TEF", "abertura gaveta");
+                                    abrirGaveta();
+                                    result.success(null);
+                                }       
                             } catch (Exception e) {
                                 Log.e("MethodChannel", "Erro no método: " + call.method, e);
                                 result.error("ERROR", "Erro no método: " + call.method, e.getMessage());
                             }
                         });
+    }
+
+    public void abrirGaveta() {
+        try {
+            // Tenta enviar o comando para abrir a gaveta
+            tectoy.abrirGaveta();
+            // Mostra uma mensagem de sucesso na tela
+            Toast.makeText(getApplicationContext(), "Gaveta aberta com sucesso", Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            // Caso ocorra alguma exceção, exibe uma mensagem de erro
+            Toast.makeText(getApplicationContext(), "Erro ao abrir a gaveta: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("MainActivity", "Erro ao abrir a gaveta", ex);
+        }
     }
 
     private void imprimirTeste(String texto) {

@@ -12,6 +12,7 @@ import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../controllers/response_servidor_controller.dart';
+import '../../services/abrir_gaveta/abrir_gaveta.dart';
 import '../../services/dependencies.dart';
 
 class QrCodePage extends StatelessWidget {
@@ -120,6 +121,7 @@ class QrCodePage extends StatelessWidget {
                                 }
                               }
                             }
+                            await AbrirGaveta().open();
                             Get.back();
                             searchProductPdvController.clearSearch();
                             responseServidorController.limparCpfCnpj();
@@ -143,7 +145,7 @@ class QrCodePage extends StatelessWidget {
                     height: 60,
                     color: CustomColors.informationBox,
                     child: TextButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if (responseServidorController.xmlNotaFiscal.value ==
                             false) {
                           responseServidorController.limparCpfCnpj();
@@ -153,6 +155,7 @@ class QrCodePage extends StatelessWidget {
                           responseServidorController.limparCpfCnpj();
                           searchProductPdvController.clearSearch();
                         }
+                        await AbrirGaveta().open();
                       },
                       child: const Text(
                         'FECHAR ',

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/common/custom_logo.dart';
+import 'package:lotuserp_pdv/services/abrir_gaveta/abrir_gaveta.dart';
 
 import 'package:lotuserp_pdv/services/dependencies.dart';
 
@@ -84,15 +85,8 @@ class InformationButtonsWidget extends StatelessWidget {
 
     // Constrói o botão Produtos
     Widget _buildButtonProducts() {
-      return ButtonsPdv().iconsOptions(
-          FontAwesomeIcons.clipboardList,
-          'Produtos',
-          () => showDialog(
-                context: context,
-                builder: (context) {
-                  return const ProductMonitorPage();
-                },
-              ));
+      return ButtonsPdv().iconsOptions(FontAwesomeIcons.cashRegister,
+          'Abrir Gaveta', () => AbrirGaveta().open());
     }
 
     // Constrói o botão CPF/CNPJ
