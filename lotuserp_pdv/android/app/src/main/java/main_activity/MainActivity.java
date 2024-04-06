@@ -266,7 +266,6 @@ public class MainActivity extends FlutterActivity {
             Toast.makeText(getApplicationContext(), "Gaveta aberta com sucesso", Toast.LENGTH_SHORT).show();
         } catch (Exception ex) {
             // Caso ocorra alguma exceção, exibe uma mensagem de erro
-            Toast.makeText(getApplicationContext(), "Erro ao abrir a gaveta: " + ex.getMessage(), Toast.LENGTH_SHORT).show();
             Log.e("MainActivity", "Erro ao abrir a gaveta", ex);
         }
     }
