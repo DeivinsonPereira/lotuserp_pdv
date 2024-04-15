@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:isar/isar.dart';
+import 'package:lotuserp_pdv/collections/admin_config.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
@@ -1901,6 +1902,7 @@ class IsarService {
     }
   }
 
+
   //abre o banco de dados
   Future<Isar> openDB() async {
     final dir = await getApplicationSupportDirectory();
@@ -1926,7 +1928,8 @@ class IsarService {
           Image_path_groupSchema,
           Image_path_productSchema,
           Image_path_logoSchema,
-          Empresa_validaSchema
+          Empresa_validaSchema,
+          Admin_configSchema
         ],
         directory: dir.path,
       );

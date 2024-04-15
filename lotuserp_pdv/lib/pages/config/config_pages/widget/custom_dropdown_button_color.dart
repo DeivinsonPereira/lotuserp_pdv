@@ -22,7 +22,7 @@ class CustomDropdownButtonColor extends StatelessWidget {
     return GetBuilder<Configcontroller>(builder: (_) {
       return DropdownButtonHideUnderline(
         child: SizedBox(
-          width: Get.width * 0.075,
+          width: Get.width * 0.14,
           child: DropdownButton<String>(
             isExpanded: true,
             isDense: true,

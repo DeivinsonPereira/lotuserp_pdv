@@ -130,6 +130,17 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
           child: Row(
             children: [
               Padding(
+                padding: const EdgeInsets.fromLTRB(5, 0, 7, 0),
+                child: CustomFieldDropdownMonitor(
+                  options: configController.devicesManufacturer,
+                  text: 'Nome da Balança',
+                  icon: FontAwesomeIcons.usb,
+                  value: _.deviceNameSelected.value,
+                  isBalanceName: true,
+                  ),
+              ),
+
+              /* Padding(
                 padding: const EdgeInsets.only(top: 5.0, left: 2, right: 7),
                 child: CustomTextFormFieldMonitor(
                   icon: FontAwesomeIcons.usb,
@@ -138,7 +149,7 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
                   numericKeyboard: false,
                   isNome: true,
                 ),
-              ),
+              ),*/
               Expanded(
                 child: CustomFieldDropdownMonitor(
                   icon: FontAwesomeIcons.print,

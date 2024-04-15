@@ -8,6 +8,7 @@ import 'package:lotuserp_pdv/controllers/search_product_pdv_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/common/custom_dialog_highlight_paper.dart';
 import 'package:lotuserp_pdv/pages/common/header_popup.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/services/print_xml.dart/print_nfce_xml.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -64,6 +65,8 @@ class QrCodePage extends StatelessWidget {
                         : Colors.grey[300],
                     child: TextButton(
                       onPressed: () async {
+                        Get.dialog(const LoadingScreen());
+                        paymentController.toggleIsButtonPrintEnabled(false);
                         if (_.xml.value != '' && _.xml.value.isNotEmpty) {
                           var configController =
                               Dependencies.configcontroller();
@@ -123,8 +126,10 @@ class QrCodePage extends StatelessWidget {
                             }
                             await AbrirGaveta().open();
                             Get.back();
+                            Get.back();
                             searchProductPdvController.clearSearch();
                             responseServidorController.limparCpfCnpj();
+                            paymentController.toggleIsButtonPrintEnabled(true);
                           }
                         }
                       },

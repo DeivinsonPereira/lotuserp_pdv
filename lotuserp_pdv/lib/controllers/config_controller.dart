@@ -1,4 +1,4 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, constant_identifier_names
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,6 +8,7 @@ import 'package:lotuserp_pdv/pages/config/config_pages/widget/list_dropdown_opti
 import 'package:lotuserp_pdv/pages/payment/component/enums/tipo_tef.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:usb_serial/usb_serial.dart';
 
 import '../collections/dado_empresa.dart';
 import '../pages/common/loading_screen.dart';
@@ -27,6 +28,8 @@ class Configcontroller extends GetxController {
   var tamanhoImpressora = '80mm'.obs;
   var colorBackground =
       {'name': 'AZUL ESCURO', 'color': const Color(0xFF2B305B)}.obs;
+  List<String> devicesManufacturer = [];
+  var deviceNameSelected = ''.obs;
 
   @override
   void onInit() {
@@ -41,6 +44,7 @@ class Configcontroller extends GetxController {
     loadTef();
     loadNameBalance();
     loadSizePrinter();
+    loadUsbName();
   }
 
   //UPDATE TAMANHO IMPRESSORA
@@ -132,9 +136,10 @@ class Configcontroller extends GetxController {
           ..velocidade_balanca = campoVazio == true
               ? int.parse(textFieldController.velocidadeBalancaController.text)
               : 0
-          ..nome_balanca = textFieldController.nomeBalancaController.text != ''
-              ? textFieldController.nomeBalancaController.text
-              : ''
+          ..nome_balanca =
+              deviceNameSelected.value != AuxString.DEVICE_NOT_FOUND
+                  ? deviceNameSelected.value
+                  : AuxString.DEVICE_NOT_FOUND
           ..tamanho_impressora = tamanhoImpressora.value
           ..cor_fundo = colorBackground['name'] as String;
 
@@ -159,12 +164,12 @@ class Configcontroller extends GetxController {
     await service.getProduto(context);
     await service.getUsuarios(context);
     await service.getTipo_recebimento(context);
-      await downloadImageGroup();
-      await downloadImageProduct();
-      await persistImagesInformationGroup();
-      await persistImagesInformationProduct();
-      /*await checkFileExists();*/
-      await listDirectiories();
+    await downloadImageGroup();
+    await downloadImageProduct();
+    await persistImagesInformationGroup();
+    await persistImagesInformationProduct();
+    /*await checkFileExists();*/
+    await listDirectiories();
   }
 
   // ESPERAR DADOS DA EMPRESA E CHAMAR OUTROS DADOS
@@ -331,8 +336,16 @@ class Configcontroller extends GetxController {
   Future<void> loadNameBalance() async {
     dado_empresa? nameBalanceDb = await service.getDataEmpresa();
     if (nameBalanceDb != null && nameBalanceDb.nome_balanca != null) {
-      textFieldController.nomeBalancaController.text =
+      for (var item in devicesManufacturer) {
+        if (item == nameBalanceDb.nome_balanca!) {
+          deviceNameSelected.value = nameBalanceDb.nome_balanca!;
+        } else {
+          deviceNameSelected.value = AuxString.DEVICE_NOT_FOUND;
+        }
+      }
+      /*textFieldController.nomeBalancaController.text =
           nameBalanceDb.nome_balanca!;
+      deviceNameSelected.value = nameBalanceDb.nome_balanca!;*/
       update();
     } else {
       textFieldController.nomeBalancaController.text = '';
@@ -352,4 +365,33 @@ class Configcontroller extends GetxController {
       update();
     }
   }
+
+  // PROCUTA OS USBs CONECTADOS E ATUALIZA A LISTA DE DISPOSITIVOS
+  Future<void> loadUsbName() async {
+    var devicesConnected = await UsbSerial.listDevices();
+    devicesManufacturer.clear();
+    devicesManufacturer.add('Nenhum Dispositivo');
+    if (devicesConnected.isEmpty) {
+      deviceNameSelected.value = 'Nenhum Dispositivo';
+    }
+    for (var device in devicesConnected) {
+      if (device.manufacturerName != null) {
+        devicesManufacturer.add(device.manufacturerName!);
+      }
+    }
+    if (deviceNameSelected.value == '') {
+      deviceNameSelected.value = devicesConnected[0].manufacturerName!;
+    }
+    update();
+  }
+
+  // ATUALIZA O NOME DO DISPOSITIVO SELECIONADO
+  void updateNameDevice(String value) {
+    deviceNameSelected.value = value;
+    update();
+  }
+}
+
+abstract class AuxString {
+  static const String DEVICE_NOT_FOUND = "Nenhum Dispositivo";
 }

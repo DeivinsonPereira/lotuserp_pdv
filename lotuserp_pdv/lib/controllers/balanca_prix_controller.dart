@@ -45,10 +45,9 @@ class BalancaPrix3FitController extends GetxController {
       logger.i("Dispositivos USB encontrados: ${devices.length}");
       if (devices.isNotEmpty) {
         for (UsbDevice device in devices) {
-          if (device.productName ==
-                  textFieldController.nomeBalancaController.text ||
+          if (device.productName == configController.deviceNameSelected.value ||
               device.manufacturerName ==
-                  textFieldController.nomeBalancaController.text) {
+                  configController.deviceNameSelected.value) {
             logger.i("Tentando conectar ao dispositivo: ${device.productName}");
             await _connectToBalanca(device);
           }

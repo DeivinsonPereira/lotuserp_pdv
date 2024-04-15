@@ -21,7 +21,8 @@ class PaymentController extends GetxController {
   //valor da forma de pagamento
   var totalPayment = '0,00'.obs;
 
-  var isButtonEnabled = false.obs;
+  var isButtonPrintEnabled = false.obs;
+  var isButtonEnabled = true.obs;
   var remaningValue1 = 0.0.obs;
   var remaningValue2 = 0.0.obs;
 
@@ -46,8 +47,13 @@ class PaymentController extends GetxController {
     comprovanteTef.add(value);
   }
 
-  void clearComprovanteTef() {
+  void clearComprovanteTef() {  
     comprovanteTef.clear();
+  }
+
+  // Atualiza a variável isButtonPrintEnabled
+  void toggleIsButtonPrintEnabled(bool value) {
+    isButtonPrintEnabled.value = value;
   }
 
   //adiciona item na lista caixaItems

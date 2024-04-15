@@ -2,24 +2,18 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:lotuserp_pdv/collections/caixa_fechamento.dart';
 
 import 'package:lotuserp_pdv/controllers/close_register_controller.dart';
-import 'package:lotuserp_pdv/controllers/config_controller.dart';
-import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
-import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
+import 'package:lotuserp_pdv/pages/close_register/service/logic/logic_close_register.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../collections/tipo_recebimento.dart';
-import '../../repositories/close_register_servidor_repository.dart';
 import '../../services/dependencies.dart';
 import '../common/header_popup.dart';
-import '../printer/printer_popup.dart';
 
 class CloseRegisterPage extends StatelessWidget {
   const CloseRegisterPage({super.key});
@@ -33,12 +27,6 @@ class CloseRegisterPage extends StatelessWidget {
 
     PrinterController printerController = Dependencies.printerController();
     printerController.setPrinterSize();
-
-    PdvController pdvController = Dependencies.pdvController();
-
-    GlobalController globalController = Dependencies.globalController();
-
-    Configcontroller configcontroller = Dependencies.configcontroller();
 
     // botões confirmar e voltar
     Widget backAndConfirmButtons() {
@@ -71,65 +59,8 @@ class CloseRegisterPage extends StatelessWidget {
                       ? Colors.grey[300]
                       : CustomColors.confirmButtonColor,
                   child: TextButton(
-                    onPressed: controller.isButtonEnabled.value == true
-                        ? () async {
-                            controller.toggleIsButtonEnabled();
-                            var atualDateFormatted =
-                                DatetimeFormatterWidget.formatDate(
-                                    DateTime.now());
-
-                            await globalController
-                                .setIdCaixaServidor(globalController.userId);
-                            var idCaixaServidor =
-                                globalController.idCaixaServidor;
-                            List<caixa_fechamento> fechamentosCaixa = [];
-
-                            for (var i = 0;
-                                i < controller.closeRegister.length;
-                                i++) {
-                              var values = controller.closeRegister[i]
-                                      ['value'] =
-                                  double.parse(controller
-                                      .textControllers[i].text
-                                      .replaceAll('.', '')
-                                      .replaceAll(',', '.'));
-
-                              caixa_fechamento caixaFechamento =
-                                  caixa_fechamento()
-                                    ..id_caixa = pdvController.caixaId.value
-                                    ..id_tipo_recebimento =
-                                        controller.dataOfTipoPagamento![i]
-                                    ..valor_informado = values;
-
-                              fechamentosCaixa.add(caixaFechamento);
-                            }
-                            await CloseRegisterServidorRepository()
-                                .closeRegisterServidor(atualDateFormatted,
-                                    idCaixaServidor, fechamentosCaixa);
-
-                            var tamanhoImpressora =
-                                configcontroller.tamanhoImpressora.value;
-
-                            if (tamanhoImpressora != 'SEM IMPRESSORA') {
-                              var printerPopupController =
-                                  Dependencies.printerPopupController();
-                              printerPopupController.isButtonEnabled.value =
-                                  true;
-                              await Get.dialog(
-                                PrinterPopup(onPrint: () async {
-                                  printerPopupController.toggleButton();
-                                  await printerController
-                                      .printCloseCaixa(fechamentosCaixa);
-                                  Get.back();
-                                }),
-                              );
-                            }
-                            await service
-                                .insertCaixaFechamento(fechamentosCaixa);
-                            await service.deleteCartaoItem();
-                            Get.back();
-                          }
-                        : null,
+                    onPressed: () async =>
+                        await LogicCloseRegister().closeRegister(),
                     child: Text(
                       'CONFIRMAR',
                       style: TextStyle(

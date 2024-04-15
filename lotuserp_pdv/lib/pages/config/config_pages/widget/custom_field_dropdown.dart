@@ -12,6 +12,7 @@ class CustomFieldDropdownMonitor extends StatelessWidget {
   final IconData icon;
   final String value;
   bool? isBalance;
+  bool? isBalanceName;
   bool? isTef;
   bool? isSizePrinter;
 
@@ -22,6 +23,7 @@ class CustomFieldDropdownMonitor extends StatelessWidget {
     required this.icon,
     required this.value,
     this.isBalance = false,
+    this.isBalanceName = false,
     this.isTef = false,
     this.isSizePrinter = false,
   }) : super(key: key);
@@ -74,6 +76,7 @@ class CustomFieldDropdownMonitor extends StatelessWidget {
                           text: text,
                           isTef: isTef!,
                           isSizePrinter: isSizePrinter!,
+                          isBalanceName: isBalanceName!,
                         ),
                       ],
                     ),

@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/core/app_routes.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/autocomplete_widget.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
@@ -12,6 +11,7 @@ import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import '../../common/custom_logo.dart';
 import '../../config/config_pages/widget/custom_confirm_button.dart';
+import 'service/logic/logic_navigation_to_dialog.dart';
 
 class LoginPageMonitor extends StatelessWidget {
   const LoginPageMonitor({super.key});
@@ -22,7 +22,7 @@ class LoginPageMonitor extends StatelessWidget {
     PasswordController passwordController = Dependencies.passwordController();
     Dependencies.configcontroller();
     Dependencies.saveImagePathController();
-      Dependencies.empresaValidaController();
+    Dependencies.empresaValidaController();
 
     // Texto no canto superior esquerdo da tela
     Widget _textTop() {
@@ -99,11 +99,16 @@ class LoginPageMonitor extends StatelessWidget {
             height: 70,
             child: FloatingActionButton(
               backgroundColor: CustomColors.customSwatchColor,
-              onPressed: () {
+              onPressed: () async =>
+                  await LogicNavigationToDialog().goToConfig()
+
+              //TODO => enviar logica para o dialog ao executar o login no config
+              /*
                 passwordController.userController.clear();
                 passwordController.passwordController.clear();
-                Get.toNamed(PagesRoutes.configRoute);
-              },
+                await configController.loadUsbName();
+                Get.toNamed(PagesRoutes.configRoute);*/
+              ,
               child: Icon(
                 Icons.settings,
                 size: 50,

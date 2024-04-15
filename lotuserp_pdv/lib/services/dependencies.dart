@@ -18,6 +18,7 @@ import '../../controllers/product_controller.dart';
 import '../../controllers/search_product_pdv_controller.dart';
 import '../../controllers/side_bar_controller.dart';
 import '../../controllers/text_field_controller.dart';
+import '../controllers/admin_config_controller.dart';
 import '../controllers/balanca_prix_controller.dart';
 import '../controllers/empresa_valida_controller.dart';
 import '../controllers/logo_controller.dart';
@@ -222,8 +223,16 @@ abstract class Dependencies {
   static LogoController logoController() {
     if (Get.isRegistered<LogoController>()) {
       return Get.find<LogoController>();
-    }else {
+    } else {
       return Get.put(LogoController(), permanent: true);
+    }
+  }
+
+  static AdminConfigController adminConfigController() {
+    if (Get.isRegistered<AdminConfigController>()) {
+      return Get.find<AdminConfigController>();
+    } else {
+      return Get.put(AdminConfigController());
     }
   }
 }

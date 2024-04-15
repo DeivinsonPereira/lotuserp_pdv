@@ -10,6 +10,7 @@ class CustomDropdownButtonMonitor extends StatelessWidget {
   final String value;
   final String text;
   bool? isBalance;
+  bool? isBalanceName;
   bool? isTef;
   bool? isSizePrinter;
 
@@ -19,6 +20,7 @@ class CustomDropdownButtonMonitor extends StatelessWidget {
     required this.value,
     required this.text,
     this.isBalance = false,
+    this.isBalanceName = false,
     this.isTef = false,
     this.isSizePrinter = false,
   }) : super(key: key);
@@ -33,7 +35,7 @@ class CustomDropdownButtonMonitor extends StatelessWidget {
           width: isTef!
               ? Get.width * 0.175
               : isSizePrinter!
-                  ? Get.width * 0.06
+                  ? Get.width * 0.12
                   : 95,
           child: DropdownButton<String>(
             isExpanded: true,
@@ -46,11 +48,10 @@ class CustomDropdownButtonMonitor extends StatelessWidget {
             elevation: 16,
             style: const TextStyle(color: Colors.black),
             onChanged: (newValue) {
-              isBalance == true
-                  ? _.updateBalanca(newValue!)
-                  : isTef == true
-                      ? _.updateTef(newValue!)
-                      : _.updateTamanhoImpressora(newValue!);
+              if (isBalance!) _.updateBalanca(newValue!);
+              if (isBalanceName!) _.updateNameDevice(newValue!);
+              if (isTef!) _.updateTef(newValue!);
+              if (isSizePrinter!) _.updateTamanhoImpressora(newValue!);
             },
             items: options.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(

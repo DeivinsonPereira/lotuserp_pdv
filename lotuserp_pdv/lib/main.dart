@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
+import 'package:lotuserp_pdv/collections/admin_config.dart';
 import 'package:lotuserp_pdv/collections/caixa.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/collections/dado_empresa.dart';
@@ -51,7 +52,8 @@ void main() async {
       Image_path_groupSchema,
       Image_path_productSchema,
       Image_path_logoSchema,
-      Empresa_validaSchema
+      Empresa_validaSchema,
+      Admin_configSchema
     ],
     directory: dir.path,
     inspector: true,

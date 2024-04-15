@@ -11,7 +11,6 @@ import 'package:lotuserp_pdv/services/dependencies.dart';
 
 import '../../../controllers/pdv.controller.dart';
 import '../../cpf_cnpj_page.dart/cpf_cnpj_page.dart';
-import '../../product/product_monitor_page.dart';
 import '../../second_copy/second_copy_page.dart';
 import '../custom/buttons_widget.dart';
 

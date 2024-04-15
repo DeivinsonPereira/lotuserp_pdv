@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/second_copy/services/logic_print.dart';
 
@@ -24,7 +25,11 @@ class NfceSecondCopyPage extends StatelessWidget {
       return Padding(
         padding: const EdgeInsets.all(6.5),
         child: InkWell(
-          onTap: () async => LogicSecondPrint().printNfce(),
+          onTap: () async {
+            Get.dialog(const LoadingScreen());
+            await LogicSecondPrint().printNfce();
+            Get.back();
+          },
           child: Container(
             decoration: BoxDecoration(
                 border: Border.all(width: 1, color: Colors.black),
