@@ -9,6 +9,7 @@ import 'package:lotuserp_pdv/controllers/information_controller.dart';
 import 'package:lotuserp_pdv/controllers/moviment_register_controller.dart';
 import 'package:lotuserp_pdv/controllers/password_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/repositories/open_register_servidor_repository.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
@@ -246,6 +247,7 @@ class OpenRegisterPage extends StatelessWidget {
                                         .isButtonEnabled.value ==
                                     true
                                 ? () async {
+                                    Get.dialog(const LoadingScreen());
                                     openRegisterController
                                         .toggleIsButtonEnabled();
                                     movimentRegisterController
@@ -320,6 +322,7 @@ class OpenRegisterPage extends StatelessWidget {
                                             'Já existe um caixa aberto para este usuário.',
                                       );
                                     }
+                                    Get.back();
                                   }
                                 : null,
                             child: Text(

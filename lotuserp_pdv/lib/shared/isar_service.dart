@@ -28,6 +28,7 @@ import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 import 'package:lotuserp_pdv/shared/widgets/endpoints_widget.dart';
 import 'package:path_provider/path_provider.dart';
@@ -1041,8 +1042,10 @@ class IsarService {
       printerPopupController.isButtonEnabled.value = true;
       await Get.dialog(
         PrinterPopup(onPrint: () async {
+          Get.dialog(const LoadingScreen());
           printerPopupController.toggleButton();
           await printerController.printOpenRegister(caixaItem);
+          Get.back();
           Get.back();
         }),
       );
@@ -1277,9 +1280,11 @@ class IsarService {
         printerPopupController.isButtonEnabled.value = true;
         await Get.dialog(
           PrinterPopup(onPrint: () async {
+            Get.dialog(const LoadingScreen());
             printerPopupController.toggleButton();
             await printerController.printMovimentationCaixa(
                 caixaItem, globalController.userId);
+            Get.back();
             Get.back();
           }),
         );
@@ -1901,7 +1906,6 @@ class IsarService {
       return null;
     }
   }
-
 
   //abre o banco de dados
   Future<Isar> openDB() async {

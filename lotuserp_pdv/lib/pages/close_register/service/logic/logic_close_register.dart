@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
 import '../../../../collections/caixa_fechamento.dart';
@@ -16,6 +17,7 @@ class LogicCloseRegister {
   IsarService service = IsarService();
 
   Future<void> closeRegister() async {
+    Get.dialog(const LoadingScreen());
     await pdvController.getidCaixa();
     if (closeRegisterController.isButtonEnabled.value == true) {
       closeRegisterController.toggleIsButtonEnabled();
@@ -50,8 +52,10 @@ class LogicCloseRegister {
         printerPopupController.isButtonEnabled.value = true;
         await Get.dialog(
           PrinterPopup(onPrint: () async {
+            Get.dialog(const LoadingScreen());
             printerPopupController.toggleButton();
             await printerController.printCloseCaixa(fechamentosCaixa);
+            Get.back();
             Get.back();
           }),
         );
@@ -60,5 +64,6 @@ class LogicCloseRegister {
       await service.deleteCartaoItem();
       Get.back();
     }
+    Get.back();
   }
 }

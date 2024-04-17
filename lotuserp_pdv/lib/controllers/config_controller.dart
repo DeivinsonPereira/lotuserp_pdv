@@ -380,7 +380,8 @@ class Configcontroller extends GetxController {
       }
     }
     if (deviceNameSelected.value == '') {
-      deviceNameSelected.value = devicesConnected[0].manufacturerName!;
+      deviceNameSelected.value =
+          'Nenhum Dispositivo'; //devicesConnected[0].manufacturerName!;
     }
     update();
   }

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:lotuserp_pdv/collections/caixa_item.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
+import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/pages/moviment_cash/component/custom_text_tipo.dart';
 import 'package:lotuserp_pdv/pages/widgets_pages/form_widgets.dart';
 import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
@@ -448,6 +449,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
                                           .isButtonEnabled.value ==
                                       true
                                   ? () async {
+                                      Get.dialog(const LoadingScreen());
                                       movimentRegisterController
                                           .toggleIsButtonEnabled();
                                       double movimentRegisterDouble =
@@ -513,6 +515,7 @@ class _MovimentCashPageState extends State<MovimentCashPage> {
 
                                       movimentRegisterController
                                           .clearMovimentRegister();
+                                      Get.back();
                                       Get.back();
                                     }
                                   : null,

@@ -71,14 +71,17 @@ class VerifyPasswordDialog extends StatelessWidget {
 
     // Constrói o input de senha
     Widget _buildPinput() {
-      return Pinput(
-        length: 6,
-        //  obscureText: true,
-        autofocus: true,
-        controller:
-            Dependencies.adminConfigController().passwordConfigController,
-        keyboardType: TextInputType.phone,
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      return Padding(
+        padding: EdgeInsets.only(bottom: Get.size.height * 0.1),
+        child: Pinput(
+          length: 6,
+          //  obscureText: true,
+          autofocus: true,
+          controller:
+              Dependencies.adminConfigController().passwordConfigController,
+          keyboardType: TextInputType.phone,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+        ),
       );
     }
 

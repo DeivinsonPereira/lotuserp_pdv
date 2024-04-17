@@ -100,15 +100,7 @@ class LoginPageMonitor extends StatelessWidget {
             child: FloatingActionButton(
               backgroundColor: CustomColors.customSwatchColor,
               onPressed: () async =>
-                  await LogicNavigationToDialog().goToConfig()
-
-              //TODO => enviar logica para o dialog ao executar o login no config
-              /*
-                passwordController.userController.clear();
-                passwordController.passwordController.clear();
-                await configController.loadUsbName();
-                Get.toNamed(PagesRoutes.configRoute);*/
-              ,
+                  await LogicNavigationToDialog().goToConfig(),
               child: Icon(
                 Icons.settings,
                 size: 50,

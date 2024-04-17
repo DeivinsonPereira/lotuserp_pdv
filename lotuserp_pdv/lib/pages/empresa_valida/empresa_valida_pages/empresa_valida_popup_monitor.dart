@@ -95,6 +95,7 @@ class EmpresaValidaPopupMonitor extends StatelessWidget {
               text: 'Contrato da empresa',
               icon: FontAwesome.address_card,
               isEmpresaValida: true,
+              isCpfCnpj: true,
             ),
 
             // corpo

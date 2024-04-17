@@ -296,7 +296,7 @@ class PrinterController extends GetxController {
         bytes += generator.text('CONFERIDO POR: ');
         bytes += generator.text('\n\n');
 
-        print('A impressão está comentada');
+      //  print('A impressão está comentada');
         String textToPrint = String.fromCharCodes(bytes);
         await bluetoothManager.writeText(textToPrint);
       } on BTException {
@@ -448,7 +448,7 @@ class PrinterController extends GetxController {
         bytes += generator.text('CONFERIDO POR: ');
         bytes += generator.text('\n\n');
 
-        print('A impressão da movimentação de caixa está comentada');
+     //   print('A impressão da movimentação de caixa está comentada');
         String textToPrint = String.fromCharCodes(bytes);
         await bluetoothManager.writeText(textToPrint);
       } on BTException {
@@ -653,7 +653,7 @@ class PrinterController extends GetxController {
         bytes +=
             generator.text('  CONFERENTE: _______________________________\n\n');
         bytes += generator.cut();
-        print('A impressão do fechamento de caixa está comentada');
+    //    print('A impressão do fechamento de caixa está comentada');
 
         String textToPrint = String.fromCharCodes(bytes);
         await bluetoothManager.writeText(textToPrint);
@@ -888,7 +888,7 @@ class PrinterController extends GetxController {
 
       bytes += generator.cut();
 
-      print('A impressão da venda de caixa está comentada');
+   //   print('A impressão da venda de caixa está comentada');
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {
@@ -979,7 +979,7 @@ class PrinterController extends GetxController {
       bytes += generator.text("Via do Estabelecimento:\n$viaEstabelecimento");
       bytes += generator.cut();
 
-      print('A impressão da segunda via está comentada');
+    //  print('A impressão da segunda via está comentada');
 //      String textToPrint = String.fromCharCodes(bytes);
 //      await bluetoothManager.writeText(textToPrint);
     } on BTException {
