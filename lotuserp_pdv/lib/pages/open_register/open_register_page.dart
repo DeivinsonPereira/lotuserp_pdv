@@ -298,7 +298,7 @@ class OpenRegisterPage extends StatelessWidget {
                                       ..id_caixa_servidor =
                                           responseServidorController
                                               .openRegisterId.value;
-                                    if (openRegisterDouble > 0.00) {
+                                    if (/*openRegisterDouble > 0.00*/ !caixaExistente) {
                                       await service.insertCaixaWithCaixaItem(
                                           caixas,
                                           atualDate,
@@ -309,14 +309,15 @@ class OpenRegisterPage extends StatelessWidget {
                                           .clearOpenRegister();
 
                                       Get.back();
-                                    } else if (openRegisterDouble == 0.00 &&
+                                    } /*else if (openRegisterDouble == 0.00 &&
                                         !caixaExistente) {
                                       service.insertCaixa(caixas);
                                       movimentRegisterController
                                           .clearOpenRegister();
                                       informationController.searchCaixaId();
                                       Get.back();
-                                    } else if (caixaExistente) {
+                                    } */
+                                    else if (caixaExistente) {
                                       const CustomCherryError(
                                         message:
                                             'Já existe um caixa aberto para este usuário.',

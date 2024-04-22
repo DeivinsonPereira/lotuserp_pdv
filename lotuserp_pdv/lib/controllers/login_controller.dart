@@ -13,7 +13,7 @@ import 'password_controller.dart';
 class LoginController extends GetxController {
   IsarService service = IsarService();
   PasswordController passwordController = Dependencies.passwordController();
-
+  var configController = Dependencies.configcontroller();
   RxBool obscureText = false.obs;
 
   void toggleObscureText() {
@@ -26,6 +26,7 @@ class LoginController extends GetxController {
 
   //captura possíveis erros no login
   Future<void> handleLogin(BuildContext context) async {
+    configController.loadNameBalance();
     //verifica se os campos estão vazios
     if (_areFieldsEmpty()) {
       const CustomCherryError(message: 'Por favor, preencha todos os campos.')

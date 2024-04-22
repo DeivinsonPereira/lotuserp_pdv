@@ -50,6 +50,7 @@ class LogicNavigationToConfig {
         passwordController.userController.clear();
         passwordController.passwordController.clear();
         await configController.loadUsbName();
+        await configController.loadNameBalance();
         Get.back();
         Get.toNamed(PagesRoutes.configRoute);
         adminConfigController.clearPasswordConfigController();

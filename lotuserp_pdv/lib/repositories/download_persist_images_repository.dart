@@ -53,14 +53,19 @@ Future downloadImageGroup() async {
               continue;
             }
           } catch (e) {
-            String pathName = '${dir.path}/assets/grupos/$fileName';
+            try {
+              String pathName = '${dir.path}/assets/grupos/$fileName';
 
-            await Directory('${dir.path}/assets/grupos')
-                .create(recursive: true);
-            File file = File(pathName);
-            var result = await file.writeAsBytes(response.bodyBytes);
+              await Directory('${dir.path}/assets/grupos')
+                  .create(recursive: true);
+              File file = File(pathName);
+              var result = await file.writeAsBytes(response.bodyBytes);
 
-            logger.d('Imagem baixada com sucesso $result');
+              logger.d('Imagem baixada com sucesso $result');
+            } catch (e) {
+              logger.e('Erro ao baixar imagem');
+              continue;
+            }
           }
         } else {
           logger.e('Erro ao baixar imagem');
@@ -113,14 +118,19 @@ Future downloadImageProduct() async {
               continue;
             }
           } catch (e) {
-            Directory dir = await getApplicationDocumentsDirectory();
-            String pathName = '${dir.path}/assets/produtos/$fileName';
-            await Directory('${dir.path}/assets/produtos')
-                .create(recursive: true);
-            File file = File(pathName);
-            var result = await file.writeAsBytes(response.bodyBytes);
+            try {
+              Directory dir = await getApplicationDocumentsDirectory();
+              String pathName = '${dir.path}/assets/produtos/$fileName';
+              await Directory('${dir.path}/assets/produtos')
+                  .create(recursive: true);
+              File file = File(pathName);
+              var result = await file.writeAsBytes(response.bodyBytes);
 
-            logger.d('Imagem baixada com sucesso $result');
+              logger.d('Imagem baixada com sucesso $result');
+            } catch (e) {
+              logger.e('Erro ao baixar imagem');
+              continue;
+            }
           }
         } else {
           logger.e('Erro ao baixar imagem');

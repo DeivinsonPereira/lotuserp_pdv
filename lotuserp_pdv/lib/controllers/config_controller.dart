@@ -29,7 +29,7 @@ class Configcontroller extends GetxController {
   var colorBackground =
       {'name': 'AZUL ESCURO', 'color': const Color(0xFF2B305B)}.obs;
   List<String> devicesManufacturer = [];
-  var deviceNameSelected = ''.obs;
+  var deviceNameSelected = AuxString.DEVICE_NOT_FOUND.obs;
 
   @override
   void onInit() {
@@ -335,22 +335,24 @@ class Configcontroller extends GetxController {
   // CARREGA O NOME DA BALANCA CADASTRADA
   Future<void> loadNameBalance() async {
     dado_empresa? nameBalanceDb = await service.getDataEmpresa();
-    if (nameBalanceDb != null && nameBalanceDb.nome_balanca != null) {
-      for (var item in devicesManufacturer) {
-        if (item == nameBalanceDb.nome_balanca!) {
-          deviceNameSelected.value = nameBalanceDb.nome_balanca!;
-        } else {
+    Future.delayed(const Duration(seconds: 1)).then((value) async {
+      if (nameBalanceDb != null && nameBalanceDb.nome_balanca != null) {
+        for (var item in devicesManufacturer) {
+          if (item == nameBalanceDb.nome_balanca!) {
+            deviceNameSelected.value = nameBalanceDb.nome_balanca!;
+          } /*else {
           deviceNameSelected.value = AuxString.DEVICE_NOT_FOUND;
+        }*/
         }
-      }
-      /*textFieldController.nomeBalancaController.text =
+        /*textFieldController.nomeBalancaController.text =
           nameBalanceDb.nome_balanca!;
       deviceNameSelected.value = nameBalanceDb.nome_balanca!;*/
-      update();
-    } else {
-      textFieldController.nomeBalancaController.text = '';
-      update();
-    }
+        update();
+      } else {
+        textFieldController.nomeBalancaController.text = '';
+        update();
+      }
+    });
   }
 
   // CARREGA O TAMANHO DA IMPRESSORA CADASTRADA
@@ -377,6 +379,14 @@ class Configcontroller extends GetxController {
     for (var device in devicesConnected) {
       if (device.manufacturerName != null) {
         devicesManufacturer.add(device.manufacturerName!);
+      } else if (device.productName != null) {
+        devicesManufacturer.add(device.productName!);
+      } else if (device.deviceId != null) {
+        devicesManufacturer.add(device.deviceId!.toString());
+      } else if (device.pid != null) {
+        devicesManufacturer.add(device.pid!.toString());
+      } else if (device.vid != null) {
+        devicesManufacturer.add(device.vid!.toString());
       }
     }
     if (deviceNameSelected.value == '') {
