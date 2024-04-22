@@ -69,7 +69,9 @@ class IsarService {
     Uri uri = Uri.parse(Endpoints().prefixo());
     try {
       conexaoSiage = false;
-      final response = await http.get(uri);
+      final response = await http.get(uri).timeout(
+            const Duration(seconds: 5),
+          );
 
       if (response.statusCode == 200) {
         conexaoSiage = true;
@@ -100,7 +102,9 @@ class IsarService {
     }
 
     try {
-      final response = await http.get(uri);
+      final response = await http.get(uri).timeout(
+            const Duration(seconds: 5),
+          );
 
       if (response.statusCode == 200) {
         conexaoApi = true;

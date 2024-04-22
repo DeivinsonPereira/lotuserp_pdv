@@ -32,46 +32,53 @@ Future downloadImageGroup() async {
     await deleteExistingFiles('${dir.path}/assets/grupos/');
 
     for (var grupo in grupos) {
-      // BAIXAR A IMAGEM
-      String? fileImage = grupo.file_imagem;
-      if (fileImage != null || fileImage != '') {
-        var url = '${ip}getimagem?categoria=GRU&file=$fileImage&result=JSO';
-        var fileName = grupo.file_imagem;
+      try {
+        // BAIXAR A IMAGEM
+        String? fileImage = grupo.file_imagem;
+        if (fileImage != null || fileImage != '') {
+          var url = '${ip}getimagem?categoria=GRU&file=$fileImage&result=JSO';
+          var fileName = grupo.file_imagem;
 
-        var response = await http.get(
-            Uri.parse(
-              url,
-            ),
-            headers: Header.header);
+          var response = await http
+              .get(
+                  Uri.parse(
+                    url,
+                  ),
+                  headers: Header.header)
+              .timeout(const Duration(seconds: 5));
 
-        if (response.statusCode == 200) {
-          try {
-            var jsonResponse = jsonDecode(response.body);
-
-            if (jsonResponse['success'] == false ||
-                jsonResponse['success'] == null) {
-              continue;
-            }
-          } catch (e) {
+          if (response.statusCode == 200) {
             try {
-              String pathName = '${dir.path}/assets/grupos/$fileName';
+              var jsonResponse = jsonDecode(response.body);
 
-              await Directory('${dir.path}/assets/grupos')
-                  .create(recursive: true);
-              File file = File(pathName);
-              var result = await file.writeAsBytes(response.bodyBytes);
-
-              logger.d('Imagem baixada com sucesso $result');
+              if (jsonResponse['success'] == false ||
+                  jsonResponse['success'] == null) {
+                continue;
+              }
             } catch (e) {
-              logger.e('Erro ao baixar imagem');
-              continue;
+              try {
+                String pathName = '${dir.path}/assets/grupos/$fileName';
+
+                await Directory('${dir.path}/assets/grupos')
+                    .create(recursive: true);
+                File file = File(pathName);
+                var result = await file.writeAsBytes(response.bodyBytes);
+
+                logger.d('Imagem baixada com sucesso $result');
+              } catch (e) {
+                logger.e('Erro ao baixar imagem');
+                continue;
+              }
             }
+          } else {
+            logger.e('Erro ao baixar imagem');
           }
         } else {
           logger.e('Erro ao baixar imagem');
         }
-      } else {
+      } catch (e) {
         logger.e('Erro ao baixar imagem');
+        continue;
       }
     }
   } catch (e) {
@@ -79,6 +86,7 @@ Future downloadImageGroup() async {
   }
 }
 
+// FAZ DOWNLOAD DAS IMAGENS DOS PRODUTOS
 Future downloadImageProduct() async {
   Logger logger = Logger();
   var saveImagePathController = Dependencies.saveImagePathController();
@@ -97,46 +105,53 @@ Future downloadImageProduct() async {
       return;
     }
     for (var produto in produtos) {
-      // BAIXAR A IMAGEM
-      String? fileImage = produto.file_imagem;
-      if (fileImage != null || fileImage != '') {
-        var url = '${ip}getimagem?categoria=PRO&file=$fileImage&result=JSO';
-        var fileName = produto.file_imagem;
+      try {
+        // BAIXAR A IMAGEM
+        String? fileImage = produto.file_imagem;
+        if (fileImage != null || fileImage != '') {
+          var url = '${ip}getimagem?categoria=PRO&file=$fileImage&result=JSO';
+          var fileName = produto.file_imagem;
 
-        var response = await http.get(
-            Uri.parse(
-              url,
-            ),
-            headers: Header.header);
+          var response = await http
+              .get(
+                  Uri.parse(
+                    url,
+                  ),
+                  headers: Header.header)
+              .timeout(const Duration(seconds: 5));
 
-        if (response.statusCode == 200) {
-          try {
-            var jsonResponse = jsonDecode(response.body);
-
-            if (jsonResponse['success'] == false ||
-                jsonResponse['success'] == null) {
-              continue;
-            }
-          } catch (e) {
+          if (response.statusCode == 200) {
             try {
-              Directory dir = await getApplicationDocumentsDirectory();
-              String pathName = '${dir.path}/assets/produtos/$fileName';
-              await Directory('${dir.path}/assets/produtos')
-                  .create(recursive: true);
-              File file = File(pathName);
-              var result = await file.writeAsBytes(response.bodyBytes);
+              var jsonResponse = jsonDecode(response.body);
 
-              logger.d('Imagem baixada com sucesso $result');
+              if (jsonResponse['success'] == false ||
+                  jsonResponse['success'] == null) {
+                continue;
+              }
             } catch (e) {
-              logger.e('Erro ao baixar imagem');
-              continue;
+              try {
+                Directory dir = await getApplicationDocumentsDirectory();
+                String pathName = '${dir.path}/assets/produtos/$fileName';
+                await Directory('${dir.path}/assets/produtos')
+                    .create(recursive: true);
+                File file = File(pathName);
+                var result = await file.writeAsBytes(response.bodyBytes);
+
+                logger.d('Imagem baixada com sucesso $result');
+              } catch (e) {
+                logger.e('Erro ao baixar imagem');
+                continue;
+              }
             }
+          } else {
+            logger.e('Erro ao baixar imagem');
           }
         } else {
           logger.e('Erro ao baixar imagem');
         }
-      } else {
+      } catch (e) {
         logger.e('Erro ao baixar imagem');
+        continue;
       }
     }
   } catch (e) {
@@ -144,6 +159,7 @@ Future downloadImageProduct() async {
   }
 }
 
+// FAZ DOWNLOAD DAS IMAGENS DAS LOGOS
 Future<void> downloadImageLogo() async {
   Logger logger = Logger();
 
@@ -154,11 +170,13 @@ Future<void> downloadImageLogo() async {
     String urlLogoPadrao =
         await Endpoints().endpointSearchImageDIV('PDV_Logo_Padrao.png');
     try {
-      var response = await http.get(
-          Uri.parse(
-            urlLogoPadrao,
-          ),
-          headers: Header.header);
+      var response = await http
+          .get(
+              Uri.parse(
+                urlLogoPadrao,
+              ),
+              headers: Header.header)
+          .timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         try {
           var jsonResponse = jsonDecode(response.body);
@@ -185,11 +203,13 @@ Future<void> downloadImageLogo() async {
     String urlLogoBranca =
         await Endpoints().endpointSearchImageDIV('PDV_Logo_Branca.png');
     try {
-      var response = await http.get(
-          Uri.parse(
-            urlLogoBranca,
-          ),
-          headers: Header.header);
+      var response = await http
+          .get(
+              Uri.parse(
+                urlLogoBranca,
+              ),
+              headers: Header.header)
+          .timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         try {
           var jsonResponse = jsonDecode(response.body);
@@ -217,6 +237,7 @@ Future<void> downloadImageLogo() async {
   }
 }
 
+// DELETA OS ITENS DE IMAGENS EXISTENTES
 Future<void> deleteExistingFiles(String folderPath) async {
   final directory = Directory(folderPath);
   if (await directory.exists()) {
