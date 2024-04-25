@@ -38,7 +38,7 @@ import 'services/dependencies.dart';
 
 Future<void> startMonitorarCaixa(String appSupportPath) async {
   final isar = await initializeIsar(appSupportPath);
-  Timer.periodic(const Duration(seconds: 15),
+  Timer.periodic(const Duration(minutes: 5),
       (timer) => monitorarCaixa(timer, isar, appSupportPath));
 }
 
