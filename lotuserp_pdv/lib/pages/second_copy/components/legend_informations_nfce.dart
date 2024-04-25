@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LegendInformationsNfce extends StatelessWidget {
   const LegendInformationsNfce({
@@ -8,16 +9,16 @@ class LegendInformationsNfce extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.only(right: 25.0, top: 8),
+    return Padding(
+      padding: const EdgeInsets.only(right: 25.0, top: 8),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          LegendWidgetNfce(data: '', size: 10),
-          LegendWidgetNfce(data: 'Id Venda', size: 100.0),
-          LegendWidgetNfce(data: 'Hora Venda', size: 150.0),
-          LegendWidgetNfce(data: 'Valor', size: 75.0),
-          /*LegendWidgetNfce(data: 'Impressão', size: 100.0),*/
+          LegendWidgetNfce(data: '', size: Get.size.width * 0.01),
+          LegendWidgetNfce(data: 'Id Venda', size: Get.size.width * 0.08),
+          LegendWidgetNfce(data: 'Situacão', size: Get.size.width * 0.08),
+          LegendWidgetNfce(data: 'Hora Venda', size: Get.size.width * 0.13),
+          LegendWidgetNfce(data: 'Valor', size: Get.size.width * 0.04),
         ],
       ),
     );

@@ -22,7 +22,7 @@ class SecondCopyPage extends StatelessWidget {
       return SizedBox(
         height: Get.size.height * 0.065,
         child: CustomElevatedButtonSecondCopy(
-          text: 'NFCE',
+          text: 'VENDAS',
           function: () {
             checkboxController.setSelectOption(
               IdentifyButton.NFCE.index,

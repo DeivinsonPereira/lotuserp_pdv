@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'produto.dart';
 
 // **************************************************************************
@@ -84,88 +82,103 @@ const ProdutoSchema = CollectionSchema(
       name: r'id_grupo',
       type: IsarType.long,
     ),
-    r'nao_rec_desconto': PropertySchema(
+    r'id_gtrib_vendas_nfce': PropertySchema(
       id: 13,
+      name: r'id_gtrib_vendas_nfce',
+      type: IsarType.long,
+    ),
+    r'id_gtrib_vendas_nfe': PropertySchema(
+      id: 14,
+      name: r'id_gtrib_vendas_nfe',
+      type: IsarType.long,
+    ),
+    r'imp_comanda': PropertySchema(
+      id: 15,
+      name: r'imp_comanda',
+      type: IsarType.long,
+    ),
+    r'nao_rec_desconto': PropertySchema(
+      id: 16,
       name: r'nao_rec_desconto',
       type: IsarType.long,
     ),
     r'promocao_apartir': PropertySchema(
-      id: 14,
+      id: 17,
       name: r'promocao_apartir',
       type: IsarType.long,
     ),
     r'promocao_apartir_perc': PropertySchema(
-      id: 15,
+      id: 18,
       name: r'promocao_apartir_perc',
       type: IsarType.double,
     ),
     r'promocao_ativar': PropertySchema(
-      id: 16,
+      id: 19,
       name: r'promocao_ativar',
       type: IsarType.long,
     ),
     r'promocao_compre': PropertySchema(
-      id: 17,
+      id: 20,
       name: r'promocao_compre',
       type: IsarType.long,
     ),
     r'promocao_data_inicio': PropertySchema(
-      id: 18,
+      id: 21,
       name: r'promocao_data_inicio',
-      type: IsarType.dateTime,
+      type: IsarType.string,
     ),
     r'promocao_data_limite': PropertySchema(
-      id: 19,
+      id: 22,
       name: r'promocao_data_limite',
-      type: IsarType.dateTime,
+      type: IsarType.string,
     ),
     r'promocao_hora_final': PropertySchema(
-      id: 20,
+      id: 23,
       name: r'promocao_hora_final',
       type: IsarType.string,
     ),
     r'promocao_hora_inicial': PropertySchema(
-      id: 21,
+      id: 24,
       name: r'promocao_hora_inicial',
       type: IsarType.string,
     ),
     r'promocao_leve': PropertySchema(
-      id: 22,
+      id: 25,
       name: r'promocao_leve',
       type: IsarType.long,
     ),
     r'promocao_preco': PropertySchema(
-      id: 23,
+      id: 26,
       name: r'promocao_preco',
       type: IsarType.double,
     ),
     r'promocao_tipo_desc': PropertySchema(
-      id: 24,
+      id: 27,
       name: r'promocao_tipo_desc',
       type: IsarType.long,
     ),
     r'pvenda': PropertySchema(
-      id: 25,
+      id: 28,
       name: r'pvenda',
       type: IsarType.double,
     ),
     r'saldo_produto': PropertySchema(
-      id: 26,
+      id: 29,
       name: r'saldo_produto',
       type: IsarType.double,
     ),
     r'status': PropertySchema(
-      id: 27,
+      id: 30,
       name: r'status',
       type: IsarType.long,
     ),
     r'unidade': PropertySchema(
-      id: 28,
+      id: 31,
       name: r'unidade',
       type: IsarType.string,
     ),
     r'venda_kg': PropertySchema(
-      id: 29,
+      id: 32,
       name: r'venda_kg',
       type: IsarType.long,
     )
@@ -202,7 +215,12 @@ int _produtoEstimateSize(
       bytesCount += 3 + value.length * 3;
     }
   }
-  bytesCount += 3 + object.grade.length * 3;
+  {
+    final value = object.grade;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
   {
     final value = object.gtin;
     if (value != null) {
@@ -211,6 +229,18 @@ int _produtoEstimateSize(
   }
   {
     final value = object.gtin_grade;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.promocao_data_inicio;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.promocao_data_limite;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
     }
@@ -255,23 +285,26 @@ void _produtoSerialize(
   writer.writeString(offsets[10], object.gtin_grade);
   writer.writeLong(offsets[11], object.id_empresa);
   writer.writeLong(offsets[12], object.id_grupo);
-  writer.writeLong(offsets[13], object.nao_rec_desconto);
-  writer.writeLong(offsets[14], object.promocao_apartir);
-  writer.writeDouble(offsets[15], object.promocao_apartir_perc);
-  writer.writeLong(offsets[16], object.promocao_ativar);
-  writer.writeLong(offsets[17], object.promocao_compre);
-  writer.writeDateTime(offsets[18], object.promocao_data_inicio);
-  writer.writeDateTime(offsets[19], object.promocao_data_limite);
-  writer.writeString(offsets[20], object.promocao_hora_final);
-  writer.writeString(offsets[21], object.promocao_hora_inicial);
-  writer.writeLong(offsets[22], object.promocao_leve);
-  writer.writeDouble(offsets[23], object.promocao_preco);
-  writer.writeLong(offsets[24], object.promocao_tipo_desc);
-  writer.writeDouble(offsets[25], object.pvenda);
-  writer.writeDouble(offsets[26], object.saldo_produto);
-  writer.writeLong(offsets[27], object.status);
-  writer.writeString(offsets[28], object.unidade);
-  writer.writeLong(offsets[29], object.venda_kg);
+  writer.writeLong(offsets[13], object.id_gtrib_vendas_nfce);
+  writer.writeLong(offsets[14], object.id_gtrib_vendas_nfe);
+  writer.writeLong(offsets[15], object.imp_comanda);
+  writer.writeLong(offsets[16], object.nao_rec_desconto);
+  writer.writeLong(offsets[17], object.promocao_apartir);
+  writer.writeDouble(offsets[18], object.promocao_apartir_perc);
+  writer.writeLong(offsets[19], object.promocao_ativar);
+  writer.writeLong(offsets[20], object.promocao_compre);
+  writer.writeString(offsets[21], object.promocao_data_inicio);
+  writer.writeString(offsets[22], object.promocao_data_limite);
+  writer.writeString(offsets[23], object.promocao_hora_final);
+  writer.writeString(offsets[24], object.promocao_hora_inicial);
+  writer.writeLong(offsets[25], object.promocao_leve);
+  writer.writeDouble(offsets[26], object.promocao_preco);
+  writer.writeLong(offsets[27], object.promocao_tipo_desc);
+  writer.writeDouble(offsets[28], object.pvenda);
+  writer.writeDouble(offsets[29], object.saldo_produto);
+  writer.writeLong(offsets[30], object.status);
+  writer.writeString(offsets[31], object.unidade);
+  writer.writeLong(offsets[32], object.venda_kg);
 }
 
 produto _produtoDeserialize(
@@ -281,37 +314,40 @@ produto _produtoDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = produto(
-    reader.readLong(offsets[11]),
     id,
-    reader.readString(offsets[8]),
+    reader.readLongOrNull(offsets[11]),
+    reader.readStringOrNull(offsets[8]),
     reader.readLongOrNull(offsets[12]),
     reader.readStringOrNull(offsets[5]),
-    reader.readStringOrNull(offsets[28]),
+    reader.readStringOrNull(offsets[31]),
     reader.readStringOrNull(offsets[9]),
     reader.readLongOrNull(offsets[4]),
-    reader.readLongOrNull(offsets[29]),
-    reader.readLongOrNull(offsets[13]),
-    reader.readLongOrNull(offsets[27]),
-    reader.readDouble(offsets[26]),
-    reader.readDouble(offsets[25]),
+    reader.readLongOrNull(offsets[32]),
+    reader.readLongOrNull(offsets[16]),
+    reader.readLongOrNull(offsets[30]),
+    reader.readDoubleOrNull(offsets[29]),
+    reader.readDoubleOrNull(offsets[28]),
     reader.readLongOrNull(offsets[0]),
     reader.readLongOrNull(offsets[1]),
     reader.readLongOrNull(offsets[3]),
     reader.readLongOrNull(offsets[2]),
     reader.readStringOrNull(offsets[10]),
-    reader.readLongOrNull(offsets[16]),
-    reader.readDoubleOrNull(offsets[23]),
-    reader.readDateTimeOrNull(offsets[18]),
-    reader.readDateTimeOrNull(offsets[19]),
+    reader.readLongOrNull(offsets[19]),
+    reader.readDoubleOrNull(offsets[26]),
     reader.readStringOrNull(offsets[21]),
-    reader.readStringOrNull(offsets[20]),
-    reader.readLongOrNull(offsets[24]),
+    reader.readStringOrNull(offsets[22]),
+    reader.readStringOrNull(offsets[24]),
+    reader.readStringOrNull(offsets[23]),
+    reader.readLongOrNull(offsets[27]),
+    reader.readLongOrNull(offsets[20]),
+    reader.readLongOrNull(offsets[25]),
     reader.readLongOrNull(offsets[17]),
-    reader.readLongOrNull(offsets[22]),
+    reader.readDoubleOrNull(offsets[18]),
     reader.readLongOrNull(offsets[14]),
-    reader.readDoubleOrNull(offsets[15]),
+    reader.readLongOrNull(offsets[13]),
     reader.readStringOrNull(offsets[7]),
     reader.readLongOrNull(offsets[6]),
+    reader.readLongOrNull(offsets[15]),
   );
   return object;
 }
@@ -340,13 +376,13 @@ P _produtoDeserializeProp<P>(
     case 7:
       return (reader.readStringOrNull(offset)) as P;
     case 8:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 9:
       return (reader.readStringOrNull(offset)) as P;
     case 10:
       return (reader.readStringOrNull(offset)) as P;
     case 11:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 12:
       return (reader.readLongOrNull(offset)) as P;
     case 13:
@@ -354,34 +390,40 @@ P _produtoDeserializeProp<P>(
     case 14:
       return (reader.readLongOrNull(offset)) as P;
     case 15:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 16:
       return (reader.readLongOrNull(offset)) as P;
     case 17:
       return (reader.readLongOrNull(offset)) as P;
     case 18:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 19:
-      return (reader.readDateTimeOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 20:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 21:
       return (reader.readStringOrNull(offset)) as P;
     case 22:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 23:
-      return (reader.readDoubleOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 24:
-      return (reader.readLongOrNull(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 25:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 26:
-      return (reader.readDouble(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 27:
       return (reader.readLongOrNull(offset)) as P;
     case 28:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readDoubleOrNull(offset)) as P;
     case 29:
+      return (reader.readDoubleOrNull(offset)) as P;
+    case 30:
+      return (reader.readLongOrNull(offset)) as P;
+    case 31:
+      return (reader.readStringOrNull(offset)) as P;
+    case 32:
       return (reader.readLongOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -1206,8 +1248,24 @@ extension produtoQueryFilter
     });
   }
 
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'grade',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> gradeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'grade',
+      ));
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterFilterCondition> gradeEqualTo(
-    String value, {
+    String? value, {
     bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1220,7 +1278,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> gradeGreaterThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1235,7 +1293,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> gradeLessThan(
-    String value, {
+    String? value, {
     bool include = false,
     bool caseSensitive = true,
   }) {
@@ -1250,8 +1308,8 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> gradeBetween(
-    String lower,
-    String upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     bool caseSensitive = true,
@@ -1628,8 +1686,24 @@ extension produtoQueryFilter
     });
   }
 
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_empresa',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_empresa',
+      ));
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaEqualTo(
-      int value) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id_empresa',
@@ -1639,7 +1713,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1652,7 +1726,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -1665,8 +1739,8 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> id_empresaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -1750,6 +1824,154 @@ extension produtoQueryFilter
     });
   }
 
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfceIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_gtrib_vendas_nfce',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfceIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_gtrib_vendas_nfce',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfceEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_gtrib_vendas_nfce',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfceGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_gtrib_vendas_nfce',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfceLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_gtrib_vendas_nfce',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfceBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_gtrib_vendas_nfce',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfeIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_gtrib_vendas_nfe',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfeIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_gtrib_vendas_nfe',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfeEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_gtrib_vendas_nfe',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfeGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_gtrib_vendas_nfe',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfeLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_gtrib_vendas_nfe',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      id_gtrib_vendas_nfeBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_gtrib_vendas_nfe',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterFilterCondition> id_produtoEqualTo(
       Id value) {
     return QueryBuilder.apply(this, (query) {
@@ -1795,6 +2017,75 @@ extension produtoQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
         property: r'id_produto',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> imp_comandaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'imp_comanda',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> imp_comandaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'imp_comanda',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> imp_comandaEqualTo(
+      int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'imp_comanda',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> imp_comandaGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'imp_comanda',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> imp_comandaLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'imp_comanda',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> imp_comandaBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'imp_comanda',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -2196,49 +2487,58 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
-      promocao_data_inicioEqualTo(DateTime? value) {
+      promocao_data_inicioEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocao_data_inicio',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       promocao_data_inicioGreaterThan(
-    DateTime? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'promocao_data_inicio',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       promocao_data_inicioLessThan(
-    DateTime? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'promocao_data_inicio',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       promocao_data_inicioBetween(
-    DateTime? lower,
-    DateTime? upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -2247,6 +2547,77 @@ extension produtoQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'promocao_data_inicio',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'promocao_data_inicio',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'promocao_data_inicio',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'promocao_data_inicio',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'promocao_data_inicio',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_inicioIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'promocao_data_inicio',
+        value: '',
       ));
     });
   }
@@ -2270,49 +2641,58 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
-      promocao_data_limiteEqualTo(DateTime? value) {
+      promocao_data_limiteEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'promocao_data_limite',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       promocao_data_limiteGreaterThan(
-    DateTime? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'promocao_data_limite',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       promocao_data_limiteLessThan(
-    DateTime? value, {
+    String? value, {
     bool include = false,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'promocao_data_limite',
         value: value,
+        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       promocao_data_limiteBetween(
-    DateTime? lower,
-    DateTime? upper, {
+    String? lower,
+    String? upper, {
     bool includeLower = true,
     bool includeUpper = true,
+    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -2321,6 +2701,77 @@ extension produtoQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'promocao_data_limite',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'promocao_data_limite',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'promocao_data_limite',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'promocao_data_limite',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'promocao_data_limite',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      promocao_data_limiteIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'promocao_data_limite',
+        value: '',
       ));
     });
   }
@@ -2859,8 +3310,24 @@ extension produtoQueryFilter
     });
   }
 
+  QueryBuilder<produto, produto, QAfterFilterCondition> pvendaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'pvenda',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition> pvendaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'pvenda',
+      ));
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterFilterCondition> pvendaEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2873,7 +3340,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> pvendaGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2888,7 +3355,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> pvendaLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2903,8 +3370,8 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> pvendaBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -2921,8 +3388,25 @@ extension produtoQueryFilter
     });
   }
 
+  QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'saldo_produto',
+      ));
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterFilterCondition>
+      saldo_produtoIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'saldo_produto',
+      ));
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoEqualTo(
-    double value, {
+    double? value, {
     double epsilon = Query.epsilon,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -2936,7 +3420,7 @@ extension produtoQueryFilter
 
   QueryBuilder<produto, produto, QAfterFilterCondition>
       saldo_produtoGreaterThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2951,7 +3435,7 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoLessThan(
-    double value, {
+    double? value, {
     bool include = false,
     double epsilon = Query.epsilon,
   }) {
@@ -2966,8 +3450,8 @@ extension produtoQueryFilter
   }
 
   QueryBuilder<produto, produto, QAfterFilterCondition> saldo_produtoBetween(
-    double lower,
-    double upper, {
+    double? lower,
+    double? upper, {
     bool includeLower = true,
     bool includeUpper = true,
     double epsilon = Query.epsilon,
@@ -3434,6 +3918,43 @@ extension produtoQuerySortBy on QueryBuilder<produto, produto, QSortBy> {
     });
   }
 
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_gtrib_vendas_nfce() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfce', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy>
+      sortById_gtrib_vendas_nfceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfce', Sort.desc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_gtrib_vendas_nfe() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfe', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> sortById_gtrib_vendas_nfeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfe', Sort.desc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> sortByImp_comanda() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imp_comanda', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> sortByImp_comandaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imp_comanda', Sort.desc);
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterSortBy> sortByNao_rec_desconto() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nao_rec_desconto', Sort.asc);
@@ -3803,6 +4324,31 @@ extension produtoQuerySortThenBy
     });
   }
 
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_gtrib_vendas_nfce() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfce', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy>
+      thenById_gtrib_vendas_nfceDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfce', Sort.desc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_gtrib_vendas_nfe() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfe', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> thenById_gtrib_vendas_nfeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_gtrib_vendas_nfe', Sort.desc);
+    });
+  }
+
   QueryBuilder<produto, produto, QAfterSortBy> thenById_produto() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_produto', Sort.asc);
@@ -3812,6 +4358,18 @@ extension produtoQuerySortThenBy
   QueryBuilder<produto, produto, QAfterSortBy> thenById_produtoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'id_produto', Sort.desc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> thenByImp_comanda() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imp_comanda', Sort.asc);
+    });
+  }
+
+  QueryBuilder<produto, produto, QAfterSortBy> thenByImp_comandaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'imp_comanda', Sort.desc);
     });
   }
 
@@ -4109,6 +4667,24 @@ extension produtoQueryWhereDistinct
     });
   }
 
+  QueryBuilder<produto, produto, QDistinct> distinctById_gtrib_vendas_nfce() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_gtrib_vendas_nfce');
+    });
+  }
+
+  QueryBuilder<produto, produto, QDistinct> distinctById_gtrib_vendas_nfe() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_gtrib_vendas_nfe');
+    });
+  }
+
+  QueryBuilder<produto, produto, QDistinct> distinctByImp_comanda() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'imp_comanda');
+    });
+  }
+
   QueryBuilder<produto, produto, QDistinct> distinctByNao_rec_desconto() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'nao_rec_desconto');
@@ -4139,15 +4715,19 @@ extension produtoQueryWhereDistinct
     });
   }
 
-  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_data_inicio() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_data_inicio(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocao_data_inicio');
+      return query.addDistinctBy(r'promocao_data_inicio',
+          caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_data_limite() {
+  QueryBuilder<produto, produto, QDistinct> distinctByPromocao_data_limite(
+      {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'promocao_data_limite');
+      return query.addDistinctBy(r'promocao_data_limite',
+          caseSensitive: caseSensitive);
     });
   }
 
@@ -4273,7 +4853,7 @@ extension produtoQueryProperty
     });
   }
 
-  QueryBuilder<produto, String, QQueryOperations> gradeProperty() {
+  QueryBuilder<produto, String?, QQueryOperations> gradeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'grade');
     });
@@ -4291,7 +4871,7 @@ extension produtoQueryProperty
     });
   }
 
-  QueryBuilder<produto, int, QQueryOperations> id_empresaProperty() {
+  QueryBuilder<produto, int?, QQueryOperations> id_empresaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id_empresa');
     });
@@ -4300,6 +4880,24 @@ extension produtoQueryProperty
   QueryBuilder<produto, int?, QQueryOperations> id_grupoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id_grupo');
+    });
+  }
+
+  QueryBuilder<produto, int?, QQueryOperations> id_gtrib_vendas_nfceProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_gtrib_vendas_nfce');
+    });
+  }
+
+  QueryBuilder<produto, int?, QQueryOperations> id_gtrib_vendas_nfeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_gtrib_vendas_nfe');
+    });
+  }
+
+  QueryBuilder<produto, int?, QQueryOperations> imp_comandaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'imp_comanda');
     });
   }
 
@@ -4334,14 +4932,14 @@ extension produtoQueryProperty
     });
   }
 
-  QueryBuilder<produto, DateTime?, QQueryOperations>
+  QueryBuilder<produto, String?, QQueryOperations>
       promocao_data_inicioProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocao_data_inicio');
     });
   }
 
-  QueryBuilder<produto, DateTime?, QQueryOperations>
+  QueryBuilder<produto, String?, QQueryOperations>
       promocao_data_limiteProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'promocao_data_limite');
@@ -4380,13 +4978,13 @@ extension produtoQueryProperty
     });
   }
 
-  QueryBuilder<produto, double, QQueryOperations> pvendaProperty() {
+  QueryBuilder<produto, double?, QQueryOperations> pvendaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'pvenda');
     });
   }
 
-  QueryBuilder<produto, double, QQueryOperations> saldo_produtoProperty() {
+  QueryBuilder<produto, double?, QQueryOperations> saldo_produtoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'saldo_produto');
     });

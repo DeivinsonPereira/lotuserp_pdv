@@ -14,6 +14,7 @@ import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/image_path_group.dart';
 import 'package:lotuserp_pdv/collections/image_path_logo.dart';
 import 'package:lotuserp_pdv/collections/image_path_product.dart';
+import 'package:lotuserp_pdv/collections/pagamento_venda.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -22,9 +23,7 @@ import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/controllers/config_controller.dart';
-import 'package:lotuserp_pdv/controllers/global_controller.dart';
 import 'package:lotuserp_pdv/controllers/payment_controller.dart';
-import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 import 'package:lotuserp_pdv/controllers/printer_controller.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/pages/common/custom_snack_bar.dart';
@@ -45,6 +44,7 @@ import '../core/app_routes.dart';
 import '../pages/printer/printer_popup.dart';
 import '../repositories/caixa_item_servidor_repository.dart';
 import '../repositories/venda_servidor_repository.dart';
+import '../services/emissao_nfce/post_on_servidor.dart';
 import '../services/dependencies.dart';
 
 Map<String, String> _headers = {
@@ -60,8 +60,12 @@ class IsarService {
   var logger = Logger();
 
   //chama o método para abrir o banco de dados e atribui a variável db
-  IsarService() {
-    db = openDB();
+  IsarService({String directory = ''}) {
+    if (directory != '') {
+      db = openDB(directory: directory);
+    } else {
+      db = openDB();
+    }
   }
 
   //verifica se a api Siage esta conectada
@@ -600,72 +604,20 @@ class IsarService {
           headers: _headers,
         );
         if (response.statusCode == 200) {
-          Map<String, dynamic> produtos =
-              jsonDecode(utf8.decode(response.bodyBytes));
+          var data = json.decode(response.body);
 
-          var produtosCount = produtos['itens'].length;
-
-          final List<produto> listaProduto = [];
-
-          for (int i = 0; i < produtosCount; i++) {
-            DateTime? dataLimitePromocao;
-            DateTime? dataInicioPromocao;
-            if (produtos['itens']?[i]?['promocao_data_limite'] != null) {
-              dataLimitePromocao = DateTime.tryParse(
-                  produtos['itens']?[i]?['promocao_data_limite']);
-            } else {
-              dataLimitePromocao = null;
-            }
-
-            if (produtos['itens']?[i]?['promocao_data_inicio'] != null) {
-              dataInicioPromocao =
-                  DateTime.parse(produtos['itens']![i]['promocao_data_inicio']);
-            } else {
-              dataInicioPromocao = null;
-            }
-            final pro = produto(
-              produtos['itens'][i]['id_empresa'],
-              produtos['itens'][i]['id_produto'],
-              produtos['itens'][i]['grade'],
-              produtos['itens'][i]['id_grupo'],
-              produtos['itens'][i]['descricao'],
-              produtos['itens'][i]['unidade'],
-              produtos['itens'][i]['gtin'],
-              produtos['itens'][i]['composto'],
-              produtos['itens'][i]['venda_kg'],
-              produtos['itens'][i]['nao_rec_desconto'],
-              produtos['itens'][i]['status'],
-              produtos['itens'][i]['saldo_produto'].toDouble(),
-              produtos['itens'][i]['pvenda'].toDouble(),
-              produtos['itens'][i]['alt_preco_venda'],
-              produtos['itens'][i]['alt_preco_venda_tipo'],
-              produtos['itens'][i]['balanca_tipo_pesagem'],
-              produtos['itens'][i]['balanca_idproduto'],
-              produtos['itens'][i]['gtin_grade'],
-              produtos['itens'][i]['promocao_ativar'],
-              produtos['itens'][i]['promocao_preco'].toDouble(),
-              dataInicioPromocao,
-              dataLimitePromocao,
-              produtos['itens'][i]['promocao_hora_inicial'],
-              produtos['itens'][i]['promocao_hora_final'],
-              produtos['itens'][i]['promocao_tipo_desc'],
-              produtos['itens'][i]['promocao_compre'],
-              produtos['itens'][i]['promocao_leve'],
-              produtos['itens'][i]['promocao_apartir'],
-              produtos['itens'][i]['promocao_apartir_perc'].toDouble(),
-              produtos['itens'][i]['file_imagem'],
-              produtos['itens'][i]['favorito'],
-            );
-
-            listaProduto.add(pro);
+          List<produto> produtosList = [];
+          for (var item in data['itens']) {
+            produtosList.add(produto.fromMap(item));
           }
 
           isar.writeTxn(() async {
-            await isar.produtos.putAll(listaProduto);
+            await isar.produtos.putAll(produtosList);
           });
           return isar;
         }
       } catch (e) {
+        logger.e('Erro ao buscar produtos: $e');
         return Container();
       }
     }
@@ -1070,12 +1022,12 @@ class IsarService {
   Future<Isar> insertVendaWithVendaItemAndCaixaItem(
       BuildContext context, venda venda) async {
     final isar = await db;
-    PdvController pdvController = Dependencies.pdvController();
-    PaymentController paymentController = Dependencies.paymentController();
-    PrinterController printerController = Dependencies.printerController();
-    ResponseServidorController responseServidorController =
-        Dependencies.responseServidorController();
-    GlobalController globalController = Dependencies.globalController();
+    var pdvController = Dependencies.pdvController();
+    var paymentController = Dependencies.paymentController();
+    var printerController = Dependencies.printerController();
+    var responseServidorController = Dependencies.responseServidorController();
+    var globalController = Dependencies.globalController();
+    List<pagamento_venda> payments = [];
 
     isar.writeTxn(() async {
       await isar.vendas.put(venda);
@@ -1153,16 +1105,25 @@ class IsarService {
         } else {
           cpfCnpj = responseServidorController.cpfCnpj;
         }
+        var idVendaServer = await PostOnServidor.postOnServidor(context, venda,
+            caixaItems, pdvController, paymentController, cpfCnpj);
 
-        await VendaServidorRepository().vendaToServer(
+        payments = await VendaServidorRepository().vendaToServer(
             context,
+            idVendaServer,
             venda,
             caixaItems,
             pdvController,
             paymentController,
             idCaixaServidor,
             cpfCnpj);
+        if (payments.isNotEmpty) {
+          venda.enviado = 1;
+          await isar.vendas.put(venda);
+        }
 
+        await isar.pagamento_vendas.putAll(payments);
+        //  await InsertPagamentoVenda().insert(payments);
         /* print(responseServidorController.cpfCnpj);
         String cpfCnpj;
         if (responseServidorController.cpfCnpj.isEmpty ||
@@ -1180,33 +1141,50 @@ class IsarService {
             paymentController,
             responseServidorController.idVendaServidor.value,
             cpfCnpj);*/
-      } else {}
 
-      if (responseServidorController.xmlNotaFiscal.value == true) {
-        nfce_resultado nfce = nfce_resultado()
-          ..id_caixa = venda.id_caixa
-          ..id_venda = paymentController.idVenda
-          ..qr_code = paymentController.qrCode.value
-          ..xml = paymentController.xml.value;
+        if (responseServidorController.xmlNotaFiscal.value == true) {
+          nfce_resultado nfce = nfce_resultado()
+            ..id_caixa = venda.id_caixa
+            ..id_venda_local = venda.id_venda
+            ..id_venda_servidor = idVendaServer
+            ..qr_code = paymentController.qrCode.value
+            ..xml = paymentController.xml.value;
 
-        await isar.nfce_resultados.put(nfce);
-      }
-      if (responseServidorController.xmlNotaFiscal.value == true) {
-        var vendas = await isar.vendas.get(venda.id_venda);
-
-        if (vendas != null) {
-          vendas.id_venda_servidor =
-              responseServidorController.idVendaServidor.value;
-          vendas.enviado = responseServidorController.enviado.value;
-          isar.vendas.put(vendas);
+          await isar.nfce_resultados.put(nfce);
         }
+        if (responseServidorController.xmlNotaFiscal.value == true) {
+          var vendas = await isar.vendas.get(venda.id_venda);
+          if (vendas != null && vendas.enviado != 0) {
+            vendas.id_venda_servidor = idVendaServer;
+            vendas.enviado = responseServidorController.enviado.value;
+            isar.vendas.put(vendas);
+          }
 
-        pdvController.zerarCampos();
-        paymentController.paymentsTotal.clear();
-        paymentController.clearPaymentTef();
+          pdvController.zerarCampos();
+          paymentController.paymentsTotal.clear();
+          paymentController.clearPaymentTef();
+        }
       }
     });
     return isar;
+  }
+
+  // Atualiza os campos do objeto Nfce Resultado selecionado
+  Future<void> updateNfceResultado(nfce_resultado nfce) async {
+    final isar = await db;
+
+    try {
+      await isar.writeTxn(() async => await isar.nfce_resultados.put(nfce));
+    } catch (e) {
+      logger.e('Erro ao atualizar nfce: $e');
+    }
+  }
+
+  // Busca a venda pelo id
+  Future<venda?> getVendaById(int id) async {
+    final isar = await db;
+
+    return await isar.vendas.where().id_vendaEqualTo(id).findFirst();
   }
 
   //busca dados da tabela caixa do banco de dados
@@ -1246,6 +1224,7 @@ class IsarService {
         .abertura_id_userEqualTo(aberturaIdUser)
         .statusEqualTo(0)
         .findFirst();
+
     if (caixas != null) {
       return caixas;
     } else {
@@ -1548,6 +1527,21 @@ class IsarService {
     return 0;
   }
 
+  // Busca caixa pelo id
+  Future<caixa?> getCaixaById(int id) async {
+    final isar = await db;
+
+    return await isar.caixas.filter().id_caixaEqualTo(id).findFirst();
+  }
+
+  Future<void> putVenda(venda vendaSelected) async {
+    final isar = await db;
+
+    isar.writeTxn(() async {
+      await isar.vendas.put(vendaSelected);
+    });
+  }
+
   //busca o objeto do caixa de acordo com o idUser e status 0
   Future<caixa?> getCaixaWithIdUserAndStatus0() async {
     final isar = await db;
@@ -1728,7 +1722,7 @@ class IsarService {
     try {
       yield* isar.nfce_resultados
           .where()
-          .sortById_venda()
+          .sortById_venda_servidor()
           .watch(fireImmediately: true);
     } catch (e) {
       logger.e("Erro ao buscar nfce: $e");
@@ -1744,6 +1738,20 @@ class IsarService {
     } catch (e) {
       logger.e("Erro ao buscar nfce: $e");
       return [];
+    }
+  }
+
+  Future<nfce_resultado?> getNfceResultadosByIdVenda(int idVenda) async {
+    final isar = await db;
+
+    try {
+      return await isar.nfce_resultados
+          .filter()
+          .id_venda_localEqualTo(idVenda)
+          .findFirst();
+    } catch (e) {
+      logger.e("Erro ao buscar nfce: $e");
+      return null;
     }
   }
 
@@ -1792,7 +1800,7 @@ class IsarService {
     try {
       var nfce = await isar.nfce_resultados
           .filter()
-          .id_vendaEqualTo(idVendaServidor)
+          .id_venda_servidorEqualTo(idVendaServidor)
           .findFirst();
       return nfce;
     } catch (e) {
@@ -1838,6 +1846,24 @@ class IsarService {
         return vendasDb;
       } else {
         logger.e('Nenhuma venda encontrada');
+        return [];
+      }
+    } catch (e) {
+      logger.e("Erro ao buscar venda: $e");
+      return [];
+    }
+  }
+
+  // busca os dados da tabela venda item pelo id da venda
+  Future<List<venda_item?>> getVendaItemByIdVenda(int idVenda) async {
+    final isar = await db;
+
+    try {
+      var venda =
+          await isar.venda_items.filter().id_vendaEqualTo(idVenda).findAll();
+      if (venda.isNotEmpty) {
+        return venda;
+      } else {
         return [];
       }
     } catch (e) {
@@ -1912,35 +1938,67 @@ class IsarService {
   }
 
   //abre o banco de dados
-  Future<Isar> openDB() async {
-    final dir = await getApplicationSupportDirectory();
+  Future<Isar> openDB({String directory = ''}) async {
+    if (directory == '') {
+      final dir = await getApplicationSupportDirectory();
 
-    if (Isar.instanceNames.isEmpty) {
-      return await Isar.open(
-        [
-          EmpresaSchema,
-          Produto_grupoSchema,
-          ProdutoSchema,
-          UsuarioSchema,
-          Tipo_recebimentoSchema,
-          Dado_empresaSchema,
-          Usuario_logadoSchema,
-          Default_printerSchema,
-          Caixa_itemSchema,
-          CaixaSchema,
-          Venda_itemSchema,
-          VendaSchema,
-          Caixa_fechamentoSchema,
-          Cartao_itemSchema,
-          Nfce_resultadoSchema,
-          Image_path_groupSchema,
-          Image_path_productSchema,
-          Image_path_logoSchema,
-          Empresa_validaSchema,
-          Admin_configSchema
-        ],
-        directory: dir.path,
-      );
+      if (Isar.instanceNames.isEmpty) {
+        return await Isar.open(
+          [
+            EmpresaSchema,
+            Produto_grupoSchema,
+            ProdutoSchema,
+            UsuarioSchema,
+            Tipo_recebimentoSchema,
+            Dado_empresaSchema,
+            Usuario_logadoSchema,
+            Default_printerSchema,
+            Caixa_itemSchema,
+            CaixaSchema,
+            Venda_itemSchema,
+            VendaSchema,
+            Caixa_fechamentoSchema,
+            Cartao_itemSchema,
+            Nfce_resultadoSchema,
+            Image_path_groupSchema,
+            Image_path_productSchema,
+            Image_path_logoSchema,
+            Empresa_validaSchema,
+            Admin_configSchema,
+            Pagamento_vendaSchema
+          ],
+          directory: dir.path,
+        );
+      }
+    } else {
+      if (Isar.instanceNames.isEmpty) {
+        return await Isar.open(
+          [
+            EmpresaSchema,
+            Produto_grupoSchema,
+            ProdutoSchema,
+            UsuarioSchema,
+            Tipo_recebimentoSchema,
+            Dado_empresaSchema,
+            Usuario_logadoSchema,
+            Default_printerSchema,
+            Caixa_itemSchema,
+            CaixaSchema,
+            Venda_itemSchema,
+            VendaSchema,
+            Caixa_fechamentoSchema,
+            Cartao_itemSchema,
+            Nfce_resultadoSchema,
+            Image_path_groupSchema,
+            Image_path_productSchema,
+            Image_path_logoSchema,
+            Empresa_validaSchema,
+            Admin_configSchema,
+            Pagamento_vendaSchema
+          ],
+          directory: directory,
+        );
+      }
     }
 
     return Future.value(Isar.getInstance());

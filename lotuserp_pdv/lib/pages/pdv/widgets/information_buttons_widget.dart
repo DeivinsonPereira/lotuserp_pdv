@@ -27,6 +27,7 @@ class InformationButtonsWidget extends StatelessWidget {
     var passwordController = Dependencies.passwordController();
     var responseServidorController = Dependencies.responseServidorController();
     var configController = Dependencies.configcontroller();
+    var informationController = Dependencies.informationController();
 
     // Constrói o conteiner da logo
     Widget _buildContainerLogo() {
@@ -113,13 +114,14 @@ class InformationButtonsWidget extends StatelessWidget {
 
     // Constrói o botão 2ª via
     Widget _buildButtonSecondCopy() {
-      return ButtonsPdv().iconsOptions(
-        FontAwesomeIcons.moneyBillTrendUp,
-        '2ª via',
-        () => Get.dialog(
+      return ButtonsPdv()
+          .iconsOptions(FontAwesomeIcons.moneyBillTrendUp, '2ª via', () {
+        informationController.addNfce();
+        informationController.searchVendas();
+        Get.dialog(
           const SecondCopyPage(),
-        ),
-      );
+        );
+      });
     }
 
     // Constrói o container de informações

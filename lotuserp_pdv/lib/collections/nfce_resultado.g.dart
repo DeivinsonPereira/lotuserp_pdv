@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: camel_case_extensions
-
 part of 'nfce_resultado.dart';
 
 // **************************************************************************
@@ -24,18 +22,23 @@ const Nfce_resultadoSchema = CollectionSchema(
       name: r'id_caixa',
       type: IsarType.long,
     ),
-    r'id_venda': PropertySchema(
+    r'id_venda_local': PropertySchema(
       id: 1,
-      name: r'id_venda',
+      name: r'id_venda_local',
+      type: IsarType.long,
+    ),
+    r'id_venda_servidor': PropertySchema(
+      id: 2,
+      name: r'id_venda_servidor',
       type: IsarType.long,
     ),
     r'qr_code': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'qr_code',
       type: IsarType.string,
     ),
     r'xml': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'xml',
       type: IsarType.string,
     )
@@ -82,9 +85,10 @@ void _nfce_resultadoSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeLong(offsets[0], object.id_caixa);
-  writer.writeLong(offsets[1], object.id_venda);
-  writer.writeString(offsets[2], object.qr_code);
-  writer.writeString(offsets[3], object.xml);
+  writer.writeLong(offsets[1], object.id_venda_local);
+  writer.writeLong(offsets[2], object.id_venda_servidor);
+  writer.writeString(offsets[3], object.qr_code);
+  writer.writeString(offsets[4], object.xml);
 }
 
 nfce_resultado _nfce_resultadoDeserialize(
@@ -93,12 +97,14 @@ nfce_resultado _nfce_resultadoDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = nfce_resultado();
+  final object = nfce_resultado(
+    id_caixa: reader.readLongOrNull(offsets[0]),
+    id_venda_local: reader.readLongOrNull(offsets[1]),
+    id_venda_servidor: reader.readLongOrNull(offsets[2]),
+    qr_code: reader.readStringOrNull(offsets[3]),
+    xml: reader.readStringOrNull(offsets[4]),
+  );
   object.id = id;
-  object.id_caixa = reader.readLong(offsets[0]);
-  object.id_venda = reader.readLongOrNull(offsets[1]);
-  object.qr_code = reader.readStringOrNull(offsets[2]);
-  object.xml = reader.readStringOrNull(offsets[3]);
   return object;
 }
 
@@ -110,12 +116,14 @@ P _nfce_resultadoDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
-      return (reader.readLong(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 1:
       return (reader.readLongOrNull(offset)) as P;
     case 2:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 3:
+      return (reader.readStringOrNull(offset)) as P;
+    case 4:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -274,7 +282,25 @@ extension nfce_resultadoQueryFilter
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_caixaEqualTo(int value) {
+      id_caixaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_caixa',
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_caixaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_caixa',
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_caixaEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'id_caixa',
@@ -285,7 +311,7 @@ extension nfce_resultadoQueryFilter
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
       id_caixaGreaterThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -299,7 +325,7 @@ extension nfce_resultadoQueryFilter
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
       id_caixaLessThan(
-    int value, {
+    int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
@@ -313,8 +339,8 @@ extension nfce_resultadoQueryFilter
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
       id_caixaBetween(
-    int lower,
-    int upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
   }) {
@@ -330,63 +356,63 @@ extension nfce_resultadoQueryFilter
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_vendaIsNull() {
+      id_venda_localIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
-        property: r'id_venda',
+        property: r'id_venda_local',
       ));
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_vendaIsNotNull() {
+      id_venda_localIsNotNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNotNull(
-        property: r'id_venda',
+        property: r'id_venda_local',
       ));
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_vendaEqualTo(int? value) {
+      id_venda_localEqualTo(int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'id_venda',
+        property: r'id_venda_local',
         value: value,
       ));
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_vendaGreaterThan(
+      id_venda_localGreaterThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
-        property: r'id_venda',
+        property: r'id_venda_local',
         value: value,
       ));
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_vendaLessThan(
+      id_venda_localLessThan(
     int? value, {
     bool include = false,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
-        property: r'id_venda',
+        property: r'id_venda_local',
         value: value,
       ));
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
-      id_vendaBetween(
+      id_venda_localBetween(
     int? lower,
     int? upper, {
     bool includeLower = true,
@@ -394,7 +420,81 @@ extension nfce_resultadoQueryFilter
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
-        property: r'id_venda',
+        property: r'id_venda_local',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_venda_servidorIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'id_venda_servidor',
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_venda_servidorIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'id_venda_servidor',
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_venda_servidorEqualTo(int? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'id_venda_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_venda_servidorGreaterThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'id_venda_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_venda_servidorLessThan(
+    int? value, {
+    bool include = false,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'id_venda_servidor',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      id_venda_servidorBetween(
+    int? lower,
+    int? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'id_venda_servidor',
         lower: lower,
         includeLower: includeLower,
         upper: upper,
@@ -733,16 +833,31 @@ extension nfce_resultadoQuerySortBy
     });
   }
 
-  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> sortById_venda() {
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      sortById_venda_local() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id_venda', Sort.asc);
+      return query.addSortBy(r'id_venda_local', Sort.asc);
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
-      sortById_vendaDesc() {
+      sortById_venda_localDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id_venda', Sort.desc);
+      return query.addSortBy(r'id_venda_local', Sort.desc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      sortById_venda_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      sortById_venda_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.desc);
     });
   }
 
@@ -799,16 +914,31 @@ extension nfce_resultadoQuerySortThenBy
     });
   }
 
-  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> thenById_venda() {
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      thenById_venda_local() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id_venda', Sort.asc);
+      return query.addSortBy(r'id_venda_local', Sort.asc);
     });
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
-      thenById_vendaDesc() {
+      thenById_venda_localDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'id_venda', Sort.desc);
+      return query.addSortBy(r'id_venda_local', Sort.desc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      thenById_venda_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.asc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      thenById_venda_servidorDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'id_venda_servidor', Sort.desc);
     });
   }
 
@@ -846,9 +976,17 @@ extension nfce_resultadoQueryWhereDistinct
     });
   }
 
-  QueryBuilder<nfce_resultado, nfce_resultado, QDistinct> distinctById_venda() {
+  QueryBuilder<nfce_resultado, nfce_resultado, QDistinct>
+      distinctById_venda_local() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'id_venda');
+      return query.addDistinctBy(r'id_venda_local');
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QDistinct>
+      distinctById_venda_servidor() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'id_venda_servidor');
     });
   }
 
@@ -875,15 +1013,23 @@ extension nfce_resultadoQueryProperty
     });
   }
 
-  QueryBuilder<nfce_resultado, int, QQueryOperations> id_caixaProperty() {
+  QueryBuilder<nfce_resultado, int?, QQueryOperations> id_caixaProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id_caixa');
     });
   }
 
-  QueryBuilder<nfce_resultado, int?, QQueryOperations> id_vendaProperty() {
+  QueryBuilder<nfce_resultado, int?, QQueryOperations>
+      id_venda_localProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'id_venda');
+      return query.addPropertyName(r'id_venda_local');
+    });
+  }
+
+  QueryBuilder<nfce_resultado, int?, QQueryOperations>
+      id_venda_servidorProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'id_venda_servidor');
     });
   }
 

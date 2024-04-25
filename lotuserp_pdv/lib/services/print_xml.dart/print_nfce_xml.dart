@@ -21,7 +21,7 @@ class PrintNfceXml {
   Future<void> printNfceXml({String? xmlArgs}) async {
     try {
       await configController.loadSizePrinter();
-
+      
       // ignore: prefer_if_null_operators
       xml = xmlArgs != null ? xmlArgs : paymentController.xml.value;
       tamanhoImpressora =

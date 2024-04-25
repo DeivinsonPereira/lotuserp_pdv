@@ -32,17 +32,16 @@ abstract class PostOnServidor {
       Dependencies.responseServidorController();
 
   // FAZ A CHAMADA DA NFC-E
-  static Future<void> postOnServidor(
+  static Future<int> postOnServidor(
       BuildContext context,
       venda vendas,
       List<caixa_item> caixaItens,
       PdvController pdvController,
       PaymentController paymentController,
-      int idServidor,
       String cpfCnpj,
       {bool isSecondAttempt = false}) async {
     var prefix = await service.getIpEmpresaFromDatabase();
-    Uri uri = Uri.parse('${prefix!.ip_empresa}nfce_emitir');
+    Uri uri = Uri.parse('${prefix!.ip_empresa}nfce_emitir_direta');
 
     var dateFormatted = DatetimeFormatterWidget.formatDate(vendas.data);
 
@@ -91,8 +90,8 @@ abstract class PostOnServidor {
       }
 
       var requestBody = {
-        'id_venda': vendas.id_venda,
-        "id_venda_servidor": idServidor,
+        'id_venda': 0,
+        "id_venda_servidor": 0,
         "data_venda": dateFormatted,
         "hora_venda": vendas.hora,
         "id_empresa": idEmpresa,
@@ -104,7 +103,11 @@ abstract class PostOnServidor {
         "tot_liquido": vendas.tot_liquido,
         "valor_troco": vendas.valor_troco,
         "id_serie_nfce": idSerieNfce,
+        "nome": '',
         "cpf_cnpj": cpfCnpj,
+        "totem_id": 0,
+        "totem_dinheiro": "",
+        "totem_comanda": 0,
         "itens": itens,
         "pagamentos": pagamentos
       };
@@ -133,6 +136,11 @@ abstract class PostOnServidor {
           await paymentController.updateVariaveisNfce(idVenda!, qrCode!, xml!);
           paymentController.clearListCaixaItems();
           responseServidorController.limparCpfCnpj();
+          int idVendaServidor = 0;
+          if (jsonResponse['id_venda'] != null) {
+            idVendaServidor = int.parse(jsonResponse['id_venda']);
+          }
+          return idVendaServidor;
         } else {
           if (isSecondAttempt == false) {
             responseServidorController.updateXmlNotaFiscal(true);
@@ -144,6 +152,7 @@ abstract class PostOnServidor {
               .show(context);
           logger.e("Erro ao fazer a requisição: ${response.statusCode}");
           responseServidorController.limparCpfCnpj();
+          return 0;
         }
       } else {
         if (isSecondAttempt == false) {
@@ -156,6 +165,7 @@ abstract class PostOnServidor {
         }
         logger.e("Erro ao fazer a requisição: ${response.statusCode}");
         responseServidorController.limparCpfCnpj();
+        return 0;
       }
     } catch (e) {
       logger.e("Erro ao fazer a requisição: $e");
@@ -168,6 +178,7 @@ abstract class PostOnServidor {
         paymentController.clearListCaixaItems();
       }
       responseServidorController.limparCpfCnpj();
+      return 0;
     }
   }
 }

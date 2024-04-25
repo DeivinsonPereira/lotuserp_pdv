@@ -1,7 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
+import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../../../collections/venda.dart';
 import '../../../services/print_xml.dart/print_nfce_xml.dart';
 
 class LogicSecondPrint {
@@ -9,23 +14,26 @@ class LogicSecondPrint {
   var informationController = Dependencies.informationController();
   Logger logger = Logger();
   IsarService service = IsarService();
-  
+
   // Faz a impressão de nfce
-  Future<void> printNfce() async {
+  Future<void> printNfce(venda vendaSelected, BuildContext context) async {
     if (checkboxController.selectedItem.value != -1) {
       var data = informationController
           .vendasLista[checkboxController.selectedItem.value];
       if (data != null) {
-        var nfce =
-            await service.getDadosNfceByIdVendaServidor(data.id_venda_servidor);
+        var nfce = await service
+            .getDadosNfceByIdVendaServidor(vendaSelected.id_venda_servidor);
 
         if (nfce != null) {
           var configController = Dependencies.configcontroller();
           var tamanhoImpressora = configController.tamanhoImpressora.value;
           if (tamanhoImpressora != 'SEM IMPRESSORA') {
-            PrintNfceXml().printNfceXml(xmlArgs: nfce.xml);
+            await PrintNfceXml().printNfceXml(xmlArgs: nfce.xml);
           }
         } else {
+          const CustomCherryError(
+                  message: 'Falha ao imprimir nfce, tente novamente.')
+              .show(context);
           logger.e('Nfce não encontrada');
         }
       } else {

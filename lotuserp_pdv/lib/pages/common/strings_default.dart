@@ -11,6 +11,9 @@ class StringsDefault {
 
   static const String print = 'Imprimir';
 
+  static const String aberturaCaixa = 'ABERTURA DE CAIXA';
+  static const String vendaCaixaItem = 'VENDA';
+
   ////////////////////////////////////////
   //Valor fixo apenas para open register//
   ////////////////////////////////////////

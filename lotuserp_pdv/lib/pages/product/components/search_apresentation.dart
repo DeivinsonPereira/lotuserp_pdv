@@ -48,20 +48,20 @@ class SearchApresentation extends GetView<ProdutoController> {
                       ),
                       LegendSearch(
                         legend: isProd
-                            ? controller.product[index].descricao
+                            ? controller.product[index].descricao ?? ''
                             : controller.product[index].descricao,
                         size: 500,
                         isDescription: true,
                       ),
                       LegendSearch(
                         legend: isProd
-                            ? controller.product[index].unidade
+                            ? controller.product[index].unidade ?? ''
                             : controller.product[index].unidade ?? 'n/a',
                         size: 50,
                       ),
                       LegendSearch(
                         legend: isProd
-                            ? controller.product[index].gtin
+                            ? controller.product[index].gtin ?? ''
                             : controller.product[index].gtin ?? 'n/a',
                         size: 150,
                       ),

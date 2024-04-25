@@ -20,7 +20,8 @@ class CloseRegisterServidorRepository {
       Dependencies.responseServidorController();
 
   Future<void> closeRegisterServidor(String atualDate, int idCaixaServidor,
-      List<caixa_fechamento> fechamentosCaixa) async {
+      List<caixa_fechamento> fechamentosCaixa,
+      {dynamic caixaSelected}) async {
     var dadosUsuario = await service.getUserLogged();
 
     var prefix = await service.getIpEmpresaFromDatabase();
@@ -36,7 +37,9 @@ class CloseRegisterServidorRepository {
 
     try {
       var requestBody = {
-        "fechou_id_user": dadosUsuario!.id_user,
+        "fechou_id_user": caixaSelected != null
+            ? caixaSelected.id_user
+            : dadosUsuario!.id_user,
         "fechou_data_hora": atualDate,
         "id_caixa_servidor": idCaixaServidor,
         "informado": fechamentosCaixaMap

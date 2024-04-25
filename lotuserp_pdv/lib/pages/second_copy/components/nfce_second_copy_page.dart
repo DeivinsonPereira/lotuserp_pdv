@@ -8,7 +8,9 @@ import 'package:lotuserp_pdv/pages/common/loading_screen.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/pages/second_copy/services/logic_print.dart';
 
+import '../../../collections/venda.dart';
 import '../../../services/dependencies.dart';
+import '../services/logic_situation_nfce.dart';
 import 'legend_informations_nfce.dart';
 
 class NfceSecondCopyPage extends StatelessWidget {
@@ -27,7 +29,8 @@ class NfceSecondCopyPage extends StatelessWidget {
         child: InkWell(
           onTap: () async {
             Get.dialog(const LoadingScreen());
-            await LogicSecondPrint().printNfce();
+            await LogicSecondPrint()
+                .printNfce(informationController.vendaSelecionada, context);
             Get.back();
           },
           child: Container(
@@ -65,31 +68,43 @@ class NfceSecondCopyPage extends StatelessWidget {
     }
 
     // Constrói o valor total Liquido
-    Widget _buildTotLiquid(dynamic venda) {
+    Widget _buildTotLiquid(venda vendaSelected) {
       return InformationsWidget(
-          data: formatoBrasileiro.format(venda.tot_liquido),
+          data: formatoBrasileiro.format(vendaSelected.tot_liquido),
           width: Get.width * 0.04);
     }
 
     // Constrói a hora da venda
-    Widget _buildHour(dynamic venda) {
-      return InformationsWidget(data: venda.hora, width: Get.width * 0.195);
+    Widget _buildHour(venda vendaSelected) {
+      return InformationsWidget(
+          data: vendaSelected.hora, width: Get.width * 0.15);
     }
 
-    // COnstrói o id da venda do Servidor
-    Widget _buildIdVendaServer(dynamic venda) {
+    // Constrói a situação da nfce se foi emitida "S" ou não "N"
+    Widget _buildSituation(venda vendaSelected) {
       return InformationsWidget(
-          data: venda.id_venda_servidor, width: Get.width * 0.075);
+        data: LogicSituationNfce().get(vendaSelected),
+        width: Get.width * 0.05,
+      );
+    }
+
+    // Constrói o id da venda do Servidor
+    Widget _buildIdVendaServer(venda vendaSelected) {
+      return InformationsWidget(
+          data: vendaSelected.id_venda, width: Get.width * 0.075);
     }
 
     // Constrói o Checkbox
     Widget _buildCheckBox(int index) {
       return Obx(
         () => Checkbox(
-          shape: const CircleBorder(),
-          value: checkboxController.isItemSelected(index),
-          onChanged: (value) => checkboxController.toggleItem(index),
-        ),
+            shape: const CircleBorder(),
+            value: checkboxController.isItemSelected(index),
+            onChanged: (value) {
+              checkboxController.toggleItem(index);
+              informationController.setVendaSelecionada(
+                  informationController.vendasLista[index]);
+            }),
       );
     }
 
@@ -104,16 +119,18 @@ class NfceSecondCopyPage extends StatelessWidget {
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              var venda = data[index];
+              venda vendaSelected = data[index];
+
               // Substitua os campos abaixo pelos campos reais do seu modelo de dados
               return Column(
                 children: [
                   Row(
                     children: [
                       _buildCheckBox(index),
-                      _buildIdVendaServer(venda),
-                      _buildHour(venda),
-                      _buildTotLiquid(venda),
+                      _buildIdVendaServer(vendaSelected),
+                      _buildSituation(vendaSelected),
+                      _buildHour(vendaSelected),
+                      _buildTotLiquid(vendaSelected),
                     ],
                   ),
                 ],

@@ -19,21 +19,17 @@ class OpenRegisterServidorRepository {
 
   Future<void> openRegisterServidor(int idEmpresa, int idUsuario,
       String atualDate, String atualHour, double valorAbertura) async {
+        
     var prefix = await service.getIpEmpresaFromDatabase();
     Uri uri = Uri.parse('${prefix!.ip_empresa}pdvmobpost07_caixa_abrir');
 
-    var id_empresa = idEmpresa;
-    var id_usuario = idUsuario;
-    var caixa_data_hora = atualDate;
-    var hora_abertura = atualHour;
-    var valor_abertura = valorAbertura;
     try {
       var requestBody = {
-        'id_empresa': id_empresa,
-        'id_usuario': id_usuario,
-        'caixa_data_hora': caixa_data_hora,
-        'hora_abertura': hora_abertura,
-        'valor_abertura': valor_abertura,
+        'id_empresa': idEmpresa,
+        'id_usuario': idUsuario,
+        'caixa_data_hora': atualDate,
+        'hora_abertura': atualHour,
+        'valor_abertura': valorAbertura,
       };
 
       final response = await http.post(

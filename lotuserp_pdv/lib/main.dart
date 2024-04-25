@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:isolate';
+
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:lotuserp_pdv/collections/admin_config.dart';
@@ -7,6 +10,7 @@ import 'package:lotuserp_pdv/collections/dado_empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa_valida.dart';
 import 'package:lotuserp_pdv/collections/image_path_product.dart';
+import 'package:lotuserp_pdv/collections/pagamento_venda.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -15,6 +19,12 @@ import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/collections/venda.dart';
 import 'package:lotuserp_pdv/collections/venda_item.dart';
 import 'package:lotuserp_pdv/core/app_widget.dart';
+import 'package:lotuserp_pdv/repositories/service/monitoring/close_caixa_monitoring.dart';
+import 'package:lotuserp_pdv/repositories/service/monitoring/emitir_nfce_monitoring.dart';
+import 'package:lotuserp_pdv/repositories/service/monitoring/moviment_caixa_monitoring.dart';
+import 'package:lotuserp_pdv/repositories/service/monitoring/open_caixa_monitoring.dart';
+import 'package:lotuserp_pdv/repositories/service/monitoring/venda_monitoring.dart';
+import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'collections/caixa_fechamento.dart';
@@ -26,13 +36,26 @@ import 'collections/nfce_resultado.dart';
 import 'repositories/download_persist_images_repository.dart';
 import 'services/dependencies.dart';
 
-void main() async {
-  WidgetsFlutterBinding
-      .ensureInitialized(); // só deixa inicializar o run depois dos comandos async abaixo estiverem rodando.
-  final dir = await getApplicationSupportDirectory();
+Future<void> startMonitorarCaixa(String appSupportPath) async {
+  final isar = await initializeIsar(appSupportPath);
+  Timer.periodic(const Duration(seconds: 15),
+      (timer) => monitorarCaixa(timer, isar, appSupportPath));
+}
 
+Future<void> monitorarCaixa(Timer t, Isar isar, String appSupportPath) async {
+  IsarService isarService = IsarService(directory: appSupportPath);
+
+  await OpenCaixaMonitoring(isar, isarService).monitorarAberturaCaixa();
+  await MovimentCaixaMonitoring(isar, isarService)
+      .monitoramentoMovimentoCaixa();
+  await CloseCaixaMonitoring(isar, isarService).monitorarFechamentoCaixa();
+  await EmitirNfceMonitoring(isar, isarService).monitorarNfce();
+  await VendaMonitoring(isar, isarService).monitorarVenda();
+}
+
+Future<Isar> initializeIsar(String directory) async {
   //abre o banco de dados e as tabelas
-  await Isar.open(
+  return await Isar.open(
     [
       EmpresaSchema,
       Produto_grupoSchema,
@@ -53,11 +76,28 @@ void main() async {
       Image_path_productSchema,
       Image_path_logoSchema,
       Empresa_validaSchema,
-      Admin_configSchema
+      Admin_configSchema,
+      Pagamento_vendaSchema,
     ],
-    directory: dir.path,
+    directory: directory,
     inspector: true,
   );
+}
+
+void isolateEntryPoint(String appSupportPath) async {
+  await startMonitorarCaixa(appSupportPath);
+}
+
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); // só deixa inicializar o run depois dos comandos async abaixo estiverem rodando.
+
+  //abre o banco de dados e as tabelas
+  //await initializeIsar();
+  final dir = await getApplicationSupportDirectory();
+  final appSupportPath = dir.path;
+
+  Isolate.spawn(isolateEntryPoint, appSupportPath);
 
   var logoController = Dependencies.logoController();
   await downloadImageLogo();

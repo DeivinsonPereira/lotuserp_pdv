@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/collections/cartao_item.dart';
+import 'package:lotuserp_pdv/collections/nfce_resultado.dart';
 
 import '../collections/dado_empresa.dart';
 import '../collections/venda.dart';
@@ -13,6 +14,8 @@ class InformationController extends GetxController {
   var caixaId = 0.obs;
   var vendasLista = [].obs;
   var vendasTef = [].obs;
+  var nfce = [];
+  venda vendaSelecionada = venda();
 
   @override
   void onInit() {
@@ -28,14 +31,34 @@ class InformationController extends GetxController {
     await searchProofTEF();
   }
 
+  // adiciona a venda selecionada
+  void setVendaSelecionada(venda vendaSelected) {
+    vendaSelecionada = vendaSelected;
+  }
+
   Future<void> searchVendas() async {
     List<venda?> vendasDb =
         await service.getVendaByIdCaixaLogged(caixaId.value);
     if (vendasDb.isNotEmpty) {
       vendasLista.assignAll(vendasDb);
+      vendasLista.sort((a, b) => b!.id_venda!.compareTo(a!.id_venda!));
       update();
     } else {
       vendasLista.assignAll(vendasDb);
+      vendasLista.sort((a, b) => b!.id_venda!.compareTo(a!.id_venda!));
+      update();
+    }
+  }
+
+  Future<void> addNfce() async {
+    List<nfce_resultado?> nfceDb = await service.getNfceResultados();
+    if (nfceDb.isNotEmpty) {
+      nfce.assignAll(nfceDb);
+      nfce.sort((a, b) => b!.id_venda_local!.compareTo(a!.id_venda_local!));
+      update();
+    } else {
+      nfceDb = [];
+      nfce.sort((a, b) => b!.id_venda_local!.compareTo(a!.id_venda_local!));
       update();
     }
   }
@@ -52,6 +75,7 @@ class InformationController extends GetxController {
     }
   }
 
+  // Busca o id do caixa
   Future<int?> searchCaixaId() async {
     try {
       var caixa = await service.getCaixaIdWithIdUserAndStatus0();
