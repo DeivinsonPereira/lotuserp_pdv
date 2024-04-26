@@ -1125,13 +1125,6 @@ class IsarService {
         await isar.pagamento_vendas.putAll(payments);
         //  await InsertPagamentoVenda().insert(payments);
         /* print(responseServidorController.cpfCnpj);
-        String cpfCnpj;
-        if (responseServidorController.cpfCnpj.isEmpty ||
-            responseServidorController.cpfCnpj == '') {
-          cpfCnpj = '';
-        } else {
-          cpfCnpj = responseServidorController.cpfCnpj;
-        }
 
         Future.delayed(const Duration(milliseconds: 300));
         await PostOnServidor.postOnServidor(

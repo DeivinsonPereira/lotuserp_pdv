@@ -34,11 +34,5 @@ abstract class TextFieldList {
       'label': 'Nº Caixa',
       'numericKeyboard': true
     },
-    {
-      'icon': FontAwesomeIcons.solidClock,
-      'controller': textFieldController.intervaloEnvioController,
-      'label': 'Intervalo',
-      'numericKeyboard': true
-    },
   ];
 }

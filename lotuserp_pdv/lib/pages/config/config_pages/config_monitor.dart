@@ -137,7 +137,7 @@ class _ConfigMonitorState extends State<ConfigMonitor> {
                   icon: FontAwesomeIcons.usb,
                   value: _.deviceNameSelected.value,
                   isBalanceName: true,
-                  ),
+                ),
               ),
 
               /* Padding(
