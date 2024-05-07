@@ -142,7 +142,7 @@ class EmitirNfceMonitoring {
           nfce.id_venda_servidor = int.tryParse(jsonResponse['id_venda']);
           nfce.qr_code = jsonResponse['qr_code'];
           nfce.xml = jsonResponse['xml'];
-          nfce.isContingencia = jsonResponse['isContingencia'];
+          nfce.isContingencia = jsonResponse['contingencia'];
 
           if (venda.id_venda_servidor == 0) {
             venda.id_venda_servidor = int.tryParse(jsonResponse['id_venda'])!;
