@@ -97,7 +97,6 @@ class Configcontroller extends GetxController {
         'ID da empresa': dadoEmpresa.id_empresa,
         'ID da serie NFCe': dadoEmpresa.id_nfce,
         'Número do caixa': dadoEmpresa.num_caixa,
-        'Intervalo de envio': dadoEmpresa.intervalo_envio,
       };
 
       controllers[variableName]?.text = values[variableName]?.toString() ?? '';
@@ -126,8 +125,6 @@ class Configcontroller extends GetxController {
           ..id_empresa = int.parse(textFieldController.idEmpresaController.text)
           ..id_nfce = int.parse(textFieldController.idSerieNfceController.text)
           ..num_caixa = int.parse(textFieldController.numCaixaController.text)
-          ..intervalo_envio =
-              int.parse(textFieldController.intervaloEnvioController.text)
           ..ip_empresa = ipEmpresa
           ..balanca = balanca.value
           ..status_balanca = balanca.value != 'NENHUMA' ? 1 : 0

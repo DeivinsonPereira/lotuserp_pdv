@@ -133,7 +133,9 @@ abstract class PostOnServidor {
           var idVenda = int.tryParse(jsonResponse['id_venda']);
           var qrCode = jsonResponse['qr_code'];
           var xml = jsonResponse['xml'];
-          await paymentController.updateVariaveisNfce(idVenda!, qrCode!, xml!);
+          bool isContingencia = jsonResponse['contingencia'];
+          await paymentController.updateVariaveisNfce(
+              idVenda!, qrCode!, xml!, isContingencia);
           paymentController.clearListCaixaItems();
           responseServidorController.limparCpfCnpj();
           int idVendaServidor = 0;

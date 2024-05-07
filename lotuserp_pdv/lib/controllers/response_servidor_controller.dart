@@ -8,6 +8,7 @@ class ResponseServidorController extends GetxController {
   var enviado = 0.obs;
   var idVendaServidor = 0.obs;
   var xmlNotaFiscal = true.obs;
+  bool isContingencia = false;
   String cpfCnpj = '';
 
   //atualizar openRegisterId

@@ -28,7 +28,8 @@ class LogicSecondPrint {
           var configController = Dependencies.configcontroller();
           var tamanhoImpressora = configController.tamanhoImpressora.value;
           if (tamanhoImpressora != 'SEM IMPRESSORA') {
-            await PrintNfceXml().printNfceXml(xmlArgs: nfce.xml);
+            await PrintNfceXml().printNfceXml(
+                xmlArgs: nfce.xml, isContingencia: nfce.isContingencia!);
           }
         } else {
           const CustomCherryError(
@@ -56,7 +57,9 @@ class LogicSecondPrint {
           var configController = Dependencies.configcontroller();
           var tamanhoImpressora = configController.tamanhoImpressora.value;
           if (tamanhoImpressora != 'SEM IMPRESSORA') {
-            PrintNfceXml().printNfceXml(xmlArgs: tef.imagem_comprovante);
+            PrintNfceXml().printNfceXml(
+              xmlArgs: tef.imagem_comprovante,
+            );
           }
         } else {
           logger.e('Comprovante TEF não encontrado');

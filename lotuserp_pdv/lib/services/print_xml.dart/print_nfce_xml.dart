@@ -18,20 +18,24 @@ class PrintNfceXml {
   String? xml;
   String? tamanhoImpressora;
 
-  Future<void> printNfceXml({String? xmlArgs}) async {
+  Future<void> printNfceXml(
+      {String? xmlArgs, bool isContingencia = true}) async {
     try {
       await configController.loadSizePrinter();
-      
+
       // ignore: prefer_if_null_operators
       xml = xmlArgs != null ? xmlArgs : paymentController.xml.value;
       tamanhoImpressora =
           configController.tamanhoImpressora.value == "80mm" ? 'Q4' : 'TECTOY';
-
+      
       if (xml == null || tamanhoImpressora == null) {
         return;
       }
-      await platform.invokeMethod(
-          'imprimirNFCE', {'xml': xml, 'tamanhoImpressora': tamanhoImpressora});
+      await platform.invokeMethod('imprimirNFCE', {
+        'xml': xml,
+        'tamanhoImpressora': tamanhoImpressora,
+        'isContingency': isContingencia
+      });
     } on PlatformException catch (e) {
       logger.e("Erro ao chamar o método da plataforma: '${e.message}'.");
     }

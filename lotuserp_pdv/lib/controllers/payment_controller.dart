@@ -31,6 +31,7 @@ class PaymentController extends GetxController {
   var idVenda = 0;
   var qrCode = ''.obs;
   var xml = ''.obs;
+  bool isContingencia = false;
 
   List<caixa_item> caixaItems = [];
 
@@ -47,7 +48,7 @@ class PaymentController extends GetxController {
     comprovanteTef.add(value);
   }
 
-  void clearComprovanteTef() {  
+  void clearComprovanteTef() {
     comprovanteTef.clear();
   }
 
@@ -98,10 +99,11 @@ class PaymentController extends GetxController {
 
   //update variaveis
   Future<void> updateVariaveisNfce(
-      int idVenda, String qrCode, String xml) async {
+      int idVenda, String qrCode, String xml, bool isContingencia) async {
     this.idVenda = idVenda;
     this.qrCode.value = qrCode;
     this.xml.value = xml;
+    this.isContingencia = isContingencia;
 
     update();
   }

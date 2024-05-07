@@ -72,7 +72,8 @@ public class MainActivity extends FlutterActivity {
     private DarumaMobile dmf;
     private DarumaMobile dfmD2s;
     private String strXML;
-    private Button btnAbrirGaveta;
+    private boolean isContingency;
+    private String tamanhoImpressora;
     public static TecToy tectoy;
 
     private String centro; 
@@ -186,8 +187,9 @@ public class MainActivity extends FlutterActivity {
                                     result.success(null);
                                 } else if(call.method.equals("imprimirNFCE")) {
                                     strXML = call.argument("xml");
-                                    String tamanhoImpressora = call.argument("tamanhoImpressora");
-                                    imprimirNFCE(strXML, tamanhoImpressora);
+                                    isContingency = call.argument("isContingency");
+                                    tamanhoImpressora = call.argument("tamanhoImpressora");
+                                    imprimirNFCE(strXML, tamanhoImpressora, isContingency);
                                     result.success(null);
                                 } else if (call.method.equals("imprimirTeste")){
                                     String texto = call.argument("texto");
@@ -357,14 +359,19 @@ public class MainActivity extends FlutterActivity {
         }
     }
 
-    private void imprimirNFCE(String xml, String tamanhoImpressora ){
+    private void imprimirNFCE(String xml, String tamanhoImpressora, boolean isContingency ){
         try {
             dmf.RegAlterarValor_NFCe("CONFIGURACAO\\Impressora", tamanhoImpressora); // Exemplo: "Q4" ou "Q8"
             dmf.RegAlterarValor_NFCe("CONFIGURACAO\\ImpressaoCompleta", "1");// impressão completa 0-resumida(sem itens) |1- tudo.
+        if(!isContingency){
             dmf.iCFImprimir_NFCe(xml, xml, "", 34, 1);
+        }else {
+            dmf.iCFImprimir_NFCe(xml, "OFFLINE", "", 34, 1);
+        }
         } catch (Exception e) {
             Toast.makeText(MainActivity.this, "Erro na impressão: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void copiarImagemParaArmazenamentoInterno() {

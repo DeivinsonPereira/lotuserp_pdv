@@ -13,23 +13,25 @@ class nfce_resultado {
   int? id_caixa;
   int? id_venda_local;
   int? id_venda_servidor;
+  bool? isContingencia;
   String? qr_code;
   String? xml;
-  
+
   nfce_resultado({
     this.id_caixa,
     this.id_venda_local,
     this.id_venda_servidor,
+    this.isContingencia,
     this.qr_code,
     this.xml,
   });
-
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id_caixa': id_caixa,
       'id_venda_local': id_venda_local,
       'id_venda_servidor': id_venda_servidor,
+      'isContingencia': isContingencia,
       'qr_code': qr_code,
       'xml': xml,
     };
@@ -38,8 +40,13 @@ class nfce_resultado {
   factory nfce_resultado.fromMap(Map<String, dynamic> map) {
     return nfce_resultado(
       id_caixa: map['id_caixa'] != null ? map['id_caixa'] as int : null,
-      id_venda_local: map['id_venda_local'] != null ? map['id_venda_local'] as int : null,
-      id_venda_servidor: map['id_venda_servidor'] != null ? map['id_venda_servidor'] as int : null,
+      id_venda_local:
+          map['id_venda_local'] != null ? map['id_venda_local'] as int : null,
+      id_venda_servidor: map['id_venda_servidor'] != null
+          ? map['id_venda_servidor'] as int
+          : null,
+      isContingencia:
+          map['isContingencia'] != null ? map['isContingencia'] as bool : false,
       qr_code: map['qr_code'] != null ? map['qr_code'] as String : null,
       xml: map['xml'] != null ? map['xml'] as String : null,
     );
@@ -47,5 +54,6 @@ class nfce_resultado {
 
   String toJson() => json.encode(toMap());
 
-  factory nfce_resultado.fromJson(String source) => nfce_resultado.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory nfce_resultado.fromJson(String source) =>
+      nfce_resultado.fromMap(json.decode(source) as Map<String, dynamic>);
 }

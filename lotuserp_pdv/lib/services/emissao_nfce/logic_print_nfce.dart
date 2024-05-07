@@ -8,12 +8,12 @@ class LogicPrintNfce {
   var configController = Dependencies.configcontroller();
   var printerController = Dependencies.printerController();
 
-  Future<void> imprimirNfce(String? xmlArgs) async {
+  Future<void> imprimirNfce(String? xmlArgs, bool isContingencia) async {
     paymentController.toggleIsButtonPrintEnabled(false);
     if (xmlArgs != '' && xmlArgs != null) {
       String tamanhoImpressora = configController.tamanhoImpressora.value;
       if (tamanhoImpressora != 'SEM IMPRESSORA') {
-        await PrintNfceXml().printNfceXml(xmlArgs: xmlArgs);
+        await PrintNfceXml().printNfceXml(xmlArgs: xmlArgs, );
       }
       paymentController.toggleIsButtonPrintEnabled(true);
     }

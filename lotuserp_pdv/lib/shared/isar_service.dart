@@ -1141,7 +1141,8 @@ class IsarService {
             ..id_venda_local = venda.id_venda
             ..id_venda_servidor = idVendaServer
             ..qr_code = paymentController.qrCode.value
-            ..xml = paymentController.xml.value;
+            ..xml = paymentController.xml.value
+            ..isContingencia = paymentController.isContingencia;
 
           await isar.nfce_resultados.put(nfce);
         }

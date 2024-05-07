@@ -32,13 +32,18 @@ const Nfce_resultadoSchema = CollectionSchema(
       name: r'id_venda_servidor',
       type: IsarType.long,
     ),
-    r'qr_code': PropertySchema(
+    r'isContingencia': PropertySchema(
       id: 3,
+      name: r'isContingencia',
+      type: IsarType.bool,
+    ),
+    r'qr_code': PropertySchema(
+      id: 4,
       name: r'qr_code',
       type: IsarType.string,
     ),
     r'xml': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'xml',
       type: IsarType.string,
     )
@@ -87,8 +92,9 @@ void _nfce_resultadoSerialize(
   writer.writeLong(offsets[0], object.id_caixa);
   writer.writeLong(offsets[1], object.id_venda_local);
   writer.writeLong(offsets[2], object.id_venda_servidor);
-  writer.writeString(offsets[3], object.qr_code);
-  writer.writeString(offsets[4], object.xml);
+  writer.writeBool(offsets[3], object.isContingencia);
+  writer.writeString(offsets[4], object.qr_code);
+  writer.writeString(offsets[5], object.xml);
 }
 
 nfce_resultado _nfce_resultadoDeserialize(
@@ -101,8 +107,9 @@ nfce_resultado _nfce_resultadoDeserialize(
     id_caixa: reader.readLongOrNull(offsets[0]),
     id_venda_local: reader.readLongOrNull(offsets[1]),
     id_venda_servidor: reader.readLongOrNull(offsets[2]),
-    qr_code: reader.readStringOrNull(offsets[3]),
-    xml: reader.readStringOrNull(offsets[4]),
+    isContingencia: reader.readBoolOrNull(offsets[3]),
+    qr_code: reader.readStringOrNull(offsets[4]),
+    xml: reader.readStringOrNull(offsets[5]),
   );
   object.id = id;
   return object;
@@ -122,8 +129,10 @@ P _nfce_resultadoDeserializeProp<P>(
     case 2:
       return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readBoolOrNull(offset)) as P;
     case 4:
+      return (reader.readStringOrNull(offset)) as P;
+    case 5:
       return (reader.readStringOrNull(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -504,6 +513,34 @@ extension nfce_resultadoQueryFilter
   }
 
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      isContingenciaIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'isContingencia',
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      isContingenciaIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'isContingencia',
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
+      isContingenciaEqualTo(bool? value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'isContingencia',
+        value: value,
+      ));
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterFilterCondition>
       qr_codeIsNull() {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(const FilterCondition.isNull(
@@ -861,6 +898,20 @@ extension nfce_resultadoQuerySortBy
     });
   }
 
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      sortByIsContingencia() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isContingencia', Sort.asc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      sortByIsContingenciaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isContingencia', Sort.desc);
+    });
+  }
+
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> sortByQr_code() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'qr_code', Sort.asc);
@@ -942,6 +993,20 @@ extension nfce_resultadoQuerySortThenBy
     });
   }
 
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      thenByIsContingencia() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isContingencia', Sort.asc);
+    });
+  }
+
+  QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy>
+      thenByIsContingenciaDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'isContingencia', Sort.desc);
+    });
+  }
+
   QueryBuilder<nfce_resultado, nfce_resultado, QAfterSortBy> thenByQr_code() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'qr_code', Sort.asc);
@@ -990,6 +1055,13 @@ extension nfce_resultadoQueryWhereDistinct
     });
   }
 
+  QueryBuilder<nfce_resultado, nfce_resultado, QDistinct>
+      distinctByIsContingencia() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'isContingencia');
+    });
+  }
+
   QueryBuilder<nfce_resultado, nfce_resultado, QDistinct> distinctByQr_code(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1030,6 +1102,13 @@ extension nfce_resultadoQueryProperty
       id_venda_servidorProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'id_venda_servidor');
+    });
+  }
+
+  QueryBuilder<nfce_resultado, bool?, QQueryOperations>
+      isContingenciaProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'isContingencia');
     });
   }
 

@@ -73,7 +73,9 @@ class QrCodePage extends StatelessWidget {
                           String tamanhoImpressora =
                               configController.tamanhoImpressora.value;
                           if (tamanhoImpressora != 'SEM IMPRESSORA') {
-                            await PrintNfceXml().printNfceXml();
+                            await PrintNfceXml().printNfceXml(
+                                isContingencia:
+                                    paymentController.isContingencia);
                             if (tamanhoImpressora == '80mm') {
                               for (var i = 0;
                                   i < paymentController.comprovanteTef.length;

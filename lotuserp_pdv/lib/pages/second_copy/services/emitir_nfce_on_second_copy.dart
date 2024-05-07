@@ -123,6 +123,7 @@ class EmitirNfceOnSecondCopy {
         if (jsonResponse['id_venda'] != null &&
             jsonResponse['qr_code'] != null &&
             jsonResponse['xml'] != null) {
+          nfce.isContingencia = jsonResponse['contingencia'];
           nfce.id_venda_local = venda.id_venda;
           nfce.id_venda_servidor = int.tryParse(jsonResponse['id_venda']);
           nfce.qr_code = jsonResponse['qr_code'];
