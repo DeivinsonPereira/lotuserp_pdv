@@ -19,6 +19,7 @@ class ConfirmationMethod {
   SideBarController sideBarController = Dependencies.sidebarController();
   PrinterController printerController = Dependencies.printerController();
   PaymentController paymentController = Dependencies.paymentController();
+  var configController = Dependencies.configcontroller();
 
   Future<void> processCommonOperations(
     String name,
@@ -79,8 +80,8 @@ class ConfirmationMethod {
       ..id_serie_nfce = globalController.serieNfce //id serie nfce
       ..enviado = 0 //enviado (status de envio)
       ..cpf_cnpj = '000.000.000-00' //cpf cnpj do cliente
-      ..id_caixa =
-          pdvController.caixaId.value //id caixa aberto para o usuario logado
+      ..id_caixa = configController
+          .caixaSelected!.id_caixa //id caixa aberto para o usuario logado
       ..id_venda_servidor =
           0; //id da venda no servidor (recebido após o envio Nfce)
     await service.insertVendaWithVendaItemAndCaixaItem(context, vendaExecutada);

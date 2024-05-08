@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:lotuserp_pdv/collections/usuario_logado.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/pages/config/config_pages/widget/list_dropdown_option.dart';
 import 'package:lotuserp_pdv/pages/payment/component/enums/tipo_tef.dart';
@@ -10,7 +11,9 @@ import 'package:lotuserp_pdv/services/dependencies.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 import 'package:usb_serial/usb_serial.dart';
 
+import '../collections/caixa.dart';
 import '../collections/dado_empresa.dart';
+import '../collections/empresa.dart';
 import '../pages/common/loading_screen.dart';
 import '../repositories/download_persist_images_repository.dart';
 import 'text_field_controller.dart';
@@ -30,6 +33,9 @@ class Configcontroller extends GetxController {
       {'name': 'AZUL ESCURO', 'color': const Color(0xFF2B305B)}.obs;
   List<String> devicesManufacturer = [];
   var deviceNameSelected = AuxString.DEVICE_NOT_FOUND.obs;
+  empresa? empresaSelected = empresa(id: 0);
+  caixa? caixaSelected = caixa();
+  usuario_logado? usuarioLogado = usuario_logado();
 
   @override
   void onInit() {
@@ -45,6 +51,18 @@ class Configcontroller extends GetxController {
     loadNameBalance();
     loadSizePrinter();
     loadUsbName();
+  }
+
+  void setCaixa(caixa caixa) {
+    caixaSelected = caixa;
+  }
+
+  void setEmpresa(empresa empresa) {
+    empresaSelected = empresa;
+  }
+
+  void setusuarioLogado(usuario_logado usuarioLogado) {
+    this.usuarioLogado = usuarioLogado;
   }
 
   //UPDATE TAMANHO IMPRESSORA

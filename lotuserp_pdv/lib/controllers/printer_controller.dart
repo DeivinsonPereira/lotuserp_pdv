@@ -42,6 +42,8 @@ class PrinterController extends GetxController {
   Logger logger = Logger();
 
   Configcontroller configController = Dependencies.configcontroller();
+  var paymentController = Dependencies.paymentController();
+  var closeRegisterController = Dependencies.closeRegisterController();
   var printerSize = '';
 
   void setPrinterSize() {
@@ -396,7 +398,7 @@ class PrinterController extends GetxController {
 
     idCaixa = await service.getCaixaIdWithIdUserAndStatus0();
     usuario = us?.login ?? '';
-    abertura = DatetimeFormatterWidget.formatDate(dataCaixa!.abertura_data);
+    abertura = DatetimeFormatterWidget.formatDate(dataCaixa!.abertura_data!);
 
     if (printerSize == '80mm') {
       try {
@@ -497,7 +499,6 @@ class PrinterController extends GetxController {
   Future<void> printCloseCaixa(List<caixa_fechamento> fechamento) async {
     SideBarController sideBarController = Dependencies.sidebarController();
     printerSize = configController.tamanhoImpressora.value;
-    Dependencies.globalController();
 
     //variáveis para montagem da impressão
     String nomeEmpresa = '';
@@ -517,7 +518,7 @@ class PrinterController extends GetxController {
     String? abertura = '';
 
     //busca dados da empresa para alimentar as variaveis de impressão
-    empresa? dataEmpresa = await service.searchEmpresa();
+    empresa? dataEmpresa = configController.empresaSelected;
 
     if (dataEmpresa != null) {
       nomeEmpresa = dataEmpresa.fantasia ?? '';
@@ -525,13 +526,14 @@ class PrinterController extends GetxController {
       numeroEmpresa = dataEmpresa.numero ?? '';
       bairroEmpresa = dataEmpresa.bairro ?? '';
     }
-    usuario_logado? us = await service.getUserLogged();
 
-    idCaixa = await service.getCaixaIdWithIdUserAndStatus0();
-    usuario = us?.login ?? '';
-    var caixaObjeto = await service.getCaixaWithIdUserAndStatus0();
-    abertura = DatetimeFormatterWidget.formatDate(caixaObjeto!.abertura_data);
-    caixa? aberturaCaixaItemValue = await service.getCaixaItemValue();
+    idCaixa = configController.caixaSelected!.id_caixa;
+
+    idCaixa = configController.caixaSelected!.id_caixa;
+    usuario = configController.usuarioLogado!.login ?? '';
+    var caixaObjeto = configController.caixaSelected;
+    abertura = DatetimeFormatterWidget.formatDate(
+        configController.caixaSelected!.abertura_data!);
 
     double totalInformado = 0.0;
     var descricao = 'Descricao';
@@ -549,16 +551,15 @@ class PrinterController extends GetxController {
     for (int i = 0; i < fechamento.length; i++) {
       totalInformado += fechamento[i].valor_informado!;
 
-      tipo_recebimento? tipos = await service
-          .search_tipoRecebimento(fechamento[i].id_tipo_recebimento);
-      tipoPagto.add(tipos!.descricao);
-    }
-    /*  String totalInformadoStr = totalInformado;*/
-    /*String testeImpressao = '';*/
+      tipo_recebimento? tipos = paymentController.tipo_recebimentos[i];
 
-    //formatação da impressão
+      if (tipos != null) {
+        tipoPagto.add(tipos.descricao);
+      }
+    }
 
     if (printerSize == '80mm') {
+      //if (configController.empresaSelected!.caixa_cego != 1) {
       try {
         final profile = await CapabilityProfile.load();
         final generator = Generator(
@@ -600,7 +601,7 @@ class PrinterController extends GetxController {
             styles: const PosStyles(codeTable: 'CP1252'));
         bytes += generator.text('Abertura: $abertura');
         bytes += generator.text(
-          'Valor:           ${formatoBrasileiro.format(aberturaCaixaItemValue?.abertura_valor)}',
+          'Valor:           ${formatoBrasileiro.format(caixaObjeto!.abertura_valor)}',
         );
         //
         //
@@ -660,7 +661,142 @@ class PrinterController extends GetxController {
       } on BTException {
         return;
       }
+      /*} else {
+        try {
+          final profile = await CapabilityProfile.load();
+          final generator = Generator(
+            PaperSize.mm80,
+            profile,
+          );
+
+          List<int> bytes = [];
+
+          if (selectedPrinter == null) return;
+
+          await connectDevice();
+          if (!isConnected.value) return;
+
+          bytes += generator.text(nomeEmpresa,
+              styles: const PosStyles(align: PosAlign.left, bold: true));
+          bytes += generator.text('$ruaEmpresa, $numeroEmpresa');
+          bytes += generator.text(bairroEmpresa);
+          bytes += generator.text(
+              '________________________________________________',
+              styles: const PosStyles(bold: true));
+          bytes += generator.text(typeMovimentation,
+              styles: const PosStyles(
+                  align: PosAlign.left, bold: true, width: PosTextSize.size2));
+          bytes += generator.text(
+              '________________________________________________',
+              styles: const PosStyles(bold: true));
+          bytes += generator.text('$name $data - $hour',
+              styles: const PosStyles(align: PosAlign.left));
+          bytes += generator.text(
+              '________________________________________________',
+              styles: const PosStyles(bold: true));
+          //
+          //
+          bytes +=
+              generator.text('ABERTURA', styles: const PosStyles(bold: true));
+          bytes += generator.text('ID Caixa: $idCaixa');
+          bytes += generator.text('Usuario: $usuario',
+              styles: const PosStyles(codeTable: 'CP1252'));
+          bytes += generator.text('Abertura: $abertura');
+          bytes += generator.text(
+            'Valor:           ${formatoBrasileiro.format(caixaObjeto!.abertura_valor)}',
+          );
+          //
+          //
+          bytes += generator.text('\nRESUMO MOVIMENTACAO',
+              styles: const PosStyles(bold: true));
+
+          bytes += generator.text(
+              'Descricao    Apurado   Informado   Diferenca',
+              styles: const PosStyles(bold: true));
+          //bytes += generator.text(
+          //    'Descricao${''.padRight(numeroCaracteres1)}${''.padLeft(numeroCaracteres2)}Informado',
+          //    styles: const PosStyles(bold: true));
+          //print('Descricao    Apurado   Informado   Diferenca');
+          bytes += generator.text(
+              '________________________________________________',
+              styles: const PosStyles(bold: true));
+          //
+          //
+          for (var i = 0; i < fechamento.length; i++) {
+            var informado = closeRegisterController.debits[i];
+            var credit = closeRegisterController.credits[i];
+            var diferenca =
+                formatoBrasileiro.format(fechamento[i].valor_informado);
+
+            int numeroCaracteres1 = 10 - tipoPagto[i].toString().length;
+            int numeroCaracteres2 = 9 - credit.length;
+
+            int numeroCaracteres3 = 12 - informado.length;
+
+            int numeroCaracteres4 = 12 - diferenca.length;
+
+            bytes += generator.text(tipoPagto[i] +
+                ''.padRight(numeroCaracteres1) +
+                ''.padLeft(numeroCaracteres2) +
+                credit +
+                ''.padLeft(numeroCaracteres3) +
+                informado +
+                ''.padLeft(numeroCaracteres4) +
+                diferenca);
+/*
+            print(tipoPagto[i] +
+                ''.padRight(numeroCaracteres1) +
+                ''.padLeft(numeroCaracteres2) +
+                credit +
+                ''.padLeft(numeroCaracteres3) +
+                informado +
+                ''.padLeft(numeroCaracteres4) +
+                diferenca);
+            bytes += generator.text(tipoPagto[i] +
+                ''.padRight(numeroCaracteres1) +
+                ''.padLeft(numeroCaracteres2) +
+                formatoBrasileiro.format(fechamento[i].valor_informado));
+                
+            */
+          }
+
+          bytes += generator.text(
+              '________________________________________________',
+              styles: const PosStyles(bold: true));
+
+          int totInformado =
+              23 - formatoBrasileiro.format(totalInformado).length;
+          bytes += generator.text(
+              totalGrupo +
+                  ''.padRight(numeroCaracteresTotGrupo) +
+                  ''.padLeft(totInformado) +
+                  formatoBrasileiro.format(totalInformado),
+              styles: const PosStyles(bold: true));
+          bytes += generator.text(
+              '________________________________________________\n\n',
+              styles: const PosStyles(bold: true));
+          bytes += generator.text(
+              '________________________________________________',
+              styles: const PosStyles(bold: true));
+          bytes +=
+              generator.text('FECHAMENTO', styles: const PosStyles(bold: true));
+          bytes += generator.text('      Data:');
+          bytes += generator.text('\n');
+          bytes += generator.text('CONFERIDO EM: ___/___/_______');
+          bytes += generator
+              .text('  CONFERENTE: _______________________________\n\n');
+          bytes += generator.cut();
+          //    print('A impressão do fechamento de caixa está comentada');
+
+          String textToPrint = String.fromCharCodes(bytes);
+
+          await bluetoothManager.writeText(textToPrint);
+        } on BTException {
+          return;
+        }
+      }*/
     } else if (printerSize == '58mm') {
+      //if (configController.empresaSelected!.caixa_cego == 1) {
       String text1 = nomeEmpresa; // bold
 
       String text2 = '\n$ruaEmpresa, $numeroEmpresa\n'; // normal
@@ -684,13 +820,14 @@ class PrinterController extends GetxController {
       text7 += 'Valor:';
 
       String text8 =
-          'Valor:        ${formatoBrasileiro.format(aberturaCaixaItemValue?.abertura_valor)}'; // direita
+          'Valor:        ${formatoBrasileiro.format(caixaObjeto!.abertura_valor)}'; // direita
       //
       //
       String text9 = '\nRESUMO MOVIMENTACAO\n'; // negrito
+      String text10 = 'Desc     Apurado   Info.  Dif';
+      // direita e negrito
 
-      String text10 =
-          'Descricao${''.padRight(numeroCaracteres1)}${''.padLeft(numeroCaracteres2)}Informado'; // direita e negrito
+      print('Desc     Apurado   Info.  Dif');
 
       String text11 = '\n_______________________________\n'; // negrito
       //
@@ -699,8 +836,31 @@ class PrinterController extends GetxController {
       List<String> text13 = [''];
       for (var i = 0; i < fechamento.length; i++) {
         text12.add(tipoPagto[i] + '\n');
+        /*text13.add(
+              '${formatoBrasileiro.format(fechamento[i].valor_informado)}\n');*/
+
+        var informado = closeRegisterController.debits[i];
+        var credit = closeRegisterController.credits[i];
+        var diferenca = formatoBrasileiro.format(fechamento[i].valor_informado);
+
+        int numeroCaracteres1 = 8 - tipoPagto[i].toString().length;
+        int numeroCaracteres2 = 7 - credit.length;
+
+        int numeroCaracteres3 = 7 - informado.length;
+
+        int numeroCaracteres4 = 9 - diferenca.length;
+
         text13.add(
-            '${formatoBrasileiro.format(fechamento[i].valor_informado)}\n');
+            '         ${''.padLeft(numeroCaracteres4)}$credit${''.padLeft(numeroCaracteres3)}$informado${''.padLeft(numeroCaracteres4)}$diferenca\n');
+
+        print(tipoPagto[i] +
+            ''.padRight(numeroCaracteres1) +
+            ''.padLeft(numeroCaracteres2) +
+            credit +
+            ''.padLeft(numeroCaracteres3) +
+            informado +
+            ''.padLeft(numeroCaracteres4) +
+            diferenca);
       }
 
       String text14 = '\n_______________________________\n'; // negrito
@@ -735,11 +895,82 @@ class PrinterController extends GetxController {
           text16,
           text17,
           text18);
-    }
+      /*} else {
+        String text1 = nomeEmpresa; // bold
 
-    /*print(
-          '$text1, $text2, $text3, $text4, $text5, $text6, $text7, $text8, $text9, $text10, $text11, $text12, $text14, $text15, $text17, $text18');
-    }*/
+        String text2 = '\n$ruaEmpresa, $numeroEmpresa\n'; // normal
+        text2 += bairroEmpresa;
+
+        String text3 = '\n_______________________________\n'; // negrito
+        text3 += typeMovimentation; // negrito tamanho 2
+        text3 += '\n_______________________________\n';
+
+        String text4 = '$name $data\n$hour'; // normal
+
+        String text5 = '\n_______________________________\n'; // negrito
+        //
+        //
+
+        String text6 = 'ABERTURA\n'; // negrito
+
+        String text7 = 'ID Caixa: $idCaixa\n';
+        text7 += 'Usuario: $usuario\n';
+        text7 += 'Abertura: $abertura\n';
+        text7 += 'Valor:';
+
+        String text8 =
+            'Valor:        ${formatoBrasileiro.format(caixaObjeto.abertura_valor)}'; // direita
+        //
+        //
+        String text9 = '\nRESUMO MOVIMENTACAO\n'; // negrito
+        String text10 =
+            'Descricao${''.padRight(numeroCaracteres1)}${''.padLeft(numeroCaracteres2)}Informado'; // direita e negrito
+
+        String text11 = '\n_______________________________\n'; // negrito
+        //
+        //
+        List<String> text12 = [''];
+        List<String> text13 = [''];
+        for (var i = 0; i < fechamento.length; i++) {
+          text12.add(tipoPagto[i] + '\n');
+          text13.add(
+              '${formatoBrasileiro.format(fechamento[i].valor_informado)}\n');
+        }
+
+        String text14 = '\n_______________________________\n'; // negrito
+
+        String text15 = 'Total Informado:\n';
+        String text16 =
+            '               ${formatoBrasileiro.format(totalInformado)}';
+
+        String text17 = '\n_______________________________\n\n\n'; // negrito
+        text17 += 'FECHAMENTO\n';
+
+        String text18 = 'Data:\n';
+        text18 += 'CONFERIDO EM: ___/___/______/\n\n\n';
+        text18 += 'CONFERENTE: _________________\n\n\n\n\n\n';
+
+        PrintNormalStrings().imprimirCloseRegister(
+            text1,
+            text2,
+            text3,
+            text4,
+            text5,
+            text6,
+            text7,
+            text8,
+            text9,
+            text10,
+            text11,
+            text12,
+            text13,
+            text14,
+            text15,
+            text16,
+            text17,
+            text18);
+      }*/
+    }
   }
 
   //Faz a impressão (espelho) da venda

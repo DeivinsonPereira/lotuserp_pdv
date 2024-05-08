@@ -170,7 +170,7 @@ class IsarService {
   Future getEmpresa(
       String companyId, String companyIp, BuildContext context) async {
     await connectionVerifyApi(context);
-
+    var configController = Dependencies.configcontroller();
     if (conexaoApi) {
       final isar = await db;
 
@@ -185,7 +185,7 @@ class IsarService {
           throw Exception(
               'Falha ao obter dados da empresa do servidor. Código de erro HTTP: ${response.statusCode}');
         }
-        var empresas = jsonDecode(utf8.decode(response.bodyBytes));
+        var empresas = jsonDecode(response.body);
         int i = await isar.empresas.count();
 
         if (i > 0) {
@@ -193,49 +193,10 @@ class IsarService {
             await isar.empresas.clear();
           });
         }
+        empresa emp = empresa.fromMap(empresas['itens'][0]);
 
-        final emp = empresa(
-            empresas['itens'][0]['id'],
-            empresas['itens'][0]['razao'],
-            empresas['itens'][0]['fantasia'],
-            empresas['itens'][0]['cnpj'],
-            empresas['itens'][0]['insc_estadual'],
-            empresas['itens'][0]['insc_municipal'],
-            empresas['itens'][0]['fone1'],
-            empresas['itens'][0]['fone2'],
-            empresas['itens'][0]['fone3'],
-            empresas['itens'][0]['endereco'],
-            empresas['itens'][0]['bairro'],
-            empresas['itens'][0]['numero'],
-            empresas['itens'][0]['municipio'],
-            empresas['itens'][0]['municipio_uf'],
-            empresas['itens'][0]['cep'],
-            empresas['itens'][0]['email'],
-            empresas['itens'][0]['site'],
-            empresas['itens'][0]['complemento'],
-            empresas['itens'][0]['estoque_grade'],
-            1,
-            empresas['itens'][0]['param_nf_crt'],
-            empresas['itens'][0]['param_pdv_usar_pvista_pprazo'],
-            empresas['itens'][0]['param_vendas_tpcomissao'],
-            empresas['itens'][0]['param_vendas_portador'],
-            empresas['itens'][0]['param_vendas_descmaximo'].toDouble(),
-            empresas['itens'][0]['param_pdv_codigopesagem'],
-            empresas['itens'][0]['param_pdv_formapagto'],
-            empresas['itens'][0]['param_pdv_cliente'],
-            empresas['itens'][0]['param_pdv_bloq_est_neg'],
-            empresas['itens'][0]['param_pdv_validar_cx_fechado'],
-            empresas['itens'][0]['param_pdv_senha_cancelar'],
-            empresas['itens'][0]['param_pdv_imp_cp_nf_venda'],
-            empresas['itens'][0]['param_pdv_prodcomposto'],
-            empresas['itens'][0]['param_pdv_informa_cliente'],
-            empresas['itens'][0]['param_pdv_vendedor_venda'],
-            empresas['itens'][0]['param_pdv_cartao_gerarparc'],
-            empresas['itens'][0]['param_pdv_imp_comprovante'],
-            empresas['itens'][0]['param_pdv_permitir_desconto'],
-            empresas['itens'][0]['param_pdv_tipo_desconto'],
-            empresas['itens'][0]['param_pdv_gerar_senha'],
-            empresas['itens'][0]['param_pdv_comanda_producao']);
+        configController.setEmpresa(emp);
+
         isar.writeTxn(() async {
           await isar.empresas.put(emp);
         });
@@ -837,6 +798,7 @@ class IsarService {
 
   //busca tipo_recebimento do servidor e insere na tabela do banco de dados local
   Future<dynamic> getTipo_recebimento(BuildContext context) async {
+    var paymentController = Dependencies.paymentController();
     await connectionVerifyApi(context);
 
     if (conexaoApi) {
@@ -869,34 +831,19 @@ class IsarService {
           headers: _headers,
         );
         if (response.statusCode == 200) {
-          Map<String, dynamic> tipo_recebimentoType =
-              jsonDecode(utf8.decode(response.bodyBytes));
+          Map<String, dynamic> tipo_recebimentoType = jsonDecode(response.body);
 
           var tipo_recebimento_count = tipo_recebimentoType['itens'].length;
 
           final List<tipo_recebimento> lista_tipo_recebimento = [];
 
           for (int i = 0; i < tipo_recebimento_count; i++) {
-            final tip = tipo_recebimento(
-              tipo_recebimentoType['itens'][i]['id'],
-              tipo_recebimentoType['itens'][i]['id_empresa'],
-              tipo_recebimentoType['itens'][i]['descricao'],
-              tipo_recebimentoType['itens'][i]['permite_troco'],
-              tipo_recebimentoType['itens'][i]['tipo_forma'],
-              tipo_recebimentoType['itens'][i]['status'],
-              tipo_recebimentoType['itens'][i]['listar_pdv'],
-              tipo_recebimentoType['itens'][i]['id_pcontas'],
-              tipo_recebimentoType['itens'][i]['tef'],
-              tipo_recebimentoType['itens'][i]['id_fpagto'],
-              tipo_recebimentoType['itens'][i]['pix_integrado'],
-              tipo_recebimentoType['itens'][i]['imp_comprovante'],
-              tipo_recebimentoType['itens'][i]['cortesia'],
-              tipo_recebimentoType['itens'][i]['obrigar_nfce'],
-              tipo_recebimentoType['itens'][i]['solicitar_senha'],
-            );
+            final tip =
+                tipo_recebimento.fromMap(tipo_recebimentoType['itens'][i]);
 
             lista_tipo_recebimento.add(tip);
           }
+          paymentController.addPaymentTypes(lista_tipo_recebimento);
 
           isar.writeTxn(() async {
             await isar.tipo_recebimentos.putAll(lista_tipo_recebimento);
@@ -906,6 +853,17 @@ class IsarService {
       } catch (e) {
         return Container();
       }
+    }
+  }
+
+  Future<List<tipo_recebimento?>> getTipoRecebimento() async {
+    final isar = await db;
+
+    try {
+      return await isar.tipo_recebimentos.where().findAll();
+    } catch (e) {
+      logger.e("Erro ao buscar tipo_recebimento: $e");
+      return [];
     }
   }
 
@@ -961,6 +919,7 @@ class IsarService {
   //inserir dados na tabela caixa e caixaItem
   Future<Isar> insertCaixaWithCaixaItem(caixa caixa, DateTime atualDate,
       String hourFormatted, double openRegisterDouble, int? idUser) async {
+    var configController = Dependencies.configcontroller();
     final isar = await db;
     PrinterController printerController = Dependencies.printerController();
     Configcontroller configcontroller = Dependencies.configcontroller();
@@ -974,6 +933,10 @@ class IsarService {
 
     await isar.writeTxn(() async {
       await isar.caixas.put(caixa);
+
+      Future.delayed(const Duration(milliseconds: 100), () async {
+        configController.setCaixa(caixa);
+      });
 
       var descricao = 'ABERTURA DE CAIXA';
 
@@ -1190,6 +1153,26 @@ class IsarService {
       return caixaId;
     } else {
       return null;
+    }
+  }
+
+  Future<List<caixa_item>> getAllByTypePayment(int idTypePayment) async {
+    var configController = Dependencies.configcontroller();
+    final isar = await db;
+
+    caixa? caixaId =
+        await getCaixaWithIdUser(configController.usuarioLogado!.id_user!);
+
+    try {
+      return await isar.caixa_items
+          .filter()
+          .id_caixaEqualTo(caixaId!.id_caixa)
+          .and()
+          .id_tipo_recebimentoEqualTo(idTypePayment)
+          .findAll();
+    } catch (e) {
+      logger.e("Erro ao buscar caixa_item: $e");
+      return <caixa_item>[];
     }
   }
 
@@ -1426,6 +1409,7 @@ class IsarService {
 
   //cria um usuario na tabela 'Usuarios'
   Future<Isar> insertUser(usuario_logado user) async {
+    var configController = Dependencies.configcontroller();
     final isar = await db;
 
     int i = await isar.usuario_logados.count();
@@ -1438,6 +1422,7 @@ class IsarService {
 
     isar.writeTxn(() async {
       await isar.usuario_logados.put(user);
+      configController.setusuarioLogado(user);
     });
 
     Get.toNamed(PagesRoutes.homePageRoute);
@@ -1519,6 +1504,27 @@ class IsarService {
     }
 
     return 0;
+  }
+
+  Future<caixa?> getCaixaOpenByIdUser(int idUser) async {
+    final isar = await db;
+
+    try {
+      caixa? caixas = await isar.caixas
+          .filter()
+          .abertura_id_userEqualTo(idUser)
+          .statusEqualTo(0)
+          .findFirst();
+
+      if (caixas != null) {
+        return caixas;
+      } else {
+        return null;
+      }
+    } catch (e) {
+      logger.e('erro ao buscar caixa: $e');
+      return null;
+    }
   }
 
   // Busca caixa pelo id

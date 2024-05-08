@@ -79,11 +79,12 @@ usuario_logado _usuario_logadoDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = usuario_logado();
+  final object = usuario_logado(
+    id_colaborador: reader.readLongOrNull(offsets[0]),
+    id_user: reader.readLongOrNull(offsets[1]),
+    login: reader.readStringOrNull(offsets[2]),
+  );
   object.id = id;
-  object.id_colaborador = reader.readLongOrNull(offsets[0]);
-  object.id_user = reader.readLongOrNull(offsets[1]);
-  object.login = reader.readStringOrNull(offsets[2]);
   return object;
 }
 

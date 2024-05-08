@@ -48,6 +48,7 @@ class IconButtonSideBar extends StatelessWidget {
         Dependencies.informationController();
     var pdvController = Dependencies.pdvController();
     var saveImagePathController = Dependencies.saveImagePathController();
+    var closeRegisterController = Dependencies.closeRegisterController();
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(45, 252, 252, 252),
@@ -91,6 +92,7 @@ class IconButtonSideBar extends StatelessWidget {
                   Get.toNamed(PagesRoutes.pdvMonitor);
                 });
               } else if (isFecharCaixa == true) {
+                closeRegisterController.autoFillControllers();
                 Get.dialog(const CloseRegisterPage());
               }
             }

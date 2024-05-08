@@ -81,7 +81,8 @@ class LoadController extends GetxController {
               dadosEmpresariais.ip_empresa!, context));
         }
         if (checkbox2.value == true)
-          tasks.add(service.getTipo_recebimento(context));
+          service.getTipo_recebimento(context);
+          
         if (checkbox3.value == true) tasks.add(service.getUsuarios(context));
         if (checkbox4.value == true) {
           tasks.add(service.getGrupo(context));

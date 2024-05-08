@@ -3,34 +3,38 @@ import 'package:get/get.dart';
 import 'package:lotuserp_pdv/pages/payment/component/row_widget.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../collections/caixa_item.dart';
+import '../collections/tipo_recebimento.dart';
+import '../services/dependencies.dart';
+import '../services/format_numbers.dart';
+
 class CloseRegisterController extends GetxController {
+  var configController = Dependencies.configcontroller();
+  var paymentController = Dependencies.paymentController();
   IsarService service = IsarService();
 
   List<TextEditingController> textControllers = [];
-
+  List<String> credits = [];
+  List<String> debits = [];
   List<Map<String, dynamic>> closeRegister = [];
-
-  RxInt selectedTextFieldIndex = 0.obs;
-
-  RxInt caixaId = 0.obs;
-
+  var selectedTextFieldIndex = 0.obs;
+  var caixaId = 0.obs;
   List<int>? dataOfTipoPagamento = [];
-
   var isButtonEnabled = true.obs;
 
   @override
   void onInit() {
     super.onInit();
-    getidCaixa();
     isButtonEnabled.value = true;
   }
 
+  // Atualiza o valor do isButtonEnabled
   void toggleIsButtonEnabled() {
     isButtonEnabled.value = !isButtonEnabled.value;
     update();
   }
 
-  //atualiza o valor do selectedTextFieldIndex
+  // Atualiza o valor do selectedTextFieldIndex
   void setSelectedTextFieldIndex(int index) {
     selectedTextFieldIndex.value = index;
     update();
@@ -56,11 +60,9 @@ class CloseRegisterController extends GetxController {
         break;
       }
     }
-
     if (!found) {
       closeRegister.add({'tipo': tipo, 'value': value});
     }
-
   }
 
   // remove numero por numero que está armazenado no textController e no closeRegister
@@ -82,9 +84,50 @@ class CloseRegisterController extends GetxController {
     updateCloseRegister(textControllers[index].text, tipo);
   }
 
-  Future<void> getidCaixa() async {
-    var caixa = await service.getCaixaIdWithIdUserAndStatus0();
-    caixaId.value = caixa!;
+  // Faz o auto preenchimento dos campos se caixa cego for == 1
+  Future<void> autoFillControllers() async {
+    Future.delayed(const Duration(microseconds: 100)).then((value) async {
+      /*if (configController.empresaSelected!.caixa_cego == 1) {*/
+      for (int i = 0; i < paymentController.tipo_recebimentos.length; i++) {
+        
+        textControllers[i].text = '0,00';
+        credits.clear();
+        debits.clear();
+      }
+      for (int i = 0; i < paymentController.tipo_recebimentos.length; i++) {
+        tipo_recebimento payment = paymentController.tipo_recebimentos[i]!;
+
+        List<caixa_item> caixaItems =
+            await service.getAllByTypePayment(payment.id);
+        double credit = 0.0;
+        double debit = 0.0;
+        if (caixaItems.isNotEmpty) {
+          for (caixa_item caixaItem in caixaItems) {
+            credit += caixaItem.valor_cre!;
+            debit += caixaItem.valor_deb!;
+          }
+          credits.add(FormatNumbers.formatNumbertoString(credit));
+          debits.add(FormatNumbers.formatNumbertoString(debit));
+          textControllers[i].text =
+              FormatNumbers.formatNumbertoString(credit - debit);
+        } else {
+          credits.add(FormatNumbers.formatNumbertoString(credit));
+          debits.add(FormatNumbers.formatNumbertoString(debit));
+          textControllers[i].text =
+              FormatNumbers.formatNumbertoString(credit - debit);
+        }
+        print(credits[i]);
+        print(debits[i]);
+      }
+      /*} else {
+        textControllers.clear();
+        credits.clear();
+        debits.clear();
+        for (int i = 0; i < paymentController.tipo_recebimentos.length; i++) {
+          textControllers[i].text = '0,00';
+        }
+      }*/
+    });
   }
 
   @override

@@ -2,18 +2,21 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
 import 'package:lotuserp_pdv/shared/isar_service.dart';
 
+import '../collections/caixa.dart';
+import '../collections/empresa.dart';
 import '../collections/usuario_logado.dart';
 import '../core/app_routes.dart';
 import '../pages/common/custom_cherry.dart';
 import '../services/dependencies.dart';
-import 'password_controller.dart';
 
 class LoginController extends GetxController {
   IsarService service = IsarService();
-  PasswordController passwordController = Dependencies.passwordController();
+  var passwordController = Dependencies.passwordController();
   var configController = Dependencies.configcontroller();
+  var paymentController = Dependencies.paymentController();
   RxBool obscureText = false.obs;
 
   void toggleObscureText() {
@@ -58,15 +61,36 @@ class LoginController extends GetxController {
   }
 
   // Cria um registro no banco do usuario logado e navega para a homePage
-  Future<void> _proceedToHome(String savedLogin) async {
+  Future<void> _proceedToHome(
+    String savedLogin,
+  ) async {
     var userOnline = await service.getUserIdColaborador(savedLogin);
     var idUser = await service.getUserIdUser(savedLogin);
-    var usuarioLogado = usuario_logado()
-      ..login = savedLogin
-      ..id_user = idUser
-      ..id_colaborador = userOnline;
+    var usuarioLogado = usuario_logado(
+      login: savedLogin,
+      id_user: idUser,
+      id_colaborador: userOnline,
+    );
     await service.insertUser(usuarioLogado);
     await Get.offNamed(PagesRoutes.homePageRoute);
+    empresa? empresaSelected = await service.searchEmpresa();
+    List<tipo_recebimento?> tipoRecebimento =
+        await service.getTipoRecebimento();
+    if (tipoRecebimento.isNotEmpty) {
+      paymentController.addPaymentTypes(tipoRecebimento);
+    }
+    if (empresaSelected != null) {
+      configController.setEmpresa(empresaSelected);
+    }
+    Future.delayed(const Duration(milliseconds: 100), () async {
+      caixa? caixaSelected =
+          await service.getCaixaOpenByIdUser(usuarioLogado.id);
+      if (caixaSelected != null) {
+        configController.setCaixa(caixaSelected);
+      }
+    });
+
+    configController.setusuarioLogado(usuarioLogado);
   }
 
   // retorna se um dos campos esta vazio

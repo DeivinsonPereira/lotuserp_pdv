@@ -4,12 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
 import 'package:lotuserp_pdv/controllers/close_register_controller.dart';
-import 'package:lotuserp_pdv/controllers/password_controller.dart';
-import 'package:lotuserp_pdv/controllers/printer_controller.dart';
-import 'package:lotuserp_pdv/controllers/side_bar_controller.dart';
 import 'package:lotuserp_pdv/core/custom_colors.dart';
 import 'package:lotuserp_pdv/pages/close_register/service/logic/logic_close_register.dart';
-import 'package:lotuserp_pdv/shared/isar_service.dart';
+import 'package:lotuserp_pdv/services/datetime_formatter_widget.dart';
 
 import '../../collections/tipo_recebimento.dart';
 import '../../services/dependencies.dart';
@@ -21,11 +18,10 @@ class CloseRegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    IsarService service = IsarService();
 
-    CloseRegisterController controller = Dependencies.closeRegisterController();
-
-    PrinterController printerController = Dependencies.printerController();
+    var controller = Dependencies.closeRegisterController();
+    var printerController = Dependencies.printerController();
+    var paymentController = Dependencies.paymentController();
     printerController.setPrinterSize();
 
     // botões confirmar e voltar
@@ -210,67 +206,63 @@ class CloseRegisterPage extends StatelessWidget {
         width: size.width,
         child: Row(
           children: [
-            const SizedBox(
-              width: 35,
-            ),
-            //Teclado
-            keyboardOnDialog(),
+            /*if (caixa_cego != 1) ...{
+              const SizedBox(
+                width: 35,
+              ),
+              //Teclado
+              keyboardOnDialog(),
 
-            //Espaço entre o teclado e a lista
-            const SizedBox(
-              width: 75,
-            ),
+              //Espaço entre o teclado e a lista
+              const SizedBox(
+                width: 75,
+              ),
+            },*/
 
             //lista de recebimentos
             Expanded(
               child: SizedBox(
-                child: StreamBuilder(
-                    stream: service.listenTipo_recebimento(),
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData) {
-                        return const Text('Text');
+                child: ListView.builder(
+                    itemCount: paymentController.tipo_recebimentos.length,
+                    itemBuilder: (context, index) {
+                      var data = paymentController.tipo_recebimentos[index];
+                      if (data != null) {
+                        if (paymentController.tipo_recebimentos.length <=
+                            controller.textControllers.length) {
+                        } else {
+                          controller.createControllers(index, data.descricao!);
+                          controller.dataOfTipoPagamento!.add(data.id);
+                        }
                       }
-                      if (snapshot.hasError) {
-                        return const Text('Text');
-                      }
-                      if (snapshot.hasData) {
-                        var data = snapshot.data;
-                        return ListView.builder(
-                          itemCount: data!.length,
-                          itemBuilder: (context, index) {
-                            if (data.length <=
-                                controller.textControllers.length) {
-                            } else {
-                              controller.createControllers(
-                                  index, data[index].descricao!);
-                              controller.dataOfTipoPagamento!
-                                  .add(data[index].id);
-                            }
-                            return Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    // tipos de pagamentos
-                                    Expanded(
-                                        flex: 4,
-                                        child: tiposPagamentos(index, data)),
+                      return Column(
+                        children: [
+                          Row(
+                            children: [
+                              // tipos de pagamentos
+                              Expanded(
+                                flex: 4,
+                                child: tiposPagamentos(
+                                  index,
+                                  (paymentController.tipo_recebimentos)
+                                      .cast<tipo_recebimento>(),
+                                ),
+                              ),
 
-                                    //valores
-                                    Expanded(
-                                        flex: 3,
-                                        child: valoresDigitados(index, data)),
-                                  ],
+                              //valores
+                              Expanded(
+                                flex: 2,
+                                child: valoresDigitados(
+                                  index,
+                                  (paymentController.tipo_recebimentos)
+                                      .cast<tipo_recebimento>(),
                                 ),
-                                const SizedBox(
-                                  height: 1,
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      }
-                      return const Center(
-                        child: CircularProgressIndicator(),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 1,
+                          ),
+                        ],
                       );
                     }),
               ),
@@ -285,42 +277,40 @@ class CloseRegisterPage extends StatelessWidget {
       return Expanded(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-          child: SizedBox(
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    // Data Abertura caixa
-                    CointainersInformation(
-                      size: size,
-                      sizeWidth: 0.3,
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Data Abertura caixa
+                  Expanded(
+                    child: CointainersInformation(
                       text: 'DATA ABERTURA',
                       isAbertura: true,
                     ),
+                  ),
 
-                    // Usuario logado
-                    CointainersInformation(
-                      size: size,
-                      sizeWidth: 0.275,
+                  // Usuario logado
+                  Expanded(
+                    child: CointainersInformation(
                       text: 'USUARIO',
                       isUsuario: true,
                     ),
+                  ),
 
-                    // Numero do caixa
-                    CointainersInformation(
-                      size: size,
-                      sizeWidth: 0.2,
+                  // Numero do caixa
+                  Expanded(
+                    child: CointainersInformation(
                       text: 'ID CAIXA',
                     ),
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: listPayments(),
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: listPayments(),
+              ),
+            ],
           ),
         ),
       );
@@ -333,7 +323,7 @@ class CloseRegisterPage extends StatelessWidget {
           borderRadius: BorderRadius.circular(0),
         ),
         child: SizedBox(
-          width: size.width * 0.8,
+          width: /*caixa_cego == 1 ? size.width * 0.4 : */ size.width * 0.8,
           height: size.height * 0.8,
           child: Column(
             children: [
@@ -420,74 +410,68 @@ class BuildNumberButtom extends StatelessWidget {
   }
 }
 
-//caixa de informações parte superior do contúdo
+//caixa de informações parte superior do conteúdo
 class CointainersInformation extends StatelessWidget {
   CointainersInformation({
     Key? key,
-    required this.size,
-    required this.sizeWidth,
     required this.text,
     this.isAbertura = false,
     this.isUsuario = false,
   }) : super(key: key);
 
-  final Size size;
-  final double sizeWidth;
   final String text;
   bool isAbertura;
   bool isUsuario;
 
   @override
   Widget build(BuildContext context) {
-    SideBarController controller = Dependencies.sidebarController();
-    PasswordController passwordController = Dependencies.passwordController();
-    CloseRegisterController closeRegisterController =
-        Dependencies.closeRegisterController();
+    var configController = Dependencies.configcontroller();
 
-    return Container(
-      height: 55,
-      width: size.width * sizeWidth,
-      color: Colors.grey[400],
-      child: Column(children: [
-        Container(
-          height: 20,
-          width: double.infinity,
-          color: CustomColors.customSwatchColor,
-          child: Center(
-            child: Text(
-              text,
-              style: const TextStyle(color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 3.0),
+      child: Container(
+        height: 55,
+        color: Colors.grey[400],
+        child: Column(children: [
+          Container(
+            height: 20,
+            width: double.infinity,
+            color: CustomColors.customSwatchColor,
+            child: Center(
+              child: Text(
+                text,
+                style: const TextStyle(color: Colors.white),
+              ),
             ),
           ),
-        ),
-        isAbertura
-            ? Obx(
-                () => Text(
-                  controller.dataAbertura.value,
+          isAbertura
+              ? Text(
+                  DatetimeFormatterWidget.formatDate(
+                      configController.caixaSelected!.abertura_data!),
                   style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.bold,
                       color: CustomColors.customSwatchColor),
-                ),
-              )
-            : isUsuario
-                ? Text(
-                    passwordController.userController.text,
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColors.customSwatchColor),
-                  )
-                : Obx(() => Text(
-                      closeRegisterController.caixaId
+                )
+              : isUsuario
+                  ? Text(
+                      configController.usuarioLogado!.login!,
+                      style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColors.customSwatchColor),
+                    )
+                  : Text(
+                      configController.caixaSelected!.id_caixa
                           .toString()
                           .padLeft(6, '0'),
                       style: TextStyle(
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                           color: CustomColors.customSwatchColor),
-                    ))
-      ]),
+                    )
+        ]),
+      ),
     );
   }
 }

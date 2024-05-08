@@ -62,7 +62,7 @@ class MovimentCaixaMonitoring {
       var requestBody = {
         "id_caixa_servidor": caixa.id_caixa_servidor,
         "descricao": caixaItem.descricao,
-        "data": DatetimeFormatterWidget.formatDate(caixa.abertura_data),
+        "data": DatetimeFormatterWidget.formatDate(caixa.abertura_data!),
         "id_tipo_recebimento": caixaItem.id_tipo_recebimento,
         "valor_cre": caixaItem.valor_cre,
         "valor_deb": caixaItem.valor_deb,

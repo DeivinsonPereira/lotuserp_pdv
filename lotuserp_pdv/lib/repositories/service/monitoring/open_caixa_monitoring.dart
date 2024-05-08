@@ -62,7 +62,7 @@ class OpenCaixaMonitoring {
         'id_empresa': caixa.id_empresa,
         'id_usuario': caixa.abertura_id_user,
         'caixa_data_hora':
-            DatetimeFormatterWidget.formatDate(caixa.abertura_data),
+            DatetimeFormatterWidget.formatDate(caixa.abertura_data!),
         'hora_abertura': caixa.abertura_hora,
         'valor_abertura': caixaItem.valor_cre,
       };

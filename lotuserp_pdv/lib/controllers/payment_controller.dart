@@ -4,12 +4,15 @@ import 'package:logger/logger.dart';
 import 'package:lotuserp_pdv/controllers/pdv.controller.dart';
 
 import '../collections/caixa_item.dart';
+import '../collections/tipo_recebimento.dart';
 import '../services/dependencies.dart';
 
 class PaymentController extends GetxController {
   TextEditingController paymentControllerText = TextEditingController();
   PdvController pdvController = Dependencies.pdvController();
   Logger logger = Logger();
+
+  List<tipo_recebimento?> tipo_recebimentos = [];
 
   var paymentTefId = [].obs;
 
@@ -42,6 +45,36 @@ class PaymentController extends GetxController {
     super.onInit();
     totalPayment.value = '0,00';
     pdvController.getidCaixa();
+  }
+
+  // adiciona as formas de pagamento à variável
+  void addPaymentTypes(List<tipo_recebimento?> value) {
+    var nonNullValues =
+        value.where((item) => item != null).cast<tipo_recebimento>().toList();
+
+    if (value.isNotEmpty) {
+      tipo_recebimentos.assignAll(nonNullValues);
+    }
+  }
+
+  tipo_recebimento? filterPaymentTypesById(int idPayment) {
+    if (idPayment != 0) {
+      if (tipo_recebimentos.isNotEmpty) {
+        var payment = tipo_recebimentos
+            .where((element) => element!.id == idPayment)
+            .toList();
+        if (payment.isEmpty) {
+          return null;
+        }
+        return payment[0];
+      } else {
+        Get.back();
+        return null;
+      }
+    } else {
+      Get.back();
+      return null;
+    }
   }
 
   void updateComprovanteTef(String value) {
