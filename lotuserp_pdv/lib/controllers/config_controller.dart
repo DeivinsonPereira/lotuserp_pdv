@@ -233,11 +233,6 @@ class Configcontroller extends GetxController {
         message: 'Numero do caixa obrigatorio',
       ).show(context);
       return true;
-    } else if (textFieldController.intervaloEnvioController.text.isEmpty) {
-      const CustomCherryError(
-        message: 'intervalo de envio obrigatorio',
-      ).show(context);
-      return true;
     } else {
       Get.back();
       return false;
