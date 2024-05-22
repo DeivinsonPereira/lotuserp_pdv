@@ -3,13 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lotuserp_pdv/controllers/information_controller.dart';
+import 'package:lotuserp_pdv/pages/close_register/components/create_password_close_register.dart';
 import 'package:lotuserp_pdv/pages/common/custom_cherry.dart';
 import 'package:lotuserp_pdv/pages/open_register/open_register_page.dart';
+import 'package:lotuserp_pdv/utils/methods/password_close_register/password_close_register_features.dart';
 
 import '../../../../core/app_routes.dart';
 import '../../../../services/dependencies.dart';
 import '../../../../shared/isar_service.dart';
-import '../../../close_register/close_register_page.dart';
+import '../../../close_register/components/confirm_password_close_register.dart';
 import '../../../load_data/load_data_page.dart';
 import '../../../moviment_cash/moviment_cash_page.dart';
 
@@ -41,14 +43,17 @@ class IconButtonSideBar extends StatelessWidget {
       this.isNfceSegundaVia})
       : super(key: key);
 
+  IsarService service = IsarService();
+  InformationController informationController =
+      Dependencies.informationController();
+  var pdvController = Dependencies.pdvController();
+  var saveImagePathController = Dependencies.saveImagePathController();
+  var closeRegisterController = Dependencies.closeRegisterController();
+  final _passwordCloseRegisterController =
+      Dependencies.passwordCloseRegisterController();
+  final _passwordCloseRegisterFeatures = PasswordCloseRegisterFeatures();
   @override
   Widget build(BuildContext context) {
-    IsarService service = IsarService();
-    InformationController informationController =
-        Dependencies.informationController();
-    var pdvController = Dependencies.pdvController();
-    var saveImagePathController = Dependencies.saveImagePathController();
-    var closeRegisterController = Dependencies.closeRegisterController();
     return Container(
       decoration: BoxDecoration(
         color: const Color.fromARGB(45, 252, 252, 252),
@@ -92,8 +97,7 @@ class IconButtonSideBar extends StatelessWidget {
                   Get.toNamed(PagesRoutes.pdvMonitor);
                 });
               } else if (isFecharCaixa == true) {
-                closeRegisterController.autoFillControllers();
-                Get.dialog(const CloseRegisterPage());
+                _handleCloseRegister(context);
               }
             }
           } else if (isLoadData == true) {
@@ -126,5 +130,16 @@ class IconButtonSideBar extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> _handleCloseRegister(BuildContext context) async {
+    _passwordCloseRegisterController.password = '';
+    await _passwordCloseRegisterFeatures.getPassword();
+    if (_passwordCloseRegisterController.password.isEmpty) {
+      Get.dialog(const CreatePasswordCloseRegister());
+      return;
+    }
+
+    Get.dialog(const ConfirmPasswordCloseRegister());
   }
 }

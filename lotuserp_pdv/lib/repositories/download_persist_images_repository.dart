@@ -176,7 +176,7 @@ Future<void> downloadImageLogo() async {
                 urlLogoPadrao,
               ),
               headers: Header.header)
-          .timeout(const Duration(seconds: 5));
+          .timeout(const Duration(seconds: 15));
       if (response.statusCode == 200) {
         try {
           var jsonResponse = jsonDecode(response.body);

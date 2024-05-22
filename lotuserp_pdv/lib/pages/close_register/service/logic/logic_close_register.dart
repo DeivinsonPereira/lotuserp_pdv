@@ -36,8 +36,7 @@ class LogicCloseRegister {
 
         caixa_fechamento caixaFechamento = caixa_fechamento()
           ..id_caixa = pdvController.caixaId.value
-          ..id_tipo_recebimento =
-              closeRegisterController.dataOfTipoPagamento![i]
+          ..id_tipo_recebimento = closeRegisterController.dataOfTipoPagamento[i]
           ..valor_informado = values;
 
         fechamentosCaixa.add(caixaFechamento);

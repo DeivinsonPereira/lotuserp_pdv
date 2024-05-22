@@ -229,9 +229,10 @@ class CloseRegisterPage extends StatelessWidget {
                       if (data != null) {
                         if (paymentController.tipo_recebimentos.length <=
                             controller.textControllers.length) {
+                          controller.dataOfTipoPagamento.add(data.id);
                         } else {
                           controller.createControllers(index, data.descricao!);
-                          controller.dataOfTipoPagamento!.add(data.id);
+                          controller.dataOfTipoPagamento.add(data.id);
                         }
                       }
                       return Column(

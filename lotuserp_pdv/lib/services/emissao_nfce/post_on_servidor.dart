@@ -112,11 +112,15 @@ abstract class PostOnServidor {
         "pagamentos": pagamentos
       };
 
-      final response = await http.post(
-        uri,
-        headers: Header.header,
-        body: jsonEncode(requestBody),
-      );
+      final response = await http
+          .post(
+            uri,
+            headers: Header.header,
+            body: jsonEncode(requestBody),
+          )
+          .timeout(
+            const Duration(seconds: 15),
+          );
       if (response.statusCode == 200) {
         logger.i("Requisição enviada com sucesso");
         var jsonResponse = jsonDecode(response.body);

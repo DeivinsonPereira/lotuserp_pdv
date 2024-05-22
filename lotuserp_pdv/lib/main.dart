@@ -11,6 +11,7 @@ import 'package:lotuserp_pdv/collections/empresa.dart';
 import 'package:lotuserp_pdv/collections/empresa_valida.dart';
 import 'package:lotuserp_pdv/collections/image_path_product.dart';
 import 'package:lotuserp_pdv/collections/pagamento_venda.dart';
+import 'package:lotuserp_pdv/collections/password_close_register.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -78,6 +79,7 @@ Future<Isar> initializeIsar(String directory) async {
       Empresa_validaSchema,
       Admin_configSchema,
       Pagamento_vendaSchema,
+      Password_close_registerSchema,
     ],
     directory: directory,
     inspector: true,

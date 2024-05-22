@@ -24,7 +24,7 @@ class ObterLiberacaoServidorRepository {
     await service.connectionVerifySiage();
     try {
       if (service.conexaoSiage) {
-        var response = await http.get(url);
+        var response = await http.get(url).timeout(const Duration(seconds: 15),);
 
         if (response.statusCode == 200) {
           var data = jsonDecode(response.body);

@@ -15,6 +15,7 @@ import 'package:lotuserp_pdv/collections/image_path_group.dart';
 import 'package:lotuserp_pdv/collections/image_path_logo.dart';
 import 'package:lotuserp_pdv/collections/image_path_product.dart';
 import 'package:lotuserp_pdv/collections/pagamento_venda.dart';
+import 'package:lotuserp_pdv/collections/password_close_register.dart';
 import 'package:lotuserp_pdv/collections/produto.dart';
 import 'package:lotuserp_pdv/collections/produto_grupo.dart';
 import 'package:lotuserp_pdv/collections/tipo_recebimento.dart';
@@ -177,10 +178,14 @@ class IsarService {
       Uri getEmpresaUri =
           Uri.parse('${companyIp}pdvmobget01_empresa?pidEmpresa=$companyId');
       try {
-        final response = await http.get(
-          getEmpresaUri,
-          headers: _headers,
-        );
+        final response = await http
+            .get(
+              getEmpresaUri,
+              headers: _headers,
+            )
+            .timeout(
+              Duration(seconds: 15),
+            );
         if (response.statusCode != 200) {
           throw Exception(
               'Falha ao obter dados da empresa do servidor. Código de erro HTTP: ${response.statusCode}');
@@ -260,10 +265,14 @@ class IsarService {
           '${ipEmpresaUrl}pdvmobget03_produtos_grupos?pidEmpresa=$idEmpresaNum');
 
       try {
-        final response = await http.get(
-          getGrupoUri,
-          headers: _headers,
-        );
+        final response = await http
+            .get(
+              getGrupoUri,
+              headers: _headers,
+            )
+            .timeout(
+              Duration(seconds: 15),
+            );
 
         if (response.statusCode != 200) {
           throw Exception(
@@ -560,10 +569,14 @@ class IsarService {
       try {
         Uri getProdutos = Uri.parse(
             '${ipEmpresaUrl}pdvmobget05_produtos?pidEmpresa=$idEmpresaNum');
-        final response = await http.get(
-          getProdutos,
-          headers: _headers,
-        );
+        final response = await http
+            .get(
+              getProdutos,
+              headers: _headers,
+            )
+            .timeout(
+              Duration(seconds: 15),
+            );
         if (response.statusCode == 200) {
           var data = json.decode(response.body);
 
@@ -750,10 +763,14 @@ class IsarService {
       try {
         Uri getUsuarios = Uri.parse(
             '${ipEmpresaUrl}pdvmobget02_usuarios?pidEmpresa=$idEmpresaNum');
-        final response = await http.get(
-          getUsuarios,
-          headers: _headers,
-        );
+        final response = await http
+            .get(
+              getUsuarios,
+              headers: _headers,
+            )
+            .timeout(
+              Duration(seconds: 15),
+            );
         if (response.statusCode == 200) {
           Map<String, dynamic> usuarios =
               jsonDecode(utf8.decode(response.bodyBytes));
@@ -826,10 +843,14 @@ class IsarService {
       try {
         Uri getTipo_recebimento = Uri.parse(
             '${ipEmpresaUrl}pdvmobget06_tipos_recebimentos?pidEmpresa=$idEmpresaNum');
-        final response = await http.get(
-          getTipo_recebimento,
-          headers: _headers,
-        );
+        final response = await http
+            .get(
+              getTipo_recebimento,
+              headers: _headers,
+            )
+            .timeout(
+              Duration(seconds: 15),
+            );
         if (response.statusCode == 200) {
           Map<String, dynamic> tipo_recebimentoType = jsonDecode(response.body);
 
@@ -1288,10 +1309,14 @@ class IsarService {
       {bool isCorrectUrl = false}) async {
     try {
       Uri getIpEmpresa = Uri.parse(Endpoints().ipEmpresa());
-      final response = await http.get(
-        getIpEmpresa,
-        headers: _headers,
-      );
+      final response = await http
+          .get(
+            getIpEmpresa,
+            headers: _headers,
+          )
+          .timeout(
+            Duration(seconds: 15),
+          );
 
       if (response.statusCode != 200 && isCorrectUrl == false) {
         throw Exception(
@@ -1965,7 +1990,8 @@ class IsarService {
             Image_path_logoSchema,
             Empresa_validaSchema,
             Admin_configSchema,
-            Pagamento_vendaSchema
+            Pagamento_vendaSchema,
+            Password_close_registerSchema,
           ],
           directory: dir.path,
         );
@@ -1994,7 +2020,8 @@ class IsarService {
             Image_path_logoSchema,
             Empresa_validaSchema,
             Admin_configSchema,
-            Pagamento_vendaSchema
+            Pagamento_vendaSchema,
+            Password_close_registerSchema,
           ],
           directory: directory,
         );

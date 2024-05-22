@@ -19,7 +19,7 @@ class CloseRegisterController extends GetxController {
   List<Map<String, dynamic>> closeRegister = [];
   var selectedTextFieldIndex = 0.obs;
   var caixaId = 0.obs;
-  List<int>? dataOfTipoPagamento = [];
+  List<int> dataOfTipoPagamento = [];
   var isButtonEnabled = true.obs;
 
   @override
@@ -84,15 +84,26 @@ class CloseRegisterController extends GetxController {
     updateCloseRegister(textControllers[index].text, tipo);
   }
 
+  void updateTipoPagamento(int idPagamento) {
+    dataOfTipoPagamento.add(idPagamento);
+  }
+
   // Faz o auto preenchimento dos campos se caixa cego for == 1
   Future<void> autoFillControllers() async {
     Future.delayed(const Duration(microseconds: 100)).then((value) async {
       /*if (configController.empresaSelected!.caixa_cego == 1) {*/
       for (int i = 0; i < paymentController.tipo_recebimentos.length; i++) {
-        
-        textControllers[i].text = '0,00';
-        credits.clear();
-        debits.clear();
+        if (textControllers.length < i + 1) {
+            createControllers(
+                i,
+                paymentController.tipo_recebimentos[i]!.id
+                    .toString());
+          } else {
+            textControllers.clear(); 
+            credits.clear();
+            debits.clear();
+            i--;
+          }
       }
       for (int i = 0; i < paymentController.tipo_recebimentos.length; i++) {
         tipo_recebimento payment = paymentController.tipo_recebimentos[i]!;
@@ -116,8 +127,6 @@ class CloseRegisterController extends GetxController {
           textControllers[i].text =
               FormatNumbers.formatNumbertoString(credit - debit);
         }
-        print(credits[i]);
-        print(debits[i]);
       }
       /*} else {
         textControllers.clear();
@@ -128,6 +137,10 @@ class CloseRegisterController extends GetxController {
         }
       }*/
     });
+  }
+
+  void cleardataOfTipoPagamento() {
+    dataOfTipoPagamento.clear();
   }
 
   @override

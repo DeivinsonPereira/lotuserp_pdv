@@ -117,7 +117,7 @@ class VendaServidorRepository {
         uri,
         headers: Header.header,
         body: jsonEncode(requestBody),
-      );
+      ).timeout(const Duration(seconds: 15),);
       if (response.statusCode == 200) {
         var jsonResponse = jsonDecode(response.body);
         if (jsonResponse['success'] == true) {

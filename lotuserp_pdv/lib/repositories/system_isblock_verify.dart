@@ -24,7 +24,7 @@ class SystemIsblockVerify {
           Uri uri = Uri.parse(
               '${UtilEndpoint.getIsSystemBlocked()}${dadosContrato.nocontrato}');
 
-          var response = await http.get(uri);
+          var response = await http.get(uri).timeout(const Duration(seconds: 15),);
 
           if (response.statusCode == 200) {
             var jsonResponse = jsonDecode(response.body);

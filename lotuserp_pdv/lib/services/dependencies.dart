@@ -23,6 +23,7 @@ import '../controllers/balanca_prix_controller.dart';
 import '../controllers/empresa_valida_controller.dart';
 import '../controllers/logo_controller.dart';
 import '../controllers/open_register_controller.dart';
+import '../controllers/password_close_register_controller.dart';
 import '../controllers/response_servidor_controller.dart';
 import '../pages/printer/component/printer_popup_controller.dart';
 import '../pages/second_copy/components/checkbox_controller.dart';
@@ -233,6 +234,14 @@ abstract class Dependencies {
       return Get.find<AdminConfigController>();
     } else {
       return Get.put(AdminConfigController());
+    }
+  }
+
+  static PasswordCloseRegisterController passwordCloseRegisterController() {
+    if (Get.isRegistered<PasswordCloseRegisterController>()) {
+      return Get.find<PasswordCloseRegisterController>();
+    } else {
+      return Get.put(PasswordCloseRegisterController());
     }
   }
 }
